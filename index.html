@@ -637,7 +637,7 @@ function renderList() {
       </div>
       <div class="card-summary">${escapeHtml(item.summary)}</div>
     `;
-    card.addEventListener('click', () => openContent(item.path, item.title));
+    card.addEventListener('click', () => openContent(item));
     listEl.appendChild(card);
   }
 
@@ -763,13 +763,13 @@ function setupOverlay() {
   });
 }
 
-function openContent(path, title) {
+function openContent(item) {
   const overlay = document.getElementById('content-overlay');
   const iframe = document.getElementById('content-iframe');
   const titleEl = document.getElementById('overlay-title');
 
-  iframe.src = path;
-  titleEl.textContent = title;
+  iframe.srcdoc = item.content;
+  titleEl.textContent = item.title;
   overlay.classList.add('visible');
   document.body.style.overflow = 'hidden';
 }
@@ -778,7 +778,7 @@ function closeContent() {
   const overlay = document.getElementById('content-overlay');
   const iframe = document.getElementById('content-iframe');
 
-  iframe.src = '';
+  iframe.srcdoc = '';
   overlay.classList.remove('visible');
   document.body.style.overflow = '';
 }
