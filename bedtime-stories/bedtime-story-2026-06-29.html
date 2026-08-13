@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小星星的回家路 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0e1a;
+  font-family: "PingFang SC","Noto Sans SC","Microsoft YaHei","STHeiti",sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: #e8e0d4;
+}
+
+/* 星空背景 */
+.stars-canvas {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+
+/* 月亮 */
+.moon {
+  position: fixed; top: 6%; right: 8%; z-index: 1;
+  width: 80px; height: 80px;
+}
+.moon-inner {
+  width: 80px; height: 80px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fffde7, #fef3c7 40%, #fde68a 80%, transparent 82%);
+  box-shadow: 0 0 60px rgba(254,240,180,0.4), 0 0 120px rgba(253,230,138,0.2), 0 0 200px rgba(253,224,110,0.1);
+  animation: moonGlow 4s ease-in-out infinite;
+}
+@keyframes moonGlow {
+  0%,100% { box-shadow: 0 0 60px rgba(254,240,180,0.4), 0 0 120px rgba(253,230,138,0.2), 0 0 200px rgba(253,224,110,0.1); }
+  50% { box-shadow: 0 0 80px rgba(254,240,180,0.55), 0 0 150px rgba(253,230,138,0.3), 0 0 240px rgba(253,224,110,0.15); }
+}
+
+/* 主容器 */
+.main-container {
+  position: relative; z-index: 2;
+  max-width: 680px; margin: 0 auto; padding: 40px 24px 60px;
+}
+
+/* 标题区 */
+.title-area { text-align: center; margin-bottom: 36px; }
+.story-emoji { font-size: 52px; display: block; margin-bottom: 8px; animation: float 3s ease-in-out infinite; }
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.story-title {
+  font-size: 32px; font-weight: 700;
+  color: #fde68a;
+  text-shadow: 0 0 30px rgba(253,230,138,0.4), 0 2px 4px rgba(0,0,0,0.5);
+  letter-spacing: 3px; line-height: 1.4;
+}
+.story-subtitle {
+  font-size: 15px; color: rgba(200,190,170,0.6);
+  margin-top: 8px; letter-spacing: 2px;
+}
+
+/* 分隔装饰 */
+.divider {
+  text-align: center; margin: 20px 0 32px;
+  font-size: 16px; color: rgba(180,170,150,0.35); letter-spacing: 8px;
+}
+
+/* 故事卡片 */
+.story-card {
+  background: linear-gradient(160deg, rgba(20,28,50,0.85), rgba(16,22,44,0.9));
+  border: 1px solid rgba(253,230,138,0.12);
+  border-radius: 20px;
+  padding: 40px 32px;
+  box-shadow: 0 8px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.03);
+  position: relative;
+  overflow: hidden;
+}
+.story-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(253,230,138,0.3), transparent);
+}
+.story-card p {
+  font-size: 18px; line-height: 2; letter-spacing: 1px;
+  text-indent: 2em; margin-bottom: 16px;
+  color: #d8d0c0;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+.story-card p:last-child { margin-bottom: 0; }
+
+/* 晚安区 */
+.goodnight {
+  text-align: center; margin-top: 40px;
+  padding: 30px 20px;
+  border-top: 1px solid rgba(253,230,138,0.1);
+}
+.goodnight-line1 {
+  font-size: 20px; color: #fde68a; letter-spacing: 3px;
+  margin-bottom: 8px; animation: gentlePulse 3s ease-in-out infinite;
+}
+.goodnight-line2 {
+  font-size: 16px; color: rgba(200,185,160,0.65); letter-spacing: 2px; line-height: 1.8;
+}
+@keyframes gentlePulse {
+  0%,100% { opacity: 0.7; } 50% { opacity: 1; }
+}
+
+/* 底部星光装饰 */
+.star-road {
+  position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
+  pointer-events: none; z-index: 1; opacity: 0.25;
+  background: linear-gradient(90deg, transparent, rgba(253,230,138,0.1) 20%, rgba(253,230,138,0.18) 50%, rgba(253,230,138,0.1) 80%, transparent);
+  animation: roadShimmer 5s ease-in-out infinite;
+}
+@keyframes roadShimmer {
+  0%,100% { opacity: 0.15; } 50% { opacity: 0.3; }
+}
+
+/* 响应式 */
+@media (max-width: 600px) {
+  .main-container { padding: 30px 16px 50px; }
+  .story-title { font-size: 26px; letter-spacing: 2px; }
+  .story-card { padding: 28px 20px; border-radius: 16px; }
+  .story-card p { font-size: 16px; line-height: 1.9; text-indent: 1.8em; }
+  .moon { width: 56px; height: 56px; top: 4%; right: 6%; }
+  .moon-inner { width: 56px; height: 56px; }
+}
+
+@media (max-width: 380px) {
+  .story-title { font-size: 22px; }
+  .story-card p { font-size: 15px; line-height: 1.85; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空画布 -->
+<canvas class="stars-canvas" id="starsCanvas"></canvas>
+
+<!-- 月亮 -->
+<div class="moon"><div class="moon-inner"></div></div>
+
+<!-- 底部星光小路装饰 -->
+<div class="star-road"></div>
+
+<!-- 主内容 -->
+<div class="main-container">
+
+  <div class="title-area">
+    <span class="story-emoji">⭐</span>
+    <h1 class="story-title">小星星的回家路</h1>
+    <div class="story-subtitle">2026年6月29日 · 睡前故事</div>
+  </div>
+
+  <div class="divider">· · · ✧ · · ·</div>
+
+  <div class="story-card">
+    <p>在蓝蓝的天上，住着一颗小小的星星，名字叫亮亮。她每天晚上都最喜欢做一件事——一闪一闪地，和月亮阿姨说晚安。</p>
+
+    <p>可是有一天晚上，一阵调皮的风呼地吹过来，把亮亮从天上吹了下来。她轱辘轱辘地翻了好几个跟头，最后掉进了一片软绵绵的云朵被子里。</p>
+
+    <p>亮亮慌了。她抬起头，天空好高好高，她怎么也够不到自己的家。她的小小的光芒，也变得黯淡了。</p>
+
+    <p>这时，一只晚归的小鸟飞过来，看见了她："小星星，你怎么在这里呀？"亮亮小声说："风把我吹下来了，我找不到回家的路了。"</p>
+
+    <p>小鸟拍拍翅膀说："别着急，我去帮你问问风婆婆。"说完，小鸟衔来一根小羽毛，轻轻扇了扇。风婆婆不好意思地探出头来："哎呀，是我太调皮了。对不起呀，小星星。"</p>
+
+    <p>风婆婆把亮亮托起来，送到半空中。可是风婆婆年纪大了，只能送到这里。亮亮还是够不到天。</p>
+
+    <p>忽然，一群萤火虫飞了过来。他们围成一条闪闪的线，从地面一直连到云朵边："小星星，顺着光走，你就能回家了。"亮亮沿着萤火虫们点亮的星光小路，一步一步往上爬。</p>
+
+    <p>月亮阿姨在天上看见了，温柔地伸出银色的月光，把亮亮轻轻接回了家。亮亮回到自己的位置上，开心极了。她的光芒比以前更亮了，因为她知道，有那么多朋友爱着她、帮助她。</p>
+
+    <p>亮亮朝着地上的小朋友眨了眨眼睛，好像在说："谢谢你愿意听我的故事。如果你今天也帮助了别人，那你也是一颗闪闪的小星星哦。"</p>
+  </div>
+
+  <div class="goodnight">
+    <div class="goodnight-line1">🌙 晚安，小宝贝 🌙</div>
+    <div class="goodnight-line2">
+      小星星亮亮说，<br>
+      你今天也是个好孩子，<br>
+      该做一个甜甜的、闪闪发光的梦了。
+    </div>
+  </div>
+
+</div>
+
+<script>
+// 星空动画 + 流星
+(function() {
+  const canvas = document.getElementById('starsCanvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+  let shootingStars = [];
+  const STAR_COUNT = 100;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initStars();
+  }
+
+  function initStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+      stars.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height * 0.65,
+        r: Math.random() * 1.8 + 0.3,
+        twinkle: Math.random() * Math.PI * 2,
+        speed: Math.random() * 0.008 + 0.003,
+        baseAlpha: Math.random() * 0.6 + 0.4
+      });
+    }
+  }
+
+  function spawnShootingStar() {
+    if (Math.random() < 0.005) {
+      shootingStars.push({
+        x: Math.random() * canvas.width * 0.6 + canvas.width * 0.2,
+        y: Math.random() * canvas.height * 0.3,
+        len: 0,
+        maxLen: 60 + Math.random() * 80,
+        speed: 4 + Math.random() * 3,
+        angle: Math.PI / 4 + Math.random() * 0.2,
+        life: 1
+      });
+    }
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // 柔和的星云背景
+    const grad = ctx.createRadialGradient(canvas.width*0.5, canvas.height*0.2, 0, canvas.width*0.5, canvas.height*0.5, canvas.width*0.7);
+    grad.addColorStop(0, 'rgba(30,50,90,0.15)');
+    grad.addColorStop(0.5, 'rgba(15,25,50,0.08)');
+    grad.addColorStop(1, 'rgba(5,10,25,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // 星星
+    stars.forEach(s => {
+      s.twinkle += s.speed;
+      const alpha = s.baseAlpha * (0.5 + 0.5 * Math.sin(s.twinkle));
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,250,235,${alpha})`;
+      ctx.fill();
+
+      if (s.r > 1.2) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r*2.5, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,250,235,${alpha*0.12})`;
+        ctx.fill();
+      }
+    });
+
+    // 流星
+    spawnShootingStar();
+    shootingStars = shootingStars.filter(s => s.life > 0);
+    shootingStars.forEach(s => {
+      s.x += Math.cos(s.angle) * s.speed;
+      s.y += Math.sin(s.angle) * s.speed;
+      s.len = Math.min(s.len + s.speed * 0.8, s.maxLen);
+      s.life -= 0.015;
+
+      const tailX = s.x - Math.cos(s.angle) * s.len;
+      const tailY = s.y - Math.sin(s.angle) * s.len;
+      const lineGrad = ctx.createLinearGradient(tailX, tailY, s.x, s.y);
+      lineGrad.addColorStop(0, `rgba(255,250,235,0)`);
+      lineGrad.addColorStop(0.6, `rgba(255,250,235,${s.life * 0.4})`);
+      lineGrad.addColorStop(1, `rgba(255,250,235,${s.life})`);
+
+      ctx.beginPath();
+      ctx.moveTo(tailX, tailY);
+      ctx.lineTo(s.x, s.y);
+      ctx.strokeStyle = lineGrad;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 2, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(255,250,235,${s.life})`;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  window.addEventListener('resize', resize);
+  resize();
+  draw();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小水壶的歌 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: #0a0e1a;
+  background-image:
+    radial-gradient(ellipse at 30% 70%, rgba(100,60,40,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(60,80,140,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(120,80,30,0.06) 0%, transparent 60%);
+  color: #e8e0d8;
+  font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+  min-height: 100vh; overflow-x: hidden;
+}
+
+/* ─── 星空 ─── */
+.starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.star {
+  position: absolute; border-radius: 50%; background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+@keyframes twinkle { 0%{opacity:.15;transform:scale(.8)} 100%{opacity:.85;transform:scale(1.2)} }
+
+/* ─── 月亮 ─── */
+.moon-wrap {
+  position: fixed; top: 5vh; right: 8vw; z-index: 1; pointer-events: none;
+  animation: moonFloat 6s ease-in-out infinite;
+}
+.moon {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffeebb, #f5d68e);
+  box-shadow:
+    0 0 20px 6px rgba(255,230,150,0.25),
+    0 0 60px 20px rgba(255,230,150,0.08);
+}
+.moon-halo {
+  position: absolute; top: -18px; left: -18px;
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 1.5px solid rgba(255,230,150,0.12);
+  animation: haloPulse 4s ease-in-out infinite alternate;
+}
+.moon-halo2 {
+  position: absolute; top: -36px; left: -36px;
+  width: 132px; height: 132px; border-radius: 50%;
+  border: 1px solid rgba(255,230,150,0.06);
+  animation: haloPulse 4s ease-in-out infinite alternate-reverse;
+}
+@keyframes moonFloat { 0%{transform:translateY(0)} 50%{transform:translateY(-8px)} 100%{transform:translateY(0)} }
+@keyframes haloPulse { 0%{opacity:.3;transform:scale(1)} 100%{opacity:.7;transform:scale(1.05)} }
+
+/* ─── 流星 ─── */
+.meteor {
+  position: fixed; z-index: 1; pointer-events: none;
+  width: 80px; height: 1.5px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+  border-radius: 1px; opacity: 0;
+  animation: meteor1 8s 2s linear infinite;
+}
+.meteor2 {
+  position: fixed; z-index: 1; pointer-events: none;
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, rgba(255,230,200,0.7), transparent);
+  border-radius: 1px; opacity: 0;
+  animation: meteor2 12s 5s linear infinite;
+}
+@keyframes meteor1 {
+  0%{opacity:0;transform:translate(0,0) rotate(-35deg)}
+  2%{opacity:1}
+  6%{opacity:1;transform:translate(-260px,180px) rotate(-35deg)}
+  8%{opacity:0;transform:translate(-260px,180px) rotate(-35deg)}
+  100%{opacity:0}
+}
+@keyframes meteor2 {
+  0%{opacity:0;transform:translate(0,0) rotate(-30deg)}
+  2%{opacity:0.8}
+  5%{opacity:0.8;transform:translate(-200px,120px) rotate(-30deg)}
+  7%{opacity:0;transform:translate(-200px,120px) rotate(-30deg)}
+  100%{opacity:0}
+}
+
+/* ─── 内容容器 ─── */
+.content {
+  position: relative; z-index: 2;
+  max-width: 560px; width: 90%; padding: 40px 20px 60px;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* ─── 标题 ─── */
+.story-title {
+  font-size: 28px; font-weight: 700; letter-spacing: 2px;
+  color: #ffe8c0; text-align: center; margin-bottom: 6px;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+.story-subtitle {
+  font-size: 14px; color: rgba(255,230,180,0.5); text-align: center;
+  margin-bottom: 36px; letter-spacing: 4px;
+}
+@keyframes titleGlow {
+  0%{text-shadow: 0 0 8px rgba(255,230,150,0.3)}
+  100%{text-shadow: 0 0 20px rgba(255,230,150,0.5), 0 0 40px rgba(255,200,100,0.15)}
+}
+
+/* ─── SVG 插图 ─── */
+.illustration-wrap {
+  margin-bottom: 32px; position: relative;
+  animation: illustFloat 5s ease-in-out infinite;
+}
+@keyframes illustFloat { 0%{transform:translateY(0)} 50%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+
+/* ─── 蒸汽粒子 ─── */
+.steam-particle {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,240,220,0.4), rgba(255,220,180,0.02));
+  animation: steamRise var(--dur) ease-in-out infinite;
+  animation-delay: var(--delay);
+  pointer-events: none;
+}
+@keyframes steamRise {
+  0%{opacity:0;transform:translateY(0) translateX(0) scale(.6)}
+  30%{opacity:.6}
+  70%{opacity:.3}
+  100%{opacity:0;transform:translateY(-50px) translateX(var(--drift)) scale(1.5)}
+}
+
+/* ─── 故事正文 ─── */
+.story-body {
+  font-size: 18px; line-height: 2; color: #ddd4cc;
+  text-align: justify; margin-bottom: 40px;
+}
+.story-body p { margin-bottom: 18px; }
+.story-body .highlight {
+  color: #ffe8c0; font-weight: 500;
+}
+
+/* ─── 晚安语 ─── */
+.goodnight {
+  text-align: center; font-size: 16px; color: rgba(255,230,180,0.7);
+  padding: 24px 0 0; border-top: 1px solid rgba(255,230,180,0.1);
+  line-height: 1.8;
+  animation: gnGlow 4s ease-in-out infinite alternate;
+}
+@keyframes gnGlow {
+  0%{text-shadow: 0 0 4px rgba(255,230,150,0.2)}
+  100%{text-shadow: 0 0 16px rgba(255,230,150,0.35)}
+}
+
+/* ─── 底部光点 ─── */
+.bottom-glow {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 60px; z-index: 0;
+  background: linear-gradient(to top, rgba(255,230,150,0.04), transparent);
+  pointer-events: none;
+}
+.bottom-dot {
+  position: absolute; bottom: 10px; border-radius: 50%;
+  background: rgba(255,230,180,0.3);
+  animation: dotBreath 3s ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+  pointer-events: none;
+}
+@keyframes dotBreath { 0%{opacity:.15;transform:scale(.6)} 100%{opacity:.5;transform:scale(1)} }
+
+/* ─── 响应式 ─── */
+@media (max-width: 480px) {
+  .story-title { font-size: 22px; }
+  .story-body { font-size: 16px; line-height: 1.85; }
+  .moon { width: 40px; height: 40px; }
+  .moon-halo { top: -12px; left: -12px; width: 64px; height: 64px; }
+  .moon-halo2 { top: -24px; left: -24px; width: 88px; height: 88px; }
+  .content { padding: 30px 16px 50px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon-wrap">
+  <div class="moon-halo"></div>
+  <div class="moon-halo2"></div>
+  <div class="moon"></div>
+</div>
+
+<!-- 流星 -->
+<div class="meteor" style="top:12vh;left:70vw"></div>
+<div class="meteor2" style="top:22vh;left:55vw"></div>
+
+<!-- 内容 -->
+<div class="content">
+
+  <!-- 标题 -->
+  <div class="story-title">小水壶的歌</div>
+  <div class="story-subtitle">— 儿童睡前故事 · 2026 年 7 月 21 日 —</div>
+
+  <!-- SVG 插图：小水壶 -->
+  <div class="illustration-wrap" style="width:180px;height:200px;position:relative;">
+    <!-- 蒸汽粒子 -->
+    <div class="steam-particle" style="width:8px;height:8px;top:10px;left:80px;--dur:4s;--delay:0s;--drift:-8px"></div>
+    <div class="steam-particle" style="width:6px;height:6px;top:25px;left:95px;--dur:5s;--delay:1.2s;--drift:6px"></div>
+    <div class="steam-particle" style="width:7px;height:7px;top:15px;left:65px;--dur:4.5s;--delay:0.6s;--drift:-4px"></div>
+    <div class="steam-particle" style="width:5px;height:5px;top:20px;left:105px;--dur:3.8s;--delay:2s;--drift:10px"></div>
+    <div class="steam-particle" style="width:6px;height:6px;top:5px;left:88px;--dur:5.2s;--delay:3s;--drift:-3px"></div>
+    <div class="steam-particle" style="width:7px;height:7px;top:30px;left:72px;--dur:4.2s;--delay:1.8s;--drift:5px"></div>
+    <svg viewBox="0 0 180 200" width="180" height="200">
+      <!-- 灶台台面 -->
+      <rect x="20" y="168" width="140" height="10" rx="3" fill="rgba(180,150,120,0.2)"/>
+      <!-- 灶台腿部光 -->
+      <rect x="25" y="178" width="130" height="22" rx="2" fill="rgba(160,130,100,0.1)"/>
+
+      <!-- 水壶身体 -->
+      <ellipse cx="90" cy="148" rx="38" ry="24" fill="#c9a87a" opacity="0.55"/>
+      <!-- 壶身主体（圆柱形） -->
+      <rect x="55" y="102" width="70" height="48" rx="6" fill="#c9a87a" opacity="0.55"/>
+      <!-- 壶身渐变高光 -->
+      <rect x="58" y="105" width="12" height="42" rx="4" fill="rgba(255,230,180,0.12)">
+        <animate attributeName="opacity" values="0.12;0.2;0.12" dur="3s" repeatCount="indefinite"/>
+      </rect>
+
+      <!-- 壶盖 -->
+      <ellipse cx="90" cy="102" rx="36" ry="8" fill="#b8986a" opacity="0.6"/>
+      <!-- 壶盖把手 -->
+      <ellipse cx="90" cy="95" rx="10" ry="4" fill="#a0805a" opacity="0.5"/>
+
+      <!-- 壶嘴 -->
+      <path d="M55 115 Q32 108 28 90 Q25 82 32 80" stroke="#c9a87a" stroke-width="7" fill="none" stroke-linecap="round" opacity="0.55"/>
+      <!-- 壶嘴开口 -->
+      <ellipse cx="32" cy="80" rx="5" ry="3" fill="rgba(100,70,40,0.3)"/>
+
+      <!-- 壶把手 -->
+      <path d="M125 115 Q145 115 148 135 Q148 150 135 152" stroke="#c9a87a" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+      <!-- 哨音波纹（从壶嘴发出） -->
+      <path d="M26 72 Q18 64 14 56" stroke="rgba(255,230,180,0.2)" stroke-width="1.5" fill="none" stroke-linecap="round">
+        <animate attributeName="opacity" values="0.2;0.5;0.2" dur="3s" repeatCount="indefinite"/>
+      </path>
+      <path d="M20 64 Q10 52 6 40" stroke="rgba(255,230,180,0.15)" stroke-width="1.5" fill="none" stroke-linecap="round">
+        <animate attributeName="opacity" values="0.15;0.4;0.15" dur="3.5s" repeatCount="indefinite"/>
+      </path>
+      <path d="M16 56 Q4 42 0 28" stroke="rgba(255,230,180,0.1)" stroke-width="1.5" fill="none" stroke-linecap="round">
+        <animate attributeName="opacity" values="0.1;0.3;0.1" dur="4s" repeatCount="indefinite"/>
+      </path>
+
+      <!-- 壶底暖色光晕 -->
+      <ellipse cx="90" cy="152" rx="32" ry="10" fill="rgba(255,180,100,0.08)">
+        <animate attributeName="opacity" values="0.08;0.15;0.08" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="rx" values="32;36;32" dur="3s" repeatCount="indefinite"/>
+      </ellipse>
+      <ellipse cx="90" cy="160" rx="38" ry="6" fill="rgba(255,160,80,0.05)">
+        <animate attributeName="opacity" values="0.05;0.1;0.05" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+
+      <!-- 灶台光 -->
+      <ellipse cx="90" cy="170" rx="30" ry="4" fill="rgba(255,200,140,0.04)">
+        <animate attributeName="opacity" values="0.04;0.08;0.04" dur="2.5s" repeatCount="indefinite"/>
+      </ellipse>
+
+      <!-- 音符 -->
+      <text x="12" y="36" font-size="14" fill="rgba(255,230,180,0.15)" font-family="serif">
+        <animate attributeName="opacity" values="0.15;0.35;0.15" dur="3s" repeatCount="indefinite"/>
+        ♪
+      </text>
+      <text x="6" y="18" font-size="10" fill="rgba(255,230,180,0.1)" font-family="serif">
+        <animate attributeName="opacity" values="0.1;0.25;0.1" dur="3.8s" repeatCount="indefinite"/>
+        ♫
+      </text>
+    </svg>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-body">
+    <p>小水壶住在厨房的灶台上。每天傍晚，当夕阳把窗户染成橘子色的时候，小水壶就会唱起歌来——<span class="highlight">"呜——"</span>一声长长的、暖暖的哨音。</p>
+
+    <p>厨房里的碗碟们都知道，小水壶唱歌，就代表家里的茶要泡好了。茶杯排好队，茶叶罐睁开眼，连窗台上的小薄荷也伸了个懒腰。</p>
+
+    <p><span class="highlight">"呜呜——"</span>这天傍晚，小水壶比平时唱得还要响。</p>
+
+    <p>可是，今天妈妈好像忘了来厨房。小水壶等了又等，锅子里积起了白白的水雾。茶壶轻轻叹了口气：<span class="highlight">"妈妈今天加班呢，还没回来。"</span></p>
+
+    <p>小水壶慢慢停下了唱歌。厨房里一下子变得好安静。饺子躺在盘子里，米饭在电饭煲里，大家都在安安静静地等着。</p>
+
+    <p>终于，门开了。妈妈回来了，她的脸上有点疲惫。她放下包，换上拖鞋，慢慢走进了厨房。她看见了灶台上等了好久的小水壶。</p>
+
+    <p><span class="highlight">"呜——"</span>小水壶又唱了起来，这一声比以前还要温柔，还要长，像是说了好多好多话。</p>
+
+    <p>妈妈笑了。她打开火，给小水壶加了水。小水壶咕噜咕噜地响了起来，然后<span class="highlight">唱出了最温暖的歌</span>。</p>
+
+    <p>妈妈把茶倒进杯子里，闻了闻茶香，脸上的疲惫一点点不见了。小水壶安静地蹲在灶台上，心里暖洋洋的。</p>
+
+    <p>它知道了——自己的歌不只是提醒大家"水开了"，更是在说：<span class="highlight">"欢迎你回家。辛苦了，来喝杯热茶吧。"</span></p>
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    晚安，小宝贝。<br>
+    小水壶说，你今天也辛苦了，<br>
+    该喝一杯暖暖的梦了。<br>
+    🌙
+  </div>
+</div>
+
+<!-- 底部光点 -->
+<div class="bottom-glow"></div>
+<div id="bottomDots"></div>
+
+<script>
+// 生成星星
+(function(){
+  const sf = document.getElementById('starfield');
+  const count = 100;
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2.5+0.8;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.setProperty('--dur', (2+Math.random()*4)+'s');
+    s.style.setProperty('--delay', (Math.random()*5)+'s');
+    sf.appendChild(s);
+  }
+})();
+
+// 生成底部光点
+(function(){
+  const wrap = document.getElementById('bottomDots');
+  for(let i=0;i<7;i++){
+    const d = document.createElement('div');
+    d.className = 'bottom-dot';
+    d.style.width = (3+Math.random()*4)+'px';
+    d.style.height = d.style.width;
+    d.style.left = (10+i*12+Math.random()*4)+'%';
+    d.style.setProperty('--delay', (i*0.4)+'s');
+    wrap.appendChild(d);
+  }
+})();
+</script>
+</body>
+</html>

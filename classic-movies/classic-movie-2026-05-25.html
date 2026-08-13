@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 - 阿甘正传</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #0a0a0a;
+    color: #e8e6e1;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .hero {
+    position: relative;
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-date {
+    font-size: 12px;
+    color: #555;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  .poster-section {
+    position: relative;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .poster-frame {
+    width: 260px;
+    height: 380px;
+    margin: 0 auto;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    background: #111;
+  }
+
+  .poster-frame svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info-bar {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+
+  .info-tag {
+    font-size: 12px;
+    color: #999;
+    padding: 6px 14px;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #d4c5a0;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 16px;
+    background: #d4c5a0;
+    border-radius: 2px;
+  }
+
+  .rating-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .rating-card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 18px 12px;
+    text-align: center;
+  }
+
+  .rating-score {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .rating-score.gold { color: #d4c5a0; }
+  .rating-score.red { color: #e05050; }
+  .rating-score.green { color: #6ab04c; }
+
+  .rating-source {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 1px;
+  }
+
+  .synopsis {
+    font-size: 14.5px;
+    line-height: 2;
+    color: #bbb;
+    text-align: justify;
+  }
+
+  .highlight-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlight-list li {
+    position: relative;
+    padding: 14px 0 14px 28px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #bbb;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .highlight-list li:last-child {
+    border-bottom: none;
+  }
+
+  .highlight-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 22px;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid #d4c5a0;
+    border-radius: 50%;
+  }
+
+  .why-section {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 10px;
+  }
+
+  .why-section p {
+    font-size: 14px;
+    line-height: 2;
+    color: #aaa;
+    margin-bottom: 14px;
+  }
+
+  .why-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .quote-block {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: #d4c5a0;
+    text-align: center;
+    padding: 24px;
+    margin: 36px 0;
+    border-top: 1px solid #1e1e1e;
+    border-bottom: 1px solid #1e1e1e;
+    line-height: 1.9;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    color: #333;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .awards-strip {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0 36px;
+  }
+
+  .award-badge {
+    font-size: 11px;
+    color: #d4c5a0;
+    border: 1px solid #3a3525;
+    background: #1a1810;
+    padding: 5px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-label">经典电影推荐</div>
+    <h1 style="font-family:'Noto Serif SC',serif; font-size:28px; font-weight:600; color:#e8e6e1; letter-spacing:4px; margin-bottom:10px;">阿甘正传</h1>
+    <p style="font-family:'Noto Serif SC',serif; font-size:15px; color:#888; letter-spacing:2px; font-style:italic;">Forrest Gump</p>
+    <div class="hero-date">2026 年 5 月 25 日 &middot; 星期一</div>
+  </div>
+
+  <div class="poster-section">
+    <div class="poster-frame">
+      <svg viewBox="0 0 260 380" xmlns="http://www.w3.org/2000/svg">
+        <rect width="260" height="380" fill="#0a0a0a"/>
+        <defs>
+          <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="380">
+            <stop offset="0%" stop-color="#1a2a3a"/>
+            <stop offset="50%" stop-color="#2a3a2a"/>
+            <stop offset="100%" stop-color="#1a1a1a"/>
+          </linearGradient>
+          <radialGradient id="sunGlow" cx="50%" cy="28%" r="40%">
+            <stop offset="0%" stop-color="#f8e878" stop-opacity="0.6"/>
+            <stop offset="50%" stop-color="#f8c868" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#f8c868" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="roadGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#4a4a4a"/>
+            <stop offset="100%" stop-color="#2a2a2a"/>
+          </linearGradient>
+        </defs>
+        <!-- Background sky -->
+        <rect width="260" height="380" fill="url(#bgGrad)"/>
+        <!-- Sun glow -->
+        <circle cx="130" cy="100" r="120" fill="url(#sunGlow)"/>
+        <!-- Distant hills -->
+        <path d="M0 180 Q40 150 80 170 Q110 155 145 165 Q180 145 220 170 Q240 160 260 175 L260 220 L0 220Z" fill="#1a2a1a" opacity="0.6"/>
+        <!-- Road -->
+        <polygon points="90,380 170,380 155,220 105,220" fill="url(#roadGrad)"/>
+        <!-- Road center dashes -->
+        <g stroke="#c0c060" stroke-width="1.5" stroke-dasharray="6,8" opacity="0.6">
+          <line x1="130" y1="240" x2="130" y2="280"/>
+          <line x1="130" y1="295" x2="130" y2="335"/>
+        </g>
+        <!-- Green field left -->
+        <rect x="0" y="220" width="105" height="160" fill="#2a3a1a" opacity="0.5"/>
+        <!-- Green field right -->
+        <rect x="155" y="220" width="105" height="160" fill="#2a3a1a" opacity="0.5"/>
+        <!-- Park bench -->
+        <g transform="translate(130, 300)">
+          <!-- Legs -->
+          <rect x="-28" y="14" width="3" height="18" fill="#3a2a1a"/>
+          <rect x="25" y="14" width="3" height="18" fill="#3a2a1a"/>
+          <!-- Seat -->
+          <rect x="-32" y="4" width="64" height="6" rx="1" fill="#5a4030"/>
+          <rect x="-32" y="11" width="64" height="4" rx="1" fill="#4a3020"/>
+          <!-- Backrest -->
+          <rect x="-32" y="-16" width="64" height="5" rx="1" fill="#4a3020"/>
+          <rect x="-32" y="-10" width="64" height="4" rx="1" fill="#3a2010"/>
+          <!-- Backrest supports -->
+          <rect x="-28" y="-14" width="2" height="29" fill="#3a2010"/>
+          <rect x="26" y="-14" width="2" height="29" fill="#3a2010"/>
+        </g>
+        <!-- Forrest sitting on bench silhouette -->
+        <g transform="translate(115, 290)">
+          <!-- Body/torso -->
+          <rect x="-2" y="-10" width="12" height="14" rx="3" fill="#e8e0d0" opacity="0.35"/>
+          <!-- Head -->
+          <ellipse cx="5" cy="-18" rx="5" ry="6" fill="#e8d8c0" opacity="0.35"/>
+          <!-- Hat brim -->
+          <rect x="-6" y="-24" width="20" height="3" rx="1" fill="#d0c8b8" opacity="0.3"/>
+          <!-- Legs -->
+          <rect x="-1" y="4" width="4" height="12" rx="1" fill="#d0c0a0" opacity="0.25"/>
+          <rect x="5" y="4" width="4" height="12" rx="1" fill="#d0c0a0" opacity="0.25"/>
+        </g>
+        <!-- Box of chocolates on bench -->
+        <g transform="translate(148, 295)">
+          <rect x="0" y="-2" width="16" height="10" rx="2" fill="#8b4513" opacity="0.4"/>
+          <rect x="1" y="-1" width="14" height="8" rx="1" fill="#a0522d" opacity="0.3"/>
+          <!-- Ribbon -->
+          <rect x="6" y="-3" width="3" height="4" fill="#d44a4a" opacity="0.4"/>
+        </g>
+        <!-- Feather floating down -->
+        <g transform="translate(95, 155)" opacity="0.8">
+          <ellipse cx="0" cy="0" rx="8" ry="2.5" fill="#f0f0f0" transform="rotate(-25)"/>
+          <line x1="0" y1="-1" x2="0" y2="1" stroke="#ddd" stroke-width="0.5"/>
+          <path d="M-4 -1 L-6.5 2" stroke="#eee" stroke-width="0.3" fill="none"/>
+          <path d="M4 -1 L6.5 2" stroke="#eee" stroke-width="0.3" fill="none"/>
+        </g>
+        <!-- Small feather higher up -->
+        <g transform="translate(160, 90)" opacity="0.3">
+          <ellipse cx="0" cy="0" rx="5" ry="1.5" fill="#f0f0f0" transform="rotate(15)"/>
+          <line x1="0" y1="-0.5" x2="0" y2="0.5" stroke="#ddd" stroke-width="0.5"/>
+        </g>
+        <!-- Film strip edges -->
+        <rect x="0" y="0" width="8" height="380" fill="#111"/>
+        <rect x="252" y="0" width="8" height="380" fill="#111"/>
+        <g fill="#1a1a1a">
+          <rect x="2" y="15" width="4" height="6" rx="1"/><rect x="2" y="35" width="4" height="6" rx="1"/>
+          <rect x="2" y="55" width="4" height="6" rx="1"/><rect x="2" y="75" width="4" height="6" rx="1"/>
+          <rect x="2" y="95" width="4" height="6" rx="1"/><rect x="2" y="115" width="4" height="6" rx="1"/>
+          <rect x="2" y="135" width="4" height="6" rx="1"/><rect x="2" y="155" width="4" height="6" rx="1"/>
+          <rect x="2" y="175" width="4" height="6" rx="1"/><rect x="2" y="195" width="4" height="6" rx="1"/>
+          <rect x="2" y="215" width="4" height="6" rx="1"/><rect x="2" y="235" width="4" height="6" rx="1"/>
+          <rect x="2" y="255" width="4" height="6" rx="1"/><rect x="2" y="275" width="4" height="6" rx="1"/>
+          <rect x="2" y="295" width="4" height="6" rx="1"/><rect x="2" y="315" width="4" height="6" rx="1"/>
+          <rect x="2" y="335" width="4" height="6" rx="1"/><rect x="2" y="355" width="4" height="6" rx="1"/>
+          <rect x="254" y="15" width="4" height="6" rx="1"/><rect x="254" y="35" width="4" height="6" rx="1"/>
+          <rect x="254" y="55" width="4" height="6" rx="1"/><rect x="254" y="75" width="4" height="6" rx="1"/>
+          <rect x="254" y="95" width="4" height="6" rx="1"/><rect x="254" y="115" width="4" height="6" rx="1"/>
+          <rect x="254" y="135" width="4" height="6" rx="1"/><rect x="254" y="155" width="4" height="6" rx="1"/>
+          <rect x="254" y="175" width="4" height="6" rx="1"/><rect x="254" y="195" width="4" height="6" rx="1"/>
+          <rect x="254" y="215" width="4" height="6" rx="1"/><rect x="254" y="235" width="4" height="6" rx="1"/>
+          <rect x="254" y="255" width="4" height="6" rx="1"/><rect x="254" y="275" width="4" height="6" rx="1"/>
+          <rect x="254" y="295" width="4" height="6" rx="1"/><rect x="254" y="315" width="4" height="6" rx="1"/>
+          <rect x="254" y="335" width="4" height="6" rx="1"/><rect x="254" y="355" width="4" height="6" rx="1"/>
+        </g>
+        <!-- Title text -->
+        <text x="130" y="350" text-anchor="middle" font-family="'Noto Serif SC', serif" font-size="16" fill="#d4c5a0" letter-spacing="3" opacity="0.85">阿甘正传</text>
+        <text x="130" y="368" text-anchor="middle" font-family="Georgia, serif" font-size="9" fill="#555" letter-spacing="2" font-style="italic">Forrest Gump</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <span class="info-tag">1994</span>
+    <span class="info-tag">罗伯特·泽米吉斯</span>
+    <span class="info-tag">汤姆·汉克斯</span>
+    <span class="info-tag">剧情 / 142 分钟</span>
+  </div>
+
+  <div class="rating-grid">
+    <div class="rating-card">
+      <div class="rating-score gold">9.5</div>
+      <div class="rating-source">豆瓣</div>
+    </div>
+    <div class="rating-card">
+      <div class="rating-score red">8.8</div>
+      <div class="rating-source">IMDb</div>
+    </div>
+    <div class="rating-card">
+      <div class="rating-score green">71%</div>
+      <div class="rating-source">烂番茄</div>
+    </div>
+  </div>
+
+  <div class="awards-strip">
+    <span class="award-badge">奥斯卡最佳影片</span>
+    <span class="award-badge">最佳导演</span>
+    <span class="award-badge">最佳男主角</span>
+    <span class="award-badge">最佳改编剧本</span>
+    <span class="award-badge">最佳剪辑</span>
+    <span class="award-badge">最佳视觉效果</span>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">剧情梗概</h2>
+    <p class="synopsis">
+      阿甘，一个智商只有75的小镇男孩，却活出了传奇般的一生。他戴着腿部矫正器学会奔跑，跑进了大学橄榄球队；他参军奔赴越南战场，在枪林弹雨中救出战友；他兑现对已故好友的承诺，买下一艘捕虾船，在风暴中幸存后成为百万富翁；他不经意间教会猫王跳舞、为乒乓球外交开路、为水门事件提供线索。而贯穿这一切的，是他对童年玩伴珍妮那份从未动摇的爱——一个他从第一天坐上校车起，就认定要守护一生的女孩。
+    </p>
+  </div>
+
+  <div class="quote-block">
+    "人生就像一盒巧克力，你永远不知道下一颗是什么味道。"
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">影片亮点</h2>
+    <ul class="highlight-list">
+      <li><strong>汤姆·汉克斯的封神表演</strong> —— 他用一种毫不做作的纯真演绎了阿甘。没有刻意模仿智力障碍者，而是精准把握住了阿甘那种&quot;理解世界的角度和别人不一样&quot;的特质——温暖、执着、不掺杂任何算计。这个角色让他连续第二年摘得奥斯卡影帝，至今仍是表演教科书。</li>
+      <li><strong>历史与个人命运的神奇交织</strong> —— 影片用当时最先进的CG技术，让阿甘无缝融入真实的历史影像：站在小石城中央中学门口、在白宫接受肯尼迪接见、参加中美乒乓外交……这种方式既新奇又让人会心一笑，把美国30年的风云变迁浓缩在一个普通人的人生里。</li>
+      <li><strong>配乐即是一部美国流行音乐史</strong> —— 从猫王到鲍勃·迪伦，从大门乐队到佛利伍麦克，从杰克逊·布朗到斯科特·麦肯齐……40多首时代金曲如同时光的坐标，将每一个年代的气息精准还原。光是听配乐，就是一次穿越60到80年代的旅途。</li>
+      <li><strong>简单却精深的叙事结构</strong> —— 全片以阿甘坐在公交车站等车的长椅上向陌生人讲述自己的一生为框架。这个&laquo;讲故事的人&raquo;视角给了影片一种民间传说的质感——你听到的每个故事都不可思议，但你选择相信，因为讲述者如此真诚。</li>
+      <li><strong>温情与深刻并存的文本</strong> —— 表面看是一个傻子闯出一番天地的爽文故事，但细品之下，它探讨的是命运与自由意志、纯真与世故、爱与失去。每个人都能在阿甘身上看到自己缺失或渴望的那一面。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">为什么值得一看</h2>
+    <div class="why-section">
+      <p>
+        如果说&quot;肖申克&quot;教我们坚持，&quot;教父&quot;教我们权衡，那&quot;阿甘正传&quot;教的东西可能更简单也更难——跑就行了。别想那么多，别算计那么多，把每一步都踏踏实实地跑好。
+      </p>
+      <p>
+        阿甘用一辈子证明了一个道理：聪明人总是犹豫不决，而他只管往前跑。他不问为什么，不纠结对错，只是纯粹地做好眼前的每一件事——跑得快就拼命跑，当兵就豁出命当，捕虾该做什么就做什么。然后命运给了他最丰厚的回报。
+      </p>
+      <p>
+        这部电影的好，不在哪一个具体的桥段——它就像一部温柔的人生教科书，你看完之后会在心里留下一种奇异的力量。当你觉得迷茫、不确定、不知道下一步该往哪走的时候，你会想起那个戴着矫正器往前跑的男孩，然后你可能也会迈出第一步。
+      </p>
+      <p>
+        1994年是电影史上最神奇的年份——&quot;肖申克的救赎&quot;、&quot;低俗小说&quot;、&quot;狮子王&quot;、&quot;这个杀手不太冷&quot;全部诞生于这一年。而在那一年的奥斯卡上，&quot;阿甘正传&quot;赢了。它不是最完美的电影，但它是那个年代好莱坞精神的集大成者，是电影还可以同时做到商业、艺术和时代分量的证据。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    每日经典电影推荐 &middot; 第 7 期
+  </div>
+
+</div>
+
+</body>
+</html>

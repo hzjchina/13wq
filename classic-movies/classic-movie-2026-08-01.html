@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 低俗小说 Pulp Fiction (1994)</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #21262d;
+      --text: #c9d1d9;
+      --text-secondary: #8b949e;
+      --accent: #f78166;
+      --accent-2: #58a6ff;
+      --border: #30363d;
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 0 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .poster-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .poster-placeholder {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      max-width: 280px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, #1f1f1f 0%, #2a2a2a 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      border: 1px solid var(--border);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .meta-item {
+      background: var(--surface-2);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .meta-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .rating-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .rating-tag {
+      background: rgba(247, 129, 102, 0.12);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      margin-bottom: 16px;
+      color: var(--accent-2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background: var(--accent-2);
+      border-radius: 3px;
+    }
+
+    p {
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 14px;
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
+    }
+
+    li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .quote {
+      border-left: 4px solid var(--accent);
+      padding-left: 18px;
+      margin: 20px 0;
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-top: 32px;
+      padding: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .poster-card,
+      section {
+        padding: 20px;
+        border-radius: 14px;
+      }
+
+      .meta-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">第 33 期 · 经典电影推荐</div>
+      <h1>低俗小说 Pulp Fiction</h1>
+      <p class="subtitle">1994 · 美国 · 昆汀·塔伦蒂诺</p>
+    </header>
+
+    <div class="poster-card">
+      <div class="poster-placeholder">电影海报占位</div>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">导演</div>
+          <div class="meta-value">昆汀·塔伦蒂诺</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">主演</div>
+          <div class="meta-value">约翰·特拉沃尔塔</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">主演</div>
+          <div class="meta-value">塞缪尔·杰克逊</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">主演</div>
+          <div class="meta-value">乌玛·瑟曼</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">片长</div>
+          <div class="meta-value">154 分钟</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">荣誉</div>
+          <div class="meta-value">戛纳金棕榈奖</div>
+        </div>
+      </div>
+      <div class="rating-row">
+        <span class="rating-tag">豆瓣 8.9</span>
+        <span class="rating-tag">IMDb 8.9</span>
+        <span class="rating-tag">烂番茄 92%</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>剧情梗概</h2>
+      <p>洛杉矶的地下世界里，几组人物的命运被偶然与暴力交织在一起：一对靠抢劫小餐馆为生的情侣、两个替黑帮收债的打手、一名被老大委以重任的拳击手，以及一位试图在混乱中保持体面的黑帮老大。</p>
+      <p>影片不按时间顺序展开，而是用环形叙事把这些故事切片重新拼接。你会看到一场失控的晚餐、一支神秘的皮箱、一次手忙脚乱的"急救"，还有人在最荒诞的时刻谈论汉堡和圣经。没人能预料下一刻谁会撞上谁，但每个人似乎都在为自己的选择付出代价。</p>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <ul>
+        <li><strong>叙事结构 revolution：</strong>昆汀把线性时间完全拆碎，再用主题与意象把碎片焊接成环，观众在最后一幕才恍然大悟——原来开头和结尾是咬合的。</li>
+        <li><strong>台词即武器：</strong>从餐厅里关于菜单名的闲聊，到浴室门口那段圣经独白，对白既日常又充满张力，大量台词至今被影迷倒背如流。</li>
+        <li><strong>群像表演高光：</strong>约翰·特拉沃尔塔迎来事业第二春，塞缪尔·杰克逊把"一本正经地愤怒"演成了影史经典，乌玛·瑟曼的 Mia 成为 90 年代银幕符号之一。</li>
+        <li><strong>配乐精准到骨头里：</strong>冲浪摇滚、灵魂乐、迪克·戴尔的吉他曲与画面形成奇妙反差，每首歌都像是为场景量身定制。</li>
+        <li><strong>暴力与幽默的化学反应：</strong>血腥场面被处理得荒诞、戏谑，甚至带有一种黑色喜剧的节奏感。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <p>《低俗小说》之所以成为影史必修课，不仅因为它"酷"，更因为它彻底改变了观众看电影的方式。它证明了好故事不必按顺序讲，角色不必讨人喜欢，犯罪片也可以变成关于选择与宿命的哲学小品。</p>
+      <div class="quote">"它不是一部按时间排序的电影，而是一张关于偶然、道德与救赎的拼图。"</div>
+      <p>即便在三十年后的今天，片中那些看似无关的闲聊、突如其来的暴力、以及对"小人物在关键时刻如何选择"的凝视，依然能让第一次观看的人屏住呼吸。它适合那些厌倦了套路叙事、想体验一次真正"电影语言过山车"的观众。</p>
+    </section>
+
+    <footer>
+      <p>本期推荐生成于 2026-08-01 · 经典电影推荐第 33 期</p>
+    </footer>
+  </div>
+</body>
+</html>

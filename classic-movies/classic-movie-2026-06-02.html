@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 蝙蝠侠：黑暗骑士 (2026-06-02)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #1a1e26 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(139,92,246,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 60%, rgba(103,232,249,0.08) 0%, transparent 60%),
+      linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%);
+    z-index: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(218,165,32,0.2);
+    border-color: rgba(218,165,32,0.4);
+    color: #ffd700;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #8b5cf6;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #b0b0b0;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(139,92,246,0.06);
+    border: 1px solid rgba(139,92,246,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #b0b0b0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .highlights li::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    color: #8b5cf6;
+    font-size: 14px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border-left: 3px solid #8b5cf6;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+    font-style: normal;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    .hero-content h1 { font-size: 28px; }
+    .scores { grid-template-columns: repeat(2, 1fr); }
+    .awards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">经典电影推荐 · 2026年6月2日</div>
+
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>蝙蝠侠：黑暗骑士</h1>
+      <div class="original-title">The Dark Knight (2008)</div>
+      <div class="hero-meta">
+        <span class="tag">美国 / 英国</span>
+        <span class="tag">动作 / 犯罪 / 剧情</span>
+        <span class="tag">克里斯托弗·诺兰</span>
+        <span class="tag">152 分钟</span>
+        <span class="tag gold">🏆 IMDb TOP 3</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">9.0</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.2</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">94%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      哥谭市——一座被犯罪阴云笼罩的城市。蝙蝠侠布鲁斯·韦恩与警官吉姆·戈登联手打击犯罪，让城市的黑暗势力节节败退。新任检察官哈维·丹特的出现带来了法律正义的希望，他被称为"哥谭的光明骑士"，似乎是这座城市不需要面具就能仰望的英雄。然而，一个自称"小丑"的神秘罪犯横空出世——他不谋财、不贪权，他要的只是看着世界燃烧。小丑以一连串精密而疯狂的计划，将哥谭拖入道德深渊，迫使蝙蝠侠面对一个残酷的问题：当你对抗一个没有规则的敌人，你自己又要打破多少规则？
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>这部电影为什么值得一看</h2>
+    <ul class="highlights">
+      <li><strong>超越超英类型的电影杰作。</strong>它表面上是一部超级英雄电影，骨子里却是一部犯罪史诗。诺兰把蝙蝠侠的故事从漫画幻想拉到了现实主义的质地，探讨的是秩序与混乱、英雄与牺牲、人性在极端压力下的选择。它被无数影评人认为是"最伟大的漫改电影"，没有之一。</li>
+      <li><strong>希斯·莱杰的封神表演。</strong>他饰演的小丑改写了好莱坞反派的定义——不是简单的"坏人"，而是一个纯粹的混乱使者，哲学层面的噩梦。这个角色让他成为史上第一位凭借超级英雄电影获得奥斯卡表演类奖项的演员（最佳男配角）。遗憾的是，希斯·莱杰在电影上映前六个月去世，这座小金人成了他留给世界的绝唱。</li>
+      <li><strong>IMAX 实拍的开创性。</strong>诺兰是第一个把 IMAX 摄影机用于商业剧情片拍摄的导演。电影中有六段以 IMAX 70mm 胶片拍摄的场景，那种沉浸式的视觉冲击力至今无人超越。即便在今天的电脑屏幕上观看，你也能感受到画面质感的与众不同。</li>
+      <li><strong>道德困境的深度挖掘。</strong>这不是简单的正邪对决。电影最精彩的地方在于它设置了一系列"电车难题"式的道德考验——救一个人还是救一群人？为了更大的善，可以忍受多少恶？每一个角色都被迫在灰色地带中做出选择，让观众忍不住扪心自问：如果是我，我会怎么做？</li>
+      <li><strong>汉斯·季默的巅峰配乐。</strong>不断攀升的弦乐如心跳般紧绷，象征着不断升级的紧张感。那段标志性的主题曲不是一段旋律，而是一种感觉——像一颗在不断引爆的炸弹，把你钉在椅子上。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>荣誉殿堂</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳男配角</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳音效剪辑</div>
+      <div class="award-item"><span class="icon">🥇</span> 金球奖最佳男配角</div>
+      <div class="award-item"><span class="icon">🥇</span> 英国电影学院奖最佳男配角</div>
+      <div class="award-item"><span class="icon">⭐</span> 奥斯卡 8 项提名</div>
+      <div class="award-item"><span class="icon">⭐</span> IMDb TOP 250 第 3 名</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>Why so serious?</p>
+    <div class="source">—— 小丑 / The Joker</div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 每晚 20:00 自动推送 · 由小虾米精选
+  </div>
+
+</div>
+</body>
+</html>

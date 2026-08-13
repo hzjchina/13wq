@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 小星星的旅行 — 每日睡前故事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0a0e27 0%, #1a1a4e 40%, #2d1b69 70%, #1a1a4e 100%);
+    font-family: 'ZCOOL XiaoWei', 'PingFang SC', 'Microsoft YaHei', serif;
+    color: #e8e0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  .moon {
+    position: fixed;
+    top: 60px;
+    right: 80px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 35% 35%, #ffeebb, #ffd866);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 230, 130, 0.5), 0 0 80px rgba(255, 230, 130, 0.2);
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 40px rgba(255, 230, 130, 0.5), 0 0 80px rgba(255, 230, 130, 0.2); }
+    50% { box-shadow: 0 0 60px rgba(255, 230, 130, 0.7), 0 0 120px rgba(255, 230, 130, 0.3); }
+  }
+
+  .story-container {
+    max-width: 600px;
+    width: 90%;
+    padding: 50px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(200, 190, 220, 0.6);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 400;
+    color: #ffd866;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255, 216, 102, 0.3);
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(200, 190, 220, 0.5);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 216, 102, 0.5), transparent);
+    margin: 0 auto 40px;
+  }
+
+  .story-content {
+    font-size: 17px;
+    line-height: 2;
+    color: #d8d0e8;
+    text-align: justify;
+  }
+
+  .story-content p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .moral {
+    margin-top: 40px;
+    padding: 24px 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 216, 102, 0.15);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .moral h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffd866;
+    margin-bottom: 12px;
+  }
+
+  .moral p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #c8c0d8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    color: rgba(255, 216, 102, 0.7);
+    animation: moonGlow 3s ease-in-out infinite;
+  }
+
+  .cloud {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    z-index: 0;
+    filter: blur(30px);
+  }
+
+  .cloud-1 { width: 200px; height: 80px; bottom: 15%; left: -50px; animation: drift 20s ease-in-out infinite; }
+  .cloud-2 { width: 300px; height: 60px; bottom: 30%; right: -80px; animation: drift 25s ease-in-out infinite reverse; }
+  .cloud-3 { width: 150px; height: 50px; bottom: 50%; left: 20%; animation: drift 18s ease-in-out infinite 5s; }
+
+  @keyframes drift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(30px); }
+  }
+
+  @media (max-width: 500px) {
+    .story-container { padding: 30px 24px; }
+    h1 { font-size: 22px; }
+    .story-content { font-size: 15px; }
+    .moon { width: 50px; height: 50px; top: 30px; right: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon"></div>
+<div class="cloud cloud-1"></div>
+<div class="cloud cloud-2"></div>
+<div class="cloud cloud-3"></div>
+
+<div class="story-container">
+  <div class="date-tag">2026 年 5 月 19 日 · 星期二</div>
+  <h1>🌙 小星星的旅行</h1>
+  <div class="subtitle">每日儿童睡前故事</div>
+  <div class="divider"></div>
+
+  <div class="story-content">
+    <p style="animation-delay: 0.2s;">从前，在很远很远的天空上，住着一颗小星星，它的名字叫"亮亮"。</p>
+    <p style="animation-delay: 0.6s;">亮亮每天的工作，就是在天黑以后亮起来，给地上的人们照路。可是亮亮一直有个小小心愿——它想去地上看看，因为从天上往下看，地上总是花花绿绿的，好漂亮呀！</p>
+    <p style="animation-delay: 1s;">"妈妈，我想去地上看看！"亮亮对月亮妈妈说。</p>
+    <p style="animation-delay: 1.4s;">月亮妈妈温柔地笑了笑："傻孩子，你离开了天空，地上的人就看不到星星了呀。"</p>
+    <p style="animation-delay: 1.8s;">亮亮低下了头，有点难过。它想：那我就做天上最亮最亮的星星吧！</p>
+    <p style="animation-delay: 2.2s;">从那以后，亮亮每天晚上都特别努力地发光。它比别的星星亮一点点，又亮了一点点……渐渐地，地上的人们真的注意到它了。</p>
+    <p style="animation-delay: 2.6s;">有个小女孩每天晚上都会趴在窗台上，对着亮亮说："小星星，你今天又更亮了呢！"</p>
+    <p style="animation-delay: 3s;">亮亮开心极了。原来，自己做的事情，有人能看见。</p>
+    <p style="animation-delay: 3.4s;">有一天晚上，刮起了大风，乌云把天空遮得严严实实的。地上的人们什么星星都看不见了，小女孩也着急地望着天空。</p>
+    <p style="animation-delay: 3.8s;">亮亮努力地发光、发光、发光，它想穿过乌云，让大家看到一点光。终于，亮亮的光从云缝里溜了出来，变成了一道细细的光线，像一根金色的线，落在小女孩的窗前。</p>
+    <p style="animation-delay: 4.2s;">小女孩看到了那道光，高兴地说："小星星，我就知道你一直在！"</p>
+    <p style="animation-delay: 4.6s;">风停了，云散了，满天的星星又出来了。亮亮在夜空中一闪一闪的，好像在说："嗯，我一直在呢！"</p>
+    <p style="animation-delay: 5s;">那天晚上，小女孩睡得很香很香。亮亮也安心地眨着眼睛，守护着地上每一个睡着的人。</p>
+  </div>
+
+  <div class="moral">
+    <h2>🌟 寓意</h2>
+    <p>每个人都有自己重要的位置。有时候我们觉得自己很渺小，但其实，我们做的事情，一直在被别人看见。只要你认真做好自己，就是别人夜空中最亮的那颗星。</p>
+  </div>
+
+  <div class="goodnight">晚安，做个好梦。🌙</div>
+</div>
+
+<script>
+  // 生成星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 70 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.animationDelay = Math.random() * 5 + 's';
+    star.style.width = star.style.height = (1 + Math.random() * 3) + 'px';
+    starsContainer.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

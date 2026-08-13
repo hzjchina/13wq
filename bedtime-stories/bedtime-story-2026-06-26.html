@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小蟋蟀的夏夜曲 — 儿童睡前故事</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, #0a0e27 0%, #1a1f4b 40%, #2d3561 100%);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            color: #f8f5e8;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 星空背景 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #fff8dc;
+            border-radius: 50%;
+            animation: twinkle 2s infinite ease-in-out;
+            box-shadow: 0 0 8px rgba(255, 248, 220, 0.6);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* 月亮 */
+        .moon {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle at 30% 30%, #fffef0, #f5f0d0);
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(255, 254, 240, 0.4), 0 0 120px rgba(255, 254, 240, 0.15);
+            animation: float 6s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 萤火虫 */
+        .fireflies {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .firefly {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #a8f070;
+            border-radius: 50%;
+            box-shadow: 0 0 12px rgba(168, 240, 112, 0.8);
+            animation: drift 12s infinite ease-in-out;
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+            25% { transform: translate(30px, -20px); opacity: 1; }
+            50% { transform: translate(-20px, -40px); opacity: 0.7; }
+            75% { transform: translate(40px, 10px); opacity: 1; }
+        }
+
+        /* 主内容容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 680px;
+            margin: 0 auto;
+            padding: 60px 20px 80px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .story-card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px 32px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .story-title {
+            font-size: 2rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 32px;
+            color: #fff8dc;
+            text-shadow: 0 2px 16px rgba(255, 248, 220, 0.3);
+            letter-spacing: 1px;
+        }
+
+        .story-content {
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #f8f5e8;
+            text-align: justify;
+            margin-bottom: 32px;
+        }
+
+        .story-content p {
+            text-indent: 2em;
+            margin-bottom: 1.2em;
+        }
+
+        .story-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .goodnight {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #c9d6ff;
+            padding: 28px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            line-height: 1.8;
+        }
+
+        .emoji-icon {
+            font-size: 2.2rem;
+            display: block;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        /* 蟋蟀 SVG 装饰 */
+        .cricket-decoration {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .cricket-svg {
+            width: 120px;
+            height: 120px;
+            animation: gentleBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        /* 音符装饰 */
+        .music-note {
+            position: fixed;
+            font-size: 1.2rem;
+            color: rgba(255, 248, 220, 0.4);
+            pointer-events: none;
+            animation: noteFloat 8s ease-in-out infinite;
+            z-index: 0;
+        }
+
+        @keyframes noteFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+            50% { transform: translateY(-30px) rotate(10deg); opacity: 0.8; }
+        }
+
+        /* 响应式 */
+        @media (max-width: 480px) {
+            .container {
+                padding: 40px 16px 60px;
+            }
+            .story-card {
+                padding: 28px 20px;
+            }
+            .story-title {
+                font-size: 1.6rem;
+            }
+            .story-content {
+                font-size: 1.05rem;
+                line-height: 1.9;
+            }
+            .moon {
+                width: 60px;
+                height: 60px;
+                top: 24px;
+                right: 24px;
+            }
+            .cricket-svg {
+                width: 90px;
+                height: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空 -->
+    <div class="stars" id="stars"></div>
+    <!-- 月亮 -->
+    <div class="moon"></div>
+    <!-- 萤火虫 -->
+    <div class="fireflies" id="fireflies"></div>
+    <!-- 音符 -->
+    <div class="music-notes" id="musicNotes"></div>
+
+    <div class="container">
+        <div class="story-card">
+            <div class="cricket-decoration">
+                <svg class="cricket-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 草叶 -->
+                    <path d="M20 95 Q30 70 25 50" stroke="#7cb342" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M100 95 Q90 70 95 50" stroke="#7cb342" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <!-- 身体 -->
+                    <ellipse cx="60" cy="72" rx="22" ry="14" fill="#aed581"/>
+                    <!-- 头 -->
+                    <circle cx="60" cy="52" r="10" fill="#aed581"/>
+                    <!-- 眼睛 -->
+                    <circle cx="56" cy="50" r="2" fill="#2e3b4e"/>
+                    <circle cx="64" cy="50" r="2" fill="#2e3b4e"/>
+                    <!-- 触角 -->
+                    <path d="M55 45 Q45 25 35 20" stroke="#7cb342" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <path d="M65 45 Q75 25 85 20" stroke="#7cb342" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <!-- 翅膀 -->
+                    <ellipse cx="50" cy="68" rx="14" ry="8" fill="#dcedc8" opacity="0.8" transform="rotate(-15 50 68)"/>
+                    <ellipse cx="70" cy="68" rx="14" ry="8" fill="#dcedc8" opacity="0.8" transform="rotate(15 70 68)"/>
+                    <!-- 后腿 -->
+                    <path d="M45 78 Q35 88 30 95" stroke="#7cb342" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M75 78 Q85 88 90 95" stroke="#7cb342" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <!-- 音符 -->
+                    <text x="82" y="38" font-size="16" fill="#fff8dc" opacity="0.8">♪</text>
+                    <text x="28" y="42" font-size="14" fill="#fff8dc" opacity="0.6">♫</text>
+                </svg>
+            </div>
+
+            <h1 class="story-title">小蟋蟀的夏夜曲</h1>
+
+            <div class="story-content">
+                <p>夏天的夜晚，池塘边的草丛里住着一只小小的蟋蟀，名叫啾啾。啾啾有一副天生的好嗓子，每当夜幕降临，他就忍不住振动翅膀，唱起响亮又热闹的歌。</p>
+
+                <p>可是今晚不一样。月亮刚刚爬上树梢，小动物们都已经准备睡觉了。啾啾一开嗓，“唧唧唧——”的声音就像小喇叭一样，把大家都吵醒了。小青蛙从荷叶上探出头，小声说：“啾啾，你的歌真好听，可是能不能轻一点呀？我们都要睡觉啦。”</p>
+
+                <p>啾啾耷拉下触角，有点难过。他最喜欢唱歌，但不想让大家睡不好。他坐在一片三叶草下，轻轻抚摸自己的翅膀，小声自言自语：“也许我的声音太大了，根本不会唱温柔的曲子。”</p>
+
+                <p>这时，一阵温柔的晚风吹来，三叶草沙沙地响着，像在轻轻拍手。啾啾忽然发现，风拂过草叶的声音那么轻、那么柔。他闭上眼睛，用心听：远处传来青蛙低沉的“呱呱”声，萤火虫飞过发出细微的“嗡嗡”声，还有小溪潺潺流淌的水声。</p>
+
+                <p>啾啾明白了，夜晚的歌声不一定非要响亮。他轻轻振动翅膀，这次发出的声音又轻又慢，像一片羽毛飘落在月光里。他唱起了夏夜曲：“唧……啾……唧……啾……”</p>
+
+                <p>小青蛙听到了，觉得眼皮变得重重的。小刺猬蜷成一团，嘴角带着微笑。就连天上的小星星，仿佛也眨眼睛眨得慢了些。整个草丛都在啾啾温柔的歌声里，慢慢地、慢慢地安静下来。</p>
+
+                <p>唱完最后一个音符，啾啾看着大家甜甜的睡脸，心里暖暖的。原来，温柔的声音也有大大的力量，它能带着大家走进甜甜的梦乡。</p>
+            </div>
+
+            <div class="goodnight">
+                <span class="emoji-icon">🌙✨🦗</span>
+                晚安，小宝贝。<br>
+                小蟋蟀啾啾说，你今天也是个温柔又有耐心的好孩子，该做一个甜甜的梦了。<br>
+                愿月光轻轻盖在你身上，好梦呀。
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 生成星星
+        const starsContainer = document.getElementById('stars');
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            star.style.animationDuration = (1.5 + Math.random() * 2) + 's';
+            const size = 1 + Math.random() * 3;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            starsContainer.appendChild(star);
+        }
+
+        // 生成萤火虫
+        const firefliesContainer = document.getElementById('fireflies');
+        for (let i = 0; i < 6; i++) {
+            const firefly = document.createElement('div');
+            firefly.className = 'firefly';
+            firefly.style.left = Math.random() * 100 + '%';
+            firefly.style.top = 40 + Math.random() * 60 + '%';
+            firefly.style.animationDelay = Math.random() * 5 + 's';
+            firefly.style.animationDuration = (10 + Math.random() * 6) + 's';
+            firefliesContainer.appendChild(firefly);
+        }
+
+        // 生成漂浮音符
+        const notesContainer = document.getElementById('musicNotes');
+        const notes = ['♪', '♫', '♬', '♩'];
+        for (let i = 0; i < 5; i++) {
+            const note = document.createElement('div');
+            note.className = 'music-note';
+            note.textContent = notes[Math.floor(Math.random() * notes.length)];
+            note.style.left = 10 + Math.random() * 80 + '%';
+            note.style.top = 20 + Math.random() * 60 + '%';
+            note.style.animationDelay = Math.random() * 4 + 's';
+            note.style.animationDuration = (7 + Math.random() * 4) + 's';
+            notesContainer.appendChild(note);
+        }
+    </script>
+</body>
+</html>

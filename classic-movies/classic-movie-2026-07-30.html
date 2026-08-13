@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 盗梦空间</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --card: #141c2e;
+    --text: #e2e8f0;
+    --muted: #8896b0;
+    --accent: #64b4ff;
+    --warm: #e8a06a;
+    --deep: #2a3a5c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(100,180,255,0.12);
+    color: var(--accent);
+    font-size: 13px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .meta span {
+    font-size: 14px;
+    background: var(--card);
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: var(--muted);
+  }
+  .meta .highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .poster {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #141c2e 0%, #0a0e1a 60%, #1a1a0e 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+  .poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 25% 60%, rgba(100,180,255,0.10) 0%, transparent 55%),
+      radial-gradient(circle at 75% 30%, rgba(232,160,106,0.07) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 90%, rgba(42,58,92,0.15) 0%, transparent 70%);
+  }
+  .poster::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(10,14,26,0.6), transparent);
+  }
+  .poster-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .poster-text .big {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: 12px;
+    color: var(--text);
+    opacity: 0.18;
+    line-height: 1;
+  }
+  .poster-text .small {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 10px;
+    letter-spacing: 6px;
+  }
+  .poster-spin {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border: 2px solid rgba(100,180,255,0.06);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .poster-spin::before {
+    content: "";
+    position: absolute;
+    inset: -30px;
+    border: 1px solid rgba(232,160,106,0.04);
+    border-radius: 50%;
+  }
+  .section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section h2 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .section p {
+    font-size: 16px;
+    color: var(--text);
+    text-align: justify;
+  }
+  .section p + p {
+    margin-top: 14px;
+  }
+  .section .quote {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    margin-top: 14px;
+  }
+  .why-list {
+    list-style: none;
+    padding: 0;
+  }
+  .why-list li {
+    font-size: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(136,150,176,0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .why-list li:last-child { border-bottom: none; }
+  .why-list li .num {
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(100,180,255,0.12);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .layers {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 16px;
+  }
+  .layer-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 14px;
+    background: rgba(100,180,255,0.05);
+    border-radius: 10px;
+    border-left: 3px solid var(--accent);
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .layer-item .depth {
+    color: var(--accent);
+    font-weight: 600;
+    font-size: 12px;
+    min-width: 36px;
+  }
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 16px;
+    opacity: 0.7;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 27px; }
+    .subtitle { font-size: 15px; }
+    .section { padding: 18px; }
+    .poster-text .big { font-size: 38px; letter-spacing: 6px; }
+    .container { padding: 20px 16px 40px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">🎬 经典电影推荐 · 第31期</div>
+    <h1>盗梦空间</h1>
+    <div class="subtitle">Inception · 2010 · 美国</div>
+    <div class="meta">
+      <span class="highlight">豆瓣 9.4</span>
+      <span class="highlight">IMDb 8.8</span>
+      <span class="highlight">烂番茄 87%</span>
+      <span>克里斯托弗·诺兰 导演</span>
+      <span>莱昂纳多·迪卡普里奥 主演</span>
+      <span>奥斯卡4项大奖</span>
+      <span>IMDb Top 250 第14位</span>
+    </div>
+
+    <div class="poster">
+      <div class="poster-spin"></div>
+      <div class="poster-text">
+        <div class="big">DREAM</div>
+        <div class="small">A MIND HEIST</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>剧情梗概</h2>
+      <p>柯布是一位顶尖的"提取者"——他的工作是在目标人物沉睡时潜入其梦境深处，窃取意识中最隐秘的商业机密。这项技术由军方开发，如今游走在法律的灰色地带，而柯布因此流亡海外，无法回到美国与年幼的孩子团聚。</p>
+      <p>一个日本能源巨头向他提出了一个看似不可能的交易：不是"偷取"一个想法，而是"植入"一个想法——让竞争对手的继承人在潜意识中自愿决定拆分他父亲毕生建造的商业帝国。如果柯布成功，他将动用全部人脉帮他洗清罪名，回家。</p>
+      <p>为了这最后一次任务，柯布组建了一支精锐团队：梦境建筑师、伪装大师、化学药剂师。他们将深入层层嵌套的梦中之梦，在每一层的时间流速倍增中穿梭，在目标潜意识的防御武装中杀出一条路。而柯布自己的亡妻，正潜伏在最深的梦境里，等着把他永远留下。</p>
+      <p class="quote">"你以为的现实，也许只是梦的投影。"</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>亮点所在</h2>
+      <ul class="why-list">
+        <li><span class="num">1</span><span><strong>梦中梦的嵌套建筑学：</strong>影片构建了一个令人叹为观止的叙事结构——四层梦境层层嵌套，每一层的时间流速以指数级放慢。第一层的十小时，到第四层已是一生。诺兰用精密到近乎工程学的方式设计剧本，每一条线索、每一个图腾（陀螺）都有伏笔，像一台精密运转的瑞士钟表。</span></li>
+        <li><span class="num">2</span><span><strong>零CG实拍的经典场面：</strong>酒店走廊里的失重打斗，是真的在旋转走廊里拍的；巴黎街头的折叠爆破，是真的用高压气流喷射道具实现的；雪山堡垒的追逐，是在真实的加拿大雪山中拍摄的。诺兰坚持物理特效优先，让每个画面都有真实质感，至今经得起反复审视。</span></li>
+        <li><span class="num">3</span><span><strong>汉斯·季默的管风琴轰炸：</strong>配乐以伊迪丝·琵雅芙的《Non, je ne regrette rien》为种子，用放慢数倍后的低频铜管缓缓推进，像巨轮启动，像大地裂开。每一层梦境加速时，配乐的节奏也跟着倍增，音乐本身成了叙事的一部分，是情绪引擎而非装饰品。</span></li>
+        <li><span class="num">4</span><span><strong>陀螺、记忆与那个没有答案的结局：</strong>影片最后一幕——桌面上的陀螺转个不停，画面黑场。它倒了吗？诺兰从未给出标准答案。这不是故弄玄虚，而是整部电影最大的隐喻：当你不再追问"这是不是梦"的时候，你已经选择了相信你的现实。</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>梦境层级</h2>
+      <p>影片最令人称道的结构设计，是四层梦境同时并行推进。每一层都有独立的时间线、独立的任务、独立的危机，而它们之间的因果关系像锁链一样紧紧咬合——上一层的一个坠落动作，决定了下一层整个场景的崩塌。</p>
+      <div class="layers">
+        <div class="layer-item"><span class="depth">现实层</span> 飞行中的波音747，十小时航程</div>
+        <div class="layer-item"><span class="depth">梦境①</span> 雨中城市绑架，约一周</div>
+        <div class="layer-item"><span class="depth">梦境②</span> 酒店走廊失重搏斗，约六个月</div>
+        <div class="layer-item"><span class="depth">梦境③</span> 雪山堡垒突击，约十年</div>
+        <div class="layer-item"><span class="depth">潜意识</span> 永恒的废墟之滨——柯布的禁区</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>为什么值得一看</h2>
+      <p>《盗梦空间》最了不起的地方，不是它的特效有多炫——尽管确实炫——而是它用一个高概念的科幻框架，讲了一个关于"放不下"的私人故事。柯布在梦中建造了妻子的完整投影，日复一日地与她对话、争吵、拥抱。他知道那不是真的，但那是他唯一还能拥有她的地方。</p>
+      <p>这与整部电影的母题暗暗重合：什么是真实？什么值得当作真实？当团队里的新成员说"你无法用梦创造一个真正的人"时，柯布回答："但我在尝试。"这一刻，所有奇观都退到背景，一个失去爱人的男人站在舞台中央。</p>
+      <p>在AI生成内容泛滥、真假边界日益模糊的今天，《盗梦空间》的现实意义比2010年更加尖锐。我们每个人都在自己的意识里建造着什么——一段不愿放手的记忆，一个反复重演的遗憾，一个不肯停下的陀螺。诺兰给了我们两个小时的梦，然后让我们自己去想：醒着的时候，你又在梦中吗？</p>
+      <p class="quote">"一颗小小的念头，一旦在脑海中扎下根，就足以改变一切。"</p>
+    </div>
+
+    <div class="footer">晚安，好梦 🌙 但别忘了——你的陀螺还在转吗？</div>
+  </div>
+</body>
+</html>

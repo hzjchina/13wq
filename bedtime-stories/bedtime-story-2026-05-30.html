@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐟 桥下的小鱼 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(170deg, #061a2e 0%, #0a2540 20%, #0d3055 45%, #104068 70%, #0a2540 100%);
+      font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      color: #d0e8f8;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 水面波光 */
+    .water-shimmer {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 600px 80px at 30% 20%, rgba(100, 200, 255, 0.04) 0%, transparent 70%),
+        radial-gradient(ellipse 500px 60px at 70% 60%, rgba(80, 180, 255, 0.03) 0%, transparent 70%);
+      animation: shimmer 8s ease-in-out infinite alternate;
+    }
+    @keyframes shimmer {
+      0% { opacity: 0.5; transform: translateY(0); }
+      100% { opacity: 1; transform: translateY(-8px); }
+    }
+
+    /* 气泡 */
+    .bubble {
+      position: fixed;
+      border-radius: 50%;
+      border: 1px solid rgba(150, 220, 255, 0.15);
+      background: radial-gradient(circle at 35% 35%, rgba(200, 240, 255, 0.08), transparent);
+      z-index: 0;
+      animation: bubbleFloat var(--dur) ease-in infinite;
+    }
+    @keyframes bubbleFloat {
+      0% { transform: translateY(0) translateX(0) scale(0.8); opacity: 0; }
+      10% { opacity: 0.6; }
+      50% { transform: translateY(-40vh) translateX(var(--dx)) scale(1); opacity: 0.5; }
+      90% { opacity: 0.2; }
+      100% { transform: translateY(-90vh) translateX(var(--dx2)) scale(1.3); opacity: 0; }
+    }
+
+    /* 水草 */
+    .seaweed {
+      position: fixed;
+      bottom: 0;
+      width: 8px;
+      border-radius: 4px 4px 0 0;
+      z-index: 0;
+      pointer-events: none;
+      animation: seaweedSway var(--dur) ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+    @keyframes seaweedSway {
+      0% { transform: rotate(-5deg); }
+      100% { transform: rotate(5deg); }
+    }
+
+    /* 月光倒影 */
+    .moon-reflection {
+      position: fixed;
+      top: 40px;
+      right: 80px;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 40%, rgba(255, 250, 220, 0.25), rgba(255, 240, 200, 0.05));
+      z-index: 0;
+      animation: moonPulse 6s ease-in-out infinite alternate;
+    }
+    @keyframes moonPulse {
+      0% { box-shadow: 0 0 40px rgba(255, 250, 220, 0.1); }
+      100% { box-shadow: 0 0 80px rgba(255, 250, 220, 0.2), 0 0 120px rgba(255, 250, 220, 0.08); }
+    }
+
+    /* 主容器 */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 50px 30px 100px;
+    }
+
+    /* 标题区 */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: fadeInDown 1s ease-out;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header .date {
+      font-size: 13px;
+      color: rgba(150, 200, 240, 0.5);
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+    .header h1 {
+      font-size: 2.4em;
+      font-weight: 700;
+      background: linear-gradient(135deg, #a0d8ff, #80c0ff, #60b0ff, #a0e0ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+    .header .subtitle {
+      font-size: 1.05em;
+      color: rgba(180, 220, 255, 0.55);
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    /* 故事卡片 */
+    .story-card {
+      background: rgba(10, 40, 80, 0.2);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(100, 180, 255, 0.08);
+      border-radius: 24px;
+      padding: 50px 45px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(150, 220, 255, 0.04);
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .story-text {
+      font-size: 1.15em;
+      line-height: 2.2;
+      color: #c0d8f0;
+      text-align: justify;
+      text-indent: 2.5em;
+    }
+    .story-text p {
+      margin-bottom: 1.5em;
+    }
+    .story-text .hl-warm {
+      color: #ffdda0;
+      font-weight: 500;
+    }
+    .story-text .hl-gentle {
+      color: #90d0ff;
+      font-weight: 500;
+    }
+    .story-text .hl-brave {
+      color: #a0ffd0;
+      font-weight: 500;
+    }
+
+    /* 插画区 */
+    .illustration {
+      text-align: center;
+      margin: 40px 0;
+      opacity: 0.9;
+    }
+    .illustration svg {
+      filter: drop-shadow(0 4px 25px rgba(30, 100, 180, 0.2));
+    }
+
+    /* 寓意卡片 */
+    .moral-card {
+      background: linear-gradient(135deg, rgba(30, 80, 140, 0.15), rgba(60, 120, 180, 0.08));
+      border: 1px solid rgba(100, 180, 255, 0.1);
+      border-radius: 20px;
+      padding: 35px 40px;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+    .moral-card::before {
+      content: '';
+      position: absolute;
+      top: -15px; right: 25px;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(100, 200, 255, 0.1), transparent);
+    }
+    .moral-card h3 {
+      font-size: 1.15em;
+      color: #90c8ff;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      letter-spacing: 1px;
+    }
+    .moral-card p {
+      font-size: 1.05em;
+      line-height: 2;
+      color: #b0c8e0;
+    }
+
+    /* 晚安区 */
+    .goodnight {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 1.3em;
+      color: rgba(180, 220, 255, 0.65);
+      animation: fadeInUp 1s ease-out 0.8s both;
+    }
+    .goodnight .moon-icon {
+      font-size: 1.6em;
+      display: block;
+      margin-bottom: 8px;
+    }
+    .goodnight .signature {
+      margin-top: 30px;
+      font-size: 0.75em;
+      color: rgba(150, 200, 240, 0.3);
+      letter-spacing: 1px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      .container { padding: 30px 15px 60px; }
+      .story-card { padding: 30px 20px; }
+      .story-text { font-size: 1.05em; text-indent: 2em; }
+      .header h1 { font-size: 1.8em; }
+      .moon-reflection { top: 20px; right: 20px; width: 45px; height: 45px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 水面波光 -->
+  <div class="water-shimmer"></div>
+
+  <!-- 月光倒影 -->
+  <div class="moon-reflection"></div>
+
+  <!-- 气泡 -->
+  <div class="bubble" style="left: 12%; bottom: -20px; width: 18px; height: 18px; --dur: 12s; --dx: 30px; --dx2: -20px;"></div>
+  <div class="bubble" style="left: 28%; bottom: -30px; width: 12px; height: 12px; --dur: 15s; --dx: -25px; --dx2: 35px;"></div>
+  <div class="bubble" style="left: 55%; bottom: -15px; width: 22px; height: 22px; --dur: 10s; --dx: 20px; --dx2: -40px;"></div>
+  <div class="bubble" style="left: 72%; bottom: -25px; width: 14px; height: 14px; --dur: 14s; --dx: -35px; --dx2: 15px;"></div>
+  <div class="bubble" style="left: 88%; bottom: -20px; width: 10px; height: 10px; --dur: 11s; --dx: 25px; --dx2: -30px;"></div>
+  <div class="bubble" style="left: 42%; bottom: -10px; width: 16px; height: 16px; --dur: 16s; --dx: -20px; --dx2: 40px;"></div>
+
+  <!-- 水草 -->
+  <div class="seaweed" style="left: 5%; height: 90px; background: linear-gradient(to top, rgba(20, 80, 60, 0.4), rgba(30, 120, 80, 0.15)); --dur: 4s;"></div>
+  <div class="seaweed" style="left: 8%; height: 65px; background: linear-gradient(to top, rgba(25, 90, 65, 0.35), rgba(35, 130, 90, 0.1)); --dur: 5s; animation-delay: 0.5s;"></div>
+  <div class="seaweed" style="left: 90%; height: 80px; background: linear-gradient(to top, rgba(20, 80, 60, 0.35), rgba(30, 120, 80, 0.12)); --dur: 4.5s;"></div>
+  <div class="seaweed" style="left: 93%; height: 55px; background: linear-gradient(to top, rgba(25, 90, 65, 0.3), rgba(35, 130, 90, 0.08)); --dur: 5.5s; animation-delay: 1s;"></div>
+  <div class="seaweed" style="left: 48%; height: 70px; background: linear-gradient(to top, rgba(20, 85, 60, 0.3), rgba(32, 125, 85, 0.1)); --dur: 6s;"></div>
+
+  <!-- 主内容 -->
+  <div class="container">
+
+    <!-- 标题 -->
+    <div class="header">
+      <div class="date">2026 年 5 月 30 日 · 睡前故事</div>
+      <h1>桥下的小鱼</h1>
+      <div class="subtitle">—— 勇敢跃出一步，世界比想象的大</div>
+    </div>
+
+    <!-- 故事卡片 -->
+    <div class="story-card">
+      <div class="story-text">
+
+        <p>在一条清清浅浅的小溪里，住着一群小鱼。小溪被一座石拱桥隔成两半——桥的上游，水面窄窄的，水流暖暖的，阳光每天能照进来好久好久。小鱼们都喜欢住在<span class="hl-warm">桥的这边</span>，因为这里又暖和又安全。</p>
+
+        <p>可是在这群小鱼里，有一条叫<span class="hl-gentle">小蓝</span>的鱼，总是游到石桥的拱洞旁边，呆呆地往桥那边看。桥的另一边，溪水变得更宽了，水面上映着天上的云，远处好像还有一大片闪闪发光的东西。</p>
+
+        <p>"那是大河。"一条年长的金色大鲤鱼游过来，用长长的胡须碰了碰水面，"再往下游，就是大海了。我年轻的时候去过一次，可远啦，水流也急。"</p>
+
+        <p>"大海？"小蓝瞪大了眼睛，鳞片都兴奋得竖了起来，"大海是什么样的？"</p>
+
+        <p>大鲤鱼慢慢地说："大海呀，大到你游了三天三夜，也看不到边。海水有点咸，有点凉，但很蓝很蓝，比我们的溪水蓝一百倍。那里的鱼有红的、黄的、紫的，水草有一人多高，浪花能堆成小山……"</p>
+
+        <p>小蓝听得入了迷。它回家以后，翻来覆去睡不着，满脑子都是大海的样子。第二天一早，它就鼓起勇气对大家说："我想去看看大海！"</p>
+
+        <p>小鱼们七嘴八舌地劝它：<span class="hl-warm">"外面水流那么急，万一冲走了怎么办？""听说大鱼都很大，会不会吃掉你？""咱们这里多好呀，干吗要冒险呢？"</span></p>
+
+        <p>小蓝低下了头，尾巴耷拉在溪底。它想：也许……大家说得对，我这么小一条鱼，还是待在这里吧。</p>
+
+        <p>那天傍晚，小蓝游到桥洞口，最后一次看了看桥那边。这时候，一只<span class="hl-brave">小螃蟹</span>从石头缝里爬了出来，两只钳子举得高高的，好像在跟它打招呼。</p>
+
+        <p>"小鱼，你又来看桥那边啦？"小螃蟹的声音沙沙的。</p>
+
+        <p>"嗯……可是大家都说太危险了。"小蓝小声说。</p>
+
+        <p>小螃蟹歪了歪脑袋，说："我以前也怕。你知道的，螃蟹走路是横着的，别的小动物总笑话我。后来有一天我想通了——我横着走，但我一直在往前呀。不管是横着、竖着、还是歪着，只要往前走，就是勇敢的。"</p>
+
+        <p>小蓝愣了一下，然后笑了。对呀，它不需要游得最快，也不需要最大，它只需要——游过这座桥。</p>
+
+        <p>第二天清晨，天刚蒙蒙亮，小蓝深吸了一大口水，使劲摆了一下尾巴，嗖——它游过了桥洞！</p>
+
+        <p>桥这边，溪水果然变宽了。水流确实快了一些，但小蓝努力地摆着尾巴，一条鱼影在清清的水里划出一道漂亮的弧线。它游过圆圆的鹅卵石，游过一大丛碧绿的水草，游过一个又一个弯弯的河湾。</p>
+
+        <p>它遇到一只<span class="hl-gentle">小乌龟</span>，小乌龟正趴在石头上晒太阳，慢吞吞地说："你好呀小鱼，你从哪里来的？"</p>
+
+        <p>"我从桥那边的小溪来的！我要去看大海！"</p>
+
+        <p>小乌龟惊讶地张大了嘴巴，然后笑了："了不起。我活了二十年都没去过大海，你比我勇敢多了。前面的水流会越来越宽，注意别被大浪冲到岸边去就行。"</p>
+
+        <p>小蓝谢过乌龟爷爷，继续往下游游。溪水慢慢变成了小河，小河慢慢变成了大江。水从浅蓝变成了深蓝，从深蓝变成了<span class="hl-warm">蓝绿色</span>。两岸的树越来越高，蝉声越来越响，空气里带着咸咸的味道。</p>
+
+        <p>终于有一天，小蓝游出了江口——</p>
+
+        <p>眼前一下子<span class="hl-brave">亮</span>了起来。</p>
+
+        <p>好大好大的一片蓝色铺满了整个世界！水面上，太阳照下来，像碎金子一样闪闪发光。远处，海浪一层一层地涌过来，轻轻拍打在礁石上，发出"哗——哗——"的声音，像大海在唱一首温柔的歌。</p>
+
+        <p>小蓝第一次看到这么大的水，激动得在水面打了一个滚，溅起一小朵水花。一条橘红色的小丑鱼好奇地游过来："嗨！你是新来的吧？欢迎来到大海！"</p>
+
+        <p>"我……我终于到了！"小蓝的声音都在发抖。</p>
+
+        <p>橘红色的小丑鱼笑了，带着小蓝往下看——海水下面，珊瑚像彩色的花园，水草像长长的丝带，一群群五颜六色的小鱼在水里转圈圈，像在跳舞。</p>
+
+        <p>"你看到了吗？"</p>
+
+        <p>"看到了，全都看到了！"</p>
+
+        <p>那天晚上，小蓝趴在一块温暖的珊瑚礁上，仰头看天上的星星倒映在海面上。海水轻轻晃啊晃，像一只温柔的大手在摇着摇篮。</p>
+
+        <p>它想：原来大海真的这么美。要是我那天没有游过那座桥，我就永远不知道这一切了。</p>
+
+        <p>它想起了小螃蟹说的话——<span class="hl-gentle">不管是横着、竖着、还是歪着，只要往前走，就是勇敢的。</span></p>
+
+        <p>小蓝吐了一个小小的泡泡。泡泡晃晃悠悠地飘上了水面，映着星光，一闪一闪的。</p>
+
+      </div>
+
+      <!-- 插画 -->
+      <div class="illustration">
+        <svg width="420" height="280" viewBox="0 0 420 280" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#1a6090"/>
+              <stop offset="40%" stop-color="#104870"/>
+              <stop offset="100%" stop-color="#0a3050"/>
+            </linearGradient>
+            <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0a2040"/>
+              <stop offset="60%" stop-color="#1a4070"/>
+              <stop offset="100%" stop-color="#2080b0"/>
+            </linearGradient>
+            <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stop-color="#ffe8a0" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#ffe8a0" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="bridgeGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#6a6050"/>
+              <stop offset="100%" stop-color="#4a4030"/>
+            </linearGradient>
+          </defs>
+
+          <!-- 天空 -->
+          <rect width="420" height="130" fill="url(#skyGrad)" rx="0"/>
+          <!-- 太阳 -->
+          <circle cx="350" cy="40" r="60" fill="url(#sunGlow)"/>
+          <circle cx="350" cy="40" r="18" fill="#ffe8a0" opacity="0.8"/>
+          <!-- 星星点缀 -->
+          <circle cx="40" cy="20" r="1" fill="#fff" opacity="0.5"/>
+          <circle cx="100" cy="45" r="0.8" fill="#fff" opacity="0.4"/>
+          <circle cx="180" cy="15" r="1.2" fill="#fff" opacity="0.6"/>
+          <circle cx="260" cy="35" r="0.7" fill="#fff" opacity="0.3"/>
+
+          <!-- 远山 -->
+          <polygon points="0,130 80,85 180,130" fill="#1a3050" opacity="0.6"/>
+          <polygon points="140,130 250,75 380,130" fill="#152a45" opacity="0.7"/>
+
+          <!-- 海面 -->
+          <rect x="0" y="125" width="420" height="155" fill="url(#seaGrad)"/>
+
+          <!-- 桥 -->
+          <path d="M160,100 Q210,60 260,100" stroke="url(#bridgeGrad)" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <rect x="155" y="98" width="8" height="32" fill="#4a4030" rx="2"/>
+          <rect x="257" y="98" width="8" height="32" fill="#4a4030" rx="2"/>
+          <line x1="175" y1="100" x2="175" y2="130" stroke="#5a5040" stroke-width="2" opacity="0.5"/>
+          <line x1="210" y1="83" x2="210" y2="130" stroke="#5a5040" stroke-width="2" opacity="0.5"/>
+          <line x1="245" y1="100" x2="245" y2="130" stroke="#5a5040" stroke-width="2" opacity="0.5"/>
+
+          <!-- 水面波光 -->
+          <path d="M0,130 Q50,126 100,130 Q150,134 200,130 Q250,126 300,130 Q350,134 400,130 L420,130" stroke="rgba(180,230,255,0.15)" stroke-width="1" fill="none"/>
+          <path d="M0,135 Q60,131 120,135 Q180,139 240,135 Q300,131 360,135 Q390,137 420,135" stroke="rgba(180,230,255,0.1)" stroke-width="1" fill="none"/>
+
+          <!-- 小鱼（主角） -->
+          <g transform="translate(100, 175)">
+            <!-- 身体 -->
+            <ellipse cx="0" cy="0" rx="16" ry="9" fill="#50b0ff"/>
+            <!-- 尾巴 -->
+            <path d="M-14,0 L-26,-9 L-26,9 Z" fill="#3090e0"/>
+            <!-- 鳍 -->
+            <path d="M2,-9 Q8,-18 12,-9" fill="#40a0f0" opacity="0.8"/>
+            <path d="M2,9 Q8,16 12,9" fill="#40a0f0" opacity="0.7"/>
+            <!-- 眼睛 -->
+            <circle cx="8" cy="-2" r="3" fill="#fff"/>
+            <circle cx="9" cy="-2" r="1.5" fill="#1a3050"/>
+            <circle cx="9.5" cy="-2.5" r="0.6" fill="#fff"/>
+            <!-- 嘴巴 -->
+            <path d="M15,0 Q13,2 15,2" stroke="#3090e0" stroke-width="0.8" fill="none"/>
+          </g>
+
+          <!-- 小鱼游过的泡泡 -->
+          <circle cx="68" cy="178" r="3" fill="none" stroke="rgba(150,220,255,0.3)" stroke-width="0.8"/>
+          <circle cx="55" cy="172" r="2" fill="none" stroke="rgba(150,220,255,0.25)" stroke-width="0.8"/>
+          <circle cx="42" cy="180" r="4" fill="none" stroke="rgba(150,220,255,0.2)" stroke-width="0.8"/>
+
+          <!-- 水下珊瑚 -->
+          <g transform="translate(320, 250)">
+            <path d="M0,0 Q-5,-20 -3,-35" stroke="#e06080" stroke-width="4" fill="none" stroke-linecap="round"/>
+            <path d="M0,0 Q5,-25 8,-38" stroke="#d05070" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+            <path d="M0,0 Q-10,-18 -15,-30" stroke="#e07090" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <circle cx="-3" cy="-35" r="3" fill="#ff8090" opacity="0.6"/>
+            <circle cx="8" cy="-38" r="2.5" fill="#ff7080" opacity="0.6"/>
+            <circle cx="-15" cy="-30" r="2.5" fill="#ff90a0" opacity="0.5"/>
+          </g>
+
+          <!-- 另一条小丑鱼 -->
+          <g transform="translate(350, 200)">
+            <ellipse cx="0" cy="0" rx="10" ry="6" fill="#ff8030"/>
+            <path d="M-8,0 L-16,-6 L-16,6 Z" fill="#e06020"/>
+            <line x1="2" y1="-6" x2="2" y2="6" stroke="#fff" stroke-width="2" opacity="0.8"/>
+            <line x1="-4" y1="-5" x2="-4" y2="5" stroke="#fff" stroke-width="1.5" opacity="0.6"/>
+            <circle cx="6" cy="-1" r="2" fill="#fff"/>
+            <circle cx="6.5" cy="-1" r="1" fill="#1a3050"/>
+          </g>
+
+          <!-- 水草 -->
+          <path d="M25,270 Q20,245 28,225 Q22,210 30,195" stroke="#2a8060" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <path d="M38,275 Q35,250 40,235" stroke="#258855" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.4"/>
+          <path d="M280,275 Q285,250 278,230 Q283,215 276,200" stroke="#2a8060" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.45"/>
+
+          <!-- 月光 -->
+          <circle cx="380" cy="15" r="12" fill="rgba(255, 248, 220, 0.5)"/>
+          <circle cx="380" cy="15" r="25" fill="rgba(255, 248, 220, 0.08)"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- 寓意卡片 -->
+    <div class="moral-card">
+      <h3>🐟 小故事的悄悄话</h3>
+      <p>
+        生活里有很多"桥"。有时候是一扇新的教室门，有时候是一个陌生的朋友圈子，有时候是一个看似很难的挑战。桥的另一边可能很不一样，也许有点害怕，但只要鼓起勇气迈出那一步，你会发现——世界比你想象的还要大，还要美。你不一定非要游得最快，也不一定非要最大，你只需要勇敢地出发。
+      </p>
+    </div>
+
+    <!-- 晚安 -->
+    <div class="goodnight">
+      <span class="moon-icon">🌊</span>
+      晚安，愿你像小蓝一样，勇敢地游向属于你的大海。
+      <div class="signature">—— 本文由小虾米为爷自动生成</div>
+    </div>
+
+  </div>
+
+</body>
+</html>

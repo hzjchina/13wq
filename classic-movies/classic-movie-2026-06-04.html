@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 楚门的世界 (2026-06-04)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #0c1929 0%, #1a3a5c 40%, #2d7fb8 70%, #87ceeb 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 85% 15%, rgba(135,206,235,0.15) 0%, transparent 50%),
+      radial-gradient(ellipse at 40% 70%, rgba(45,127,184,0.08) 0%, transparent 60%),
+      linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.02) 2px,
+        rgba(0,0,0,0.02) 4px
+      );
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(218,165,32,0.2);
+    border-color: rgba(218,165,32,0.4);
+    color: #ffd700;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #87ceeb;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #b0b0b0;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(135,206,235,0.06);
+    border: 1px solid rgba(135,206,235,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #b0b0b0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .highlights li::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    color: #87ceeb;
+    font-size: 14px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border-left: 3px solid #87ceeb;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+    font-style: normal;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    .hero-content h1 { font-size: 28px; }
+    .scores { grid-template-columns: repeat(2, 1fr); }
+    .awards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">经典电影推荐 · 2026年6月4日</div>
+
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>楚门的世界</h1>
+      <div class="original-title">The Truman Show (1998)</div>
+      <div class="hero-meta">
+        <span class="tag">美国</span>
+        <span class="tag">剧情 / 科幻</span>
+        <span class="tag">彼得·威尔</span>
+        <span class="tag">103 分钟</span>
+        <span class="tag gold">🎭 金·凯瑞最佳表演</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.2</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.3</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">95%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      楚门·伯班克是一个生活在小镇上的普通保险推销员——他有温柔的妻子、可靠的朋友、日复一日的平静生活。他唯一不知道的是，从他出生的那一刻起，他的整个人生就是一场24小时全球直播的真人秀。他身边的每一个人都是演员，他头顶的每一片天空都是布景，甚至每天的日出日落都由幕后导演一手操控。但楚门开始注意到一些不对劲的裂痕——从天而降的道具灯、永远报着重复路况的广播、妻子对着空气念出的广告词……当楚门决心追寻这些裂痕背后的真相时，他与创造他世界的"上帝"之间，展开了一场关乎自由与勇气的对抗。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>这部电影为什么值得一看</h2>
+    <ul class="highlights">
+      <li><strong>超前于时代的预言。</strong>1998年，《楚门的世界》就预见了今天社交媒体、直播文化和真人秀泛滥的世界。二十多年后重看，你会发现它不是在讲未来，而是在讲我们此刻的生活——每个人都可以是楚门，每个人也都可能是那个在屏幕前围观的观众。</li>
+      <li><strong>金·凯瑞突破性的表演转型。</strong>你认识的他是《变相怪杰》里夸张搞笑的橡皮脸，但在这部电影里，他的表演克制而层次丰富——从懵懂无知到隐隐不安，从决心反抗到义无反顾。他用微小的表情变化撑起了整部电影的情感弧光，证明了自己不只是一个喜剧天才。</li>
+      <li><strong>一个关于"选择"的终极寓言。</strong>电影的核心命题直指人心：当你知道你生活的世界是假的，但它是安全的、舒适的、被安排好的，你会选择走出去面对未知的真实，还是留下来享受假的幸福？这个问题没有标准答案，但电影给出的回答令人动容。</li>
+      <li><strong>彼得·威尔的导演艺术。</strong>他用一种近乎偷窥的镜头语言——隐藏在各处的摄影机视角——让观众同时扮演"上帝"和"共犯"。你在看楚门，也在看你自己；你在同情他，也在质问自己的选择。</li>
+      <li><strong>一部让人笑着笑着就沉默的电影。</strong>前半段的荒诞和幽默会让你会心一笑——楚门的怀疑、演员的尴尬、导演室的慌乱——但当故事走向尾声，当你意识到某些笑声背后的沉重，那种从娱乐到沉思的转变，是电影最精妙的设计。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>荣誉殿堂</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳男主角（金·凯瑞）</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳男配角（艾德·哈里斯）</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳原创配乐</div>
+      <div class="award-item"><span class="icon">🎬</span> 奥斯卡最佳导演提名</div>
+      <div class="award-item"><span class="icon">🎬</span> 奥斯卡最佳原创剧本提名</div>
+      <div class="award-item"><span class="icon">🎬</span> 奥斯卡最佳男配角提名</div>
+      <div class="award-item"><span class="icon">⭐</span> 英国电影学院奖最佳导演</div>
+      <div class="award-item"><span class="icon">⭐</span> 英国电影学院奖最佳原创剧本</div>
+      <div class="award-item"><span class="icon">⭐</span> 英国电影学院奖最佳艺术指导</div>
+      <div class="award-item"><span class="icon">⭐</span> IMDb TOP 250 在榜</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>&ldquo;如果再也不能见到你，祝你早安、午安、晚安。&rdquo;</p>
+    <div class="source">—— 楚门·伯班克 / Truman Burbank</div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 每晚 20:00 自动推送 · 由小虾米精选
+  </div>
+
+</div>
+</body>
+</html>

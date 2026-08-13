@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 每日睡前故事 — 想唱歌的小蝉</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    min-height: 100vh;
+    color: #e8e8e8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 16px;
+  }
+
+  .story-container {
+    max-width: 640px;
+    width: 100%;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    overflow: hidden;
+    animation: floatIn 1s ease-out;
+  }
+
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .header {
+    text-align: center;
+    padding: 40px 30px 30px;
+    background: linear-gradient(180deg, rgba(255,200,120,0.12) 0%, transparent 100%);
+    position: relative;
+  }
+
+  .moon-icon {
+    font-size: 48px;
+    margin-bottom: 12px;
+    animation: moonGlow 3s ease-in-out infinite;
+    display: block;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255,220,150,0.5)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 20px rgba(255,220,150,0.8)); transform: scale(1.05); }
+  }
+
+  .date-badge {
+    display: inline-block;
+    font-size: 13px;
+    color: rgba(255,200,120,0.8);
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffd699;
+    text-shadow: 0 2px 15px rgba(255,200,100,0.3);
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .content {
+    padding: 30px 32px 40px;
+  }
+
+  .story-body p {
+    font-size: 17px;
+    line-height: 2;
+    margin-bottom: 18px;
+    text-align: justify;
+    color: #d8d8d8;
+    text-indent: 2em;
+  }
+
+  .story-body p:first-child {
+    text-indent: 0;
+  }
+
+  .story-body p:first-child::first-letter {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #ffd699;
+    float: left;
+    line-height: 1;
+    margin-right: 6px;
+    margin-top: 4px;
+  }
+
+  .dialogue {
+    color: #b8e0ff !important;
+    font-style: italic;
+  }
+
+  .moral-section {
+    margin-top: 35px;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(255,200,120,0.1) 0%, rgba(255,150,100,0.08) 100%);
+    border-radius: 16px;
+    border-left: 4px solid #ffd699;
+    animation: moralFade 1.5s ease-out both;
+    animation-delay: 0.8s;
+  }
+
+  @keyframes moralFade {
+    from { opacity: 0; transform: translateX(-15px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  .moral-label {
+    font-size: 14px;
+    color: #ffd699;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .moral-text {
+    font-size: 16.5px;
+    line-height: 1.9;
+    color: #e8d0c0;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  .goodnight {
+    font-size: 22px;
+    font-weight: 300;
+    color: rgba(255,220,180,0.7);
+    margin-top: 8px;
+    letter-spacing: 3px;
+  }
+
+  /* 装饰星星 */
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+  }
+
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; transform: scale(0.8); }
+    50% { opacity: 0.9; transform: scale(1.2); }
+  }
+
+  @media (max-width: 480px) {
+    .story-container { border-radius: 18px; margin: 16px; }
+    .header { padding: 30px 20px 24px; }
+    h1 { font-size: 22px; }
+    .content { padding: 24px 20px 32px; }
+    .story-body p { font-size: 16px; line-height: 1.9; }
+    .moral-text { font-size: 15.5px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<div class="story-container">
+  <div class="header">
+    <span class="moon-icon">🌙</span>
+    <div class="date-badge">2026年5月26日 · 星期二</div>
+    <h1>🦗 想唱歌的小蝉</h1>
+    <p class="subtitle">每日睡前故事 · 第 8 天</p>
+  </div>
+
+  <div class="content">
+    <div class="story-body">
+
+<p>在一片绿油油的树林里，住着一只小蝉，名字叫"知知"。夏天来了，树林里的每一只蝉都在大声地唱着歌——"知了！知了！"那声音此起彼伏，像一场盛大的音乐会。</p>
+
+<p>可是知知从来不张嘴。不是它不想唱，而是……它的声音特别特别小。别的蝉一开口就是响亮的"知——了——"，而知知用尽全身力气，也只能发出轻轻的一声："知……"</p>
+
+<p>"知知，你怎么不跟我们一起唱歌呀？"一只叫大嗓门的蝉问。</p>
+
+<p>知知低下了头："我……我的声音太小了，你们听不见。"</p>
+
+<p>大嗓门哈哈大笑："没关系呀！你就在心里跟着唱吧！反正我们的声音够大！"</p>
+
+<p>知知听了，心里有点酸酸的。每天晚上，当大家都安静下来睡觉的时候，知知就一个人爬到最高的树枝上，对着月亮轻轻地哼唱。虽然没有人能听见，但它觉得，唱歌的感觉真好。</p>
+
+<p>有一天下午，太阳晒得大地暖洋洋的，树林里静悄悄的。所有的蝉都累了，躲在叶子底下打盹儿。这时候，一个小男孩走进了树林，他坐在一棵大树下，抱着膝盖，眼泪一颗一颗地往下掉。</p>
+
+<p>原来，小男孩今天在学校被同学取笑了，因为他说话声音很小，老师叫他回答问题，大家都在后面偷偷笑他。他觉得好难过，不想回家，也不想见任何人。</p>
+
+<p>知知看到了哭泣的小男孩，心里也觉得酸酸的。它在想：如果我能做点什么就好了……</p>
+
+<p>于是，知知鼓起勇气，轻轻地唱了起来："知……知……知……"声音小小的、柔柔的，像一阵微风从树叶间穿过。</p>
+
+<p>小男孩听到了这个细细的声音，他抬起头四处看了看，没有发现什么特别的。但那个温柔的声音一直在继续——"知……知……知……"不吵也不闹，就像有人在耳边悄悄地说话。</p>
+
+<p>慢慢地，小男孩停止了哭泣。他闭上眼睛仔细地听着，发现这声音很小很轻，却一直没停过，好像在陪着他似的。"你也在小声说话吗？"小男孩轻声问，"跟我一样？"</p>
+
+<p>知知听不懂人的话，但它感觉到了——有人听到自己了。于是它唱得更用心了，一声接一声，虽然不大，但是每一个音都很认真。</p>
+
+<p>小男孩听着听着，嘴角慢慢翘了起来。他想：连小蝉都可以这么认真地发出自己的声音，哪怕很小很小，我也应该勇敢一点才对。</p>
+
+<p>他在树下坐了很久很久，直到夕阳把整片树林染成了金色。临走前，小男孩抬头看着树枝说了一声："谢谢你，小蝉。你的声音很好听。"</p>
+
+<p>知知高兴得翅膀都在抖。原来，声音的大小不重要，重要的是有没有人愿意停下来听。</p>
+
+<p>第二天，知知还是加入了大家的合唱。只不过现在，它不再羡慕那些大声的同伴了。因为它知道，在这个大大的世界里，总有一个角落需要小小的声音。</p>
+
+    </div>
+
+    <div class="moral-section">
+      <div class="moral-label">✨ 寓意</div>
+      <div class="moral-text">
+        声音小不代表不重要，安静的力量同样温暖人心。每个人的表达方式都不一样，有的人轰轰烈烈，有的人轻声细语——只要你认真发出属于自己的声音，总会有人愿意停下脚步来聆听。
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p class="goodnight">晚安，做个好梦 🌟</p>
+    <p class="footer-text">本文由小虾米为爷自动生成 · 第 8 夜</p>
+  </div>
+</div>
+
+<script>
+// 生成随机星星
+(function() {
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.animationDelay = Math.random() * 5 + 's';
+    star.style.width = star.style.height = (1.5 + Math.random() * 2.5) + 'px';
+    container.appendChild(star);
+  }
+})();
+</script>
+
+</body>
+</html>

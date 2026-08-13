@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 辛德勒的名单 (2026-07-26)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #08080a;
+    color: #c8c4bc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(ellipse at 65% 35%, rgba(140,30,30,0.10) 0%, transparent 50%),
+      radial-gradient(ellipse at 25% 70%, rgba(40,40,45,0.3) 0%, transparent 45%),
+      linear-gradient(135deg, #050505 0%, #0a0a0c 25%, #101012 50%, #0c0c0e 75%, #08080a 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+  }
+
+  .film-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* 红色小女孩剪影 */
+  .red-dot {
+    position: absolute;
+    width: 8px;
+    height: 16px;
+    background: #c43030;
+    border-radius: 4px 4px 2px 2px;
+    top: 45%;
+    left: 58%;
+    z-index: 3;
+    box-shadow: 0 0 12px rgba(196,48,48,0.6), 0 0 24px rgba(196,48,48,0.3);
+    opacity: 0.85;
+    animation: fadeIn 3s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 0.85; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: "Songti SC", "Noto Serif SC", "SimSun", serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.9), 0 0 40px rgba(140,30,30,0.15);
+    letter-spacing: 4px;
+  }
+
+  .hero-content .original-title {
+    font-size: 15px;
+    color: rgba(200,190,170,0.5);
+    font-weight: 300;
+    margin-bottom: 12px;
+    font-style: italic;
+    letter-spacing: 1px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .hero-meta .tag.accent {
+    background: rgba(140,30,30,0.15);
+    border-color: rgba(196,48,48,0.25);
+    color: #c66;
+  }
+
+  /* Scores */
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #0c0c0e, #060608);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: "Songti SC", "Noto Serif SC", serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  /* Sections */
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: "Songti SC", "Noto Serif SC", serif;
+    font-size: 22px;
+    color: #e8e4dc;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #8b2020;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a098;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  /* Awards */
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(255,255,255,0.025);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #aaa;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+
+  /* Highlights */
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a098;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.9;
+  }
+
+  .highlights li::before {
+    content: '\25B8';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    color: #8b2020;
+    font-size: 12px;
+  }
+
+  /* Quote */
+  .quote-block {
+    background: linear-gradient(145deg, #0c0c0e, #060608);
+    border-left: 3px solid #8b2020;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: "Songti SC", "Noto Serif SC", serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #d8d4cc;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  /* Why Watch */
+  .why-watch {
+    background: linear-gradient(145deg, rgba(140,30,30,0.04), rgba(60,20,20,0.02));
+    border: 1px solid rgba(140,30,30,0.1);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #c0b8b0;
+    line-height: 2;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #2a2820;
+    letter-spacing: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .container { padding: 24px 16px; }
+    .hero-content h1 { font-size: 28px; letter-spacing: 2px; }
+    .hero-content .original-title { font-size: 13px; }
+    .hero-content { padding: 20px; }
+    .section h2 { font-size: 18px; }
+    .score-card .value { font-size: 26px; }
+    .score-card .platform { font-size: 10px; }
+    .awards-grid { grid-template-columns: 1fr; }
+    .section p, .why-watch p { font-size: 14px; }
+    .highlights li { font-size: 14px; }
+    .hero-meta .tag { font-size: 11px; padding: 3px 10px; }
+    .quote-block p { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 2 6</div>
+
+  <div class="hero">
+    <div class="film-grain"></div>
+    <div class="red-dot"></div>
+    <div class="hero-content">
+      <h1>辛德勒的名单</h1>
+      <div class="original-title">Schindler's List · 1993 · 美国</div>
+      <div class="hero-meta">
+        <span class="tag">史蒂文·斯皮尔伯格 导演</span>
+        <span class="tag">连姆·尼森 / 本·金斯利 / 拉尔夫·费因斯 主演</span>
+        <span class="tag accent">剧情 / 历史 / 战争</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">9.0</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.5</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">93%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      二战中的波兰克拉科夫。奥斯卡·辛德勒是一名德国商人，他来到这座城市不是为了什么崇高理想，而是为了在战争中发财。他善于交际、出手阔绰，靠着结交纳粹军官拿到了一家搪瓷厂的经营权，雇佣犹太人做廉价劳动力，在战争的风口上大赚其钱。
+      <br><br>
+      辛德勒的厂子越做越大，犹太工人成了他利润的基石。然而随着纳粹对犹太人的迫害日益升级——从隔离区到集中营，从驱逐到屠杀——辛德勒开始意识到，自己的工厂正在成为这些工人最后的庇护所。他的会计师伊扎克·斯泰恩悄悄在工人大名单上做了手脚，把尽可能多的人纳入"辛德勒的犹太人"——一份被纳粹认可的、为军需工厂工作的"必需工人"名单。
+      <br><br>
+      在克拉科夫集中营的党卫军司令阿蒙·格斯的统治下，暴力与死亡成了日常。辛德勒眼看着一幕幕惨剧在眼前展开，他原本逐利的行为渐渐变成了另一种东西——他开始倾尽全部财产，贿赂纳粹军官，用一份又一份名单买下犹太人的生命。从最初的一个商人，到最后散尽家财的拯救者，辛德勒的转变不是一瞬间的顿悟，而是在无数个深夜和黎明中，一点一点完成的。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>斯皮尔伯格放弃了所有片酬，称这部电影是"必须用尊严去拍的作品"——他视其为一座墓碑，而非一部商业片</li>
+      <li>全片以黑白摄影呈现，唯一的彩色是那个穿红衣的小女孩——这是影史上最令人心碎的色彩运用，一个颜色就承载了整部电影的灵魂</li>
+      <li>连姆·尼森饰演的辛德勒不是传统意义上的"圣人"——他好酒、好色、精明、贪婪，正是这种复杂性让他的转变拥有千钧之力</li>
+      <li>拉尔夫·费因斯饰演的纳粹司令阿蒙·格斯是影史上最令人不寒而栗的反派之一——他清晨端着步枪在阳台上随意射杀集中营里的人，仿佛在打靶练习</li>
+      <li>约翰·威廉姆斯创作的配乐由小提琴大师帕尔曼独奏——那段主题旋律凄美到让人无法听完不落泪，斯皮尔伯格第一次听到时甚至觉得自己"不配为这段音乐配画面"</li>
+      <li>影片拍摄期间斯皮尔伯格多次在片场情绪崩溃，他说这不是在"拍电影"，而是在"经历"</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 第 66 届奥斯卡最佳影片</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳导演（斯皮尔伯格）</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳改编剧本</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳摄影 / 最佳剪辑 / 最佳配乐</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳影片（剧情类）/ 最佳导演</div>
+      <div class="award-item"><span class="icon">🏆</span> 英国电影学院奖 7 项大奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 豆瓣电影 Top 250 第 8 位</div>
+      <div class="award-item"><span class="icon">🏆</span> AFI 百年百大电影第 3 位</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"凡救一人，即救全世界。"</p>
+    <div class="source">—— 塔木德（影片核心主题）</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        《辛德勒的名单》不是一部"好看"的电影——它是一部你看完之后会在椅子上坐很久、说不出话来的电影。三个多小时的黑白画面里没有英雄主义的冲锋，没有燃爆的配乐高潮，有的只是一个个真实的人，在最黑暗的年代里做出选择。
+        <br><br>
+        斯皮尔伯格做了一个几乎不可思议的决定：用纪录片式的克制来讲述一个足以拍成催泪大片的故事。他不煽情、不渲染，镜头常常保持距离，像一个沉默的目击者。正是这种克制，让每一个情感爆发的瞬间都拥有了摧枯拉朽的力量——那个红衣小女孩穿过混乱的街道，那个会计师在打字机上敲下一个又一个名字，那个辛德勒在影片最后崩溃地说"我本来可以多救一个人"……这些画面会刻进你的记忆，再也拿不出来。
+        <br><br>
+        这部电影最了不起的地方在于：它没有把辛德勒塑造成一个天生的圣人。他是一个投机者、一个战争贩子、一个有缺陷的普通人。但正是这样的一个人，在深渊面前选择了向光而行——这比任何神迹都更有说服力。它告诉我们，善良不是天赋，而是选择；在所有人都选择沉默的时候，哪怕一个人的声音，也足以在黑暗中撕开一道裂缝。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    凡救一人，即救全世界 · 第 27 期
+  </div>
+
+</div>
+</body>
+</html>

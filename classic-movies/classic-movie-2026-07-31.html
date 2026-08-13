@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 飞越疯人院</title>
+<style>
+  :root {
+    --bg: #0f0e0c;
+    --card: #1c1a16;
+    --text: #e8e4dc;
+    --muted: #90887c;
+    --accent: #c9a84c;
+    --warm: #d4885a;
+    --deep: #2e2a24;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(201,168,76,0.12);
+    color: var(--accent);
+    font-size: 13px;
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .meta span {
+    font-size: 14px;
+    background: var(--card);
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: var(--muted);
+  }
+  .meta .highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .poster {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #1c1a16 0%, #0f0e0c 60%, #1a1410 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+  .poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(201,168,76,0.08) 0%, transparent 55%),
+      radial-gradient(circle at 70% 60%, rgba(212,136,90,0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 90%, rgba(46,42,36,0.2) 0%, transparent 70%);
+  }
+  .poster::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: 40%;
+    background: linear-gradient(to top, rgba(15,14,12,0.6), transparent);
+  }
+  .poster-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .poster-text .big {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    color: var(--text);
+    opacity: 0.14;
+    line-height: 1;
+  }
+  .poster-text .small {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 10px;
+    letter-spacing: 5px;
+  }
+  .poster .grid-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    opacity: 0.06;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(201,168,76,0.3) 40px),
+      repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(201,168,76,0.3) 40px);
+    background-size: 40px 40px;
+  }
+  .section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section h2 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .section p {
+    font-size: 16px;
+    color: var(--text);
+    text-align: justify;
+  }
+  .section p + p {
+    margin-top: 14px;
+  }
+  .section .quote {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    margin-top: 14px;
+  }
+  .why-list {
+    list-style: none;
+    padding: 0;
+  }
+  .why-list li {
+    font-size: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(144,136,124,0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .why-list li:last-child { border-bottom: none; }
+  .why-list li .num {
+    min-width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(201,168,76,0.12);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .oscar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .oscar-item {
+    background: rgba(201,168,76,0.06);
+    border: 1px solid rgba(201,168,76,0.12);
+    border-radius: 10px;
+    padding: 12px 14px;
+    text-align: center;
+  }
+  .oscar-item .label {
+    font-size: 12px;
+    color: var(--muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .oscar-item .value {
+    font-size: 14px;
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 16px;
+    opacity: 0.7;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 27px; }
+    .subtitle { font-size: 15px; }
+    .section { padding: 18px; }
+    .poster-text .big { font-size: 36px; letter-spacing: 4px; }
+    .container { padding: 20px 16px 40px; }
+    .oscar-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">🎬 经典电影推荐 · 第32期</div>
+    <h1>飞越疯人院</h1>
+    <div class="subtitle">One Flew Over the Cuckoo's Nest · 1975 · 美国</div>
+    <div class="meta">
+      <span class="highlight">豆瓣 9.2</span>
+      <span class="highlight">IMDb 9.0</span>
+      <span class="highlight">烂番茄 94%</span>
+      <span>米洛斯·福尔曼 导演</span>
+      <span>杰克·尼科尔森 主演</span>
+      <span>奥斯卡5项大奖</span>
+      <span>柏林金熊奖</span>
+    </div>
+
+    <div class="poster">
+      <div class="grid-lines"></div>
+      <div class="poster-text">
+        <div class="big">CUCKOO</div>
+        <div class="small">AT LEAST I TRIED</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>剧情梗概</h2>
+      <p>麦克·墨菲是个天性不羁的流浪汉，为了躲避监狱劳役，他假装精神异常，被送进了州立精神病院。这里看似比监狱宽松，实则是一座更为压抑的牢笼——护士长拉契德以一套冰冷、精密、不近人情的规则体系统治着一切。</p>
+      <p>墨菲很快发现，病人们并非因为"疯狂"而被关在这里，他们中的许多人是被社会贴上标签后自愿放弃了抗争。有人害怕外面的世界，有人习惯了被安排一切，有人则在药物和电击的循环中丧失了自我。</p>
+      <p>墨菲带来了扑克牌、音乐和笑声，他带领病人们偷偷出海钓鱼，试图让他们重新记起"活着"的感觉。但每一次反抗，都会换来拉契德更严厉的压制。这座疯人院容不下一个不肯低头的人——墨菲的赌注越下越大，而结局，远比任何人想象的都要残酷。</p>
+      <p class="quote">"但至少我试过了，不是吗？至少我试过了。"</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>亮点所在</h2>
+      <ul class="why-list">
+        <li><span class="num">1</span><span><strong>杰克·尼科尔森的封神表演：</strong>他饰演的墨菲兼具狡黠、狂野与深不见底的善良，每一个眼神和笑容都藏着层次。这个角色让他首夺奥斯卡影帝，也成为影史最难以复制的经典形象之一。你不会在银幕上再看到第二个麦克·墨菲。</span></li>
+        <li><span class="num">2</span><span><strong>护士长拉契德："体制"的具象化：</strong>路易丝·弗莱彻饰演的拉契德护士长不是传统意义上的反派。她冷静、礼貌、从不提高音量，却用规则、药物和"为你好"的名义将人一寸一寸碾碎。这个角色的可怕之处在于——你在现实里见过她，甚至服从过她。</span></li>
+        <li><span class="num">3</span><span><strong>影史罕见的奥斯卡大满贯：</strong>本片是电影史上仅有的三部同时横扫奥斯卡五大奖项（最佳影片、最佳导演、最佳男主、最佳女主、最佳改编剧本）的电影之一。这不是学院派的偏爱，而是全体评委对一部完美作品的集体致敬。</span></li>
+        <li><span class="num">4</span><span><strong>疯癫与正常的边界之问：</strong>影片改编自肯·克西的小说，提出了一个至今没有答案的追问：到底谁是疯子？是那些被关在墙里的人，还是建造这堵墙的人？当墨菲问"你们是真疯还是只想躲起来"时，银幕前的每一个观众都该问自己一遍。</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>荣誉墙</h2>
+      <p>第48届奥斯卡金像奖五项全中的传奇战绩，至今影史仅有三部影片达成。</p>
+      <div class="oscar-grid">
+        <div class="oscar-item"><span class="label">最佳影片</span><span class="value">🏆 获奖</span></div>
+        <div class="oscar-item"><span class="label">最佳导演</span><span class="value">🏆 获奖</span></div>
+        <div class="oscar-item"><span class="label">最佳男主角</span><span class="value">🏆 获奖</span></div>
+        <div class="oscar-item"><span class="label">最佳女主角</span><span class="value">🏆 获奖</span></div>
+        <div class="oscar-item"><span class="label">最佳改编剧本</span><span class="value">🏆 获奖</span></div>
+        <div class="oscar-item"><span class="label">柏林金熊奖</span><span class="value">🏆 获奖</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>为什么值得一看</h2>
+      <p>《飞越疯人院》之所以在五十年后仍然震撼人心，是因为它讲的从来不只是精神病院里发生的故事。它讲的是任何一座"疯人院"——那个让你不敢表达异议的会议室，那个你明明痛苦却被告知"习惯就好"的系统，那个你把棱角磨平之后换来的"安稳"。</p>
+      <p>墨菲的可贵不在于他赢了——他最终没有赢。他的可贵在于他"试过了"。在那个所有人都学会了低头的环境里，只有他昂着头说"不"。这种明知不可为而为之的倔强，是人类精神里最珍贵的东西。</p>
+      <p>影片的结尾是悲伤的，但并非绝望。因为墨菲留下的东西，已经在某个人心里生根发芽。改变往往就从一个人不肯低头的那一刻开始。这是一部你看得越晚，震撼越深的电影——因为你离"那个体制"越近，越能听懂墨菲在笑什么。</p>
+      <p class="quote">"当一个人试图把另一个人变成自己手中的棋子时，总有人会站起来，把棋盘掀翻。"</p>
+    </div>
+
+    <div class="footer">晚安，好梦 🌙 愿你在任何一座疯人院里，都不忘记飞翔。</div>
+  </div>
+</body>
+</html>

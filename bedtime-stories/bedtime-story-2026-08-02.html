@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小汤匙的暖汤 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-deep: #0b1026;
+      --bg-mid: #161b36;
+      --bg-soft: #25204a;
+      --text: #f8f5ff;
+      --muted: #cfc9e6;
+      --moon: #fff9d6;
+      --glow: rgba(255, 245, 200, 0.35);
+      --accent: #ffcc80;
+      --warm: #ffd8a6;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 45%, var(--bg-soft) 100%);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      overflow-x: hidden;
+    }
+
+    #sky {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.25; transform: scale(0.7); }
+      100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 6px rgba(255,255,255,0.6); }
+    }
+
+    .moon {
+      position: absolute;
+      top: 5vh;
+      right: 6vw;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffdf0, var(--moon));
+      box-shadow: 0 0 24px var(--glow), 0 0 60px rgba(255, 249, 214, 0.15);
+      animation: moonFloat 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes moonFloat {
+      0% { transform: translateY(0); box-shadow: 0 0 24px var(--glow), 0 0 60px rgba(255,249,214,0.12); }
+      100% { transform: translateY(-10px); box-shadow: 0 0 32px var(--glow), 0 0 80px rgba(255,249,214,0.22); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      top: 12vh;
+      left: -120px;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffffff, transparent);
+      transform: rotate(-28deg);
+      opacity: 0;
+      animation: shoot 7s ease-out infinite 3s;
+    }
+
+    .shooting-star:nth-child(2) {
+      top: 22vh;
+      left: -80px;
+      animation-delay: 7.5s;
+    }
+
+    @keyframes shoot {
+      0% { opacity: 0; transform: rotate(-28deg) translateX(0); }
+      12% { opacity: 1; }
+      30% { opacity: 0; transform: rotate(-28deg) translateX(160vw); }
+      100% { opacity: 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 4rem 1.5rem 3rem;
+    }
+
+    .title-block {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .title-icon {
+      display: block;
+      font-size: 3.5rem;
+      animation: spoonFloat 4s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 12px rgba(255, 216, 166, 0.4));
+    }
+
+    @keyframes spoonFloat {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--warm);
+      margin: 0.8rem 0 0.4rem;
+      animation: titleGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 8px rgba(255, 216, 166, 0.2); }
+      100% { text-shadow: 0 0 18px rgba(255, 216, 166, 0.5); }
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+    }
+
+    .illustration {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 1.8rem 0;
+    }
+
+    .story-text {
+      font-size: 1.15rem;
+      line-height: 2.1;
+      letter-spacing: 0.03em;
+      color: var(--text);
+      text-align: justify;
+      padding: 0 0.5rem;
+    }
+
+    .story-text p {
+      margin: 0 0 1.4rem;
+      text-indent: 2em;
+    }
+
+    .separator {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 2.2rem 0 1.8rem;
+    }
+
+    .sep-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--warm);
+      opacity: 0.5;
+      animation: sepGlow 2.5s ease-in-out infinite alternate;
+    }
+    .sep-dot:nth-child(odd) { animation-delay: 0.8s; }
+
+    @keyframes sepGlow {
+      0% { opacity: 0.25; transform: scale(0.7); }
+      100% { opacity: 0.8; transform: scale(1.3); }
+    }
+
+    .goodnight {
+      text-align: center;
+      padding: 2rem 1rem;
+      margin-top: 0.5rem;
+      animation: gentlePulse 3s ease-in-out infinite alternate;
+    }
+
+    .goodnight .wave {
+      font-size: 2rem;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .goodnight p {
+      font-size: 1.2rem;
+      color: var(--warm);
+      line-height: 2;
+      margin: 0;
+    }
+
+    @keyframes gentlePulse {
+      0% { opacity: 0.75; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1.01); }
+    }
+
+    .bottom-glow {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(0deg, rgba(255,204,128,0.12) 0%, transparent 100%);
+      z-index: 0;
+      pointer-events: none;
+      animation: bottomGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes bottomGlow {
+      0% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* warm particles */
+    .warm-particle {
+      position: fixed;
+      bottom: -20px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--warm);
+      z-index: 0;
+      pointer-events: none;
+      animation: rise var(--rise-dur, 10s) ease-in infinite;
+      opacity: 0;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) translateX(0) scale(0.4); opacity: 0; }
+      20% { opacity: 0.55; }
+      80% { opacity: 0.15; }
+      100% { transform: translateY(-100vh) translateX(var(--drift, 30px)) scale(1); opacity: 0; }
+    }
+
+    /* SVG spoon illustration styles */
+    .spoon-svg {
+      animation: spoonSway 5s ease-in-out infinite alternate;
+      filter: drop-shadow(0 4px 20px rgba(255, 216, 166, 0.35));
+    }
+
+    @keyframes spoonSway {
+      0% { transform: rotate(-3deg) translateY(0); }
+      100% { transform: rotate(3deg) translateY(-6px); }
+    }
+
+    .steam {
+      animation: steamRise 3s ease-out infinite;
+      opacity: 0;
+    }
+    .steam:nth-child(2) { animation-delay: 1s; }
+    .steam:nth-child(3) { animation-delay: 2s; }
+
+    @keyframes steamRise {
+      0% { opacity: 0; transform: translateY(0); }
+      30% { opacity: 0.4; }
+      100% { opacity: 0; transform: translateY(-30px); }
+    }
+
+    /* responsive */
+    @media (max-width: 480px) {
+      .container { padding: 2.5rem 1rem 2rem; }
+      h1 { font-size: 1.6rem; }
+      .story-text { font-size: 1.05rem; line-height: 2; }
+      .title-icon { font-size: 2.8rem; }
+      .moon { width: 60px; height: 60px; right: 4vw; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="sky" aria-hidden="true">
+  <div class="moon"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <!-- stars generated by JS -->
+</div>
+
+<div class="bottom-glow"></div>
+
+<!-- warm particles -->
+<div class="warm-particle" style="left:12%; --rise-dur:11s; --drift:35px;" aria-hidden="true"></div>
+<div class="warm-particle" style="left:25%; --rise-dur:13s; --drift:-25px;" aria-hidden="true"></div>
+<div class="warm-particle" style="left:40%; --rise-dur:10s; --drift:20px;" aria-hidden="true"></div>
+<div class="warm-particle" style="left:55%; --rise-dur:14s; --drift:-30px;" aria-hidden="true"></div>
+<div class="warm-particle" style="left:70%; --rise-dur:9s; --drift:40px;" aria-hidden="true"></div>
+<div class="warm-particle" style="left:82%; --rise-dur:12s; --drift:-18px;" aria-hidden="true"></div>
+<div class="warm-particle" style="left:90%; --rise-dur:15s; --drift:28px;" aria-hidden="true"></div>
+<div class="warm-particle" style="left:32%; --rise-dur:16s; --drift:-35px;" aria-hidden="true"></div>
+
+<div class="container">
+  <div class="title-block">
+    <span class="title-icon">🥄</span>
+    <h1>小汤匙的暖汤</h1>
+    <div class="subtitle">儿童睡前故事 · 2026年8月2日</div>
+  </div>
+
+  <div class="illustration">
+    <svg class="spoon-svg" width="120" height="180" viewBox="0 0 120 180" xmlns="http://www.w3.org/2000/svg" aria-label="小汤匙插图">
+      <!-- spoon bowl -->
+      <ellipse cx="60" cy="72" rx="28" ry="34" fill="none" stroke="#cfc9e6" stroke-width="2.5" opacity="0.9" />
+      <ellipse cx="60" cy="72" rx="28" ry="34" fill="rgba(255,216,166,0.12)" />
+      <!-- inner glow -->
+      <ellipse cx="60" cy="68" rx="16" ry="20" fill="none" stroke="rgba(255,216,166,0.4)" stroke-width="1.5">
+        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="2.5s" repeatCount="indefinite" />
+      </ellipse>
+      <!-- handle -->
+      <line x1="60" y1="106" x2="60" y2="165" stroke="#cfc9e6" stroke-width="3" stroke-linecap="round" opacity="0.8" />
+      <line x1="60" y1="106" x2="60" y2="165" stroke="rgba(255,216,166,0.25)" stroke-width="3" stroke-linecap="round" />
+      <!-- handle end dot -->
+      <circle cx="60" cy="165" r="4" fill="#cfc9e6" opacity="0.7">
+        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <!-- soup fill -->
+      <ellipse cx="60" cy="78" rx="20" ry="22" fill="rgba(255,204,128,0.2)">
+        <animate attributeName="ry" values="22;20;22" dur="3s" repeatCount="indefinite" />
+      </ellipse>
+      <!-- steam -->
+      <path class="steam" d="M50 52 Q48 40 52 30" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round" />
+      <path class="steam" d="M60 48 Q62 36 58 26" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round" />
+      <path class="steam" d="M70 52 Q72 40 68 30" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" stroke-linecap="round" />
+      <!-- outer glow -->
+      <ellipse cx="60" cy="72" rx="34" ry="40" fill="none" stroke="rgba(255,216,166,0.15)" stroke-width="8">
+        <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.5s" repeatCount="indefinite" />
+      </ellipse>
+    </svg>
+  </div>
+
+  <div class="story-text">
+    <p>厨房的抽屉里，住着一只小汤匙。它亮亮的，弯弯的，握在手里刚刚好。可是小汤匙总觉得自己很普通——锅子可以煮一大锅汤，碗可以装好多好多饭，盘子又大又漂亮，而自己呢，小小的，每次只能舀一点点。</p>
+
+    <p>“唉，”小汤匙叹了口气，“我好像没什么大用处呢。”</p>
+
+    <p>那天晚上，窗外下起了雨。屋子里的小主人发了烧，脸蛋红扑扑的，窝在被子里闷闷不乐。妈妈在厨房里忙了好一阵子，端来一碗热腾腾的南瓜汤，金黄金黄的，飘着甜甜的香气。</p>
+
+    <p>“来，喝点汤，暖暖身子。”妈妈轻轻地说。</p>
+
+    <p>可是小主人浑身没力气，靠在枕头上，连拿起大勺子的劲儿都没有。妈妈想了想，打开抽屉，把小汤匙拿了出来。</p>
+
+    <p>小汤匙被妈妈温暖的手握着，心里又紧张又高兴——终于轮到它了！</p>
+
+    <p>妈妈用小汤匙舀起一勺汤，轻轻地吹了吹，送到小主人的嘴边。南瓜汤暖暖的、甜甜的，顺着小汤匙滑进小主人的嘴里。一口，又一口，每一勺都刚好不多也不少。</p>
+
+    <p>小主人的眉头慢慢松开了，脸蛋也没有那么红了。喝到第七勺的时候，小主人竟然微微笑了一下，轻声说：“妈妈，好暖和呀。”</p>
+
+    <p>小汤匙听着，心里涌起一股从没有过的感觉——原来，不是只有大锅大碗才有用。自己虽然小，却能把温暖一口一口地送到小主人的心里。</p>
+
+    <p>夜深了，小主人安稳地睡着了。妈��把小汤匙洗干净，放回抽屉里。小汤匙躺在自己的小格子中，第一次觉得自己的位置那么好，那么刚刚好。</p>
+
+    <p>它终于明白了：有些爱不用很大很大，一勺一勺，刚刚好就够了。</p>
+  </div>
+
+  <div class="separator">
+    <span class="sep-dot"></span>
+    <span class="sep-dot"></span>
+    <span class="sep-dot"></span>
+    <span class="sep-dot"></span>
+    <span class="sep-dot"></span>
+    <span class="sep-dot"></span>
+    <span class="sep-dot"></span>
+  </div>
+
+  <div class="goodnight">
+    <span class="wave">🌙</span>
+    <p>晚安，小宝贝。<br>小汤匙说，你今天也是个好孩子，<br>该做一个甜甜的、暖暖的梦了。</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  // Generate 110 random twinkling stars
+  var sky = document.getElementById('sky');
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < 110; i++) {
+    var star = document.createElement('div');
+    star.className = 'star';
+    var size = Math.random() * 2.8 + 1.2;
+    star.style.cssText =
+      'width:' + size + 'px;' +
+      'height:' + size + 'px;' +
+      'left:' + (Math.random() * 94 + 1) + '%;' +
+      'top:' + (Math.random() * 88 + 1) + '%;' +
+      '--dur:' + (Math.random() * 2.5 + 2) + 's;' +
+      'animation-delay:' + (Math.random() * 3) + 's;';
+    fragment.appendChild(star);
+  }
+  sky.appendChild(fragment);
+})();
+</script>
+
+</body>
+</html>

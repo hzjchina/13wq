@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 霸王别姬 (2026-07-18)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0606;
+    color: #e0d8d8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(ellipse at 75% 40%, rgba(139,32,32,0.4) 0%, transparent 50%),
+      radial-gradient(ellipse at 25% 70%, rgba(180,140,60,0.2) 0%, transparent 45%),
+      linear-gradient(135deg, #0c0606 0%, #1a0a0a 25%, #2a1010 50%, #4a1818 70%, #6b2020 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 60% 45%, rgba(200,160,60,0.08) 0%, transparent 35%),
+      linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 100%);
+    z-index: 1;
+  }
+
+  .opera-mask {
+    position: absolute;
+    top: 10%;
+    right: 12%;
+    width: 120px;
+    height: 160px;
+    z-index: 2;
+    opacity: 0.1;
+    background:
+      radial-gradient(ellipse at 50% 35%, rgba(220,180,60,0.8) 0%, transparent 50%),
+      radial-gradient(circle at 35% 45%, rgba(0,0,0,0.9) 0%, transparent 12%),
+      radial-gradient(circle at 65% 45%, rgba(0,0,0,0.9) 0%, transparent 12%),
+      radial-gradient(ellipse at 50% 80%, rgba(200,40,40,0.5) 0%, transparent 40%);
+    transform: rotate(-5deg);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 0 40px rgba(139,32,32,0.4);
+    letter-spacing: 6px;
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(200,170,160,0.6);
+    font-weight: 300;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(139,32,32,0.2);
+    border-color: rgba(180,60,60,0.4);
+    color: #d4a0a0;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #120808, #0a0606);
+    border: 1px solid rgba(139,32,32,0.12);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #8b2020;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a0a0;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(139,32,32,0.05);
+    border: 1px solid rgba(139,32,32,0.12);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a0a0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .highlights li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: #8b2020;
+    font-size: 10px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #120808, #0a0606);
+    border-left: 3px solid #8b2020;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(139,32,32,0.05), rgba(100,20,20,0.03));
+    border: 1px solid rgba(139,32,32,0.12);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #3a3030;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 1 8</div>
+
+  <div class="hero">
+    <div class="opera-mask"></div>
+    <div class="hero-content">
+      <h1>霸王别姬</h1>
+      <div class="original-title">Farewell My Concubine · 1993 · 中国</div>
+      <div class="hero-meta">
+        <span class="tag">陈凯歌 导演</span>
+        <span class="tag">张国荣 / 张丰毅 / 巩俐 主演</span>
+        <span class="tag gold">剧情 / 爱情</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.1</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.6</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">88%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      1924年的北平，妓女艳红将亲生儿子小豆子送入喜福成科班学戏。小豆子天生六指，被师父切去多余的手指后，从此以旦角行当学艺。师兄小石头对他照拂有加，两人合演《霸王别姬》日渐默契——小石头演楚霸王，小豆子演虞姬，一出戏，唱得满堂喝彩。
+      多年后，两人以"段小楼"和"程蝶衣"的艺名红遍京城。蝶衣入戏太深，人戏不分，将对师兄的情义混入了虞姬对霸王的忠贞之中。然而段小楼娶了妓院出身的菊仙，三人之间的纠葛从此缠绕不去。时代的车轮从民国碾到日军侵华、内战、新中国成立直至文革，蝶衣的戏、蝶衣的情、蝶衣的执念，在历史风暴中一次次被撕扯、扭曲、碾碎。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>张国荣饰演的程蝶衣，是中国银幕史上最令人心碎的角色之一——他不是在"演"虞姬，他"是"虞姬，人戏不分的痴迷成就了影史绝唱</li>
+      <li>影片横跨半个世纪，将京剧艺术的兴衰与个人命运的沉浮编织在一起，以一出戏照见一个时代</li>
+      <li>陈凯歌以极致的视觉语言呈现京剧之美：脸谱、水袖、唱腔，每一帧都浸透着东方美学的浓烈与苍凉</li>
+      <li>巩俐饰演的菊仙，用精明的市井智慧包裹着一颗炽烈的心，与蝶衣形成了令人唏嘘的三角关系</li>
+      <li>赵季平的配乐融合京剧唱腔与交响乐，悲怆而不失华美，与影像浑然一体</li>
+      <li>文革批斗那场戏是中国电影最震撼的段落之一——不是靠暴力，而是靠人性的坍塌</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 第 46 届戛纳电影节金棕榈奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 戛纳国际影评人联盟奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 第 51 届金球奖最佳外语片</div>
+      <div class="award-item"><span class="icon">🏆</span> 第 66 届奥斯卡最佳外语片提名</div>
+      <div class="award-item"><span class="icon">🏆</span> 英国电影学院奖最佳外语片提名</div>
+      <div class="award-item"><span class="icon">🏆</span> 纽约影评人协会奖最佳外语片</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"说好了一辈子，少一年、一个月、一天、一个时辰，都不算一辈子。"</p>
+    <div class="source">—— 程蝶衣</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        《霸王别姬》之所以被公认为华语电影的巅峰，不在于它讲了一个多么离奇的故事，而在于它用一个"痴"字，贯穿了个人、艺术与时代三个维度。程蝶衣的"痴"是对戏的痴、对人的痴、对承诺的痴——在兵荒马乱、朝令夕改的半个世纪里，这种痴既是唯一的纯粹，也是最致命的脆弱。
+        它也是极少数能把"时代"拍成角色而非背景的电影。北洋军阀、日军铁蹄、国共内战、土改、文革——每一段历史都不只是时间线，而是实质性地改变了人物的选择与命运。你会看到，在一个不允许纯粹的时代里，纯粹的人是如何被碾碎的。
+        但它不是一首纯粹的挽歌。菊仙的精明、段小楼的妥协、蝶衣的执拗——三种面对时代的姿态，没有谁对谁错，只有命运的无情。影片最后，尘封多年的戏台上，蝶衣最后一次唱起《霸王别姬》，那一刻你会明白：有些戏，一生只唱一次，却要用一生来谢幕。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    不疯魔，不成活 · 第 23 期
+  </div>
+
+</div>
+</body>
+</html>

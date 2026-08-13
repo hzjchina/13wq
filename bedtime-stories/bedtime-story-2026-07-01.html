@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>小贝壳的悄悄话 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow-x: hidden; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: radial-gradient(ellipse at 50% 0%, #1c3a5a 0%, #0d1f35 60%, #060e1c 100%);
+    color: #dce8ff;
+    min-height: 100vh;
+    position: relative;
+    padding: 0 0 60px 0;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.9;
+  }
+
+  /* 星云背景 */
+  .nebula {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.3;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .nebula.n1 { width: 500px; height: 500px; background: #3a7090; top: -100px; left: -150px; animation: drift 22s ease-in-out infinite; }
+  .nebula.n2 { width: 400px; height: 400px; background: #5a7faa; bottom: -100px; right: -100px; animation: drift 28s ease-in-out infinite reverse; }
+  .nebula.n3 { width: 350px; height: 350px; background: #4a8fa8; top: 45%; right: 8%; animation: drift 32s ease-in-out infinite; }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(1.1); }
+  }
+
+  /* 星空 */
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fff, 0 0 12px rgba(255,255,255,0.5);
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--min-o, 0.2); transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.4); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    top: 18%;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    border-radius: 50%;
+    opacity: 0;
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 2;
+    animation: shoot 8s linear infinite;
+    animation-delay: 5s;
+  }
+  @keyframes shoot {
+    0% { left: -10%; top: 18%; opacity: 0; }
+    3% { opacity: 1; }
+    15% { left: 110%; top: 38%; opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 6%;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fffbe8 0%, #fde9b8 40%, #f5c97a 100%);
+    box-shadow: 0 0 40px rgba(253, 220, 130, 0.6), 0 0 80px rgba(253, 220, 130, 0.3);
+    z-index: 1;
+    animation: moonFloat 6s ease-in-out infinite;
+  }
+  .moon::before {
+    content: "";
+    position: absolute;
+    top: 18%;
+    left: 22%;
+    width: 14px;
+    height: 14px;
+    background: rgba(200, 170, 100, 0.3);
+    border-radius: 50%;
+  }
+  .moon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    width: 10px;
+    height: 10px;
+    background: rgba(200, 170, 100, 0.25);
+    border-radius: 50%;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* 海浪波纹 */
+  .wave-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .wave {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 60px;
+    background: rgba(100, 180, 220, 0.06);
+    border-radius: 100% 100% 0 0;
+  }
+  .wave.w1 { animation: waveMove 8s ease-in-out infinite; }
+  .wave.w2 { animation: waveMove 10s ease-in-out infinite reverse; height: 40px; background: rgba(120, 200, 240, 0.05); }
+  .wave.w3 { animation: waveMove 12s ease-in-out infinite; height: 25px; background: rgba(140, 210, 250, 0.04); }
+  @keyframes waveMove {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-5%) translateY(-4px); }
+  }
+
+  /* 容器 */
+  .container {
+    position: relative;
+    z-index: 5;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 28px 40px;
+  }
+
+  /* 标题 */
+  .title-wrap { text-align: center; margin-bottom: 40px; animation: fadeInDown 1.2s ease-out; }
+  @keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  h1 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #fff7d6;
+    text-shadow: 0 0 20px rgba(180, 220, 255, 0.5), 0 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 12px;
+    letter-spacing: 4px;
+    animation: titleFloat 4s ease-in-out infinite;
+  }
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #a8b8e0;
+    letter-spacing: 6px;
+    font-weight: 300;
+  }
+
+  /* 贝壳插图 */
+  .shell-illustration {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 36px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
+  .shell-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px rgba(160, 210, 255, 0.45)); }
+  /* 贝壳光晕 */
+  .shell-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px;
+    height: 160px;
+    background: radial-gradient(circle, rgba(180, 220, 255, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glowPulse 3s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes glowPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+  }
+
+  /* 沙滩小颗粒 */
+  .sand-grains {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: -20px;
+    margin-bottom: 20px;
+  }
+  .sand-grain {
+    width: 6px;
+    height: 6px;
+    background: rgba(210, 200, 180, 0.4);
+    border-radius: 2px;
+    animation: sandShift 4s ease-in-out infinite;
+  }
+  .sand-grain:nth-child(2n) { animation-delay: 1s; animation-duration: 3s; }
+  .sand-grain:nth-child(3n) { animation-delay: 2s; animation-duration: 5s; }
+  @keyframes sandShift {
+    0%, 100% { opacity: 0.2; transform: translateY(0); }
+    50% { opacity: 0.6; transform: translateY(-3px); }
+  }
+
+  /* 故事卡片 */
+  .story-card {
+    background: linear-gradient(135deg, rgba(25, 50, 80, 0.55) 0%, rgba(15, 30, 55, 0.6) 100%);
+    border: 1px solid rgba(140, 200, 240, 0.15);
+    border-radius: 20px;
+    padding: 40px 36px;
+    margin-bottom: 36px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+    animation: fadeIn 1.5s ease-out 0.4s both;
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .story-card p {
+    font-size: 18px;
+    line-height: 2.1;
+    color: #e0e8ff;
+    margin-bottom: 18px;
+    text-align: justify;
+    text-indent: 2em;
+    letter-spacing: 0.5px;
+  }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin: 40px auto 20px;
+    padding: 32px 24px;
+    background: linear-gradient(135deg, rgba(60, 80, 140, 0.35) 0%, rgba(40, 55, 110, 0.35) 100%);
+    border: 1px solid rgba(160, 200, 240, 0.2);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 1.5s ease-out 0.8s both;
+  }
+  .goodnight::before {
+    content: "🌟";
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    font-size: 28px;
+    opacity: 0.5;
+    animation: starPulse 3s ease-in-out infinite;
+  }
+  @keyframes starPulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.2); opacity: 0.8; }
+  }
+  .goodnight-title {
+    font-size: 22px;
+    color: #b8d8f0;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: 3px;
+  }
+  .goodnight-text {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #d8e0ff;
+    letter-spacing: 0.5px;
+  }
+
+  /* 装饰小元素 */
+  .footer-stars {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+    animation: fadeIn 1.5s ease-out 1.2s both;
+  }
+  .footer-stars span {
+    color: #c8e0ff;
+    font-size: 18px;
+    animation: starGlow 2s ease-in-out infinite;
+  }
+  .footer-stars span:nth-child(1) { animation-delay: 0s; }
+  .footer-stars span:nth-child(2) { animation-delay: 0.3s; }
+  .footer-stars span:nth-child(3) { animation-delay: 0.6s; }
+  .footer-stars span:nth-child(4) { animation-delay: 0.9s; }
+  .footer-stars span:nth-child(5) { animation-delay: 1.2s; }
+  @keyframes starGlow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); text-shadow: 0 0 12px #c8e0ff; }
+  }
+  .meta {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 12px;
+    color: #5a7aa0;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 40px 18px 30px; }
+    h1 { font-size: 30px; letter-spacing: 2px; }
+    .subtitle { font-size: 13px; letter-spacing: 4px; }
+    .story-card { padding: 28px 22px; border-radius: 16px; }
+    .story-card p { font-size: 16.5px; line-height: 2; }
+    .moon { width: 60px; height: 60px; top: 4%; right: 5%; }
+    .shell-illustration { width: 170px; height: 170px; }
+    .goodnight-title { font-size: 20px; }
+    .goodnight-text { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nebula n1"></div>
+<div class="nebula n2"></div>
+<div class="nebula n3"></div>
+
+<div class="stars" id="stars"></div>
+<div class="shooting-star"></div>
+<div class="moon"></div>
+
+<div class="wave-container">
+  <div class="wave w1"></div>
+  <div class="wave w2"></div>
+  <div class="wave w3"></div>
+</div>
+
+<div class="container">
+  <div class="title-wrap">
+    <h1>小贝壳的悄悄话</h1>
+    <div class="subtitle">· 写给宝贝的睡前故事 ·</div>
+  </div>
+
+  <div class="shell-illustration">
+    <div class="shell-glow"></div>
+    <svg class="shell-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- 沙滩底座 -->
+      <ellipse cx="100" cy="180" rx="70" ry="10" fill="rgba(210, 200, 180, 0.25)"/>
+      <!-- 贝壳底部 -->
+      <ellipse cx="100" cy="175" rx="55" ry="8" fill="rgba(210, 200, 180, 0.3)"/>
+      <!-- 贝壳主体 -->
+      <path d="M 45 170 C 45 100, 70 40, 100 30 C 130 40, 155 100, 155 170 Z" fill="rgba(240, 235, 225, 0.9)" stroke="rgba(190, 180, 165, 0.7)" stroke-width="1"/>
+      <!-- 贝壳纹理 - 左侧 */
+      <path d="M 100 50 C 75 75, 55 120, 50 165" fill="none" stroke="rgba(190, 180, 165, 0.55)" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M 100 55 C 80 80, 65 125, 58 168" fill="none" stroke="rgba(190, 180, 165, 0.4)" stroke-width="1" stroke-linecap="round"/>
+      <path d="M 100 65 C 85 85, 72 128, 65 170" fill="none" stroke="rgba(190, 180, 165, 0.35)" stroke-width="0.8" stroke-linecap="round"/>
+      <!-- 贝壳纹理 - 右侧 -->
+      <path d="M 100 50 C 125 75, 145 120, 150 165" fill="none" stroke="rgba(190, 180, 165, 0.55)" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M 100 55 C 120 80, 135 125, 142 168" fill="none" stroke="rgba(190, 180, 165, 0.4)" stroke-width="1" stroke-linecap="round"/>
+      <path d="M 100 65 C 115 85, 128 128, 135 170" fill="none" stroke="rgba(190, 180, 165, 0.35)" stroke-width="0.8" stroke-linecap="round"/>
+      <!-- 贝壳中心线 -->
+      <path d="M 100 30 L 100 172" stroke="rgba(180, 170, 155, 0.5)" stroke-width="1"/>
+      <!-- 珍珠光点 -->
+      <circle cx="100" cy="90" r="4" fill="rgba(255, 240, 220, 0.9)"/>
+      <circle cx="100" cy="90" r="2" fill="rgba(255, 255, 255, 0.95)"/>
+      <circle cx="110" cy="115" r="3" fill="rgba(255, 240, 220, 0.8)"/>
+      <circle cx="88" cy="130" r="2.5" fill="rgba(255, 240, 220, 0.75)"/>
+      <!-- 贝壳顶部小尖 -->
+      <circle cx="100" cy="30" r="2.5" fill="rgba(220, 210, 190, 0.8)"/>
+    </svg>
+  </div>
+  <div class="sand-grains">
+    <div class="sand-grain"></div><div class="sand-grain"></div><div class="sand-grain"></div>
+    <div class="sand-grain"></div><div class="sand-grain"></div><div class="sand-grain"></div>
+    <div class="sand-grain"></div><div class="sand-grain"></div><div class="sand-grain"></div>
+    <div class="sand-grain"></div><div class="sand-grain"></div><div class="sand-grain"></div>
+  </div>
+
+  <div class="story-card">
+    <p>大海的边上，躺着一枚小小的贝壳。她不是最大最亮的，也没有最漂亮的条纹，可是她有一颗会听的心。</p>
+    <p>每天，海浪把她往前推一点，又往回拉一点。哗啦——哗啦——大海在她的耳朵里说了好多好多的悄悄话。</p>
+    <p>大海告诉她，远处的鲸鱼今天唱了一首新歌。大海告诉她，海底的鱼儿在月光照到水面的地方，排成一排，像一串会发光的珍珠。大海还告诉她，月亮圆的时候，潮水会悄悄地涨起来，像给沙滩盖上一床银色的被子。</p>
+    <p>小贝壳把这些话，一句一句地记在心里。</p>
+    <p>有一天晚上，一个小女孩光着脚走到了沙滩上。她睡不着，星星在天上眨眼睛，可她的眼睛还是睁得大大的。</p>
+    <p>"你也睡不着吗？"小贝壳轻轻地开口了。</p>
+    <p>小女孩蹲下来，把小贝壳捧在手心里，好奇地看着她。"嗯，我今天有好多好多的事情在想，怎么也停不下来。"</p>
+    <p>"那你听听我呀，"小贝壳温柔地说。</p>
+    <p>小女孩把小贝壳贴到耳朵边上——哗啦，哗啦。她听到了大海的声音，那声音又慢又柔，像妈妈在哼一首没有歌词的歌。</p>
+    <p>"大海在说什么呀？"小女孩问。</p>
+    <p>小贝壳笑了："大海说，孩子，不用着急。明天的太阳会照常升起来，今天没有做完的事情可以明天再做。现在，你只需要闭上眼睛，安安静静地呼吸。"</p>
+    <p>小女孩又听了一会儿。哗啦——哗啦——大海的声音越来越轻，越来越远，像一只温暖的手，一下一下地拍着她的背。</p>
+    <p>小贝壳说："你看，大海每天要收下那么多浪花，那么多小鱼，那么多月光……可是到了晚上，它也安安静静地睡着了。它说，每一个孩子，都值得一个甜甜的梦。"</p>
+    <p>"谢谢你，小贝壳。"小女孩打了个大大的哈欠。"我觉得困了。"</p>
+    <p>小贝壳轻轻地说："晚安啦，明天我再告诉你大海的新的悄悄话。"</p>
+    <p>小女孩小心翼翼地把小贝壳放回软软的沙子上，走回家，钻进被窝。枕头软软的，被子暖暖的，她的眼睛一下子就闭上了。梦里，她光着脚站在沙滩上，小贝壳在她掌心里，一遍一遍地说着大海的温柔。</p>
+  </div>
+
+  <div class="goodnight">
+    <div class="goodnight-title">晚安 · 宝贝</div>
+    <div class="goodnight-text">
+      晚安，小宝贝。<br>
+      小贝壳说，这个世界充满了温柔的声音——<br>
+      只要你安静地听，<br>
+      就会听见大海在对你说：<br>
+      你是被深深爱着的。<br>
+      该做一个甜甜的梦了。
+    </div>
+  </div>
+
+  <div class="footer-stars">
+    <span>✦</span>
+    <span>✧</span>
+    <span>✦</span>
+    <span>✧</span>
+    <span>✦</span>
+  </div>
+
+  <div class="meta">2026年7月1日 · 一个温柔的夜晚</div>
+</div>
+
+<script>
+  // 生成 100 颗星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.4 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.setProperty('--delay', Math.random() * 5 + 's');
+    star.style.setProperty('--min-o', (0.2 + Math.random() * 0.4));
+    starsContainer.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

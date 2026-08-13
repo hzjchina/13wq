@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小信鸽的第一封信 — 儿童睡前故事</title>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: radial-gradient(ellipse at 50% 30%, #1a1a3e 0%, #0d0d2b 40%, #050515 100%);
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+            color: #e8e0d4;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        /* === Stars Container === */
+        .stars-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle var(--dur) ease-in-out infinite;
+            animation-delay: var(--delay);
+            opacity: 0.3;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.4); }
+        }
+
+        /* === Moon === */
+        .moon-wrapper {
+            position: fixed;
+            top: 6%;
+            right: 12%;
+            width: 90px;
+            height: 90px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .moon {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fffbe6, #f5e6a3 40%, #e8d48b 100%);
+            box-shadow:
+                0 0 40px rgba(245, 230, 163, 0.5),
+                0 0 80px rgba(245, 230, 163, 0.25),
+                0 0 120px rgba(245, 230, 163, 0.12);
+            animation: moon-float 6s ease-in-out infinite, moon-glow 4s ease-in-out infinite;
+        }
+        @keyframes moon-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes moon-glow {
+            0%, 100% { box-shadow: 0 0 40px rgba(245,230,163,0.5), 0 0 80px rgba(245,230,163,0.25), 0 0 120px rgba(245,230,163,0.12); }
+            50% { box-shadow: 0 0 50px rgba(245,230,163,0.7), 0 0 100px rgba(245,230,163,0.4), 0 0 150px rgba(245,230,163,0.2); }
+        }
+
+        /* === Meteor === */
+        .meteor {
+            position: fixed;
+            width: 2px;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9));
+            border-radius: 50%;
+            z-index: 1;
+            pointer-events: none;
+            animation: meteor-fall var(--m-dur) linear infinite;
+            animation-delay: var(--m-delay);
+            opacity: 0;
+        }
+        @keyframes meteor-fall {
+            0% { opacity: 0; transform: translate(0, 0) rotate(-35deg); }
+            5% { opacity: 1; }
+            15% { opacity: 0; transform: translate(-120px, 200px) rotate(-35deg); }
+            100% { opacity: 0; transform: translate(-120px, 200px) rotate(-35deg); }
+        }
+
+        /* === Main Content === */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 680px;
+            margin-top: 1.5rem;
+        }
+
+        /* === Title === */
+        .story-title {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .story-title h1 {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 700;
+            color: #f5e6a3;
+            letter-spacing: 0.06em;
+            text-shadow: 0 0 30px rgba(245,230,163,0.4), 0 0 60px rgba(245,230,163,0.15);
+            animation: title-glow 4s ease-in-out infinite;
+        }
+        @keyframes title-glow {
+            0%, 100% { text-shadow: 0 0 30px rgba(245,230,163,0.4), 0 0 60px rgba(245,230,163,0.15); }
+            50% { text-shadow: 0 0 40px rgba(245,230,163,0.65), 0 0 80px rgba(245,230,163,0.3); }
+        }
+        .title-date {
+            font-size: 0.85rem;
+            color: rgba(232,224,212,0.45);
+            margin-top: 0.5rem;
+            letter-spacing: 0.1em;
+        }
+
+        /* === SVG Illustration === */
+        .illustration {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        .illustration svg {
+            width: min(200px, 50vw);
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(245,230,163,0.25));
+            animation: pigeon-float 4s ease-in-out infinite;
+        }
+        @keyframes pigeon-float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-6px) rotate(-1deg); }
+            75% { transform: translateY(-6px) rotate(1deg); }
+        }
+        .env-letter {
+            animation: letter-breathe 3s ease-in-out infinite;
+            transform-origin: center;
+        }
+        @keyframes letter-breathe {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        /* === Story Text === */
+        .story-body {
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 2rem 1.8rem;
+            border: 1px solid rgba(245,230,163,0.08);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            line-height: 2.2;
+            font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+            letter-spacing: 0.03em;
+            color: rgba(232,224,212,0.85);
+            margin-bottom: 2.5rem;
+        }
+        .story-body p {
+            margin-bottom: 1.2rem;
+            text-indent: 2em;
+        }
+        .story-body p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* === Story Divider === */
+        .story-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 2.5rem;
+        }
+        .story-divider .dot {
+            width: 6px;
+            height: 6px;
+            background: rgba(245,230,163,0.5);
+            border-radius: 50%;
+        }
+        .story-divider .dot:nth-child(1) { animation: divider-breathe 2s ease-in-out infinite; }
+        .story-divider .dot:nth-child(2) { animation: divider-breathe 2s ease-in-out 0.3s infinite; }
+        .story-divider .dot:nth-child(3) { animation: divider-breathe 2s ease-in-out 0.6s infinite; }
+        .story-divider .dot:nth-child(4) { animation: divider-breathe 2s ease-in-out 0.9s infinite; }
+        .story-divider .dot:nth-child(5) { animation: divider-breathe 2s ease-in-out 1.2s infinite; }
+        @keyframes divider-breathe {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.8); }
+        }
+
+        /* === Goodnight === */
+        .goodnight {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: rgba(245,230,163,0.04);
+            border-radius: 20px;
+            border: 1px solid rgba(245,230,163,0.1);
+            margin-bottom: 3rem;
+        }
+        .goodnight p {
+            font-size: clamp(1rem, 2.2vw, 1.15rem);
+            color: rgba(245,230,163,0.75);
+            line-height: 2;
+            letter-spacing: 0.05em;
+            animation: goodnight-glow 4s ease-in-out infinite;
+        }
+        @keyframes goodnight-glow {
+            0%, 100% { color: rgba(245,230,163,0.75); }
+            50% { color: rgba(245,230,163,0.95); }
+        }
+        .goodnight .moon-emoji {
+            display: inline-block;
+            animation: moon-emoji-float 2.5s ease-in-out infinite;
+            font-size: 1.4em;
+        }
+        @keyframes moon-emoji-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* === Floating Warm Particles === */
+        .warm-particles {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .warm-particle {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            background: radial-gradient(circle, rgba(245,230,163,0.6), rgba(245,230,163,0));
+            border-radius: 50%;
+            animation: float-up var(--dur) ease-in infinite;
+            animation-delay: var(--delay);
+            bottom: -20px;
+            left: var(--left);
+        }
+        @keyframes float-up {
+            0% { transform: translateY(0) scale(0.5); opacity: 0; }
+            15% { opacity: 0.7; }
+            85% { opacity: 0.2; }
+            100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+        }
+
+        /* === Bottom Glow Bar === */
+        .bottom-glow {
+            position: fixed;
+            bottom: 0; left: 10%;
+            width: 80%; height: 3px;
+            background: linear-gradient(90deg, transparent, rgba(245,230,163,0.3), transparent);
+            border-radius: 50%;
+            z-index: 5;
+            pointer-events: none;
+            animation: bottom-glow-breathe 5s ease-in-out infinite;
+        }
+        @keyframes bottom-glow-breathe {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.7; }
+        }
+
+        /* === Footer === */
+        .footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(232,224,212,0.25);
+            margin-top: auto;
+            padding-top: 2rem;
+            letter-spacing: 0.06em;
+        }
+
+        /* === Responsive === */
+        @media (max-width: 480px) {
+            body {
+                padding: 1.2rem 1rem 3rem;
+            }
+            .story-body {
+                padding: 1.5rem 1.2rem;
+                line-height: 2;
+                font-size: 1rem;
+            }
+            .story-body p {
+                text-indent: 1.5em;
+                margin-bottom: 1rem;
+            }
+            .moon-wrapper {
+                width: 60px;
+                height: 60px;
+                top: 4%;
+                right: 8%;
+            }
+            .story-title h1 {
+                font-size: 1.4rem;
+            }
+            .goodnight {
+                padding: 1.5rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Stars -->
+    <div class="stars-container" id="stars"></div>
+
+    <!-- Moon -->
+    <div class="moon-wrapper"><div class="moon"></div></div>
+
+    <!-- Meteors -->
+    <div class="meteor" style="top: 5%; left: 25%; --m-dur: 9s; --m-delay: 2s;"></div>
+    <div class="meteor" style="top: 8%; left: 55%; --m-dur: 11s; --m-delay: 6s;"></div>
+
+    <!-- Warm particles -->
+    <div class="warm-particles" id="particles"></div>
+
+    <!-- Bottom glow -->
+    <div class="bottom-glow"></div>
+
+    <!-- Main Content -->
+    <div class="content-wrapper">
+
+        <!-- Title -->
+        <div class="story-title">
+            <h1>小信鸽的第一封信</h1>
+            <div class="title-date">2026年7月30日 · 睡前故事</div>
+        </div>
+
+        <!-- SVG Illustration: A little pigeon holding a letter -->
+        <div class="illustration">
+            <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+                <!-- Body -->
+                <ellipse cx="100" cy="105" rx="40" ry="32" fill="#f0ead6" opacity="0.9"/>
+                <!-- Wing -->
+                <ellipse cx="115" cy="95" rx="28" ry="18" fill="#e8dcc8" transform="rotate(-15 115 95)" opacity="0.85"/>
+                <!-- Wing feather detail -->
+                <path d="M120 85 Q135 92 128 100" fill="none" stroke="#d4c8b0" stroke-width="1" opacity="0.5"/>
+                <path d="M118 88 Q133 95 126 103" fill="none" stroke="#d4c8b0" stroke-width="1" opacity="0.5"/>
+                <!-- Head -->
+                <circle cx="70" cy="82" r="20" fill="#f5efe0" opacity="0.95"/>
+                <!-- Eye -->
+                <circle cx="62" cy="78" r="3" fill="#3a2a1a"/>
+                <circle cx="61" cy="77" r="1" fill="#fff" opacity="0.8"/>
+                <!-- Beak -->
+                <polygon points="52,82 42,84 52,86" fill="#e8a840" opacity="0.9"/>
+                <!-- Cheek blush -->
+                <ellipse cx="72" cy="86" rx="5" ry="3" fill="#f0a0a0" opacity="0.35"/>
+                <!-- Tail feathers -->
+                <path d="M140 98 L155 88 L153 94" fill="#e0d4b8" opacity="0.7"/>
+                <path d="M140 105 L158 100 L155 106" fill="#d8ccb0" opacity="0.7"/>
+                <path d="M140 112 L153 114 L150 118" fill="#e0d4b8" opacity="0.7"/>
+                <!-- Feet -->
+                <line x1="90" y1="135" x2="88" y2="148" stroke="#e8a840" stroke-width="2" opacity="0.7"/>
+                <line x1="88" y1="148" x2="82" y2="150" stroke="#e8a840" stroke-width="1.5" opacity="0.7"/>
+                <line x1="88" y1="148" x2="90" y2="152" stroke="#e8a840" stroke-width="1.5" opacity="0.7"/>
+                <line x1="88" y1="148" x2="95" y2="150" stroke="#e8a840" stroke-width="1.5" opacity="0.7"/>
+                <line x1="105" y1="135" x2="107" y2="148" stroke="#e8a840" stroke-width="2" opacity="0.7"/>
+                <line x1="107" y1="148" x2="101" y2="150" stroke="#e8a840" stroke-width="1.5" opacity="0.7"/>
+                <line x1="107" y1="148" x2="109" y2="152" stroke="#e8a840" stroke-width="1.5" opacity="0.7"/>
+                <line x1="107" y1="148" x2="114" y2="150" stroke="#e8a840" stroke-width="1.5" opacity="0.7"/>
+                <!-- Letter/Envelope held in beak area -->
+                <g class="env-letter">
+                    <rect x="35" y="80" width="22" height="15" rx="2" fill="#fffbe6" opacity="0.9" stroke="#e8d48b" stroke-width="0.8"/>
+                    <path d="M35 80 L46 89 L57 80" fill="none" stroke="#e8d48b" stroke-width="0.6" opacity="0.7"/>
+                    <circle cx="46" cy="87.5" r="2.5" fill="#e84040" opacity="0.7"/>
+                </g>
+                <!-- Chest glow -->
+                <ellipse cx="85" cy="108" rx="12" ry="8" fill="#f5e6a3" opacity="0.15"/>
+            </svg>
+        </div>
+
+        <!-- Story Body -->
+        <div class="story-body">
+            <p>在森林的边上，有一间小小的鸽舍。鸽舍里住着一只叫豆豆的小信鸽。</p>
+            <p>豆豆刚刚学会了飞翔，白色的羽毛在阳光下闪闪发亮。可豆豆心里总有点小小的担心——「我真的能把信送到吗？万一迷路了怎么办？」</p>
+            <p>一天傍晚，鸽舍的门被轻轻推开了。是一位老奶奶，她手里拿着一封信，信封上歪歪扭扭地写着几个字：小城东边的红屋顶。</p>
+            <p>「豆豆，」老奶奶轻声说，「这是我给孙子的信，他今晚要一个人睡觉，会害怕的。你能帮我把这个送给他吗？」</p>
+            <p>豆豆的心怦怦跳起来。这是它的<strong>第一次</strong>���信任务！</p>
+            <p>老奶奶温柔地摸了摸豆豆的头：「别怕，你飞的方向，就是月亮升起的方向。顺着月光走，就能找到红屋顶。」</p>
+            <p>豆豆衔起信，张开翅膀，飞进了渐渐暗下来的天空。</p>
+            <p>飞着飞着，天越来越黑。豆豆有点害怕了。忽然，一轮圆圆的月亮从远处的山后升了起来，洒下一片银色的光，像给大地铺了一条亮晶晶的路。</p>
+            <p>「顺着月光走……」豆豆想起��奶奶的话，心里暖暖的。它沿着月光铺成的路，一直往前飞。</p>
+            <p>风来了，翅膀有点重。可豆豆低头看了看爪子里紧紧握着的那封信——信封还温温热热的，像老奶奶手心的温度。</p>
+            <p>「小男孩在等我呢。」豆豆鼓起勇气，继续飞。</p>
+            <p>终于，它看到了那个红屋顶。一个小男孩正坐在窗边，望着天空。</p>
+            <p>豆豆轻轻落在窗台上，把信递了过去。小男孩打开信，里面老奶奶写着：「别怕，奶奶的月亮也在天上看着你呢。晚安，我的宝贝。」</p>
+            <p>小男孩笑了，把信贴在胸口，安心地闭上了眼睛。</p>
+            <p>豆豆看着小男孩甜甜的睡脸，心里暖融融的。原来，自己小小的翅膀，也能送去那么大、那么多的爱。</p>
+            <p>那晚，豆豆飞回了鸽舍。老奶奶还在灯下等它，手里端着一小碟金黄的谷粒。豆豆开心地吃起来，一边吃一边想：明天还会有新的信、新的方向、新的温柔。</p>
+        </div>
+
+        <!-- Divider -->
+        <div class="story-divider">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+        </div>
+
+        <!-- Goodnight -->
+        <div class="goodnight">
+            <p><span class="moon-emoji">🌙</span></p>
+            <p>晚安，小宝贝。</p>
+            <p>小信鸽豆豆说，你今天也是个勇敢的好孩子。闭上眼睛吧，让月光铺一条最亮的路，带你飞进甜甜的梦里。</p>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>🦐 小虾米 · 每日睡前故事 · 2026.07.30</p>
+        </div>
+    </div>
+
+    <script>
+        // Generate stars
+        (function() {
+            var container = document.getElementById('stars');
+            var count = 110;
+            var frag = document.createDocumentFragment();
+            for (var i = 0; i < count; i++) {
+                var star = document.createElement('div');
+                star.className = 'star';
+                var size = Math.random() * 2.5 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--delay', (Math.random() * 4) + 's');
+                frag.appendChild(star);
+            }
+            container.appendChild(frag);
+        })();
+
+        // Generate warm particles
+        (function() {
+            var container = document.getElementById('particles');
+            var count = 8;
+            var frag = document.createDocumentFragment();
+            for (var i = 0; i < count; i++) {
+                var p = document.createElement('div');
+                p.className = 'warm-particle';
+                var size = Math.random() * 4 + 3;
+                p.style.setProperty('--size', size + 'px');
+                p.style.setProperty('--left', (Math.random() * 80 + 10) + '%');
+                p.style.setProperty('--dur', (Math.random() * 8 + 10) + 's');
+                p.style.setProperty('--delay', (Math.random() * 10) + 's');
+                frag.appendChild(p);
+            }
+            container.appendChild(frag);
+        })();
+    </script>
+</body>
+</html>

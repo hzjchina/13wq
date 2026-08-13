@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小毛线的围巾 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(180deg, #0a0e27 0%, #0d1b3e 30%, #142850 60%, #1a3155 100%);
+    color: #e8e8f0;
+    font-family: "Georgia", "Songti SC", "STSong", serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空容器 */
+  .starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e1, #ffe082 60%, #ffc107);
+    box-shadow:
+      0 0 30px rgba(255, 224, 130, 0.4),
+      0 0 60px rgba(255, 224, 130, 0.2),
+      0 0 100px rgba(255, 224, 130, 0.1);
+    animation: moonGlow 4s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 30px rgba(255,224,130,0.4), 0 0 60px rgba(255,224,130,0.2), 0 0 100px rgba(255,224,130,0.1); }
+    50% { box-shadow: 0 0 40px rgba(255,224,130,0.6), 0 0 80px rgba(255,224,130,0.3), 0 0 120px rgba(255,224,130,0.15); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(255,255,255,0.6);
+    z-index: 1;
+  }
+
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.6), transparent);
+    transform: translateX(-80px);
+  }
+
+  .shooting-star.s1 {
+    top: 15%; left: 80%;
+    animation: shoot1 8s ease-in infinite;
+    animation-delay: 2s;
+  }
+
+  .shooting-star.s2 {
+    top: 25%; left: 20%;
+    animation: shoot2 10s ease-in infinite;
+    animation-delay: 5s;
+  }
+
+  @keyframes shoot1 {
+    0% { transform: translate(0, 0); opacity: 0; }
+    5% { opacity: 1; }
+    20% { transform: translate(-200px, 150px); opacity: 0; }
+    100% { transform: translate(-200px, 150px); opacity: 0; }
+  }
+
+  @keyframes shoot2 {
+    0% { transform: translate(0, 0); opacity: 0; }
+    5% { opacity: 1; }
+    20% { transform: translate(250px, 180px); opacity: 0; }
+    100% { transform: translate(250px, 180px); opacity: 0; }
+  }
+
+  /* 内容容器 */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+
+  /* SVG 插图区 */
+  .illustration {
+    text-align: center;
+    margin-bottom: 30px;
+    animation: floatYarn 5s ease-in-out infinite;
+  }
+
+  @keyframes floatYarn {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .illustration svg {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 4px 20px rgba(100, 180, 255, 0.15));
+  }
+
+  /* 标题 */
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    color: #a8d8ff;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(168, 216, 255, 0.4), 0 0 40px rgba(168, 216, 255, 0.2);
+    animation: titleGlow 4s ease-in-out infinite;
+    letter-spacing: 2px;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(168,216,255,0.4), 0 0 40px rgba(168,216,255,0.2); }
+    50% { text-shadow: 0 0 30px rgba(168,216,255,0.6), 0 0 60px rgba(168,216,255,0.3); }
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(168, 216, 255, 0.5);
+    margin-bottom: 40px;
+    letter-spacing: 3px;
+  }
+
+  /* 故事正文 */
+  .story {
+    font-size: 1.15rem;
+    line-height: 2.1;
+    color: #d4d4e8;
+    text-align: justify;
+  }
+
+  .story p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+  }
+
+  .story p:first-letter {
+    /* 首段不特殊处理 */
+  }
+
+  /* 对话段落 */
+  .story .dialogue {
+    color: #b8d4f0;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    margin-top: 40px;
+    padding: 24px 20px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #ffd9a0;
+    line-height: 2;
+    border-top: 1px solid rgba(255, 217, 160, 0.15);
+    border-bottom: 1px solid rgba(255, 217, 160, 0.15);
+    text-shadow: 0 0 15px rgba(255, 217, 160, 0.3);
+    animation: goodnightGlow 5s ease-in-out infinite;
+  }
+
+  @keyframes goodnightGlow {
+    0%, 100% { text-shadow: 0 0 15px rgba(255,217,160,0.3); }
+    50% { text-shadow: 0 0 25px rgba(255,217,160,0.5), 0 0 50px rgba(255,217,160,0.2); }
+  }
+
+  /* 暖色漂浮粒子 */
+  .warm-particle {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatUp var(--dur, 8s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-300px) translateX(var(--xshift, 20px)); opacity: 0; }
+  }
+
+  /* 底部光点 */
+  .bottom-dots {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 36px;
+  }
+
+  .bottom-dots span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 217, 160, 0.4);
+    animation: dotBreathe 3s ease-in-out infinite;
+  }
+
+  .bottom-dots span:nth-child(1) { animation-delay: 0s; }
+  .bottom-dots span:nth-child(2) { animation-delay: 0.4s; }
+  .bottom-dots span:nth-child(3) { animation-delay: 0.8s; }
+  .bottom-dots span:nth-child(4) { animation-delay: 1.2s; }
+  .bottom-dots span:nth-child(5) { animation-delay: 1.6s; }
+  .bottom-dots span:nth-child(6) { animation-delay: 2.0s; }
+  .bottom-dots span:nth-child(7) { animation-delay: 2.4s; }
+
+  @keyframes dotBreathe {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 0.8; transform: scale(1.3); }
+  }
+
+  /* 底部暖光带 */
+  .warm-glow {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 120px;
+    background: linear-gradient(180deg, transparent, rgba(255, 200, 120, 0.06) 50%, rgba(255, 200, 120, 0.1));
+    pointer-events: none;
+    z-index: 0;
+    animation: warmBreathe 6s ease-in-out infinite;
+  }
+
+  @keyframes warmBreathe {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .container { padding: 30px 18px 50px; }
+    .title { font-size: 1.6rem; }
+    .story { font-size: 1.05rem; line-height: 2; }
+    .goodnight { font-size: 1rem; }
+    .moon { width: 50px; height: 50px; top: 25px; right: 25px; }
+    .illustration svg { width: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 底部暖光带 -->
+<div class="warm-glow"></div>
+
+<div class="container">
+
+  <!-- SVG 插图：毛线球 + 织针 + 围巾 -->
+  <div class="illustration">
+    <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+      <!-- 围巾波浪 -->
+      <path d="M 30 130 Q 50 120, 70 130 T 110 130 T 150 130 T 180 125"
+            fill="none" stroke="#6cb4ee" stroke-width="12" stroke-linecap="round" opacity="0.7"/>
+      <path d="M 35 142 Q 55 134, 75 142 T 115 142 T 155 142 T 178 138"
+            fill="none" stroke="#5a9fdc" stroke-width="10" stroke-linecap="round" opacity="0.5"/>
+
+      <!-- 毛线球主体 -->
+      <circle cx="100" cy="75" r="38" fill="#7ec0f0" opacity="0.9"/>
+      <circle cx="100" cy="75" r="38" fill="none" stroke="#5a9fdc" stroke-width="1.5" opacity="0.4"/>
+
+      <!-- 毛线纹理线条 -->
+      <path d="M 68 60 Q 100 50, 132 65" fill="none" stroke="#5a9fdc" stroke-width="1.5" opacity="0.5"/>
+      <path d="M 65 75 Q 100 68, 135 78" fill="none" stroke="#5a9fdc" stroke-width="1.5" opacity="0.5"/>
+      <path d="M 68 90 Q 100 84, 132 92" fill="none" stroke="#5a9fdc" stroke-width="1.5" opacity="0.5"/>
+      <path d="M 75 100 Q 100 96, 125 102" fill="none" stroke="#5a9fdc" stroke-width="1.5" opacity="0.4"/>
+
+      <!-- 高光 -->
+      <ellipse cx="88" cy="62" rx="12" ry="8" fill="#b8dfff" opacity="0.5"/>
+
+      <!-- 织针1 -->
+      <line x1="95" y1="55" x2="55" y2="20" stroke="#d4a76a" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="55" cy="20" r="3.5" fill="#c4955a"/>
+
+      <!-- 织针2 -->
+      <line x1="108" y1="55" x2="148" y2="20" stroke="#d4a76a" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="148" cy="20" r="3.5" fill="#c4955a"/>
+
+      <!-- 从毛线球到围巾的线 -->
+      <path d="M 100 113 Q 100 120, 95 128" fill="none" stroke="#7ec0f0" stroke-width="2" opacity="0.6"/>
+
+      <!-- 小星星装饰 -->
+      <circle cx="40" cy="40" r="2" fill="#fff" opacity="0.7">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="165" cy="55" r="1.5" fill="#fff" opacity="0.6">
+        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="170" cy="100" r="2" fill="#fff" opacity="0.5">
+        <animate attributeName="opacity" values="0.2;0.9;0.2" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <h1 class="title">小毛线的围巾</h1>
+  <p class="subtitle">— 儿童睡前故事 —</p>
+
+  <div class="story">
+    <p>在一间温暖的小屋里，有一篮子五颜六色的毛线球。其中最小的一团，是浅蓝色的，像一小片天空落进了篮子里。</p>
+
+    <p>小蓝毛线球常常想："我会变成什么呢？"</p>
+
+    <p>旁边的红毛线球说："我会变成一顶帽子！"绿毛线球说："我会变成一副手套！"小蓝毛线球不说话，只是安安静静地等着。</p>
+
+    <p>一天傍晚，奶奶拿起了小蓝毛线球。两根竹针轻轻地穿过它，一针，一针，又一针。小蓝毛线觉得有点紧张——它被拉长，被弯曲，被绕成一个又一个圈。</p>
+
+    <p class="dialogue">"疼吗？"红毛线球问。</p>
+
+    <p class="dialogue">"有一点点，"小蓝毛线球小声说，"但是……好像还挺舒服的。"</p>
+
+    <p>因为奶奶的手很暖，每一针都很轻很慢，像在唱一首很老很老的歌。</p>
+
+    <p>窗外的月亮升起来了，星星一颗一颗亮起来。奶奶还在织，小蓝毛线球越来越小，可它变成的东西越来越大——一条长长的、软软的围巾，像一小段蓝天落在了手心里。</p>
+
+    <p class="dialogue">"好了。"奶奶轻轻地说，把围巾绕在一个小男孩的脖子上。</p>
+
+    <p>小男孩打了个小喷嚏，然后笑了："好暖呀！"</p>
+
+    <p>那一刻，小蓝毛线球——不，现在它是围巾了——觉得全身都暖洋洋的。原来，被拉长不是疼，是奶奶把爱一针一针织了进去；被弯曲不是难过，是每一圈都裹着一句"别着凉"。</p>
+
+    <p>冬天的时候，小男孩戴着这条围巾去堆雪人。围巾上沾了雪花，可它一点都不觉得冷，因为它知道，自己是被爱做成的。</p>
+
+    <p>每天晚上，小男孩把围巾叠好放在枕头旁边。围巾悄悄地想："我以前那么小一团，现在却能抱住一个小男孩的整个脖子。"</p>
+
+    <p>原来，爱会把小小的东西，变得好大好大。</p>
+  </div>
+
+  <div class="goodnight">
+    晚安，小宝贝。小蓝毛线说，你今天也是个好孩子，被好多好多的爱织着呢，该做一个甜甜的梦了。
+  </div>
+
+  <div class="bottom-dots">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+</div>
+
+<script>
+  // 生成星星
+  (function() {
+    var sf = document.getElementById('starfield');
+    var count = 110;
+    for (var i = 0; i < count; i++) {
+      var s = document.createElement('div');
+      s.className = 'star';
+      var size = Math.random() * 2 + 0.5;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+      s.style.setProperty('--delay', Math.random() * 4 + 's');
+      sf.appendChild(s);
+    }
+  })();
+
+  // 生成暖色漂浮粒子
+  (function() {
+    var colors = ['rgba(255,200,120,0.5)', 'rgba(255,217,160,0.4)', 'rgba(200,220,255,0.4)', 'rgba(180,210,255,0.3)'];
+    for (var i = 0; i < 8; i++) {
+      var p = document.createElement('div');
+      p.className = 'warm-particle';
+      var size = Math.random() * 4 + 3;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.left = Math.random() * 90 + 5 + '%';
+      p.style.bottom = Math.random() * 30 + '%';
+      p.style.setProperty('--dur', (Math.random() * 4 + 6) + 's');
+      p.style.setProperty('--delay', Math.random() * 5 + 's');
+      p.style.setProperty('--xshift', (Math.random() * 60 - 30) + 'px');
+      p.style.boxShadow = '0 0 6px ' + colors[i % colors.length];
+      document.body.appendChild(p);
+    }
+  })();
+</script>
+
+</body>
+</html>

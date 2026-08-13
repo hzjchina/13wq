@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 飞越疯人院 (2026-06-03)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(245,158,11,0.1) 0%, transparent 60%),
+      radial-gradient(ellipse at 70% 60%, rgba(234,88,12,0.06) 0%, transparent 60%),
+      linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.15) 100%);
+    z-index: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.03) 2px,
+        rgba(0,0,0,0.03) 4px
+      );
+    z-index: 2;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(218,165,32,0.2);
+    border-color: rgba(218,165,32,0.4);
+    color: #ffd700;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #f59e0b;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #b0b0b0;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(245,158,11,0.06);
+    border: 1px solid rgba(245,158,11,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #b0b0b0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .highlights li::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    color: #f59e0b;
+    font-size: 14px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border-left: 3px solid #f59e0b;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+    font-style: normal;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    .hero-content h1 { font-size: 28px; }
+    .scores { grid-template-columns: repeat(2, 1fr); }
+    .awards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">经典电影推荐 · 2026年6月3日</div>
+
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>飞越疯人院</h1>
+      <div class="original-title">One Flew Over the Cuckoo's Nest (1975)</div>
+      <div class="hero-meta">
+        <span class="tag">美国</span>
+        <span class="tag">剧情</span>
+        <span class="tag">米洛斯·福尔曼</span>
+        <span class="tag">133 分钟</span>
+        <span class="tag gold">🏆 奥斯卡大满贯</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.7</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.1</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">93%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      麦克墨菲为了逃避监狱里的强制劳动，装作精神异常被送进了精神病院。他原以为这里会是天堂——不用干活、打打牌、按时吃药就行。但他很快发现，这个由护士长瑞秋严密掌控的世界，远比监狱更令人窒息。病人们活在沉默的规则、严格的时间表和令人绝望的"治疗"中，而麦克墨菲——这个满身反骨的闯入者——决定用笑声、游戏和一点点疯狂，教会这群被驯服的人重新学会"活着"。但他的挑战触怒了一个不容挑战的体制，而体制的反击，远比任何人想象的更加残酷。
+  </p>
+  </div>
+
+  <div class="section">
+    <h2>这部电影为什么值得一看</h2>
+    <ul class="highlights">
+      <li><strong>影史罕见的"奥斯卡大满贯"。</strong>《飞越疯人院》是电影史上仅有的三部同时包揽奥斯卡最佳影片、最佳导演、最佳男主角、最佳女主角、最佳改编剧本五项最核心大奖的电影之一（另外两部是《一夜风流》和《沉默的羔羊》）。这个记录本身就说明了它全方位的卓越——剧本、表演、导演，没有短板。</li>
+      <li><strong>杰克·尼科尔森的巅峰演绎。</strong>他饰演的麦克墨菲是一个难以定义的角色——痞气、狡猾、迷人，又带着一种无法熄灭的生命力。这个角色让他摘得第一座奥斯卡影帝，也奠定了他在好莱坞的传奇地位。你会在他的眼神里同时看到顽童的天真和战士的决绝。</li>
+      <li><strong>一场关于自由与体制的永恒寓言。</strong>表面上是精神病院里的故事，但它提出的问题超越时空：什么才是真正的"疯了"？是那些不符合规则的人，还是那个让人窒息的规则本身？它探讨个体与体制的对抗、从众与反抗的代价，这些问题在今天比半个世纪前更加尖锐。</li>
+      <li><strong>路易丝·弗莱彻塑造了影史最令人难忘的"反派"。</strong>护士长瑞秋不是传统意义上的坏人——她不打人不骂人，永远面带微笑、声音温柔。但她的"善意"构成了一种更可怕的暴力。她的表演精妙到让你对她的恨意不是来自愤怒，而是来自一种深入骨髓的寒意。</li>
+      <li><strong>笑中带泪的叙事张力。</strong>电影前半段充满荒诞的幽默——麦克墨菲带着病人们在想象中出海钓鱼、偷溜出去泡酒吧——让你在笑声中爱上这群"疯子"。而当笑声被逐渐掐灭时，那种从明媚坠入黑暗的落差，让人无法呼吸。它不是恐怖片，但某些场景比恐怖片更让人心悸。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>荣誉殿堂</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳影片</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳导演</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳男主角</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳女主角</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳改编剧本</div>
+      <div class="award-item"><span class="icon">🥇</span> 金球奖最佳剧情片</div>
+      <div class="award-item"><span class="icon">🥇</span> 金球奖最佳导演</div>
+      <div class="award-item"><span class="icon">🥇</span> 金球奖最佳男女主角等 6 项</div>
+      <div class="award-item"><span class="icon">⭐</span> BAFTA 最佳影片等 6 项</div>
+      <div class="award-item"><span class="icon">⭐</span> IMDb TOP 250 第 18 名</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>&ldquo;至少我试过了。&rdquo;</p>
+    <div class="source">—— 麦克墨菲 / Randle P. McMurphy</div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 每晚 20:00 自动推送 · 由小虾米精选
+  </div>
+
+</div>
+</body>
+</html>

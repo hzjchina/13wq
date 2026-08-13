@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>小茶杯的下午茶 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; overflow-x: hidden; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    background: radial-gradient(ellipse at 50% 0%, #1a2545 0%, #0a1029 60%, #050818 100%);
+    color: #e6ecff;
+    min-height: 100vh;
+    position: relative;
+    padding: 0 0 60px 0;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.9;
+  }
+
+  /* 星云背景 */
+  .nebula {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .nebula.n1 { width: 500px; height: 500px; background: #4a6fb5; top: -100px; left: -150px; animation: drift 22s ease-in-out infinite; }
+  .nebula.n2 { width: 400px; height: 400px; background: #7b5fa8; bottom: -100px; right: -100px; animation: drift 28s ease-in-out infinite reverse; }
+  .nebula.n3 { width: 350px; height: 350px; background: #5a8fb8; top: 40%; right: 10%; animation: drift 32s ease-in-out infinite; }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(40px, -30px) scale(1.1); }
+  }
+
+  /* 星空 */
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fff, 0 0 12px rgba(255,255,255,0.5);
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--min-o, 0.2); transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.4); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    top: 15%;
+    left: 0;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    border-radius: 50%;
+    opacity: 0;
+    transform: rotate(-15deg);
+    pointer-events: none;
+    z-index: 2;
+    animation: shoot 7s linear infinite;
+    animation-delay: 4s;
+  }
+  @keyframes shoot {
+    0% { left: -10%; top: 15%; opacity: 0; }
+    3% { opacity: 1; }
+    15% { left: 110%; top: 35%; opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 6%;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fffbe8 0%, #fde9b8 40%, #f5c97a 100%);
+    box-shadow: 0 0 40px rgba(253, 220, 130, 0.6), 0 0 80px rgba(253, 220, 130, 0.3);
+    z-index: 1;
+    animation: moonFloat 6s ease-in-out infinite;
+  }
+  .moon::before {
+    content: "";
+    position: absolute;
+    top: 18%;
+    left: 22%;
+    width: 14px;
+    height: 14px;
+    background: rgba(200, 170, 100, 0.3);
+    border-radius: 50%;
+  }
+  .moon::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 55%;
+    width: 10px;
+    height: 10px;
+    background: rgba(200, 170, 100, 0.25);
+    border-radius: 50%;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* 容器 */
+  .container {
+    position: relative;
+    z-index: 5;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 28px 40px;
+  }
+
+  /* 标题 */
+  .title-wrap { text-align: center; margin-bottom: 40px; animation: fadeInDown 1.2s ease-out; }
+  @keyframes fadeInDown {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  h1 {
+    font-size: 38px;
+    font-weight: 700;
+    color: #fff7d6;
+    text-shadow: 0 0 20px rgba(255, 220, 130, 0.4), 0 2px 4px rgba(0,0,0,0.3);
+    margin-bottom: 12px;
+    letter-spacing: 4px;
+    animation: titleFloat 4s ease-in-out infinite;
+  }
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  .subtitle {
+    font-size: 15px;
+    color: #a8b8e0;
+    letter-spacing: 6px;
+    font-weight: 300;
+  }
+
+  /* 茶杯插图 */
+  .teacup-illustration {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto 36px;
+    width: 220px;
+    height: 220px;
+    position: relative;
+  }
+  .teacup-svg { width: 100%; height: 100%; filter: drop-shadow(0 0 18px rgba(180, 215, 255, 0.4)); }
+  .steam {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    filter: blur(6px);
+    animation: rise 3s ease-in-out infinite;
+  }
+  .steam.s1 { width: 16px; height: 16px; top: 8%; left: 38%; animation-delay: 0s; }
+  .steam.s2 { width: 12px; height: 12px; top: 4%; left: 50%; animation-delay: 1s; }
+  .steam.s3 { width: 14px; height: 14px; top: 10%; left: 60%; animation-delay: 2s; }
+  @keyframes rise {
+    0% { transform: translateY(0) scale(1); opacity: 0.6; }
+    50% { opacity: 0.9; }
+    100% { transform: translateY(-30px) scale(1.6); opacity: 0; }
+  }
+
+  /* 雨滴 */
+  .rain-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .raindrop {
+    position: absolute;
+    width: 1.5px;
+    height: 14px;
+    background: linear-gradient(180deg, transparent, rgba(180, 215, 255, 0.7));
+    border-radius: 0 0 50% 50%;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-20px); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(110vh); opacity: 0.3; }
+  }
+
+  /* 故事卡片 */
+  .story-card {
+    background: linear-gradient(135deg, rgba(30, 45, 90, 0.55) 0%, rgba(20, 30, 60, 0.6) 100%);
+    border: 1px solid rgba(180, 200, 255, 0.15);
+    border-radius: 20px;
+    padding: 40px 36px;
+    margin-bottom: 36px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+    animation: fadeIn 1.5s ease-out 0.4s both;
+  }
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  .story-card p {
+    font-size: 18px;
+    line-height: 2.1;
+    color: #e0e8ff;
+    margin-bottom: 18px;
+    text-align: justify;
+    text-indent: 2em;
+    letter-spacing: 0.5px;
+  }
+  .story-card p:last-child { margin-bottom: 0; }
+  .story-card p em {
+    font-style: normal;
+    color: #ffe9a8;
+    font-weight: 500;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin: 40px auto 20px;
+    padding: 32px 24px;
+    background: linear-gradient(135deg, rgba(80, 60, 130, 0.4) 0%, rgba(50, 40, 100, 0.4) 100%);
+    border: 1px solid rgba(200, 180, 255, 0.2);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 1.5s ease-out 0.8s both;
+  }
+  .goodnight::before {
+    content: "🌙";
+    position: absolute;
+    top: 18px;
+    right: 24px;
+    font-size: 32px;
+    opacity: 0.6;
+    animation: moonSpin 12s linear infinite;
+  }
+  @keyframes moonSpin {
+    0% { transform: rotate(0); }
+    100% { transform: rotate(360deg); }
+  }
+  .goodnight-title {
+    font-size: 22px;
+    color: #ffe9a8;
+    font-weight: 600;
+    margin-bottom: 14px;
+    letter-spacing: 3px;
+  }
+  .goodnight-text {
+    font-size: 17px;
+    line-height: 1.9;
+    color: #d8e0ff;
+    letter-spacing: 0.5px;
+  }
+
+  /* 装饰小元素 */
+  .footer-stars {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+    animation: fadeIn 1.5s ease-out 1.2s both;
+  }
+  .footer-stars span {
+    color: #ffe9a8;
+    font-size: 18px;
+    animation: starGlow 2s ease-in-out infinite;
+  }
+  .footer-stars span:nth-child(1) { animation-delay: 0s; }
+  .footer-stars span:nth-child(2) { animation-delay: 0.3s; }
+  .footer-stars span:nth-child(3) { animation-delay: 0.6s; }
+  .footer-stars span:nth-child(4) { animation-delay: 0.9s; }
+  .footer-stars span:nth-child(5) { animation-delay: 1.2s; }
+  @keyframes starGlow {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); text-shadow: 0 0 12px #ffe9a8; }
+  }
+  .meta {
+    text-align: center;
+    margin-top: 18px;
+    font-size: 12px;
+    color: #6a7ba0;
+    letter-spacing: 2px;
+  }
+
+  /* 瓢虫装饰 */
+  .ladybug {
+    position: absolute;
+    font-size: 24px;
+    animation: ladybugMove 8s ease-in-out infinite;
+  }
+  .ladybug.l1 { top: 15%; right: 10%; animation-delay: 0s; }
+  .ladybug.l2 { top: 60%; left: 5%; animation-delay: 3s; }
+  @keyframes ladybugMove {
+    0%, 100% { transform: translate(0, 0) rotate(-5deg); }
+    25% { transform: translate(15px, -10px) rotate(5deg); }
+    50% { transform: translate(0, -15px) rotate(-5deg); }
+    75% { transform: translate(-15px, -5px) rotate(5deg); }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 40px 18px 30px; }
+    h1 { font-size: 30px; letter-spacing: 2px; }
+    .subtitle { font-size: 13px; letter-spacing: 4px; }
+    .story-card { padding: 28px 22px; border-radius: 16px; }
+    .story-card p { font-size: 16.5px; line-height: 2; }
+    .moon { width: 60px; height: 60px; top: 4%; right: 5%; }
+    .teacup-illustration { width: 180px; height: 180px; }
+    .goodnight-title { font-size: 20px; }
+    .goodnight-text { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="nebula n1"></div>
+<div class="nebula n2"></div>
+<div class="nebula n3"></div>
+
+<div class="stars" id="stars"></div>
+<div class="shooting-star"></div>
+<div class="moon"></div>
+
+<div class="rain-container" id="rainContainer"></div>
+
+<div class="container">
+  <div class="title-wrap">
+    <h1>小茶杯的下午茶</h1>
+    <div class="subtitle">· 写给宝贝的睡前故事 ·</div>
+  </div>
+
+  <div class="teacup-illustration">
+    <svg class="teacup-svg" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- 茶盘底座 -->
+      <ellipse cx="110" cy="195" rx="90" ry="10" fill="rgba(180, 200, 255, 0.15)"/>
+      <!-- 茶碟 -->
+      <ellipse cx="110" cy="180" rx="78" ry="14" fill="rgba(255, 255, 255, 0.85)" stroke="rgba(180, 200, 255, 0.5)" stroke-width="1"/>
+      <ellipse cx="110" cy="178" rx="60" ry="8" fill="rgba(245, 215, 160, 0.4)"/>
+      <!-- 茶杯主体 -->
+      <path d="M 50 100 Q 50 175 110 178 Q 170 175 170 100 Z" fill="rgba(220, 235, 255, 0.92)" stroke="rgba(160, 190, 230, 0.6)" stroke-width="1.5"/>
+      <!-- 杯口 -->
+      <ellipse cx="110" cy="100" rx="60" ry="12" fill="rgba(140, 100, 60, 0.7)" stroke="rgba(100, 70, 40, 0.5)" stroke-width="1"/>
+      <ellipse cx="110" cy="98" rx="58" ry="10" fill="rgba(195, 130, 80, 0.6)"/>
+      <!-- 茶水表面光斑 -->
+      <ellipse cx="92" cy="97" rx="22" ry="3" fill="rgba(255, 240, 200, 0.4)"/>
+      <!-- 茶杯把手 -->
+      <path d="M 170 115 Q 200 115 200 138 Q 200 158 170 158" fill="none" stroke="rgba(160, 190, 230, 0.6)" stroke-width="6" stroke-linecap="round"/>
+      <!-- 腰带装饰 -->
+      <ellipse cx="110" cy="148" rx="40" ry="3" fill="rgba(180, 200, 230, 0.3)"/>
+      <!-- 杯身小花装饰 -->
+      <g transform="translate(95, 130)">
+        <circle cx="0" cy="0" r="4" fill="rgba(255, 200, 220, 0.9)"/>
+        <circle cx="6" cy="-2" r="3" fill="rgba(255, 220, 230, 0.85)"/>
+        <circle cx="6" cy="4" r="3" fill="rgba(255, 220, 230, 0.85)"/>
+        <circle cx="-6" cy="-2" r="3" fill="rgba(255, 220, 230, 0.85)"/>
+        <circle cx="-6" cy="4" r="3" fill="rgba(255, 220, 230, 0.85)"/>
+        <circle cx="0" cy="0" r="2" fill="rgba(255, 240, 200, 1)"/>
+      </g>
+      <!-- 瓢虫小客人 -->
+      <g transform="translate(125, 132)">
+        <ellipse cx="0" cy="0" rx="5" ry="4" fill="rgba(220, 60, 60, 0.9)"/>
+        <line x1="0" y1="-4" x2="0" y2="4" stroke="rgba(40, 30, 30, 0.8)" stroke-width="0.8"/>
+        <circle cx="-2" cy="-1" r="0.8" fill="rgba(0,0,0,0.7)"/>
+        <circle cx="2" cy="-1" r="0.8" fill="rgba(0,0,0,0.7)"/>
+        <circle cx="-1" cy="2" r="0.6" fill="rgba(0,0,0,0.6)"/>
+        <circle cx="2" cy="2" r="0.6" fill="rgba(0,0,0,0.6)"/>
+        <circle cx="-3" cy="-3" r="0.8" fill="rgba(0,0,0,0.8)"/>
+      </g>
+      <!-- 蒸汽线 -->
+      <path d="M 90 90 Q 88 80 92 70 Q 96 60 90 50" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 110 88 Q 112 78 108 68 Q 104 58 110 48" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M 130 90 Q 132 80 128 70 Q 124 60 130 50" stroke="rgba(255, 255, 255, 0.4)" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="story-card">
+    <p>茶几上有一只小茶杯。她穿着淡蓝色的裙子，腰间画着一朵小白花，每天都乖乖地坐在茶盘上，等着被端起来。</p>
+    <p>"什么时候会有人来喝下午茶呢？"小茶杯问。可是她等啊等，杯子里的水凉了又热，热了又凉，窗外的小鸟飞走又飞回，茶杯还是一个人坐在那里。</p>
+    <p>直到有一天，下起了雨。</p>
+    <p>嗒嗒嗒，嗒嗒嗒。一只小瓢虫爬上了窗台，她的翅膀被雨水打湿了，抖啊抖，怎么也飞不起来。</p>
+    <p>"呜呜……"小瓢虫说，"我想回家，可是我飞不动了……"</p>
+    <p>小茶杯看着小瓢虫，心里突然暖暖的。她轻轻地说："小瓢虫，你进来吧，我会抱抱你。"</p>
+    <p>小瓢虫顺着茶几爬到了小茶杯的怀里。啊，杯子里是刚才泡的、还温温的红茶香。小瓢虫的翅膀一点一点干了，她身上红色的圆点点也变得更亮了一些。</p>
+    <p>"谢谢你，小茶杯，"小瓢虫说，"你比阳光还暖。"</p>
+    <p>小茶杯笑了，她说："我只是坐在这里等了一会儿呀，可我心里一直装着的，是想给谁泡一杯暖暖的茶。"</p>
+    <p>雨停了，小瓢虫张开翅膀，绕着小茶杯飞了三圈。她说："明天我带朋友来喝下午茶，好吗？"</p>
+    <p>"好呀好呀，"小茶杯开心地说，"我每天都准备好啦。"</p>
+    <p>妈妈看见了，笑着说："这孩子，怎么给茶杯起了个名字呢？"宝贝说："它是我的朋友呀，它每天都在等我呢。"</p>
+  </div>
+
+  <div class="goodnight">
+    <div class="goodnight-title">晚安 · 宝贝</div>
+    <div class="goodnight-text">
+      晚安，小宝贝。<br>
+      小茶杯说，你今天也是个好孩子——<br>
+      就算只是一杯温热的茶，<br>
+      也能给别人带来一整个下午的温暖。<br>
+      该做一个甜甜的梦了。
+    </div>
+  </div>
+
+  <div class="footer-stars">
+    <span>✦</span>
+    <span>✧</span>
+    <span>✦</span>
+    <span>✧</span>
+    <span>✦</span>
+  </div>
+
+  <div class="meta">2026 · 一个温柔的夜晚</div>
+</div>
+
+<script>
+  // 生成 100 颗星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.4 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.setProperty('--delay', Math.random() * 5 + 's');
+    star.style.setProperty('--min-o', (0.2 + Math.random() * 0.4));
+    starsContainer.appendChild(star);
+  }
+
+  // 生成 40 滴雨
+  const rainContainer = document.getElementById('rainContainer');
+  for (let i = 0; i < 40; i++) {
+    const drop = document.createElement('div');
+    drop.className = 'raindrop';
+    drop.style.left = Math.random() * 100 + '%';
+    drop.style.animationDuration = (0.8 + Math.random() * 0.6) + 's';
+    drop.style.animationDelay = (Math.random() * 2) + 's';
+    drop.style.opacity = 0.3 + Math.random() * 0.5;
+    rainContainer.appendChild(drop);
+  }
+</script>
+
+</body>
+</html>

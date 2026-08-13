@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 阿甘正传</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #f59e0b;
+      --accent-soft: rgba(245, 158, 11, 0.15);
+      --radius: 18px;
+      --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px 30px;
+      overflow: hidden;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-size: clamp(28px, 6vw, 42px);
+      font-weight: 800;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: clamp(16px, 3.5vw, 20px);
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px 18px;
+      margin-top: 20px;
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ratings {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 28px 0 32px;
+    }
+
+    .rating-item {
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 14px;
+      padding: 18px 10px;
+      text-align: center;
+    }
+
+    .rating-score {
+      display: block;
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .rating-source {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    p {
+      font-size: 17px;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+
+    .quote {
+      border-left: 4px solid var(--accent);
+      background: var(--accent-soft);
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 22px 0;
+    }
+
+    .quote p {
+      font-size: 16px;
+      font-style: italic;
+      color: #fde68a;
+      margin: 0;
+    }
+
+    .highlights {
+      list-style: none;
+    }
+
+    .highlights li {
+      position: relative;
+      padding-left: 28px;
+      margin-bottom: 12px;
+      font-size: 16px;
+      color: var(--text);
+    }
+
+    .highlights li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      top: 2px;
+      color: var(--accent);
+      font-size: 15px;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 36px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 16px 12px;
+      }
+      .card {
+        padding: 28px 20px;
+      }
+      .ratings {
+        gap: 8px;
+      }
+      .rating-item {
+        padding: 14px 8px;
+      }
+      .rating-score {
+        font-size: 22px;
+      }
+      p, .highlights li {
+        font-size: 16px;
+      }
+      h2 {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <article class="card">
+      <header class="header">
+        <span class="tag">第 28 期 · 经典电影推荐</span>
+        <h1>阿甘正传</h1>
+        <p class="subtitle">Forrest Gump · 1994 · 美国</p>
+        <div class="meta">
+          <span>导演：罗伯特·泽米吉斯</span>
+          <span>主演：汤姆·汉克斯 / 罗宾·怀特</span>
+          <span>片长：142 分钟</span>
+        </div>
+      </header>
+
+      <div class="ratings">
+        <div class="rating-item">
+          <span class="rating-score">9.5</span>
+          <span class="rating-source">豆瓣</span>
+        </div>
+        <div class="rating-item">
+          <span class="rating-score">8.8</span>
+          <span class="rating-source">IMDb</span>
+        </div>
+        <div class="rating-item">
+          <span class="rating-score">71%</span>
+          <span class="rating-source">Metacritic</span>
+        </div>
+      </div>
+
+      <section>
+        <h2>剧情梗概</h2>
+        <p>
+          阿甘，一个出生在阿拉巴马州小镇、智商只有 75 的男孩。小时候，他因为腿部残疾需要佩戴支架，时常被同龄人嘲笑和欺负。然而，在母亲无条件的支持和一位青梅竹马的鼓励下，他学会了奔跑——这一跑，竟改变了他的一生。
+        </p>
+        <p>
+          他跑进了大学橄榄球场，跑进了越战丛林，跑过了美国东西海岸，也跑进了美国数十年的风云历史。他见证过总统、经历过战争、参与过社会运动，可他始终只是那个认真听妈妈话、信守对朋友承诺、深爱着珍妮的单纯男人。
+        </p>
+      </section>
+
+      <section>
+        <h2>亮点所在</h2>
+        <ul class="highlights">
+          <li><strong>汤姆·汉克斯的封神演技：</strong>他用极度真诚、毫不做作的表演，让一个"傻"角色承载了整部影片的情感重量，并因此蝉联奥斯卡影帝。</li>
+          <li><strong>个人命运与时代的交织：</strong>影片把一个小人物的故事嵌入美国几十年的大事件，既像一部温柔的私人回忆录，也像一曲宏大的时代史诗。</li>
+          <li><strong>无数经典台词：</strong>"生活就像一盒巧克力"已成为跨越语言的文化符号，朴素中藏着人生哲理。</li>
+          <li><strong>技术创新的里程碑：</strong>当年领先的数字合成技术让阿甘"真实"地出现在历史画面里，至今看来依然自然。</li>
+        </ul>
+      </section>
+
+      <div class="quote">
+        <p>"Life was like a box of chocolates. You never know what you're gonna get."</p>
+      </div>
+
+      <section>
+        <h2>为什么值得一看</h2>
+        <p>
+          这是一部关于善良、坚持与爱的电影。阿甘不聪明，却有着许多人缺失的东西：专注、真诚、不计较得失。他不懂世故，却比谁都更懂得如何去爱。
+        </p>
+        <p>
+          在这个习惯用"精明"定义成功的时代，《阿甘正传》提醒我们：一个人不需要很复杂，也能活得很辽阔。如果你最近需要一点温暖、一点相信、一点重新出发的勇气，这部电影再合适不过。
+        </p>
+      </section>
+
+      <footer class="footer">
+        推荐时间：2026 年 7 月 27 日 · 愿好电影陪你度过一个温柔的夜晚
+      </footer>
+    </article>
+  </div>
+</body>
+</html>

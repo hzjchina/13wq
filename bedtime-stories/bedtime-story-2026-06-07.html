@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小月亮的摇篮曲 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a1628 0%, #1a2a4a 30%, #1e3a5f 60%, #26466d 100%);
+    color: #e8e0d4;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+  }
+
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 35% 35%, #fffee0 0%, #f5e6b8 40%, #e8d5a0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15);
+    pointer-events: none;
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15); }
+    50% { box-shadow: 0 0 80px rgba(255, 250, 220, 0.55), 0 0 150px rgba(255, 250, 220, 0.2); }
+  }
+
+  .cloud-decor {
+    position: fixed;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 48px;
+  }
+
+  .header-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .story-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+    animation: floatCloud 3s ease-in-out infinite;
+  }
+
+  @keyframes floatCloud {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #f5e6b8;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(245, 230, 184, 0.3);
+  }
+
+  .subtitle {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    margin: 24px auto;
+    border-radius: 1px;
+  }
+
+  .story-text p {
+    font-size: 1.15em;
+    line-height: 2.1;
+    margin-bottom: 18px;
+    text-indent: 2.2em;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  .story-text p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .moral-section {
+    margin: 40px 0 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid rgba(245, 230, 184, 0.5);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .moral-section .moral-title {
+    font-size: 0.9em;
+    color: #f5e6b8;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .moral-section .moral-text {
+    font-size: 1em;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.7);
+    text-indent: 0;
+  }
+
+  .goodnight-section {
+    text-align: center;
+    margin-top: 32px;
+    padding: 32px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+    border-radius: 16px;
+  }
+
+  .goodnight-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 12px;
+    animation: gentlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .goodnight-text {
+    font-size: 1.25em;
+    color: #f5e6b8;
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .bottom-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 95, 0.5) 50%, rgba(10, 22, 40, 0.8) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 480px) {
+    .content-wrapper {
+      padding: 40px 16px 36px;
+    }
+    h1 { font-size: 1.6em; }
+    .story-text p {
+      font-size: 1.05em;
+      line-height: 2;
+    }
+    .moon {
+      width: 56px;
+      height: 56px;
+      top: 24px;
+      right: 5%;
+    }
+    .story-icon { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-container" id="stars"></div>
+<div class="moon"></div>
+<div class="cloud-decor" style="top:12%;left:5%;width:180px;height:60px;animation:floatCloud 8s ease-in-out infinite;"></div>
+<div class="cloud-decor" style="top:28%;left:72%;width:140px;height:44px;animation:floatCloud 11s ease-in-out infinite 2s;"></div>
+<div class="cloud-decor" style="top:65%;left:8%;width:120px;height:36px;animation:floatCloud 9s ease-in-out infinite 4s;"></div>
+<div class="bottom-glow"></div>
+
+<div class="content-wrapper">
+
+  <div class="header-area">
+    <div class="story-icon">🌙</div>
+    <h1>小月亮的摇篮曲</h1>
+    <div class="subtitle">2026年6月7日 · 星期日 · 睡前故事</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="story-text">
+    <p>每天晚上，小月亮都会挂在天上，用柔柔的光照着大地。</p>
+    <p>她最喜欢做的事情，就是看着小朋友们的窗户，一个一个地亮着暖暖的灯。</p>
+    <p>可是有一天晚上，小月亮发现，有一扇小窗户里的灯，亮了很久很久都没有熄灭。</p>
+    <p>"咦，那个小朋友怎么还不睡觉呀？"小月亮轻轻飘过去，透过窗户往里看。</p>
+    <p>原来，是一个叫小果果的女孩，她翻来覆去，怎么也睡不着。</p>
+    <p>小月亮想了想，轻轻地唱起了歌——</p>
+    <p>"睡吧，睡吧，我亲爱的宝贝，星星为你点亮，晚风为你轻吹……"</p>
+    <p>她的声音很轻很轻，像棉花糖一样柔软。小果果听着听着，眼皮慢慢变重了。</p>
+    <p>可是，小月亮的歌太短啦，只唱了一会儿就唱完了。小果果刚闭上眼睛，又醒了。</p>
+    <p>小月亮有点着急。她去找风姐姐帮忙。</p>
+    <p>风姐姐说："我教你一首歌吧，是我从海浪那里听来的。"</p>
+    <p>哗啦——哗啦——风姐姐轻轻唱着。这首歌有海浪的声音，像妈妈的手在轻轻摇晃摇篮。小果果抱着被子，觉得好像躺在小船上，摇呀摇。</p>
+    <p>可是小果果还是没睡着。</p>
+    <p>小月亮又去找星星弟弟。</p>
+    <p>星星弟弟说："我教你一首歌吧，是我从花瓣上听来的露珠的声音。"</p>
+    <p>叮咚——叮咚——星星弟弟轻轻唱。这首歌像小雨点在亲亲花瓣。小果果听着听着，嘴角弯了起来。</p>
+    <p>可是小果果还是没睡着。</p>
+    <p>小月亮不灰心。这一次，她想起了月亮妈妈说过的话——</p>
+    <p>"最好的歌，不是学来的，是用心唱出来的。"</p>
+    <p>于是，小月亮没有去找别人帮忙。她把光调得柔柔的，把自己心里最温暖的感觉，变成了一首歌。</p>
+    <p>那首歌没有歌词，也没有旋律。它就像月光一样，静静地流淌进小果果的房间，流淌进小果果的心里。</p>
+    <p>小果果觉得，好像有人在轻轻拍着自己的背，暖暖的，软软的，比世界上所有的摇篮曲都好听。</p>
+    <p>慢慢地，小果果的呼吸变得均匀了，嘴角带着浅浅的微笑，终于睡着了。</p>
+    <p>小月亮开心极了。她把那扇窗户照得亮亮的，像在说："晚安啦，做个好梦。"</p>
+    <p>从那以后，每天晚上，小月亮都会唱这首特别的歌。那些睡不着的小朋友，只要看着窗外的月光，就能听到。</p>
+    <p>不信你试试？闭上眼睛，让月光照在你脸上——你听到了吗？</p>
+  </div>
+
+  <div class="goodnight-section">
+    <span class="goodnight-icon">🌙💤</span>
+    <div class="goodnight-text">
+      晚安，小宝贝。<br>
+      小月亮说，你今天也是个好孩子，该做一个甜甜的梦了。<br>
+      🌙
+    </div>
+  </div>
+
+  <div class="footer">
+    <em>本文由小虾米为爷自动生成</em>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 80;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.5 + 1).toFixed(1);
+    var top = Math.random() * 100;
+    var left = Math.random() * 100;
+    var dur = (Math.random() * 3 + 2).toFixed(1);
+    var delay = (Math.random() * 5).toFixed(1);
+    frag += '<div class="star" style="width:'+size+'px;height:'+size+'px;top:'+top+'%;left:'+left+'%;--dur:'+dur+'s;--delay:'+delay+'s;"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

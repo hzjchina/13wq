@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 寄生虫 (2026-06-01)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(218,165,32,0.2);
+    border-color: rgba(218,165,32,0.4);
+    color: #ffd700;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+  .score-card .value.meta { color: #7b61ff; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #f5c518;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #b0b0b0;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(218,165,32,0.06);
+    border: 1px solid rgba(218,165,32,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #b0b0b0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .highlights li::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    color: #f5c518;
+    font-size: 14px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border-left: 3px solid #f5c518;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+    font-style: normal;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    .hero-content h1 { font-size: 28px; }
+    .scores { grid-template-columns: repeat(2, 1fr); }
+    .awards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">经典电影推荐 · 2026年6月1日</div>
+
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>寄生虫</h1>
+      <div class="original-title">Parasite / 기생충 (2019)</div>
+      <div class="hero-meta">
+        <span class="tag">韩国</span>
+        <span class="tag">剧情 / 悬疑 / 喜剧</span>
+        <span class="tag">奉俊昊</span>
+        <span class="tag">132 分钟</span>
+        <span class="tag gold">🏆 奥斯卡最佳影片</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.5</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">8.8</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">99%</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">Metacritic</div>
+      <div class="value meta">96</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      金基泽一家四口全是无业游民，住在首尔一个又暗又臭的半地下室里。一天，长子基宇经朋友介绍，得到一个机会去富人朴社长家当英语家教。基宇伪造了名校学历，成功入职。很快，全家人一个接一个地"渗透"进了朴家——妹妹当了艺术治疗老师，爸爸当了司机，妈妈当了管家。他们小心翼翼地守护着各自的身份秘密，两个家庭在同一栋豪宅中形成了一种微妙而危险的共生关系。然而，一个暴雨之夜，一个意外发现，让这个精心维持的平衡彻底崩塌……
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>这部电影为什么值得一看</h2>
+    <ul class="highlights">
+      <li><strong>类型无界，风格独树一帜。</strong>它是一部披着黑色喜剧外衣的社会惊悚片，前半段让你忍不住笑，后半段让你倒吸凉气。奉俊昊把幽默和恐惧编织得天衣无缝，你永远猜不到下一秒会发生什么。</li>
+      <li><strong>空间即叙事，阶级即一切。</strong>电影中最震撼的意象不是台词，而是空间——半地下室与豪宅的对比、楼梯的上下、水的泛滥。导演用建筑的物理落差来隐喻阶层鸿沟，每一次场景转换都是一次阶级的碰撞。</li>
+      <li><strong>影史里程碑，打破92年纪录。</strong>2020年奥斯卡上，《寄生虫》一举拿下最佳影片、最佳导演、最佳原创剧本、最佳国际影片四项大奖，成为奥斯卡92年历史上第一部非英语最佳影片。它证明了伟大的电影没有语言和国界的壁垒。</li>
+      <li><strong>全员演技炸裂。</strong>宋康昊那张看似憨厚实则深不可测的脸，是整部电影的灵魂；崔宇植和朴素丹将年轻兄妹的狡黠与脆弱演绎得入木三分；李善均和赵汝贞则完美诠释了"善良的富人"那令人不寒而栗的优雅。</li>
+      <li><strong>细节极其丰富，值得反复观看。</strong>每一个镜头、每一段配乐、甚至画面中不起眼的道具，都暗藏隐喻。第一次看觉得精彩，第二遍看会发现更多层含义——这正是顶级电影的标志。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>荣誉殿堂</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳影片</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳导演</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳原创剧本</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳国际影片</div>
+      <div class="award-item"><span class="icon">🥇</span> 戛纳电影节金棕榈奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳外语片</div>
+      <div class="award-item"><span class="icon">🏆</span> 英国电影学院奖最佳影片</div>
+      <div class="award-item"><span class="icon">🏆</span> 韩国电影大钟奖最佳影片</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>他们不是坏人，他们只是善良的人。</p>
+    <div class="source">—— 朴社长妻子</div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 每晚 20:00 自动推送 · 由小虾米精选
+  </div>
+
+</div>
+</body>
+</html>

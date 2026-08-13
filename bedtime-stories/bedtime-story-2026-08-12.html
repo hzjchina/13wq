@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小喷壶的晚安雨 — 儿童睡前故事</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-deep: #0d1424;
+            --bg-mid: #162036;
+            --bg-light: #223052;
+            --text-main: #f7f3e8;
+            --text-soft: #d9d2c3;
+            --accent-gold: #f9d794;
+            --accent-green: #8cc6a3;
+            --accent-blue: #9fcbf0;
+            --glow: rgba(249, 215, 148, 0.35);
+        }
+
+        html, body {
+            min-height: 100%;
+            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 60%, var(--bg-light) 100%);
+            color: var(--text-main);
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
+            position: relative;
+            padding: 2rem 1rem 4rem;
+        }
+
+        /* 星空背景 */
+        #star-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; transform: scale(0.8); }
+            50% { opacity: var(--max-opacity, 0.85); transform: scale(1.1); }
+        }
+
+        /* 月亮 */
+        .moon {
+            position: fixed;
+            top: 8%;
+            right: 10%;
+            width: 86px;
+            height: 86px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 35% 35%, #fffef0 0%, #f5ebc1 40%, #d8c68a 100%);
+            box-shadow: 0 0 30px rgba(245, 235, 193, 0.35), 0 0 70px rgba(245, 235, 193, 0.18);
+            animation: moonFloat 8s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .moon::after {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 22%;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(180, 165, 130, 0.25);
+            box-shadow: 18px 10px 0 -2px rgba(180, 165, 130, 0.2), 8px 26px 0 -3px rgba(180, 165, 130, 0.15);
+        }
+
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 流星 */
+        .shooting-star {
+            position: fixed;
+            width: 120px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.9) 50%, rgba(255,255,255,0));
+            transform: rotate(-35deg);
+            opacity: 0;
+            animation: shoot 7s linear infinite;
+            z-index: 1;
+        }
+
+        .shooting-star:nth-child(1) { top: 12%; left: -10%; animation-delay: 0s; }
+        .shooting-star:nth-child(2) { top: 25%; left: -15%; animation-delay: 4.2s; }
+
+        @keyframes shoot {
+            0% { transform: translateX(0) translateY(0) rotate(-35deg); opacity: 0; }
+            10% { opacity: 1; }
+            30% { transform: translateX(140vw) translateY(80vh) rotate(-35deg); opacity: 0; }
+            100% { opacity: 0; }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            margin: 0 auto;
+            background: rgba(22, 32, 54, 0.72);
+            border-radius: 24px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 1.8rem;
+        }
+
+        .date-badge {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: var(--accent-gold);
+            letter-spacing: 0.12em;
+            margin-bottom: 0.8rem;
+            padding: 0.35rem 0.9rem;
+            border: 1px solid rgba(249, 215, 148, 0.25);
+            border-radius: 999px;
+            background: rgba(249, 215, 148, 0.06);
+        }
+
+        h1 {
+            font-size: clamp(1.7rem, 5vw, 2.4rem);
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-shadow: 0 0 20px var(--glow);
+            line-height: 1.3;
+            animation: titleGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 18px rgba(249, 215, 148, 0.3); }
+            50% { text-shadow: 0 0 32px rgba(249, 215, 148, 0.55); }
+        }
+
+        /* 插图区 */
+        .illustration {
+            width: 100%;
+            max-width: 360px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .illustration svg {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: drop-shadow(0 10px 25px rgba(0,0,0,0.35));
+        }
+
+        .can-float {
+            animation: canFloat 4s ease-in-out infinite;
+            transform-origin: center bottom;
+        }
+
+        @keyframes canFloat {
+            0%, 100% { transform: translateY(0) rotate(-1deg); }
+            50% { transform: translateY(-6px) rotate(1deg); }
+        }
+
+        .rain-drop {
+            animation: rainFall 1.6s linear infinite;
+            opacity: 0.75;
+        }
+
+        .rain-drop:nth-child(2) { animation-delay: 0.3s; }
+        .rain-drop:nth-child(3) { animation-delay: 0.6s; }
+        .rain-drop:nth-child(4) { animation-delay: 0.9s; }
+        .rain-drop:nth-child(5) { animation-delay: 1.2s; }
+
+        @keyframes rainFall {
+            0% { transform: translateY(0); opacity: 0; }
+            15% { opacity: 0.85; }
+            85% { opacity: 0.85; }
+            100% { transform: translateY(70px); opacity: 0; }
+        }
+
+        .flower-glow {
+            animation: flowerPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes flowerPulse {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(255,255,255,0.1)); }
+            50% { filter: drop-shadow(0 0 8px rgba(255,255,255,0.35)); }
+        }
+
+        .firefly {
+            animation: fireflyFloat 5s ease-in-out infinite;
+        }
+
+        .firefly:nth-child(2) { animation-delay: 1.2s; }
+        .firefly:nth-child(3) { animation-delay: 2.5s; }
+
+        @keyframes fireflyFloat {
+            0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+            25% { transform: translate(12px, -16px); opacity: 1; }
+            50% { transform: translate(-8px, -8px); opacity: 0.7; }
+            75% { transform: translate(6px, -20px); opacity: 1; }
+        }
+
+        /* 故事正文 */
+        .story {
+            font-size: clamp(1.05rem, 2.8vw, 1.2rem);
+            line-height: 2;
+            color: var(--text-soft);
+            text-align: justify;
+        }
+
+        .story p {
+            margin-bottom: 1.2rem;
+            text-indent: 2em;
+        }
+
+        .story p:first-of-type::first-letter {
+            font-size: 2.2em;
+            float: left;
+            line-height: 1;
+            margin-right: 0.12em;
+            color: var(--accent-gold);
+            text-shadow: 0 0 12px var(--glow);
+        }
+
+        /* 晚安语 */
+        .goodnight {
+            margin-top: 2.2rem;
+            padding: 1.6rem 1.4rem;
+            background: linear-gradient(135deg, rgba(249, 215, 148, 0.12), rgba(140, 198, 163, 0.08));
+            border-radius: 18px;
+            border: 1px solid rgba(249, 215, 148, 0.18);
+            text-align: center;
+            animation: goodnightGlow 5s ease-in-out infinite;
+        }
+
+        @keyframes goodnightGlow {
+            0%, 100% { box-shadow: 0 0 16px rgba(249, 215, 148, 0.1); }
+            50% { box-shadow: 0 0 30px rgba(249, 215, 148, 0.22); }
+        }
+
+        .goodnight p {
+            font-size: clamp(1.1rem, 3vw, 1.35rem);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            text-indent: 0;
+        }
+
+        .goodnight .emoji {
+            font-size: 1.6em;
+            display: block;
+            margin-bottom: 0.6rem;
+        }
+
+        /* 底部分隔 */
+        .footer-stars {
+            display: flex;
+            justify-content: center;
+            gap: 14px;
+            margin-top: 2.5rem;
+        }
+
+        .footer-stars span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-gold);
+            box-shadow: 0 0 10px var(--glow);
+            animation: footerStar 2.5s ease-in-out infinite;
+        }
+
+        .footer-stars span:nth-child(2) { animation-delay: 0.4s; background: var(--accent-green); }
+        .footer-stars span:nth-child(3) { animation-delay: 0.8s; background: var(--accent-blue); }
+        .footer-stars span:nth-child(4) { animation-delay: 1.2s; background: var(--accent-gold); }
+        .footer-stars span:nth-child(5) { animation-delay: 1.6s; background: var(--accent-green); }
+
+        @keyframes footerStar {
+            0%, 100% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* 底部暖光带 */
+        .warm-band {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(0deg, rgba(249, 215, 148, 0.12), transparent);
+            pointer-events: none;
+            z-index: 1;
+            animation: bandBreath 6s ease-in-out infinite;
+        }
+
+        @keyframes bandBreath {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+        }
+
+        /* 响应式 */
+        @media (max-width: 520px) {
+            body { padding: 1.4rem 0.9rem 3.5rem; }
+            .container { padding: 1.8rem 1.3rem; border-radius: 20px; }
+            h1 { font-size: 1.55rem; }
+            .story { line-height: 1.9; }
+            .moon { width: 64px; height: 64px; top: 5%; right: 6%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 星空容器 -->
+    <div id="star-canvas"></div>
+
+    <!-- 月亮 -->
+    <div class="moon"></div>
+
+    <!-- 流星 -->
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+
+    <!-- 底部暖光 -->
+    <div class="warm-band"></div>
+
+    <main class="container">
+        <header>
+            <div class="date-badge">2026年8月12日 · 星期三</div>
+            <h1>小喷壶的晚安雨</h1>
+        </header>
+
+        <div class="illustration">
+            <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="canBody" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#6b9e7c"/>
+                        <stop offset="50%" stop-color="#8cc6a3"/>
+                        <stop offset="100%" stop-color="#6b9e7c"/>
+                    </linearGradient>
+                    <linearGradient id="canRim" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#a8dbc0"/>
+                        <stop offset="100%" stop-color="#7ab894"/>
+                    </linearGradient>
+                    <radialGradient id="waterDrop" cx="30%" cy="30%" r="70%">
+                        <stop offset="0%" stop-color="#d4f0ff"/>
+                        <stop offset="100%" stop-color="#7ab8e0"/>
+                    </radialGradient>
+                </defs>
+
+                <!-- 地面草丛 -->
+                <g transform="translate(0, 215)">
+                    <ellipse cx="160" cy="20" rx="140" ry="18" fill="rgba(107, 158, 124, 0.25)"/>
+                    <path d="M45 25 Q50 8 55 25" stroke="#5a8a6a" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M70 28 Q75 10 80 28" stroke="#5a8a6a" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M235 26 Q240 9 245 26" stroke="#5a8a6a" stroke-width="2" fill="none" opacity="0.6"/>
+                    <path d="M260 28 Q265 12 270 28" stroke="#5a8a6a" stroke-width="2" fill="none" opacity="0.6"/>
+                </g>
+
+                <!-- 小花 -->
+                <g class="flower-glow" transform="translate(60, 185)">
+                    <line x1="0" y1="0" x2="0" y2="35" stroke="#5a8a6a" stroke-width="3"/>
+                    <circle cx="0" cy="-8" r="10" fill="#f9d794"/>
+                    <circle cx="-10" cy="-2" r="8" fill="#f7c9c0"/>
+                    <circle cx="10" cy="-2" r="8" fill="#f7c9c0"/>
+                    <circle cx="-6" cy="10" r="8" fill="#f7c9c0"/>
+                    <circle cx="6" cy="10" r="8" fill="#f7c9c0"/>
+                    <circle cx="0" cy="0" r="5" fill="#ffeaa7"/>
+                    <path d="M-6 20 Q-12 28 -8 32" stroke="#5a8a6a" stroke-width="2" fill="none"/>
+                </g>
+
+                <g class="flower-glow" transform="translate(260, 192)" style="animation-delay: 1.2s;">
+                    <line x1="0" y1="0" x2="0" y2="28" stroke="#5a8a6a" stroke-width="3"/>
+                    <circle cx="0" cy="-8" r="9" fill="#c9e4de"/>
+                    <circle cx="-9" cy="-1" r="7" fill="#f7c9c0"/>
+                    <circle cx="9" cy="-1" r="7" fill="#f7c9c0"/>
+                    <circle cx="-5" cy="9" r="7" fill="#f7c9c0"/>
+                    <circle cx="5" cy="9" r="7" fill="#f7c9c0"/>
+                    <circle cx="0" cy="0" r="4" fill="#ffeaa7"/>
+                </g>
+
+                <!-- 小喷壶 -->
+                <g class="can-float" transform="translate(110, 55)">
+                    <!-- 提手 -->
+                    <path d="M35 20 Q50 -15 85 20" stroke="#7ab894" stroke-width="6" fill="none" stroke-linecap="round"/>
+                    <!-- 壶身 -->
+                    <path d="M25 40 L95 40 L105 130 Q110 155 60 160 Q10 155 15 130 Z" fill="url(#canBody)"/>
+                    <!-- 壶口边缘 -->
+                    <ellipse cx="60" cy="40" rx="35" ry="8" fill="url(#canRim)"/>
+                    <ellipse cx="60" cy="40" rx="28" ry="5" fill="rgba(22,32,54,0.25)"/>
+                    <!-- 壶嘴 -->
+                    <path d="M95 55 Q130 55 135 35 L145 40 Q135 75 100 80 Z" fill="#7ab894"/>
+                    <ellipse cx="140" cy="37.5" rx="7" ry="4" fill="#a8dbc0"/>
+                    <!-- 装饰线条 -->
+                    <path d="M30 75 Q60 85 90 75" stroke="rgba(255,255,255,0.25)" stroke-width="2" fill="none"/>
+                    <path d="M28 100 Q60 110 92 100" stroke="rgba(255,255,255,0.2)" stroke-width="2" fill="none"/>
+                    <!-- 喷壶笑脸 -->
+                    <circle cx="45" cy="105" r="3" fill="rgba(255,255,255,0.7)"/>
+                    <circle cx="75" cy="105" r="3" fill="rgba(255,255,255,0.7)"/>
+                    <path d="M50 118 Q60 125 70 118" stroke="rgba(255,255,255,0.6)" stroke-width="2" fill="none" stroke-linecap="round"/>
+                </g>
+
+                <!-- 雨滴 -->
+                <g transform="translate(245, 95)">
+                    <ellipse class="rain-drop" cx="0" cy="0" rx="4" ry="7" fill="url(#waterDrop)"/>
+                    <ellipse class="rain-drop" cx="16" cy="5" rx="3.5" ry="6" fill="url(#waterDrop)"/>
+                    <ellipse class="rain-drop" cx="-12" cy="8" rx="3" ry="5.5" fill="url(#waterDrop)"/>
+                    <ellipse class="rain-drop" cx="8" cy="18" rx="3" ry="5" fill="url(#waterDrop)"/>
+                    <ellipse class="rain-drop" cx="-6" cy="22" rx="2.5" ry="4.5" fill="url(#waterDrop)"/>
+                </g>
+
+                <!-- 萤火虫 -->
+                <g class="firefly" transform="translate(40, 90)">
+                    <circle cx="0" cy="0" r="3" fill="#d4f0a8" filter="url(#glowFilter)"/>
+                </g>
+                <g class="firefly" transform="translate(280, 120)">
+                    <circle cx="0" cy="0" r="2.5" fill="#d4f0a8"/>
+                </g>
+                <g class="firefly" transform="translate(160, 40)">
+                    <circle cx="0" cy="0" r="2" fill="#d4f0a8"/>
+                </g>
+
+                <defs>
+                    <filter id="glowFilter" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+            </svg>
+        </div>
+
+        <article class="story">
+            <p>花园里有一把小小的绿色喷壶，大家都叫她“小雨”。小雨住在工具棚的角落里，每天白天都看着大水管“哗哗”地给整片花园浇水，心里又羡慕又着急。</p>
+
+            <p>“我的肚子里只能装一点点水，”小雨晃了晃自己圆圆的身体，“怎么能浇得完这么多花儿呢？”</p>
+
+            <p>有一天晚上，月亮升起来了，星星一颗一颗睁开眼睛。可花园里的花儿们却耷拉着脑袋，原来白天太阳太热了，她们渴得睡不着。</p>
+
+            <p>小雨鼓起勇气，盛了满满一肚子清水，摇摇晃晃地走到花丛边。她学着大水管的样子，使劲一倒——“哗啦！”水一下子冲了出来，把一朵小雏菊的花瓣都打湿了。</p>
+
+            <p>小雏菊轻轻地抖了抖花瓣，温柔地说：“小雨，谢谢你，可是我现在好困，大水会把我冲醒的。”</p>
+
+            <p>小雨难过极了，她以为自己什么都做不好。这时，月亮奶奶从云朵后面探出头来，笑着说：“小雨，你知道吗？睡觉前的花儿们，最喜欢细细的、轻轻的雨。你小小的肚子，刚刚好。”</p>
+
+            <p>小雨半信半疑，她把壶嘴放低，轻轻倾斜。一串亮晶晶的小水珠落了下来，像一根细细的银线，又像一首没有歌词的歌。</p>
+
+            <p>“滴答、滴答、滴答……”</p>
+
+            <p>水珠落在泥土里，落在花叶上，凉凉的、轻轻的。小雏菊闭上眼睛笑了；月季花展开了蜷着的叶子；牵牛花把紫色的小喇叭朝向夜空，好像在说“谢谢”。</p>
+
+            <p>萤火虫们也飞来了，她们追着水珠里的月光跳舞，一闪一闪，把整个花园变成了一盏会唱歌的灯笼。</p>
+
+            <p>小雨终于明白了：原来不需要装很多很多水，只要轻轻地、慢慢地，把爱一小口一小口送出去，花儿们就能做一个甜甜的梦。</p>
+
+            <p>夜深了，花儿们都睡着了。小雨也悄悄地回到工具棚，把壶嘴擦干净。她虽然小小的，却觉得自己的心里，装满了整个花园的晚安。</p>
+        </article>
+
+        <div class="goodnight">
+            <span class="emoji">🌙✨</span>
+            <p>晚安，小宝贝。<br>小喷壶说，你今天也温柔地帮助了别人，<br>该做一个甜甜的梦了。</p>
+        </div>
+
+        <div class="footer-stars">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </main>
+
+    <script>
+        (function() {
+            const canvas = document.getElementById('star-canvas');
+            const starCount = 110;
+
+            for (let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 2.2 + 1;
+                star.style.width = size + 'px';
+                star.style.height = size + 'px';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 70 + '%';
+                star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+                star.style.setProperty('--delay', (Math.random() * 5) + 's');
+                star.style.setProperty('--max-opacity', (Math.random() * 0.5 + 0.4).toFixed(2));
+                canvas.appendChild(star);
+            }
+        })();
+    </script>
+</body>
+</html>

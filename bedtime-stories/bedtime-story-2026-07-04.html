@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小彩虹的桥 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0e27 0%, #121836 30%, #1a2248 60%, #0f1525 100%);
+    color: #e8dcc8;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空背景 */
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    animation: twinkle var(--duration) var(--delay) infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 8%;
+    right: 12%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e7, #f0d88a 60%, #d4a843 100%);
+    box-shadow: 0 0 40px 15px rgba(240, 216, 138, 0.3), 0 0 80px 30px rgba(240, 216, 138, 0.15);
+    z-index: 1;
+    animation: moonFloat 6s infinite ease-in-out;
+  }
+  .moon-crater {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(200, 170, 100, 0.3);
+  }
+  .moon-crater:nth-child(1) { top: 25%; left: 30%; width: 12px; height: 12px; }
+  .moon-crater:nth-child(2) { top: 50%; left: 55%; width: 8px; height: 8px; }
+  .moon-crater:nth-child(3) { top: 15%; left: 60%; width: 6px; height: 6px; }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* 流星 */
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 2;
+    box-shadow: 0 0 4px 2px rgba(255,255,255,0.6);
+  }
+  .meteor::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    transform-origin: right center;
+    transform: rotate(215deg);
+  }
+  .meteor-1 { top: 5%; left: 70%; animation: meteorFlash 8s 2s infinite; }
+  .meteor-2 { top: 15%; left: 40%; animation: meteorFlash 8s 6s infinite; }
+  @keyframes meteorFlash {
+    0%, 90%, 100% { opacity: 0; transform: translate(0, 0); }
+    92% { opacity: 1; }
+    96% { opacity: 1; transform: translate(-80px, 50px); }
+    98% { opacity: 0; transform: translate(-120px, 75px); }
+  }
+
+  /* 彩虹弧背景 */
+  .rainbow-arc {
+    position: fixed;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 250px;
+    z-index: 1;
+    opacity: 0;
+    animation: rainbowAppear 3s 1s ease-out forwards;
+    pointer-events: none;
+  }
+  @keyframes rainbowAppear {
+    0% { opacity: 0; transform: translateX(-50%) scaleX(0.3); }
+    100% { opacity: 0.18; transform: translateX(-50%) scaleX(1); }
+  }
+
+  /* 彩虹光晕装饰 */
+  .rainbow-glow {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    animation: orbBreathe 4s infinite ease-in-out;
+  }
+  .rainbow-glow-1 {
+    width: 200px; height: 200px;
+    top: 25%; left: 15%;
+    background: radial-gradient(circle, rgba(255, 100, 100, 0.06), transparent 70%);
+    animation-delay: 0s;
+  }
+  .rainbow-glow-2 {
+    width: 180px; height: 180px;
+    top: 35%; right: 10%;
+    background: radial-gradient(circle, rgba(100, 200, 255, 0.06), transparent 70%);
+    animation-delay: 1.5s;
+  }
+  .rainbow-glow-3 {
+    width: 160px; height: 160px;
+    bottom: 25%; left: 40%;
+    background: radial-gradient(circle, rgba(100, 255, 150, 0.06), transparent 70%);
+    animation-delay: 3s;
+  }
+  .rainbow-glow-4 {
+    width: 140px; height: 140px;
+    top: 15%; left: 60%;
+    background: radial-gradient(circle, rgba(255, 200, 50, 0.06), transparent 70%);
+    animation-delay: 2s;
+  }
+  @keyframes orbBreathe {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.15); }
+  }
+
+  /* 彩虹色小光点 */
+  .rainbow-dot {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 3;
+    animation: dotFloat var(--d-duration) var(--d-delay) infinite ease-in-out;
+  }
+  @keyframes dotFloat {
+    0% { opacity: 0; transform: translateY(0) scale(0.5); }
+    20% { opacity: 0.8; transform: translateY(-12px) scale(1); }
+    80% { opacity: 0.3; transform: translateY(-35px) scale(0.6); }
+    100% { opacity: 0; transform: translateY(-50px) scale(0.2); }
+  }
+
+  /* 主内容 */
+  .content {
+    position: relative;
+    z-index: 10;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+    min-height: 100vh;
+  }
+
+  /* 故事标题区域 */
+  .story-header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInDown 1.5s ease-out;
+  }
+  .story-icon {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    animation: rainbowGlow 3s infinite ease-in-out;
+  }
+  .story-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #f5deb3;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    animation: titleFloat 4s infinite ease-in-out;
+  }
+  .story-date {
+    font-size: 14px;
+    color: rgba(245, 222, 179, 0.5);
+    letter-spacing: 1px;
+  }
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+  @keyframes rainbowGlow {
+    0%, 100% { filter: drop-shadow(0 0 6px rgba(255,200,80,0.4)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 14px rgba(255,150,200,0.7)); transform: scale(1.05); }
+  }
+
+  /* 故事正文 */
+  .story-body {
+    font-size: 18px;
+    line-height: 2;
+    color: #e8dcc8;
+    text-align: justify;
+    animation: fadeIn 2s 0.5s ease-out both;
+  }
+  .story-body p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+  }
+  .story-body .highlight {
+    color: #f5deb3;
+    font-weight: 500;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 48px;
+    padding: 24px;
+    background: rgba(245, 222, 179, 0.06);
+    border-radius: 16px;
+    border: 1px solid rgba(245, 222, 179, 0.12);
+    animation: fadeIn 2s 1.5s ease-out both;
+  }
+  .goodnight-text {
+    font-size: 17px;
+    color: #f5deb3;
+    line-height: 1.8;
+    letter-spacing: 1px;
+  }
+  .goodnight-rainbow {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 16px;
+    animation: rainbowBreathe 2s infinite ease-in-out;
+  }
+  .goodnight-color {
+    font-size: 10px;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+  }
+  .goodnight-color:nth-child(1) { background: #ff6b6b; }
+  .goodnight-color:nth-child(2) { background: #ffa94d; }
+  .goodnight-color:nth-child(3) { background: #ffd43b; }
+  .goodnight-color:nth-child(4) { background: #69db7c; }
+  .goodnight-color:nth-child(5) { background: #74c0fc; }
+  .goodnight-color:nth-child(6) { background: #9775fa; }
+  .goodnight-color:nth-child(7) { background: #f783ac; }
+  @keyframes rainbowBreathe {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* 底部彩虹光路 */
+  .light-path {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to top, rgba(255, 150, 200, 0.04), rgba(100, 200, 255, 0.02), transparent);
+    z-index: 1;
+    pointer-events: none;
+    animation: pathGlow 3s infinite ease-in-out;
+  }
+  @keyframes pathGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .content { padding: 40px 18px 30px; }
+    .story-title { font-size: 22px; }
+    .story-body { font-size: 16px; line-height: 1.9; }
+    .goodnight-text { font-size: 15px; }
+    .moon { width: 60px; height: 60px; top: 5%; right: 8%; }
+    .story-icon { width: 48px; height: 48px; }
+    .rainbow-arc { width: 320px; height: 160px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="stars-container" id="stars"></div>
+
+<!-- 月亮 -->
+<div class="moon">
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+</div>
+
+<!-- 流星 -->
+<div class="meteor meteor-1"></div>
+<div class="meteor meteor-2"></div>
+
+<!-- 彩虹弧 -->
+<div class="rainbow-arc">
+  <svg viewBox="0 0 500 250" xmlns="http://www.w3.org/2000/svg">
+    <!-- 七色彩虹弧 -->
+    <path d="M 50 250 A 200 200 0 0 1 450 250" stroke="#ff6b6b" stroke-width="8" fill="none" opacity="0.7"/>
+    <path d="M 58 250 A 192 192 0 0 1 442 250" stroke="#ffa94d" stroke-width="8" fill="none" opacity="0.7"/>
+    <path d="M 66 250 A 184 184 0 0 1 434 250" stroke="#ffd43b" stroke-width="8" fill="none" opacity="0.7"/>
+    <path d="M 74 250 A 176 176 0 0 1 426 250" stroke="#69db7c" stroke-width="8" fill="none" opacity="0.7"/>
+    <path d="M 82 250 A 168 168 0 0 1 418 250" stroke="#74c0fc" stroke-width="8" fill="none" opacity="0.7"/>
+    <path d="M 90 250 A 160 160 0 0 1 410 250" stroke="#9775fa" stroke-width="8" fill="none" opacity="0.7"/>
+    <path d="M 98 250 A 152 152 0 0 1 402 250" stroke="#f783ac" stroke-width="8" fill="none" opacity="0.6"/>
+  </svg>
+</div>
+
+<!-- 彩虹光晕 -->
+<div class="rainbow-glow rainbow-glow-1"></div>
+<div class="rainbow-glow rainbow-glow-2"></div>
+<div class="rainbow-glow rainbow-glow-3"></div>
+<div class="rainbow-glow rainbow-glow-4"></div>
+
+<!-- 彩虹色小光点 -->
+<div class="rainbow-dot" style="left:25%;top:42%;background:#ff6b6b;--d-duration:3.2s;--d-delay:0s;"></div>
+<div class="rainbow-dot" style="left:40%;top:38%;background:#ffa94d;--d-duration:3.8s;--d-delay:0.6s;"></div>
+<div class="rainbow-dot" style="left:55%;top:35%;background:#ffd43b;--d-duration:4s;--d-delay:1.2s;"></div>
+<div class="rainbow-dot" style="left:65%;top:40%;background:#69db7c;--d-duration:3.5s;--d-delay:0.8s;"></div>
+<div class="rainbow-dot" style="left:75%;top:32%;background:#74c0fc;--d-duration:3.6s;--d-delay:1.5s;"></div>
+<div class="rainbow-dot" style="left:30%;top:50%;background:#9775fa;--d-duration:4.2s;--d-delay:2s;"></div>
+<div class="rainbow-dot" style="left:60%;top:48%;background:#f783ac;--d-duration:3.9s;--d-delay:2.5s;"></div>
+
+<!-- 底部光路 -->
+<div class="light-path"></div>
+
+<!-- 故事内容 -->
+<div class="content">
+  <div class="story-header">
+    <!-- 彩虹图标 SVG -->
+    <div class="story-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <!-- 彩虹弧 -->
+        <path d="M 8 48 A 24 24 0 0 1 56 48" stroke="#ff6b6b" stroke-width="3" fill="none"/>
+        <path d="M 11 48 A 21 21 0 0 1 53 48" stroke="#ffa94d" stroke-width="3" fill="none"/>
+        <path d="M 14 48 A 18 18 0 0 1 50 48" stroke="#ffd43b" stroke-width="3" fill="none"/>
+        <path d="M 17 48 A 15 15 0 0 1 47 48" stroke="#69db7c" stroke-width="3" fill="none"/>
+        <path d="M 20 48 A 12 12 0 0 1 44 48" stroke="#74c0fc" stroke-width="3" fill="none"/>
+        <path d="M 23 48 A 9 9 0 0 1 41 48" stroke="#9775fa" stroke-width="3" fill="none"/>
+        <!-- 小星星 -->
+        <circle cx="32" cy="24" r="3" fill="#ffd43b" opacity="0.8">
+          <animate attributeName="opacity" values="0.8;0.4;0.8" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="18" cy="30" r="1.5" fill="#fff" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;0.2;0.5" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="46" cy="30" r="1.5" fill="#fff" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;0.2;0.5" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <!-- 光晕 -->
+        <circle cx="32" cy="30" r="20" fill="rgba(255,150,200,0.05)">
+          <animate attributeName="r" values="20;22;20" dur="3s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+    <h1 class="story-title">小彩虹的桥</h1>
+    <p class="story-date">2026年7月4日 · 儿童睡前故事</p>
+  </div>
+
+  <div class="story-body">
+    <p>在一座小小的山谷里，住着一只小狐狸，名叫阿橘。山谷的另一边，住着一只小白兔，名叫团团。中间隔着一条小河，没有桥，他们从来没见过面。</p>
+
+    <p>阿橘每天傍晚都会坐在山坡上，望着对面的山。他总觉得那边的山坡上，好像也有一个小小的身影，也在望着这边。可是隔着河，他喊也喊不到，走也走不过去。</p>
+
+    <p>"要是有一座桥就好了。"阿橘小声说。团团在对面也在想："要是有人能过来跟我玩就好了。"</p>
+
+    <p>有一天，下了一场大雨。雨停以后，天边忽然亮起来——一道彩虹，从山谷的这一边，慢慢弯到了另一边。七种颜色，红橙黄绿青蓝紫，像一座漂亮的彩色桥，架在小河的上头。</p>
+
+    <p>阿橘惊喜地踩上去，红色的第一步暖暖的，橙色的第二步柔柔的，黄色亮亮的，绿色软软的，青色凉凉的，蓝色静静的，紫色轻轻的。每走一步，脚下都有一种不一样的温柔。</p>
+
+    <p>团团也从紫色的那头开始走，一步一步往中间来。走着走着，两个小小的身影越来越近了。在彩虹的正中间，他们遇见了！<span class="highlight">阿橘说："你好，我叫阿橘！"团团说："你好，我叫团团！"</span>他们站在彩虹上，一起笑了，笑声顺着七种颜色，传到山谷的每个角落。</p>
+
+    <p>彩虹慢慢消失了，但阿橘和团团手拉着手，从河边找到了几块大石头，搭了一座小小石头桥。从此以后，他们每天都能见面，一起看日落，一起捉迷藏。</p>
+
+    <p>阿橘说："彩虹教了我一件事——哪怕隔着一条河，只要想见面，总能找到路。"团团点点头："是啊，真正的朋友，就是想跟你在一起的人。"</p>
+  </div>
+
+  <div class="goodnight">
+    <p class="goodnight-text">
+      晚安，小宝贝。小彩虹说，<br>
+      哪怕隔着很远，只要心里想见面，<br>
+      就一定能找到那座桥。<br>
+      你今天也是个好孩子，该做一个甜甜的梦了。
+    </p>
+    <div class="goodnight-rainbow">
+      <span class="goodnight-color"></span>
+      <span class="goodnight-color"></span>
+      <span class="goodnight-color"></span>
+      <span class="goodnight-color"></span>
+      <span class="goodnight-color"></span>
+      <span class="goodnight-color"></span>
+      <span class="goodnight-color"></span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 生成随机星星
+  (function() {
+    const container = document.getElementById('stars');
+    const count = 100;
+    for (let i = 0; i < count; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 80 + '%';
+      star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+      star.style.setProperty('--delay', (Math.random() * 5) + 's');
+      container.appendChild(star);
+    }
+  })();
+</script>
+
+</body>
+</html>

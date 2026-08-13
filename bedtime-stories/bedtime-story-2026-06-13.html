@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小松鼠的晚安信 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a1628 0%, #1a2a4a 30%, #1e3a5f 60%, #26466d 100%);
+    color: #e8e0d4;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+  }
+
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 35% 35%, #fffee0 0%, #f5e6b8 40%, #e8d5a0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15);
+    pointer-events: none;
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15); }
+    50% { box-shadow: 0 0 80px rgba(255, 250, 220, 0.55), 0 0 150px rgba(255, 250, 220, 0.2); }
+  }
+
+  .cloud-decor {
+    position: fixed;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 48px;
+  }
+
+  .header-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .story-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+    animation: floatCloud 3s ease-in-out infinite;
+  }
+
+  @keyframes floatCloud {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #f5e6b8;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(245, 230, 184, 0.3);
+  }
+
+  .subtitle {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    margin: 24px auto;
+    border-radius: 1px;
+  }
+
+  .story-text p {
+    font-size: 1.15em;
+    line-height: 2.1;
+    margin-bottom: 18px;
+    text-indent: 2.2em;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  .story-text p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .moral-section {
+    margin: 40px 0 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid rgba(245, 230, 184, 0.5);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .moral-section .moral-title {
+    font-size: 0.9em;
+    color: #f5e6b8;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .moral-section .moral-text {
+    font-size: 1em;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.7);
+    text-indent: 0;
+  }
+
+  .goodnight-section {
+    text-align: center;
+    margin-top: 32px;
+    padding: 32px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+    border-radius: 16px;
+  }
+
+  .goodnight-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 12px;
+    animation: gentlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .goodnight-text {
+    font-size: 1.25em;
+    color: #f5e6b8;
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .bottom-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 95, 0.5) 50%, rgba(10, 22, 40, 0.8) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 480px) {
+    .content-wrapper {
+      padding: 40px 16px 36px;
+    }
+    h1 { font-size: 1.6em; }
+    .story-text p {
+      font-size: 1.05em;
+      line-height: 2;
+    }
+    .moon {
+      width: 56px;
+      height: 56px;
+      top: 24px;
+      right: 5%;
+    }
+    .story-icon { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-container" id="stars"></div>
+<div class="moon"></div>
+<div class="cloud-decor" style="top:12%;left:5%;width:180px;height:60px;animation:floatCloud 8s ease-in-out infinite;"></div>
+<div class="cloud-decor" style="top:28%;left:72%;width:140px;height:44px;animation:floatCloud 11s ease-in-out infinite 2s;"></div>
+<div class="cloud-decor" style="top:65%;left:8%;width:120px;height:36px;animation:floatCloud 9s ease-in-out infinite 4s;"></div>
+<div class="bottom-glow"></div>
+
+<div class="content-wrapper">
+
+  <div class="header-area">
+    <div class="story-icon">🌙</div>
+    <h1>小松鼠的晚安信</h1>
+    <div class="subtitle">2026年6月13日 · 星期六 · 睡前故事</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="story-text">
+    <p>在大森林的东边，有一棵最高最大的橡树，橡树上住着一只叫松松的小松鼠。</p>
+    <p>松松有一个特别的习惯。每天傍晚，当太阳公公把最后一片金色披肩挂在树梢上时，松松就会拿出他珍藏的一叠树叶信纸——那都是秋天最美的红叶、黄叶和银杏叶——用小爪子握着露珠做成的墨水笔，一笔一画地写信。</p>
+    <p>他给谁写信呢？</p>
+    <p>给森林里每一个朋友。</p>
+    <p>给住在地洞里的小兔子阿白写：“阿白，你今天跳得比以前都高，真了不起！盖上软软的干草，做个香香的梦吧。”</p>
+    <p>给住在池塘边的青蛙跳跳写：“跳跳，谢谢你下午唱的歌，整个池塘都安静下来听呢。荷叶是你的摇篮，晚安。”</p>
+    <p>给住在老松树上的猫头鹰婆婆写：“婆婆，虽然您白天都在睡觉，但您守护森林的夜晚，大家都很安心。今晚的月亮又圆又亮，您一定喜欢。”</p>
+    <p>松松写完一封信，就用蒲公英绒毛把叶子信纸包好，轻轻吹一口气，绒毛便飘呀飘呀，飘到收信人的小窝前。</p>
+    <p>收到晚安信的动物们，都会甜甜地笑着入睡。</p>
+    <p>一天傍晚，松松写着写着，眼皮越来越重。原来他白天捡了一整天的松果，实在太累了。他的小爪子还握着笔，头却靠在一颗松果上，呼——呼——地睡着了。</p>
+    <p>那天的信，一封也没送出去。</p>
+    <p>可是你知道吗？那天夜里，森林里的动物们一个个从窝里探出头来。</p>
+    <p>“咦，松松今天没来信？”阿白说。</p>
+    <p>“他一定是累坏了。”跳跳说。</p>
+    <p>“那今天，该我们给松松写信啦。”猫头鹰婆婆轻轻地说。</p>
+    <p>于是，月光下，小兔子衔来了最软的干草，青蛙摘来了一片最绿的荷叶，猫头鹰婆婆叼来了一朵夜里刚开的小白花。</p>
+    <p>它们把这些礼物轻轻地放在橡树下，用露珠在地上画了一行字：</p>
+    <p><strong>“松松，晚安。我们都爱你。”</strong></p>
+    <p>第二天早上，松松醒过来，看到树下的礼物和那行字，小眼睛亮晶晶的，比清晨的露珠还闪。</p>
+    <p>从那天起，松松还是每天送晚安信。只是有时候，他也会收到回信——</p>
+    <p>因为温暖送出去，总有一天，会悄悄绕个圈，又回到你身边。</p>
+  </div>
+
+  <div class="goodnight-section">
+    <span class="goodnight-icon">🌙💤</span>
+    <div class="goodnight-text">
+      晚安，小宝贝。<br>
+      松松说他今晚已经给你寄了一封信——用一片最红最红的枫叶写的——上面只有四个字：好梦甜甜。<br>
+      闭上眼睛吧，你的晚安信已经到啦。<br>
+    </div>
+  </div>
+
+  <div class="footer">
+    <em>本文由小虾米为爷自动生成</em>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 80;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.5 + 1).toFixed(1);
+    var top = Math.random() * 100;
+    var left = Math.random() * 100;
+    var dur = (Math.random() * 3 + 2).toFixed(1);
+    var delay = (Math.random() * 5).toFixed(1);
+    frag += '<div class="star" style="width:'+size+'px;height:'+size+'px;top:'+top+'%;left:'+left+'%;--dur:'+dur+'s;--delay:'+delay+'s;"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

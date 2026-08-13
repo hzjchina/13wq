@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蜡烛的微光 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0e27 0%, #121836 40%, #1a2248 70%, #0f1525 100%);
+    color: #e8dcc8;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空背景 */
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    animation: twinkle var(--duration) var(--delay) infinite ease-in-out;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 8%;
+    right: 12%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e7, #f0d88a 60%, #d4a843 100%);
+    box-shadow: 0 0 40px 15px rgba(240, 216, 138, 0.3), 0 0 80px 30px rgba(240, 216, 138, 0.15);
+    z-index: 1;
+    animation: moonFloat 6s infinite ease-in-out;
+  }
+  .moon-crater {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(200, 170, 100, 0.3);
+  }
+  .moon-crater:nth-child(1) { top: 25%; left: 30%; width: 12px; height: 12px; }
+  .moon-crater:nth-child(2) { top: 50%; left: 55%; width: 8px; height: 8px; }
+  .moon-crater:nth-child(3) { top: 15%; left: 60%; width: 6px; height: 6px; }
+
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* 流星 */
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    z-index: 2;
+    box-shadow: 0 0 4px 2px rgba(255,255,255,0.6);
+  }
+  .meteor::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    transform-origin: right center;
+    transform: rotate(215deg);
+  }
+  .meteor-1 {
+    top: 5%; left: 70%;
+    animation: meteorFlash 8s 2s infinite;
+  }
+  .meteor-2 {
+    top: 15%; left: 40%;
+    animation: meteorFlash 8s 6s infinite;
+  }
+  @keyframes meteorFlash {
+    0%, 90%, 100% { opacity: 0; transform: translate(0, 0); }
+    92% { opacity: 1; }
+    96% { opacity: 1; transform: translate(-80px, 50px); }
+    98% { opacity: 0; transform: translate(-120px, 75px); }
+  }
+
+  /* 主内容 */
+  .content {
+    position: relative;
+    z-index: 10;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 40px;
+    min-height: 100vh;
+  }
+
+  /* 故事标题区域 */
+  .story-header {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInDown 1.5s ease-out;
+  }
+  .story-icon {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    animation: candleGlow 3s infinite ease-in-out;
+  }
+  .story-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #f5deb3;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    animation: titleFloat 4s infinite ease-in-out;
+  }
+  .story-date {
+    font-size: 14px;
+    color: rgba(245, 222, 179, 0.5);
+    letter-spacing: 1px;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  /* 故事正文 */
+  .story-body {
+    font-size: 18px;
+    line-height: 2;
+    color: #e8dcc8;
+    text-align: justify;
+    animation: fadeIn 2s 0.5s ease-out both;
+  }
+  .story-body p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+  }
+  .story-body .highlight {
+    color: #f5deb3;
+    font-weight: 500;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 48px;
+    padding: 24px;
+    background: rgba(245, 222, 179, 0.06);
+    border-radius: 16px;
+    border: 1px solid rgba(245, 222, 179, 0.12);
+    animation: fadeIn 2s 1.5s ease-out both;
+  }
+  .goodnight-text {
+    font-size: 17px;
+    color: #f5deb3;
+    line-height: 1.8;
+    letter-spacing: 1px;
+  }
+  .goodnight-stars {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 16px;
+    animation: starsBreathe 2s infinite ease-in-out;
+  }
+  .goodnight-star {
+    font-size: 12px;
+    color: #f0d88a;
+    opacity: 0.7;
+  }
+
+  @keyframes starsBreathe {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* 蜡烛 SVG 动画 */
+  @keyframes candleGlow {
+    0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 200, 80, 0.6)); transform: scale(1); }
+    50% { filter: drop-shadow(0 0 16px rgba(255, 200, 80, 0.9)); transform: scale(1.05); }
+  }
+
+  /* 光晕装饰 */
+  .glow-orb {
+    position: fixed;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 200, 80, 0.08), transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+    animation: orbBreathe 4s infinite ease-in-out;
+  }
+  .glow-orb-1 {
+    width: 200px; height: 200px;
+    top: 30%; left: 20%;
+    animation-delay: 0s;
+  }
+  .glow-orb-2 {
+    width: 150px; height: 150px;
+    top: 50%; right: 15%;
+    animation-delay: 1.5s;
+  }
+  .glow-orb-3 {
+    width: 120px; height: 120px;
+    bottom: 20%; left: 35%;
+    animation-delay: 3s;
+  }
+
+  @keyframes orbBreathe {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.15); }
+  }
+
+  /* 火花粒子 */
+  .spark {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255, 200, 80, 0.7);
+    pointer-events: none;
+    z-index: 3;
+    animation: sparkFloat var(--s-duration) var(--s-delay) infinite ease-in-out;
+  }
+
+  @keyframes sparkFloat {
+    0% { opacity: 0; transform: translateY(0) scale(0.5); }
+    20% { opacity: 1; transform: translateY(-15px) scale(1); }
+    80% { opacity: 0.5; transform: translateY(-40px) scale(0.8); }
+    100% { opacity: 0; transform: translateY(-55px) scale(0.3); }
+  }
+
+  /* 底部光路 */
+  .light-path {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to top, rgba(255, 200, 80, 0.04), transparent);
+    z-index: 1;
+    pointer-events: none;
+    animation: pathGlow 3s infinite ease-in-out;
+  }
+  @keyframes pathGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .content { padding: 40px 18px 30px; }
+    .story-title { font-size: 22px; }
+    .story-body { font-size: 16px; line-height: 1.9; }
+    .goodnight-text { font-size: 15px; }
+    .moon { width: 60px; height: 60px; top: 5%; right: 8%; }
+    .story-icon { width: 48px; height: 48px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="stars-container" id="stars"></div>
+
+<!-- 月亮 -->
+<div class="moon">
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+</div>
+
+<!-- 流星 -->
+<div class="meteor meteor-1"></div>
+<div class="meteor meteor-2"></div>
+
+<!-- 光晕 -->
+<div class="glow-orb glow-orb-1"></div>
+<div class="glow-orb glow-orb-2"></div>
+<div class="glow-orb glow-orb-3"></div>
+
+<!-- 火花粒子 -->
+<div class="spark" style="left:30%;top:40%;--s-duration:3s;--s-delay:0s;"></div>
+<div class="spark" style="left:55%;top:35%;--s-duration:3.5s;--s-delay:0.8s;"></div>
+<div class="spark" style="left:70%;top:45%;--s-duration:4s;--s-delay:1.5s;"></div>
+<div class="spark" style="left:42%;top:50%;--s-duration:3.2s;--s-delay:2s;"></div>
+<div class="spark" style="left:25%;top:55%;--s-duration:3.8s;--s-delay:1s;"></div>
+<div class="spark" style="left:60%;top:30%;--s-duration:4.2s;--s-delay:2.5s;"></div>
+
+<!-- 底部光路 -->
+<div class="light-path"></div>
+
+<!-- 故事内容 -->
+<div class="content">
+  <div class="story-header">
+    <!-- 蜡烛图标 SVG -->
+    <div class="story-icon">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <!-- 蜡烛体 -->
+        <rect x="22" y="24" width="20" height="32" rx="3" fill="#e8c36a" opacity="0.9"/>
+        <rect x="24" y="26" width="4" height="28" rx="1" fill="#f0d88a" opacity="0.4"/>
+        <!-- 火焰 -->
+        <ellipse cx="32" cy="18" rx="6" ry="10" fill="#ff9933" opacity="0.8">
+          <animate attributeName="ry" values="10;8;10" dur="1.5s" repeatCount="indefinite"/>
+          <animate attributeName="rx" values="6;5;6" dur="1.5s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="32" cy="16" rx="3" ry="6" fill="#ffcc44" opacity="0.9">
+          <animate attributeName="ry" values="6;5;6" dur="1.2s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="32" cy="14" rx="1.5" ry="3" fill="#fff8e0" opacity="1"/>
+        <!-- 光晕 -->
+        <circle cx="32" cy="18" r="16" fill="rgba(255,200,80,0.06)">
+          <animate attributeName="r" values="16;18;16" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <!-- 底座 -->
+        <rect x="18" y="56" width="28" height="4" rx="2" fill="#c9a84c" opacity="0.7"/>
+      </svg>
+    </div>
+    <h1 class="story-title">小蜡烛的微光</h1>
+    <p class="story-date">2026年7月3日 · 儿童睡前故事</p>
+  </div>
+
+  <div class="story-body">
+    <p>在一间小小的储物室里，住着一支很短的蜡烛。她矮矮的，蜡身只剩一点点，旁边的蜡烛们都高高大大的，穿着漂亮的红衣裳和金衣裳。</p>
+
+    <p>小蜡烛常常低着头想："我这么小，光又那么弱，能照亮什么呢？"高大蜡烛说："我能照亮整间屋子！"金色蜡烛说："我的光能让大家看见最美的颜色！"小蜡烛听了，更加难过了。</p>
+
+    <p>有一天晚上，停电了。屋子里黑漆漆的，高大蜡烛和金色蜡烛都被拿走了，去照亮大厅和客厅。小蜡烛被遗忘在角落里，觉得自己真的没有用。</p>
+
+    <p>忽然，储物室的门轻轻推开，一个小男孩走了进来。他揉着眼睛，小声地说："我找不到我的小熊了……"他在黑暗里摸来摸去，差点绊倒。</p>
+
+    <p>小蜡烛看见了，心里一下就着急了。虽然她很小，但她使劲地亮起来——一点暖暖的、橘黄色的光，从她的头顶冒了出来。那光不大，却刚好照亮了小男孩脚边的那个角落。</p>
+
+    <p>小男孩看见了地上的小熊，一把抱住它，开心地笑了。他看着小蜡烛说：<span class="highlight">"谢谢你，小蜡烛！你的光不大，可是刚好照到了我最需要的地方。"</span></p>
+
+    <p>小蜡烛这才明白，原来光不需要很大，只要刚好有人需要，就是最温暖的光。她轻轻地笑着，火苗也跟着摇了摇，像在点头。</p>
+
+    <p>那晚，小男孩抱着小熊，靠着小蜡烛那一点微光，安心地睡着了。而小蜡烛，虽然更短了一点点，却觉得自己比任何时候都亮。</p>
+  </div>
+
+  <div class="goodnight">
+    <p class="goodnight-text">
+      晚安，小宝贝。小蜡烛说，你不需要很厉害，<br>
+      只要能在别人需要的时候亮一下，就是了不起的光。<br>
+      该做一个甜甜的梦了。
+    </p>
+    <div class="goodnight-stars">
+      <span class="goodnight-star">✦</span>
+      <span class="goodnight-star">✦</span>
+      <span class="goodnight-star">✦</span>
+      <span class="goodnight-star">✦</span>
+      <span class="goodnight-star">✦</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // 生成随机星星
+  (function() {
+    const container = document.getElementById('stars');
+    const count = 100;
+    for (let i = 0; i < count; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 80 + '%';
+      star.style.setProperty('--duration', (Math.random() * 4 + 2) + 's');
+      star.style.setProperty('--delay', (Math.random() * 5) + 's');
+      container.appendChild(star);
+    }
+  })();
+</script>
+
+</body>
+</html>

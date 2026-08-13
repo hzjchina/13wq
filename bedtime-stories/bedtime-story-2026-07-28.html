@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小手套的约定 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-top: #0f1526;
+      --bg-mid: #1b2340;
+      --bg-bottom: #2a1b3d;
+      --moon: #fff6d9;
+      --moon-glow: rgba(255, 246, 217, 0.28);
+      --text: #f7f4ee;
+      --accent: #ff8fa3;
+      --accent-soft: rgba(255, 143, 163, 0.18);
+      --warm: #ffd8a6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 55%, var(--bg-bottom) 100%);
+      color: var(--text);
+      line-height: 1.9;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #stars, #snow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle 3s infinite ease-in-out alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.25; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0) 100%);
+      border-radius: 2px;
+      transform: rotate(-35deg);
+      opacity: 0;
+      animation: shoot 6s infinite ease-in-out;
+    }
+
+    @keyframes shoot {
+      0% { opacity: 0; transform: translate(0, 0) rotate(-35deg); }
+      12% { opacity: 1; }
+      25% { opacity: 0; transform: translate(-220px, 150px) rotate(-35deg); }
+      100% { opacity: 0; }
+    }
+
+    .moon {
+      position: fixed;
+      top: 6vh;
+      right: 8vw;
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fffdf5, var(--moon));
+      box-shadow: 0 0 40px 12px var(--moon-glow), 0 0 80px 30px rgba(255, 246, 217, 0.08);
+      animation: moonFloat 7s ease-in-out infinite alternate;
+      z-index: 0;
+    }
+
+    @keyframes moonFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    .snowflake {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 14px;
+      animation: fall linear infinite;
+      user-select: none;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(110vh) translateX(25px) rotate(360deg); opacity: 0; }
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 8vh 24px 10vh;
+    }
+
+    .story-card {
+      background: rgba(255, 255, 255, 0.055);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      padding: 36px 32px 44px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    @media (min-width: 640px) {
+      .story-card {
+        padding: 52px 54px 58px;
+      }
+    }
+
+    .mitten-art {
+      width: 160px;
+      height: 110px;
+      margin: 0 auto 28px;
+      display: block;
+      animation: mittensFloat 4s ease-in-out infinite alternate;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,0.25));
+    }
+
+    @keyframes mittensFloat {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    h1 {
+      font-size: clamp(1.9rem, 6vw, 2.6rem);
+      text-align: center;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 10px;
+      color: var(--warm);
+      text-shadow: 0 0 24px var(--accent-soft), 0 2px 10px rgba(0,0,0,0.25);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 22px var(--accent-soft), 0 2px 10px rgba(0,0,0,0.25); }
+      100% { text-shadow: 0 0 36px rgba(255, 216, 166, 0.28), 0 2px 10px rgba(0,0,0,0.25); }
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: rgba(247, 244, 238, 0.6);
+      margin-bottom: 34px;
+      letter-spacing: 0.15em;
+    }
+
+    .story-body {
+      font-size: clamp(1.15rem, 3.6vw, 1.35rem);
+      text-align: justify;
+      text-indent: 2em;
+      color: rgba(247, 244, 238, 0.96);
+    }
+
+    .story-body p {
+      margin-bottom: 1.1em;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 34px 0;
+      opacity: 0.6;
+    }
+
+    .divider span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: dotPulse 2.2s ease-in-out infinite alternate;
+    }
+
+    .divider span:nth-child(2) { animation-delay: 0.3s; }
+    .divider span:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes dotPulse {
+      0% { transform: scale(0.7); opacity: 0.4; }
+      100% { transform: scale(1.3); opacity: 1; }
+    }
+
+    .goodnight {
+      margin-top: 34px;
+      padding: 24px 26px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(255, 143, 163, 0.12), rgba(255, 216, 166, 0.1));
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      text-align: center;
+      font-size: clamp(1.15rem, 3.6vw, 1.3rem);
+      color: var(--warm);
+      line-height: 1.8;
+      animation: goodnightBreath 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes goodnightBreath {
+      0% { box-shadow: 0 0 18px rgba(255, 143, 163, 0.08); }
+      100% { box-shadow: 0 0 34px rgba(255, 216, 166, 0.18); }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 32px;
+      font-size: 0.85rem;
+      color: rgba(247, 244, 238, 0.35);
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="stars"></div>
+  <div id="snow"></div>
+  <div class="moon"></div>
+
+  <main class="page">
+    <article class="story-card">
+      <svg class="mitten-art" viewBox="0 0 200 130" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="mittenGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff8fa3"/>
+            <stop offset="100%" stop-color="#e86a82"/>
+          </linearGradient>
+          <linearGradient id="cuffGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffe3e8"/>
+            <stop offset="100%" stop-color="#ffc2cc"/>
+          </linearGradient>
+        </defs>
+        <!-- left mitten -->
+        <g transform="translate(18, 10) rotate(-8)">
+          <rect x="28" y="55" width="46" height="22" rx="8" fill="url(#cuffGrad)"/>
+          <path d="M34,58 C34,30 44,12 66,12 C84,12 92,28 92,52 L92,70 C92,82 84,88 72,88 L48,88 C38,88 34,80 34,70 Z" fill="url(#mittenGrad)"/>
+          <circle cx="72" cy="36" r="10" fill="#ffe3e8" opacity="0.55"/>
+        </g>
+        <!-- right mitten -->
+        <g transform="translate(102, 12) rotate(8)">
+          <rect x="28" y="55" width="46" height="22" rx="8" fill="url(#cuffGrad)"/>
+          <path d="M34,58 C34,30 44,12 66,12 C84,12 92,28 92,52 L92,70 C92,82 84,88 72,88 L48,88 C38,88 34,80 34,70 Z" fill="url(#mittenGrad)"/>
+          <circle cx="72" cy="36" r="10" fill="#ffe3e8" opacity="0.55"/>
+        </g>
+        <!-- little string connecting -->
+        <path d="M66,88 Q94,115 126,88" stroke="#ffd8a6" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7"/>
+      </svg>
+
+      <h1>小手套的约定</h1>
+      <p class="subtitle">儿童睡前故事 · 2026年7月28日</p>
+
+      <div class="story-body">
+        <p>冬天的夜晚，风轻轻的，雪也停了。抽屉里躺着两只红绒绒的小手套，左边叫团团，右边叫圆圆。它们约好，明早要一起陪着小主人去堆雪人。</p>
+
+        <p>可是第二天早晨，小主人只找到了团团。圆圆掉在沙发缝里，怎么也够不着。团团只好一只手套陪着小手出门。小主人带着团团在院子里滚雪球，团团的掌心暖烘烘的。可它一直想着圆圆：没有我在身边，它会不会冷？会不会害怕？</p>
+
+        <p>傍晚，小主人的妈妈收拾屋子，终于发现了沙发缝里的圆圆。圆圆高兴极了，可又有点委屈：说好了一起去，我却迟到了整整一天。</p>
+
+        <p>那天晚上，小主人把两只手套并排放好。团团轻轻碰了碰圆圆：“没关系呀，明天我们还一起去。只要你在我旁边，我的手就不会再空空的了。”圆圆点点头，小声说：“下次我一定紧紧抓住你，再也不乱跑了。”</p>
+
+        <p>月光照在它们身上，红绒绒像两朵小火焰。它们知道，真正的朋友不是永远不分开，而是分开之后，还会努力回到彼此身边；是哪怕只有一只手套，也把温暖留给了对方。</p>
+
+        <p>从那以后，每天早上，团团和圆圆都紧紧靠在一起。它们陪着小主人走过雪地，画下一串又一串圆圆满满的脚印。</p>
+      </div>
+
+      <div class="divider" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+
+      <div class="goodnight">
+        晚安，小宝贝。<br/>
+        团团和圆圆说，你今天也是个守约定、会分享的好孩子，该做一个甜甜的梦了。
+      </div>
+    </article>
+
+    <p class="footer">给小宝贝的温柔睡前故事 🦐</p>
+  </main>
+
+  <script>
+    (function() {
+      const starsContainer = document.getElementById('stars');
+      const snowContainer = document.getElementById('snow');
+
+      // stars
+      for (let i = 0; i < 110; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.4 + 1;
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.top = Math.random() * 100 + 'vh';
+        s.style.animationDelay = (Math.random() * 4) + 's';
+        s.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+        starsContainer.appendChild(s);
+      }
+
+      // shooting stars
+      for (let i = 0; i < 2; i++) {
+        const sh = document.createElement('div');
+        sh.className = 'shooting-star';
+        sh.style.top = (5 + Math.random() * 25) + 'vh';
+        sh.style.left = (60 + Math.random() * 35) + 'vw';
+        sh.style.animationDelay = (i * 3 + Math.random() * 2) + 's';
+        starsContainer.appendChild(sh);
+      }
+
+      // snowflakes
+      for (let i = 0; i < 18; i++) {
+        const flake = document.createElement('div');
+        flake.className = 'snowflake';
+        flake.textContent = '❄';
+        flake.style.left = Math.random() * 100 + 'vw';
+        flake.style.fontSize = (10 + Math.random() * 12) + 'px';
+        flake.style.animationDuration = (8 + Math.random() * 12) + 's';
+        flake.style.animationDelay = (Math.random() * 10) + 's';
+        flake.style.opacity = 0.35 + Math.random() * 0.45;
+        snowContainer.appendChild(flake);
+      }
+    })();
+  </script>
+</body>
+</html>

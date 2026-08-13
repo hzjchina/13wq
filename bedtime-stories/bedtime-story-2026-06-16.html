@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小布熊的晚安 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(175deg, #0f0c29 0%, #1a1040 30%, #1e2a5a 60%, #101838 100%);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #e8e0d4;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 柔和星云背景 */
+  .nebula {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .nebula-1 {
+    top: -10vh; right: -5vw;
+    width: 40vw; height: 40vw;
+    background: radial-gradient(circle, #7b68ee, transparent 70%);
+  }
+  .nebula-2 {
+    bottom: -15vh; left: -5vw;
+    width: 35vw; height: 35vw;
+    background: radial-gradient(circle, #4a6fa5, transparent 70%);
+  }
+
+  /* 星空背景 */
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle var(--dur) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0.15; transform: scale(0.85); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1.25); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 5vh;
+    right: 7vw;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #fffde7, #ffefc4 40%, #e8c65a);
+    box-shadow: 0 0 45px 14px rgba(255, 239, 196, 0.22), 0 0 90px 35px rgba(255, 239, 196, 0.08);
+    z-index: 1;
+    animation: moonGlow 4.5s ease-in-out infinite alternate;
+  }
+  @keyframes moonGlow {
+    0% { box-shadow: 0 0 45px 14px rgba(255,239,196,0.22), 0 0 90px 35px rgba(255,239,196,0.08); }
+    100% { box-shadow: 0 0 55px 20px rgba(255,239,196,0.32), 0 0 110px 45px rgba(255,239,196,0.13); }
+  }
+
+  /* 漂浮光点 — 暖色系 */
+  .firefly {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 220, 140, 0.75);
+    box-shadow: 0 0 10px 3px rgba(255, 220, 140, 0.35);
+    animation: floatUp var(--dur) ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    15% { opacity: 0.75; }
+    85% { opacity: 0.5; }
+    100% { transform: translateY(-140px) translateX(var(--drift)); opacity: 0; }
+  }
+
+  /* 底部柔和渐变 */
+  .ground-glow {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 120px;
+    background: linear-gradient(to top, rgba(40, 60, 100, 0.18), transparent);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* 内容区 */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  .date-tag {
+    display: inline-block;
+    font-size: 13px;
+    color: rgba(180, 200, 230, 0.55);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding: 4px 14px;
+    border: 1px solid rgba(180, 200, 230, 0.18);
+    border-radius: 20px;
+  }
+
+  .story-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffefc4;
+    text-shadow: 0 0 30px rgba(255, 239, 196, 0.28);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .story-subtitle {
+    font-size: 15px;
+    color: rgba(180, 200, 230, 0.55);
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 18px;
+    color: rgba(180, 200, 230, 0.3);
+    letter-spacing: 6px;
+  }
+
+  .story-body p {
+    font-size: 19px;
+    line-height: 2;
+    color: #ddd6c8;
+    margin-bottom: 20px;
+    text-indent: 2em;
+  }
+
+  .story-body .highlight {
+    color: #f5d98a;
+    font-weight: 500;
+  }
+
+  .goodnight {
+    margin-top: 40px;
+    padding: 24px;
+    background: rgba(255, 239, 196, 0.06);
+    border-left: 3px solid rgba(245, 217, 138, 0.4);
+    border-radius: 0 12px 12px 0;
+  }
+  .goodnight p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: rgba(245, 217, 138, 0.85);
+    text-indent: 0;
+    margin: 0;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 12px;
+    color: rgba(180, 200, 230, 0.25);
+    letter-spacing: 1.5px;
+  }
+
+  /* 响应式 */
+  @media (max-width: 640px) {
+    .container { padding: 40px 20px 60px; }
+    .story-title { font-size: 26px; }
+    .story-body p { font-size: 17px; line-height: 1.9; }
+    .moon { width: 60px; height: 60px; top: 3vh; right: 5vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星云 -->
+<div class="nebula nebula-1"></div>
+<div class="nebula nebula-2"></div>
+
+<!-- 星空 -->
+<div class="stars" id="stars"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 漂浮光点 -->
+<div id="fireflies"></div>
+
+<!-- 底部柔和光 -->
+<div class="ground-glow"></div>
+
+<!-- 内容 -->
+<div class="container">
+  <div class="date-tag">2026 年 6 月 16 日 · 星期二 · 睡前故事</div>
+  <h1 class="story-title">小布熊的晚安</h1>
+  <p class="story-subtitle">—— 每一句晚安，都是一句"谢谢你"</p>
+  <div class="divider">✨ 🌙 ✨</div>
+
+  <div class="story-body">
+    <p>小布熊<span class="highlight">布布</span>住在小主人朵朵的枕头边。白天，布布安安静静地坐着，看着朵朵画画、搭积木、翻绘本。可是每天晚上，等朵朵睡着以后，布布就会悄悄地动起来。</p>
+
+    <p>这是布布的小秘密——他要在每个夜晚，对房间里的每一样东西说一句晚安。</p>
+
+    <p>他先轻轻走到积木小房子旁边，小声说：「晚安，积木。谢谢你今天陪朵朵盖了十二座城堡。」</p>
+
+    <p>积木们悄悄眨了一下彩色的眼睛，安静下来。</p>
+
+    <p>然后布布走到小书桌上，对蜡笔们说：「晚安，蜡笔。谢谢你们帮朵朵画了云朵、大树，还有一只飞得高高的风筝。」</p>
+
+    <p>蜡笔们轻轻闪着属于自己的颜色，也睡着了。</p>
+
+    <p>布布又爬到窗台边，对绘本说：「晚安，故事书。谢谢你给朵朵讲了小兔子和月亮的故事。」</p>
+
+    <p>绘本的封面泛起一丝温暖的光，像在说「不用谢」。</p>
+
+    <p>布布来到小台灯旁边，拍了拍台灯的底座：「晚安，小灯。谢谢你今晚一直亮着，给朵朵把黑暗赶走了。」</p>
+
+    <p>小台灯最后闪了两下，发出柔柔的光，然后慢慢暗了下来。</p>
+
+    <p>他走到窗边，拉开一点点窗帘。夜空中，月亮弯弯的，像一只笑着的眼睛。布布对着月亮招了招手：「晚安，月亮婆婆。谢谢你照着我们，让夜晚不会太黑。」</p>
+
+    <p>月亮婆婆洒下更多银色的光，像一条软软的被子，盖在朵朵身上。</p>
+
+    <p>最后，布布蹑手蹑脚地回到枕头边。他靠在朵朵的脸颊旁，轻轻地说：「晚安，朵朵。谢谢你每天都抱着我。你是世界上最好的小主人。」</p>
+
+    <p>布布把软软的耳朵贴在朵朵的肩膀上，闭上眼睛。</p>
+
+    <p>房间安静极了。所有的玩具、所有的颜色、所有的故事，都裹在月光里，甜甜地睡着了。而布布的心里装满了感谢，就像一个小小的、温暖的太阳。</p>
+  </div>
+
+  <div class="goodnight">
+    <p>晚安，小宝贝。<br>布布说，被爱的人会睡得特别香。你已经是被爱包围的小朋友了，请闭上眼睛，做一个像棉花糖一样软、像蜂蜜一样甜的梦吧。</p>
+  </div>
+
+  <div class="footer">
+    🧸 每天一个好梦 · 小虾米的睡前故事
+  </div>
+</div>
+
+<script>
+// 动态生成星星
+(function() {
+  var starsEl = document.getElementById('stars');
+  var count = 70;
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < count; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    var size = Math.random() * 2.2 + 1;
+    s.style.cssText =
+      'width:' + size + 'px;' +
+      'height:' + size + 'px;' +
+      'top:' + (Math.random() * 85) + '%;' +
+      'left:' + (Math.random() * 95) + '%;' +
+      '--dur:' + (Math.random() * 2.5 + 2) + 's;' +
+      'animation-delay:' + (Math.random() * 4) + 's;';
+    frag.appendChild(s);
+  }
+  starsEl.appendChild(frag);
+
+  // 动态生成漂浮光点
+  var ffEl = document.getElementById('fireflies');
+  for (var j = 0; j < 10; j++) {
+    var f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.cssText =
+      'top:' + (Math.random() * 90 + 5) + '%;' +
+      'left:' + (Math.random() * 90 + 5) + '%;' +
+      '--dur:' + (Math.random() * 5 + 6) + 's;' +
+      '--drift:' + (Math.random() * 60 - 30) + 'px;' +
+      'animation-delay:' + (Math.random() * 8) + 's;';
+    ffEl.appendChild(f);
+  }
+})();
+</script>
+
+</body>
+</html>

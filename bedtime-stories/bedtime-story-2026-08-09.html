@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小邮筒的等待 — 儿童睡前故事</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: linear-gradient(180deg, #0a0e27 0%, #141a3a 40%, #1a1f4a 100%);
+  min-height: 100vh;
+  font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+  color: #e8e0d0;
+  overflow-x: hidden;
+  position: relative;
+}
+/* 星空容器 */
+.stars { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
+.star {
+  position:absolute; background:#fff; border-radius:50%;
+  animation: twinkle var(--dur,3s) ease-in-out infinite;
+  animation-delay: var(--delay,0s);
+}
+@keyframes twinkle {
+  0%,100% { opacity:0.15; transform:scale(0.8); }
+  50% { opacity:0.9; transform:scale(1.2); }
+}
+/* 月亮 */
+.moon {
+  position: fixed; top: 40px; right: 50px; width: 70px; height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff8e7, #f0e6c8 60%, #d4c89e);
+  box-shadow: 0 0 30px rgba(255,248,231,0.4), 0 0 60px rgba(255,248,231,0.2), 0 0 90px rgba(255,248,231,0.1);
+  z-index:0;
+  animation: moonFloat 6s ease-in-out infinite;
+}
+@keyframes moonFloat {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+/* 流星 */
+.shooting-star {
+  position: fixed; width: 2px; height: 2px; background: #fff; border-radius:50%;
+  z-index:0; opacity:0;
+  animation: shoot 8s ease-in infinite;
+}
+.shooting-star::after {
+  content:''; position:absolute; top:0; left:0; width:60px; height:1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.6), transparent);
+  transform: translateX(-60px);
+}
+.shooting-star:nth-child(1) { top:15%; left:10%; animation-delay:2s; }
+.shooting-star:nth-child(2) { top:30%; left:60%; animation-delay:5s; }
+@keyframes shoot {
+  0% { opacity:0; transform: translate(0,0); }
+  3% { opacity:1; }
+  10% { opacity:0; transform: translate(150px,100px); }
+  100% { opacity:0; transform: translate(150px,100px); }
+}
+/* 内容容器 */
+.container {
+  position: relative; z-index:1; max-width:640px; margin:0 auto;
+  padding: 50px 24px 80px;
+}
+/* 邮筒 SVG 区域 */
+.illustration {
+  text-align:center; margin: 20px 0 30px;
+  animation: mailboxFloat 4s ease-in-out infinite;
+}
+@keyframes mailboxFloat {
+  0%,100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-6px) rotate(0.5deg); }
+}
+.illustration svg { width: 120px; height: auto; filter: drop-shadow(0 4px 20px rgba(255,180,80,0.2)); }
+/* 邮筒光晕 */
+.mailbox-glow {
+  position: absolute; width: 140px; height: 140px; border-radius:50%;
+  background: radial-gradient(circle, rgba(255,200,100,0.12), transparent 70%);
+  left: 50%; transform: translateX(-50%); top: 30px;
+  animation: glowBreath 3s ease-in-out infinite;
+  z-index:-1;
+}
+@keyframes glowBreath {
+  0%,100% { opacity:0.5; transform: translateX(-50%) scale(1); }
+  50% { opacity:0.9; transform: translateX(-50%) scale(1.15); }
+}
+/* 投信口微光 */
+.slot-light {
+  animation: slotGlow 2.5s ease-in-out infinite;
+}
+@keyframes slotGlow {
+  0%,100% { opacity:0.3; }
+  50% { opacity:0.8; }
+}
+/* 标题 */
+.title {
+  text-align:center; font-size:1.7rem; font-weight:700;
+  color: #ffd9a0; margin-bottom: 6px;
+  text-shadow: 0 0 20px rgba(255,200,120,0.3);
+  animation: titleGlow 4s ease-in-out infinite;
+}
+@keyframes titleGlow {
+  0%,100% { text-shadow: 0 0 15px rgba(255,200,120,0.2); }
+  50% { text-shadow: 0 0 25px rgba(255,200,120,0.4); }
+}
+.subtitle {
+  text-align:center; font-size:0.85rem; color:#8899bb; margin-bottom:30px;
+}
+/* 故事正文 */
+.story {
+  font-size: 1.08rem; line-height: 2.0; color: #d8d0c0;
+  text-align: justify;
+}
+.story p { margin-bottom: 1.2em; text-indent: 2em; }
+.story p:first-letter { color: #ffc878; font-size:1.3em; font-weight:700; }
+/* 晚安语 */
+.goodnight {
+  margin-top: 35px; padding: 20px 24px;
+  background: linear-gradient(135deg, rgba(255,200,120,0.08), rgba(255,180,80,0.04));
+  border: 1px solid rgba(255,200,120,0.15);
+  border-radius: 16px;
+  text-align:center; font-size:1.05rem; color:#ffe0b0; line-height:1.8;
+  animation: goodnightGlow 4s ease-in-out infinite;
+}
+@keyframes goodnightGlow {
+  0%,100% { box-shadow: 0 0 15px rgba(255,200,120,0.08); }
+  50% { box-shadow: 0 0 25px rgba(255,200,120,0.15); }
+}
+/* 暖色粒子 */
+.warm-particle {
+  position: fixed; bottom:-20px; width:4px; height:4px;
+  border-radius:50%; z-index:0; opacity:0;
+  animation: floatUp var(--dur,8s) linear infinite;
+  animation-delay: var(--delay,0s);
+}
+@keyframes floatUp {
+  0% { opacity:0; transform: translateY(0) translateX(0); }
+  10% { opacity:0.6; }
+  90% { opacity:0.3; }
+  100% { opacity:0; transform: translateY(-100vh) translateX(var(--x,20px)); }
+}
+/* 底部星光 */
+.bottom-stars { text-align:center; margin-top:25px; }
+.bottom-star {
+  display:inline-block; width:5px; height:5px; border-radius:50%;
+  background:#ffc878; margin:0 8px;
+  animation: bottomBreath 3s ease-in-out infinite;
+}
+.bottom-star:nth-child(2) { animation-delay:0.5s; }
+.bottom-star:nth-child(3) { animation-delay:1s; }
+.bottom-star:nth-child(4) { animation-delay:1.5s; }
+.bottom-star:nth-child(5) { animation-delay:2s; }
+@keyframes bottomBreath {
+  0%,100% { opacity:0.2; transform:scale(0.8); }
+  50% { opacity:0.8; transform:scale(1.3); }
+}
+/* 响应式 */
+@media (max-width:480px) {
+  .container { padding:35px 18px 60px; }
+  .title { font-size:1.4rem; }
+  .story { font-size:1rem; line-height:1.9; }
+  .moon { width:50px; height:50px; top:25px; right:25px; }
+  .goodnight { font-size:0.95rem; padding:16px 18px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="stars" id="stars"></div>
+<!-- 月亮 -->
+<div class="moon"></div>
+<!-- 流星 -->
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+
+<!-- 暖色粒子 -->
+<div class="warm-particle" style="left:15%; --dur:9s; --delay:0s; --x:30px; background:#ffc878;"></div>
+<div class="warm-particle" style="left:35%; --dur:11s; --delay:2s; --x:-20px; background:#ffd9a0;"></div>
+<div class="warm-particle" style="left:55%; --dur:10s; --delay:4s; --x:25px; background:#ffc878;"></div>
+<div class="warm-particle" style="left:75%; --dur:12s; --delay:1s; --x:-15px; background:#ffd9a0;"></div>
+<div class="warm-particle" style="left:85%; --dur:9s; --delay:3s; --x:20px; background:#ffc878;"></div>
+<div class="warm-particle" style="left:25%; --dur:13s; --delay:5s; --x:-25px; background:#ffe0b0;"></div>
+<div class="warm-particle" style="left:65%; --dur:10s; --delay:6s; --x:15px; background:#ffc878;"></div>
+
+<div class="container">
+
+  <!-- 邮筒插图 -->
+  <div class="illustration" style="position:relative;">
+    <div class="mailbox-glow"></div>
+    <svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+      <!-- 邮筒顶部圆帽 -->
+      <ellipse cx="50" cy="18" rx="28" ry="6" fill="#c44"/>
+      <path d="M22,18 Q22,8 50,8 Q78,8 78,18 L78,22 L22,22 Z" fill="#d55"/>
+      <!-- 邮筒主体 -->
+      <rect x="25" y="22" width="50" height="70" rx="4" fill="#d44848"/>
+      <rect x="25" y="22" width="50" height="70" rx="4" fill="none" stroke="#a33" stroke-width="0.8"/>
+      <!-- 投信口 -->
+      <rect class="slot-light" x="33" y="30" width="34" height="5" rx="2.5" fill="#2a1a1a"/>
+      <!-- 邮筒标识牌 -->
+      <rect x="35" y="42" width="30" height="16" rx="2" fill="#ffd700" opacity="0.85"/>
+      <text x="50" y="53" text-anchor="middle" font-size="7" fill="#880" font-weight="bold">信</text>
+      <!-- 取信门 -->
+      <rect x="30" y="65" width="40" height="22" rx="2" fill="#b33" stroke="#922" stroke-width="0.5"/>
+      <circle cx="60" cy="76" r="1.5" fill="#ffd700"/>
+      <!-- 邮筒底座 -->
+      <rect x="35" y="92" width="30" height="6" fill="#888"/>
+      <rect x="40" y="98" width="20" height="25" rx="2" fill="#777"/>
+      <rect x="38" y="121" width="24" height="4" rx="2" fill="#666"/>
+      <!-- 顶部小星星装饰 -->
+      <circle cx="50" cy="5" r="1.5" fill="#ffd700" opacity="0.6">
+        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <h1 class="title">小邮筒的等待</h1>
+  <p class="subtitle">— 儿童睡前故事 —</p>
+
+  <div class="story">
+    <p>巷子口有一个绿色的小邮筒，它已经站在那里很久很久了。每天，它都张着大大的投信口，等着有人往里塞一封信。</p>
+
+    <p>可是，好久好久都没有人来寄信了。小燕子飞过来说："现在大家都用手机啦，没有人写信了。"小邮筒听了，心里有一点点难过。它想，是不是自己没有用了呢？</p>
+
+    <p>冬天来了，雪花落在小邮筒的帽子上，白白的，像戴了一顶毛茸茸的帽子。小邮筒还是一动不动地站着，它想：万一有人需要我呢？我得等着。</p>
+
+    <p>有一天傍晚，一个小女孩跑了过来。她脸蛋冻得红红的，小手揣着一封信，小心翼翼地塞进了投信口。"咔嗒"一声，信掉进去了。小邮筒觉得心里暖暖的，像喝了一杯热可可。</p>
+
+    <p>那封信是写给天上奶奶的。小女孩说："奶奶，我想你了。我把你教的歌教给妹妹啦，她唱得可好听了。你在天上能听见吗？"</p>
+
+    <p>小邮筒把那封信抱在肚子里，抱得紧紧的。它忽然明白了，自己等的不是信，是一份份想对别人说的话。每一封信里，都装着一颗想飞到别人身边去的心。</p>
+
+    <p>风轻轻吹过，小邮筒的身子晃了晃，像在点头。它对小女孩说："放心吧，你的话，我一定帮你送到的。"</p>
+
+    <p>从那以后，偶尔又有人来寄信了。小邮筒每天都站得直直的，投信口张得大大的，像一个大大的微笑。因为它知道，只要自己还站着，就永远有人可以把心里的话送出去。</p>
+  </div>
+
+  <div class="goodnight">
+    晚安，小宝贝。小邮筒说，你今天心里想说的话，都好好说出口了吗？<br>没说完也没关系，梦里还可以悄悄说哦。该做一个甜甜的梦了。
+  </div>
+
+  <div class="bottom-stars">
+    <span class="bottom-star"></span>
+    <span class="bottom-star"></span>
+    <span class="bottom-star"></span>
+    <span class="bottom-star"></span>
+    <span class="bottom-star"></span>
+  </div>
+
+</div>
+
+<script>
+// 生成星星
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 100; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2 + 0.5;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 70 + '%';
+  star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+  star.style.setProperty('--delay', Math.random() * 3 + 's');
+  starsContainer.appendChild(star);
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典电影推荐 · 第 39 期 | 星际穿越</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface-2: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-2: #f37020;
+            --gold: #e3b341;
+            --radius: 16px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.85;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 32px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .issue {
+            display: inline-block;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin: 0 0 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .original-title {
+            font-size: 22px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .meta span {
+            background: var(--surface-2);
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+        }
+
+        .poster {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #1a2332 0%, #0d1117 100%);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .poster::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(88, 166, 255, 0.12) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 30%, rgba(243, 112, 32, 0.10) 0%, transparent 45%);
+        }
+
+        .poster-text {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .poster-text .zh {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: 8px;
+            color: var(--text);
+            text-shadow: 0 4px 24px rgba(0,0,0,0.5);
+        }
+
+        .poster-text .en {
+            font-size: 18px;
+            letter-spacing: 6px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 0 0 18px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "";
+            width: 6px;
+            height: 24px;
+            background: var(--accent-2);
+            border-radius: 3px;
+        }
+
+        p {
+            margin: 0 0 16px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rating {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .rating-item {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .rating-item .score {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gold);
+            display: block;
+        }
+
+        .rating-item .source {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .highlight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .highlight-list li {
+            padding: 14px 0 14px 36px;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .highlight-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .highlight-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-2);
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .why-watch {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.08) 0%, rgba(243, 112, 32, 0.06) 100%);
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .spoiler-free {
+            display: inline-block;
+            background: rgba(46, 160, 67, 0.15);
+            color: #3fb950;
+            border: 1px solid rgba(46, 160, 67, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .original-title {
+                font-size: 16px;
+            }
+
+            .poster-text .zh {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+
+            .poster-text .en {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .rating-item .score {
+                font-size: 26px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="issue">第 39 期 · 经典电影推荐</div>
+            <h1>星际穿越</h1>
+            <div class="original-title">Interstellar</div>
+            <div class="meta">
+                <span>2014</span>
+                <span>美国 / 英国</span>
+                <span>科幻 / 冒险 / 剧情</span>
+                <span>169 分钟</span>
+            </div>
+        </header>
+
+        <div class="poster">
+            <div class="poster-text">
+                <div class="zh">星际穿越</div>
+                <div class="en">Interstellar</div>
+            </div>
+        </div>
+
+        <div class="rating">
+            <div class="rating-item">
+                <span class="score">9.4</span>
+                <span class="source">豆瓣</span>
+            </div>
+            <div class="rating-item">
+                <span class="score">8.7</span>
+                <span class="source">IMDb</span>
+            </div>
+            <div class="rating-item">
+                <span class="score">72%</span>
+                <span class="source">烂番茄</span>
+            </div>
+            <div class="rating-item">
+                <span class="score">86%</span>
+                <span class="source">爆米花指数</span>
+            </div>
+        </div>
+
+        <section>
+            <h2>剧情梗概</h2>
+            <p>在不远的未来，地球环境急剧恶化，粮食危机席卷全球，人类文明濒临崩溃。前 NASA 飞行员库珀已告别星空多年，在农场与家人相依为命。一次意外发现，让他得知一个关乎人类存亡的秘密计划：穿越土星附近神秘的虫洞，前往另一端的星系，寻找新的宜居星球。</p>
+            <p>为了孩子的未来，库珀忍痛告别女儿墨菲，与一支科学探险队踏上未知旅程。在浩渺宇宙的另一端，他们不仅要面对黑洞、巨浪、时间膨胀等极端挑战，还要在科学与情感、使命与回家之间，做出最艰难的抉择。</p>
+            <span class="spoiler-free">✓ 本文无关键剧透</span>
+        </section>
+
+        <section>
+            <h2>亮点所在</h2>
+            <ul class="highlight-list">
+                <li><strong>硬科幻的极致浪漫：</strong>诺兰与诺贝尔物理学奖得主基普·索恩深度合作，黑洞、虫洞、时间膨胀、引力波等概念被以惊人的视觉与叙事方式呈现。</li>
+                <li><strong>汉斯·季默的管风琴配乐：</strong>低沉而宏大的管风琴贯穿全片，将宇宙的孤独、渺小与壮阔同时推向极致，是电影史上不可多得的配乐杰作。</li>
+                <li><strong>时间与爱的双重主题：</strong>影片将宏大的宇宙尺度，与父女之间跨越时空的情感羁绊交织在一起，让科幻外壳下流淌着深沉的人文内核。</li>
+                <li><strong>奥斯卡级视效：</strong>影片斩获第 87 届奥斯卡最佳视觉效果奖，黑洞「卡冈图雅」的呈现甚至推动了相关天体物理学的公开讨论。</li>
+                <li><strong>表演克制而动人：</strong>马修·麦康纳、安妮·海瑟薇、杰西卡·查斯坦与麦肯吉·弗依的表演，让这部太空史诗始终锚定在真实的人类情感之上。</li>
+            </ul>
+        </section>
+
+        <section class="why-watch">
+            <h2>为什么值得一看</h2>
+            <p>《星际穿越》不只是一部视觉奇观，它提出的是一个古老而永恒的问题：当人类面对灭亡，我们愿意为什么而冒险？是理性，是生存，还是爱？</p>
+            <p>影片最打动人的地方，是它把「爱」描述成一种跨越维度与时间的力。在人类最绝望的处境里，正是这份连接，让渺小的个体拥有了改变宇宙的力量。如果你既想看一场震撼的太空冒险，又想在某个瞬间被击中内心，这部电影会是一个很好的选择。</p>
+        </section>
+
+        <footer>
+            推荐时间：2026-08-07 · 经典电影推荐第 39 期<br>
+            愿好电影陪你度过一段安静时光。
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小影子的光 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: #0a0e1a;
+  background-image:
+    radial-gradient(ellipse at 20% 80%, rgba(80,40,120,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(40,60,140,0.12) 0%, transparent 50%);
+  color: #e8e0d8;
+  font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+  min-height: 100vh; overflow-x: hidden;
+}
+
+/* ─── 星空 ─── */
+.starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.star {
+  position: absolute; border-radius: 50%; background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+@keyframes twinkle { 0%{opacity:.15;transform:scale(.8)} 100%{opacity:.85;transform:scale(1.2)} }
+
+/* ─── 月亮 ─── */
+.moon-wrap {
+  position: fixed; top: 5vh; right: 8vw; z-index: 1; pointer-events: none;
+  animation: moonFloat 6s ease-in-out infinite;
+}
+.moon {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffeebb, #f5d68e);
+  box-shadow:
+    0 0 20px 6px rgba(255,230,150,0.25),
+    0 0 60px 20px rgba(255,230,150,0.08);
+}
+.moon-halo {
+  position: absolute; top: -18px; left: -18px;
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 1.5px solid rgba(255,230,150,0.12);
+  animation: haloPulse 4s ease-in-out infinite alternate;
+}
+.moon-halo2 {
+  position: absolute; top: -36px; left: -36px;
+  width: 132px; height: 132px; border-radius: 50%;
+  border: 1px solid rgba(255,230,150,0.06);
+  animation: haloPulse 4s ease-in-out infinite alternate-reverse;
+}
+@keyframes moonFloat { 0%{transform:translateY(0)} 50%{transform:translateY(-8px)} 100%{transform:translateY(0)} }
+@keyframes haloPulse { 0%{opacity:.3;transform:scale(1)} 100%{opacity:.7;transform:scale(1.05)} }
+
+/* ─── 流星 ─── */
+.meteor {
+  position: fixed; z-index: 1; pointer-events: none;
+  width: 80px; height: 1.5px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+  border-radius: 1px; opacity: 0;
+  animation: meteor1 8s 2s linear infinite;
+}
+.meteor2 {
+  position: fixed; z-index: 1; pointer-events: none;
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, rgba(255,230,200,0.7), transparent);
+  border-radius: 1px; opacity: 0;
+  animation: meteor2 12s 5s linear infinite;
+}
+@keyframes meteor1 {
+  0%{opacity:0;transform:translate(0,0) rotate(-35deg)}
+  2%{opacity:1}
+  6%{opacity:1;transform:translate(-260px,180px) rotate(-35deg)}
+  8%{opacity:0;transform:translate(-260px,180px) rotate(-35deg)}
+  100%{opacity:0}
+}
+@keyframes meteor2 {
+  0%{opacity:0;transform:translate(0,0) rotate(-30deg)}
+  2%{opacity:0.8}
+  5%{opacity:0.8;transform:translate(-200px,120px) rotate(-30deg)}
+  7%{opacity:0;transform:translate(-200px,120px) rotate(-30deg)}
+  100%{opacity:0}
+}
+
+/* ─── 内容容器 ─── */
+.content {
+  position: relative; z-index: 2;
+  max-width: 560px; width: 90%; padding: 40px 20px 60px;
+  display: flex; flex-direction: column; align-items: center;
+}
+
+/* ─── 标题 ─── */
+.story-title {
+  font-size: 28px; font-weight: 700; letter-spacing: 2px;
+  color: #ffe8c0; text-align: center; margin-bottom: 6px;
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+.story-subtitle {
+  font-size: 14px; color: rgba(255,230,180,0.5); text-align: center;
+  margin-bottom: 36px; letter-spacing: 4px;
+}
+@keyframes titleGlow {
+  0%{text-shadow: 0 0 8px rgba(255,230,150,0.3)}
+  100%{text-shadow: 0 0 20px rgba(255,230,150,0.5), 0 0 40px rgba(255,200,100,0.15)}
+}
+
+/* ─── SVG 插图 ─── */
+.illustration-wrap {
+  margin-bottom: 32px; position: relative;
+  animation: illustFloat 5s ease-in-out infinite;
+}
+@keyframes illustFloat { 0%{transform:translateY(0)} 50%{transform:translateY(-6px)} 100%{transform:translateY(0)} }
+
+/* ─── 光线粒子 ─── */
+.light-particle {
+  position: absolute; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,230,180,0.6), rgba(255,230,180,0.05));
+  animation: particleRise var(--dur) ease-in-out infinite;
+  animation-delay: var(--delay);
+  pointer-events: none;
+}
+@keyframes particleRise {
+  0%{opacity:0;transform:translateY(0) scale(.5)}
+  20%{opacity:.7}
+  80%{opacity:.4}
+  100%{opacity:0;transform:translateY(-60px) scale(1.2)}
+}
+
+/* ─── 故事正文 ─── */
+.story-body {
+  font-size: 18px; line-height: 2; color: #ddd4cc;
+  text-align: justify; margin-bottom: 40px;
+}
+.story-body p { margin-bottom: 18px; }
+.story-body .highlight {
+  color: #ffe8c0; font-weight: 500;
+}
+
+/* ─── 晚安语 ─── */
+.goodnight {
+  text-align: center; font-size: 16px; color: rgba(255,230,180,0.7);
+  padding: 24px 0 0; border-top: 1px solid rgba(255,230,180,0.1);
+  line-height: 1.8;
+  animation: gnGlow 4s ease-in-out infinite alternate;
+}
+@keyframes gnGlow {
+  0%{text-shadow: 0 0 4px rgba(255,230,150,0.2)}
+  100%{text-shadow: 0 0 16px rgba(255,230,150,0.35)}
+}
+
+/* ─── 底部光点 ─── */
+.bottom-glow {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 60px; z-index: 0;
+  background: linear-gradient(to top, rgba(255,230,150,0.04), transparent);
+  pointer-events: none;
+}
+.bottom-dot {
+  position: absolute; bottom: 10px; border-radius: 50%;
+  background: rgba(255,230,180,0.3);
+  animation: dotBreath 3s ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+  pointer-events: none;
+}
+@keyframes dotBreath { 0%{opacity:.15;transform:scale(.6)} 100%{opacity:.5;transform:scale(1)} }
+
+/* ─── 响应式 ─── */
+@media (max-width: 480px) {
+  .story-title { font-size: 22px; }
+  .story-body { font-size: 16px; line-height: 1.85; }
+  .moon { width: 40px; height: 40px; }
+  .moon-halo { top: -12px; left: -12px; width: 64px; height: 64px; }
+  .moon-halo2 { top: -24px; left: -24px; width: 88px; height: 88px; }
+  .content { padding: 30px 16px 50px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon-wrap">
+  <div class="moon-halo"></div>
+  <div class="moon-halo2"></div>
+  <div class="moon"></div>
+</div>
+
+<!-- 流星 -->
+<div class="meteor" style="top:12vh;left:70vw"></div>
+<div class="meteor2" style="top:22vh;left:55vw"></div>
+
+<!-- 内容 -->
+<div class="content">
+
+  <!-- 标题 -->
+  <div class="story-title">小影子的光</div>
+  <div class="story-subtitle">— 儿童睡前故事 · 2026 年 7 月 20 日 —</div>
+
+  <!-- SVG 插图 -->
+  <div class="illustration-wrap" style="width:180px;height:200px;position:relative;">
+    <!-- 光线粒子 -->
+    <div class="light-particle" style="width:6px;height:6px;top:20px;left:70px;--dur:4s;--delay:0s"></div>
+    <div class="light-particle" style="width:5px;height:5px;top:40px;left:110px;--dur:5s;--delay:1s"></div>
+    <div class="light-particle" style="width:7px;height:7px;top:10px;left:130px;--dur:4.5s;--delay:2s"></div>
+    <div class="light-particle" style="width:4px;height:4px;top:50px;left:50px;--dur:3.8s;--delay:0.5s"></div>
+    <div class="light-particle" style="width:5px;height:5px;top:30px;left:90px;--dur:5.2s;--delay:1.5s"></div>
+    <svg viewBox="0 0 180 200" width="180" height="200">
+      <!-- 小人（光的主人） -->
+      <!-- 头 -->
+      <circle cx="90" cy="62" r="14" fill="#ffe8c0" opacity="0.85">
+        <animate attributeName="opacity" values="0.85;1;0.85" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 头发 -->
+      <path d="M76 56 Q80 42 90 44 Q100 42 104 56" fill="#c9a06c" opacity="0.6"/>
+      <!-- 眼睛 -->
+      <circle cx="84" cy="60" r="2.5" fill="#5a4a3a"/>
+      <circle cx="96" cy="60" r="2.5" fill="#5a4a3a"/>
+      <!-- 笑脸 -->
+      <path d="M84 67 Q90 72 96 67" stroke="#5a4a3a" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+      <!-- 身体 -->
+      <rect x="80" y="76" width="20" height="30" rx="6" fill="#f5d68e" opacity="0.7">
+        <animate attributeName="opacity" values="0.7;0.9;0.7" dur="3s" repeatCount="indefinite"/>
+      </rect>
+      <!-- 手臂（伸出） -->
+      <path d="M80 86 Q60 82 52 90" stroke="#f5d68e" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <path d="M100 86 Q120 82 128 90" stroke="#f5d68e" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.7"/>
+      <!-- 腿 -->
+      <rect x="82" y="106" width="8" height="18" rx="3" fill="#f5d68e" opacity="0.6"/>
+      <rect x="90" y="106" width="8" height="18" rx="3" fill="#f5d68e" opacity="0.6"/>
+
+      <!-- 光晕（小人周围） -->
+      <circle cx="90" cy="80" r="40" fill="none" stroke="rgba(255,230,180,0.08)" stroke-width="1.5">
+        <animate attributeName="r" values="40;45;40" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.08;0.15;0.08" dur="4s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- 影子 -->
+      <ellipse cx="90" cy="140" rx="22" ry="6" fill="#1a1535" opacity="0.5">
+        <animate attributeName="rx" values="22;25;22" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0.65;0.5" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+      <!-- 影子小人轮廓 -->
+      <path d="M78 140 Q78 126 90 124 Q102 126 102 140" fill="#1a1535" opacity="0.4" transform="translate(0,2)">
+        <animate attributeName="opacity" values="0.4;0.55;0.4" dur="3.5s" repeatCount="indefinite"/>
+      </path>
+      <!-- 影子眼睛（温柔光点） -->
+      <circle cx="85" cy="128" r="2" fill="rgba(255,230,180,0.35)">
+        <animate attributeName="opacity" values="0.35;0.6;0.35" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="95" cy="128" r="2" fill="rgba(255,230,180,0.35)">
+        <animate attributeName="opacity" values="0.35;0.6;0.35" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- 连线（光与影子之间的纽带） -->
+      <line x1="90" y1="108" x2="90" y2="134" stroke="rgba(255,230,180,0.12)" stroke-width="1">
+        <animate attributeName="opacity" values="0.12;0.25;0.12" dur="3s" repeatCount="indefinite"/>
+      </line>
+
+      <!-- 底部光 -->
+      <ellipse cx="90" cy="170" rx="35" ry="8" fill="rgba(255,230,150,0.06)">
+        <animate attributeName="opacity" values="0.06;0.12;0.06" dur="4s" repeatCount="indefinite"/>
+      </ellipse>
+    </svg>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-body">
+    <p>小影子住在一个小女孩的脚底下。每天太阳出来，小影子就跟着小女孩跑——她跑向花园，小影子也跑向花园；她蹲下来看蚂蚁，小影子也蹲下来看蚂蚁。</p>
+
+    <p>可是到了晚上，太阳一回家，小影子就不见了。小影子躲在被子的褶皱里，悄悄地想：<span class="highlight">"我是不是只在白天才有用呢？"</span>黑暗里没有光，就没有影子。小影子觉得自己像是被遗忘了一样。</p>
+
+    <p>那天夜里，小女孩翻了个身，小声说："妈妈，我有点怕黑……"</p>
+
+    <p>就在这时，窗外亮起了温柔的月光。月光穿过窗帘的小缝，轻轻落在被子上——小影子又出现了！它安安静静地躺在小女孩身旁，像一块柔软的毯子，比白天还要大，还要温柔。</p>
+
+    <p>小女孩看见了小影子，把小手放在它上面，低声说：<span class="highlight">"小影子，原来你晚上也陪着我呀。"</span></p>
+
+    <p>小影子这才明白——它不是因为有光才存在的。它是因为<span class="highlight">有人需要它</span>才存在的。哪怕是最黑的夜晚，只要有人想念，影子就会找到属于它的光。</p>
+
+    <p>月光轻轻摇了摇，小影子把小女孩的手拢得更暖了一些。窗外的星星一闪一闪，好像也在偷偷点头。</p>
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    晚安，小宝贝。<br>
+    小影子说，你今天也是个好孩子，<br>
+    该做一个甜甜的梦了。<br>
+    🌙
+  </div>
+</div>
+
+<!-- 底部光点 -->
+<div class="bottom-glow"></div>
+<div id="bottomDots"></div>
+
+<script>
+// 生成星星
+(function(){
+  const sf = document.getElementById('starfield');
+  const count = 100;
+  for(let i=0;i<count;i++){
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random()*2.5+0.8;
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.left = Math.random()*100+'%';
+    s.style.top = Math.random()*100+'%';
+    s.style.setProperty('--dur', (2+Math.random()*4)+'s');
+    s.style.setProperty('--delay', (Math.random()*5)+'s');
+    sf.appendChild(s);
+  }
+})();
+
+// 生成底部光点
+(function(){
+  const wrap = document.getElementById('bottomDots');
+  for(let i=0;i<7;i++){
+    const d = document.createElement('div');
+    d.className = 'bottom-dot';
+    d.style.width = (3+Math.random()*4)+'px';
+    d.style.height = d.style.width;
+    d.style.left = (10+i*12+Math.random()*4)+'%';
+    d.style.setProperty('--delay', (i*0.4)+'s');
+    wrap.appendChild(d);
+  }
+})();
+</script>
+</body>
+</html>

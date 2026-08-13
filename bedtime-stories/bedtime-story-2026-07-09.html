@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小鲸鱼的歌声 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: linear-gradient(180deg, #0a1428 0%, #0d1f3a 30%, #102845 60%, #0a1e35 100%);
+  color: #e8e0d0;
+  font-family: "Georgia", "Songti SC", "Noto Serif SC", serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 星空容器 */
+.starfield { position: fixed; top: 0; left: 0; width: 100%; height: 55%; pointer-events: none; z-index: 1; }
+.star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 3s ease-in-out infinite; }
+@keyframes twinkle { 0%, 100% { opacity: 0.2; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+
+/* 月亮 */
+.moon {
+  position: fixed; top: 40px; right: 8%; width: 70px; height: 70px;
+  border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff8e0, #f5e6a8 60%, #e8d078);
+  box-shadow: 0 0 30px rgba(245, 230, 168, 0.4), 0 0 60px rgba(245, 230, 168, 0.2);
+  z-index: 2; animation: moonFloat 6s ease-in-out infinite;
+}
+@keyframes moonFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+/* 海洋波纹 */
+.ocean { position: fixed; bottom: 0; left: 0; width: 100%; height: 20%; z-index: 1; pointer-events: none; }
+.wave { position: absolute; bottom: 0; left: -50%; width: 200%; height: 100%; opacity: 0.3; }
+.wave1 { background: radial-gradient(ellipse at center bottom, rgba(80, 160, 220, 0.15) 0%, transparent 70%); animation: waveMove1 8s ease-in-out infinite; }
+.wave2 { background: radial-gradient(ellipse at center bottom, rgba(60, 130, 200, 0.12) 0%, transparent 70%); animation: waveMove2 10s ease-in-out infinite; }
+@keyframes waveMove1 { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(30px); } }
+@keyframes waveMove2 { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(-25px); } }
+
+/* 气泡 */
+.bubbles { position: fixed; bottom: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
+.bubble { position: absolute; bottom: -20px; border-radius: 50%; background: radial-gradient(circle at 30% 30%, rgba(180, 220, 255, 0.35), rgba(100, 180, 230, 0.1)); border: 1px solid rgba(180, 220, 255, 0.2); animation: bubbleRise linear infinite; }
+@keyframes bubbleRise { 0% { transform: translateY(0) translateX(0); opacity: 0; } 10% { opacity: 0.6; } 90% { opacity: 0.4; } 100% { transform: translateY(-105vh) translateX(20px); opacity: 0; } }
+
+/* 流星 */
+.shooting-star { position: fixed; width: 2px; height: 2px; background: #fff; border-radius: 50%; z-index: 2; box-shadow: 0 0 6px #fff; }
+.shooting-star::after { content: ''; position: absolute; top: 0; left: 0; width: 80px; height: 1px; background: linear-gradient(90deg, rgba(255,255,255,0.6), transparent); transform: translateX(-80px); }
+.shooting-star.s1 { top: 15%; right: 10%; animation: shoot1 6s ease-in infinite; animation-delay: 2s; }
+.shooting-star.s2 { top: 25%; right: 30%; animation: shoot2 9s ease-in infinite; animation-delay: 5s; }
+@keyframes shoot1 { 0%, 88%, 100% { opacity: 0; transform: translate(0, 0); } 90% { opacity: 1; } 98% { opacity: 0; transform: translate(-200px, 120px); } }
+@keyframes shoot2 { 0%, 90%, 100% { opacity: 0; transform: translate(0, 0); } 92% { opacity: 1; } 99% { opacity: 0; transform: translate(-180px, 100px); } }
+
+/* 内容 */
+.container { position: relative; z-index: 10; max-width: 640px; margin: 0 auto; padding: 50px 24px 80px; }
+
+/* 鲸鱼插图 */
+.whale-illustration { text-align: center; margin-bottom: 30px; animation: whaleFloat 5s ease-in-out infinite; }
+@keyframes whaleFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+.whale-illustration svg { width: 120px; height: auto; filter: drop-shadow(0 0 20px rgba(100, 180, 230, 0.3)); }
+
+/* 声波 */
+.sound-waves { text-align: center; margin-top: -10px; margin-bottom: 20px; }
+.sound-wave { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: rgba(120, 200, 240, 0.5); margin: 0 4px; animation: soundPulse 2s ease-in-out infinite; }
+.sound-wave:nth-child(1) { animation-delay: 0s; }
+.sound-wave:nth-child(2) { animation-delay: 0.3s; }
+.sound-wave:nth-child(3) { animation-delay: 0.6s; }
+.sound-wave:nth-child(4) { animation-delay: 0.9s; }
+.sound-wave:nth-child(5) { animation-delay: 1.2s; }
+@keyframes soundPulse { 0%, 100% { opacity: 0.2; transform: scale(0.6); } 50% { opacity: 0.8; transform: scale(1.4); } }
+
+h1 {
+  text-align: center; font-size: 2rem; color: #a8d8ea; font-weight: 600;
+  text-shadow: 0 0 20px rgba(168, 216, 234, 0.3); margin-bottom: 8px;
+  animation: titleGlow 4s ease-in-out infinite;
+}
+@keyframes titleGlow { 0%, 100% { text-shadow: 0 0 15px rgba(168, 216, 234, 0.2); } 50% { text-shadow: 0 0 25px rgba(168, 216, 234, 0.5); } }
+
+.subtitle { text-align: center; font-size: 0.85rem; color: #6a8eaa; margin-bottom: 40px; letter-spacing: 3px; }
+
+.story p { font-size: 1.12rem; line-height: 2.1; margin-bottom: 18px; color: #d5cdb8; text-indent: 2em; }
+.story p:first-letter { font-size: 1.25em; }
+
+/* 晚安区 */
+.goodnight {
+  text-align: center; margin-top: 50px; padding: 30px 20px;
+  background: linear-gradient(135deg, rgba(30, 60, 100, 0.3), rgba(20, 45, 80, 0.2));
+  border-radius: 20px; border: 1px solid rgba(168, 216, 234, 0.1);
+}
+.goodnight p { font-size: 1.05rem; color: #b8d0e0; line-height: 1.9; margin: 0; }
+.goodnight .star-icon { font-size: 1.4rem; color: #f5e6a8; margin: 0 4px; display: inline-block; animation: starPulse 3s ease-in-out infinite; }
+@keyframes starPulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+.date-tag { text-align: center; margin-top: 20px; font-size: 0.75rem; color: #4a6a85; letter-spacing: 1px; }
+
+/* 底部光点 */
+.bottom-glow { position: fixed; bottom: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, rgba(168, 216, 234, 0.4), transparent); z-index: 5; animation: bottomGlow 4s ease-in-out infinite; }
+@keyframes bottomGlow { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+
+@media (max-width: 600px) {
+  h1 { font-size: 1.6rem; }
+  .story p { font-size: 1rem; line-height: 2; }
+  .container { padding: 40px 18px 60px; }
+  .moon { width: 50px; height: 50px; }
+  .goodnight p { font-size: 0.95rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 海洋波纹 -->
+<div class="ocean">
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>
+</div>
+
+<!-- 气泡 -->
+<div class="bubbles" id="bubbles"></div>
+
+<div class="container">
+
+  <!-- 鲸鱼插图 -->
+  <div class="whale-illustration">
+    <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- 鲸鱼身体 -->
+      <ellipse cx="90" cy="60" rx="65" ry="30" fill="url(#whaleGrad)" />
+      <!-- 鲸鱼肚子 -->
+      <ellipse cx="85" cy="72" rx="50" ry="18" fill="rgba(180,220,240,0.3)" />
+      <!-- 尾巴 -->
+      <path d="M 150 55 Q 180 35 185 45 Q 180 55 175 60 Q 185 65 180 80 Q 175 75 155 70 Z" fill="url(#whaleGrad)" />
+      <!-- 眼睛 -->
+      <circle cx="55" cy="52" r="4" fill="#1a3a5a" />
+      <circle cx="56" cy="51" r="1.5" fill="#fff" />
+      <!-- 嘴巴微笑 -->
+      <path d="M 35 62 Q 42 68 50 65" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round" />
+      <!-- 喷水 -->
+      <path d="M 95 30 Q 92 15 96 5 M 100 32 Q 105 18 102 8 M 90 30 Q 85 18 88 8" stroke="rgba(168,216,234,0.3)" stroke-width="2" fill="none" stroke-linecap="round" />
+      <!-- 鳍 -->
+      <ellipse cx="80" cy="82" rx="18" ry="8" fill="rgba(100,160,210,0.4)" transform="rotate(15 80 82)" />
+      <defs>
+        <linearGradient id="whaleGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a9ec8" />
+          <stop offset="100%" stop-color="#3a7a9e" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- 声波 -->
+  <div class="sound-waves">
+    <span class="sound-wave"></span>
+    <span class="sound-wave"></span>
+    <span class="sound-wave"></span>
+    <span class="sound-wave"></span>
+    <span class="sound-wave"></span>
+  </div>
+
+  <h1>小鲸鱼的歌声</h1>
+  <p class="subtitle">BEDTIME STORY</p>
+
+  <div class="story">
+    <p>在很深很深的大海里，住着一头小鲸鱼，名字叫蓝蓝。蓝蓝有一副好嗓子，每次他开口唱歌，海水都会轻轻地跟着晃。可是蓝蓝很害羞，他总觉得自己的歌声不够好听，所以只在没人的时候才偷偷地哼两句。</p>
+
+    <p>有一天晚上，海底特别安静。小海马找不到回家的路了，急得在珊瑚丛里转来转去。蓝蓝看见了，很想说点什么安慰他，可嘴巴张了又张，一个音符也没唱出来。小海马等了好一会儿，低着头游走了。</p>
+
+    <p>蓝蓝心里有点难过。他游到海面，仰头望着天上的月亮。月亮圆圆的，亮亮的，好像在对他说："蓝蓝，你的歌声是送给大海的礼物，为什么要藏起来呢？"</p>
+
+    <p>蓝蓝深吸了一口气，闭上眼睛，轻轻地唱了起来。那歌声像水波一样，一圈一圈地散开。先是传到了珊瑚丛，小海马听见了，觉得心里暖暖的，不再害怕了，顺着歌声的方向，找到了回家的路。歌声又传到了深海，迷路的小水母听见了，也跟着旋律，慢慢漂向了安全的海湾。</p>
+
+    <p>后来，歌声传到了整片大海。海螺听见了，轻轻和着；小鱼们听见了，排成队跳起了舞；连海底的石头，好像也在微笑。蓝蓝睁开眼睛，看到周围围满了小伙伴，他们都在安静地听他唱歌。</p>
+
+    <p>小海马游过来，蹭了蹭蓝蓝的鳍说："蓝蓝，你的歌声真好听，谢谢你带我回家。"蓝蓝的脸红了，不过这次，他没有停下来，而是继续唱着，把歌声送给每一片海水、每一颗星星。</p>
+
+    <p>从那以后，每到夜晚，大海里都会响起蓝蓝的歌声。所有的海洋小伙伴都知道，那是蓝蓝在说："别怕，我陪着你呢。"</p>
+  </div>
+
+  <div class="goodnight">
+    <p><span class="star-icon">✦</span></p>
+    <p>晚安，小宝贝。</p>
+    <p>小鲸鱼蓝蓝说，你今天也是个好孩子，</p>
+    <p>你的声音也是送给这个世界的礼物，该做一个甜甜的梦了。</p>
+    <p><span class="star-icon">✦</span></p>
+  </div>
+
+  <p class="date-tag">2026 年 7 月 9 日 · 夜晚</p>
+</div>
+
+<div class="bottom-glow"></div>
+
+<script>
+// 生成星星
+(function() {
+  var sf = document.getElementById('starfield');
+  for (var i = 0; i < 100; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    var size = Math.random() * 2.5 + 0.5;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.animationDelay = Math.random() * 3 + 's';
+    s.style.animationDuration = (Math.random() * 2 + 2) + 's';
+    sf.appendChild(s);
+  }
+})();
+
+// 生成气泡
+(function() {
+  var bb = document.getElementById('bubbles');
+  for (var i = 0; i < 15; i++) {
+    var b = document.createElement('div');
+    b.className = 'bubble';
+    var size = Math.random() * 12 + 4;
+    b.style.width = size + 'px';
+    b.style.height = size + 'px';
+    b.style.left = Math.random() * 100 + '%';
+    b.style.animationDuration = (Math.random() * 8 + 10) + 's';
+    b.style.animationDelay = Math.random() * 10 + 's';
+    bb.appendChild(b);
+  }
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 放牛班的春天 (2026-06-06)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a1c0f 0%, #2d3315 25%, #4a5228 50%, #6b7a3a 75%, #8a9b4f 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 60%, rgba(138,155,79,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 70% 20%, rgba(255,223,128,0.08) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.02) 2px,
+        rgba(0,0,0,0.02) 4px
+      );
+    z-index: 2;
+  }
+
+  .staff-lines {
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
+    height: 40px;
+    z-index: 2;
+    opacity: 0.06;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 7px,
+      #fff 7px,
+      #fff 8px
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(218,165,32,0.2);
+    border-color: rgba(218,165,32,0.4);
+    color: #ffd700;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #8a9b4f;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #b0b0b0;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(138,155,79,0.06);
+    border: 1px solid rgba(138,155,79,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #b0b0b0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .highlights li::before {
+    content: '♪';
+    position: absolute;
+    left: 0;
+    color: #8a9b4f;
+    font-size: 14px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border-left: 3px solid #8a9b4f;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(138,155,79,0.06), rgba(138,155,79,0.02));
+    border: 1px solid rgba(138,155,79,0.12);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 6 · 0 6</div>
+
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="staff-lines"></div>
+    <div class="hero-content">
+      <h1>放牛班的春天</h1>
+      <div class="original-title">Les Choristes · 2004 · 法国 / 瑞士</div>
+      <div class="hero-meta">
+        <span class="tag">克里斯托夫·巴拉蒂耶 导演</span>
+        <span class="tag">杰拉尔·朱尼奥 主演</span>
+        <span class="tag gold">剧情 / 音乐</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">7.8</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.3</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">69%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      故事始于一位世界著名指挥家的回忆。他收到一本尘封多年的旧日记，那是他童年时期在"池塘之底"寄宿学校的音乐老师——克莱芒·马修留下的。时光倒流回 1949 年的法国乡村，马修来到这所专收"问题儿童"的寄宿学校担任学监。面对严厉刻板的校长和一群被贴满标签的顽劣男孩，这位落魄的音乐家没有选择以暴制暴，而是用一颗柔软的心，悄悄为孩子们组建了一支合唱团。在马修的音乐里，那些被遗忘、被放弃的孩子找到了属于自己的声音，而一个拥有天使般歌喉却又沉默孤僻的男孩皮埃尔，也在这段奇妙的旅程中，叩响了命运的另一扇门。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>天籁童声合唱贯穿全片，原声大碟销量超百万张，成为法国音乐教育经典素材</li>
+      <li>以音乐为媒介探讨"教育"本质——不是驯服，而是唤醒；不是管教，而是看见</li>
+      <li>法国国宝级演员杰拉尔·朱尼奥塑造的马修老师，平凡笨拙却令人心疼的善良</li>
+      <li>影片充满温暖的法式田园诗气质，每一个镜头都像一幅油画</li>
+      <li>结尾一幕简洁到极致，却让无数观众泪流满面，被誉为影史最动人的告别之一</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳外语片提名</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳外语片提名</div>
+      <div class="award-item"><span class="icon">🏆</span> 法国凯撒奖最佳原创配乐</div>
+      <div class="award-item"><span class="icon">🏆</span> 法国凯撒奖最佳音效</div>
+      <div class="award-item"><span class="icon">🏆</span> 欧洲电影奖最佳作曲</div>
+      <div class="award-item"><span class="icon">🏆</span> BAFTA 最佳改编剧本提名</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"永远不要说永远，凡事都有可能。"</p>
+    <div class="source">—— 克莱芒·马修</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        这是一部你不需要任何"电影知识"也能被打动的电影。它没有宏大的叙事，没有惊心动魄的情节，就是一个不起眼的小老头和一群被放弃的孩子，用音乐相互救赎的故事。但恰恰是这种朴素，让它拥有穿越一切的力量。当孩子们的歌声响起，你会发现自己的眼眶不知不觉已经湿润——不是因为悲伤，而是因为美好。在这个充满噪音的世界里，《放牛班的春天》像一束干净的阳光，提醒我们：每一个生命都值得被温柔以待，每一个孩子心中都有一首歌，只等着有人帮他们唱出来。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    电影是短暂的，感动是永恒的 · 第 19 期
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 山脚下的小溪 — 每日睡前故事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #1a2f1d 0%, #2d4a2a 25%, #3d6b45 50%, #4a8c5c 70%, #5c9e6f 90%, #6eaa7c 100%);
+    font-family: 'ZCOOL XiaoWei', 'PingFang SC', 'Microsoft YaHei', serif;
+    color: #e6f0e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  /* 萤火虫 */
+  .fireflies {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .firefly {
+    position: absolute;
+    width: 4px; height: 4px;
+    background: #ffe9a0;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(255, 233, 160, 0.6), 0 0 12px 4px rgba(255, 220, 100, 0.3);
+    animation: float var(--dur) ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+    25% { transform: translate(var(--dx1), var(--dy1)); opacity: 0.8; }
+    50% { transform: translate(var(--dx2), var(--dy2)); opacity: 0.4; }
+    75% { transform: translate(var(--dx3), var(--dy3)); opacity: 0.9; }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 35px;
+    right: 60px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 45% 40%, #fffef0, #fff4c2, #ffe8a0);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 240, 180, 0.5), 0 0 80px rgba(255, 220, 140, 0.25), 0 0 120px rgba(255, 200, 100, 0.1);
+    z-index: 0;
+    animation: moonGlow 6s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 40px rgba(255, 240, 180, 0.5), 0 0 80px rgba(255, 220, 140, 0.25); }
+    50% { box-shadow: 0 0 55px rgba(255, 240, 180, 0.7), 0 0 100px rgba(255, 220, 140, 0.35); }
+  }
+
+  /* 流动的水波纹 */
+  .water-shimmer {
+    position: fixed;
+    bottom: 18%;
+    left: 0; right: 0;
+    height: 120px;
+    background: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 8px,
+        rgba(180, 230, 255, 0.04) 8px,
+        rgba(180, 230, 255, 0.04) 9px
+      ),
+      linear-gradient(to top, rgba(100, 180, 220, 0.15), transparent);
+    z-index: 0;
+    animation: shimmer 6s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  /* 飘浮的树叶 */
+  .floating-leaf {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    animation: leafFall var(--ldur) linear infinite;
+  }
+
+  .leaf-body {
+    width: 12px; height: 6px;
+    background: rgba(120, 180, 100, 0.35);
+    border-radius: 50% 0 50% 0;
+    transform: rotate(30deg);
+  }
+
+  @keyframes leafFall {
+    0% { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
+    5% { opacity: 0.6; }
+    95% { opacity: 0.6; }
+    100% { transform: translate(var(--lx), 100vh) rotate(360deg); opacity: 0; }
+  }
+
+  .story-container {
+    max-width: 600px;
+    width: 90%;
+    padding: 50px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(180, 210, 180, 0.6);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 400;
+    color: #ffe8a0;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255, 232, 160, 0.25);
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(180, 210, 180, 0.5);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 232, 160, 0.4), transparent);
+    margin: 0 auto 40px;
+  }
+
+  .story-content {
+    font-size: 17px;
+    line-height: 2;
+    color: #e0efe4;
+    text-align: justify;
+  }
+
+  .story-content p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .moral {
+    margin-top: 40px;
+    padding: 24px 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 232, 160, 0.12);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .moral h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffe8a0;
+    margin-bottom: 12px;
+  }
+
+  .moral p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #c8dcc8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    color: rgba(255, 232, 160, 0.65);
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  /* 星空 */
+  .stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; transform: scale(0.8); }
+    50% { opacity: 0.7; transform: scale(1.3); }
+  }
+
+  @media (max-width: 500px) {
+    .story-container { padding: 30px 24px; }
+    h1 { font-size: 22px; }
+    .story-content { font-size: 15px; }
+    .moon { width: 55px; height: 55px; top: 25px; right: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon"></div>
+<div class="water-shimmer"></div>
+<div class="fireflies" id="fireflies"></div>
+<div id="leaves"></div>
+
+<div class="story-container">
+  <div class="date-tag">2026 年 5 月 22 日 · 星期五</div>
+  <h1>💧 山脚下的小溪</h1>
+  <div class="subtitle">每日儿童睡前故事</div>
+  <div class="divider"></div>
+
+  <div class="story-content">
+    <p style="animation-delay: 0.2s;">在一座高高的大山脚下，有一条清清的小溪。溪水是从山顶的积雪融化而来的，冰凉冰凉、亮晶晶的，哗啦啦地唱着歌，从山上跑下来。</p>
+    <p style="animation-delay: 0.6s;">小溪每天从山脚流过，穿过石头缝，绕过老树根。小松鼠跑来喝水，小鹿踏着溪水过河，小青蛙蹲在溪边的石头上呱呱叫。大家都很喜欢小溪。</p>
+    <p style="animation-delay: 1s;">可是小溪自己，心里一直有一点不甘心。</p>
+    <p style="animation-delay: 1.4s;">"我太小了，"小溪想，"我听路过的大雁说过，山的那一边，有一条大江，江水宽宽的、浩浩荡荡的，一直流到大海里去。大海，据说比天空还要大，比世界还要远……我是小溪，什么时候才能去那么远的地方呢？"</p>
+    <p style="animation-delay: 1.8s;">有一天，小溪鼓起勇气，对大山爷爷说："大山爷爷，我想去大海！你能告诉我怎么去吗？"</p>
+    <p style="animation-delay: 2.2s;">大山爷爷笑了笑，胡子抖了抖——那是山顶的松树在风里摇晃。他说："好啊，孩子。你一直往前走，走着走着，就会到的。"</p>
+    <p style="animation-delay: 2.6s;">小溪听了，高兴极了，哗啦啦地顺着山脚往前跑。它跑啊跑，穿过了一片草地。草地上开满了小花，有些花渴得低下了头。小溪想：我不能停下来呀，我要去大海。可是看到小花那么渴，它又心软了，分出一点点水，润了润花瓣。</p>
+    <p style="animation-delay: 3.2s;">小花抬起了头，说："谢谢你，小溪！"小溪笑了笑，继续往前跑。</p>
+    <p style="animation-delay: 3.6s;">它又跑啊跑，经过了一片小树林。树林里有一棵小树苗，根都露在外面了，干巴巴的，叶子都卷起来了。小溪想：我不能停，我要去大海。可它又不忍心，又分出一点点水，渗到小树苗的根下。</p>
+    <p style="animation-delay: 4.2s;">小树苗喝了水，舒展开叶子，轻轻地说："谢谢你，小溪！"小溪不好意思地笑了笑，接着赶路。</p>
+    <p style="animation-delay: 4.6s;">跑着跑着，小溪发现自己越来越细，越来越瘦了。它给了小花一点水，给了小树一点水，不知不觉，自己只剩下细细的一条了。</p>
+    <p style="animation-delay: 5s;">"怎么办？我快没了……"小溪害怕起来，"我还没看到大海呀……"</p>
+    <p style="animation-delay: 5.4s;">就在这时候，小溪前面出现了一片干裂的土地，土地裂开了一条缝。小溪来不及停下，咕噜噜地就钻进了地缝里。它眼前一黑，什么都看不见了。</p>
+    <p style="animation-delay: 5.8s;">小溪在地下慢慢地渗、慢慢地流。它看不见路，也不知道自己在哪儿，心想：完蛋了，我这辈子都看不到大海了。</p>
+    <p style="animation-delay: 6.2s;">可是，地下的世界并没有那么糟糕。溪水渗过的地方，种子吸到了水，悄悄地发了芽；老树根喝到了水，稳稳地抓牢了大地；连一口干涸的老井也重新涌出了清水。</p>
+    <p style="animation-delay: 6.6s;">有一天，地面上来了一个老奶奶，她走到那口井边，打了满满一桶水。老奶奶捧着水喝了一口，开心地说："多甜的水呀！这一定是山脚下那条小溪的礼物。"</p>
+    <p style="animation-delay: 7s;">小溪在地下听到了，心里暖暖的。原来，虽然自己看不见，但自己的付出，大家都记得呢。</p>
+    <p style="animation-delay: 7.4s;">又过了好久好久，小溪终于从地底下重新冒了出来，汇进了一条清清的小河。小河又流啊流，汇进了一条宽宽的大江。大江浩浩荡荡地、不急不慢地，带着小溪的水，流向了远方。</p>
+    <p style="animation-delay: 7.8s;">终于，在一个金色的黄昏，大江汇入了大海。小溪——不，现在它已经是大海的一部分了——看到了无边无际的蔚蓝海面，海鸥在天上飞，浪花在轻轻地唱歌。</p>
+    <p style="animation-delay: 8.2s;">大海说："欢迎你，小溪。你知道吗？每一滴水要来到这里，都要走过很远很远的路。你路上浇过的花，润过的树，填满的井——大海全都记得。没有那些路，你今天就不会站在这里。"</p>
+    <p style="animation-delay: 8.6s;">小溪想：原来是这样啊。那些我以为绕了远路、以为白白付出的时光，其实都在把我变成今天的自己。在看不见的地方，我也曾经很重要。</p>
+    <p style="animation-delay: 9s;">海风轻轻吹，小溪变成了一朵小小的浪花，在夕阳下闪闪发光。它终于明白了——大海不是终点，它走过的每一步，都是大海。</p>
+  </div>
+
+  <div class="moral">
+    <h2>🌟 寓意</h2>
+    <p>人生像一条小溪，每一段旅程都有它存在的意义。有时候我们觉得在绕远路、在做无用功，但其实，你帮助过的每一个人、浇灌过的每一寸土地，都在悄悄让你变得更丰盈。那些在看不见的地方默默付出的时光，终有一天会把你带到更远的地方去。不必着急，慢慢来，你已经在路上了。</p>
+  </div>
+
+  <div class="goodnight">晚安，做个好梦。🌙</div>
+</div>
+
+<script>
+  // 生成星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 40; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 40 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 5) + 's');
+    star.style.animationDelay = Math.random() * 6 + 's';
+    starsContainer.appendChild(star);
+  }
+
+  // 生成萤火虫
+  const firefliesContainer = document.getElementById('fireflies');
+  for (let i = 0; i < 10; i++) {
+    const firefly = document.createElement('div');
+    firefly.className = 'firefly';
+    firefly.style.left = (5 + Math.random() * 90) + '%';
+    firefly.style.top = (15 + Math.random() * 70) + '%';
+    firefly.style.setProperty('--dur', (4 + Math.random() * 6) + 's');
+    firefly.style.setProperty('--dx1', (Math.random() * 60 - 30) + 'px');
+    firefly.style.setProperty('--dy1', (Math.random() * 60 - 30) + 'px');
+    firefly.style.setProperty('--dx2', (Math.random() * 80 - 40) + 'px');
+    firefly.style.setProperty('--dy2', (Math.random() * 80 - 40) + 'px');
+    firefly.style.setProperty('--dx3', (Math.random() * 50 - 25) + 'px');
+    firefly.style.setProperty('--dy3', (Math.random() * 50 - 25) + 'px');
+    firefly.style.animationDelay = (Math.random() * 6) + 's';
+    firefly.style.width = firefly.style.height = (2 + Math.random() * 3) + 'px';
+    firefliesContainer.appendChild(firefly);
+  }
+
+  // 生成飘浮的树叶
+  const leavesContainer = document.getElementById('leaves');
+  for (let i = 0; i < 6; i++) {
+    const leaf = document.createElement('div');
+    leaf.className = 'floating-leaf';
+    leaf.style.left = (3 + Math.random() * 94) + '%';
+    leaf.style.top = (Math.random() * 30) + '%';
+    leaf.style.setProperty('--ldur', (10 + Math.random() * 15) + 's');
+    leaf.style.setProperty('--lx', (Math.random() * 80 - 40) + 'px');
+    leaf.style.animationDelay = (Math.random() * 10) + 's';
+    const inner = document.createElement('div');
+    inner.className = 'leaf-body';
+    leaf.appendChild(inner);
+    leavesContainer.appendChild(leaf);
+  }
+</script>
+
+</body>
+</html>

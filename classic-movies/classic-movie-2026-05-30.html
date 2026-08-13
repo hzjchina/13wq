@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 星际穿越</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @keyframes bgShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.5); }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(100, 149, 237, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(100, 149, 237, 0.6); }
+  }
+  @keyframes lineGrow {
+    from { width: 0; }
+    to { width: 60px; }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #050510;
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #0a0a20 0%, #0d1b3e 25%, #1a1a4e 50%, #0d1b3e 75%, #0a0a20 100%);
+    background-size: 200% 200%;
+    animation: bgShift 15s ease infinite;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 40%, rgba(65,105,225,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(138,43,226,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(100,149,237,0.1) 0%, transparent 40%);
+  }
+
+  .hero-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1.2s ease forwards;
+    padding: 0 20px;
+  }
+
+  .hero-emoji {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(100, 149, 237, 0.5));
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #ffffff;
+    text-shadow: 0 0 40px rgba(100, 149, 237, 0.4);
+    margin-bottom: 10px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: #a0b8d4;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    font-size: 0.95rem;
+    color: #6a7a9a;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #4169e1, #6a5acd);
+    margin: 0 auto 30px;
+    animation: lineGrow 1s ease forwards 0.5s;
+    width: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    color: #b0c0d8;
+    font-style: italic;
+    letter-spacing: 1px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .main-content {
+    max-width: 900px;
+    margin: -80px auto 0;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .card {
+    background: linear-gradient(135deg, rgba(13,13,32,0.95), rgba(13,27,62,0.95));
+    border: 1px solid rgba(100, 149, 237, 0.2);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.8s ease forwards;
+    backdrop-filter: blur(20px);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px rgba(100, 149, 237, 0.15);
+  }
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+  .card:nth-child(5) { animation-delay: 0.5s; }
+  .card:nth-child(6) { animation-delay: 0.6s; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(100, 149, 237, 0.15);
+  }
+  .card-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #7b9de8;
+    letter-spacing: 1px;
+  }
+
+  .card-body p {
+    line-height: 1.9;
+    font-size: 1.05rem;
+    color: #c0cde0;
+    margin-bottom: 16px;
+  }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  .highlight-box {
+    background: rgba(100,149,237,0.08);
+    border-left: 3px solid #4169e1;
+    padding: 18px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+    font-style: italic;
+    color: #a0b8d4;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .score-item {
+    background: rgba(100,149,237,0.06);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid rgba(100, 149, 237, 0.12);
+    transition: all 0.3s;
+  }
+  .score-item:hover {
+    background: rgba(100,149,237,0.12);
+    transform: scale(1.03);
+  }
+  .score-number {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #4169e1;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .score-label {
+    font-size: 0.9rem;
+    color: #6a7a9a;
+    letter-spacing: 1px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .tag {
+    background: rgba(100,149,237,0.12);
+    border: 1px solid rgba(100, 149, 237, 0.25);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    color: #7b9de8;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+  }
+  .tag:hover {
+    background: rgba(100,149,237,0.2);
+    transform: translateY(-2px);
+  }
+
+  .footer-note {
+    text-align: center;
+    padding: 40px 20px;
+    color: #3a4a5a;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .card { padding: 24px; }
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { min-height: 500px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-stars">
+    <div class="star" style="width:3px;height:3px;top:10%;left:8%;animation-delay:0s;"></div>
+    <div class="star" style="width:2px;height:2px;top:5%;left:25%;animation-delay:1.5s;"></div>
+    <div class="star" style="width:4px;height:4px;top:15%;right:15%;animation-delay:0.8s;"></div>
+    <div class="star" style="width:2px;height:2px;top:8%;left:50%;animation-delay:2.2s;"></div>
+    <div class="star" style="width:3px;height:3px;top:20%;right:30%;animation-delay:3s;"></div>
+    <div class="star" style="width:2px;height:2px;top:25%;left:12%;animation-delay:1s;"></div>
+    <div class="star" style="width:3px;height:3px;top:12%;left:70%;animation-delay:2.5s;"></div>
+    <div class="star" style="width:2px;height:2px;top:3%;right:45%;animation-delay:0.3s;"></div>
+    <div class="star" style="width:4px;height:4px;top:18%;left:40%;animation-delay:1.8s;"></div>
+    <div class="star" style="width:2px;height:2px;top:22%;right:10%;animation-delay:3.5s;"></div>
+    <div class="star" style="width:3px;height:3px;bottom:15%;left:20%;animation-delay:0.5s;"></div>
+    <div class="star" style="width:2px;height:2px;bottom:25%;right:22%;animation-delay:2.8s;"></div>
+    <div class="star" style="width:4px;height:4px;bottom:20%;left:55%;animation-delay:1.2s;"></div>
+    <div class="star" style="width:2px;height:2px;bottom:10%;left:80%;animation-delay:3.2s;"></div>
+    <div class="star" style="width:3px;height:3px;bottom:30%;right:35%;animation-delay:0.7s;"></div>
+  </div>
+
+  <div class="hero-content">
+    <span class="hero-emoji">🌌</span>
+    <h1 class="hero-title">星际穿越</h1>
+    <p class="hero-subtitle">INTERSTELLAR</p>
+    <p class="hero-meta">2014 · 美国 / 英国 · 克里斯托弗·诺兰</p>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">"我们曾仰望星空，思索我们在星辰中的位置；<br>现在我们只低头，担心自己在尘土中的位置。"</p>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <!-- 评分 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">⭐</span>
+      <span class="card-title">口碑评分</span>
+    </div>
+    <div class="card-body">
+      <div class="score-grid">
+        <div class="score-item">
+          <div class="score-number">8.7</div>
+          <div class="score-label">IMDb</div>
+        </div>
+        <div class="score-item">
+          <div class="score-number">9.4</div>
+          <div class="score-label">豆瓣</div>
+        </div>
+        <div class="score-item">
+          <div class="score-number">73%</div>
+          <div class="score-label">烂番茄</div>
+        </div>
+        <div class="score-item">
+          <div class="score-number">TOP 29</div>
+          <div class="score-label">IMDb 250</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 基本信息 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🎬</span>
+      <span class="card-title">影片档案</span>
+    </div>
+    <div class="card-body">
+      <p><strong>片名：</strong>星际穿越 / Interstellar</p>
+      <p><strong>上映年份：</strong>2014年</p>
+      <p><strong>导演：</strong>克里斯托弗·诺兰 (Christopher Nolan)</p>
+      <p><strong>编剧：</strong>乔纳森·诺兰 (Jonathan Nolan) / 克里斯托弗·诺兰</p>
+      <p><strong>主演：</strong>马修·麦康纳 (Matthew McConaughey) / 安妮·海瑟薇 (Anne Hathaway) / 杰西卡·查斯坦 (Jessica Chastain) / 迈克尔·凯恩 (Michael Caine)</p>
+      <p><strong>配乐：</strong>汉斯·季默 (Hans Zimmer)</p>
+      <p><strong>片长：</strong>169分钟</p>
+      <p><strong>类型：</strong>科幻 / 剧情 / 冒险</p>
+      <div class="tag-list">
+        <span class="tag">科幻</span>
+        <span class="tag">冒险</span>
+        <span class="tag">亲情</span>
+        <span class="tag">太空</span>
+        <span class="tag">诺兰</span>
+        <span class="tag">硬科幻</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 剧情梗概 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📖</span>
+      <span class="card-title">剧情梗概（无剧透）</span>
+    </div>
+    <div class="card-body">
+      <p>不远的未来，地球正面临一场悄无声息的末日危机——枯萎病肆虐全球，农作物接连绝收，沙尘暴遮天蔽日。人类赖以生存的小麦、秋葵、玉米逐一消亡，文明的余烬正在熄灭。曾经辉煌的 NASA 已被解散，曾经仰望星空的人类，如今只忙着在尘土中争抢最后一点口粮。</p>
+      <p>前 NASA 宇航员库珀，如今只是一名在玉米地里挣扎的普通农夫。他和父亲、一双儿女、以及一台忠于职守的收割机器人共同守护着日渐荒芜的农场。然而，他的女儿墨菲总说房间里有"幽灵"在推动书本掉落——一些无法用常理解释的引力异常现象。</p>
+      <p>一次偶然的发现，将库珀引向了隐藏在地下的 NASA 秘密基地。人类存亡的最后希望，指向了土星附近一个神秘的虫洞——它或许是通往另一个宜居星系的唯一通道。一场关乎全人类命运的星际远征，就此启程。</p>
+      <p>但宇宙的残酷远超想象。在黑洞边缘、在异星表面、在时间以不同速率流逝的维度中，库珀将面对人类从未经历过的抉择——而最让他撕心裂肺的，是那个他无法打破的承诺："我会回来的。"</p>
+    </div>
+  </div>
+
+  <!-- 亮点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">✨</span>
+      <span class="card-title">亮点所在</span>
+    </div>
+    <div class="card-body">
+      <p><strong>一、硬核科学遇上极致浪漫。</strong>诺兰请来了诺贝尔物理学奖得主基普·索恩担任科学顾问，虫洞的可视化、黑洞"卡冈图雅"的渲染、引力波的呈现——每一帧都经得起物理学推敲。这部电影可能是影史上最"硬"的科幻片，也是最"软"的爱情片。</p>
+      <p><strong>二、马修·麦康纳的封神表演。</strong>从视频信件的崩溃，到对接场景的屏息凝神，再到最后和解时刻的释然——他贡献了职业生涯最具层次感的表演。尤其是那场"看23年视频"的戏，一镜到底的绝望，让无数观众在影院泣不成声。</p>
+      <p><strong>三、汉斯·季默的灵魂配乐。</strong>管风琴铺陈的宇宙浩瀚感，钢琴演绎的父女温情，滴水声构成的紧张倒计时——季默用音乐为太空赋予了温度。那首《Cornfield Chase》，光是旋律响起就能让人热泪盈眶。这可能是他配乐生涯的巅峰之作。</p>
+      <p><strong>四、时间的诗意与残忍。</strong>诺兰将"相对论"变成了最具情感杀伤力的叙事工具——在米勒星球上的一小时，等于地球上的七年。当库珀回到飞船，屏幕上弹出23年的视频消息，那种"时间偷走了一切"的窒息感，是科幻电影史上最天才的情感设计。</p>
+      <div class="highlight-box">
+        "不要温和地走进那个良夜，怒斥，怒斥光明的消逝。"——狄兰·托马斯的诗句贯穿全片，也是诺兰对人类文明最深情的呐喊。
+      </div>
+    </div>
+  </div>
+
+  <!-- 为什么值得看 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💜</span>
+      <span class="card-title">为什么值得一看</span>
+    </div>
+    <div class="card-body">
+      <p>这不仅仅是一部关于太空探索的电影。它的内核，是一个关于父亲与女儿的故事。诺兰用宇宙中最宏大的尺度——虫洞、黑洞、五维空间、时间膨胀——来讲一个人世间最微小却最深沉的情感：一个父亲对女儿的承诺。</p>
+      <p>它让你重新思考"爱"这个字的重量。在科学与理性到达极限的地方，诺兰给出了一种大胆的答案：爱，也许是唯一能穿越时间和维度的东西。这不是煽情，而是整部硬科幻精密逻辑链条的自然结论。</p>
+      <p>视觉上，它是影史最佳太空电影之一。黑洞的渲染、虫洞的穿梭、冰冻星球的绝美与恐怖、米勒星球巨浪的压迫感——每一帧都可以截图当壁纸。配合 IMAX 70mm 胶片拍摄，那种沉浸感是家用设备无法复刻的。</p>
+      <p>更重要的是，它提醒我们：在低头刷手机的时代，别忘了偶尔抬头看看星空。那个仰望星空的好奇心，才是人类最珍贵的遗产。</p>
+    </div>
+  </div>
+
+  <!-- 荣誉 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🏆</span>
+      <span class="card-title">荣誉与影响</span>
+    </div>
+    <div class="card-body">
+      <p>• 奥斯卡最佳视觉效果奖</p>
+      <p>• 英国电影学院奖最佳视觉效果、最佳特殊视觉效果</p>
+      <p>• 卫星奖最佳视觉效果、最佳音效、最佳混音</p>
+      <p>• IMDb Top 250 第29名，常年前30</p>
+      <p>• 豆瓣 Top 250 第11名，超180万人评分</p>
+      <p>• 全球票房超7.7亿美元</p>
+      <p>• 影史最精准的黑洞科学可视化，论文发表于《经典与量子引力》期刊</p>
+      <p>• 被美国宇航局 NASA 多次引用用于科普教育</p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer-note">
+  🎬 每日经典推荐 · 2026年5月30日 · 第12期
+</footer>
+
+</body>
+</html>

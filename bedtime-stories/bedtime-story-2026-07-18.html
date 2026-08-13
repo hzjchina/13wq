@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小棉花的星空 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-top: #0b1026;
+      --bg-bottom: #1a2b55;
+      --text: #f8f6ff;
+      --soft: #fff8e7;
+      --moon: #fff8db;
+      --accent: #ffd9b3;
+      --card-bg: rgba(255, 255, 255, 0.07);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 6px rgba(255, 255, 255, 0.6); }
+    }
+
+    .moon {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--moon) 40%, #e6d9a8 100%);
+      box-shadow: 0 0 30px rgba(255, 248, 219, 0.35), 0 0 80px rgba(255, 248, 219, 0.15);
+      z-index: 1;
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .cotton-float {
+      position: fixed;
+      bottom: 60px;
+      right: 30px;
+      width: 70px;
+      height: 70px;
+      z-index: 1;
+      opacity: 0.85;
+      animation: cottonBob 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes cottonBob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(4deg); }
+    }
+
+    main.container {
+      position: relative;
+      z-index: 10;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 20px 80px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(2rem, 7vw, 3rem);
+      margin: 0 0 36px;
+      letter-spacing: 0.08em;
+      color: var(--soft);
+      text-shadow: 0 2px 20px rgba(255, 246, 217, 0.25), 0 0 40px rgba(255, 255, 255, 0.1);
+      animation: titleGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 2px 20px rgba(255, 246, 217, 0.25), 0 0 40px rgba(255, 255, 255, 0.1); }
+      50% { text-shadow: 0 2px 28px rgba(255, 246, 217, 0.4), 0 0 60px rgba(255, 255, 255, 0.18); }
+    }
+
+    .story {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: clamp(24px, 5vw, 40px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      line-height: 2;
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      text-align: justify;
+    }
+
+    .story p {
+      margin: 0 0 1.4em;
+      text-indent: 2em;
+    }
+
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+
+    .goodnight {
+      margin-top: 40px;
+      padding: 24px;
+      text-align: center;
+      font-size: clamp(1.1rem, 3.2vw, 1.35rem);
+      color: var(--accent);
+      line-height: 1.8;
+      border-radius: 20px;
+      background: rgba(255, 217, 179, 0.08);
+      box-shadow: 0 0 20px rgba(255, 217, 179, 0.08);
+      animation: goodnightPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes goodnightPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 217, 179, 0.08); }
+      50% { box-shadow: 0 0 32px rgba(255, 217, 179, 0.18); }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 0.85rem;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 480px) {
+      .moon { width: 56px; height: 56px; top: 24px; right: 24px; }
+      .cotton-float { width: 52px; height: 52px; bottom: 40px; right: 20px; }
+      main.container { padding-top: 40px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .star, .moon, .cotton-float, h1, .goodnight {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <svg class="cotton-float" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <radialGradient id="cottonGrad" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#ffffff" />
+        <stop offset="100%" stop-color="#e8e4f3" />
+      </radialGradient>
+    </defs>
+    <circle cx="50" cy="52" r="24" fill="url(#cottonGrad)" opacity="0.95" />
+    <circle cx="34" cy="44" r="16" fill="url(#cottonGrad)" opacity="0.9" />
+    <circle cx="66" cy="44" r="16" fill="url(#cottonGrad)" opacity="0.9" />
+    <circle cx="40" cy="66" r="15" fill="url(#cottonGrad)" opacity="0.9" />
+    <circle cx="60" cy="66" r="15" fill="url(#cottonGrad)" opacity="0.9" />
+    <circle cx="50" cy="38" r="14" fill="url(#cottonGrad)" opacity="0.85" />
+  </svg>
+
+  <main class="container">
+    <h1>小棉花的星空</h1>
+    <article class="story">
+      <p>夜晚的田野很安静，月光像牛奶一样洒在棉花丛上。一朵小小的棉花挂在枝头，白白的、软软的，像一团不小心落在人间的小云朵。</p>
+      <p>小棉花最喜欢看星星。她望着夜空，觉得每一颗星星都是那么明亮，又那么遥远。</p>
+      <p>“星星会不会冷呢？”她小声地问风儿。</p>
+      <p>风儿没有回答，只是温柔地吹了吹。忽然，小棉花觉得自己轻了起来，像羽毛一样飘向天空。她飘过萤火虫的灯笼，飘过睡着的牵牛花，越飘越高，一直飘到了月亮身旁。</p>
+      <p>在银色的月光里，小棉花发现了一颗发抖的小星星。它的光芒有点暗淡，好像累坏了，找不到回家的路。</p>
+      <p>“别害怕，”小棉花轻轻展开自己软软的怀抱，“我的怀抱又软又暖，你可以在这里休息。”</p>
+      <p>小星星钻进了棉花里，慢慢地，它的光芒亮了起来，亮得像一颗小小的太阳。</p>
+      <p>“谢谢你，小棉花。”小星星说，“你是夜空中最温柔的星光。”</p>
+      <p>风儿又轻轻吹来，把小棉花和小星星一起送回了家。它们在月亮的摇篮里，闭上了眼睛，听月亮唱起了摇篮曲。</p>
+    </article>
+    <div class="goodnight">
+      晚安，小宝贝。<br/>
+      小棉花说，你今天也帮星星找到了温暖，是个又善良又勇敢的好孩子。<br/>
+      现在闭上眼睛，做一个甜甜的梦吧。
+    </div>
+    <footer>— 儿童睡前故事 · 2026年7月18日 —</footer>
+  </main>
+
+  <script>
+    (function makeStars() {
+      const container = document.getElementById('stars');
+      const count = 100;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.5 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2).toFixed(2) + 's');
+        star.style.setProperty('--delay', (Math.random() * 5).toFixed(2) + 's');
+        container.appendChild(star);
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典电影推荐 · 第 40 期 | 这个杀手不太冷</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --surface: #161b22;
+            --surface-2: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-2: #f37020;
+            --gold: #e3b341;
+            --green: #3fb950;
+            --radius: 16px;
+            --shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            line-height: 1.85;
+            font-size: 18px;
+        }
+
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0 32px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 32px;
+        }
+
+        .issue {
+            display: inline-block;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 42px;
+            margin: 0 0 8px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .original-title {
+            font-size: 22px;
+            color: var(--text-muted);
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .meta {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .meta span {
+            background: var(--surface-2);
+            padding: 6px 14px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+        }
+
+        .poster {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0d1117 100%);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 32px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .poster::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 60%, rgba(88, 166, 255, 0.10) 0%, transparent 50%),
+                        radial-gradient(circle at 75% 25%, rgba(243, 112, 32, 0.12) 0%, transparent 45%);
+        }
+
+        .poster-text {
+            position: relative;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .poster-text .zh {
+            font-size: 52px;
+            font-weight: 800;
+            letter-spacing: 6px;
+            color: var(--text);
+            text-shadow: 0 4px 24px rgba(0,0,0,0.6);
+        }
+
+        .poster-text .en {
+            font-size: 18px;
+            letter-spacing: 5px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            text-transform: uppercase;
+        }
+
+        .poster-text .tagline {
+            font-size: 14px;
+            color: var(--accent-2);
+            margin-top: 16px;
+            letter-spacing: 3px;
+            font-style: italic;
+        }
+
+        section {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            margin-bottom: 24px;
+            box-shadow: var(--shadow);
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 0 0 18px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h2::before {
+            content: "";
+            width: 6px;
+            height: 24px;
+            background: var(--accent-2);
+            border-radius: 3px;
+        }
+
+        p {
+            margin: 0 0 16px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .rating {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .rating-item {
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+        }
+
+        .rating-item .score {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--gold);
+            display: block;
+        }
+
+        .rating-item .source {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .highlight-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .highlight-list li {
+            padding: 14px 0 14px 36px;
+            position: relative;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .highlight-list li:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .highlight-list li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: var(--accent-2);
+            font-size: 20px;
+            line-height: 1.5;
+        }
+
+        .why-watch {
+            background: linear-gradient(135deg, rgba(88, 166, 255, 0.08) 0%, rgba(243, 112, 32, 0.06) 100%);
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 16px;
+            padding: 20px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            margin: 24px 0;
+        }
+
+        .quote .line {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .quote .author {
+            font-size: 13px;
+            color: var(--accent-2);
+            font-style: normal;
+        }
+
+        footer {
+            text-align: center;
+            padding: 32px 0;
+            color: var(--text-muted);
+            font-size: 14px;
+            border-top: 1px solid var(--border);
+        }
+
+        .spoiler-free {
+            display: inline-block;
+            background: rgba(46, 160, 67, 0.15);
+            color: var(--green);
+            border: 1px solid rgba(46, 160, 67, 0.3);
+            padding: 4px 12px;
+            border-radius: 999px;
+            font-size: 13px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                font-size: 16px;
+            }
+
+            h1 {
+                font-size: 30px;
+            }
+
+            .original-title {
+                font-size: 16px;
+            }
+
+            .poster-text .zh {
+                font-size: 30px;
+                letter-spacing: 3px;
+            }
+
+            .poster-text .en {
+                font-size: 13px;
+                letter-spacing: 3px;
+            }
+
+            .poster-text .tagline {
+                font-size: 12px;
+                letter-spacing: 2px;
+            }
+
+            section {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .rating-item .score {
+                font-size: 26px;
+            }
+
+            .container {
+                padding: 16px;
+            }
+
+            .quote {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="issue">第 40 期 · 经典电影推荐</div>
+            <h1>这个杀手不太冷</h1>
+            <div class="original-title">Léon: The Professional</div>
+            <div class="meta">
+                <span>1994</span>
+                <span>法国 / 美国</span>
+                <span>剧情 / 动作 / 犯罪</span>
+                <span>110 分钟</span>
+            </div>
+        </header>
+
+        <div class="poster">
+            <div class="poster-text">
+                <div class="zh">这个杀手不太冷</div>
+                <div class="en">Léon: The Professional</div>
+                <div class="tagline">"生活总是这么痛苦吗？还是只有童年才这样？"</div>
+            </div>
+        </div>
+
+        <div class="rating">
+            <div class="rating-item">
+                <span class="score">9.4</span>
+                <span class="source">豆瓣</span>
+            </div>
+            <div class="rating-item">
+                <span class="score">8.5</span>
+                <span class="source">IMDb</span>
+            </div>
+            <div class="rating-item">
+                <span class="score">74%</span>
+                <span class="source">烂番茄</span>
+            </div>
+            <div class="rating-item">
+                <span class="score">89%</span>
+                <span class="source">爆米花指数</span>
+            </div>
+        </div>
+
+        <section>
+            <h2>剧情梗概</h2>
+            <p>里昂是纽约城里一名独来独往的职业杀手。他的生活简单得近乎单调——接活、杀人、回家、喝牛奶、给一盆无花树浇水、做仰卧起坐、睡觉，周而复始。他不识字，不社交，那盆植物是他唯一的朋友。</p>
+            <p>隔壁住着一个十二岁的小女孩玛蒂尔达，她的家庭支离破碎，唯有四岁的弟弟是她唯一的温暖。某天，一群由腐败缉毒探员斯坦斯菲尔德带领的暴徒闯入玛蒂尔达的家，屠杀了她的全家。外出买东西的玛蒂尔达回来时，强忍着悲痛敲响了里昂的门。</p>
+            <p>这扇门打开的瞬间，一个杀手和一个失去一切的小女孩的命运，便紧紧纠缠在了一起。玛蒂尔达发现里昂的秘密后，提出一个请求：教她成为一名杀手，让她为自己年幼的弟弟复仇。而里昂，这个从未学会如何生活的人，将不得不学着去保护一个人——也被一个人所改变。</p>
+            <span class="spoiler-free">✓ 本文无关键剧透</span>
+        </section>
+
+        <section>
+            <h2>亮点所在</h2>
+            <ul class="highlight-list">
+                <li><strong>让·雷诺的巅峰演绎：</strong>他将里昂塑造成一个外表冷硬如铁、内心却柔软到令人心碎的角色。那双永远戴着圆框墨镜的眼睛背后，藏着一个从未长大的灵魂。这是让·雷诺职业生涯最不可替代的角色。</li>
+                <li><strong>娜塔莉·波特曼的惊艳出道：</strong>年仅十三岁的她第一次登上银幕，却贡献了远超年龄的表演。玛蒂尔达的早熟、倔强、脆弱与天真被她拿捏得恰到好处，这部处女作直接奠定了她日后成为顶级演员的基础。</li>
+                <li><strong>加里·奥德曼的癫狂反派：</strong>他饰演的斯坦斯菲尔德是一个吞药、听贝多芬、一边杀人一边享受艺术的疯子。这个角色被公认为影史最令人毛骨悚然又极具魅力的反派之一，每一次出场都让人屏息。</li>
+                <li><strong>吕克·贝松的作者印记：</strong>法国导演将欧式的诗意浪漫与好莱坞的类型片节奏完美融合，镜头语言克制而精准，每一个构图都像一幅画。影片既有紧张到窒息的动作场面，也有安静到能听见心跳的温情时刻。</li>
+                <li><strong>那盆植物与那杯牛奶：</strong>里昂的无花树象征着他自己——没有根，却努力活着。他把植物当作最亲密的伙伴，搬家时第一件事是带走它。这些极简的道具承载了整部电影最深厚的情感隐喻。</li>
+            </ul>
+        </section>
+
+        <div class="quote">
+            <span class="line">"我想我们在这里会很好的，里昂。"</span>
+            <span class="author">—— 玛蒂尔达</span>
+        </div>
+
+        <section class="why-watch">
+            <h2>为什么值得一看</h2>
+            <p>《这个杀手不太冷》讲的是一个关于"彼此救赎"的故事。里昂教玛蒂尔达如何生存——如何开枪、如何隐蔽、如何在危险中保持冷静。而玛蒂尔达教里昂的，是如何生活——如何感受爱、如何拥有牵挂、如何在日复一日的重复中找到活着的意义。</p>
+            <p>影片最动人的力量在于：它没有把这段关系浪漫化，也没有回避其中的残酷与代价。它只是让你看见——一个从未被爱过的人开始学会爱，一个被迫过早长大的孩子找到了值得信任的依靠。当你在某个深夜看完这部电影，你会发现自己记住了那杯牛奶、那盆植物、那个圆框墨镜，以及一句简单到让人心碎的话。</p>
+            <p>如果你还没有看过，这绝对是一部值得在安静时刻独自品味的电影。它会让你相信，即便在最冰冷的角落，温暖也有可能生长。</p>
+        </section>
+
+        <footer>
+            推荐时间：2026-08-08 · 经典电影推荐第 40 期<br>
+            愿好电影陪你度过一段安静时光。
+        </footer>
+    </div>
+</body>
+</html>

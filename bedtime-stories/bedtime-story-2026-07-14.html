@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小瓢虫的星星斑点 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg-deep: #0a0d1a;
+    --bg-mid: #11162b;
+    --text-primary: #e8e0d4;
+    --text-secondary: #b8b0a4;
+    --accent-gold: #f5d98e;
+    --accent-warm: #f2b84b;
+    --accent-soft: #e8a87c;
+    --star-color: #ffe9b0;
+    --moon-glow: rgba(245, 217, 142, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg-deep);
+    font-family: "PingFang SC", "Noto Serif SC", "STSong", "Songti SC", "KaiTi", serif;
+    min-height: 100vh;
+    color: var(--text-primary);
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空背景 */
+  .sky {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .moon {
+    position: absolute;
+    top: 6%;
+    right: 12%;
+    width: 70px;
+    height: 70px;
+    background: radial-gradient(circle at 35% 35%, #fff8e7, #f5d98e 50%, transparent 72%);
+    border-radius: 50%;
+    box-shadow:
+      0 0 30px var(--moon-glow),
+      0 0 80px var(--moon-glow),
+      0 0 140px rgba(245, 217, 142, 0.06);
+    animation: moonPulse 5s ease-in-out infinite;
+  }
+  @keyframes moonPulse {
+    0%, 100% { box-shadow: 0 0 30px var(--moon-glow), 0 0 80px var(--moon-glow), 0 0 140px rgba(245, 217, 142, 0.06); }
+    50% { box-shadow: 0 0 40px var(--moon-glow), 0 0 100px var(--moon-glow), 0 0 180px rgba(245, 217, 142, 0.1); }
+  }
+
+  .stars-container {
+    position: absolute;
+    inset: 0;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--star-color);
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: absolute;
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: shoot var(--shoot-dur) ease-in var(--shoot-delay) infinite;
+  }
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 10px 3px rgba(255,255,255,0.7);
+  }
+  @keyframes shoot {
+    0% { opacity: 0; transform: translate(0, 0) rotate(-25deg); }
+    5% { opacity: 1; }
+    15% { opacity: 0; transform: translate(-300px, 300px) rotate(-25deg); }
+    100% { opacity: 0; transform: translate(-300px, 300px) rotate(-25deg); }
+  }
+
+  /* 主内容区 */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 28px 100px;
+  }
+
+  /* 标题 */
+  .title-area {
+    text-align: center;
+    margin-bottom: 48px;
+    padding-top: 20px;
+  }
+  .story-icon {
+    display: inline-block;
+    font-size: 52px;
+    margin-bottom: 8px;
+    animation: float 3.5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .story-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 30px rgba(245, 217, 142, 0.3);
+    margin-bottom: 6px;
+    animation: titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 30px rgba(245, 217, 142, 0.3); }
+    50% { text-shadow: 0 0 50px rgba(245, 217, 142, 0.5), 0 0 80px rgba(245, 217, 142, 0.2); }
+  }
+  .story-date {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.1em;
+  }
+
+  /* 装饰分割线 */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-bottom: 36px;
+  }
+  .divider::before,
+  .divider::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+  }
+  .divider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    animation: dotPulse 2s ease-in-out infinite;
+  }
+  .divider-dot:nth-child(2) { animation-delay: 0.3s; }
+  .divider-dot:nth-child(3) { animation-delay: 0.6s; }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 0.4; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* 故事正文 */
+  .story-content {
+    line-height: 2.1;
+    font-size: 1.15rem;
+    color: var(--text-primary);
+    letter-spacing: 0.04em;
+  }
+  .story-content p {
+    margin-bottom: 1.5em;
+    text-indent: 2em;
+  }
+  .story-content p:first-child {
+    text-indent: 0;
+  }
+  .story-content .highlight {
+    color: var(--accent-gold);
+  }
+
+  /* 晚安区 */
+  .goodnight {
+    margin-top: 56px;
+    text-align: center;
+    position: relative;
+  }
+  .goodnight-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .goodnight-divider::before,
+  .goodnight-divider::after {
+    content: '✦';
+    color: var(--accent-gold);
+    font-size: 0.7rem;
+    animation: starPulse 2s ease-in-out infinite;
+  }
+  .goodnight-divider::after { animation-delay: 0.8s; }
+  @keyframes starPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+  .goodnight-text {
+    font-size: 1.25rem;
+    color: var(--accent-gold);
+    letter-spacing: 0.08em;
+    line-height: 2;
+    text-shadow: 0 0 20px rgba(245, 217, 142, 0.2);
+  }
+  .goodnight-emoji {
+    display: block;
+    font-size: 2rem;
+    margin-top: 10px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  /* 底部装饰 */
+  .footer-stars {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+  .footer-star {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    animation: footGlow 2.5s ease-in-out infinite;
+  }
+  .footer-star:nth-child(1) { animation-delay: 0s; }
+  .footer-star:nth-child(2) { animation-delay: 0.4s; }
+  .footer-star:nth-child(3) { animation-delay: 0.8s; }
+  .footer-star:nth-child(4) { animation-delay: 1.2s; }
+  .footer-star:nth-child(5) { animation-delay: 1.6s; }
+  .footer-star:nth-child(6) { animation-delay: 2.0s; }
+  .footer-star:nth-child(7) { animation-delay: 2.4s; }
+  @keyframes footGlow {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.6); }
+  }
+
+  /* SVG 瓢虫插图 */
+  .ladybug-illustration {
+    text-align: center;
+    margin: 20px 0 30px;
+    animation: bugFloat 4s ease-in-out infinite;
+  }
+  @keyframes bugFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-4px) rotate(0.5deg); }
+    75% { transform: translateY(4px) rotate(-0.5deg); }
+  }
+
+  /* 斑点小动画 */
+  .spot-glow {
+    animation: spotGlow 2.5s ease-in-out infinite;
+  }
+  .spot-glow:nth-child(2) { animation-delay: 0.5s; }
+  .spot-glow:nth-child(3) { animation-delay: 1s; }
+  .spot-glow:nth-child(4) { animation-delay: 1.5s; }
+  @keyframes spotGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .page { padding: 32px 18px 80px; }
+    .story-title { font-size: 1.5rem; }
+    .story-content { font-size: 1.05rem; line-height: 2; }
+    .moon { width: 50px; height: 50px; right: 8%; }
+    .goodnight-text { font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="sky">
+  <div class="moon"></div>
+  <div class="stars-container" id="stars"></div>
+  <div class="shooting-star" style="top:18%;left:70%;--shoot-dur:3s;--shoot-delay:6s;"></div>
+  <div class="shooting-star" style="top:10%;left:55%;--shoot-dur:3.5s;--shoot-delay:14s;"></div>
+</div>
+
+<!-- 主内容 -->
+<div class="page">
+
+  <div class="title-area">
+    <div class="story-icon">🐞</div>
+    <h1 class="story-title">小瓢虫的星星斑点</h1>
+    <p class="story-date">2026 年 7 月 14 日</p>
+  </div>
+
+  <div class="divider">
+    <span class="divider-dot"></span>
+    <span class="divider-dot"></span>
+    <span class="divider-dot"></span>
+  </div>
+
+  <!-- 瓢虫 SVG 插图 -->
+  <div class="ladybug-illustration">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <!-- 身体 -->
+      <ellipse cx="60" cy="68" rx="38" ry="32" fill="#d4453b"/>
+      <ellipse cx="60" cy="68" rx="38" ry="32" fill="url(#bodyGrad)"/>
+      <!-- 头部 -->
+      <ellipse cx="60" cy="36" rx="18" ry="14" fill="#2a1a18"/>
+      <!-- 眼睛 -->
+      <circle cx="53" cy="33" r="3.5" fill="white"/>
+      <circle cx="67" cy="33" r="3.5" fill="white"/>
+      <circle cx="54" cy="33.5" r="2" fill="#222"/>
+      <circle cx="68" cy="33.5" r="2" fill="#222"/>
+      <!-- 微笑 -->
+      <path d="M55 42 Q60 48 65 42" stroke="#a04030" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <!-- 触角 -->
+      <path d="M50 25 Q44 10 40 10" stroke="#2a1a18" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M70 25 Q76 10 80 10" stroke="#2a1a18" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="40" cy="10" r="3" fill="#2a1a18"/>
+      <circle cx="80" cy="10" r="3" fill="#2a1a18"/>
+      <!-- 翅膀中线 -->
+      <line x1="60" y1="43" x2="60" y2="98" stroke="#8b2a22" stroke-width="1.5"/>
+      <!-- 星星斑点 -->
+      <circle cx="48" cy="55" r="5" fill="#1a1a1a" class="spot-glow" opacity="0.5"/>
+      <circle cx="72" cy="55" r="5" fill="#1a1a1a" class="spot-glow" opacity="0.5" style="animation-delay:0.5s"/>
+      <circle cx="45" cy="72" r="4.5" fill="#1a1a1a" class="spot-glow" opacity="0.5" style="animation-delay:1s"/>
+      <circle cx="75" cy="72" r="4.5" fill="#1a1a1a" class="spot-glow" opacity="0.5" style="animation-delay:1.5s"/>
+      <circle cx="50" cy="88" r="3.5" fill="#1a1a1a" class="spot-glow" opacity="0.5" style="animation-delay:0.7s"/>
+      <circle cx="70" cy="88" r="3.5" fill="#1a1a1a" class="spot-glow" opacity="0.5" style="animation-delay:1.2s"/>
+      <!-- 小脚 -->
+      <line x1="35" y1="80" x2="28" y2="88" stroke="#2a1a18" stroke-width="2" stroke-linecap="round"/>
+      <line x1="40" y1="88" x2="33" y2="98" stroke="#2a1a18" stroke-width="2" stroke-linecap="round"/>
+      <line x1="55" y1="96" x2="53" y2="106" stroke="#2a1a18" stroke-width="2" stroke-linecap="round"/>
+      <line x1="65" y1="96" x2="67" y2="106" stroke="#2a1a18" stroke-width="2" stroke-linecap="round"/>
+      <line x1="80" y1="88" x2="87" y2="98" stroke="#2a1a18" stroke-width="2" stroke-linecap="round"/>
+      <line x1="85" y1="80" x2="92" y2="88" stroke="#2a1a18" stroke-width="2" stroke-linecap="round"/>
+      <!-- 渐变 -->
+      <defs>
+        <radialGradient id="bodyGrad" cx="45%" cy="35%" r="55%">
+          <stop offset="0%" stop-color="#f06050" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#a03028" stop-opacity="0.3"/>
+        </radialGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <div class="story-content">
+    <p>夏天的傍晚，花园里有一只小瓢虫，名字叫<span class="highlight">点点</span>。</p>
+
+    <p>点点很喜欢自己的红壳子，圆圆的，亮亮的。可是她一点也不喜欢背上的小黑点。</p>
+
+    <p>"妈妈，为什么我的壳子上有这些黑点点？" 点点仰着头问瓢虫妈妈。"天上的小星星那么亮、那么美，可我的斑点黑乎乎的，一点也不好看。"</p>
+
+    <p>瓢虫妈妈温柔地笑了，用触角轻轻碰了碰点点的额头："傻孩子，你身上的每一个斑点，都是一颗还没点亮的小星星呀。"</p>
+
+    <p>"真的吗？" 点点睁大了眼睛。</p>
+
+    <p>"当然是真的。只是，星星要点亮它，得靠你自己——每当你用善意和勇敢做一件事，就会有一颗斑点亮起来。"</p>
+
+    <p>点点半信半疑，但还是飞了出去。</p>
+
+    <p>她先遇到了一只小蚂蚁，正在费劲地拖着一粒米。"我来帮你！" 点点飞过去，用小小的身子帮蚂蚁一起推。米粒终于被推到了蚂蚁洞口。点点低头一看——咦，好像有一颗斑点真的变亮了一点点。</p>
+
+    <p>接着，点点飞到了一朵低着头的雏菊旁边。"你怎么了？" 点点问。雏菊轻轻叹了口气："太阳晒得我好渴，可我的根够不到水。" 点点飞到小水洼旁，用壳子兜起一小滴水，一趟一趟地运到雏菊根边。雏菊慢慢抬起了头。点点回头看——又一颗斑点有了微光。</p>
+
+    <p>天快黑了，一只迷路的小蝴蝶坐在草叶上哭。"我找不到回家的路了。" 点点飞到她面前，轻声说："别怕，我带你飞。天上有月亮，我们跟着月光走。"</p>
+
+    <p>点点带着小蝴蝶，飞过三叶草丛，飞过篱笆下的小路，飞过萤火虫跳舞的水塘。当小蝴蝶终于看见家门口那朵熟悉的牵牛花时，她开心地抱住点点："谢谢你！"</p>
+
+    <p>就在这时，点点感到背上暖暖的。她飞回妈妈身边，妈妈惊讶地说："点点，你回头看——"</p>
+
+    <p>点点扭过头，借着柔柔的月光，她看到自己的红壳子上，那些黑点点正一颗一颗地发着光，像天上的小星星落在了她身上。</p>
+
+    <p>"你看，" 瓢虫妈妈轻轻地说，"善良和帮助，就是点亮星星的魔法。你本来就是一颗会发光的星星。"</p>
+
+    <p>点点依偎在妈妈身边，看着天上闪烁的星星，也看着自己背上闪烁的斑点，心里暖洋洋的。原来，不用羡慕天上的星星——每一个人，都有属于自己的光。</p>
+  </div>
+
+  <!-- 晚安 -->
+  <div class="goodnight">
+    <div class="goodnight-divider"></div>
+    <p class="goodnight-text">
+      晚安，小宝贝。<br>
+      点点说，你今天也是个好孩子，<br>
+      该做一个甜甜的、亮晶晶的梦了。
+    </p>
+    <span class="goodnight-emoji">🌙✨🐞</span>
+  </div>
+
+  <div class="footer-stars">
+    <span class="footer-star"></span><span class="footer-star"></span><span class="footer-star"></span>
+    <span class="footer-star"></span><span class="footer-star"></span><span class="footer-star"></span>
+    <span class="footer-star"></span>
+  </div>
+
+</div>
+
+<script>
+// 生成随机星星
+(function() {
+  var container = document.getElementById('stars');
+  var count = 100;
+  var frag = document.createDocumentFragment();
+  for (var i = 0; i < count; i++) {
+    var star = document.createElement('div');
+    star.className = 'star';
+    var size = Math.random() * 2.5 + 1;
+    star.style.cssText =
+      'width:' + size + 'px;' +
+      'height:' + size + 'px;' +
+      'top:' + (Math.random() * 100) + '%;' +
+      'left:' + (Math.random() * 100) + '%;' +
+      '--dur:' + (Math.random() * 3 + 2) + 's;' +
+      '--delay:' + (Math.random() * 5) + 's;';
+    frag.appendChild(star);
+  }
+  container.appendChild(frag);
+})();
+</script>
+
+</body>
+</html>

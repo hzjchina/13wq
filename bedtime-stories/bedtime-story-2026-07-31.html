@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小秋千的晚安 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0d1117;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      overflow-x: hidden;
+      position: relative;
+      padding: 40px 20px 60px;
+    }
+
+    /* ===== 星空背景 ===== */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      width: 2px; height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--dur) ease-in-out infinite alternate;
+      opacity: var(--opa);
+    }
+    @keyframes twinkle {
+      0% { opacity: var(--opa); transform: scale(1); }
+      100% { opacity: 0.2; transform: scale(0.6); }
+    }
+
+    /* ===== 月亮 ===== */
+    .moon {
+      position: fixed;
+      top: 40px; right: 60px;
+      width: 70px; height: 70px;
+      background: radial-gradient(circle at 35% 35%, #fff9e6, #f0e6c8 40%, #d4c9a0 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 40px rgba(240,230,200,0.25), 0 0 80px rgba(240,230,200,0.1);
+      z-index: 1;
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: 15%; left: 55%;
+      width: 12px; height: 12px;
+      background: rgba(180,170,140,0.3);
+      border-radius: 50%;
+    }
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ===== 流星 ===== */
+    .shooting-star {
+      position: fixed;
+      width: 100px; height: 2px;
+      background: linear-gradient(90deg, transparent, #fff, transparent);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .shooting-star:nth-of-type(1) {
+      top: 15%; left: -10%;
+      animation: shoot1 8s linear infinite;
+      animation-delay: 2s;
+    }
+    .shooting-star:nth-of-type(2) {
+      top: 35%; left: -10%;
+      animation: shoot2 10s linear infinite;
+      animation-delay: 6s;
+    }
+    @keyframes shoot1 {
+      0% { transform: translateX(0) translateY(0) rotate(-25deg); opacity: 0; }
+      10% { opacity: 1; }
+      20% { transform: translateX(500px) translateY(200px) rotate(-25deg); opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @keyframes shoot2 {
+      0% { transform: translateX(0) translateY(0) rotate(-20deg); opacity: 0; }
+      8% { opacity: 1; }
+      18% { transform: translateX(600px) translateY(220px) rotate(-20deg); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* ===== 主内容卡片 ===== */
+    .story-card {
+      position: relative;
+      z-index: 2;
+      max-width: 640px;
+      width: 100%;
+      background: rgba(22,27,34,0.85);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 40px 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+
+    /* ===== 标题 ===== */
+    .story-title {
+      text-align: center;
+      font-size: 28px;
+      font-weight: 700;
+      color: #f0e6c8;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(240,230,200,0.2);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 20px rgba(240,230,200,0.15); }
+      100% { text-shadow: 0 0 30px rgba(240,230,200,0.35), 0 0 60px rgba(240,230,200,0.1); }
+    }
+    .story-subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: rgba(240,230,200,0.4);
+      margin-bottom: 32px;
+      letter-spacing: 4px;
+    }
+
+    /* ===== SVG 秋千插图 ===== */
+    .swing-illustration {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 32px;
+    }
+    .swing-illustration svg {
+      width: 220px;
+      height: 200px;
+      overflow: visible;
+    }
+    .swing-group {
+      animation: swingSway 4s ease-in-out infinite;
+      transform-origin: 110px 20px;
+    }
+    @keyframes swingSway {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(6deg); }
+    }
+    .rope-line {
+      stroke: rgba(200,180,150,0.6);
+      stroke-width: 2;
+      stroke-linecap: round;
+    }
+    .board-wood {
+      fill: #8b6f47;
+      stroke: #a08055;
+      stroke-width: 1;
+    }
+    .board-highlight {
+      fill: rgba(255,255,255,0.08);
+    }
+    .tree-branch {
+      stroke: #5a4a3a;
+      stroke-width: 6;
+      stroke-linecap: round;
+      fill: none;
+    }
+    .leaf {
+      fill: #4a7c59;
+      opacity: 0.7;
+      animation: leafSway 5s ease-in-out infinite;
+    }
+    .leaf:nth-child(odd) { animation-delay: 1s; }
+    @keyframes leafSway {
+      0%, 100% { transform: rotate(0deg); }
+      50% { transform: rotate(8deg); }
+    }
+
+    /* ===== 故事正文 ===== */
+    .story-content {
+      font-size: 16.5px;
+      line-height: 2;
+      color: rgba(230,220,200,0.88);
+      text-align: justify;
+      text-indent: 2em;
+    }
+    .story-content p {
+      margin-bottom: 16px;
+    }
+
+    /* ===== 分隔星光 ===== */
+    .star-divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0;
+    }
+    .star-dot {
+      width: 4px; height: 4px;
+      background: #f0e6c8;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(240,230,200,0.5);
+      animation: starDotPulse 3s ease-in-out infinite alternate;
+    }
+    .star-dot:nth-child(2) { animation-delay: 0.5s; }
+    .star-dot:nth-child(3) { animation-delay: 1s; width: 5px; height: 5px; }
+    .star-dot:nth-child(4) { animation-delay: 1.5s; }
+    .star-dot:nth-child(5) { animation-delay: 2s; }
+    @keyframes starDotPulse {
+      0% { opacity: 0.4; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* ===== 晚安语 ===== */
+    .goodnight {
+      text-align: center;
+      margin-top: 28px;
+      padding: 24px;
+      background: rgba(240,230,200,0.04);
+      border-radius: 16px;
+      border: 1px solid rgba(240,230,200,0.08);
+    }
+    .goodnight-text {
+      font-size: 15px;
+      color: rgba(240,230,200,0.75);
+      line-height: 1.8;
+      font-style: italic;
+      animation: goodnightGlow 4s ease-in-out infinite alternate;
+    }
+    @keyframes goodnightGlow {
+      0% { text-shadow: 0 0 10px rgba(240,230,200,0.1); }
+      100% { text-shadow: 0 0 20px rgba(240,230,200,0.25); }
+    }
+
+    /* ===== 暖色漂浮粒子 ===== */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+      animation: floatUp var(--dur) ease-out infinite;
+      animation-delay: var(--delay);
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) translateX(0) scale(0.5); opacity: 0; }
+      15% { opacity: var(--max-opa); }
+      85% { opacity: var(--max-opa); }
+      100% { transform: translateY(-120vh) translateX(var(--drift)) scale(0.2); opacity: 0; }
+    }
+
+    /* ===== 底部暖光带 ===== */
+    .bottom-glow {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%; height: 80px;
+      background: radial-gradient(ellipse at 50% 100%, rgba(240,200,120,0.08) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 1;
+      animation: bottomGlow 5s ease-in-out infinite alternate;
+    }
+    @keyframes bottomGlow {
+      0% { opacity: 0.6; }
+      100% { opacity: 1; }
+    }
+
+    /* ===== 日期标签 ===== */
+    .date-label {
+      text-align: center;
+      font-size: 12px;
+      color: rgba(240,230,200,0.25);
+      margin-top: 20px;
+      letter-spacing: 2px;
+    }
+
+    /* ===== 响应式 ===== */
+    @media (max-width: 520px) {
+      .story-card { padding: 28px 20px; }
+      .story-title { font-size: 22px; }
+      .story-content { font-size: 15px; line-height: 1.9; }
+      .moon { width: 50px; height: 50px; top: 20px; right: 20px; }
+      .swing-illustration svg { width: 180px; height: 170px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 星空 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <!-- 漂浮粒子 -->
+  <div id="particles"></div>
+
+  <!-- 底部暖光 -->
+  <div class="bottom-glow"></div>
+
+  <!-- 主内容 -->
+  <div class="story-card">
+    <h1 class="story-title">小秋千的晚安</h1>
+    <p class="story-subtitle">儿童睡前故事</p>
+
+    <!-- 秋千插图 -->
+    <div class="swing-illustration">
+      <svg viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- 树枝 -->
+        <path class="tree-branch" d="M 10 35 Q 60 25, 110 20 Q 160 25, 210 40" />
+        <path class="tree-branch" d="M 110 20 Q 90 10, 70 8" stroke-width="3" />
+        <path class="tree-branch" d="M 110 20 Q 135 12, 155 10" stroke-width="3" />
+
+        <!-- 树叶 -->
+        <ellipse class="leaf" cx="60" cy="18" rx="10" ry="6" transform="rotate(-20 60 18)" />
+        <ellipse class="leaf" cx="75" cy="10" rx="8" ry="5" transform="rotate(-10 75 10)" />
+        <ellipse class="leaf" cx="150" cy="15" rx="9" ry="5" transform="rotate(15 150 15)" />
+        <ellipse class="leaf" cx="165" cy="22" rx="8" ry="5" transform="rotate(25 165 22)" />
+        <ellipse class="leaf" cx="40" cy="30" rx="7" ry="4" transform="rotate(-30 40 30)" />
+
+        <!-- 秋千组（带动画） -->
+        <g class="swing-group">
+          <!-- 绳索 -->
+          <line class="rope-line" x1="95" y1="20" x2="85" y2="130" />
+          <line class="rope-line" x1="125" y1="20" x2="135" y2="130" />
+
+          <!-- 绳结 -->
+          <circle cx="95" cy="22" r="3" fill="#c8b496" />
+          <circle cx="125" cy="22" r="3" fill="#c8b496" />
+
+          <!-- 木板 -->
+          <rect class="board-wood" x="72" y="128" width="76" height="14" rx="4" />
+          <rect class="board-highlight" x="76" y="130" width="30" height="3" rx="1.5" />
+
+          <!-- 木纹细节 -->
+          <line x1="85" y1="132" x2="85" y2="138" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+          <line x1="110" y1="132" x2="110" y2="138" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+          <line x1="130" y1="132" x2="130" y2="138" stroke="rgba(0,0,0,0.15)" stroke-width="1" />
+        </g>
+
+        <!-- 小光点装饰 -->
+        <circle cx="50" cy="90" r="1.5" fill="#f0e6c8" opacity="0.6">
+          <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="170" cy="100" r="1.5" fill="#f0e6c8" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;0.1;0.5" dur="4s" repeatCount="indefinite" />
+        </circle>
+        <circle cx="110" cy="155" r="2" fill="#f0e6c8" opacity="0.4">
+          <animate attributeName="opacity" values="0.4;0.1;0.4" dur="2.5s" repeatCount="indefinite" />
+        </circle>
+      </svg>
+    </div>
+
+    <!-- 故事正文 -->
+    <div class="story-content">
+      <p>小秋千住在院子里的老槐树下，两根长长的绳子牵着一块宽宽的木板，在风里轻轻地荡呀荡。</p>
+
+      <p>白天，是小秋千最快乐的时光。小朋友们排着队跑过来，一个挨一个坐上去，两只小手紧紧抓住绳子。"再高一点！再高一点！"小朋友的声音像银铃一样洒满院子。小秋千就使劲儿把自己荡向天空，让风呼呼地吹过小朋友的脸颊，把笑声送得老远老远。</p>
+
+      <p>可是到了晚上，太阳公公回家睡觉了，小朋友们也都被爸爸妈妈牵着手回了家。院子里静悄悄的，只剩下蟋蟀在草丛里弹琴。小秋千挂在树下的绳子上，孤零零地，轻轻地晃啊晃。</p>
+
+      <p>"你为什么不睡觉呢？"月亮姐姐从云朵后面探出头来，温柔地问。</p>
+
+      <p>"我在等明天的小朋友呀，"小秋千轻轻地说，声音像被风吹动的树叶一样细，"而且，我想替他们守着这份快乐。白天他们那么勇敢，飞得那么高，晚上我要让他们知道，这里永远有一个温暖的地方在等着他们回来。"</p>
+
+      <p>一阵晚风吹过来，小秋千轻轻地摇了摇，像是在给空荡荡的院子盖上一层看不见的被子。</p>
+
+      <p>老槐树爷爷抖了抖叶子，说："你真是个傻孩子，小朋友明天还会来的，你不用整夜等在这里。"</p>
+
+      <p>小秋千笑了，木板在月光下泛着淡淡的光："等待也是一种陪伴呀。我知道，明天第一个跑来的小朋友，会扑进我的怀里，眼睛亮晶晶地说'小秋千我来啦'，那时候我就知道，所有的等待都是值得的。"</p>
+
+      <p>夜深了，星星一颗一颗眨着眼睛。小秋千还在老槐树下轻轻地荡着，把白天收集的笑声小心地收进木板的纹路里，慢慢地，酿成一个甜甜的梦。梦里，有个小朋友飞得好高好高，高得能摸到云朵，云朵软软的，像棉花糖一样。</p>
+    </div>
+
+    <!-- 分隔星光 -->
+    <div class="star-divider">
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+    </div>
+
+    <!-- 晚安语 -->
+    <div class="goodnight">
+      <p class="goodnight-text">
+        晚安，小宝贝。<br>
+        小秋千说，今天你荡得那么高，真是个勇敢的孩子，<br>
+        该做一个飞在云朵里的梦了。
+      </p>
+    </div>
+
+    <p class="date-label">2026年7月31日</p>
+  </div>
+
+  <script>
+    /* ===== 生成随机星星 ===== */
+    const starsContainer = document.getElementById('stars');
+    const starCount = 110;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      const size = Math.random() * 2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.setProperty('--dur', (Math.random() * 2 + 1.5) + 's');
+      star.style.setProperty('--opa', (Math.random() * 0.6 + 0.3).toFixed(2));
+      star.style.animationDelay = (Math.random() * 3) + 's';
+      starsContainer.appendChild(star);
+    }
+
+    /* ===== 生成漂浮粒子 ===== */
+    const particlesContainer = document.getElementById('particles');
+    const colors = ['#f0e6c8', '#e8d5a3', '#d4c9a0', '#c8b896', '#e6d8b8'];
+    for (let i = 0; i < 8; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      const size = Math.random() * 4 + 2;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.left = (Math.random() * 100) + '%';
+      p.style.bottom = '-20px';
+      p.style.setProperty('--dur', (Math.random() * 10 + 12) + 's');
+      p.style.setProperty('--delay', (Math.random() * 8) + 's');
+      p.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+      p.style.setProperty('--max-opa', (Math.random() * 0.3 + 0.15).toFixed(2));
+      p.style.boxShadow = `0 0 ${size * 2}px ${p.style.background}`;
+      particlesContainer.appendChild(p);
+    }
+  </script>
+</body>
+</html>

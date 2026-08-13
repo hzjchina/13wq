@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小灯塔的守望 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, #0a1838 0%, #050a1f 60%, #02040c 100%);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    color: #e8eef9;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sky {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden;
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(120, 160, 230, 0.10) 0%, transparent 45%),
+      radial-gradient(ellipse at 80% 75%, rgba(180, 140, 220, 0.08) 0%, transparent 50%);
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.85);
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50%      { opacity: 1;    transform: scale(1.4); }
+  }
+  .big-star {
+    width: 3px; height: 3px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 14px rgba(180, 210, 255, 0.5);
+  }
+  .moon {
+    position: fixed;
+    top: 8%; right: 8%;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8d6 0%, #ffe89a 55%, #f5cf6b 100%);
+    box-shadow:
+      0 0 30px rgba(255, 232, 154, 0.55),
+      0 0 70px rgba(255, 220, 120, 0.35),
+      0 0 120px rgba(255, 200, 100, 0.18);
+    animation: moonFloat 8s ease-in-out infinite;
+    z-index: 1;
+  }
+  .moon::before {
+    content: "";
+    position: absolute;
+    inset: -25px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 232, 154, 0.15) 0%, transparent 65%);
+    animation: moonGlow 6s ease-in-out infinite;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-12px) rotate(2deg); }
+  }
+  @keyframes moonGlow {
+    0%, 100% { transform: scale(1);   opacity: 0.6; }
+    50%      { transform: scale(1.2); opacity: 1; }
+  }
+  .shooting-star {
+    position: fixed;
+    width: 3px; height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fff, 0 0 12px #b0d8ff;
+    opacity: 0;
+    z-index: 1;
+  }
+  .shooting-star::after {
+    content: "";
+    position: absolute;
+    top: 50%; right: 100%;
+    width: 120px; height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.9), transparent);
+    transform: translateY(-50%);
+  }
+  .shooting-star.s1 {
+    top: 18%; left: 10%;
+    animation: shoot 7s linear infinite;
+    animation-delay: 2s;
+  }
+  .shooting-star.s2 {
+    top: 32%; left: 60%;
+    animation: shoot 9s linear infinite;
+    animation-delay: 5s;
+  }
+  @keyframes shoot {
+    0%   { transform: translate(0, 0) rotate(-20deg); opacity: 0; }
+    3%   { opacity: 1; }
+    20%  { transform: translate(420px, 140px) rotate(-20deg); opacity: 0; }
+    100% { transform: translate(420px, 140px) rotate(-20deg); opacity: 0; }
+  }
+  .page {
+    position: relative; z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, #ffe89a 0%, #ffb46b 50%, #ff8a5b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 24px rgba(255, 200, 100, 0.25);
+    animation: titleGlow 4s ease-in-out infinite;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 0.95em;
+    color: #b8c8e0;
+    letter-spacing: 0.2em;
+    opacity: 0.75;
+  }
+  @keyframes titleGlow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 200, 120, 0.4)); }
+    50%      { filter: drop-shadow(0 0 22px rgba(255, 220, 150, 0.7)); }
+  }
+  .lighthouse-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 50px;
+    position: relative;
+  }
+  .lighthouse-svg {
+    width: 180px; height: 280px;
+    filter: drop-shadow(0 0 20px rgba(255, 200, 100, 0.3));
+    animation: floatLighthouse 6s ease-in-out infinite;
+  }
+  @keyframes floatLighthouse {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-6px); }
+  }
+  .light-beam {
+    animation: beamSweep 8s linear infinite;
+    transform-origin: center top;
+  }
+  @keyframes beamSweep {
+    0%   { opacity: 0.25; transform: rotate(-25deg); }
+    25%  { opacity: 0.7;  transform: rotate(0deg); }
+    50%  { opacity: 0.25; transform: rotate(25deg); }
+    75%  { opacity: 0.7;  transform: rotate(0deg); }
+    100% { opacity: 0.25; transform: rotate(-25deg); }
+  }
+  .glow-pulse {
+    animation: glowPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes glowPulse {
+    0%, 100% { opacity: 0.65; }
+    50%      { opacity: 1; }
+  }
+  .story {
+    background: linear-gradient(180deg,
+      rgba(20, 35, 70, 0.55) 0%,
+      rgba(10, 20, 45, 0.65) 100%);
+    border: 1px solid rgba(180, 210, 255, 0.12);
+    border-radius: 22px;
+    padding: 40px 36px;
+    box-shadow:
+      0 12px 50px rgba(0, 0, 0, 0.45),
+      inset 0 0 30px rgba(180, 210, 255, 0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    line-height: 1.95;
+    font-size: 1.08em;
+    letter-spacing: 0.04em;
+  }
+  .story p {
+    margin-bottom: 18px;
+    text-indent: 2em;
+    color: #d8e3f5;
+  }
+  .story p:last-child { margin-bottom: 0; }
+  .story .dialogue {
+    color: #ffd9a0;
+    text-shadow: 0 0 12px rgba(255, 180, 100, 0.25);
+  }
+  .divider {
+    text-align: center;
+    margin: 36px 0 28px;
+    color: #ffd9a0;
+    font-size: 1.4em;
+    letter-spacing: 1em;
+    opacity: 0.55;
+  }
+  .goodnight {
+    margin-top: 50px;
+    padding: 30px 28px;
+    text-align: center;
+    background: linear-gradient(135deg,
+      rgba(255, 180, 100, 0.10) 0%,
+      rgba(255, 220, 150, 0.05) 100%);
+    border: 1px solid rgba(255, 200, 120, 0.20);
+    border-radius: 18px;
+    color: #ffe8c4;
+    font-size: 1.05em;
+    line-height: 1.95;
+    letter-spacing: 0.05em;
+    animation: goodnightGlow 5s ease-in-out infinite;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% { box-shadow: 0 0 30px rgba(255, 180, 100, 0.15); }
+    50%      { box-shadow: 0 0 50px rgba(255, 200, 130, 0.30); }
+  }
+  .footer-stars {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    opacity: 0.7;
+  }
+  .footer-stars span {
+    width: 5px; height: 5px;
+    background: #ffe89a;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 232, 154, 0.85);
+    animation: twinkle 2.5s ease-in-out infinite;
+  }
+  .footer-stars span:nth-child(1) { animation-delay: 0s;   }
+  .footer-stars span:nth-child(2) { animation-delay: 0.4s; }
+  .footer-stars span:nth-child(3) { animation-delay: 0.8s; }
+  .footer-stars span:nth-child(4) { animation-delay: 1.2s; }
+  .footer-stars span:nth-child(5) { animation-delay: 1.6s; }
+  .footer-stars span:nth-child(6) { animation-delay: 2.0s; }
+  .footer-stars span:nth-child(7) { animation-delay: 2.4s; }
+  .ocean-light {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 50px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(255, 200, 120, 0.05) 50%,
+      rgba(255, 180, 100, 0.10) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .page { padding: 40px 16px 60px; }
+    h1 { font-size: 1.7em; }
+    .story { padding: 28px 22px; font-size: 1em; }
+    .lighthouse-svg { width: 140px; height: 220px; }
+    .moon { width: 70px; height: 70px; top: 6%; right: 6%; }
+  }
+</style>
+</head>
+<body>
+  <div class="sky" id="sky"></div>
+  <div class="moon"></div>
+  <div class="shooting-star s1"></div>
+  <div class="shooting-star s2"></div>
+  <div class="ocean-light"></div>
+
+  <div class="page">
+    <header>
+      <h1>小灯塔的守望</h1>
+      <div class="subtitle">— 儿 童 睡 前 故 事 —</div>
+    </header>
+
+    <div class="lighthouse-wrap">
+      <svg class="lighthouse-svg" viewBox="0 0 180 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- Light beam (sweeping) -->
+        <g class="light-beam">
+          <polygon points="90,40 200,10 200,70" fill="url(#beamGrad)" opacity="0.55"/>
+          <polygon points="90,40 -20,10 -20,70" fill="url(#beamGrad2)" opacity="0.4"/>
+        </g>
+        <defs>
+          <linearGradient id="beamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"  stop-color="#fff4c2" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#fff4c2" stop-opacity="0"/>
+          </linearGradient>
+          <linearGradient id="beamGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%"  stop-color="#ffe89a" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#ffe89a" stop-opacity="0"/>
+          </linearGradient>
+          <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"  stop-color="#fff4c2" stop-opacity="1"/>
+            <stop offset="60%" stop-color="#ffd87a" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#ff8a5b" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- Tower base (rock) -->
+        <ellipse cx="90" cy="265" rx="55" ry="8" fill="#1a2540" opacity="0.6"/>
+        <path d="M 50 260 Q 60 250 75 252 Q 90 248 110 254 Q 125 250 130 260 Z" fill="#0d1530"/>
+
+        <!-- Tower body - red and white stripes -->
+        <rect x="68" y="80" width="44" height="160" fill="#d94a3d"/>
+        <rect x="68" y="80" width="44" height="32" fill="#fff5e0"/>
+        <rect x="68" y="140" width="44" height="32" fill="#fff5e0"/>
+        <rect x="68" y="200" width="44" height="40" fill="#fff5e0"/>
+
+        <!-- Tower details (windows) -->
+        <rect x="84" y="100" width="12" height="14" rx="2" fill="#1a2540" opacity="0.55"/>
+        <rect x="84" y="160" width="12" height="14" rx="2" fill="#1a2540" opacity="0.55"/>
+        <rect x="84" y="220" width="12" height="14" rx="2" fill="#1a2540" opacity="0.55"/>
+
+        <!-- Lamp room (top) -->
+        <rect x="62" y="50" width="56" height="30" fill="#3a4860" stroke="#1a2540" stroke-width="1"/>
+        <rect x="68" y="56" width="44" height="20" fill="url(#lampGlow)" class="glow-pulse"/>
+
+        <!-- Roof -->
+        <polygon points="56,50 90,18 124,50" fill="#1a2540"/>
+        <circle cx="90" cy="16" r="3" fill="#ffe89a">
+          <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- Railings -->
+        <line x1="62" y1="50" x2="62" y2="42" stroke="#3a4860" stroke-width="2"/>
+        <line x1="124" y1="50" x2="124" y2="42" stroke="#3a4860" stroke-width="2"/>
+        <line x1="62" y1="42" x2="124" y2="42" stroke="#3a4860" stroke-width="2"/>
+      </svg>
+    </div>
+
+    <article class="story">
+      <p>在蓝色大海的尽头，有一座小小的灯塔。</p>
+
+      <p>他不像大城市的灯塔那样高，也不像港口的灯塔那样亮。他只有三层楼高，灯泡也小小的，发出来的光像一颗暖橙色的糖果。</p>
+
+      <p>每天傍晚，当海鸥妈妈带着小海鸥回家，当渔船伯伯收起最后一张网，小灯塔就会轻轻地亮起来。</p>
+
+      <p><span class="dialogue">"我这么小，灯光这么弱，能照到谁呢？"</span>小灯塔常常这样想。</p>
+
+      <p>有一天晚上，暴风雨来了。海面像被谁泼翻了一盆黑墨水，又黑又冷。</p>
+
+      <p>一只小纸船被风浪推着，跌跌撞撞地漂进了大海。船上坐着一只迷路的小海龟，她找不到回家的路了。</p>
+
+      <p><span class="dialogue">"呜呜……妈妈……"</span>小海龟哭着，浪花一下又一下地拍打着小纸船。</p>
+
+      <p>小纸船越来越小，眼看就要被海浪打翻了。</p>
+
+      <p>就在这时，远处的海面上，飘来一点温暖的光。</p>
+
+      <p>是小小的、橙色的、像糖果一样的光。</p>
+
+      <p>小海龟抬头一看——啊，那座小灯塔，正在为她亮着！</p>
+
+      <p><span class="dialogue">"快往光的方向游！"</span>小海龟对自己说。</p>
+
+      <p>她顺着那道温柔的光，一下一下地划着小爪子。浪再大，她也不怕，因为那束光一直在那里，稳稳地亮着。</p>
+
+      <p>终于，小海龟游到了小灯塔脚下的小岛。她爬上沙滩，趴在灯塔的台阶上，喘着气笑了。</p>
+
+      <p><span class="dialogue">"谢谢你，小灯塔。"</span>小海龟说。</p>
+
+      <p>小灯塔愣了愣，不好意思地眨了眨眼睛：<span class="dialogue">"我……我这么小，能帮到你吗？"</span></p>
+
+      <p><span class="dialogue">"当然可以呀！"</span>小海龟认真地说，<span class="dialogue">"你今晚的光，是我见过最美的光。因为它把我带回了家。"</span></p>
+
+      <p>那一夜，暴风雨渐渐停了。月亮从云后面探出头来，把大海照得银亮。</p>
+
+      <p>小灯塔和小海龟靠在一起，听着海浪轻轻地<span class="dialogue">"哗——哗——"</span>地唱着摇篮曲。</p>
+
+      <p><span class="dialogue">"原来，"</span>小灯塔小声说，<span class="dialogue">"我小小的光，也能成为别人的家啊。"</span></p>
+
+      <p>小海龟已经睡着了，嘴角还挂着笑。</p>
+
+      <p>海风轻轻吹过，小灯塔的光变得更柔了一些，更暖了一些。</p>
+
+      <p>他决定，从今以后，每一晚都好好亮着。</p>
+
+      <p>也许他依然不是最大、最亮的灯塔，但他知道——总有一只迷路的小船，需要这样一束小小的光。</p>
+
+      <div class="divider">· · ·</div>
+
+      <div class="goodnight">
+        晚安，小宝贝。<br>
+        小灯塔说，你也是某个人心里<br>
+        那束最温柔的光。<br>
+        今晚，愿你像小海龟一样，<br>
+        揣着一份安心，<br>
+        做一个甜甜的、闪着微光的梦。
+      </div>
+
+      <div class="footer-stars">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+    </article>
+  </div>
+
+<script>
+  // Generate 110 random twinkling stars
+  const sky = document.getElementById('sky');
+  for (let i = 0; i < 110; i++) {
+    const star = document.createElement('div');
+    star.className = 'star' + (Math.random() > 0.7 ? ' big-star' : '');
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top  = Math.random() * 85 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.animationDelay = (Math.random() * 5) + 's';
+    sky.appendChild(star);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 触不可及</title>
+  <style>
+    :root {
+      --bg: #1a1a24;
+      --bg-card: #161b28;
+      --accent: #e8a838;
+      --accent2: #1f2838;
+      --text: #eaeaea;
+      --text-dim: #a0a4b4;
+      --gold: #d4a853;
+      --warm: #c97b4a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--accent2);
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    .movie-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .movie-meta {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .movie-meta span {
+      margin: 0 6px;
+    }
+
+    .ratings {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px 0 28px;
+    }
+
+    .rating-chip {
+      background: var(--accent2);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .rating-chip .score {
+      color: var(--gold);
+      font-size: 18px;
+      margin-left: 4px;
+    }
+
+    .section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .section p {
+      font-size: 16px;
+      color: var(--text);
+      text-align: justify;
+    }
+
+    .highlights {
+      list-style: none;
+    }
+
+    .highlights li {
+      font-size: 16px;
+      padding: 10px 0;
+      padding-left: 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .highlights li:last-child {
+      border-bottom: none;
+    }
+
+    .highlights li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 18px;
+    }
+
+    .quote {
+      background: var(--accent2);
+      border-left: 4px solid var(--accent);
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 16px 0;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-dim);
+    }
+
+    .quote .author {
+      display: block;
+      text-align: right;
+      margin-top: 8px;
+      font-size: 14px;
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .awards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .award-tag {
+      background: rgba(212, 168, 83, 0.12);
+      color: var(--gold);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(212, 168, 83, 0.25);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer .date {
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .movie-title {
+        font-size: 26px;
+      }
+
+      .section {
+        padding: 18px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      .section p, .highlights li {
+        font-size: 15px;
+      }
+
+      .quote {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎬 经典电影推荐</h1>
+      <div class="subtitle">第 37 期 · 2026年8月5日</div>
+    </div>
+
+    <div style="text-align:center; margin-bottom: 24px;">
+      <div class="movie-title">触不可及</div>
+      <div class="movie-meta">
+        <span>Intouchables</span> · <span>2011</span> · <span>法国</span>
+      </div>
+      <div class="movie-meta">导演：奥利维埃·纳卡什 / 埃里克·托莱达诺 | 主演：弗朗索瓦·克吕塞 / 奥马·希</div>
+
+      <div class="ratings">
+        <div class="rating-chip">豆瓣 <span class="score">9.3</span></div>
+        <div class="rating-chip">IMDb <span class="score">8.5</span></div>
+        <div class="rating-chip">烂番茄观众 <span class="score">93%</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">剧情梗概</div>
+      <p>
+        巴黎，一位出身塞内加尔移民家庭的年轻人德里斯，刚刚刑满释放，靠低保度日。他走进一栋豪华宅邸应聘护工——不是为了得到这份工作，而是为了凑齐三个求职拒绝章好去领失业救济金。
+      </p>
+      <p style="margin-top: 12px;">
+        但宅邸的主人菲利普——一位因滑翔伞事故而颈部以下全部瘫痪的贵族富翁——偏偏选中了他。理由很简单：他是唯一一个不把他当残疾人看的人。没有怜悯，没有小心翼翼，没有虚伪的同情——有的只是一个年轻人浑然天成的莽撞、幽默和生命力。
+      </p>
+      <p style="margin-top: 12px;">
+        于是，两个世界截然不同的人开始了他们不可思议的同居生活。德里斯开着玛莎拉蒂带菲利普在巴黎街头飙车，给他放Earth Wind & Fire让他跟着音乐摇头晃脑，用恶作剧逗弄那些一本正经的管家和助理；而菲利普则带德里斯听歌剧、看画、感受诗歌与艺术，甚至帮他写信给那个让他心动的笔友。
+      </p>
+      <p style="margin-top: 12px;">
+        在一次次令人捧腹又令人动容的日常中，一段超越阶级、种族、身体条件的深厚友谊悄然生长。他们谁也没有试图改变对方——德里斯没有学会上流社会的矜持，菲利普也没有变得"合群"。他们只是让彼此看到了生命的另一种可能。
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">核心亮点</div>
+      <ul class="highlights">
+        <li><strong>真实事件改编</strong>——影片改编自法国真实故事，原型人物菲利普·波尔戈·德·波尔伯爵与他的护工阿贝尔·亚马杜的友谊延续了数十年，至今仍是挚友。现实的力量让每一帧画面都多了不可替代的分量。</li>
+        <li><strong>奥马·希的惊艳表演</strong>——这位当时名不见经传的法国喜剧演员，用浑然天成的感染力征服了所有人。他打破了所有"严肃文艺片"的沉闷，让整个故事在笑声中流淌。凯撒奖最佳男主角实至名归。</li>
+        <li><strong>"平视"的哲学</strong>——影片最动人的内核不是同情，而是尊重。德里斯从不说"可怜的家伙"，他拿菲利普的瘫痪开玩笑，给他画胡子，甚至忘了他是残疾人——而这恰恰是菲利普最渴望的：被当作一个普通人对待。</li>
+        <li><strong>音乐是第二灵魂</strong>——从Earth Wind & Fire的Disco经典到维瓦尔第的四季，从Ludovico Einaudi的钢琴到Nina Simone的蓝调，音乐在两个世界之间架起桥梁。配乐不仅是氛围，更是叙事本身。</li>
+        <li><strong>笑声与泪水的完美配比</strong>——导演的高明之处在于：前半段让你笑到缺氧，后半段让你在猝不及防间红了眼眶，而最后又用温暖将一切轻轻收束。没有刻意煽情，一切水到渠成。</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">为什么值得一看</div>
+      <p>
+        《触不可及》之所以能在全球掀起观影热潮——成为法国影史票房冠军、在全球收获超过4亿美元票房——不是因为它讲了多么惊天动地的故事，而是因为它讲了一个最朴素的道理：人与人之间最珍贵的，不是施舍，不是怜悯，而是把对方当作一个完整的人来对待。
+      </p>
+      <p style="margin-top: 12px;">
+        我们每个人在生活中都或多或少扮演着"帮助者"或"被帮助者"的角色——对年迈的父母、对遭遇困境的朋友、对那些"不如自己幸运"的人。我们以为自己在行善，却不知不觉中用同情筑起了一道墙。《触不可及》用112分钟告诉你：真正的善意，是忘记对方"需要被善意对待"这件事。
+      </p>
+      <p style="margin-top: 12px;">
+        这也是一部关于"活着"的电影。菲利普的身体被困在轮椅上，但他的灵魂比大多数健全人都自由；德里斯被贫困和偏见包围，但他身上那股原始的生命力，恰恰是上流社会最稀缺的东西。他们不是在互相拯救——他们是在互相唤醒。
+      </p>
+
+      <div class="quote">
+        "他忘了，我也忘了。他把手放在我身上的时候，我甚至忘了自己是个残疾人。有时候，你最需要的不是一个照顾你的人，而是一个忘了你不正常的人。"
+        <span class="author">—— 菲利普（原型人物自述）</span>
+      </div>
+
+      <div class="awards">
+        <span class="award-tag">🏆 凯撒奖最佳男主角（奥马·希）</span>
+        <span class="award-tag">🏆 东京电影节最佳影片</span>
+        <span class="award-tag">🎬 金球奖最佳外语片提名</span>
+        <span class="award-tag">🎬 BAFTA最佳非英语片提名</span>
+        <span class="award-tag">💰 法国影史票房冠军（当时）</span>
+        <span class="award-tag">🌟 全球票房超 4.4 亿美元</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>经典永不过时，好电影值得反复品味 🎞️</div>
+      <div class="date">本期推荐 · 2026年8月5日 · 第 37 期</div>
+    </div>
+  </div>
+</body>
+</html>

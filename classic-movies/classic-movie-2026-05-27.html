@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 2026-05-27</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #060610;
+    color: #e8e6e3;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at 30% 40%, rgba(30, 60, 120, 0.2) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 60%, rgba(80, 40, 120, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 0%, rgba(100, 140, 200, 0.1) 0%, transparent 50%),
+                linear-gradient(180deg, #060610 0%, #0e0e1a 50%, #060610 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2360a0d0' fill-opacity='0.025'%3E%3Cpath d='M30 0 L32 10 L42 12 L32 14 L30 24 L28 14 L18 12 L28 10 Z M0 30 L2 36 L8 38 L2 40 L0 46 L-2 40 L-8 38 L-2 36 Z M60 30 L62 36 L68 38 L62 40 L60 46 L58 40 L52 38 L58 36 Z M30 48 L32 54 L38 56 L32 58 L30 64 L28 58 L22 56 L28 54 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.6;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 60px 30px;
+  }
+
+  .date-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    background: rgba(100, 160, 220, 0.1);
+    border: 1px solid rgba(100, 160, 220, 0.3);
+    border-radius: 20px;
+    font-size: 13px;
+    color: #80b8e0;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+
+  .movie-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #80b8e0 0%, #b0d8ff 35%, #60a0d0 60%, #4080c0 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .movie-title-en {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    color: rgba(120, 170, 220, 0.5);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 36px;
+    align-items: center;
+  }
+
+  .meta-tag {
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    font-size: 14px;
+    color: rgba(232, 230, 227, 0.7);
+  }
+
+  .meta-tag.highlight {
+    background: rgba(100, 160, 220, 0.12);
+    border-color: rgba(100, 160, 220, 0.3);
+    color: #80b8e0;
+    font-weight: 500;
+  }
+
+  .divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, #80b8e0, transparent);
+    margin: 36px 0;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #80b8e0;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .synopsis {
+    font-size: 17px;
+    line-height: 1.9;
+    color: rgba(232, 230, 227, 0.85);
+    margin-bottom: 40px;
+    text-align: justify;
+  }
+
+  .highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .highlight-card {
+    padding: 28px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(100, 160, 220, 0.12);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .highlight-card:hover {
+    background: rgba(100, 160, 220, 0.06);
+    border-color: rgba(100, 160, 220, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .highlight-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .highlight-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #80b8e0;
+    margin-bottom: 10px;
+  }
+
+  .highlight-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(232, 230, 227, 0.65);
+  }
+
+  .why-watch {
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(100, 160, 220, 0.06) 0%, rgba(80, 120, 180, 0.03) 100%);
+    border: 1px solid rgba(100, 160, 220, 0.15);
+    border-radius: 16px;
+    margin-bottom: 40px;
+  }
+
+  .why-watch p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: rgba(232, 230, 227, 0.8);
+  }
+
+  .ratings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .rating-item {
+    flex: 1;
+    min-width: 140px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .rating-score {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #80b8e0;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .rating-source {
+    font-size: 12px;
+    color: rgba(232, 230, 227, 0.4);
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: rgba(232, 230, 227, 0.25);
+    letter-spacing: 1px;
+  }
+
+  .quote {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(120, 170, 220, 0.55);
+    text-align: center;
+    margin: 30px 0;
+    line-height: 1.6;
+  }
+
+  .quote::before, .quote::after {
+    content: '"';
+    font-size: 28px;
+    color: rgba(120, 170, 220, 0.3);
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 40px 20px; }
+    .highlights { grid-template-columns: 1fr; }
+    .why-watch { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+
+    <div class="date-badge">2026.05.27 · 每日经典</div>
+
+    <h1 class="movie-title">盗梦空间</h1>
+    <div class="movie-title-en">Inception (2010)</div>
+
+    <div class="meta-row">
+      <span class="meta-tag highlight">⭐ IMDb 8.8</span>
+      <span class="meta-tag highlight">⭐ 豆瓣 9.4</span>
+      <span class="meta-tag">美国 / 英国</span>
+      <span class="meta-tag">科幻 / 动作 / 悬疑</span>
+      <span class="meta-tag">148 分钟</span>
+      <span class="meta-tag">导演：克里斯托弗·诺兰</span>
+    </div>
+
+    <div class="ratings">
+      <div class="rating-item">
+        <div class="rating-score">8.8</div>
+        <div class="rating-source">IMDb Top 250 #13</div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-score">9.4</div>
+        <div class="rating-source">豆瓣 Top 250 #9</div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-score">87%</div>
+        <div class="rating-source">烂番茄新鲜度</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">剧 情 梗 概</div>
+
+    <div class="synopsis">
+      多姆·柯布是一名顶尖的"盗梦者"——他能潜入他人梦境，窃取潜意识中最深层的秘密。但这门绝技也让他付出了惨痛代价，成为国际逃犯，无法回家与孩子团聚。<br><br>
+      一次，一个神秘雇主给了他一个看似不可能的任务：不是窃取思想，而是在目标人物的潜意识深处<strong>植入</strong>一个想法——这就是"Inception"（奠基/植入）。如果成功，他将获得梦寐以求的自由。<br><br>
+      柯布召集了一支各怀绝技的团队——筑梦师、伪装者、药剂师、前哨——踏上了这场穿越层层梦境的危险旅程。每深入一层，时间流速成倍拉长，现实与幻象的边界愈发模糊……
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">亮 点 所 在</div>
+
+    <div class="highlights">
+      <div class="highlight-card">
+        <div class="highlight-icon">🌀</div>
+        <div class="highlight-title">多层嵌套的梦境结构</div>
+        <div class="highlight-desc">电影构建了层层递进的梦境世界，每一层都有不同的物理规则和时间流速。现实中的一秒钟，在下一层可能是一整天。环环相扣的因果链、精密的同步机制，堪称叙事奇观。</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🎬</div>
+        <div class="highlight-title">实拍为主的视觉革命</div>
+        <div class="highlight-desc">巴黎街头折叠翻转、零重力走廊打斗、城市建筑从海面拔地而起——这些令人窒息的画面大部分是实拍而非CGI。诺兰用旋转走廊、微缩模型和精密摄影打造了一个物理上可信的梦境。</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🎵</div>
+        <div class="highlight-title">汉斯·季默的史诗配乐</div>
+        <div class="highlight-desc">那首《Time》早已超越电影配乐的范畴，成为独立的文化符号。层层递进的铜管与弦乐与梦境的深度完美同步，而贯穿全片的《Non, je ne regrette rien》则是最巧妙的时间锚点。</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">⚙️</div>
+        <div class="highlight-title">动作与哲思的完美平衡</div>
+        <div class="highlight-desc">它既是一部节奏紧凑的劫盗片，也是一部关于执念、失去与放手的电影。三层梦境同步推进的"踢醒"同步坠落，将物理动作与情感高潮编织得天衣无缝。</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">为 什 么 值 得 一 看</div>
+
+    <div class="why-watch">
+      <p>
+        这不是一部可以边刷手机边看的电影。它要求你全神贯注，跟随柯布团队穿越层层梦境，分辨现实与幻象的边界。但正是这种投入，让它的回报无比丰厚——每一次重看你都会发现新的细节、新的解读。<br><br>
+        它同时也是一部关于执念、失去与放手的电影，动作与情感并重，烧脑与动人兼备。诺兰用这部电影证明了：商业大片也可以拥有哲学深度。而那个旋转的陀螺，至今仍是影史最著名的开放式结局——它是否倒下，答案在你心中。
+      </p>
+    </div>
+
+    <div class="quote">你在等一列火车，你不知道它将带你去向何方，但那不重要</div>
+
+    <div class="footer">
+      <div class="footer-text">每日经典电影推荐 · 第 9 期</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

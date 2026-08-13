@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 睡前故事 — 想要开花的小石头</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(180deg, #0a0a2e 0%, #1a1a4e 30%, #2d1b4e 60%, #1a0a2e 100%);
+    min-height: 100vh;
+    color: #f0e6ff;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星星背景 */
+  .stars {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none; z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle var(--duration) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.8));
+    border-radius: 2px;
+    animation: shoot 3s ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes shoot {
+    0% { transform: translateX(0) translateY(0); opacity: 0; }
+    10% { opacity: 1; }
+    50% { transform: translateX(300px) translateY(180px); opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  .container {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* 标题区 */
+  .header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .moon-icon {
+    font-size: 48px;
+    animation: float 3s ease-in-out infinite;
+    display: inline-block;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(5deg); }
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-top: 12px;
+    background: linear-gradient(135deg, #ffd700, #ff9ecf);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header .date {
+    font-size: 13px;
+    color: rgba(240,230,255,0.5);
+    margin-top: 6px;
+  }
+
+  /* 故事卡片 */
+  .story-card {
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 24px;
+    padding: 36px 28px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  /* 插画区 */
+  .illustration {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .scene-svg {
+    width: 280px;
+    height: 200px;
+    margin: 0 auto;
+  }
+
+  /* 正文 */
+  .story-content p {
+    font-size: 16px;
+    line-height: 2;
+    text-align: justify;
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    color: rgba(240,230,255,0.92);
+  }
+  .story-content p:last-child {
+    margin-bottom: 0;
+  }
+  .dialogue {
+    color: #b8d4ff !important;
+    font-style: italic;
+  }
+  .highlight {
+    color: #ffd700 !important;
+  }
+
+  /* 寓意区 */
+  .moral-section {
+    margin-top: 32px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(255,215,0,0.15);
+  }
+  .moral-label {
+    font-size: 14px;
+    color: #ffd700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .moral-text {
+    font-size: 15px;
+    line-height: 1.9;
+    color: rgba(255,215,180,0.88);
+    background: rgba(255,215,0,0.06);
+    border-radius: 12px;
+    padding: 18px 20px;
+    border-left: 3px solid #ffd700;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 32px;
+    font-size: 17px;
+    color: rgba(200,170,255,0.7);
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+  @keyframes glow {
+    from { opacity: 0.6; }
+    to { opacity: 1; text-shadow: 0 0 20px rgba(200,170,255,0.4); }
+  }
+
+  /* 底部 */
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* 月亮装饰 */
+  .moon-decor {
+    position: fixed;
+    top: 30px;
+    right: 40px;
+    width: 70px;
+    height: 70px;
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite alternate;
+  }
+  @keyframes moonGlow {
+    from { filter: drop-shadow(0 0 15px rgba(255,250,205,0.3)); }
+    to { filter: drop-shadow(0 0 35px rgba(255,250,205,0.55)); }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星星背景 -->
+<div class="stars" id="stars"></div>
+<div class="shooting-star" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+<div class="shooting-star" style="top: 35%; left: 65%; animation-delay: 2s;"></div>
+
+<!-- 月亮装饰 -->
+<svg class="moon-decor" viewBox="0 0 80 80">
+  <defs>
+    <radialGradient id="moonGrad" cx="30%" cy="30%">
+      <stop offset="0%" stop-color="#fffef0"/>
+      <stop offset="100%" stop-color="#f0e68c"/>
+    </radialGradient>
+  </defs>
+  <circle cx="40" cy="40" r="32" fill="url(#moonGrad)" opacity="0.9"/>
+  <circle cx="52" cy="34" r="5" fill="#e8dfa0" opacity="0.3"/>
+  <circle cx="34" cy="48" r="7" fill="#e8dfa0" opacity="0.2"/>
+  <circle cx="46" cy="54" r="4" fill="#e8dfa0" opacity="0.25"/>
+</svg>
+
+<div class="container">
+  <div class="header">
+    <div class="moon-icon">🌙</div>
+    <h1>想要开花的小石头</h1>
+    <div class="date">2026 年 5 月 24 日 · 儿童睡前故事</div>
+  </div>
+
+  <div class="story-card">
+    <!-- 插画 -->
+    <div class="illustration">
+      <svg class="scene-svg" viewBox="0 0 280 200">
+        <!-- 草地 -->
+        <ellipse cx="140" cy="185" rx="130" ry="18" fill="#1a472a" opacity="0.6"/>
+        <!-- 小石头 -->
+        <ellipse cx="140" cy="168" rx="26" ry="16" fill="#6b7b8c"/>
+        <ellipse cx="134" cy="162" rx="18" ry="10" fill="#8a9bae"/>
+        <!-- 小花（从石头旁边长出来） -->
+        <line x1="165" y1="175" x2="172" y2="148" stroke="#4a7c59" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="115" y1="175" x2="108" y2="150" stroke="#4a7c59" stroke-width="2" stroke-linecap="round"/>
+        <!-- 花瓣 -->
+        <circle cx="172" cy="142" r="7" fill="#ff9ecf"/>
+        <circle cx="178" cy="147" r="6" fill="#ffb8d4"/>
+        <circle cx="167" cy="147" r="6" fill="#ffb8d4"/>
+        <circle cx="172" cy="152" r="5" fill="#ffcce0"/>
+        <circle cx="108" cy="145" r="6" fill="#ffd97d"/>
+        <circle cx="114" cy="149" r="5" input--ffeaa7"/>
+        <circle cx="103" cy="149" r="5" input--ffeaa7"/>
+        <circle cx="108" cy="154" r="4" input--fff0c4"/>
+        <!-- 石头笑脸 -->
+        <ellipse cx="133" cy="166" rx="2.5" ry="3" fill="#3d4f61"/>
+        <ellipse cx="146" cy="166" rx="2.5" ry="3" fill="#3d4f61"/>
+        <path d="M 136 173 Q 140 177 144 173" stroke="#3d4f61" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- 腮红 -->
+        <ellipse cx="128" cy="171" rx="3" ry="2" fill="#ffa07a" opacity="0.4"/>
+        <ellipse cx="151" cy="171" rx="3" ry="2" fill="#ffa07a" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <div class="story-content">
+      <p>在一条弯弯曲曲的小路边，住着一颗小石头，它的名字叫<span class="highlight">"圆圆"</span>。</p>
+
+      <p>圆圆长得灰扑扑、圆滚滚的，每天就安安静静地躺在草地上晒太阳。它最喜欢做的事情，就是看着旁边的小花小草——春天来了，小草从土里钻出来；夏天到了，花儿一朵接一朵地开起来；秋天的时候，树叶变得金黄金黄的，像撒了一地的星星。</p>
+
+      <p><span class="dialogue">"要是我也能开花就好了。"圆圆常常这样想，<span class="highlight">"可是我只是一块石头啊……"</span></span></p>
+
+      <p>有一天，一只小蚂蚁从圆圆身边爬过。它背着一粒比它自己还大的种子，一步一步往前走，累得气喘吁吁。</p>
+
+      <p><span class="dialogue">"小蚂蚁，你要去哪里呀？"圆圆问。</span></p>
+
+      <p><span class="dialogue">"我要把这粒种子送到河对岸去，那里有肥沃的泥土，可以种出最美的花！"小蚂蚁擦擦汗说。</span></p>
+
+      <p>可是前面有一条细细的小溪，小蚂蚁过不去呀！它急得转来转去，不知道该怎么办才好。</p>
+
+      <p>圆圆想了想，轻轻地说：<span class="dialogue"><span class="highlight">"你可以从我身上踩过去呀！我就在溪水上面呢！"</span></span></p>
+
+      <p>小蚂蚁高兴坏了！它爬到圆圆的背上，稳稳当当地过了小溪，把种子送到了河对岸。</p>
+
+      <p>过了几天，小蚂蚁又来了。这次它带来了一包小小的花粉——是那粒种子开出第一朵花后掉下来的花粉。<span class="dialogue"><span class="highlight">"谢谢你帮我过了河，这是小花送给你的礼物！"</span></span></p>
+
+      <p>小蚂蚁把花粉轻轻地洒在了圆圆的头顶上。</p>
+
+      <p>圆圆开心得不得了！它把那些花粉小心翼翼地护着——下雨的时候缩成一团不让雨水冲走它们，刮风的时候把自己压低不让风把它们吹跑。它每天都对着阳光，让那些花粉暖暖的、香香的。</p>
+
+      <p>不知过了多久，有一天早晨，一只蝴蝶飞过来了。它在圆圆的身边转了好几圈，最后停了下来——因为圆圆的身上，竟然长出了<span class="highlight">几朵小小的野花！</span></p>
+
+      <p>原来，那些花粉落进了圆圆身上的小裂缝里，加上阳光和露水的照顾，悄悄地发芽、生根，然后——开花了！</p>
+
+      <p><span class="dialogue">"天哪！你开花啦！"蝴蝶惊喜地说，<span class="highlight">"你是世界上最特别的石头！"</span></span></p>
+
+      <p>路过的蜗牛停下来看，飞来的蜜蜂停下来闻，连住在附近的小青蛙都跳过来说：<span class="dialogue">"圆圆，你真了不起！"</span></p>
+
+      <p>圆圆不好意思地红了脸。它想：原来我不是什么也做不了呀。虽然我不会像花草一样自己开花，但当我帮助别人的时候，美好的事情也会在我身上发生呢！</p>
+
+      <p>从此以后，圆圆成了那条小路上最受欢迎的石头。大家都喜欢停在它身边歇脚，因为它身上总是开着几朵小小的、甜甜的花，好像在对每一个路过的人微笑。</p>
+    </div>
+
+    <!-- 寓意 -->
+    <div class="moral-section">
+      <div class="moral-label">
+        <span>&#127775;</span>
+        <span>今晚的寓意</span>
+      </div>
+      <div class="moral-text">
+        有时候我们觉得自己不够好、不够特别，甚至觉得自己什么都做不了。但其实，当我们愿意伸出援手去帮助别人时，美好和奇迹就会自然而然地在我们的生命里开花。你不必成为别人，只要你善良地对待这个世界，世界也会用最温柔的方式回报你。
+      </div>
+    </div>
+
+    <div class="goodnight">
+      晚安，做个好梦。🌙✨
+    </div>
+  </div>
+
+  <div class="footer">
+    本文由小虾米为爷自动生成 &middot; 每日 20:30
+  </div>
+</div>
+
+<script>
+// 生成随机星星
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 80; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 70 + '%';
+  star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+  star.style.animationDelay = (Math.random() * 5) + 's';
+  starsContainer.appendChild(star);
+}
+</script>
+</body>
+</html>

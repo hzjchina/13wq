@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小树叶的晚安 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-deep: #0f172a;
+      --bg-mid: #1e293b;
+      --text: #f8fafc;
+      --text-soft: #cbd5e1;
+      --accent: #fbbf24;
+      --accent-soft: rgba(251, 191, 36, 0.15);
+      --leaf-green: #86efac;
+      --leaf-soft: rgba(134, 239, 172, 0.25);
+      --moon: #fef3c7;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(ellipse at bottom, var(--bg-mid) 0%, var(--bg-deep) 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 星空背景 */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      opacity: var(--opacity);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--opacity); transform: scale(1); }
+      50% { opacity: 0.2; transform: scale(0.7); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fffbeb 0%, var(--moon) 60%, #d4c4a0 100%);
+      box-shadow: 0 0 40px rgba(254, 243, 199, 0.35), 0 0 80px rgba(254, 243, 199, 0.15);
+      animation: moonFloat 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .moon::before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 120px rgba(254, 243, 199, 0.2);
+      animation: moonGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes moonGlow {
+      0% { box-shadow: 0 0 100px rgba(254, 243, 199, 0.2); }
+      100% { box-shadow: 0 0 140px rgba(254, 243, 199, 0.35); }
+    }
+
+    /* 流星 */
+    .meteor {
+      position: fixed;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      border-radius: 50%;
+      opacity: 0;
+      transform: rotate(-45deg);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .meteor-1 {
+      top: 15%;
+      left: 10%;
+      animation: meteorFly 8s ease-out infinite;
+      animation-delay: 2s;
+    }
+
+    .meteor-2 {
+      top: 25%;
+      left: 60%;
+      animation: meteorFly 10s ease-out infinite;
+      animation-delay: 6s;
+    }
+
+    @keyframes meteorFly {
+      0% { opacity: 0; transform: translateX(0) translateY(0) rotate(-45deg); }
+      10% { opacity: 1; }
+      20% { opacity: 0; transform: translateX(300px) translateY(300px) rotate(-45deg); }
+      100% { opacity: 0; }
+    }
+
+    /* 主容器 */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+    }
+
+    /* 飘落的小树叶 SVG */
+    .leaf-scene {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 24px;
+      position: relative;
+    }
+
+    .leaf {
+      width: 100%;
+      height: 100%;
+      animation: leafFall 7s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px var(--leaf-soft));
+    }
+
+    @keyframes leafFall {
+      0%, 100% { transform: translateY(0) rotate(-6deg); }
+      25% { transform: translateY(8px) rotate(6deg); }
+      50% { transform: translateY(16px) rotate(-4deg); }
+      75% { transform: translateY(8px) rotate(8deg); }
+    }
+
+    .leaf-glow {
+      animation: leafGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes leafGlow {
+      0% { filter: drop-shadow(0 0 12px var(--leaf-soft)); }
+      100% { filter: drop-shadow(0 0 28px var(--leaf-green)); }
+    }
+
+    /* 标题 */
+    h1 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 8px;
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 20px rgba(251, 191, 36, 0.2); }
+      100% { text-shadow: 0 0 40px rgba(251, 191, 36, 0.45); }
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--text-soft);
+      font-size: 0.95rem;
+      margin-bottom: 40px;
+      letter-spacing: 1px;
+    }
+
+    /* 故事内容 */
+    .story {
+      background: rgba(30, 41, 59, 0.55);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 36px 32px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    }
+
+    .story p {
+      margin-bottom: 20px;
+      font-size: 1.15rem;
+      text-indent: 2em;
+      color: var(--text);
+    }
+
+    .story p:last-of-type {
+      margin-bottom: 0;
+    }
+
+    /* 分隔符 */
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 32px 0;
+      gap: 12px;
+    }
+
+    .divider span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.6;
+      animation: dividerPulse 2s ease-in-out infinite alternate;
+    }
+
+    .divider span:nth-child(2) { animation-delay: 0.3s; }
+    .divider span:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes dividerPulse {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 0.9; transform: scale(1.2); }
+    }
+
+    /* 晚安语 */
+    .goodnight {
+      margin-top: 36px;
+      padding: 28px;
+      background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(134, 239, 172, 0.08));
+      border-radius: 20px;
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      text-align: center;
+      animation: goodnightGlow 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes goodnightGlow {
+      0% { box-shadow: 0 0 20px rgba(251, 191, 36, 0.1) inset; }
+      100% { box-shadow: 0 0 40px rgba(251, 191, 36, 0.2) inset; }
+    }
+
+    .goodnight p {
+      font-size: 1.25rem;
+      color: var(--accent);
+      font-weight: 600;
+      line-height: 1.9;
+      margin: 0;
+      text-indent: 0;
+    }
+
+    /* 底部漂浮粒子 */
+    .particles {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      bottom: -20px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.4;
+      animation: floatUp linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 0.4; }
+      100% { transform: translateY(-220px) scale(0.5); opacity: 0; }
+    }
+
+    /* 底部暖光带 */
+    .ground-glow {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(to top, rgba(251, 191, 36, 0.08), transparent);
+      pointer-events: none;
+      z-index: 1;
+      animation: groundBreath 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes groundBreath {
+      0% { opacity: 0.4; }
+      100% { opacity: 0.8; }
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      .container {
+        padding: 60px 18px 40px;
+      }
+      h1 {
+        font-size: 1.6rem;
+      }
+      .story {
+        padding: 26px 22px;
+      }
+      .story p {
+        font-size: 1.05rem;
+      }
+      .leaf-scene {
+        width: 120px;
+        height: 120px;
+      }
+      .moon {
+        width: 60px;
+        height: 60px;
+        top: 24px;
+        right: 24px;
+      }
+      .goodnight p {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 星空 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="meteor meteor-1"></div>
+  <div class="meteor meteor-2"></div>
+
+  <!-- 底部光效 -->
+  <div class="ground-glow"></div>
+  <div class="particles" id="particles"></div>
+
+  <main class="container">
+    <!-- 小树叶 SVG -->
+    <div class="leaf-scene">
+      <svg class="leaf leaf-glow" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- 叶柄 -->
+        <path d="M60 110 Q62 95 60 82" stroke="#4ade80" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- 叶片 -->
+        <path d="M60 18 C30 30 18 55 20 78 C22 95 40 105 60 100 C80 105 98 95 100 78 C102 55 90 30 60 18 Z" fill="url(#leafGradient)" opacity="0.95"/>
+        <!-- 叶脉 -->
+        <path d="M60 24 L60 96" stroke="#166534" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
+        <path d="M60 40 L38 58" stroke="#166534" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+        <path d="M60 52 L32 70" stroke="#166534" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+        <path d="M60 64 L36 84" stroke="#166534" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+        <path d="M60 40 L82 58" stroke="#166534" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+        <path d="M60 52 L88 70" stroke="#166534" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+        <path d="M60 64 L84 84" stroke="#166534" stroke-width="1" stroke-linecap="round" opacity="0.35"/>
+        <!-- 露珠 -->
+        <circle cx="42" cy="70" r="3" fill="rgba(255,255,255,0.5)"/>
+        <circle cx="75" cy="52" r="2.5" fill="rgba(255,255,255,0.45)"/>
+        <!-- 渐变 -->
+        <defs>
+          <linearGradient id="leafGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#86efac;stop-opacity:1" />
+            <stop offset="50%" style="stop-color:#4ade80;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#22c55e;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <h1>小树叶的晚安</h1>
+    <p class="subtitle">一个关于放手、温柔和变成光的故事</p>
+
+    <article class="story">
+      <p>在老橡树最高的枝丫上，住着一片最小的树叶，大家都叫它小叶。</p>
+
+      <p>小叶很喜欢晒太阳。白天，它把阳光变成绿绿的颜色，风一吹，就和身边的叶子们一起唱歌。可是每当夜晚来临，风爷爷就会轻轻摇着树枝说：“小叶呀，该说晚安啦。”</p>
+
+      <p>“晚安是什么意思呢？”小叶有些害怕地问。它看见远处的叶子一片一片离开枝头，旋转着飘向地面，心里咚咚直跳。</p>
+
+      <p>“晚安不是再见，”风爷爷笑着说，“是换了一种方式，继续爱这个世界。”</p>
+
+      <p>这天夜里，月光特别温柔。小叶感觉自己被风托了起来，它闭上眼睛，像坐滑梯一样轻轻往下落。沙沙，沙沙，它听见自己的歌声。</p>
+
+      <p>落呀落，小叶擦过一只快要睡着的小鸟的翅膀，小鸟咕哝了一声：“好软呀。”它又轻轻碰了碰一只小松鼠的鼻尖，小松鼠揉揉鼻子，笑了一下，继续做它的榛子梦。</p>
+
+      <p>最后，小叶落到了树根旁，正好盖在一颗 tiny 的种子身上。种子冻得缩成一团，感觉到一片暖暖、软软的被子盖上来，它小声说：“谢谢你。”</p>
+
+      <p>小叶忽然不害怕了。它想起风爷爷的话，原来自己不是消失了，而是变成了种子的小被窝，变成了泥土的小帽子，变成了春天的一点点希望。</p>
+
+      <p>老橡树低下头，轻轻地说：“晚安，小叶。你今天也做得很好。”</p>
+
+      <div class="divider">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <div class="goodnight">
+        <p>晚安，小宝贝。<br>老橡树说，你今天也是个好孩子，<br>该做一个甜甜的梦了。</p>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    // 生成随机星星
+    const starsContainer = document.getElementById('stars');
+    const starCount = 110;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+      star.style.setProperty('--opacity', Math.random() * 0.7 + 0.3);
+      star.style.animationDelay = Math.random() * 5 + 's';
+      starsContainer.appendChild(star);
+    }
+
+    // 生成漂浮粒子
+    const particlesContainer = document.getElementById('particles');
+    const particleCount = 8;
+    const colors = ['#fbbf24', '#86efac', '#fcd34d', '#a7f3d0'];
+    for (let i = 0; i < particleCount; i++) {
+      const p = document.createElement('div');
+      p.className = 'particle';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 4 + 5) + 's';
+      p.style.animationDelay = Math.random() * 5 + 's';
+      p.style.background = colors[Math.floor(Math.random() * colors.length)];
+      p.style.width = (Math.random() * 4 + 4) + 'px';
+      p.style.height = p.style.width;
+      particlesContainer.appendChild(p);
+    }
+  </script>
+</body>
+</html>

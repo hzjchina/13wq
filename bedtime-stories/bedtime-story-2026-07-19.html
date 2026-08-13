@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小画笔的颜色 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-top: #0a0e27;
+      --bg-bottom: #1a2b55;
+      --text: #f8f6ff;
+      --soft: #fff8e7;
+      --moon: #fff8db;
+      --accent: #b8d4f0;
+      --card-bg: rgba(255, 255, 255, 0.07);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0; padding: 0;
+      min-height: 100vh;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); box-shadow: 0 0 6px rgba(255, 255, 255, 0.6); }
+    }
+
+    .moon {
+      position: fixed;
+      top: 40px;
+      right: 40px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff 0%, var(--moon) 40%, #e6d9a8 100%);
+      box-shadow: 0 0 30px rgba(255, 248, 219, 0.35), 0 0 80px rgba(255, 248, 219, 0.15);
+      z-index: 1;
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .shooting-star {
+      position: fixed;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.8), rgba(255,255,255,0));
+      border-radius: 2px;
+      transform: rotate(-35deg);
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .shooting-star.s1 { top: 80px; left: 60%; animation: shoot1 8s ease-in infinite; }
+    .shooting-star.s2 { top: 120px; left: 80%; animation: shoot2 12s ease-in infinite; animation-delay: 3s; }
+
+    @keyframes shoot1 {
+      0% { opacity: 0; top: 80px; left: 60%; }
+      2% { opacity: 1; }
+      5% { opacity: 0; top: 180px; left: 30%; }
+      100% { opacity: 0; }
+    }
+    @keyframes shoot2 {
+      0% { opacity: 0; top: 120px; left: 80%; }
+      2% { opacity: 1; }
+      5% { opacity: 0; top: 220px; left: 50%; }
+      100% { opacity: 0; }
+    }
+
+    .paint-particle {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      animation: paintFloat var(--dur, 4s) ease-in-out infinite;
+      animation-delay: var(--del, 0s);
+    }
+
+    @keyframes paintFloat {
+      0%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
+      50% { opacity: 0.9; transform: translateY(-18px) scale(1.3); }
+    }
+
+    .brush-float {
+      position: fixed;
+      bottom: 50px;
+      right: 30px;
+      width: 80px;
+      height: 80px;
+      z-index: 1;
+      opacity: 0.9;
+      animation: brushBob 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes brushBob {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(3deg); }
+    }
+
+    main.container {
+      position: relative;
+      z-index: 10;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 56px 20px 80px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: clamp(2rem, 7vw, 3rem);
+      margin: 0 0 36px;
+      letter-spacing: 0.08em;
+      color: var(--soft);
+      text-shadow: 0 2px 20px rgba(255, 246, 217, 0.25), 0 0 40px rgba(255, 255, 255, 0.1);
+      animation: titleGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 2px 20px rgba(255, 246, 217, 0.25), 0 0 40px rgba(255, 255, 255, 0.1); }
+      50% { text-shadow: 0 2px 28px rgba(255, 246, 217, 0.4), 0 0 60px rgba(255, 255, 255, 0.18); }
+    }
+
+    .story {
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 28px;
+      padding: clamp(24px, 5vw, 40px);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+      line-height: 2;
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      text-align: justify;
+    }
+
+    .story p { margin: 0 0 1.4em; text-indent: 2em; }
+    .story p:last-child { margin-bottom: 0; }
+
+    .goodnight {
+      margin-top: 40px;
+      padding: 24px;
+      text-align: center;
+      font-size: clamp(1.1rem, 3.2vw, 1.35rem);
+      color: var(--accent);
+      line-height: 1.8;
+      border-radius: 20px;
+      background: rgba(184, 212, 240, 0.08);
+      box-shadow: 0 0 20px rgba(184, 212, 240, 0.08);
+      animation: goodnightPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes goodnightPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(184, 212, 240, 0.08); }
+      50% { box-shadow: 0 0 32px rgba(184, 212, 240, 0.18); }
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 36px;
+      font-size: 0.85rem;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 480px) {
+      .moon { width: 56px; height: 56px; top: 24px; right: 24px; }
+      .brush-float { width: 60px; height: 60px; bottom: 40px; right: 20px; }
+      main.container { padding-top: 40px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .star, .moon, .shooting-star, .paint-particle, .brush-float, h1, .goodnight {
+        animation: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars" aria-hidden="true"></div>
+  <div class="moon" aria-hidden="true"></div>
+  <div class="shooting-star s1" aria-hidden="true"></div>
+  <div class="shooting-star s2" aria-hidden="true"></div>
+  <div id="paintParticles" aria-hidden="true"></div>
+
+  <svg class="brush-float" viewBox="0 0 100 100" aria-hidden="true">
+    <defs>
+      <linearGradient id="brushHandle" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#8b5e3c" />
+        <stop offset="100%" stop-color="#5c3a21" />
+      </linearGradient>
+      <linearGradient id="brushTip" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#a8c8e8" />
+        <stop offset="100%" stop-color="#6b9ac4" />
+      </linearGradient>
+      <radialGradient id="tipGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="rgba(168, 200, 232, 0.6)" />
+        <stop offset="100%" stop-color="rgba(168, 200, 232, 0)" />
+      </radialGradient>
+    </defs>
+    <!-- 画笔柄 -->
+    <rect x="46" y="10" width="8" height="55" rx="3" fill="url(#brushHandle)" />
+    <!-- 金属箍 -->
+    <rect x="44" y="62" width="12" height="6" rx="1" fill="#b8a89a" />
+    <!-- 笔头 -->
+    <path d="M44 68 Q50 92 56 68 Z" fill="url(#brushTip)" />
+    <!-- 笔头光晕 -->
+    <circle cx="50" cy="78" r="14" fill="url(#tipGlow)" />
+    <!-- 小星光点缀 -->
+    <circle cx="48" cy="82" r="1.5" fill="#ffffff" opacity="0.8">
+      <animate attributeName="opacity" values="0.8;0.3;0.8" dur="2s" repeatCount="indefinite" />
+    </circle>
+    <circle cx="52" cy="80" r="1" fill="#ffffff" opacity="0.6">
+      <animate attributeName="opacity" values="0.6;0.2;0.6" dur="2.5s" repeatCount="indefinite" />
+    </circle>
+  </svg>
+
+  <main class="container">
+    <h1>小画笔的颜色</h1>
+    <article class="story">
+      <p>在一个安静的房间里，有一个画盒，里面住着许多画笔。有红色的画笔、黄色的画笔、蓝色的画笔，还有一支小小的小画笔，它的颜色淡淡的，像天空刚亮时的那种浅蓝。</p>
+      <p>小画笔总是躲在画盒的最里面。因为小主人画画的时候，总是先拿起鲜艳的红画笔、明亮的黄画笔。小画笔觉得自己太普通了，没有人会喜欢它。</p>
+      <p>"你的颜色太淡了，"红画笔骄傲地说，"只有鲜艳的颜色才能画出漂亮的画。"</p>
+      <p>小画笔听了，更难过了。它把自己藏得更深，连月光照进画盒时，都不敢探出头来。</p>
+      <p>有一天晚上，月亮从窗户照进来，整个房间都变成了银白色。小画笔看到窗外的夜空，好深、好蓝，星星们在上面眨着眼睛，像无数 tiny 的小钻石。</p>
+      <p>"如果我能画一片星空，该多好啊。"小画笔轻轻地说。</p>
+      <p>它悄悄跳上了画纸，用自己淡淡的颜色，画了一片温柔的夜空。它画得很轻很轻，像是怕吵醒睡着的小主人。一笔一笔，淡淡的蓝色在纸上慢慢铺开，像夜晚的雾，像远处山的影子。</p>
+      <p>画完了，小画笔累极了，躺在画纸的角落里睡着了。</p>
+      <p>第二天早上，小主人醒来，看到画纸上那片淡淡的蓝色夜空，眼睛里闪烁着惊喜的光芒。</p>
+      <p>"这是我见过最温柔的星空，"小主人轻轻地说，"淡淡的，像梦一样。"</p>
+      <p>小画笔醒了，听到这话，心里暖洋洋的。</p>
+      <p>红画笔也看见了，它不好意思地说："原来，淡淡的颜色也能画出这么美的画。"</p>
+      <p>小画笔笑了。它终于知道，每一种颜色都有它的用处，不需要最鲜艳，只要最用心。淡淡的蓝，正好画出了最温柔的夜。</p>
+      <p>从那以后，每当小主人想画安静的夜晚、遥远的大海、温柔的梦境时，就会拿起小画笔。而小画笔，也学会了为自己淡淡的颜色感到骄傲。</p>
+    </article>
+    <div class="goodnight">
+      晚安，小宝贝。<br/>
+      小画笔说，你今天也是个好孩子。<br/>
+      你不需要变成最鲜艳的那个，你本来的样子，就是独一无二的美丽。<br/>
+      现在闭上眼睛，让淡淡的月光陪你做一个甜甜的梦吧。
+    </div>
+    <footer>— 儿童睡前故事 · 2026年7月19日 —</footer>
+  </main>
+
+  <script>
+    (function makeStars() {
+      const container = document.getElementById('stars');
+      const count = 100;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.5 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2).toFixed(2) + 's');
+        star.style.setProperty('--delay', (Math.random() * 5).toFixed(2) + 's');
+        container.appendChild(star);
+      }
+    })();
+
+    (function makePaintParticles() {
+      const container = document.getElementById('paintParticles');
+      const colors = ['#a8c8e8', '#b8d4f0', '#c9e0f5', '#d4e8f7', '#e0f0fa', '#8bb8e0'];
+      const count = 8;
+      for (let i = 0; i < count; i++) {
+        const p = document.createElement('div');
+        p.className = 'paint-particle';
+        p.style.background = colors[i % colors.length];
+        p.style.left = (Math.random() * 90 + 5) + '%';
+        p.style.top = (Math.random() * 60 + 30) + '%';
+        p.style.setProperty('--dur', (Math.random() * 3 + 3).toFixed(2) + 's');
+        p.style.setProperty('--del', (Math.random() * 4).toFixed(2) + 's');
+        container.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>

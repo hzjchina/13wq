@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小路灯的晚安 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0e27 0%, #111633 30%, #181f42 60%, #0e1324 100%);
+    color: #e8dcc8;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空背景 */
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    animation: twinkle var(--duration) var(--delay) infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 8%;
+    right: 12%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e7, #f0d88a 60%, #d4a843 100%);
+    box-shadow: 0 0 40px 15px rgba(240, 216, 138, 0.3), 0 0 80px 30px rgba(240, 216, 138, 0.15);
+    z-index: 1;
+    animation: moonFloat 6s infinite ease-in-out;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9));
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    animation: shoot 4s infinite ease-in;
+  }
+  .shooting-star:nth-child(1) {
+    top: 15%; left: 25%;
+    animation-delay: 2s;
+  }
+  .shooting-star:nth-child(2) {
+    top: 25%; left: 55%;
+    animation-delay: 5s;
+  }
+  @keyframes shoot {
+    0% { opacity: 0; transform: translate(0, 0) rotate(-30deg); }
+    5% { opacity: 1; }
+    15% { opacity: 0; transform: translate(200px, 200px) rotate(-30deg); }
+    100% { opacity: 0; transform: translate(200px, 200px) rotate(-30deg); }
+  }
+
+  /* 漂浮暖色光点（灯光微粒） */
+  .lamp-particle {
+    position: fixed;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    animation: lampDrift var(--lp-duration) var(--lp-delay) infinite ease-in-out;
+  }
+  @keyframes lampDrift {
+    0%, 100% { opacity: 0.1; transform: translate(0, 0); }
+    20% { opacity: 0.7; transform: translate(10px, -35px); }
+    40% { opacity: 0.4; transform: translate(-8px, -70px); }
+    60% { opacity: 0.8; transform: translate(15px, -105px); }
+    80% { opacity: 0.3; transform: translate(-12px, -140px); }
+    100% { opacity: 0.05; transform: translate(0, -180px); }
+  }
+
+  /* 路灯 SVG 插图 */
+  .lamp-illustration {
+    position: relative;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto 30px;
+    z-index: 2;
+  }
+  .lamp-illustration svg {
+    width: 100%; height: auto;
+    filter: drop-shadow(0 0 18px rgba(250, 200, 100, 0.5));
+  }
+  /* 灯光呼吸动画 */
+  .lamp-glow-outer {
+    animation: outerGlow 3.5s infinite ease-in-out;
+  }
+  @keyframes outerGlow {
+    0%, 100% { opacity: 0.25; r: 55; }
+    50% { opacity: 0.5; r: 65; }
+  }
+  .lamp-glow-inner {
+    animation: innerGlow 3s infinite ease-in-out;
+  }
+  @keyframes innerGlow {
+    0%, 100% { opacity: 0.5; r: 30; }
+    50% { opacity: 0.75; r: 36; }
+  }
+  .lamp-core {
+    animation: corePulse 2.5s infinite ease-in-out;
+  }
+  @keyframes corePulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+
+  /* 主体内容 */
+  .main-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 28px 60px;
+  }
+
+  /* 标题 */
+  .title-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .story-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f0d88a;
+    letter-spacing: 0.05em;
+    animation: titleGlow 3s infinite ease-in-out;
+    text-shadow: 0 0 20px rgba(240, 216, 138, 0.4);
+    line-height: 1.5;
+  }
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(240, 216, 138, 0.4); }
+    50% { text-shadow: 0 0 35px rgba(240, 216, 138, 0.7), 0 0 60px rgba(240, 216, 138, 0.3); }
+  }
+  .subtitle {
+    font-size: 0.9rem;
+    color: rgba(232, 220, 200, 0.5);
+    margin-top: 8px;
+    letter-spacing: 0.15em;
+  }
+
+  /* 分割线 */
+  .divider {
+    width: 60px;
+    height: 2px;
+    margin: 30px auto;
+    background: linear-gradient(90deg, transparent, rgba(240, 216, 138, 0.5), transparent);
+    border-radius: 1px;
+  }
+
+  /* 故事正文 */
+  .story-text {
+    font-size: 1.15rem;
+    line-height: 2.2;
+    color: #d4cbb8;
+    letter-spacing: 0.02em;
+  }
+  .story-text p {
+    margin-bottom: 1.2em;
+    text-indent: 2em;
+  }
+  .story-text p:last-child {
+    margin-bottom: 0;
+  }
+  .story-text em {
+    color: #f0d088;
+    font-style: italic;
+  }
+
+  /* 晚安区域 */
+  .goodnight-area {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 35px;
+    position: relative;
+  }
+  .goodnight-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(250, 200, 100, 0.4), transparent);
+  }
+  .goodnight-text {
+    font-size: 1.3rem;
+    color: #f0d88a;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+    animation: goodnightGlow 4s infinite ease-in-out;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  .goodnight-sub {
+    font-size: 1rem;
+    color: #8a9bb5;
+    line-height: 1.8;
+  }
+
+  /* 底部暖色光点装饰 */
+  .lamp-lights {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .ll {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    animation: llBreathe var(--ll-duration) var(--ll-delay) infinite ease-in-out;
+  }
+  .ll:nth-child(1) { background: #fae08a; }
+  .ll:nth-child(2) { background: #f0c868; }
+  .ll:nth-child(3) { background: #fad090; }
+  .ll:nth-child(4) { background: #f8d878; }
+  .ll:nth-child(5) { background: #fac870; }
+  .ll:nth-child(6) { background: #f8e098; }
+  .ll:nth-child(7) { background: #f0d080; }
+  @keyframes llBreathe {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); box-shadow: 0 0 4px 2px currentColor; }
+    50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 12px 6px currentColor; }
+  }
+
+  .goodnight-emoji {
+    font-size: 1.8rem;
+    margin-top: 16px;
+    animation: moonFloat 3s infinite ease-in-out;
+    display: inline-block;
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .main-content { padding: 35px 20px 50px; }
+    .story-title { font-size: 1.6rem; }
+    .story-text { font-size: 1.05rem; line-height: 2; }
+    .goodnight-text { font-size: 1.15rem; }
+    .moon { width: 55px; height: 55px; top: 5%; right: 8%; }
+    .lamp-illustration { max-width: 150px; }
+  }
+</style>
+</head>
+<body>
+  <!-- 星空 -->
+  <div class="stars-container" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <!-- 漂浮暖色光点（路灯微粒） -->
+  <div class="lamp-particle" style="top:40%;left:15%;--lp-duration:7s;--lp-delay:0s;background:#fad080;"></div>
+  <div class="lamp-particle" style="top:50%;left:78%;--lp-duration:8s;--lp-delay:1.5s;background:#f0c870;"></div>
+  <div class="lamp-particle" style="top:55%;left:25%;--lp-duration:7.5s;--lp-delay:3s;background:#fad890;"></div>
+  <div class="lamp-particle" style="top:62%;left:68%;--lp-duration:8.5s;--lp-delay:4.5s;background:#f0d080;"></div>
+  <div class="lamp-particle" style="top:45%;left:50%;--lp-duration:7.8s;--lp-delay:2s;background:#fae090;"></div>
+  <div class="lamp-particle" style="top:35%;left:42%;--lp-duration:8.2s;--lp-delay:5s;background:#f8d878;"></div>
+
+  <!-- 主体内容 -->
+  <div class="main-content">
+    <!-- 路灯插图 -->
+    <div class="lamp-illustration">
+      <svg viewBox="0 0 160 260" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="outerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fad080" stop-opacity="0.5"/>
+            <stop offset="60%" stop-color="#f0b040" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#f0b040" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="innerGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff8e0" stop-opacity="0.8"/>
+            <stop offset="50%" stop-color="#fad080" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#f0b040" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="lampGlass" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff8e8" stop-opacity="0.95"/>
+            <stop offset="40%" stop-color="#fad880" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#e8a840" stop-opacity="0.4"/>
+          </radialGradient>
+        </defs>
+        <!-- 外光晕 -->
+        <circle cx="80" cy="55" r="55" fill="url(#outerGlow)" class="lamp-glow-outer"/>
+        <!-- 内光晕 -->
+        <circle cx="80" cy="55" r="30" fill="url(#innerGlow)" class="lamp-glow-inner"/>
+        <!-- 灯罩 -->
+        <path d="M 48 50 Q 48 18 80 12 Q 112 18 112 50 L 108 58 Q 80 62 52 58 Z" 
+              fill="url(#lampGlass)" stroke="#a08040" stroke-width="1.2"/>
+        <!-- 灯罩顶部小尖 -->
+        <path d="M 72 14 Q 80 2 88 14" fill="#b09050" stroke="#a08040" stroke-width="0.8"/>
+        <!-- 灯泡芯 -->
+        <ellipse cx="80" cy="46" rx="14" ry="10" fill="#fff8dc" opacity="0.9" class="lamp-core"/>
+        <ellipse cx="80" cy="46" rx="8" ry="6" fill="#fff" opacity="0.85" class="lamp-core"/>
+        <!-- 灯柱 -->
+        <rect x="77" y="62" width="6" height="70" rx="2" fill="#7a6a4a" opacity="0.85"/>
+        <!-- 灯柱装饰环 -->
+        <rect x="74" y="85" width="12" height="4" rx="2" fill="#8a7a5a" opacity="0.7"/>
+        <rect x="74" y="110" width="12" height="4" rx="2" fill="#8a7a5a" opacity="0.7"/>
+        <!-- 底座 -->
+        <path d="M 60 132 Q 60 138 70 142 L 90 142 Q 100 138 100 132 L 95 132 Q 95 136 80 136 Q 65 136 65 132 Z" 
+              fill="#6a5a3a" opacity="0.8"/>
+        <rect x="56" y="140" width="48" height="6" rx="3" fill="#5a4a2a" opacity="0.75"/>
+        <!-- 地面微光 -->
+        <ellipse cx="80" cy="150" rx="60" ry="8" fill="#fad080" opacity="0.12"/>
+        <!-- 一些飘散的小光点 -->
+        <circle cx="58" cy="38" r="1.5" fill="#fae090" opacity="0.5">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="105" cy="42" r="1.2" fill="#fae090" opacity="0.4">
+          <animate attributeName="opacity" values="0.1;0.6;0.1" dur="3s" repeatCount="indefinite" begin="1s"/>
+        </circle>
+        <circle cx="72" cy="25" r="1" fill="#fff8e0" opacity="0.4">
+          <animate attributeName="opacity" values="0.15;0.65;0.15" dur="2.8s" repeatCount="indefinite" begin="0.5s"/>
+        </circle>
+      </svg>
+    </div>
+
+    <!-- 标题 -->
+    <div class="title-area">
+      <h1 class="story-title">小路灯的晚安</h1>
+      <p class="subtitle">2026 年 7 月 7 日 · 睡前故事</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 故事正文 -->
+    <div class="story-text">
+      <p>在一条安静的小巷里，住着一盏小小的路灯。他没有邻居——巷子里没有别的灯，只有他孤零零地站在拐角的老槐树旁边。白天，没有人在意他。但每到傍晚，夕阳刚刚收走最后一缕金色的光，他就会准时亮起来。</p>
+
+      <p>"我在这里呢。"小路灯说。他散出一圈暖暖的、橙黄色的光，像在地上画了一个温柔的圆。</p>
+
+      <p>第一个走过来的，是住在巷子深处的花猫奶奶。她年纪很大了，眼睛看不太清，走路慢悠悠的。可她每次走到小路灯下面，步子就稳了。"谢谢你呀，"花猫奶奶仰起头，对着路灯笑了笑，"有了你的光，我就不会走错门了。"小路灯没有说话，但灯光悄悄变得更暖了一些。</p>
+
+      <p>过了一会儿，一只毛茸茸的小黄狗慌慌张张地跑了过来。他跑得太快，在路口迷了路，呜呜地叫着。可是他一抬头，看见了小路灯那团暖融融的光——"啊！我记得这个光！"小黄狗顺着光跑了过来，终于找到了回家的那个小门洞。他在路灯底下停了停，摇了摇尾巴，才钻进了家门。</p>
+
+      <p>夜深了，巷子里越来越安静。一位送快递的叔叔骑着车过来，脸上满是疲惫。可是骑到小路灯下面的时候，他停了下来，抬起脸，让灯光照了照自己。"真暖啊。"他低声说了一句，然后带着微笑继续往前骑了。</p>
+
+      <p>再后来，巷子里一个人也没有了。花猫奶奶睡着了，小黄狗做梦了，快递叔叔也到家了。一阵微风轻轻吹过，绕着小路灯转了一个圈，沙沙地说："大家都睡了，你也休息吧。"</p>
+
+      <p>小路灯没有关掉自己——他慢慢地、慢慢地暗下去，给巷子里留下最后一小片温柔的、朦朦胧胧的光。就像在说："我在呢。别怕。晚安。"</p>
+    </div>
+
+    <!-- 晚安语 -->
+    <div class="goodnight-area">
+      <p class="goodnight-text">晚安，亲爱的小宝贝。</p>
+      <p class="goodnight-sub">小路灯说，这个世界的每个角落呀，<br>都有一盏灯为你亮着。<br>你从来不是一个人。<br>现在，闭上眼睛，让温暖的光照进你的梦里吧。</p>
+      <div class="lamp-lights">
+        <div class="ll" style="--ll-duration:2.5s;--ll-delay:0s;"></div>
+        <div class="ll" style="--ll-duration:3s;--ll-delay:0.3s;"></div>
+        <div class="ll" style="--ll-duration:2.8s;--ll-delay:0.6s;"></div>
+        <div class="ll" style="--ll-duration:3.2s;--ll-delay:0.9s;"></div>
+        <div class="ll" style="--ll-duration:2.6s;--ll-delay:1.2s;"></div>
+        <div class="ll" style="--ll-duration:3.4s;--ll-delay:1.5s;"></div>
+        <div class="ll" style="--ll-duration:2.9s;--ll-delay:1.8s;"></div>
+      </div>
+      <div class="goodnight-emoji">🏮🌙</div>
+    </div>
+  </div>
+
+  <script>
+    // 生成100颗随机闪烁星星
+    (function() {
+      const container = document.getElementById('stars');
+      const count = 100;
+      let html = '';
+      for (let i = 0; i < count; i++) {
+        const size = Math.random() * 2.5 + 1;
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 3 + 2;
+        const delay = Math.random() * 5;
+        html += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--duration:' + duration + 's;--delay:' + delay + 's;"></div>';
+      }
+      container.innerHTML = html;
+    })();
+  </script>
+</body>
+</html>

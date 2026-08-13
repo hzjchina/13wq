@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小橡果的梦 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(180deg, #0a0e27 0%, #0f1b3d 30%, #162a50 60%, #1d3858 100%);
+    color: #e8e8f0;
+    font-family: "Georgia", "Songti SC", "STSong", serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空容器 */
+  .starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e1, #ffe082 60%, #ffc107);
+    box-shadow: 0 0 40px rgba(255, 224, 130, 0.4), 0 0 80px rgba(255, 224, 130, 0.2), 0 0 120px rgba(255, 224, 130, 0.1);
+    z-index: 1;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 40px rgba(255, 224, 130, 0.4), 0 0 80px rgba(255, 224, 130, 0.2); }
+    50% { box-shadow: 0 0 60px rgba(255, 224, 130, 0.6), 0 0 120px rgba(255, 224, 130, 0.3); }
+  }
+
+  /* 流星 */
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+    animation: meteorFall var(--dur2, 4s) linear infinite;
+    animation-delay: var(--delay2, 0s);
+  }
+
+  .meteor::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), rgba(255,255,255,0));
+  }
+
+  @keyframes meteorFall {
+    0% { top: -10px; left: var(--mx, 30%); opacity: 0; }
+    5% { opacity: 1; }
+    10% { opacity: 1; }
+    15% { top: 300px; left: calc(var(--mx, 30%) - 120px); opacity: 0; }
+    100% { top: 300px; left: calc(var(--mx, 30%) - 120px); opacity: 0; }
+  }
+
+  /* 主内容区 */
+  .content {
+    position: relative;
+    z-index: 3;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 28px 50px;
+  }
+
+  /* 标题 */
+  .story-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .story-title {
+    font-size: 2rem;
+    color: #ffd54f;
+    font-weight: bold;
+    text-shadow: 0 0 20px rgba(255, 213, 79, 0.5), 0 0 40px rgba(255, 213, 79, 0.2);
+    letter-spacing: 0.08em;
+    animation: titleGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(255, 213, 79, 0.5), 0 0 40px rgba(255, 213, 79, 0.2); }
+    50% { text-shadow: 0 0 30px rgba(255, 213, 79, 0.7), 0 0 60px rgba(255, 213, 79, 0.35); }
+  }
+
+  .story-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.45);
+    margin-top: 8px;
+    letter-spacing: 0.05em;
+  }
+
+  /* SVG 插图区 */
+  .illustration {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 36px;
+  }
+
+  .illustration svg {
+    width: 140px;
+    height: 140px;
+  }
+
+  @keyframes acornFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-6px) rotate(1deg); }
+    75% { transform: translateY(-3px) rotate(-1deg); }
+  }
+
+  @keyframes acornGlow {
+    0%, 100% { opacity: 0.5; transform: scale(0.9); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  @keyframes sproutGrow {
+    0%, 100% { transform: scaleY(1); }
+    50% { transform: scaleY(1.03); }
+  }
+
+  @keyframes leafSway {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(3deg); transform-origin: bottom center; }
+  }
+
+  @keyframes rootGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+
+  /* 故事正文 */
+  .story-body {
+    font-size: 1.15rem;
+    line-height: 2.1;
+    color: #ddd9e8;
+    text-align: justify;
+    letter-spacing: 0.03em;
+  }
+
+  .story-body p {
+    margin-bottom: 1.4em;
+    text-indent: 2em;
+  }
+
+  .story-body p:first-of-type {
+    margin-top: 0;
+  }
+
+  .story-body em {
+    color: #ffd54f;
+    font-style: italic;
+  }
+
+  /* 分隔线 */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 40px 0 32px;
+    opacity: 0.7;
+  }
+
+  .divider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffd54f;
+    animation: dotBreathe 2s ease-in-out infinite;
+  }
+
+  .divider-dot:nth-child(2) { animation-delay: 0.3s; }
+  .divider-dot:nth-child(3) { animation-delay: 0.6s; }
+  .divider-dot:nth-child(4) { animation-delay: 0.9s; }
+  .divider-dot:nth-child(5) { animation-delay: 1.2s; }
+  .divider-dot:nth-child(6) { animation-delay: 1.5s; }
+  .divider-dot:nth-child(7) { animation-delay: 1.8s; }
+
+  @keyframes dotBreathe {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 8px;
+    padding: 24px 20px;
+  }
+
+  .goodnight p {
+    font-size: 1.2rem;
+    color: #ffe8a0;
+    letter-spacing: 0.06em;
+    animation: gnPulse 3s ease-in-out infinite;
+    line-height: 1.9;
+  }
+
+  @keyframes gnPulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+  }
+
+  .goodnight .wave {
+    display: inline-block;
+    animation: wave 1.2s ease-in-out infinite;
+  }
+
+  @keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(15deg); }
+    75% { transform: rotate(-10deg); }
+  }
+
+  /* 底部暖光带 */
+  .warm-footer {
+    position: relative;
+    z-index: 3;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, rgba(255, 213, 79, 0.5), rgba(255, 168, 80, 0.3), rgba(255, 213, 79, 0.5), transparent);
+    margin: 0 auto;
+    max-width: 300px;
+    border-radius: 2px;
+    animation: footerGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes footerGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* 暖色粒子 */
+  .warm-particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #ffd28a;
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: floatUp var(--dur3, 8s) ease-in-out infinite;
+    animation-delay: var(--delay3, 0s);
+  }
+
+  @keyframes floatUp {
+    0% { bottom: -10px; opacity: 0; transform: translateX(0); }
+    10% { opacity: 0.7; }
+    80% { opacity: 0.4; }
+    100% { bottom: 100%; opacity: 0; transform: translateX(var(--drift, 30px)); }
+  }
+
+  /* 响应式 */
+  @media (max-width: 600px) {
+    .content {
+      padding: 40px 20px 40px;
+    }
+    .story-title {
+      font-size: 1.5rem;
+    }
+    .story-body {
+      font-size: 1.05rem;
+      line-height: 2;
+    }
+    .moon {
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+    }
+    .illustration svg {
+      width: 110px;
+      height: 110px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .content {
+      padding: 30px 16px 30px;
+    }
+    .story-title {
+      font-size: 1.3rem;
+    }
+    .story-body {
+      font-size: 1rem;
+      line-height: 1.9;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="meteor" style="--mx:25%;--dur2:6s;--delay2:3s;"></div>
+<div class="meteor" style="--mx:65%;--dur2:7s;--delay2:8s;"></div>
+
+<!-- 暖色漂浮粒子 -->
+<div class="warm-particle" style="left:20%;--dur3:10s;--delay3:0s;--drift:25px;"></div>
+<div class="warm-particle" style="left:35%;--dur3:9s;--delay3:2s;--drift:-20px;"></div>
+<div class="warm-particle" style="left:50%;--dur3:11s;--delay3:4s;--drift:30px;"></div>
+<div class="warm-particle" style="left:65%;--dur3:8s;--delay3:1s;--drift:-25px;"></div>
+<div class="warm-particle" style="left:80%;--dur3:10s;--delay3:5s;--drift:20px;"></div>
+<div class="warm-particle" style="left:45%;--dur3:12s;--delay3:6s;--drift:-30px;"></div>
+<div class="warm-particle" style="left:15%;--dur3:9s;--delay3:7s;--drift:15px;"></div>
+<div class="warm-particle" style="left:72%;--dur3:11s;--delay3:3s;--drift:-15px;"></div>
+
+<!-- 主内容 -->
+<div class="content">
+
+  <div class="story-header">
+    <h1 class="story-title">小橡果的梦</h1>
+    <div class="story-subtitle">— 儿童睡前故事 —</div>
+  </div>
+
+  <!-- SVG 插图：橡果 + 嫩芽 + 泥土 -->
+  <div class="illustration">
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- 背景光晕 -->
+      <circle cx="100" cy="120" r="55" fill="none" stroke="rgba(255,213,79,0.15)" stroke-width="20">
+        <animate attributeName="r" values="55;62;55" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- 泥土 -->
+      <ellipse cx="100" cy="140" rx="55" ry="20" fill="#3d2817" opacity="0.9"/>
+      <ellipse cx="100" cy="137" rx="52" ry="17" fill="#5c3a1e" opacity="0.7"/>
+
+      <!-- 橡果主体 -->
+      <g style="animation: acornFloat 4s ease-in-out infinite; transform-origin: 100px 125px;">
+        <!-- 坚果主体 -->
+        <ellipse cx="100" cy="118" rx="18" ry="22" fill="#8b6914">
+          <animate attributeName="fill" values="#8b6914;#a07818;#8b6914" dur="4s" repeatCount="indefinite"/>
+        </ellipse>
+        <!-- 坚果高光 -->
+        <ellipse cx="95" cy="112" rx="6" ry="10" fill="#a07818" opacity="0.5"/>
+        <!-- 帽盖 -->
+        <path d="M78 104 Q80 96 100 94 Q120 96 122 104 Z" fill="#5c3a1e">
+          <animate attributeName="fill" values="#5c3a1e;#6b4528;#5c3a1e" dur="4s" repeatCount="indefinite"/>
+        </path>
+        <!-- 帽盖纹理 -->
+        <ellipse cx="100" cy="100" rx="12" ry="3" fill="none" stroke="#3d2817" stroke-width="0.5" opacity="0.6"/>
+        <!-- 小蒂 -->
+        <line x1="100" y1="93" x2="100" y2="88" stroke="#4a3520" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 小叶子 -->
+        <path d="M100 88 Q108 82 112 86" fill="none" stroke="#6b8e23" stroke-width="1.5" stroke-linecap="round" style="animation: leafSway 3s ease-in-out infinite;"/>
+        <path d="M100 88 Q92 82 88 86" fill="none" stroke="#6b8e23" stroke-width="1.5" stroke-linecap="round" style="animation: leafSway 3s ease-in-out infinite; animation-delay: 0.5s;"/>
+      </g>
+
+      <!-- 根部嫩芽（从小橡果底下延伸） -->
+      <g style="animation: rootGlow 3s ease-in-out infinite;">
+        <line x1="100" y1="137" x2="100" y2="152" stroke="#7ccd7c" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+        <line x1="100" y1="137" x2="92" y2="149" stroke="#7ccd7c" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+        <line x1="100" y1="137" x2="108" y2="149" stroke="#7ccd7c" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+      </g>
+
+      <!-- 泥土上的落叶 -->
+      <ellipse cx="72" cy="138" rx="10" ry="4" fill="#8b6914" opacity="0.4" transform="rotate(-15,72,138)"/>
+      <ellipse cx="128" cy="140" rx="9" ry="3.5" fill="#a07818" opacity="0.35" transform="rotate(10,128,140)"/>
+
+      <!-- 散落小光点 -->
+      <circle cx="85" cy="145" r="1.5" fill="#ffe8a0" opacity="0.6">
+        <animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="115" cy="147" r="1.5" fill="#ffe8a0" opacity="0.5">
+        <animate attributeName="opacity" values="0.4;0.1;0.4" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="100" cy="152" r="1" fill="#ffe8a0" opacity="0.4">
+        <animate attributeName="opacity" values="0.1;0.6;0.1" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-body">
+    <p>秋天到了，高高的橡树上，结满了圆滚滚的橡果。</p>
+
+    <p>有一颗最小的橡果，住在最高的枝头。它每天看着脚下远远的大地，心里总是有点儿害怕。</p>
+
+    <p>"我这么小，掉下去会不会摔疼呀？"它问路过的风婆婆。</p>
+
+    <p>风婆婆笑眯眯地说："傻孩子，你不会摔疼的。你会钻进软软的泥土里，做一个长长的梦。"</p>
+
+    <p>"然后呢？"小橡果好奇地问。</p>
+
+    <p>"然后啊——"风婆婆轻轻地吹了一口气，"你的妈妈，就是这样变成一棵大树的。"</p>
+
+    <p>小橡果低头看了看脚下那棵高大的橡树妈妈，她的枝叶像一把巨大的伞，遮住了半个天空。原来，妈妈小时候，也和自己一样小呀。</p>
+
+    <p>小橡果鼓起了勇气。在一个阳光温柔的午后，它松开手，轻轻地、慢慢地，旋转着落了下去。</p>
+
+    <p>它落在一层厚厚的落叶上，软软的，像跳进了一张铺好的小床。泥土接住了它，暖暖的，像一条厚棉被。</p>
+
+    <p>"别怕，"泥土用它最温柔的声音说，"在这里好好睡吧。我会给你水喝，落叶姐姐会给你营养。你什么都不用担心。"</p>
+
+    <p>小橡果闭上眼睛，真的睡着了。</p>
+
+    <p>它做了一个很长很长的梦。梦里有春天细细的雨，有夏天暖暖的阳光，有秋天金色的风，还有冬天轻轻飘落的白雪。</p>
+
+    <p>在梦里，它从泥土里探出小脑袋，长出一片嫩绿的叶子，又一片，再一片……它越长越高，越长越壮，直到枝头也挂满了圆滚滚的小橡果。</p>
+
+    <p>梦醒的时候，小橡果发现自己变了——它不再是那个圆滚滚的小橡果了。它长出了一根嫩嫩的、绿绿的小芽，正踮着脚尖，从泥土里探出头来。</p>
+
+    <p>"你好呀！"一只路过的蝴蝶停在它身边，"你是一棵小橡树呢。"</p>
+
+    <p>小橡果——不，现在是小橡树了——开心地笑了。它终于明白风婆婆的话了：每一个小小的开始里，都藏着一个大大的梦。</p>
+
+    <p>只要相信，只要等待，只要勇敢地迈出那一步，最不起眼的小橡果，也能长成一棵顶天立地的大橡树。</p>
+
+    <p>夜晚来了，月光轻轻地照在小橡树嫩绿的叶子上。它摇着叶子，对天上的星星轻轻说了声："晚安。"</p>
+
+    <p>它不再害怕了。因为它知道，明天太阳升起的时候，自己又会长高一点点。而总有一天，它也会像妈妈那样，把枝头的橡果们一个一个送进泥土里，然后对它们说——</p>
+
+    <p>"别怕，去吧。泥土很软，梦很甜。你比你想象的，要了不起得多。"</p>
+  </div>
+
+  <!-- 分隔星光 -->
+  <div class="divider">
+    <div class="divider-dot"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-dot"></div>
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    <p>✨ 晚安，小宝贝。</p>
+    <p>小橡果说，每一个小小的你，心里都藏着一棵大树。<br>闭上眼睛，去做一个甜甜的梦吧。<br>明天醒来，你又长大了一点点。<span class="wave">🌙</span></p>
+  </div>
+
+</div>
+
+<div class="warm-footer"></div>
+
+<script>
+// 生成星空
+const starfield = document.getElementById('starfield');
+const starCount = 110;
+for (let i = 0; i < starCount; i++) {
+  const star = document.createElement('div');
+  star.classList.add('star');
+  const size = Math.random() * 2.5 + 1;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+  star.style.setProperty('--delay', (Math.random() * 5) + 's');
+  starfield.appendChild(star);
+}
+</script>
+
+</body>
+</html>

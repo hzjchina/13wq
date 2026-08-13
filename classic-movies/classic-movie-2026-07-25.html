@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 控方证人 (2026-07-25)</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0c;
+    color: #d8d4cc;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(ellipse at 60% 30%, rgba(180,140,50,0.18) 0%, transparent 50%),
+      radial-gradient(ellipse at 25% 75%, rgba(60,50,40,0.25) 0%, transparent 45%),
+      linear-gradient(135deg, #08080a 0%, #12100e 30%, #1a1612 55%, #241e16 80%, #2a2418 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 45%, rgba(200,160,70,0.04) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.5) 55%, rgba(0,0,0,0.15) 100%);
+    z-index: 1;
+  }
+
+  .film-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: "Songti SC", "Noto Serif SC", "SimSun", serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 0 40px rgba(180,140,50,0.25);
+    letter-spacing: 6px;
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(200,180,140,0.6);
+    font-weight: 300;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(180,140,50,0.18);
+    border-color: rgba(200,160,70,0.35);
+    color: #d4b86c;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #0e0e10, #08080a);
+    border: 1px solid rgba(180,140,50,0.1);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: "Songti SC", "Noto Serif SC", serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: "Songti SC", "Noto Serif SC", serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #b48c32;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a098;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(180,140,50,0.05);
+    border: 1px solid rgba(180,140,50,0.1);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a098;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    line-height: 1.9;
+  }
+
+  .highlights li::before {
+    content: '\2726';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    color: #b48c32;
+    font-size: 10px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #0e0e10, #08080a);
+    border-left: 3px solid #b48c32;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: "Songti SC", "Noto Serif SC", serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(180,140,50,0.04), rgba(140,100,30,0.02));
+    border: 1px solid rgba(180,140,50,0.1);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #2a2820;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 24px 16px; }
+    .hero-content h1 { font-size: 32px; letter-spacing: 3px; }
+    .hero-content { padding: 20px; }
+    .section h2 { font-size: 18px; }
+    .score-card .value { font-size: 26px; }
+    .awards-grid { grid-template-columns: 1fr; }
+    .section p, .why-watch p { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 2 5</div>
+
+  <div class="hero">
+    <div class="film-grain"></div>
+    <div class="hero-content">
+      <h1>控方证人</h1>
+      <div class="original-title">Witness for the Prosecution · 1957 · 美国</div>
+      <div class="hero-meta">
+        <span class="tag">比利·怀尔德 导演</span>
+        <span class="tag">泰隆·鲍华 / 玛琳·黛德丽 / 查尔斯·劳顿 主演</span>
+        <span class="tag gold">剧情 / 悬疑 / 犯罪</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.4</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.6</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">100%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      伦敦，老贝利刑事法庭。一位名叫伦纳德·沃尔的年轻人被指控谋杀了一位富有的老妇人。死者生前修改了遗嘱，将全部财产留给了他——而沃尔恰好是在她遇害当晚最后拜访她的人。所有物证和人证都指向他有罪，这似乎是一桩铁板钉钉的案子。
+      <br><br>
+      为他辩护的是爵士威尔弗里德·罗巴茨，一位刚从心脏病发作中恢复、脾气暴躁却目光如炬的资深律师。他原本被医生勒令不得接手任何案件，却被这桩看似毫无胜算的官司深深吸引。更令人困惑的是，沃尔的妻子克里斯汀——唯一能为他提供不在场证明的人——非但没有站出来替丈夫说话，反而以控方证人的身份出庭，当庭指认沃尔亲口向她承认了杀人。
+      <br><br>
+      妻子指控丈夫，这在法庭上几乎从未有过。威尔弗里德爵士必须在层层谎言中找到真相——而每一个他以为抓住的突破口，都被反转打碎。当所有证据似乎已走向定论时，一封匿名信送来了一个谁也没预料到的惊人线索……
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>比利·怀尔德自编自导，改编自阿加莎·克里斯蒂同名舞台剧——两位大师的合作，本身就是影史级别的配置</li>
+      <li>查尔斯·劳顿饰演的威尔弗里德爵士是法庭片中最有魅力的律师角色之一：毒舌、倔强、精明，靠药片续命却比所有人都清醒</li>
+      <li>玛琳·黛德丽饰演的妻子克里斯汀冷静到令人不寒而栗——她每一个眼神都像在隐藏什么，直到最后一场戏你才明白她的全部</li>
+      <li>影片拥有电影史上最著名的"反转之上还有反转"结局——结尾处银幕直接打出字幕请求观众不要泄露剧情，这行字后来成了影史佳话</li>
+      <li>法庭交锋的台词写得如手术刀般精准，每一句质询、每一次异议都有叙事功能，没有一句废话</li>
+      <li>阿加莎·克里斯蒂本人看完电影后表示这是所有改编作品中她最满意的一部——她甚至特意为电影版写了一个与舞台剧不同的结局</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 第 30 届奥斯卡 6 项提名</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳男主角提名</div>
+      <div class="award-item"><span class="icon">🏆</span> 烂番茄新鲜度 100%</div>
+      <div class="award-item"><span class="icon">🏆</span> 豆瓣电影 Top 250 第 27 位</div>
+      <div class="award-item"><span class="icon">🏆</span> AFI 百年百大悬疑片第 6 位</div>
+      <div class="award-item"><span class="icon">🏆</span> 美国国家电影注册部永久典藏</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"如果你以为你已经知道了真相——请再想一想。"</p>
+    <div class="source">—— 影片宣传语</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        《控方证人》是那种你看完之后会立刻想拉着别人重看一遍的电影——不是为了炫耀"我猜到了"，而是为了在已知结局的前提下，重新审视每一个角色说过的每一句话。你会惊讶地发现，比利·怀尔德从第一分钟起就在你眼皮底下埋下了所有线索，而你却一个都没看见。
+        <br><br>
+        在一个只有法庭、走廊和几间办公室的场景里，影片创造出了比任何动作大片都更强烈的悬念。靠的不是追车、不是爆炸，而是纯粹的语言交锋和心理博弈——一句质询、一个停顿、一个证人忽然转过头去的动作，都足以让你在椅背上坐直。这就是剧本的力量，也是比利·怀尔德和阿加莎·克里斯蒂联手的天才。
+        <br><br>
+        如果你觉得黑白老片节奏慢、看不下去——这部电影会打消你的偏见。116 分钟，几乎全程在法庭里，但你不会想快进任何一秒。而当最后的字幕出现在银幕上，你会理解为什么 1957 年的观众被请求"不要向任何人透露结局"——因为这部电影最大的礼物，就是那个你永远猜不到的瞬间。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    请勿向任何人透露结局 · 第 26 期
+  </div>
+
+</div>
+</body>
+</html>

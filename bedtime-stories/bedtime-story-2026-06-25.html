@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小象的喷水壶 — 儿童睡前故事</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  min-height:100vh;
+  background:linear-gradient(180deg,#0a0e27 0%,#0f1a3a 30%,#162550 60%,#1a2d5a 100%);
+  font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+  color:#e8dcc8;
+  overflow-x:hidden;
+  position:relative;
+}
+
+/* 星空背景 */
+.stars-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.star{
+  position:absolute;
+  background:#fff;
+  border-radius:50%;
+  animation:twinkle var(--duration) ease-in-out infinite;
+  animation-delay:var(--delay);
+}
+@keyframes twinkle{
+  0%,100%{opacity:0.2;transform:scale(0.8)}
+  50%{opacity:1;transform:scale(1.2)}
+}
+
+/* 月亮 */
+.moon{
+  position:fixed;
+  top:8%;
+  right:12%;
+  width:80px;
+  height:80px;
+  background:radial-gradient(circle at 35% 35%,#ffeebb,#f5d98a,#e8c36a);
+  border-radius:50%;
+  box-shadow:0 0 40px 15px rgba(255,230,170,0.3),0 0 80px 30px rgba(255,220,150,0.15);
+  z-index:1;
+  animation:moonFloat 8s ease-in-out infinite;
+}
+.moon-shadow{
+  position:absolute;
+  top:12px;left:18px;
+  width:25px;height:25px;
+  background:rgba(200,170,100,0.3);
+  border-radius:50%;
+}
+.moon-shadow2{
+  position:absolute;
+  top:35px;left:50px;
+  width:15px;height:15px;
+  background:rgba(200,170,100,0.2);
+  border-radius:50%;
+}
+@keyframes moonFloat{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+
+/* 水珠装饰 */
+.water-drops-container{position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.water-drop{
+  position:absolute;
+  width:6px;height:9px;
+  background:radial-gradient(ellipse at 40% 30%,rgba(150,220,255,0.8),rgba(100,180,240,0.4));
+  border-radius:50% 50% 50% 50% / 60% 60% 40% 40%;
+  animation:dropFall var(--fall-duration) ease-in infinite;
+  animation-delay:var(--fall-delay);
+  opacity:0;
+}
+@keyframes dropFall{
+  0%{opacity:0;transform:translateY(0) scale(1)}
+  10%{opacity:0.7}
+  80%{opacity:0.5;transform:translateY(var(--fall-distance)) scale(0.8)}
+  100%{opacity:0;transform:translateY(var(--fall-distance)) scale(0.3)}
+}
+
+/* 星云背景 */
+.nebula{
+  position:fixed;
+  top:20%;left:5%;
+  width:40vw;height:20vh;
+  background:radial-gradient(ellipse,rgba(80,120,200,0.08) 0%,rgba(60,90,180,0.04) 40%,transparent 70%);
+  z-index:0;pointer-events:none;
+  filter:blur(20px);
+}
+.nebula2{
+  position:fixed;
+  bottom:15%;right:8%;
+  width:35vw;height:15vh;
+  background:radial-gradient(ellipse,rgba(150,180,230,0.06) 0%,rgba(120,150,210,0.03) 40%,transparent 70%);
+  z-index:0;pointer-events:none;
+  filter:blur(25px);
+}
+
+/* 内容区 */
+.content-wrapper{
+  position:relative;
+  z-index:2;
+  max-width:640px;
+  margin:0 auto;
+  padding:30px 24px 60px;
+}
+
+/* 故事标题区 */
+.story-header{
+  text-align:center;
+  margin-bottom:40px;
+  animation:fadeInDown 1.2s ease-out;
+}
+.story-emoji{
+  font-size:48px;
+  margin-bottom:12px;
+  display:block;
+  animation:gentleBounce 3s ease-in-out infinite;
+}
+@keyframes gentleBounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-5px)}
+}
+.story-title{
+  font-size:28px;
+  font-weight:600;
+  color:#ffeebb;
+  line-height:1.4;
+  margin-bottom:8px;
+  letter-spacing:2px;
+}
+.story-subtitle{
+  font-size:14px;
+  color:rgba(200,190,170,0.6);
+  letter-spacing:1px;
+}
+.story-date{
+  font-size:12px;
+  color:rgba(200,190,170,0.4);
+  margin-top:4px;
+}
+
+/* SVG 插图 */
+.story-illustration{
+  text-align:center;
+  margin:30px auto;
+  animation:fadeIn 1.5s ease-out 0.3s both;
+}
+.story-illustration svg{
+  max-width:200px;
+  filter:drop-shadow(0 0 20px rgba(150,200,255,0.2));
+}
+
+/* 故事正文 */
+.story-body{
+  font-size:18px;
+  line-height:2;
+  color:#ddd0b8;
+  letter-spacing:0.5px;
+  animation:fadeIn 1.5s ease-out 0.5s both;
+}
+.story-body p{
+  margin-bottom:20px;
+  text-indent:2em;
+}
+.story-body .highlight{
+  color:#ffeebb;
+  font-weight:500;
+}
+
+/* 晚安区 */
+.goodnight-section{
+  text-align:center;
+  margin-top:40px;
+  padding:24px;
+  background:rgba(255,230,170,0.06);
+  border-radius:16px;
+  border:1px solid rgba(255,230,170,0.1);
+  animation:fadeIn 1.5s ease-out 0.8s both;
+}
+.goodnight-text{
+  font-size:18px;
+  color:#ffeebb;
+  line-height:1.8;
+  letter-spacing:1px;
+}
+.goodnight-emoji{
+  font-size:32px;
+  margin-top:8px;
+  display:block;
+  animation:gentleBounce 4s ease-in-out infinite;
+}
+
+/* 底部 */
+.footer{
+  text-align:center;
+  margin-top:30px;
+  font-size:11px;
+  color:rgba(200,190,170,0.3);
+  letter-spacing:1px;
+}
+
+/* 动画 */
+@keyframes fadeInDown{
+  from{opacity:0;transform:translateY(-20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeIn{
+  from{opacity:0}
+  to{opacity:1}
+}
+
+/* 响应式 */
+@media(max-width:480px){
+  .story-title{font-size:22px}
+  .story-body{font-size:16px;line-height:1.9}
+  .moon{width:55px;height:55px;top:5%;right:8%}
+  .story-emoji{font-size:36px}
+  .goodnight-text{font-size:16px}
+  .content-wrapper{padding:20px 16px 40px}
+}
+@media(min-width:481px) and (max-width:768px){
+  .moon{width:65px;height:65px;top:6%;right:10%}
+}
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="stars-container" id="starsContainer"></div>
+
+<!-- 星云 -->
+<div class="nebula"></div>
+<div class="nebula2"></div>
+
+<!-- 月亮 -->
+<div class="moon">
+  <div class="moon-shadow"></div>
+  <div class="moon-shadow2"></div>
+</div>
+
+<!-- 水珠装饰 -->
+<div class="water-drops-container" id="waterDropsContainer"></div>
+
+<!-- 故事内容 -->
+<div class="content-wrapper">
+  <div class="story-header">
+    <span class="story-emoji">🐘💧🌸</span>
+    <h1 class="story-title">小象的喷水壶</h1>
+    <p class="story-subtitle">儿童睡前故事 · 温暖相伴</p>
+    <p class="story-date">2026年6月25日</p>
+  </div>
+
+  <!-- SVG 小象插图 -->
+  <div class="story-illustration">
+    <svg viewBox="0 0 200 160" xmlns="http://www.w3.org/2000/svg">
+      <!-- 小象身体 -->
+      <ellipse cx="100" cy="95" rx="45" ry="38" fill="rgba(180,170,155,0.3)" stroke="rgba(200,190,170,0.5)" stroke-width="1.5"/>
+      <!-- 小象头 -->
+      <circle cx="65" cy="70" r="22" fill="rgba(180,170,155,0.3)" stroke="rgba(200,190,170,0.5)" stroke-width="1.5"/>
+      <!-- 耳朵 -->
+      <ellipse cx="48" cy="62" rx="16" ry="20" fill="rgba(180,170,155,0.2)" stroke="rgba(200,190,170,0.4)" stroke-width="1.2"/>
+      <!-- 鼻子（弯曲向上喷水） -->
+      <path d="M52 78 Q40 75 35 60 Q30 48 28 42" fill="none" stroke="rgba(200,190,170,0.5)" stroke-width="3" stroke-linecap="round"/>
+      <!-- 水滴从鼻子喷出 -->
+      <circle cx="24" cy="36" r="3" fill="rgba(150,220,255,0.6)">
+        <animate attributeName="cy" values="36;28;20" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.6;0.4;0" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="30" cy="32" r="2.5" fill="rgba(150,220,255,0.5)">
+        <animate attributeName="cy" values="32;24;16" dur="2.3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0.3;0" dur="2.3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="20" cy="40" r="2" fill="rgba(150,220,255,0.4)">
+        <animate attributeName="cy" values="40;32;24" dur="1.8s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.4;0.2;0" dur="1.8s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 小眼睛 -->
+      <circle cx="58" cy="66" r="3" fill="rgba(255,230,170,0.7)"/>
+      <circle cx="58" cy="66" r="1.5" fill="rgba(80,60,40,0.6)"/>
+      <!-- 腿 -->
+      <rect x="70" y="125" width="10" height="18" rx="4" fill="rgba(180,170,155,0.25)" stroke="rgba(200,190,170,0.4)" stroke-width="1"/>
+      <rect x="85" y="125" width="10" height="18" rx="4" fill="rgba(180,170,155,0.25)" stroke="rgba(200,190,170,0.4)" stroke-width="1"/>
+      <rect x="110" y="125" width="10" height="18" rx="4" fill="rgba(180,170,155,0.25)" stroke="rgba(200,190,170,0.4)" stroke-width="1"/>
+      <rect x="125" y="125" width="10" height="18" rx="4" fill="rgba(180,170,155,0.25)" stroke="rgba(200,190,170,0.4)" stroke-width="1"/>
+      <!-- 小尾巴 -->
+      <path d="M145 90 Q158 85 155 78" fill="none" stroke="rgba(200,190,170,0.4)" stroke-width="2" stroke-linecap="round"/>
+      <!-- 小花（被浇水的） -->
+      <circle cx="28" cy="140" r="4" fill="rgba(255,180,120,0.4)"/>
+      <circle cx="28" cy="140" r="2" fill="rgba(255,230,170,0.5)"/>
+      <line x1="28" y1="144" x2="28" y2="155" stroke="rgba(100,160,80,0.3)" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <div class="story-body">
+    <p>森林里住着一只叫<span class="highlight">噗噗</span>的小象。噗噗有个长长的鼻子，可是他不太喜欢它。小兔子蹦蹦跳跳多灵活呀，小猴子爬树多厉害呀，而噗噗的鼻子又长又笨重，走路还容易绊到。</p>
+
+    <p>一个夏天的傍晚，森林里好多天没有下雨了。小花低着头，小草弯着腰，连小池塘的水也快见底了。小鱼吐着泡泡说："水快没了，我该怎么办呢？"大家都很着急。</p>
+
+    <p>噗噗看着朋友们渴得没力气，心里很难受。他走到快要干涸的小池塘边，把鼻子伸进最后那一点点水里，深深地吸了一大口。然后他走到小花旁边，轻轻一喷——<span class="highlight">哗</span>，细细的水珠像小雨一样洒在花瓣上。小花慢慢抬起头，说："谢谢你，噗噗，好清凉呀！"</p>
+
+    <p>噗噗又跑回池塘吸水，来来回回好多趟。他给小草浇水，给小树浇水，还把水喷进小池塘，让小鱼又能快乐地吐泡泡了。跑了一晚上的噗噗累得直喘气，可看到朋友们重新有了精神，他开心地笑了。</p>
+
+    <p>这时，大象妈妈走过来，温柔地用鼻子搂住噗噗："你的鼻子不是笨重的，它是<span class="highlight">森林里最棒的喷水壶</span>。"小兔子、小猴子、小花、小草、小鱼都围过来，对噗噗说："谢谢你，噗噗！你的鼻子真了不起！"</p>
+
+    <p>噗噗第一次觉得，自己的长鼻子原来这么有用。那天晚上，他枕着自己的鼻子，做了一个甜甜的梦——梦里下了一场大雨，所有的朋友都在雨中快乐地跳舞。</p>
+  </div>
+
+  <div class="goodnight-section">
+    <p class="goodnight-text">晚安，小宝贝。<br>小象噗噗说，你身上也有了不起的地方，<br>也许你还没发现呢。<br>该做一个甜甜的梦了。🌙</p>
+    <span class="goodnight-emoji">🐘💧✨</span>
+  </div>
+
+  <div class="footer">小虾米 · 每日睡前故事 · 2026</div>
+</div>
+
+<script>
+// 生成星空
+(function(){
+  const container=document.getElementById('starsContainer');
+  const count=80;
+  for(let i=0;i<count;i++){
+    const star=document.createElement('div');
+    star.className='star';
+    const size=Math.random()*2.5+1;
+    star.style.width=size+'px';
+    star.style.height=size+'px';
+    star.style.left=Math.random()*100+'%';
+    star.style.top=Math.random()*100+'%';
+    star.style.setProperty('--duration',(Math.random()*3+2)+'s');
+    star.style.setProperty('--delay',(Math.random()*5)+'s');
+    container.appendChild(star);
+  }
+})();
+
+// 生成水珠
+(function(){
+  const container=document.getElementById('waterDropsContainer');
+  const count=8;
+  for(let i=0;i<count;i++){
+    const drop=document.createElement('div');
+    drop.className='water-drop';
+    drop.style.left=(15+Math.random()*70)+'%';
+    drop.style.top=(Math.random()*40)+'%';
+    const dist=Math.random()*80+60;
+    drop.style.setProperty('--fall-distance',dist+'px');
+    drop.style.setProperty('--fall-duration',(Math.random()*4+3)+'s');
+    drop.style.setProperty('--fall-delay',(Math.random()*6)+'s');
+    container.appendChild(drop);
+  }
+})();
+</script>
+</body>
+</html>

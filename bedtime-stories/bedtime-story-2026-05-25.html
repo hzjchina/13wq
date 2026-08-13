@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 小蘑菇的伞 — 每日睡前故事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0b1a0f 0%, #132e1a 30%, #1a3d22 60%, #0f2416 100%);
+    font-family: 'ZCOOL XiaoWei', 'PingFang SC', 'Microsoft YaHei', serif;
+    color: #d4e8d0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  /* fireflies */
+  .fireflies {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .firefly {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: #ffe87c;
+    border-radius: 50%;
+    box-shadow: 0 0 8px 3px rgba(255, 232, 124, 0.5);
+    animation: float-firefly linear infinite;
+  }
+
+  @keyframes float-firefly {
+    0% { transform: translate(0, 0); opacity: 0; }
+    15% { opacity: 1; }
+    50% { transform: translate(var(--dx), var(--dy)); opacity: 0.6; }
+    85% { opacity: 0.8; }
+    100% { transform: translate(var(--ex), var(--ey)); opacity: 0; }
+  }
+
+  .container {
+    max-width: 640px;
+    width: 90%;
+    padding: 40px 30px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .date {
+    text-align: center;
+    font-size: 14px;
+    color: #7dba7d;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+  }
+
+  .title {
+    text-align: center;
+    font-size: 32px;
+    color: #ffe87c;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255, 232, 124, 0.3);
+    line-height: 1.5;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 15px;
+    color: #7dba7d;
+    margin-bottom: 36px;
+    font-style: italic;
+  }
+
+  .divider {
+    text-align: center;
+    margin: 28px 0;
+    color: #4a7a4a;
+    font-size: 18px;
+    letter-spacing: 8px;
+  }
+
+  .story p {
+    font-size: 17px;
+    line-height: 2;
+    text-indent: 2em;
+    margin-bottom: 16px;
+    color: #c8dcc4;
+  }
+
+  .story p.dialog {
+    text-indent: 0;
+    padding-left: 1em;
+    border-left: 3px solid #3d6b3d;
+    color: #a8d4a0;
+    font-style: italic;
+  }
+
+  .moral {
+    background: linear-gradient(135deg, rgba(255,232,124,0.08) 0%, rgba(125,186,125,0.08) 100%);
+    border: 1px solid rgba(255,232,124,0.15);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin-top: 36px;
+  }
+
+  .moral-label {
+    font-size: 18px;
+    color: #ffe87c;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .moral p {
+    font-size: 16px;
+    line-height: 2;
+    text-indent: 0;
+    color: #b8d4b0;
+  }
+
+  .goodnight {
+    text-align: center;
+    font-size: 20px;
+    color: #ffe87c;
+    margin-top: 36px;
+    animation: gentle-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes gentle-glow {
+    0%, 100% { text-shadow: 0 0 10px rgba(255,232,124,0.2); }
+    50% { text-shadow: 0 0 20px rgba(255,232,124,0.5); }
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: #4a7a4a;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(74,122,74,0.3);
+  }
+
+  /* mushroom illustration */
+  .illustration {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 80px;
+    filter: drop-shadow(0 0 20px rgba(255,232,124,0.2));
+    animation: mushroom-bounce 4s ease-in-out infinite;
+  }
+
+  @keyframes mushroom-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+
+  @media (max-width: 480px) {
+    .title { font-size: 26px; }
+    .story p { font-size: 15.5px; line-height: 1.9; }
+    .container { padding: 30px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="fireflies" id="fireflies"></div>
+
+<div class="container">
+  <div class="date">2026 年 5 月 25 日 · 星期一</div>
+  <div class="title">🍄 小蘑菇的伞</div>
+  <div class="subtitle">"小小的个子，大大的温暖。"</div>
+
+  <div class="divider">· · · · ·</div>
+
+  <div class="story">
+    <div class="illustration">🍄</div>
+
+    <p>在一座安静的大森林里，有一棵很高很高的老橡树。老橡树的脚下，住着一朵小小的蘑菇。它的个子只有大拇指那么高，头上顶着一顶圆圆的、米白色的小帽子，帽子上还撒着几粒棕色的小斑点，像洒了巧克力豆一样可爱。</p>
+
+    <p>小蘑菇的名字叫"朵朵"。每天早上，阳光穿过树叶的缝隙洒下来，朵朵就伸个懒腰，把小帽子擦得干干净净的。它喜欢听风穿过树叶的声音，喜欢看蚂蚁们排着队走过泥土小路，更喜欢下雨天——因为一下雨，它的帽子上就会滚下一颗一颗亮晶晶的水珠。</p>
+
+    <p>可是朵朵有一个小小的烦恼：它太小了。</p>
+
+    <p class="dialog">"你看那棵大树，能遮住好大一片天。"朵朵抬头望着老橡树，轻轻叹了口气，"可我呢？我连一只蝴蝶都遮不住。"</p>
+
+    <p>老橡树听到了，呵呵地笑了，树叶沙沙作响，像是在说：<span class="dialog">"小朵朵，别急，慢慢长。"</span></p>
+
+    <p>朵朵也觉得自己应该再努力长大一点。于是它每天拼命地喝水、晒太阳、吸收泥土里的营养。可蘑菇能长到多大呢？它努力了好久好久，也只是从大拇指那么高，长到了两根手指那么高。</p>
+
+    <p>朵朵有点失落。<span class="dialog">"算了，我就是一朵小小的蘑菇，做不了什么大事。"</span></p>
+
+    <p>直到有一天傍晚，森林里突然下起了大雨。</p>
+
+    <p>那雨下得又急又猛，豆大的雨点噼里啪啦地砸下来，像有人在往地上倒水。老橡树虽然大，可它的叶子有缝隙，雨还是滴滴答答地漏了下来。地上的小蚂蚁们乱作一团，抱着小脑袋到处跑；一只刚学会飞的小瓢虫趴在叶子下面，翅膀被雨淋湿了，飞不起来了；还有一只小蜗牛，缩在壳里一动不动，因为它最怕被雨冲走了。</p>
+
+    <p>朵朵看着这一切，心里好着急。它想帮忙，可它那么小，能做什么呢？</p>
+
+    <p>就在这时候，一只小瓢虫摇摇晃晃地爬到了朵朵的身边。它的翅膀湿漉漉的，小身子冻得直发抖。</p>
+
+    <p class="dialog">"小瓢虫，快到我这儿来！"朵朵急切地喊。</p>
+
+    <p>小瓢虫爬到了朵朵的帽子下面。嗬！别看朵朵个子小，它那圆圆的帽子正好像一把小伞，把小瓢虫整个儿挡住了。雨水顺着帽子的边缘滑下去，帽子下面却干干爽爽的。</p>
+
+    <p class="dialog">"哇，好暖和呀！"小瓢虫趴在朵朵的帽子下面，抖了抖翅膀，"谢谢你，小蘑菇！你这里好安全！"</p>
+
+    <p>朵朵开心极了，它赶紧喊：<span class="dialog">"蚂蚁们！蜗牛！快来我这儿！我的帽子可以挡雨！"</span></p>
+
+    <p>小蚂蚁们听到了，赶紧跑了过来，一个接一个地钻到朵朵的帽子下面。小蜗牛也慢慢悠悠地爬了过来，缩进了这把"小伞"的庇护之中。</p>
+
+    <p>不一会儿，朵朵的帽子下面挤满了小家伙——小瓢虫、五只小蚂蚁、一只小蜗牛。大家紧紧地挨在一起，虽然有点挤，但是暖融融的，一点雨也淋不到。</p>
+
+    <p>雨点敲在朵朵的帽子上，发出好听的声音，像小鼓一样<span class="dialog">"嗒嗒嗒、嗒嗒嗒"</span>。小瓢虫说：<span class="dialog">"朵朵，你的帽子被雨敲打的声音真好听！"</span></p>
+
+    <p>朵朵被夸得脸都红了，虽然蘑菇不会真的脸红，但它的帽子上好像多了一层粉粉的光泽。</p>
+
+    <p>雨下了好久好久，天慢慢黑了。朵朵就这么一动不动地站着，给朋友们撑着伞。它的腿有点酸，帽子被雨打得有点沉，但只要听到帽子下面传来小伙伴们安心的呼吸声，它就觉得一点也不累了。</p>
+
+    <p>终于，雨停了。</p>
+
+    <p>月亮从云后面探出了头，给森林洒下一片银色的光。老橡树上的水珠在月光下闪闪发亮，像挂满了小星星。地面上升起了薄薄的雾气，空气里弥漫着泥土和青草的香味。</p>
+
+    <p>小瓢虫抖了抖翅膀，飞了起来；小蚂蚁们排好队，准备回家；小蜗牛慢慢地探出头来，轻轻地说：<span class="dialog">"朵朵，谢谢你。你是我见过的最好的伞。"</span></p>
+
+    <p class="dialog">"以后再下雨，我们就来找你！"小蚂蚁们一起喊。</p>
+
+    <p>朵朵的帽子一颤一颤的，它太高兴了，帽子上的水珠滑下来，好像在替它流开心的眼泪。</p>
+
+    <p>那天晚上，朵朵第一次觉得自己是一朵了不起的蘑菇。它抬起头，看着银色的月亮和一闪一闪的萤火虫，心想：原来，帮助别人的感觉，比长成大树还要美好呢。</p>
+
+    <p>夜风轻轻吹过，老橡树又沙沙地笑了，像是在说：<span class="dialog">"你看，我说得对吧？小朵朵，你一直都很了不起。"</span></p>
+
+    <p>朵朵安心地闭上了眼睛，在那片银色的月光下，甜甜地睡着了。帽子上的水珠在月光下亮闪闪的，像一顶镶满了宝石的小皇冠。</p>
+  </div>
+
+  <div class="divider">· · · · ·</div>
+
+  <div class="moral">
+    <div class="moral-label">🌟 今晚的寓意</div>
+    <p>你不需要长成最高大的样子才能帮助别人。每个人都有自己独特的能力——哪怕只是一朵小小的蘑菇，也能在最需要的时候，为身边的人撑起一片温暖的天空。重要的不是你有多大，而是你愿不愿意伸出手来。善良和勇气，和个子大小没有关系。</p>
+  </div>
+
+  <div class="goodnight">🌙 晚安，做个好梦。🌙</div>
+
+  <div class="footer">本文由小虾米为爷自动生成 · 每日睡前故事</div>
+</div>
+
+<script>
+  // generate fireflies
+  const container = document.getElementById('fireflies');
+  for (let i = 0; i < 25; i++) {
+    const f = document.createElement('div');
+    f.className = 'firefly';
+    f.style.left = Math.random() * 100 + '%';
+    f.style.top = Math.random() * 100 + '%';
+    f.style.setProperty('--dx', (Math.random() * 200 - 100) + 'px');
+    f.style.setProperty('--dy', (Math.random() * -200 - 50) + 'px');
+    f.style.setProperty('--ex', (Math.random() * 300 - 150) + 'px');
+    f.style.setProperty('--ey', (Math.random() * -300 - 100) + 'px');
+    f.style.animationDuration = (Math.random() * 6 + 5) + 's';
+    f.style.animationDelay = (Math.random() * 8) + 's';
+    container.appendChild(f);
+  }
+</script>
+
+</body>
+</html>

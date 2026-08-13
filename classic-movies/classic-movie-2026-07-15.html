@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 肖申克的救赎 (2026-07-15)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #080808;
+    color: #e0e0e0;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #1a1310 0%, #2d2418 25%, #4a3a25 50%, #6b5030 60%, #c8963e 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 60% 40%, rgba(200,150,62,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(90,130,160,0.08) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.45) 55%, rgba(0,0,0,0.12) 100%);
+    z-index: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 3px,
+        rgba(0,0,0,0.03) 3px,
+        rgba(0,0,0,0.03) 6px
+      );
+    z-index: 2;
+  }
+
+  .rain-effect {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.06;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent 0px,
+        transparent 4px,
+        rgba(255,255,255,0.3) 4px,
+        rgba(255,255,255,0.05) 5px
+      );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.6);
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(200,150,62,0.18);
+    border-color: rgba(200,150,62,0.35);
+    color: #d4a853;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #141414, #0c0c0c);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #c8963e;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a8a8;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(200,150,62,0.05);
+    border: 1px solid rgba(200,150,62,0.12);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a8a8;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .highlights li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: #c8963e;
+    font-size: 10px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #141414, #0c0c0c);
+    border-left: 3px solid #c8963e;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(200,150,62,0.05), rgba(200,150,62,0.02));
+    border: 1px solid rgba(200,150,62,0.1);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #3a3a3a;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 1 5</div>
+
+  <div class="hero">
+    <div class="hero-overlay"></div>
+    <div class="rain-effect"></div>
+    <div class="hero-content">
+      <h1>肖申克的救赎</h1>
+      <div class="original-title">The Shawshank Redemption · 1994 · 美国</div>
+      <div class="hero-meta">
+        <span class="tag">弗兰克·德拉邦特 导演</span>
+        <span class="tag">蒂姆·罗宾斯 / 摩根·弗里曼 主演</span>
+        <span class="tag gold">剧情 / 犯罪</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">9.3</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.7</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">89%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      1947 年，事业有成、性格温和的银行家安迪·杜弗雷斯被指控谋杀了妻子及其情人。尽管他坚称自己无辜，法庭仍判处他两项终身监禁，将他送进新英格兰最阴冷的肖申克州立监狱。在这里，安迪遇到了在狱中"无所不能"的老囚犯瑞德——一个能帮人搞到任何东西的"采购员"。安迪向瑞德要的第一样东西，是一把小手锤。
+      此后的二十年里，安迪用他银行家的头脑在监狱中找到了自己的生存之道：帮狱警处理税务、为典狱长打理黑钱。但他从未放弃内心的坚守。他在囚室的墙上贴了一张丽塔·海华丝的海报，在图书馆里建起了最好的监狱图书馆，在广播室为全体囚犯播放了一曲莫扎特的《费加罗的婚礼》。在肖申克这个吞噬灵魂的地方，他是唯一拒绝被"体制化"的人。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>摩根·弗里曼的旁白堪称教科书级——他那低沉如大提琴的嗓音，为整个故事赋予了哲思的温度</li>
+      <li>改编自斯蒂芬·金的同名中篇小说，是导演弗兰克·德拉邦特的处女作长片，出手即巅峰</li>
+      <li>摄影大师罗杰·迪金斯的镜头语言，将监狱的压抑与希望的光芒拿捏到极致</li>
+      <li>以"希望"为主题，却从不煽情、不说教——它让观众自己从黑暗中看见光</li>
+      <li>影片上映时票房惨淡，却在此后三十年间通过口碑逆袭，成为 IMDb 和豆瓣双料影史第一</li>
+      <li>片中"监狱广播放莫扎特"的那场戏，被多次评选为影史最令人振奋的片段之一</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡七项提名（最佳影片、男主角、改编剧本、摄影、剪辑、配乐、音效）</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳男主角提名</div>
+      <div class="award-item"><span class="icon">🏆</span> IMDb Top 250 历史第 1 名</div>
+      <div class="award-item"><span class="icon">🏆</span> 豆瓣电影 Top 250 第 1 名</div>
+      <div class="award-item"><span class="icon">🏆</span> 美国国家电影保护局典藏影片</div>
+      <div class="award-item"><span class="icon">🏆</span> AFI 百年百大电影入围</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"希望是美好的，也许是世间最美好的东西，而美好的事物永不消逝。"</p>
+    <div class="source">—— 安迪·杜弗雷斯</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        如果你觉得自己在某个困境中动弹不得——无论是一份没有出路的工作、一段消耗殆尽的关系，还是某种"就只能这样了"的无力感——《肖申克的救赎》会像一只手伸进黑暗里，拉住你。
+        它不是一部关于"越狱"的电影，而是一部关于"决不投降"的电影。安迪花了二十年，用一把巴掌大的小锤，一点一点地凿穿了一个看似不可能跨越的壁垒。这听起来疯狂，但影片用两小时的时间让你相信——有些东西是铁壁铜墙也关不住的。
+        更难得的是，它拥有影史最温暖的男性友谊之一。安迪和瑞德之间没有激烈的戏剧冲突，没有煽情的表白，只有几十年相濡以沫的信任与陪伴。这种静水深流的友情，比任何轰轰烈烈的故事都更让人动容。
+        有人问这部电影为什么能排在两个榜单的第一名。答案是：它讲了一个每个人都感同身受的故事——关于失去自由，关于不放弃，关于相信明天会更好。1994 年是影史奇迹年，同年上映的有《阿甘正传》《低俗小说》《狮子王》，但最终站上时间之巅的，是这部当时几乎无人问津的电影。
+        它证明了一件事：真正的好东西，不需要被所有人立刻看见。时间会给出最公正的答案。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    有些鸟是关不住的，它们的羽毛太过鲜亮 · 第 20 期
+  </div>
+
+</div>
+</body>
+</html>

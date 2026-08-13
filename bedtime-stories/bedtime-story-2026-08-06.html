@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小纸鹤的愿望 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(180deg, #0a0e27 0%, #131a3f 30%, #1a2148 60%, #1e2550 100%);
+    min-height: 100vh;
+    font-family: "Georgia", "Songti SC", "STSong", serif;
+    color: #e8e4d0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空容器 */
+  #stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle ease-in-out infinite;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.7); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 50px;
+    right: 8%;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e7, #f5e6b8 50%, #e8d090 100%);
+    box-shadow:
+      0 0 40px rgba(255, 230, 160, 0.35),
+      0 0 80px rgba(255, 230, 160, 0.2),
+      0 0 140px rgba(255, 230, 160, 0.12);
+    z-index: 2;
+    animation: moonFloat 8s ease-in-out infinite;
+  }
+
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); box-shadow: 0 0 40px rgba(255,230,160,0.35), 0 0 80px rgba(255,230,160,0.2), 0 0 140px rgba(255,230,160,0.12); }
+    50% { transform: translateY(-10px); box-shadow: 0 0 50px rgba(255,230,160,0.45), 0 0 100px rgba(255,230,160,0.25), 0 0 180px rgba(255,230,160,0.15); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px;
+    height: 1.5px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), #fff);
+    transform: translateX(-100%);
+  }
+  .shooting-star.s1 {
+    top: 15%; left: 60%;
+    animation: shoot 12s linear infinite;
+    animation-delay: 2s;
+  }
+  .shooting-star.s2 {
+    top: 25%; left: 20%;
+    animation: shoot 15s linear infinite;
+    animation-delay: 7s;
+  }
+
+  @keyframes shoot {
+    0% { transform: translate(0, 0) rotate(35deg); opacity: 0; }
+    3% { opacity: 1; }
+    10% { opacity: 1; transform: translate(250px, 175px) rotate(35deg); }
+    15% { opacity: 0; transform: translate(350px, 245px) rotate(35deg); }
+    100% { opacity: 0; transform: translate(350px, 245px) rotate(35deg); }
+  }
+
+  /* 内容容器 */
+  .content-wrapper {
+    position: relative;
+    z-index: 10;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* 标题区 */
+  .title-section {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .title-section h1 {
+    font-size: 2rem;
+    font-weight: 400;
+    color: #f0e6c8;
+    letter-spacing: 4px;
+    text-shadow: 0 0 20px rgba(240, 230, 200, 0.3);
+    margin-bottom: 10px;
+    animation: titleGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 15px rgba(240, 230, 200, 0.25); }
+    50% { text-shadow: 0 0 30px rgba(240, 230, 200, 0.5), 0 0 60px rgba(240, 230, 200, 0.2); }
+  }
+
+  .title-section .subtitle {
+    font-size: 0.85rem;
+    color: #8a8db0;
+    letter-spacing: 6px;
+  }
+
+  /* 分隔星光 */
+  .star-divider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 30px 0;
+  }
+  .star-divider .dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(240, 230, 200, 0.4);
+    animation: dotBreathe 3s ease-in-out infinite;
+  }
+  .star-divider .dot:nth-child(1) { animation-delay: 0s; }
+  .star-divider .dot:nth-child(2) { animation-delay: 0.4s; }
+  .star-divider .dot:nth-child(3) { animation-delay: 0.8s; }
+  .star-divider .dot:nth-child(4) { animation-delay: 1.2s; }
+  .star-divider .dot:nth-child(5) { animation-delay: 1.6s; }
+
+  @keyframes dotBreathe {
+    0%, 100% { opacity: 0.2; transform: scale(0.7); }
+    50% { opacity: 0.9; transform: scale(1.3); box-shadow: 0 0 8px rgba(240,230,200,0.5); }
+  }
+
+  /* SVG 插图区 */
+  .illustration {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0 10px;
+  }
+
+  .crane-container {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    animation: craneFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes craneFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    25% { transform: translateY(-8px) rotate(1deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+    75% { transform: translateY(-6px) rotate(-1deg); }
+  }
+
+  /* 愿望粒子 */
+  .wish-particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 220, 150, 0.8);
+    box-shadow: 0 0 6px rgba(255, 220, 150, 0.6);
+    animation: wishFloat 6s ease-in-out infinite;
+  }
+  .wp1 { top: 30%; left: 15%; animation-delay: 0s; }
+  .wp2 { top: 50%; left: 80%; animation-delay: 1s; }
+  .wp3 { top: 70%; left: 20%; animation-delay: 2s; }
+  .wp4 { top: 20%; left: 70%; animation-delay: 3s; }
+  .wp5 { top: 60%; left: 50%; animation-delay: 1.5s; }
+  .wp6 { top: 40%; left: 90%; animation-delay: 2.5s; }
+  .wp7 { top: 80%; left: 60%; animation-delay: 4s; }
+  .wp8 { top: 15%; left: 40%; animation-delay: 0.5s; }
+
+  @keyframes wishFloat {
+    0% { opacity: 0; transform: translateY(10px) scale(0.5); }
+    30% { opacity: 0.9; transform: translateY(-5px) scale(1); }
+    60% { opacity: 0.7; transform: translateY(-20px) scale(1.1); }
+    100% { opacity: 0; transform: translateY(-40px) scale(0.4); }
+  }
+
+  /* 故事正文 */
+  .story-text {
+    font-size: 1.08rem;
+    line-height: 2.1;
+    color: #d8d4c0;
+    text-align: justify;
+    text-indent: 2em;
+    margin-bottom: 1.2em;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 40px;
+    padding: 24px 20px;
+    border-top: 1px solid rgba(240, 230, 200, 0.15);
+    color: #f0e6c8;
+    font-size: 1rem;
+    line-height: 2;
+    animation: goodnightGlow 5s ease-in-out infinite;
+  }
+
+  @keyframes goodnightGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(240, 230, 200, 0.15); }
+    50% { text-shadow: 0 0 25px rgba(240, 230, 200, 0.4), 0 0 50px rgba(240, 230, 200, 0.15); }
+  }
+
+  .goodnight .heart {
+    display: inline-block;
+    font-size: 0.9rem;
+    margin-top: 8px;
+    color: #c8a878;
+  }
+
+  /* 底部暖光带 */
+  .bottom-glow {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(180deg, transparent, rgba(200, 168, 120, 0.06) 50%, rgba(200, 168, 120, 0.12));
+    z-index: 3;
+    pointer-events: none;
+    animation: bottomBreathe 6s ease-in-out infinite;
+  }
+
+  @keyframes bottomBreathe {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* 底部星光点 */
+  .bottom-stars {
+    position: fixed;
+    bottom: 15px; left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    z-index: 4;
+    pointer-events: none;
+  }
+  .bottom-stars .bs {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(240, 230, 200, 0.3);
+    animation: bsBreathe 4s ease-in-out infinite;
+  }
+  .bottom-stars .bs:nth-child(odd) { animation-delay: 1s; }
+  .bottom-stars .bs:nth-child(3n) { animation-delay: 2s; }
+  .bottom-stars .bs:nth-child(4n) { animation-delay: 0.5s; }
+
+  @keyframes bsBreathe {
+    0%, 100% { opacity: 0.15; box-shadow: 0 0 4px rgba(240,230,200,0.2); }
+    50% { opacity: 0.8; box-shadow: 0 0 10px rgba(240,230,200,0.5); }
+  }
+
+  /* 响应式 */
+  @media (max-width: 600px) {
+    .content-wrapper { padding: 40px 16px 80px; }
+    .title-section h1 { font-size: 1.5rem; letter-spacing: 2px; }
+    .story-text { font-size: 1rem; line-height: 2; }
+    .moon { width: 65px; height: 65px; top: 30px; right: 10%; }
+    .crane-container { width: 160px; height: 160px; }
+    .goodnight { font-size: 0.9rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div id="stars-container"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 底部暖光 -->
+<div class="bottom-glow"></div>
+
+<!-- 底部星光点 -->
+<div class="bottom-stars">
+  <span class="bs"></span><span class="bs"></span><span class="bs"></span>
+  <span class="bs"></span><span class="bs"></span><span class="bs"></span>
+  <span class="bs"></span>
+</div>
+
+<!-- 内容 -->
+<div class="content-wrapper">
+
+  <div class="title-section">
+    <h1>小纸鹤的愿望</h1>
+    <div class="subtitle">儿 童 睡 前 故 事</div>
+  </div>
+
+  <div class="star-divider">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="dot"></span><span class="dot"></span>
+  </div>
+
+  <!-- SVG 纸鹤插图 -->
+  <div class="illustration">
+    <div class="crane-container">
+      <!-- 愿望粒子 -->
+      <div class="wish-particle wp1"></div>
+      <div class="wish-particle wp2"></div>
+      <div class="wish-particle wp3"></div>
+      <div class="wish-particle wp4"></div>
+      <div class="wish-particle wp5"></div>
+      <div class="wish-particle wp6"></div>
+      <div class="wish-particle wp7"></div>
+      <div class="wish-particle wp8"></div>
+
+      <svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+        <!-- 纸鹤光晕 -->
+        <ellipse cx="100" cy="105" rx="75" ry="45" fill="rgba(255, 220, 150, 0.06)" />
+        <ellipse cx="100" cy="105" rx="55" ry="32" fill="rgba(255, 220, 150, 0.08)" />
+
+        <!-- 纸鹤主体 - 左翼 -->
+        <polygon points="100,95 45,60 50,75 100,110" fill="#e8d5a0" stroke="#d4b870" stroke-width="0.8" opacity="0.9"/>
+        <polygon points="100,95 45,60 55,55 70,72" fill="#f0ddb0" stroke="#d4b870" stroke-width="0.6" opacity="0.85"/>
+        <!-- 左翼折线 -->
+        <line x1="70" y1="72" x2="95" y2="100" stroke="#c8a850" stroke-width="0.5" opacity="0.6"/>
+
+        <!-- 纸鹤主体 - 右翼 -->
+        <polygon points="100,95 155,60 150,75 100,110" fill="#e8d5a0" stroke="#d4b870" stroke-width="0.8" opacity="0.9"/>
+        <polygon points="100,95 155,60 145,55 130,72" fill="#f0ddb0" stroke="#d4b870" stroke-width="0.6" opacity="0.85"/>
+        <!-- 右翼折线 -->
+        <line x1="130" y1="72" x2="105" y2="100" stroke="#c8a850" stroke-width="0.5" opacity="0.6"/>
+
+        <!-- 纸鹤身体 -->
+        <polygon points="100,95 85,115 100,130 115,115" fill="#dcc888" stroke="#c8a850" stroke-width="0.8" opacity="0.92"/>
+        <!-- 身体折线 -->
+        <line x1="100" y1="95" x2="100" y2="130" stroke="#c8a850" stroke-width="0.4" opacity="0.5"/>
+
+        <!-- 纸鹤头部/脖子 -->
+        <polygon points="100,95 92,75 85,55 95,50 102,68 100,90" fill="#e8d5a0" stroke="#d4b870" stroke-width="0.8" opacity="0.9"/>
+        <!-- 脖子折线 -->
+        <line x1="93" y1="62" x2="100" y2="92" stroke="#c8a850" stroke-width="0.5" opacity="0.6"/>
+
+        <!-- 纸鹤嘴 -->
+        <polygon points="95,50 80,48 88,55" fill="#d4a850" stroke="#b89040" stroke-width="0.5" opacity="0.9"/>
+
+        <!-- 纸鹤眼睛 -->
+        <circle cx="92" cy="55" r="1.5" fill="#5a4a2a" opacity="0.7"/>
+
+        <!-- 纸鹤尾巴 -->
+        <polygon points="115,115 140,135 130,120 120,125" fill="#dcc888" stroke="#c8a850" stroke-width="0.7" opacity="0.88"/>
+        <polygon points="115,115 140,135 135,125 120,118" fill="#e8d5a0" stroke="#d4b870" stroke-width="0.5" opacity="0.85"/>
+
+        <!-- 纸鹤腹部折痕 -->
+        <line x1="85" y1="115" x2="100" y2="130" stroke="#c8a850" stroke-width="0.4" opacity="0.4"/>
+        <line x1="115" y1="115" x2="100" y2="130" stroke="#c8a850" stroke-width="0.4" opacity="0.4"/>
+
+        <!-- 纸鹤中心微光 -->
+        <circle cx="100" cy="108" r="8" fill="rgba(255, 240, 180, 0.12)" />
+        <circle cx="100" cy="108" r="4" fill="rgba(255, 240, 180, 0.18)" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="star-divider">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="dot"></span><span class="dot"></span>
+  </div>
+
+  <!-- 故事正文 -->
+  <p class="story-text">小朵用一张淡黄色的信纸，折了一只小小的纸鹤。她把纸鹤捧在手心里，对着它悄悄说了一句话，然后把它轻轻放在了窗台上。</p>
+
+  <p class="story-text">"去吧，"小朵说，"替我飞去看看风的样子。"</p>
+
+  <p class="story-text">纸鹤不会飞。它只有薄薄的翅膀，连动都动不了。但它听见了小朵的话，把那句话小心翼翼地收进了翅膀的折痕里。</p>
+
+  <p class="story-text">夜深了，月亮爬上窗台，把银白色的光洒在纸鹤身上。纸鹤觉得自己好像变轻了一点点。风从窗缝里钻进来，轻轻碰了碰它的翅膀。</p>
+
+  <p class="story-text">"你想去哪儿？"风问。</p>
+
+  <p class="story-text">"我想飞，"纸鹤小声说，"有个孩子托我去看风的样子。可是我飞不起来。"</p>
+
+  <p class="story-text">风笑了，笑声像妈妈吹灭蜡烛时那样温柔。它绕到纸鹤身后，轻轻一托——纸鹤就飘了起来！它摇摇晃晃地飞出窗户，月亮给它照亮路，星星朝它眨眼睛。</p>
+
+  <p class="story-text">纸鹤飞过屋顶，飞过老槐树，飞过小河上弯弯的桥。它看见风原来是透明的，但风经过的地方，草会弯腰，花会点头，连河面都笑出了皱纹。</p>
+
+  <p class="story-text">原来风的样子，就是万物被温柔碰过的样子。</p>
+
+  <p class="story-text">纸鹤飞呀飞，最后落在了一棵大树的枝头。一只老知更鸟看见了它，歪着头问："你是谁呀？"</p>
+
+  <p class="story-text">"我是一只纸鹤，"它说，"我带着一个孩子的心愿飞了一整夜。现在我的翅膀有点累了。"</p>
+
+  <p class="story-text">老知更鸟用翅膀轻轻拍了拍纸鹤："那你就在这里歇歇吧。明天早上，孩子推开窗户，会看见你不在了。但她一定会知道，你已经替她飞过了。"</p>
+
+  <p class="story-text">纸鹤安心地靠在树枝上。晨光一点点亮起来，它的翅膀变成了浅浅的金色，像被太阳吻过一样。它想，原来带着爱的飞行，比什么都飞得更远、更暖。</p>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    晚安，小宝贝。小纸鹤说，你今天许的愿望，<br>
+    一定也会被风温柔地接住，飞向很远很远的地方。<br>
+    该做一个甜甜的梦了。
+    <div class="heart">♡</div>
+  </div>
+
+</div>
+
+<script>
+  // 生成 110 颗星星
+  const container = document.getElementById('stars-container');
+  for (let i = 0; i < 110; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+    star.style.animationDelay = Math.random() * 4 + 's';
+    container.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

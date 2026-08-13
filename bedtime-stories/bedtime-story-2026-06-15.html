@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小纸船的远行 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(175deg, #0a0e27 0%, #111d4a 35%, #1a2a5e 60%, #0d1840 100%);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #e8e0d4;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空背景 */
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle var(--dur) ease-in-out infinite alternate;
+  }
+  @keyframes twinkle {
+    0% { opacity: 0.15; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 6vh;
+    right: 8vw;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffefc4, #f5d98a 60%, #e8c65a);
+    box-shadow: 0 0 40px 12px rgba(255, 239, 196, 0.25), 0 0 80px 30px rgba(255, 239, 196, 0.1);
+    z-index: 1;
+    animation: moonGlow 4s ease-in-out infinite alternate;
+  }
+  @keyframes moonGlow {
+    0% { box-shadow: 0 0 40px 12px rgba(255,239,196,0.25), 0 0 80px 30px rgba(255,239,196,0.1); }
+    100% { box-shadow: 0 0 50px 18px rgba(255,239,196,0.35), 0 0 100px 40px rgba(255,239,196,0.15); }
+  }
+
+  /* 漂浮光点 */
+  .firefly {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 239, 180, 0.8);
+    box-shadow: 0 0 8px 2px rgba(255, 239, 180, 0.4);
+    animation: floatUp var(--dur) ease-in-out infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-120px) translateX(var(--drift)); opacity: 0; }
+  }
+
+  /* 水波纹装饰 */
+  .water-wave {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 60px;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 40px,
+      rgba(100, 160, 220, 0.06) 40px,
+      rgba(100, 160, 220, 0.06) 80px
+    );
+    animation: waveMove 8s linear infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes waveMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* 内容区 */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* 日期标签 */
+  .date-tag {
+    display: inline-block;
+    font-size: 13px;
+    color: rgba(180, 200, 230, 0.6);
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    padding: 4px 14px;
+    border: 1px solid rgba(180, 200, 230, 0.2);
+    border-radius: 20px;
+  }
+
+  /* 标题 */
+  .story-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ffefc4;
+    text-shadow: 0 0 30px rgba(255, 239, 196, 0.3);
+    margin-bottom: 12px;
+    line-height: 1.4;
+  }
+
+  .story-subtitle {
+    font-size: 15px;
+    color: rgba(180, 200, 230, 0.6);
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+  }
+
+  /* 分隔装饰 */
+  .divider {
+    text-align: center;
+    margin: 30px 0;
+    font-size: 18px;
+    color: rgba(180, 200, 230, 0.35);
+    letter-spacing: 6px;
+  }
+
+  /* 故事正文 */
+  .story-body p {
+    font-size: 19px;
+    line-height: 2;
+    color: #ddd6c8;
+    margin-bottom: 20px;
+    text-indent: 2em;
+  }
+
+  .story-body .highlight {
+    color: #f5d98a;
+    font-weight: 500;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    margin-top: 40px;
+    padding: 24px;
+    background: rgba(255, 239, 196, 0.06);
+    border-left: 3px solid rgba(245, 217, 138, 0.4);
+    border-radius: 0 12px 12px 0;
+  }
+  .goodnight p {
+    font-size: 17px;
+    line-height: 1.9;
+    color: rgba(245, 217, 138, 0.85);
+    text-indent: 0;
+    margin: 0;
+  }
+
+  /* 底部 */
+  .footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 12px;
+    color: rgba(180, 200, 230, 0.3);
+    letter-spacing: 1px;
+  }
+
+  /* 小船动画 */
+  .boat-container {
+    text-align: center;
+    margin: 30px 0 10px;
+    animation: boatRock 3s ease-in-out infinite;
+  }
+  @keyframes boatRock {
+    0%, 100% { transform: rotate(-2deg) translateY(0); }
+    50% { transform: rotate(2deg) translateY(-4px); }
+  }
+  .boat-emoji {
+    font-size: 48px;
+    display: inline-block;
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 40px 18px 60px; }
+    .story-title { font-size: 26px; }
+    .story-body p { font-size: 17px; line-height: 1.9; }
+    .moon { width: 60px; height: 60px; top: 4vh; right: 5vw; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星星 -->
+<div class="stars" id="stars"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 萤火虫 -->
+<div class="firefly" style="left:15%;bottom:30%;--dur:6s;--drift:20px;animation-delay:0s;"></div>
+<div class="firefly" style="left:70%;bottom:45%;--dur:7s;--drift:-15px;animation-delay:2s;"></div>
+<div class="firefly" style="left:45%;bottom:20%;--dur:8s;--drift:25px;animation-delay:4s;"></div>
+<div class="firefly" style="left:80%;bottom:55%;--dur:5.5s;--drift:-20px;animation-delay:1s;"></div>
+<div class="firefly" style="left:25%;bottom:60%;--dur:7.5s;--drift:10px;animation-delay:3s;"></div>
+
+<!-- 水波纹 -->
+<div class="water-wave"></div>
+
+<!-- 内容 -->
+<div class="container">
+  <div class="date-tag">2026 年 6 月 15 日 · 睡前故事</div>
+
+  <div class="boat-container">
+    <span class="boat-emoji">⛵</span>
+  </div>
+
+  <h1 class="story-title">小纸船的远行</h1>
+  <p class="story-subtitle">一个小小的纸船，也能带来大大的温暖</p>
+
+  <div class="divider">· · ·</div>
+
+  <div class="story-body">
+    <p>小男孩阿风折了一只纸船，轻轻放在小溪里。纸船白白的、小小的，顺着水流慢慢往前漂。</p>
+
+    <p>纸船漂过芦苇丛，一只小青蛙跳上来，说："谢谢你让我歇歇脚，我游了好久好久了。"纸船摇了摇，好像在说："不客气呀。"</p>
+
+    <p>纸船继续往前漂，遇到了一片落花。小花瓣们纷纷飘到船上，说："我们想顺流去看看下游的风景，可以搭你的船吗？"纸船晃了晃，花瓣们就安安心心地躺下了。</p>
+
+    <p>天慢慢暗下来，一只迷路的小蜻蜓落在船头，翅膀微微发抖。纸船静静地停在水面，月光照下来，像给小蜻蜓铺了一条银色的路。小蜻蜓看清了方向，轻轻飞走了，回头说："谢谢你等我。"</p>
+
+    <p>溪水越来越宽，纸船也泡得软软的了。它知道自己快要散开了，可它一点也不难过——它载过小青蛙，驮过小花瓣，等过小蜻蜓，每一段小小的路都值得。</p>
+
+    <p>最后，纸船化作一片温柔的白，融进了溪水里。溪水抱抱它，轻声说：<span class="highlight">"你虽小，可你一路上都做了别人的桥。"</span></p>
+  </div>
+
+  <div class="divider">☽ · ☽ · ☽</div>
+
+  <div class="goodnight">
+    <p>晚安，小宝贝。小纸船说，你不必很大很大，只要一点一点地善良，就是这世上最了不起的远行。该做一个甜甜的梦了。</p>
+  </div>
+
+  <div class="footer">🦐 小虾米 · 每日睡前故事</div>
+</div>
+
+<script>
+// 生成星空
+(function() {
+  var starsEl = document.getElementById('stars');
+  var count = 80;
+  for (var i = 0; i < count; i++) {
+    var star = document.createElement('div');
+    star.className = 'star';
+    var size = Math.random() * 2.5 + 0.8;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 70 + '%';
+    star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+    star.style.animationDelay = (Math.random() * 5) + 's';
+    starsEl.appendChild(star);
+  }
+})();
+</script>
+
+</body>
+</html>

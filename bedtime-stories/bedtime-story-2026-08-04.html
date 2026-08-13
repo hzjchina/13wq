@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小蚊香的夏夜守护 — 儿童睡前故事</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(180deg, #0f1729 0%, #1a2542 40%, #243555 100%);
+            min-height: 100vh;
+            color: #f0e6d3;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 星空背景 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle var(--duration) ease-in-out infinite;
+            opacity: 0;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* 月亮 */
+        .moon {
+            position: fixed;
+            top: 60px;
+            right: 40px;
+            width: 90px;
+            height: 90px;
+            background: radial-gradient(circle at 35% 35%, #fff8e7, #f5e6c8 40%, #e8d5a8 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(245, 230, 200, 0.35), 0 0 80px rgba(245, 230, 200, 0.15);
+            animation: moonFloat 6s ease-in-out infinite;
+            z-index: 1;
+        }
+
+        .moon::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            width: 12px;
+            height: 12px;
+            background: rgba(200, 180, 150, 0.3);
+            border-radius: 50%;
+        }
+
+        .moon::after {
+            content: '';
+            position: absolute;
+            top: 55%;
+            left: 60%;
+            width: 8px;
+            height: 8px;
+            background: rgba(200, 180, 150, 0.25);
+            border-radius: 50%;
+        }
+
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* 流星 */
+        .shooting-star {
+            position: fixed;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+            border-radius: 50%;
+            opacity: 0;
+            z-index: 1;
+        }
+
+        .shooting-star:nth-child(1) {
+            top: 15%;
+            left: -100px;
+            animation: shoot1 8s linear infinite;
+            animation-delay: 2s;
+        }
+
+        .shooting-star:nth-child(2) {
+            top: 35%;
+            left: -100px;
+            animation: shoot2 10s linear infinite;
+            animation-delay: 6s;
+        }
+
+        @keyframes shoot1 {
+            0% { transform: translateX(0) translateY(0) rotate(-25deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(120vw) translateY(30vh) rotate(-25deg); opacity: 0; }
+        }
+
+        @keyframes shoot2 {
+            0% { transform: translateX(0) translateY(0) rotate(-20deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(120vw) translateY(25vh) rotate(-20deg); opacity: 0; }
+        }
+
+        /* 萤火虫 */
+        .fireflies {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .firefly {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #c8ff6e;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #c8ff6e, 0 0 20px rgba(200, 255, 110, 0.5);
+            animation: fireflyGlow 2.5s ease-in-out infinite, fireflyMove var(--move-duration) ease-in-out infinite alternate;
+        }
+
+        @keyframes fireflyGlow {
+            0%, 100% { opacity: 0.4; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        @keyframes fireflyMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(var(--tx), var(--ty)); }
+        }
+
+        /* 主容器 */
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 40px 24px 60px;
+        }
+
+        /* 标题区域 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #c8d4e8;
+            margin-bottom: 16px;
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 600;
+            color: #fff8e7;
+            text-shadow: 0 0 30px rgba(245, 230, 200, 0.4);
+            margin-bottom: 8px;
+            animation: titleGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 0 0 30px rgba(245, 230, 200, 0.35); }
+            50% { text-shadow: 0 0 50px rgba(245, 230, 200, 0.6); }
+        }
+
+        .subtitle {
+            font-size: 15px;
+            color: #9fb3d4;
+            font-weight: 400;
+        }
+
+        /* 蚊香插图 */
+        .illustration {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .mosquito-coil {
+            width: 180px;
+            height: 180px;
+            animation: coilFloat 4s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(255, 180, 100, 0.3));
+        }
+
+        @keyframes coilFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+        }
+
+        .smoke {
+            animation: smokeRise 3s ease-out infinite;
+            opacity: 0.6;
+        }
+
+        .smoke:nth-child(2) { animation-delay: 0.5s; }
+        .smoke:nth-child(3) { animation-delay: 1s; }
+        .smoke:nth-child(4) { animation-delay: 1.5s; }
+
+        @keyframes smokeRise {
+            0% { transform: translateY(0) scale(1); opacity: 0.5; }
+            100% { transform: translateY(-30px) scale(1.3); opacity: 0; }
+        }
+
+        .ember {
+            animation: emberGlow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes emberGlow {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        /* 故事内容 */
+        .story {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 32px;
+            margin-bottom: 30px;
+            line-height: 2;
+            font-size: 18px;
+            color: #e8e0d5;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .story p {
+            margin-bottom: 18px;
+            text-indent: 2em;
+        }
+
+        .story p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* 分隔符 */
+        .divider {
+            text-align: center;
+            margin: 28px 0;
+            color: #8fa3c7;
+            font-size: 14px;
+            letter-spacing: 8px;
+        }
+
+        .divider span {
+            display: inline-block;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        .divider span:nth-child(2) { animation-delay: 0.3s; }
+        .divider span:nth-child(3) { animation-delay: 0.6s; }
+
+        @keyframes dotPulse {
+            0%, 100% { opacity: 0.3; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* 晚安语 */
+        .goodnight {
+            text-align: center;
+            background: linear-gradient(135deg, rgba(255, 200, 120, 0.12), rgba(255, 180, 100, 0.08));
+            border: 1px solid rgba(255, 200, 120, 0.25);
+            border-radius: 24px;
+            padding: 28px;
+            margin-top: 10px;
+            animation: goodnightGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes goodnightGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 200, 120, 0.15); }
+            50% { box-shadow: 0 0 40px rgba(255, 200, 120, 0.3); }
+        }
+
+        .goodnight p {
+            font-size: 20px;
+            color: #ffe4b8;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+
+        .goodnight .signature {
+            margin-top: 12px;
+            font-size: 24px;
+            color: #fff8e7;
+        }
+
+        /* 底部暖光带 */
+        .warm-glow {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(to top, rgba(255, 180, 100, 0.12), transparent);
+            pointer-events: none;
+            z-index: 1;
+            animation: glowPulse 5s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* 响应式 */
+        @media (max-width: 600px) {
+            .container {
+                padding: 28px 18px 50px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .story {
+                padding: 24px;
+                font-size: 16px;
+                line-height: 1.9;
+            }
+
+            .mosquito-coil {
+                width: 150px;
+                height: 150px;
+            }
+
+            .moon {
+                width: 60px;
+                height: 60px;
+                top: 30px;
+                right: 20px;
+            }
+
+            .goodnight p {
+                font-size: 17px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="moon"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="fireflies" id="fireflies"></div>
+    <div class="warm-glow"></div>
+
+    <div class="container">
+        <header class="header">
+            <div class="date-badge">2026年8月4日 · 星期二</div>
+            <h1>小蚊香的夏夜守护</h1>
+            <p class="subtitle">一个关于温柔守护的睡前故事</p>
+        </header>
+
+        <div class="illustration">
+            <svg class="mosquito-coil" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <!-- 托盘 -->
+                <ellipse cx="100" cy="170" rx="70" ry="12" fill="rgba(255,255,255,0.08)"/>
+                <ellipse cx="100" cy="174" rx="70" ry="12" fill="rgba(0,0,0,0.2)"/>
+
+                <!-- 蚊香主体 -->
+                <path d="M100 155 C140 155, 165 125, 165 95 C165 55, 135 35, 100 35 C55 35, 35 65, 35 100 C35 140, 65 165, 100 165 C130 165, 150 145, 150 115 C150 90, 130 75, 105 75 C85 75, 70 90, 70 110 C70 128, 82 140, 100 140 C115 140, 125 130, 125 116 C125 105, 117 98, 106 98 C98 98, 92 104, 92 112 C92 118, 96 122, 102 122" 
+                      fill="none" stroke="#b8a088" stroke-width="10" stroke-linecap="round"/>
+                <path d="M100 155 C140 155, 165 125, 165 95 C165 55, 135 35, 100 35 C55 35, 35 65, 35 100 C35 140, 65 165, 100 165 C130 165, 150 145, 150 115 C150 90, 130 75, 105 75 C85 75, 70 90, 70 110 C70 128, 82 140, 100 140 C115 140, 125 130, 125 116 C125 105, 117 98, 106 98 C98 98, 92 104, 92 112 C92 118, 96 122, 102 122" 
+                      fill="none" stroke="#d4c4a8" stroke-width="5" stroke-linecap="round"/>
+
+                <!-- 蚊香末端红点 -->
+                <circle class="ember" cx="102" cy="122" r="5" fill="#ff6b35"/>
+                <circle class="ember" cx="102" cy="122" r="9" fill="rgba(255, 107, 53, 0.3)"/>
+                <circle class="ember" cx="102" cy="122" r="14" fill="rgba(255, 150, 80, 0.15)"/>
+
+                <!-- 烟雾 -->
+                <path class="smoke" d="M102 115 Q108 100, 102 85 Q96 70, 104 55" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"/>
+                <path class="smoke" d="M105 118 Q112 100, 106 82 Q100 65, 110 48" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1.5" stroke-linecap="round"/>
+                <path class="smoke" d="M99 117 Q92 100, 98 83 Q104 66, 96 50" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-linecap="round"/>
+                <path class="smoke" d="M103 120 Q110 105, 103 88 Q96 72, 106 58" fill="none" stroke="rgba(255,220,180,0.2)" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+        </div>
+
+        <article class="story">
+            <p>夏天的夜晚，房间里热乎乎的。小宝宝躺在床上，额头上还有细细的汗珠，翻来覆去睡不着。</p>
+
+            <p>床边的角落里，盘着一圈细细的小蚊香。她的名字叫弯弯。弯弯的身上有一小截红红的火点在轻轻呼吸，像一颗温柔的小星星。</p>
+
+            <p>"嗡嗡——"窗外传来蚊子的声音。它们想要飞进来，打扰小宝宝的梦。</p>
+
+            <p>弯弯轻轻地说："别怕，让我来守护你。"</p>
+
+            <p>她慢慢地散发出淡淡的香味，一圈圈细细的烟雾像丝带一样飘起来，在房间里织成一张看不见的、香香的网。每一缕烟都是弯弯的拥抱，把坏蚊子挡在外面。</p>
+
+            <p>蚊子们飞到窗边，闻到清香，就打着转儿飞走了。它们说："这个房间有弯弯守护着，我们进不去。"</p>
+
+            <p>小宝宝翻了个身，嘴角露出甜甜的笑。她梦见自己躺在一片软软的云朵上，周围有淡淡的花香，还有弯弯变成的小星星在闪呀闪。</p>
+
+            <p>弯弯看见小宝宝笑了，心里暖暖的。她的火光虽然越来越短，可是她一点也不难过。</p>
+
+            <p>"能换来一个甜甜的梦，"弯弯轻声说，"就是我最幸福的事。"</p>
+
+            <p>夜越来越深，弯弯的烟雾像一首没有歌词的摇篮曲，轻轻唱着："睡吧，睡吧，我的小宝贝……"</p>
+
+            <p>月亮从窗外探出头，看见弯弯在努力发光，也悄悄把自己的光洒得更温柔了一些。</p>
+
+            <p>当第一缕晨光爬上窗台时，弯弯已经变成了一小截灰色的香灰。她没有消失哦，只是把所有的爱都留在了夏夜的空气里。</p>
+
+            <p>妈妈早起时，闻到房间里淡淡的香气，笑着说："昨晚一定睡得很好吧？"</p>
+
+            <p>小宝宝揉揉眼睛，点点头："我梦见有一颗小星星，一直在守护我。"</p>
+        </article>
+
+        <div class="divider">
+            <span>✦</span>
+            <span>✦</span>
+            <span>✦</span>
+        </div>
+
+        <section class="goodnight">
+            <p>晚安，小宝贝。<br>弯弯说，你今天也是个好孩子，<br>该做一个甜甜的、没有蚊子打扰的梦了。</p>
+            <div class="signature">🌙</div>
+        </section>
+    </div>
+
+    <script>
+        // 生成随机星星
+        const starsContainer = document.getElementById('stars');
+        const starCount = 100;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 70 + '%';
+            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            star.style.animationDelay = Math.random() * 5 + 's';
+            starsContainer.appendChild(star);
+        }
+
+        // 生成萤火虫
+        const firefliesContainer = document.getElementById('fireflies');
+        const fireflyCount = 6;
+
+        for (let i = 0; i < fireflyCount; i++) {
+            const firefly = document.createElement('div');
+            firefly.className = 'firefly';
+            firefly.style.left = Math.random() * 90 + 5 + '%';
+            firefly.style.top = Math.random() * 60 + 20 + '%';
+            firefly.style.setProperty('--move-duration', (Math.random() * 4 + 4) + 's');
+            firefly.style.setProperty('--tx', (Math.random() * 60 - 30) + 'px');
+            firefly.style.setProperty('--ty', (Math.random() * 60 - 30) + 'px');
+            firefly.style.animationDelay = Math.random() * 2 + 's';
+            firefliesContainer.appendChild(firefly);
+        }
+    </script>
+</body>
+</html>

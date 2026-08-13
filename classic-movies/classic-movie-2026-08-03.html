@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 阿甘正传</title>
+  <style>
+    :root {
+      --bg: #1a1a2e;
+      --bg-card: #16213e;
+      --accent: #e94560;
+      --accent2: #0f3460;
+      --text: #eaeaea;
+      --text-dim: #a0a0b0;
+      --gold: #f4c430;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--accent2);
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    .movie-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .movie-meta {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 20px;
+    }
+
+    .movie-meta span {
+      margin: 0 8px;
+    }
+
+    .ratings {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .rating-chip {
+      background: var(--accent2);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .rating-chip .score {
+      color: var(--gold);
+      font-size: 18px;
+      margin-left: 4px;
+    }
+
+    .section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .section p {
+      font-size: 16px;
+      color: var(--text);
+      text-align: justify;
+    }
+
+    .highlights {
+      list-style: none;
+    }
+
+    .highlights li {
+      font-size: 16px;
+      padding: 10px 0;
+      padding-left: 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .highlights li:last-child {
+      border-bottom: none;
+    }
+
+    .highlights li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 18px;
+    }
+
+    .quote {
+      background: var(--accent2);
+      border-left: 4px solid var(--accent);
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 16px 0;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-dim);
+    }
+
+    .quote .author {
+      display: block;
+      text-align: right;
+      margin-top: 8px;
+      font-size: 14px;
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .awards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .award-tag {
+      background: rgba(244, 196, 48, 0.12);
+      color: var(--gold);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(244, 196, 48, 0.25);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer .date {
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .movie-title {
+        font-size: 26px;
+      }
+
+      .section {
+        padding: 18px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      .section p, .highlights li {
+        font-size: 15px;
+      }
+
+      .quote {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎬 经典电影推荐</h1>
+      <div class="subtitle">第 35 期 · 2026年8月3日</div>
+    </div>
+
+    <div style="text-align:center; margin-bottom: 24px;">
+      <div class="movie-title">阿甘正传</div>
+      <div class="movie-meta">
+        <span>Forrest Gump</span> · <span>1994</span> · <span>美国</span>
+      </div>
+      <div class="movie-meta">导演：罗伯特·泽米吉斯 | 主演：汤姆·汉克斯 / 罗宾·怀特 / 加里·西尼斯</div>
+
+      <div class="ratings">
+        <div class="rating-chip">豆瓣 <span class="score">9.5</span></div>
+        <div class="rating-chip">IMDb <span class="score">8.8</span></div>
+        <div class="rating-chip">烂番茄 <span class="score">71%</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">剧情梗概</div>
+      <p>
+        阿甘是一个智商只有 75 的阿拉巴马州男孩，从小被医生断言"这辈子完了"。但他有一位坚信"你和别人一样"的伟大母亲，还有一个叫他"跑，阿甘，跑！"的童年好友珍妮。
+      </p>
+      <p style="margin-top: 12px;">
+        因为跑得快，阿甘进了大学橄榄球队，见到了总统；因为应征入伍，他去了越南，救下了一群战友；因为乒乓球打得好，他作为外交使者访问了中国。后来他成了捕虾船船长、百万富翁，还成了全美的长跑偶像——尽管他只是想"跑到路的尽头"。
+      </p>
+      <p style="margin-top: 12px;">
+        阿甘一生都在"跑"，从逃避霸凌的孩子，到穿越美国的长跑者。他不懂复杂的世界，却用纯粹的善意和坚持，在时代的洪流中走出了一条独一无二的路。而那条路的尽头，始终是他深爱的珍妮。
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">核心亮点</div>
+      <ul class="highlights">
+        <li><strong>汤姆·汉克斯的封神演技</strong>——他将阿甘的纯真、执着与深情演绎得入木三分，凭此角色横扫奥斯卡、金球奖双料影帝，成为影史最经典的银幕形象之一。</li>
+        <li><strong>美国现代史的温情切片</strong>——影片巧妙地将阿甘嵌入真实历史：猫王、肯尼迪遇刺、越战、水门事件、中美乒乓外交……荒诞又真实，个人命运与时代巨浪交织。</li>
+        <li><strong>视效技术的里程碑</strong>——阿甘与肯尼迪握手、与列侬同台等镜头，用当时顶尖的电脑合成技术将演员无缝植入历史影像，如今看来依然天衣无缝。</li>
+        <li><strong>配乐与配乐的灵魂共鸣</strong>——艾伦·席维史崔的配乐和贯穿全片的经典摇滚乐，让每一个情感节点都精准击中观众泪腺。</li>
+        <li><strong>"羽毛"的终极隐喻</strong>——开篇与结尾飘落的羽毛，既是命运的偶然，也是生命的轻盈，开放式解读让这部电影值得反复回味。</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">为什么值得一看</div>
+      <p>
+        《阿甘正传》不是一部简单的励志片。它说的是一个"傻子"如何在聪明人的世界里活出了最通透的人生。阿甘从不追问意义，只是认真做每一件事：打仗就拼命救战友，爱珍妮就等她一辈子，想跑步就一直跑下去。
+      </p>
+      <p style="margin-top: 12px;">
+        这部电影之所以成为跨越 generations 的经典，是因为它回答了一个永恒的命题：当世界变得越来越复杂，最简单的东西反而最有力量。善良、坚持、信守承诺——这些被聪明人视为"愚钝"的品质，恰恰是最稀缺的。
+      </p>
+      <p style="margin-top: 12px;">
+        无论你是第几次看，那片飘向天空的羽毛都会让你重新思考：人生究竟是注定的，还是随风而起的？答案，也许在阿甘奔跑的脚步声里。
+      </p>
+
+      <div class="quote">
+        "生活就像一盒巧克力，你永远不知道下一颗是什么味道。"
+        <span class="author">—— 阿甘</span>
+      </div>
+
+      <div class="awards">
+        <span class="award-tag">🏆 奥斯卡最佳影片</span>
+        <span class="award-tag">🏆 奥斯卡最佳导演</span>
+        <span class="award-tag">🏆 奥斯卡最佳男主角</span>
+        <span class="award-tag">🏆 奥斯卡最佳改编剧本</span>
+        <span class="award-tag">🏆 奥斯卡最佳视觉效果</span>
+        <span class="award-tag">🏆 奥斯卡最佳剪辑</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>经典永不过时，好电影值得反复品味 🎞️</div>
+      <div class="date">本期推荐 · 2026年8月3日 · 第 35 期</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小沙粒的城堡 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(175deg, #0a0e27 0%, #111d42 35%, #1a2a5c 60%, #0d1530 100%);
+    color: #e8e0d0;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空背景 */
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle var(--duration) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 60px;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #ffeebb, #f5d98a 50%, #d4b86a 100%);
+    box-shadow: 0 0 40px 15px rgba(255, 238, 187, 0.3), 0 0 80px 30px rgba(255, 238, 187, 0.1);
+    z-index: 1;
+    animation: moonFloat 6s ease-in-out infinite;
+  }
+
+  .moon::after {
+    content: '';
+    position: absolute;
+    top: 12px; left: 18px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: rgba(210, 180, 120, 0.4);
+  }
+
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.8), rgba(255,255,255,0));
+    border-radius: 2px;
+    transform: rotate(-35deg);
+    opacity: 0;
+    z-index: 1;
+    animation: shoot1 8s ease-in infinite;
+  }
+
+  .shooting-star.s2 {
+    animation: shoot2 12s ease-in infinite;
+    animation-delay: 3s;
+  }
+
+  @keyframes shoot1 {
+    0% { opacity: 0; top: 80px; left: 60%; }
+    2% { opacity: 1; }
+    5% { opacity: 0; top: 180px; left: 30%; }
+    100% { opacity: 0; }
+  }
+
+  @keyframes shoot2 {
+    0% { opacity: 0; top: 120px; left: 80%; }
+    2% { opacity: 1; }
+    5% { opacity: 0; top: 220px; left: 50%; }
+    100% { opacity: 0; }
+  }
+
+  /* 海滩底部装饰 */
+  .beach-bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .wave {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    right: 0;
+    height: 25px;
+    background: linear-gradient(to bottom, rgba(80, 140, 200, 0.15), rgba(60, 120, 180, 0.05));
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    animation: waveMove 4s ease-in-out infinite;
+  }
+
+  .wave.w2 {
+    bottom: 45px;
+    height: 20px;
+    background: linear-gradient(to bottom, rgba(80, 140, 200, 0.1), rgba(60, 120, 180, 0.03));
+    animation: waveMove2 5s ease-in-out infinite;
+  }
+
+  .sand-layer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(210, 180, 140, 0.08), rgba(210, 180, 140, 0.03));
+  }
+
+  @keyframes waveMove {
+    0%, 100% { transform: translateX(0) scaleY(1); }
+    50% { transform: translateX(-15px) scaleY(1.1); }
+  }
+
+  @keyframes waveMove2 {
+    0%, 100% { transform: translateX(0) scaleY(1); }
+    50% { transform: translateX(10px) scaleY(1.05); }
+  }
+
+  /* 沙粒光点 */
+  .sand-particle {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: rgba(255, 230, 170, 0.6);
+    animation: sandFloat var(--dur) ease-in-out infinite;
+    animation-delay: var(--del);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  @keyframes sandFloat {
+    0%, 100% { opacity: 0.3; transform: translateY(0) scale(1); }
+    50% { opacity: 0.8; transform: translateY(-15px) scale(1.2); }
+  }
+
+  /* 主内容 */
+  .content {
+    max-width: 600px;
+    width: 90%;
+    padding: 40px 20px 120px;
+    z-index: 2;
+    position: relative;
+  }
+
+  .story-icon {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    animation: iconFloat 5s ease-in-out infinite;
+  }
+
+  @keyframes iconFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-6px) rotate(1deg); }
+    75% { transform: translateY(4px) rotate(-1deg); }
+  }
+
+  .story-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffeebb;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    animation: titleGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(255, 238, 187, 0.3); }
+    50% { text-shadow: 0 0 20px rgba(255, 238, 187, 0.5), 0 0 40px rgba(255, 238, 187, 0.2); }
+  }
+
+  .story-date {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(200, 190, 170, 0.5);
+    margin-bottom: 35px;
+    letter-spacing: 1px;
+  }
+
+  .story-body {
+    font-size: 18px;
+    line-height: 2;
+    color: #ddd8cc;
+    text-align: justify;
+  }
+
+  .story-body p {
+    margin-bottom: 16px;
+    text-indent: 2em;
+  }
+
+  .goodnight-section {
+    margin-top: 40px;
+    padding: 25px 20px;
+    border-radius: 16px;
+    background: rgba(255, 238, 187, 0.06);
+    border: 1px solid rgba(255, 238, 187, 0.12);
+    text-align: center;
+    animation: goodnightGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes goodnightGlow {
+    0%, 100% { box-shadow: 0 0 15px rgba(255, 238, 187, 0.05); }
+    50% { box-shadow: 0 0 30px rgba(255, 238, 187, 0.15), 0 0 50px rgba(255, 238, 187, 0.05); }
+  }
+
+  .goodnight-text {
+    font-size: 17px;
+    line-height: 1.8;
+    color: #ffeebb;
+  }
+
+  .goodnight-emoji {
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  /* 底部星光装饰 */
+  .bottom-stars {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 30px;
+    animation: bottomStarsGlow 3s ease-in-out infinite;
+  }
+
+  .bottom-stars span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 230, 170, 0.5);
+    animation: starPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes starPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.4); }
+  }
+
+  @keyframes bottomStarsGlow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .moon { width: 60px; height: 60px; top: 25px; right: 30px; }
+    .story-title { font-size: 24px; }
+    .story-body { font-size: 16px; line-height: 1.85; }
+    .goodnight-text { font-size: 15px; }
+    .content { padding: 30px 16px 100px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="stars-container" id="starsContainer"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 海滩底部 -->
+<div class="beach-bottom">
+  <div class="wave w2"></div>
+  <div class="wave"></div>
+  <div class="sand-layer"></div>
+</div>
+
+<!-- 沙粒光点 -->
+<div id="sandParticles"></div>
+
+<!-- 主内容 -->
+<div class="content">
+  <div class="story-icon">
+    <svg width="100" height="90" viewBox="0 0 100 90">
+      <!-- 沙粒 -->
+      <circle cx="50" cy="25" r="8" fill="#ffe8a0" opacity="0.9">
+        <animate attributeName="r" values="8;9;8" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.9;1;0.9" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 沙粒上的小星光 -->
+      <circle cx="47" cy="22" r="2" fill="#fff" opacity="0.6">
+        <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="54" cy="26" r="1.5" fill="#fff" opacity="0.4">
+        <animate attributeName="opacity" values="0.4;0.8;0.4" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 城堡轮廓 -->
+      <rect x="25" y="40" width="50" height="30" rx="2" fill="rgba(255,230,170,0.15)" stroke="rgba(255,230,170,0.3)" stroke-width="1"/>
+      <!-- 城堡塔楼 -->
+      <rect x="30" y="32" width="12" height="38" rx="1" fill="rgba(255,230,170,0.2)" stroke="rgba(255,230,170,0.35)" stroke-width="1"/>
+      <rect x="58" y="35" width="12" height="35" rx="1" fill="rgba(255,230,170,0.18)" stroke="rgba(255,230,170,0.35)" stroke-width="1"/>
+      <!-- 塔尖 -->
+      <polygon points="30,32 36,24 42,32" fill="rgba(255,230,170,0.25)" stroke="rgba(255,230,170,0.4)" stroke-width="1"/>
+      <polygon points="58,35 64,27 70,35" fill="rgba(255,230,170,0.25)" stroke="rgba(255,230,170,0.4)" stroke-width="1"/>
+      <!-- 城门 -->
+      <path d="M42 70 Q50 62 58 70" fill="rgba(255,238,187,0.1)" stroke="rgba(255,238,187,0.25)" stroke-width="1"/>
+      <!-- 小窗户 -->
+      <rect x="34" y="42" width="4" height="5" rx="1" fill="rgba(255,238,187,0.2)"/>
+      <rect x="62" y="44" width="4" height="5" rx="1" fill="rgba(255,238,187,0.2)"/>
+      <!-- 更多沙粒散落 -->
+      <circle cx="20" cy="55" r="2.5" fill="#ffe8a0" opacity="0.4">
+        <animate attributeName="opacity" values="0.4;0.7;0.4" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="80" cy="58" r="2" fill="#ffe8a0" opacity="0.35">
+        <animate attributeName="opacity" values="0.35;0.65;0.35" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="15" cy="68" r="2" fill="#ffe8a0" opacity="0.3">
+        <animate attributeName="opacity" values="0.3;0.6;0.3" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="85" cy="65" r="2.5" fill="#ffe8a0" opacity="0.35">
+        <animate attributeName="opacity" values="0.35;0.7;0.35" dur="3.8s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+  </div>
+
+  <div class="story-title">小沙粒的城堡</div>
+  <div class="story-date">2026年7月15日 · 儿童睡前故事</div>
+
+  <div class="story-body">
+    <p>海边有一片金色的沙滩，沙滩上有数不清的小沙粒。其中有一颗最小的沙粒，叫小米。</p>
+
+    <p>小米比别的沙粒都小，风一来就容易被吹跑，浪一打就容易被冲走。她常常躲在别的沙粒后面，觉得自己太小了，什么也做不了。</p>
+
+    <p>"你太小啦，"大沙粒们说，"筑城堡得靠我们这些大的才行。"</p>
+
+    <p>小米听了，低下了头。她觉得自己就像一粒微不足道的尘埃，谁也不需要她。</p>
+
+    <p>那天傍晚，一个小女孩来到沙滩上，她蹲下来，用小手捧起沙子，开始堆一座城堡。小米被捧在了最底下的那一层。</p>
+
+    <p>"呀，底下的沙子不够稳固了，"小女孩皱着眉头说。她的小城堡开始往下塌。</p>
+
+    <p>小米忽然想：如果我紧紧地靠着旁边的大沙粒，不让它们滑动，是不是就能帮上忙呢？</p>
+
+    <p>于是小米使劲地靠拢身旁的伙伴们，一颗又一颗，小小的她像胶水一样把大家粘在一起。大沙粒们惊讶地发现，有了小米在中间，他们不再滑动了！</p>
+
+    <p>小女孩的城堡越堆越高——塔楼、城墙、小小的拱门。每一层里都有小米，她虽然最小，却总在最重要的角落，悄悄地撑着大家。</p>
+
+    <p>当月亮升起来的时候，一座漂亮的沙城堡站在沙滩上。小女孩拍了拍手，开心地说："谢谢你们，每一粒沙子！"</p>
+
+    <p>大沙粒们对小米说："原来，城堡不只是靠大的，也靠你这样小小的、在最底下撑着大家的。"</p>
+
+    <p>小米笑了。她终于知道：再小的沙粒，也有属于她的位置；再微小的力量，也能帮着筑起一座了不起的城堡。</p>
+
+    <p>月光照在城堡上，小米安安静静地躺在了最温暖的那一角。海浪轻轻拍着沙滩，好像在说——晚安，小沙粒，你今天也是城堡里最了不起的那一颗。</p>
+  </div>
+
+  <div class="goodnight-section">
+    <div class="goodnight-text">
+      晚安，小宝贝。<br>小米说，你今天也是个好孩子，<br>再小的你也能撑起了不起的事，<br>该做一个甜甜的梦了。
+    </div>
+    <div class="goodnight-emoji">🌙 ✨ 🏰</div>
+  </div>
+
+  <div class="bottom-stars">
+    <span style="animation-delay: 0s;"></span>
+    <span style="animation-delay: 0.3s;"></span>
+    <span style="animation-delay: 0.6s;"></span>
+    <span style="animation-delay: 0.9s;"></span>
+    <span style="animation-delay: 1.2s;"></span>
+    <span style="animation-delay: 1.5s;"></span>
+    <span style="animation-delay: 1.8s;"></span>
+  </div>
+</div>
+
+<script>
+// 生成星星
+const starsContainer = document.getElementById('starsContainer');
+for (let i = 0; i < 100; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2.5 + 1;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 70 + '%';
+  star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+  star.style.setProperty('--delay', (Math.random() * 5) + 's');
+  starsContainer.appendChild(star);
+}
+
+// 生成沙粒光点
+const sandParticles = document.getElementById('sandParticles');
+for (let i = 0; i < 10; i++) {
+  const p = document.createElement('div');
+  p.className = 'sand-particle';
+  p.style.left = (Math.random() * 90 + 5) + '%';
+  p.style.top = (Math.random() * 30 + 55) + '%';
+  p.style.setProperty('--dur', (Math.random() * 3 + 2.5) + 's');
+  p.style.setProperty('--del', (Math.random() * 4) + 's');
+  sandParticles.appendChild(p);
+}
+</script>
+
+</body>
+</html>

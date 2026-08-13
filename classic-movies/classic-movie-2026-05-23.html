@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 - 辛德勒的名单</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #0a0a0a;
+    color: #e8e6e1;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .hero {
+    position: relative;
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-date {
+    font-size: 12px;
+    color: #555;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  .poster-section {
+    position: relative;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .poster-frame {
+    width: 260px;
+    height: 380px;
+    margin: 0 auto;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    background: #111;
+  }
+
+  .poster-frame svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info-bar {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+
+  .info-tag {
+    font-size: 12px;
+    color: #999;
+    padding: 6px 14px;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #d4c5a0;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 16px;
+    background: #d4c5a0;
+    border-radius: 2px;
+  }
+
+  .rating-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .rating-card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 18px 12px;
+    text-align: center;
+  }
+
+  .rating-score {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .rating-score.gold { color: #d4c5a0; }
+  .rating-score.red { color: #e05050; }
+  .rating-score.green { color: #6ab04c; }
+
+  .rating-source {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 1px;
+  }
+
+  .synopsis {
+    font-size: 14.5px;
+    line-height: 2;
+    color: #bbb;
+    text-align: justify;
+  }
+
+  .highlight-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlight-list li {
+    position: relative;
+    padding: 14px 0 14px 28px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #bbb;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .highlight-list li:last-child {
+    border-bottom: none;
+  }
+
+  .highlight-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 22px;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid #d4c5a0;
+    border-radius: 50%;
+  }
+
+  .why-section {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 10px;
+  }
+
+  .why-section p {
+    font-size: 14px;
+    line-height: 2;
+    color: #aaa;
+    margin-bottom: 14px;
+  }
+
+  .why-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .quote-block {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: #d4c5a0;
+    text-align: center;
+    padding: 24px;
+    margin: 36px 0;
+    border-top: 1px solid #1e1e1e;
+    border-bottom: 1px solid #1e1e1e;
+    line-height: 1.9;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    color: #333;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .awards-strip {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0 36px;
+  }
+
+  .award-badge {
+    font-size: 11px;
+    color: #d4c5a0;
+    border: 1px solid #3a3525;
+    background: #1a1810;
+    padding: 5px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-label">经典电影推荐</div>
+    <h1 style="font-family:'Noto Serif SC',serif; font-size:28px; font-weight:600; color:#e8e6e1; letter-spacing:4px; margin-bottom:10px;">辛德勒的名单</h1>
+    <p style="font-family:'Noto Serif SC',serif; font-size:15px; color:#888; letter-spacing:2px; font-style:italic;">Schindler's List</p>
+    <div class="hero-date">2026 年 5 月 23 日 &middot; 星期六</div>
+  </div>
+
+  <div class="poster-section">
+    <div class="poster-frame">
+      <svg viewBox="0 0 260 380" xmlns="http://www.w3.org/2000/svg">
+        <rect width="260" height="380" fill="#0a0a0a"/>
+        <rect width="260" height="380" fill="url(#filmGrain)" opacity="0.03"/>
+        <defs>
+          <linearGradient id="filmGrain" x1="0" y1="0" x2="260" y2="380">
+            <stop offset="0%" stop-color="#fff"/>
+            <stop offset="50%" stop-color="#000"/>
+            <stop offset="100%" stop-color="#fff"/>
+          </linearGradient>
+        </defs>
+        <!-- Silhouette figures -->
+        <g opacity="0.15" fill="#fff">
+          <ellipse cx="130" cy="60" rx="80" ry="4"/>
+          <!-- Hand silhouette -->
+          <path d="M125 100 L128 140 Q130 155 132 140 L135 100 Q132 90 125 100Z" opacity="0.3"/>
+          <!-- Multiple small figures at bottom -->
+          <rect x="60" y="300" width="3" height="20" rx="1"/>
+          <rect x="75" y="295" width="3" height="25" rx="1"/>
+          <rect x="90" y="302" width="3" height="18" rx="1"/>
+          <rect x="105" y="290" width="3" height="30" rx="1"/>
+          <rect x="120" y="298" width="3" height="22" rx="1"/>
+          <rect x="135" y="305" width="3" height="15" rx="1"/>
+          <rect x="150" y="292" width="3" height="28" rx="1"/>
+          <rect x="165" y="300" width="3" height="20" rx="1"/>
+          <rect x="180" y="296" width="3" height="24" rx="1"/>
+          <rect x="195" y="303" width="3" height="17" rx="1"/>
+        </g>
+        <!-- Red coat girl silhouette -->
+        <circle cx="185" cy="180" r="6" fill="#c0392b" opacity="0.6"/>
+        <rect x="181" y="186" width="8" height="20" rx="3" fill="#c0392b" opacity="0.6"/>
+        <!-- Red coat glow -->
+        <circle cx="185" cy="188" r="18" fill="#c0392b" opacity="0.05"/>
+        <!-- Film strip edges -->
+        <rect x="0" y="0" width="8" height="380" fill="#111"/>
+        <rect x="252" y="0" width="8" height="380" fill="#111"/>
+        <g fill="#1a1a1a">
+          <rect x="2" y="15" width="4" height="6" rx="1"/>
+          <rect x="2" y="35" width="4" height="6" rx="1"/>
+          <rect x="2" y="55" width="4" height="6" rx="1"/>
+          <rect x="2" y="75" width="4" height="6" rx="1"/>
+          <rect x="2" y="95" width="4" height="6" rx="1"/>
+          <rect x="2" y="115" width="4" height="6" rx="1"/>
+          <rect x="2" y="135" width="4" height="6" rx="1"/>
+          <rect x="2" y="155" width="4" height="6" rx="1"/>
+          <rect x="2" y="175" width="4" height="6" rx="1"/>
+          <rect x="2" y="195" width="4" height="6" rx="1"/>
+          <rect x="2" y="215" width="4" height="6" rx="1"/>
+          <rect x="2" y="235" width="4" height="6" rx="1"/>
+          <rect x="2" y="255" width="4" height="6" rx="1"/>
+          <rect x="2" y="275" width="4" height="6" rx="1"/>
+          <rect x="2" y="295" width="4" height="6" rx="1"/>
+          <rect x="2" y="315" width="4" height="6" rx="1"/>
+          <rect x="2" y="335" width="4" height="6" rx="1"/>
+          <rect x="2" y="355" width="4" height="6" rx="1"/>
+          <rect x="254" y="15" width="4" height="6" rx="1"/>
+          <rect x="254" y="35" width="4" height="6" rx="1"/>
+          <rect x="254" y="55" width="4" height="6" rx="1"/>
+          <rect x="254" y="75" width="4" height="6" rx="1"/>
+          <rect x="254" y="95" width="4" height="6" rx="1"/>
+          <rect x="254" y="115" width="4" height="6" rx="1"/>
+          <rect x="254" y="135" width="4" height="6" rx="1"/>
+          <rect x="254" y="155" width="4" height="6" rx="1"/>
+          <rect x="254" y="175" width="4" height="6" rx="1"/>
+          <rect x="254" y="195" width="4" height="6" rx="1"/>
+          <rect x="254" y="215" width="4" height="6" rx="1"/>
+          <rect x="254" y="235" width="4" height="6" rx="1"/>
+          <rect x="254" y="255" width="4" height="6" rx="1"/>
+          <rect x="254" y="275" width="4" height="6" rx="1"/>
+          <rect x="254" y="295" width="4" height="6" rx="1"/>
+          <rect x="254" y="315" width="4" height="6" rx="1"/>
+          <rect x="254" y="335" width="4" height="6" rx="1"/>
+          <rect x="254" y="355" width="4" height="6" rx="1"/>
+        </g>
+        <!-- Title text -->
+        <text x="130" y="255" text-anchor="middle" font-family="'Noto Serif SC', serif" font-size="16" fill="#d4c5a0" letter-spacing="3" opacity="0.8">辛德勒的名单</text>
+        <text x="130" y="275" text-anchor="middle" font-family="Georgia, serif" font-size="10" fill="#666" letter-spacing="2" font-style="italic">Schindler's List</text>
+        <text x="130" y="350" text-anchor="middle" font-family="Georgia, serif" font-size="9" fill="#444" letter-spacing="1">1993 &middot; Steven Spielberg</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <span class="info-tag">1993</span>
+    <span class="info-tag">史蒂文·斯皮尔伯格</span>
+    <span class="info-tag">连姆·尼森</span>
+    <span class="info-tag">黑白 / 195 分钟</span>
+  </div>
+
+  <div class="rating-grid">
+    <div class="rating-card">
+      <div class="rating-score gold">9.5</div>
+      <div class="rating-source">豆瓣</div>
+    </div>
+    <div class="rating-card">
+      <div class="rating-score red">8.9</div>
+      <div class="rating-source">IMDb</div>
+    </div>
+    <div class="rating-card">
+      <div class="rating-score green">97%</div>
+      <div class="rating-source">烂番茄</div>
+    </div>
+  </div>
+
+  <div class="awards-strip">
+    <span class="award-badge">奥斯卡最佳影片</span>
+    <span class="award-badge">奥斯卡最佳导演</span>
+    <span class="award-badge">奥斯卡最佳配乐</span>
+    <span class="award-badge">金球奖最佳剧情片</span>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">剧情梗概</h2>
+    <p class="synopsis">
+      二战期间的波兰，德国商人奥斯卡·辛德勒来到克拉科夫，借战争之机开设搪瓷工厂，雇佣犹太人以极低成本牟取暴利。他是一个精明的投机者，热爱美酒与交际，战争对他而言不过是一场生意。然而，随着纳粹对犹太人的迫害不断升级——从隔离区清剿到集中营屠杀——辛德勒亲眼目睹了人类最黑暗的一面，内心的良知被一步步唤醒。他开始利用自己的工厂作为庇护所，倾尽全部家财，贿赂纳粹军官，只为在名单上多添一个名字，多救一条生命。
+    </p>
+  </div>
+
+  <div class="quote-block">
+    "拯救一个人，就是拯救了整个世界。"
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">影片亮点</h2>
+    <ul class="highlight-list">
+      <li><strong>黑白影像的力量</strong> —— 全片几乎采用黑白摄影，让画面具有纪录片般的真实感与沉重感。唯有一抹红色贯穿全片，成为影史最令人难忘的视觉符号。</li>
+      <li><strong>约翰·威廉姆斯的配乐</strong> —— 小提琴独奏由帕尔曼演奏，旋律哀婉而不煽情，从第一个音符起便将观众拉入那段沉痛的历史。获奥斯卡最佳原创配乐。</li>
+      <li><strong>连姆·尼森的表演</strong> —— 他精准地刻画了一个从投机商人到良知觉醒者的转变弧光，没有英雄式的慷慨激昂，却有着真实人性的挣扎与成长。</li>
+      <li><strong>拉尔夫·费因斯的反派</strong> —— 饰演纳粹军官阿蒙·戈斯，将暴力与优雅并存的恐怖演绎到极致，是影史上最令人不寒而栗的银幕反派之一。</li>
+      <li><strong>真实事件的厚重</strong> —— 改编自真实历史，片尾真正的"辛德勒犹太人"及其后代出场，与饰演他们的演员并肩而行，那一幕足以令任何观众泪目。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">为什么值得一看</h2>
+    <div class="why-section">
+      <p>
+        《辛德勒的名单》不是一部"好看"的电影，它沉重、压抑、甚至让人不忍直视。但正因如此，它才是每个人都应该看一次的电影。
+      </p>
+      <p>
+        斯皮尔伯格在拍完这部片子后曾说，这是他毕生最重要的作品。他用三小时的篇幅，讲述的不是战争的宏大叙事，而是一个普通人在极端环境下的道德选择——当整个世界都在沉沦时，一个人的良知能撑起多少生命？
+      </p>
+      <p>
+        这部电影教会我们：在最黑暗的时代，善良不是软弱，而是一种最昂贵、最勇敢的力量。它提醒我们铭记历史，不是为了仇恨，而是为了确保这样的悲剧永远不再发生。
+      </p>
+      <p>
+        如果一生只看一部关于二战的电影，就选这一部。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    每日经典电影推荐 &middot; 第 5 期
+  </div>
+
+</div>
+
+</body>
+</html>

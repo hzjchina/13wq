@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小夜灯的守护 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { min-height: 100%; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 40%, #0c4a6e 100%);
+      color: #f1f5f9;
+      line-height: 1.9;
+      overflow-x: hidden;
+      position: relative;
+    }
+    .stars {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    .moon {
+      position: fixed;
+      top: 48px;
+      right: 32px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fffbeb 0%, #fde68a 40%, #f59e0b 100%);
+      box-shadow: 0 0 40px rgba(253, 230, 138, 0.35), 0 0 80px rgba(245, 158, 11, 0.15);
+      z-index: 1;
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: 12px; left: -18px;
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+    }
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .glow-orb {
+      position: fixed;
+      bottom: 15%;
+      left: 8%;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(253, 186, 116, 0.25) 0%, rgba(251, 146, 60, 0.08) 50%, transparent 70%);
+      filter: blur(12px);
+      animation: pulseGlow 4s ease-in-out infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes pulseGlow {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.15); opacity: 1; }
+    }
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+    .title-wrap {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 20px;
+      filter: drop-shadow(0 0 24px rgba(253, 186, 116, 0.5));
+    }
+    .icon .bulb-glow {
+      animation: bulbPulse 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes bulbPulse {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #fffbeb;
+      letter-spacing: 0.05em;
+      text-shadow: 0 2px 16px rgba(253, 230, 138, 0.3);
+    }
+    .subtitle {
+      font-size: 0.95rem;
+      color: #94a3b8;
+      margin-top: 8px;
+    }
+    .story {
+      background: rgba(15, 23, 42, 0.55);
+      backdrop-filter: blur(12px);
+      border-radius: 24px;
+      padding: 36px 32px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      font-size: 1.15rem;
+      color: #e2e8f0;
+    }
+    .story p {
+      margin-bottom: 1.3em;
+      text-indent: 2em;
+    }
+    .story p:first-of-type::first-letter {
+      font-size: 2.2em;
+      float: left;
+      line-height: 1;
+      margin-right: 0.1em;
+      color: #fde68a;
+      text-shadow: 0 0 12px rgba(253, 230, 138, 0.5);
+    }
+    .goodnight {
+      margin-top: 44px;
+      padding: 28px 24px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(251, 146, 60, 0.15), rgba(245, 158, 11, 0.1));
+      border: 1px solid rgba(251, 146, 60, 0.2);
+      text-align: center;
+      font-size: 1.2rem;
+      color: #fed7aa;
+      line-height: 1.8;
+      box-shadow: 0 0 30px rgba(251, 146, 60, 0.1);
+    }
+    .goodnight .emoji {
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: 10px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+    @media (max-width: 480px) {
+      .container { padding: 48px 18px 72px; }
+      .story { padding: 26px 22px; font-size: 1.05rem; }
+      h1 { font-size: 1.6rem; }
+      .moon { width: 64px; height: 64px; top: 28px; right: 18px; }
+      .moon::after { width: 48px; height: 48px; top: 8px; left: -14px; }
+      .glow-orb { width: 120px; height: 120px; }
+      .icon { width: 96px; height: 96px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="glow-orb"></div>
+
+  <div class="container">
+    <div class="title-wrap">
+      <svg class="icon" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="60" cy="108" rx="28" ry="8" fill="#1e293b" opacity="0.6"/>
+        <rect x="44" y="88" width="32" height="14" rx="4" fill="#fb923c"/>
+        <path d="M48 88 V76 C48 68 54 62 60 62 C66 62 72 68 72 76 V88 H48Z" fill="#fdba74"/>
+        <path d="M52 76 C52 71 56 67 60 67 C64 67 68 71 68 76 V88 H52 V76Z" fill="#fff7ed"/>
+        <circle cx="60" cy="78" r="6" fill="#fde68a" class="bulb-glow"/>
+        <circle cx="60" cy="78" r="16" fill="#f59e0b" opacity="0.2" class="bulb-glow"/>
+        <circle cx="60" cy="78" r="28" fill="#f59e0b" opacity="0.1" class="bulb-glow"/>
+        <path d="M60 55 V45" stroke="#94a3b8" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="60" cy="42" r="5" fill="#e2e8f0"/>
+      </svg>
+      <h1>小夜灯的守护</h1>
+      <div class="subtitle">2026年6月27日 · 儿童睡前故事</div>
+    </div>
+
+    <div class="story">
+      <p>在一间温馨的小房间里，住着一盏小小的夜灯。它有着圆圆的奶白色灯罩，底座是温暖的橙色，开关是一只小小的月亮按钮。</p>
+      <p>每当太阳公公下班，月亮姐姐爬上窗台，小夜灯就会轻轻亮起。它不会很亮，只是一团柔柔的、像棉花糖一样的光。</p>
+      <p>这天晚上，小房间里传来轻轻的声音。原来是小主人翻了个身，睁开了眼睛。</p>
+      <p>“有点黑……”小主人小声地说，把小被子往上拉了拉。</p>
+      <p>小夜灯听见了，便把光调得更柔和一些，像伸出了一只温暖的小手。</p>
+      <p>“别怕，”小夜灯用轻轻的声音说，“我在这里呢。”</p>
+      <p>小主人往小夜灯的方向看了看，那团暖光就像一只小小的月亮，安静地待在床头柜上。</p>
+      <p>“可是我听见窗帘在动。”小主人又说。</p>
+      <p>“那是风婆婆在帮你赶走闷热的空气呢。”小夜灯温柔地说，“她轻轻的，不会伤害你。”</p>
+      <p>小主人眨了眨眼睛，还是有一点害怕。</p>
+      <p>于是，小夜灯开始讲故事。它把自己微弱的光一亮一暗，像是在眨眼睛。</p>
+      <p>“从前，有一颗小星星，它每天晚上都挂在天边，照着小床上的宝宝。有一天，小星星想：‘要是我能离宝宝近一点就好了。’于是，它变成了一盏小夜灯，住进了宝宝的房间里。”</p>
+      <p>“真的吗？”小主人问。</p>
+      <p>“真的呀。”小夜灯的光轻轻晃了晃，“所以，你不是一个人。有星星陪着你，有我陪着你，还有月亮姐姐在窗外陪着你呢。”</p>
+      <p>小主人望向窗外，弯弯的月亮真的挂在那里，像一枚小小的银香蕉。</p>
+      <p>“而且，”小夜灯继续说，“黑暗其实也很温柔。它是夜晚的被窝，让所有的小动物、小花小草都能好好休息。小鸟在黑暗里闭上眼睛，明天才能唱出好听的歌；小花儿在黑暗里睡觉，明天才能开出更香的花。”</p>
+      <p>小主人听着听着，觉得黑暗好像也不那么可怕了。</p>
+      <p>“那我也会好好睡觉。”小主人打了个小哈欠，“明天我要做一个勇敢的宝宝。”</p>
+      <p>“你已经是勇敢的宝宝啦。”小夜灯笑着说，“能在黑夜里闭上眼睛，把梦交给明天，就是勇敢。”</p>
+      <p>小主人的眼皮越来越沉，呼吸也变得轻轻的。</p>
+      <p>小夜灯把光变得更暗、更暖，像一首无声的摇篮曲。</p>
+      <p>“晚安，小宝贝。”小夜灯轻声说，“好好睡吧，我会一直在这里，守护你的梦。”</p>
+      <p>窗外，月亮姐姐也笑弯了眼睛。</p>
+    </div>
+
+    <div class="goodnight">
+      <span class="emoji">🌙✨</span>
+      晚安，小宝贝。月亮姐姐说，你今天也是个好孩子，该做一个甜甜的梦了。
+    </div>
+
+    <div class="footer">给小宝贝的温暖睡前故事</div>
+  </div>
+
+  <script>
+    (function() {
+      const stars = document.getElementById('stars');
+      const count = 90;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.5 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        stars.appendChild(star);
+      }
+    })();
+  </script>
+</body>
+</html>

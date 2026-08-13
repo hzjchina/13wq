@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 这个杀手不太冷</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  @keyframes bgShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes floatLeaf {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0.7; }
+    50% { transform: translateY(-30px) rotate(180deg); opacity: 0.3; }
+    100% { transform: translateY(0) rotate(360deg); opacity: 0.7; }
+  }
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(46, 139, 87, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(46, 139, 87, 0.6); }
+  }
+  @keyframes lineGrow {
+    from { width: 0; }
+    to { width: 60px; }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(160deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #1a1a2e 100%);
+    background-size: 200% 200%;
+    animation: bgShift 15s ease infinite;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 60%, rgba(46,139,87,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 40%, rgba(220,20,60,0.08) 0%, transparent 50%);
+  }
+
+  .hero-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .particle {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(46,139,87,0.4);
+    animation: floatLeaf 6s ease-in-out infinite;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    animation: fadeInUp 1.2s ease forwards;
+    padding: 0 20px;
+  }
+
+  .hero-emoji {
+    font-size: 80px;
+    display: block;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 20px rgba(46,139,87,0.5));
+  }
+
+  .hero-title {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: 6px;
+    color: #ffffff;
+    text-shadow: 0 0 40px rgba(46,139,87,0.4);
+    margin-bottom: 10px;
+  }
+
+  .hero-subtitle {
+    font-size: 1.2rem;
+    color: #a0d4b0;
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .hero-meta {
+    font-size: 0.95rem;
+    color: #7a9a8a;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, #2e8b57, #8fbc8f);
+    margin: 0 auto 30px;
+    animation: lineGrow 1s ease forwards 0.5s;
+    width: 0;
+    animation-fill-mode: forwards;
+  }
+
+  .hero-tagline {
+    font-size: 1.15rem;
+    color: #b8c9c0;
+    font-style: italic;
+    letter-spacing: 1px;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .main-content {
+    max-width: 900px;
+    margin: -80px auto 0;
+    padding: 0 24px 80px;
+    position: relative;
+    z-index: 5;
+  }
+
+  .card {
+    background: linear-gradient(135deg, rgba(26,26,46,0.95), rgba(22,33,62,0.95));
+    border: 1px solid rgba(46,139,87,0.2);
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.8s ease forwards;
+    backdrop-filter: blur(20px);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 40px rgba(46,139,87,0.15);
+  }
+  .card:nth-child(1) { animation-delay: 0.1s; }
+  .card:nth-child(2) { animation-delay: 0.2s; }
+  .card:nth-child(3) { animation-delay: 0.3s; }
+  .card:nth-child(4) { animation-delay: 0.4s; }
+  .card:nth-child(5) { animation-delay: 0.5s; }
+  .card:nth-child(6) { animation-delay: 0.6s; }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(46,139,87,0.15);
+  }
+  .card-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #8fbc8f;
+    letter-spacing: 1px;
+  }
+
+  .card-body p {
+    line-height: 1.9;
+    font-size: 1.05rem;
+    color: #c8d6cf;
+    margin-bottom: 16px;
+  }
+  .card-body p:last-child { margin-bottom: 0; }
+
+  .highlight-box {
+    background: rgba(46,139,87,0.08);
+    border-left: 3px solid #2e8b57;
+    padding: 18px 24px;
+    border-radius: 0 8px 8px 0;
+    margin: 20px 0;
+    font-style: italic;
+    color: #a0d4b0;
+  }
+
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 16px;
+  }
+  .score-item {
+    background: rgba(46,139,87,0.06);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    border: 1px solid rgba(46,139,87,0.12);
+    transition: all 0.3s;
+  }
+  .score-item:hover {
+    background: rgba(46,139,87,0.12);
+    transform: scale(1.03);
+  }
+  .score-number {
+    font-size: 2.8rem;
+    font-weight: 900;
+    color: #2e8b57;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .score-label {
+    font-size: 0.9rem;
+    color: #7a9a8a;
+    letter-spacing: 1px;
+  }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .tag {
+    background: rgba(46,139,87,0.12);
+    border: 1px solid rgba(46,139,87,0.25);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 0.85rem;
+    color: #8fbc8f;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+  }
+  .tag:hover {
+    background: rgba(46,139,87,0.2);
+    transform: translateY(-2px);
+  }
+
+  .footer-note {
+    text-align: center;
+    padding: 40px 20px;
+    color: #4a5a50;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .card { padding: 24px; }
+    .score-grid { grid-template-columns: repeat(2, 1fr); }
+    .hero { min-height: 500px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-particles">
+    <div class="particle" style="width:8px;height:8px;top:20%;left:15%;animation-delay:0s;"></div>
+    <div class="particle" style="width:5px;height:5px;top:35%;right:20%;animation-delay:2s;"></div>
+    <div class="particle" style="width:6px;height:6px;bottom:25%;left:30%;animation-delay:4s;"></div>
+    <div class="particle" style="width:7px;height:7px;top:15%;right:35%;animation-delay:1s;"></div>
+    <div class="particle" style="width:4px;height:4px;bottom:40%;right:25%;animation-delay:3s;"></div>
+    <div class="particle" style="width:5px;height:5px;top:50%;left:10%;animation-delay:5s;"></div>
+  </div>
+
+  <div class="hero-content">
+    <span class="hero-emoji">🌿</span>
+    <h1 class="hero-title">这个杀手不太冷</h1>
+    <p class="hero-subtitle">LEON: THE PROFESSIONAL</p>
+    <p class="hero-meta">1994 · 法国 / 美国 · 吕克·贝松</p>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">"人生总是那么痛苦吗？还是只有小时候是这样？"<br>"总是如此。"</p>
+  </div>
+</section>
+
+<!-- Main Content -->
+<div class="main-content">
+
+  <!-- 评分 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">⭐</span>
+      <span class="card-title">口碑评分</span>
+    </div>
+    <div class="card-body">
+      <div class="score-grid">
+        <div class="score-item">
+          <div class="score-number">8.5</div>
+          <div class="score-label">IMDb</div>
+        </div>
+        <div class="score-item">
+          <div class="score-number">9.4</div>
+          <div class="score-label">豆瓣</div>
+        </div>
+        <div class="score-item">
+          <div class="score-number">74%</div>
+          <div class="score-label">烂番茄</div>
+        </div>
+        <div class="score-item">
+          <div class="score-number">TOP 34</div>
+          <div class="score-label">IMDb 250</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 基本信息 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🎬</span>
+      <span class="card-title">影片档案</span>
+    </div>
+    <div class="card-body">
+      <p><strong>片名：</strong>这个杀手不太冷 / Léon: The Professional</p>
+      <p><strong>上映年份：</strong>1994年</p>
+      <p><strong>导演/编剧：</strong>吕克·贝松 (Luc Besson)</p>
+      <p><strong>主演：</strong>让·雷诺 (Jean Reno) / 娜塔莉·波特曼 (Natalie Portman) / 加里·奥德曼 (Gary Oldman)</p>
+      <p><strong>片长：</strong>110分钟（公映版）/ 133分钟（导演剪辑版）</p>
+      <p><strong>类型：</strong>剧情 / 动作 / 犯罪</p>
+      <div class="tag-list">
+        <span class="tag">动作</span>
+        <span class="tag">温情</span>
+        <span class="tag">法国电影</span>
+        <span class="tag">成长</span>
+        <span class="tag">犯罪</span>
+        <span class="tag">经典</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 剧情梗概 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">📖</span>
+      <span class="card-title">剧情梗概（无剧透）</span>
+    </div>
+    <div class="card-body">
+      <p>纽约的公寓楼里，住着一位沉默寡言的中年男人莱昂。他每天的生活规律得近乎刻板——喝两杯牛奶、悉心照料一盆万年青、接单"清理"任务。他是黑道上最顶尖的职业杀手，独来独往，冷酷高效。</p>
+      <p>隔壁住着一个12岁的女孩玛蒂尔达。她的家庭支离破碎，父亲涉黑、继母冷漠、姐姐刻薄，只有年幼的弟弟是她唯一的牵挂。一天，一场突如其来的灭门之灾摧毁了她的全部，走投无路之际，她敲响了莱昂的房门。</p>
+      <p>那扇门的打开，改变了一切。</p>
+      <p>一个冷酷杀手和一个孤独女孩，两个看似毫无交集的人，从此开始了相互陪伴、彼此救赎的旅程。她教他识字、让他重新感受生活的温度；他教她"清洁"的本领、用最笨拙的方式保护她。在这段非比寻常的关系中，两个孤独的灵魂找到了归属。</p>
+    </div>
+  </div>
+
+  <!-- 亮点 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">✨</span>
+      <span class="card-title">亮点所在</span>
+    </div>
+    <div class="card-body">
+      <p><strong>一、让·雷诺的封神演绎。</strong>他塑造的莱昂，外表是冷酷杀手，内心却是纯真的孩子。他喝牛奶、熨衣服、看老电影时会傻笑，对一盆植物倾注全部情感。让·雷诺用一个角色证明：真正的演技不是"演"，而是"成为"。</p>
+      <p><strong>二、娜塔莉·波特曼的银幕首秀。</strong>年仅12岁的她在400名候选人中脱颖而出，奉献了远超年龄的成熟表演。她眼中的倔强、脆弱和超越年龄的早熟，成就了电影史上最令人难忘的少女角色之一。</p>
+      <p><strong>三、加里·奥德曼的癫狂反派。</strong>他饰演的缉毒警察斯坦斯菲尔德，是电影史上最具辨识度的反派之一——神经质、暴虐、嗜杀成瘾，却在优雅的贝多芬旋律中行恶。那种令人不寒而栗的"疯"，成为无数后来者的模板。</p>
+      <p><strong>四、吕克·贝松的导演美学。</strong>冷峻的色调、精准的节奏、充满诗意的镜头语言，将纽约拍出了巴黎的浪漫质感。动作场面干净利落又不失美感，情感段落细腻克制绝不煽情。</p>
+      <div class="highlight-box">
+        "那盆万年青是整部电影最精妙的隐喻——它没有根，就像莱昂；但最终，它被种进了土里。"
+      </div>
+    </div>
+  </div>
+
+  <!-- 为什么值得看 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">💚</span>
+      <span class="card-title">为什么值得一看</span>
+    </div>
+    <div class="card-body">
+      <p>这是一部关于"爱"的电影，但这里的爱不是爱情。它比爱情更纯粹、更干净。两个被世界遗弃的人，在彼此身上找到了活下去的理由。</p>
+      <p>它让你看到：一个杀手如何学会了"牵挂"，一个女孩如何在绝望中重新学会"相信"。它告诉你，即便在最黑暗的角落，人性中最温暖的那一部分依然会发光。</p>
+      <p>30多年过去，这部电影依然能让人泪流满面。不是因为悲伤，而是因为它触及了每个人心底最柔软的地方——我们都曾是莱昂，笨拙地学着如何去爱；我们也曾是玛蒂尔达，渴望被这个世界温柔以待。</p>
+      <p>如果你还没看过，今晚就是最好的时机。</p>
+    </div>
+  </div>
+
+  <!-- 荣誉 -->
+  <div class="card">
+    <div class="card-header">
+      <span class="card-icon">🏆</span>
+      <span class="card-title">荣誉与影响</span>
+    </div>
+    <div class="card-body">
+      <p>• 法国凯撒奖最佳影片、最佳导演、最佳男主角等7项提名</p>
+      <p>• 日本电影学院奖最佳外语片</p>
+      <p>• IMDb Top 250 常年前40名</p>
+      <p>• 豆瓣电影 Top 250 第5名，超200万人评分</p>
+      <p>• 全球影史最具影响力的动作/剧情片之一，被无数后辈导演致敬与模仿</p>
+      <p>• 娜塔莉·波特曼凭此片一举成名，开启传奇演艺生涯</p>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer-note">
+  🎬 每日经典推荐 · 2026年5月29日 · 第11期
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蒲扇的清风 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; }
+body {
+  background: #0a0e1a;
+  background-image:
+    radial-gradient(ellipse at 30% 70%, rgba(60,50,40,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 30%, rgba(160,140,100,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(80,60,30,0.06) 0%, transparent 60%);
+  color: #e8e0d8;
+  font-family: "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+  display: flex; flex-direction: column; align-items: center;
+  min-height: 100vh; overflow-x: hidden;
+}
+
+/* ─── 星空 ─── */
+.starfield { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.star {
+  position: absolute; border-radius: 50%; background: #fff;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+@keyframes twinkle { 0%{opacity:.15;transform:scale(.8)} 100%{opacity:.85;transform:scale(1.2)} }
+
+/* ─── 月亮 ─── */
+.moon-wrap {
+  position: fixed; top: 5vh; right: 8vw; z-index: 1; pointer-events: none;
+  animation: moonFloat 6s ease-in-out infinite;
+}
+.moon {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ffeebb, #f5d68e);
+  box-shadow:
+    0 0 20px 6px rgba(255,230,150,0.25),
+    0 0 60px 20px rgba(255,230,150,0.08);
+}
+.moon-halo {
+  position: absolute; top: -18px; left: -18px;
+  width: 96px; height: 96px; border-radius: 50%;
+  border: 1.5px solid rgba(255,230,150,0.12);
+  animation: haloPulse 4s ease-in-out infinite alternate;
+}
+.moon-halo2 {
+  position: absolute; top: -36px; left: -36px;
+  width: 132px; height: 132px; border-radius: 50%;
+  border: 1px solid rgba(255,230,150,0.06);
+  animation: haloPulse 4s ease-in-out infinite alternate-reverse;
+}
+@keyframes moonFloat { 0%{transform:translateY(0)} 50%{transform:translateY(-8px)} 100%{transform:translateY(0)} }
+@keyframes haloPulse { 0%{opacity:.3;transform:scale(1)} 100%{opacity:.7;transform:scale(1.05)} }
+
+/* ─── 流星 ─── */
+.meteor {
+  position: fixed; z-index: 1; pointer-events: none;
+  width: 80px; height: 1.5px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+  border-radius: 1px; opacity: 0;
+  animation: meteor1 8s 2s linear infinite;
+}
+.meteor2 {
+  position: fixed; z-index: 1; pointer-events: none;
+  width: 60px; height: 1px;
+  background: linear-gradient(90deg, rgba(255,230,200,0.7), transparent);
+  border-radius: 1px; opacity: 0;
+  animation: meteor2 12s 5s linear infinite;
+}
+@keyframes meteor1 {
+  0%{opacity:0;transform:translate(0,0) rotate(-35deg)}
+  2%{opacity:1}
+  6%{opacity:1;transform:translate(-260px,180px) rotate(-35deg)}
+  8%{opacity:0;transform:translate(-260px,180px) rotate(-35deg)}
+  100%{opacity:0}
+}
+@keyframes meteor2 {
+  0%{opacity:0;transform:translate(0,0) rotate(-25deg)}
+  2%{opacity:1}
+  8%{opacity:1;transform:translate(-200px,140px) rotate(-25deg)}
+  10%{opacity:0;transform:translate(-200px,140px) rotate(-25deg)}
+  100%{opacity:0}
+}
+
+/* ─── 主体 ─── */
+.container {
+  position: relative; z-index: 2;
+  max-width: 680px; width: 90%; margin: 5vh auto 6vh; padding: 0 20px;
+}
+
+/* ─── 标题 ─── */
+.title-area { text-align: center; margin-bottom: 28px; }
+.title-icon {
+  display: flex; justify-content: center; align-items: center; margin-bottom: 16px;
+}
+.title {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  font-weight: 600; letter-spacing: .06em;
+  color: #f0d8a0;
+  text-shadow: 0 0 30px rgba(240,216,160,0.35), 0 0 60px rgba(240,216,160,0.12);
+  animation: titleGlow 3s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+  0%{text-shadow: 0 0 20px rgba(240,216,160,0.25)}
+  100%{text-shadow: 0 0 40px rgba(240,216,160,0.45)}
+}
+.subtitle { 
+  font-size: .85rem; color: rgba(200,185,160,.5); margin-top: 6px; letter-spacing: .08em;
+}
+
+/* ─── SVG 蒲扇插图 ─── */
+.fan-illustration { text-align: center; margin-bottom: 20px; }
+.fan-svg { 
+  animation: fanSwing 4s ease-in-out infinite; 
+  transform-origin: center bottom;
+}
+@keyframes fanSwing {
+  0%{transform: rotate(-3deg)}
+  50%{transform: rotate(4deg)}
+  100%{transform: rotate(-3deg)}
+}
+
+/* ─── 清风粒子 ─── */
+.breeze-particles {
+  position: absolute; pointer-events: none; z-index: 1;
+}
+
+/* ─── 故事文本 ─── */
+.story-text {
+  font-size: 1.05rem; line-height: 2.1; letter-spacing: .03em;
+  color: rgba(220,210,195,.92);
+  text-align: justify;
+  padding: 0 4px;
+}
+.story-text p { margin-bottom: 1.2em; text-indent: 2em; }
+.story-text p:first-of-type { text-indent: 0; }
+
+/* ─── 分隔星光 ─── */
+.divider {
+  text-align: center; margin: 30px 0 22px;
+  display: flex; justify-content: center; gap: 10px;
+}
+.dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(240,200,130,.6);
+  animation: dotBreathe 2.5s ease-in-out infinite alternate;
+}
+.dot:nth-child(3){animation-delay:.3s}.dot:nth-child(4){animation-delay:.6s}
+.dot:nth-child(5){animation-delay:.9s}.dot:nth-child(6){animation-delay:1.2s}
+.dot:nth-child(7){animation-delay:1.5s}
+@keyframes dotBreathe {
+  0%{opacity:.25;transform:scale(.8)}
+  100%{opacity:.85;transform:scale(1.3)}
+}
+
+/* ─── 晚安语 ─── */
+.goodnight {
+  text-align: center;
+  font-size: 1.1rem; line-height: 2;
+  color: rgba(240,216,160,.85);
+  text-shadow: 0 0 25px rgba(240,216,160,0.25);
+  animation: gnGlow 3s ease-in-out infinite alternate;
+  padding: 10px 0;
+}
+@keyframes gnGlow {
+  0%{text-shadow: 0 0 15px rgba(240,216,160,0.2)}
+  100%{text-shadow: 0 0 35px rgba(240,216,160,0.4)}
+}
+
+/* ─── 底部光点 ─── */
+.footer-glow {
+  position: fixed; bottom: 0; left: 0; right: 0; height: 80px;
+  background: linear-gradient(to top, rgba(180,140,60,0.06), transparent);
+  pointer-events: none; z-index: 0;
+}
+
+/* ─── 响应式 ─── */
+@media (max-width: 480px){
+  .container { margin: 3vh auto 5vh; padding: 0 12px; }
+  .story-text { font-size: .97rem; line-height: 1.95; }
+  .title { font-size: 1.35rem; }
+  .moon { width: 44px; height: 44px; }
+  .moon-wrap { top: 3vh; right: 4vw; }
+  .moon-halo { width: 70px; height: 70px; top: -13px; left: -13px; }
+  .moon-halo2 { width: 96px; height: 96px; top: -26px; left: -26px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon-wrap">
+  <div class="moon-halo2"></div>
+  <div class="moon-halo"></div>
+  <div class="moon"></div>
+</div>
+
+<!-- 流星 -->
+<div class="meteor" style="top:12%;left:70%"></div>
+<div class="meteor2" style="top:22%;left:55%"></div>
+
+<!-- 主体 -->
+<div class="container">
+
+  <!-- 标题 -->
+  <div class="title-area">
+    <div class="title">小蒲扇的清风</div>
+    <div class="subtitle">儿童睡前故事 &middot; 2026年7月22日</div>
+  </div>
+
+  <!-- 蒲扇 SVG 插图 -->
+  <div class="fan-illustration">
+    <svg class="fan-svg" width="160" height="170" viewBox="0 0 160 170" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="fanGlow" cx="50%" cy="40%" r="50%">
+          <stop offset="0%" stop-color="rgba(240,210,140,0.25)"/>
+          <stop offset="100%" stop-color="rgba(240,210,140,0)"/>
+        </radialGradient>
+        <filter id="softGlow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <!-- 光晕 -->
+      <ellipse cx="80" cy="80" rx="60" ry="70" fill="url(#fanGlow)" style="animation: haloPulse 3s ease-in-out infinite alternate"/>
+      <!-- 扇面 -->
+      <ellipse cx="80" cy="75" rx="50" ry="60" fill="rgba(210,175,120,0.28)" stroke="rgba(190,150,100,0.6)" stroke-width="1.8"/>
+      <ellipse cx="80" cy="75" rx="38" ry="48" fill="rgba(190,155,100,0.22)" stroke="rgba(170,130,80,0.45)" stroke-width="1"/>
+      <!-- 扇骨纹路-->
+      <line x1="80" y1="15" x2="80" y2="135" stroke="rgba(180,140,90,0.5)" stroke-width="0.8"/>
+      <line x1="55" y1="30" x2="88" y2="130" stroke="rgba(180,140,90,0.35)" stroke-width="0.7"/>
+      <line x1="105" y1="30" x2="72" y2="130" stroke="rgba(180,140,90,0.35)" stroke-width="0.7"/>
+      <line x1="40" y1="55" x2="95" y2="125" stroke="rgba(180,140,90,0.25)" stroke-width="0.6"/>
+      <line x1="120" y1="55" x2="65" y2="125" stroke="rgba(180,140,90,0.25)" stroke-width="0.6"/>
+      <!-- 扇柄 -->
+      <rect x="76" y="125" width="8" height="30" rx="3" fill="rgba(160,120,70,0.7)"/>
+      <text x="80" y="165" text-anchor="middle" font-size="8" fill="rgba(180,150,110,0.45)">~</text>
+    </svg>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-text">
+    <p>夏天到了，天气热得像蒸笼一样。小蒲扇躺在储藏室的角落里，身上落了一层薄薄的灰。它已经很久很久没有被拿起来了。</p>
+    <p>它还记得从前，奶奶总是握着自己的小木柄，坐在院子里的竹椅上，一下一下地扇着风。那时候，爷爷在树下乘凉，小猫咪趴在脚边打盹，知了在树上唱歌。那是小蒲扇最开心的日子。</p>
+    <p>可是后来，家里装了空调。电风扇也不怎么用了。小蒲扇被放进了储藏室，和旧报纸、空花盆做伴。它想：我是不是再也没有用了？</p>
+    <p>这天晚上，天热得不像话。忽然，"啪"的一声，空调停了，灯也灭了——停电了。屋子里一下子闷热起来，小宝宝热得翻来覆去，哇哇地哭了起来。</p>
+    <p>妈妈急得到处找扇子。她打开储藏室的门，翻呀翻，忽然摸到了那把旧旧的蒲扇。"啊，原来你在这里！"妈妈轻轻吹掉扇面上的灰，把它带了出去。</p>
+    <p>妈妈坐在小床边，握着小蒲扇，一下、一下、又一下，轻轻地扇着。那蒲扇扇出来的风，不急不缓，带着一种竹叶和旧时光混合的淡淡香味，凉丝丝的，特别温柔。小宝宝慢慢不哭了，眼睛一眨一眨地看着妈妈手中的扇子。</p>
+    <p>小蒲扇开心极了。它知道，自己扇出的风没有空调那么冰凉，也没有电扇那么大，但是它有不一样的东西——它有奶奶的手的痕迹，有妈妈的小心翼翼，有对宝宝的爱。</p>
+    <p>不知道扇了多少下，小宝宝终于闭上眼睛，嘴角弯弯的，睡着了。月光从窗户洒进来，落在小蒲扇上，像给它披了一层银色的薄纱。汗水从妈妈的额头滑落，可她的手依然一下一下地扇着。</p>
+    <p>小蒲扇在心里轻轻地说：原来不用很大很大，只要刚好吹到需要的地方，就够了。能让自己爱的人感到凉快和安心，就是最幸福的事。</p>
+    <p>那一夜，小蒲扇的清风，比任何凉风都让人安心。</p>
+  </div>
+
+  <!-- 分隔 -->
+  <div class="divider">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    晚安，小宝贝。<br>
+    小蒲扇说，你今天也是个好孩子，<br>
+    该做一个甜甜的、凉凉的梦了。
+  </div>
+
+</div>
+
+<!-- 底部光 -->
+<div class="footer-glow"></div>
+
+<script>
+// 生成 100 颗星星
+const sf=document.getElementById('starfield');
+for(let i=0;i<100;i++){
+  const s=document.createElement('div');
+  s.className='star';
+  const size=Math.random()*2.5+.8;
+  s.style.width=s.style.height=size+'px';
+  s.style.left=Math.random()*100+'%';
+  s.style.top=Math.random()*100+'%';
+  s.style.setProperty('--dur',(Math.random()*3+2)+'s');
+  s.style.setProperty('--delay',(Math.random()*4)+'s');
+  sf.appendChild(s);
+}
+
+// 暖色微风粒子
+(function createBreezeParticles(){
+  const container=document.querySelector('.container');
+  for(let i=0;i<8;i++){
+    const p=document.createElement('div');
+    p.style.cssText=`
+      position:absolute;pointer-events:none;z-index:1;
+      width:${Math.random()*3+2}px;height:${Math.random()*3+2}px;
+      border-radius:50%;
+      background:rgba(220,180,120,${Math.random()*.35+.15});
+      left:${Math.random()*80+10}%;
+      bottom:${Math.random()*40+10}%;
+      animation:breezeFloat ${Math.random()*5+4}s ${Math.random()*3}s ease-in-out infinite;
+    `;
+    container.appendChild(p);
+  }
+  // keyframes
+  const style=document.createElement('style');
+  style.textContent=`
+    @keyframes breezeFloat {
+      0%{opacity:.15;transform:translate(0,0)}
+      50%{opacity:.55;transform:translate(${Math.random()*30-15}px,-${Math.random()*40+20}px)}
+      100%{opacity:.1;transform:translate(${Math.random()*20-10}px,-${Math.random()*60+40}px)}
+    }
+  `;
+  document.head.appendChild(style);
+})();
+</script>
+</body>
+</html>

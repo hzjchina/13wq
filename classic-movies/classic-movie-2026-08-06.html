@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 泰坦尼克号</title>
+  <style>
+    :root {
+      --bg: #1a1a24;
+      --bg-card: #161b28;
+      --accent: #e8a838;
+      --accent2: #1f2838;
+      --text: #eaeaea;
+      --text-dim: #a0a4b4;
+      --gold: #d4a853;
+      --warm: #c97b4a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--accent2);
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    .movie-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .movie-meta {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .movie-meta span {
+      margin: 0 6px;
+    }
+
+    .ratings {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px 0 28px;
+    }
+
+    .rating-chip {
+      background: var(--accent2);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .rating-chip .score {
+      color: var(--gold);
+      font-size: 18px;
+      margin-left: 4px;
+    }
+
+    .section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .section p {
+      font-size: 16px;
+      color: var(--text);
+      text-align: justify;
+    }
+
+    .highlights {
+      list-style: none;
+    }
+
+    .highlights li {
+      font-size: 16px;
+      padding: 10px 0;
+      padding-left: 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .highlights li:last-child {
+      border-bottom: none;
+    }
+
+    .highlights li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 18px;
+    }
+
+    .quote {
+      background: var(--accent2);
+      border-left: 4px solid var(--accent);
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 16px 0;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-dim);
+    }
+
+    .quote .author {
+      display: block;
+      text-align: right;
+      margin-top: 8px;
+      font-size: 14px;
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .awards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .award-tag {
+      background: rgba(212, 168, 83, 0.12);
+      color: var(--gold);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(212, 168, 83, 0.25);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer .date {
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .movie-title {
+        font-size: 26px;
+      }
+
+      .section {
+        padding: 18px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      .section p, .highlights li {
+        font-size: 15px;
+      }
+
+      .quote {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎬 经典电影推荐</h1>
+      <div class="subtitle">第 38 期 · 2026年8月6日</div>
+    </div>
+
+    <div style="text-align:center; margin-bottom: 24px;">
+      <div class="movie-title">泰坦尼克号</div>
+      <div class="movie-meta">
+        <span>Titanic</span> · <span>1997</span> · <span>美国</span>
+      </div>
+      <div class="movie-meta">导演：詹姆斯·卡梅隆 | 主演：莱昂纳多·迪卡普里奥 / 凯特·温斯莱特</div>
+
+      <div class="ratings">
+        <div class="rating-chip">豆瓣 <span class="score">9.5</span></div>
+        <div class="rating-chip">IMDb <span class="score">7.9</span></div>
+        <div class="rating-chip">烂番茄 <span class="score">88%</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">剧情梗概</div>
+      <p>
+        1912年4月，被誉为“永不沉没”的豪华邮轮泰坦尼克号从英国南安普敦出发，驶向纽约。在船上，一位年轻的贵族少女露丝厌倦了上流社会虚伪的社交、母亲安排的包办婚姻，以及被当作商品般交换的人生。
+      </p>
+      <p style="margin-top: 12px;">
+        就在这时，她遇见了穷画家杰克。他靠赌博赢得三等舱船票，一无所有，却自由、热情、充满生命力。两个来自不同世界的人在甲板上相遇，在船舱里跳舞，在船头感受海风，短短几天内坠入爱河。
+      </p>
+      <p style="margin-top: 12px;">
+        然而，一场突如其来的冰山撞击打破了所有梦境。这艘号称工业奇迹的巨轮正在缓缓下沉，海水涌入舱室，混乱与绝望在夜色中蔓延。面对生死抉择，露丝和杰克必须用尽一切勇气，守护彼此。
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">核心亮点</div>
+      <ul class="highlights">
+        <li><strong>影史最宏大的爱情灾难片</strong>——詹姆斯·卡梅隆以近乎偏执的考究精神，用真实史料、实景搭建和当时最先进的CG技术，将一艘沉船与一个爱情故事铸造成跨越时代的银幕史诗。影片耗资2亿美元，是当时最昂贵的电影。</li>
+        <li><strong>无法复制的视觉奇观</strong>——从富丽堂皇的头等舱餐厅到拥挤破旧的三等舱，从船头经典拥抱到断裂巨轮缓缓沉入深海的画面，每一帧都兼具技术 precision 与美学震撼。船体断裂与沉没段落至今仍是灾难片的教科书。</li>
+        <li><strong>莱昂纳多与凯特的表演</strong>——彼时二十出头的两人贡献了银幕上最青春动人的爱情范本。杰克洒脱不羁，露丝倔强觉醒，他们在船头伸展双臂的画面，成为几代人心中“飞翔”与“自由”的代名词。</li>
+        <li><strong>群像刻画的厚度</strong>——除了主线爱情，沉船时刻的众多配角同样令人难忘：坚守岗位的乐队、相拥而眠的老夫妇、自责的船长、尽职的设计师、自私的暴发户……众生百态让悲剧不止于爱情，更成为对人性的凝视。</li>
+        <li><strong>席琳·迪翁的《My Heart Will Go On》</strong>——这首歌与电影互相成就，旋律一响便能将人拉回那个星光下的船头，是全球传唱度最高的电影主题曲之一。</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">为什么值得一看</div>
+      <p>
+        《泰坦尼克号》之所以在1998年横扫11项奥斯卡、蝉联全球票房冠军十余年，不仅因为它讲述了一场惊心动魄的海难，更因为它在宏大灾难中放进了一段渺小却炽热的爱情，让历史事件拥有了直击人心的温度。
+      </p>
+      <p style="margin-top: 12px;">
+        这是一部关于“选择”的电影。露丝选择跳下救生艇回到沉船中与杰克并肩；杰克选择把唯一的门板让给露丝，自己沉入北大西洋的寒夜；那些平凡的船员和乘客，在最后一刻选择尊严、选择陪伴、选择责任。它让人看到，当命运降临时，爱如何成为人最坚硬也最柔软的铠甲。
+      </p>
+      <p style="margin-top: 12px;">
+        它也值得在不同人生阶段重看。年轻时看到的是浪漫与奋不顾身；年长后看到的则是命运无常、阶级鸿沟、以及在死亡面前人人平等的残酷与温柔。无论看过多少遍，当老年露丝把海洋之心抛入大海、在睡梦中重回船舱时，心底总会涌起那份久违的重量。
+      </p>
+
+      <div class="quote">
+        “你跳，我就跳。”
+        <span class="author">—— 杰克</span>
+      </div>
+
+      <div class="awards">
+        <span class="award-tag">🏆 奥斯卡最佳影片</span>
+        <span class="award-tag">🏆 奥斯卡最佳导演</span>
+        <span class="award-tag">🏆 奥斯卡最佳原创歌曲</span>
+        <span class="award-tag">🏆 奥斯卡最佳配乐</span>
+        <span class="award-tag">🎬 11项奥斯卡大奖</span>
+        <span class="award-tag">🌟 全球票房超22亿美元</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>经典永不过时，好电影值得反复品味 🎞️</div>
+      <div class="date">本期推荐 · 2026年8月6日 · 第 38 期</div>
+    </div>
+  </div>
+</body>
+</html>

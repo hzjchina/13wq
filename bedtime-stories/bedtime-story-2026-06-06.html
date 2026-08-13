@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小萤火虫的灯笼 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a1628 0%, #1a2a4a 30%, #1e3a5f 60%, #26466d 100%);
+    color: #e8e0d4;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+  }
+
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 35% 35%, #fffee0 0%, #f5e6b8 40%, #e8d5a0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15);
+    pointer-events: none;
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15); }
+    50% { box-shadow: 0 0 80px rgba(255, 250, 220, 0.55), 0 0 150px rgba(255, 250, 220, 0.2); }
+  }
+
+  .cloud-decor {
+    position: fixed;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 48px;
+  }
+
+  .header-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .story-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+    animation: floatCloud 3s ease-in-out infinite;
+  }
+
+  @keyframes floatCloud {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #f5e6b8;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(245, 230, 184, 0.3);
+  }
+
+  .subtitle {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    margin: 24px auto;
+    border-radius: 1px;
+  }
+
+  .story-text p {
+    font-size: 1.15em;
+    line-height: 2.1;
+    margin-bottom: 18px;
+    text-indent: 2.2em;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  .story-text p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .moral-section {
+    margin: 40px 0 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid rgba(245, 230, 184, 0.5);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .moral-section .moral-title {
+    font-size: 0.9em;
+    color: #f5e6b8;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .moral-section .moral-text {
+    font-size: 1em;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.7);
+    text-indent: 0;
+  }
+
+  .goodnight-section {
+    text-align: center;
+    margin-top: 32px;
+    padding: 32px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+    border-radius: 16px;
+  }
+
+  .goodnight-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 12px;
+    animation: gentlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .goodnight-text {
+    font-size: 1.25em;
+    color: #f5e6b8;
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .bottom-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 95, 0.5) 50%, rgba(10, 22, 40, 0.8) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 480px) {
+    .content-wrapper {
+      padding: 40px 16px 36px;
+    }
+    h1 { font-size: 1.6em; }
+    .story-text p {
+      font-size: 1.05em;
+      line-height: 2;
+    }
+    .moon {
+      width: 56px;
+      height: 56px;
+      top: 24px;
+      right: 5%;
+    }
+    .story-icon { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-container" id="stars"></div>
+<div class="moon"></div>
+<div class="cloud-decor" style="top:12%;left:5%;width:180px;height:60px;animation:floatCloud 8s ease-in-out infinite;"></div>
+<div class="cloud-decor" style="top:28%;left:72%;width:140px;height:44px;animation:floatCloud 11s ease-in-out infinite 2s;"></div>
+<div class="cloud-decor" style="top:65%;left:8%;width:120px;height:36px;animation:floatCloud 9s ease-in-out infinite 4s;"></div>
+<div class="bottom-glow"></div>
+
+<div class="content-wrapper">
+
+  <div class="header-area">
+    <div class="story-icon">🌙</div>
+    <h1>小萤火虫的灯笼</h1>
+    <div class="subtitle">2026年6月6日 · 星期六 · 睡前故事</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="story-text">
+    <p>夏天的夜晚，池塘边飞满了萤火虫，像撒了一地的碎星星。</p>
+    <p>有一只小萤火虫，名字叫小萤。她的肚子下面有一盏小灯笼，可是那盏灯笼总是忽明忽暗，比其他萤火虫的光都要弱一些。</p>
+    <p>“你看小萤的灯笼，像快要熄灭的小蜡烛。”别的萤火虫偷偷笑着说。</p>
+    <p>小萤低下了头，悄悄飞到了池塘最角落的芦苇丛里。她坐在一片弯弯的芦苇叶上，望着水面上自己的倒影，轻轻叹了口气。</p>
+    <p>“我的光这么小，有什么用呢？”</p>
+    <p>芦苇丛里传来一个细细的声音：“请问……能帮我一下吗？”</p>
+    <p>小萤低头一看，原来是一只小蚂蚁，他迷路了，急得在原地团团转。</p>
+    <p>“我找不到回家的路了，”小蚂蚁说，“天太黑了，我看不见地上的小路。”</p>
+    <p>小萤想了想，鼓起勇气说：“我的光很小，但……我愿意试试。”</p>
+    <p>她飞到小蚂蚁的前面，点亮了自己的小灯笼。光虽然微弱，却像一盏温暖的小夜灯，刚好照亮了草丛间那条细细的小路。</p>
+    <p>小蚂蚁跟在她后面，一步一步往前走。路过小石子，绕过蒲公英，穿过三叶草的隧道。</p>
+    <p>“到了！这里就是我家！”小蚂蚁开心地喊起来。</p>
+    <p>“谢谢你，小萤。你的光刚刚好，不刺眼，暖暖的，像月亮的小碎片。”</p>
+    <p>小萤愣住了。她低头看了看自己肚子下那盏小小的灯笼——它依然忽明忽暗，可这一次，她觉得它好美。</p>
+    <p>从那以后，每天晚上，小萤都飞到池塘边，用自己温柔的小灯笼帮助迷路的虫子们回家。大家都说，她的光虽然不大，却是最让人安心的光。</p>
+    <p>小萤终于明白了：每盏灯都有自己的亮度，而最温柔的光，刚好能照亮最需要它的路。</p>
+  </div>
+
+  <div class="goodnight-section">
+    <span class="goodnight-icon">🌙💤</span>
+    <div class="goodnight-text">
+      晚安，小宝贝。<br>
+      小萤说，你的心里也有一盏小小的灯，它温暖又明亮。<br>
+      今天你也是个好孩子，该做一个甜甜的梦了。<br>
+      🌙
+    </div>
+  </div>
+
+  <div class="footer">
+    <em>本文由小虾米为爷自动生成</em>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 80;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.5 + 1).toFixed(1);
+    var top = Math.random() * 100;
+    var left = Math.random() * 100;
+    var dur = (Math.random() * 3 + 2).toFixed(1);
+    var delay = (Math.random() * 5).toFixed(1);
+    frag += '<div class="star" style="width:'+size+'px;height:'+size+'px;top:'+top+'%;left:'+left+'%;--dur:'+dur+'s;--delay:'+delay+'s;"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蜻蜓的梦 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(180deg, #0c1830 0%, #132042 25%, #102535 50%, #0a1a28 100%);
+    min-height: 100vh;
+    font-family: "Georgia", "Songti SC", "STSong", serif;
+    color: #e8e8f0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空容器 */
+  .starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.12; transform: scale(0.7); }
+    50% { opacity: 0.85; transform: scale(1.15); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 50px;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fffbe6, #f5e6a8 50%, #e8d789 80%);
+    box-shadow:
+      0 0 30px rgba(245, 230, 168, 0.5),
+      0 0 60px rgba(245, 230, 168, 0.3),
+      0 0 100px rgba(245, 230, 168, 0.15);
+    z-index: 1;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 30px rgba(245,230,168,0.5), 0 0 60px rgba(245,230,168,0.3), 0 0 100px rgba(245,230,168,0.15); }
+    50% { box-shadow: 0 0 40px rgba(245,230,168,0.6), 0 0 80px rgba(245,230,168,0.35), 0 0 130px rgba(245,230,168,0.2); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fff;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    transform-origin: right center;
+    transform: rotate(-30deg);
+  }
+  .ss1 { top: 12%; left: 65%; animation: shoot 9s ease-in infinite; animation-delay: 2s; }
+  .ss2 { top: 22%; left: 18%; animation: shoot 9s ease-in infinite; animation-delay: 6s; }
+
+  @keyframes shoot {
+    0% { transform: translate(0, 0); opacity: 0; }
+    3% { opacity: 1; }
+    10% { transform: translate(-150px, 80px); opacity: 0; }
+    100% { transform: translate(-150px, 80px); opacity: 0; }
+  }
+
+  /* 池塘波纹 */
+  .pond-ripple {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 130px;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ripple-layer {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 40px,
+      rgba(100, 180, 210, 0.04) 40px,
+      rgba(100, 180, 210, 0.04) 80px
+    );
+    animation: rippleMove var(--ripDur, 22s) linear infinite;
+  }
+
+  @keyframes rippleMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(80px); }
+  }
+
+  /* 池塘光带 */
+  .pond-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background: linear-gradient(to top, rgba(60, 140, 190, 0.08), transparent);
+    z-index: 0;
+    pointer-events: none;
+    animation: pondPulse 5s ease-in-out infinite;
+  }
+
+  @keyframes pondPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* 漂浮光点 */
+  .float-dot {
+    position: fixed;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: rgba(160, 210, 255, 0.6);
+    box-shadow: 0 0 6px rgba(160, 210, 255, 0.4);
+    z-index: 1;
+    pointer-events: none;
+    animation: floatUp var(--floatDur, 10s) linear infinite;
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    80% { opacity: 0.6; }
+    100% { transform: translateY(-120px) translateX(20px); opacity: 0; }
+  }
+
+  /* 主要内容 */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* 插图 */
+  .dragonfly-illustration {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: floatDragonfly 6s ease-in-out infinite;
+  }
+
+  @keyframes floatDragonfly {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-8px) rotate(2deg); }
+  }
+
+  .dragonfly-illustration svg {
+    width: 200px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(140, 200, 255, 0.35));
+  }
+
+  /* 标题 */
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    color: #b8d4f0;
+    text-shadow: 0 0 20px rgba(184, 212, 240, 0.35);
+    margin-bottom: 8px;
+    letter-spacing: 3px;
+    animation: titleFloat 5s ease-in-out infinite;
+  }
+
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(184, 212, 240, 0.5);
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(184, 212, 240, 0.4), transparent);
+    margin: 0 auto 40px;
+  }
+
+  /* 故事正文 */
+  .story {
+    font-size: 1.15rem;
+    line-height: 2.2;
+    color: #d4dff0;
+    text-align: justify;
+  }
+
+  .story p {
+    margin-bottom: 1.6em;
+    text-indent: 2em;
+  }
+
+  .story p:first-child {
+    text-indent: 0;
+  }
+
+  /* 对话特殊样式 */
+  .story .dialogue {
+    color: #b8d8f0;
+    font-weight: 500;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    margin-top: 48px;
+    padding: 28px 24px;
+    background: rgba(160, 200, 240, 0.06);
+    border: 1px solid rgba(160, 200, 240, 0.12);
+    border-radius: 16px;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #c8dff8;
+  }
+
+  .goodnight .heart {
+    display: inline-block;
+    margin: 0 4px;
+    animation: heartBeat 2s ease-in-out infinite;
+  }
+
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* 底部装饰 */
+  .footer-deco {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 1px;
+  }
+
+  /* 响应式 */
+  @media (max-width: 600px) {
+    .container { padding: 40px 18px 60px; }
+    .title { font-size: 1.6rem; }
+    .story { font-size: 1.05rem; line-height: 2.1; }
+    .goodnight { font-size: 0.95rem; padding: 22px 18px; }
+    .moon { width: 55px; height: 55px; top: 25px; right: 25px; }
+    .dragonfly-illustration svg { width: 150px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star ss1"></div>
+<div class="shooting-star ss2"></div>
+
+<!-- 漂浮柔光粒子 -->
+<div class="float-dot" style="bottom: 15%; left: 10%; --floatDur: 11s; animation-delay: 0s;"></div>
+<div class="float-dot" style="bottom: 18%; left: 25%; --floatDur: 13s; animation-delay: -3s;"></div>
+<div class="float-dot" style="bottom: 12%; left: 45%; --floatDur: 10s; animation-delay: -5s;"></div>
+<div class="float-dot" style="bottom: 20%; left: 62%; --floatDur: 14s; animation-delay: -2s;"></div>
+<div class="float-dot" style="bottom: 16%; left: 78%; --floatDur: 12s; animation-delay: -7s;"></div>
+<div class="float-dot" style="bottom: 22%; left: 90%; --floatDur: 11s; animation-delay: -1s;"></div>
+<div class="float-dot" style="bottom: 10%; left: 35%; --floatDur: 15s; animation-delay: -9s;"></div>
+
+<!-- 池塘波纹 -->
+<div class="pond-ripple">
+  <div class="ripple-layer" style="--ripDur: 26s;"></div>
+  <div class="ripple-layer" style="--ripDur: 36s; bottom: 12px; opacity: 0.5;"></div>
+</div>
+
+<!-- 池塘光带 -->
+<div class="pond-glow"></div>
+
+<!-- 主要内容 -->
+<div class="container">
+
+  <!-- 蜻蜓 SVG -->
+  <div class="dragonfly-illustration">
+    <svg viewBox="0 0 200 180" xmlns="http://www.w3.org/2000/svg">
+      <!-- 水面反光 -->
+      <ellipse cx="100" cy="170" rx="90" ry="6" fill="rgba(100,180,220,0.08)" />
+
+      <!-- 大荷叶 -->
+      <ellipse cx="145" cy="140" rx="38" ry="10" fill="#1a3a2a" opacity="0.9" />
+      <ellipse cx="145" cy="138" rx="36" ry="8" fill="#2a5a3a" opacity="0.85" />
+      <g stroke="#3a7a4a" stroke-width="0.5" opacity="0.4" fill="none">
+        <line x1="145" y1="138" x2="112" y2="132" />
+        <line x1="145" y1="138" x2="145" y2="126" />
+        <line x1="145" y1="138" x2="178" y2="132" />
+      </g>
+
+      <!-- 蜻蜓身体 -->
+      <ellipse cx="70" cy="75" rx="3" ry="2" fill="#3a6a8a" />
+      <!-- 复眼 -->
+      <circle cx="61" cy="73" r="5" fill="#4a7a9a" opacity="0.9" />
+      <circle cx="61" cy="73" r="3.5" fill="#6aa5c9" opacity="0.8" />
+      <circle cx="62" cy="72" r="1.5" fill="#a0d8f0" opacity="0.9" />
+      <!-- 胸节 -->
+      <ellipse cx="80" cy="78" rx="6" ry="4" fill="#5080a0" />
+      <!-- 腹节 -->
+      <path d="M 86 80 L 118 78 L 118 82 L 86 84 Z" fill="#6090b0" opacity="0.9" />
+      <ellipse cx="118" cy="80" rx="2" ry="2" fill="#5080a0" />
+
+      <!-- 左前翅 -->
+      <ellipse cx="82" cy="55" rx="32" ry="8" fill="rgba(140,200,240,0.35)" stroke="rgba(160,220,255,0.4)" stroke-width="0.5"
+               transform="rotate(-15, 82, 55)" />
+      <line x1="80" y1="76" x2="60" y2="52" stroke="rgba(160,220,255,0.3)" stroke-width="0.4" />
+      <line x1="80" y1="76" x2="90" y2="48" stroke="rgba(160,220,255,0.25)" stroke-width="0.4" />
+
+      <!-- 右前翅 -->
+      <ellipse cx="82" cy="55" rx="32" ry="8" fill="rgba(140,200,240,0.35)" stroke="rgba(160,220,255,0.4)" stroke-width="0.5"
+               transform="rotate(15, 82, 55) scale(-1, 1)" />
+
+      <!-- 左后翅 -->
+      <ellipse cx="95" cy="66" rx="26" ry="7" fill="rgba(120,180,230,0.3)" stroke="rgba(140,200,240,0.35)" stroke-width="0.4"
+               transform="rotate(-8, 95, 66)" />
+
+      <!-- 右后翅 -->
+      <ellipse cx="95" cy="66" rx="26" ry="7" fill="rgba(120,180,230,0.3)" stroke="rgba(140,200,240,0.35)" stroke-width="0.4"
+               transform="rotate(8, 95, 66) scale(-1, 1)" />
+
+      <!-- 翅脉纹理 -->
+      <g stroke="rgba(180,225,255,0.2)" stroke-width="0.3" fill="none">
+        <line x1="80" y1="76" x2="52" y2="50" />
+        <line x1="80" y1="76" x2="110" y2="50" />
+        <line x1="80" y1="76" x2="98" y2="58" />
+        <line x1="80" y1="76" x2="62" y2="60" />
+      </g>
+
+      <!-- 月光微粒（蜻蜓周围） -->
+      <circle cx="45" cy="48" r="1.2" fill="rgba(255,255,220,0.4)" />
+      <circle cx="115" cy="42" r="1" fill="rgba(255,255,220,0.35)" />
+      <circle cx="100" cy="35" r="0.8" fill="rgba(255,255,220,0.3)" />
+      <circle cx="55" cy="38" r="0.9" fill="rgba(255,255,220,0.3)" />
+
+      <!-- 远处小荷叶 -->
+      <ellipse cx="35" cy="155" rx="22" ry="6" fill="#1a3a2a" opacity="0.7" />
+      <ellipse cx="35" cy="154" rx="20" ry="5" fill="#2a5a3a" opacity="0.6" />
+
+      <!-- 月光倒影在水面 -->
+      <ellipse cx="135" cy="168" rx="20" ry="3" fill="rgba(200,220,240,0.06)" />
+    </svg>
+  </div>
+
+  <h1 class="title">小蜻蜓的梦</h1>
+  <p class="subtitle">2026 年 7 月 12 日 · 儿童睡前故事</p>
+  <div class="divider"></div>
+
+  <div class="story">
+    <p>夏天的池塘边，住着一只叫青青的小蜻蜓。</p>
+
+    <p>青青有一对透明的翅膀，薄薄的，亮亮的，飞起来像两片小小的玻璃纸。她每天在池塘上飞来飞去，看荷花开了又合，看小鱼游来游去，看落日把水面染成金色。</p>
+
+    <p>可青青有一个小烦恼：她不知道自己晚上该睡在哪儿。</p>
+
+    <p class="dialogue">蝴蝶姐姐睡在花瓣里，又香又软；蜜蜂哥哥睡在蜂巢里，有好多小伙伴挤在一起，暖和极了。"</p>
+
+    <p>青青试着睡在芦苇尖上。风一吹，晃来晃去，怎么也睡不着。她又试着睡在石头上，可石头又硬又凉，一点都不舒服。</p>
+
+    <p>月亮升起来了，温柔地看着青青。</p>
+
+    <p class="dialogue">"小蜻蜓，你怎么还不睡呀？"</p>
+
+    <p class="dialogue">"我不知道该睡在哪里……"青青的声音小小的，有点委屈。</p>
+
+    <p>月亮笑了，轻轻地说：<span class="dialogue">"你看——"</span></p>
+
+    <p>青青抬起头。月光下，池塘像一面银色的大镜子，荷花轻轻摇曳，水面上的涟漪一圈一圈地散开。多美呀！</p>
+
+    <p class="dialogue">"可是，白天的小朋友都看不见这些，"月亮说，"如果你愿意，可以帮月亮一个忙吗？帮我把这美丽的夜色守护好，等明天太阳公公起床的时候，告诉他池塘有多安静，荷花有多香。"</p>
+
+    <p>青青的翅膀轻轻颤了颤。原来，不睡觉也可以是一件很美好的事呀。</p>
+
+    <p>那天晚上，青青在月光下来来回回地飞。她记住了每一朵荷花的香味，数了水面上的每一道涟漪，还看见了水草里小鱼吐出的泡泡。</p>
+
+    <p>天快亮的时候，青青飞累了，轻轻落在了一片荷叶的边上。荷叶像一张绿色的小床，托着她；微风像妈妈的手，轻轻摇。</p>
+
+    <p>太阳公公听了青青讲的故事，暖洋洋地笑了：<span class="dialogue">"谢谢你，小蜻蜓。今晚，你还愿意来吗？"</span></p>
+
+    <p>从那以后，青青每晚都在月色里飞翔。她不再担心睡在哪里的问题啦——因为她找到了比睡觉更美的事：做月亮的小小守护者。</p>
+  </div>
+
+  <div class="goodnight">
+    晚安，小宝贝。<br>
+    青青说，你已经闭上眼睛了，今天也是个乖孩子。<span class="heart">🌙</span><br>
+    让月光轻轻盖着你，做一个温柔的、甜甜的梦吧。
+  </div>
+
+  <div class="footer-deco">
+    · 小虾米睡前故事 · 每晚 20:30 温暖相伴 ·
+  </div>
+
+</div>
+
+<script>
+  // 生成星空
+  const starfield = document.getElementById('starfield');
+  const starCount = 100;
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+    star.style.setProperty('--delay', Math.random() * 5 + 's');
+    starfield.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

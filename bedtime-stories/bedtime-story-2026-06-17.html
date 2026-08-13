@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蜘蛛的第一张网 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "STHeiti", sans-serif;
+    color: #e9eaf6;
+    background: radial-gradient(ellipse at top, #1a2247 0%, #0b0d24 60%, #05060f 100%);
+    overflow-x: hidden;
+  }
+  body { padding-bottom: 60px; }
+  .sky {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .star {
+    position: absolute; background: #fff; border-radius: 50%;
+    box-shadow: 0 0 6px #fff, 0 0 12px rgba(255,255,255,0.6);
+    animation: twinkle 4s infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  .moon {
+    position: fixed; top: 60px; right: 60px; width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff7d6 0%, #f5e0a3 60%, #d8b96b 100%);
+    box-shadow: 0 0 40px rgba(255, 235, 180, 0.5), 0 0 80px rgba(255, 220, 140, 0.3);
+    z-index: 0; animation: floatMoon 8s ease-in-out infinite;
+  }
+  @keyframes floatMoon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .glow {
+    position: fixed; border-radius: 50%; filter: blur(60px); opacity: 0.25; z-index: 0;
+  }
+  .glow1 { top: 20%; left: 10%; width: 200px; height: 200px; background: #6a82fb; animation: drift 12s infinite; }
+  .glow2 { bottom: 20%; right: 15%; width: 240px; height: 240px; background: #a18cd1; animation: drift 16s infinite reverse; }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+  }
+  .firefly {
+    position: fixed; width: 4px; height: 4px; background: #ffe082; border-radius: 50%;
+    box-shadow: 0 0 10px #ffe082, 0 0 20px rgba(255, 224, 130, 0.6);
+    z-index: 1; animation: fireflyMove 14s linear infinite;
+  }
+  @keyframes fireflyMove {
+    0% { transform: translate(0, 0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translate(200px, -150px); opacity: 0; }
+  }
+  .container {
+    position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 60px 24px 40px;
+  }
+  .date {
+    text-align: center; color: #b3b8d4; font-size: 14px; letter-spacing: 2px; margin-bottom: 16px;
+  }
+  h1 {
+    text-align: center; font-size: 38px; font-weight: 600; color: #fff;
+    text-shadow: 0 0 20px rgba(160, 180, 255, 0.6);
+    margin-bottom: 32px; letter-spacing: 2px;
+  }
+  .divider {
+    display: flex; align-items: center; justify-content: center; margin: 24px 0 40px;
+  }
+  .divider::before, .divider::after {
+    content: ""; flex: 0 0 60px; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(180,200,255,0.5), transparent);
+  }
+  .divider span {
+    margin: 0 12px; color: #ffd97a; font-size: 18px;
+  }
+  .story {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px 36px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    line-height: 2;
+    font-size: 18px;
+    color: #e9eaf6;
+  }
+  .story p { margin-bottom: 20px; text-indent: 2em; }
+  .story p:first-child::first-letter {
+    font-size: 1.4em; color: #ffd97a; font-weight: 500;
+  }
+  .web-illustration {
+    text-align: center; margin: 36px 0 28px;
+  }
+  .web-svg { width: 180px; height: 180px; opacity: 0.9; }
+  .web-circle { fill: none; stroke: rgba(255, 255, 255, 0.55); stroke-width: 0.8; }
+  .web-strand { stroke: rgba(255, 255, 255, 0.55); stroke-width: 0.8; }
+  .web-dew { fill: #ffd97a; opacity: 0.85; }
+
+  .goodnight {
+    margin-top: 48px; padding: 32px 28px; text-align: center;
+    background: linear-gradient(135deg, rgba(255, 217, 122, 0.08), rgba(160, 130, 255, 0.08));
+    border: 1px solid rgba(255, 217, 122, 0.2);
+    border-radius: 16px;
+    font-size: 18px; line-height: 1.9; color: #ffd97a;
+  }
+  .goodnight .moon-emoji {
+    display: inline-block; font-size: 28px; margin-bottom: 12px; animation: bob 3s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .footer {
+    text-align: center; margin-top: 48px; color: #6a7299; font-size: 13px; letter-spacing: 1px;
+  }
+  .footer span { color: #ffd97a; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    .story { padding: 28px 22px; font-size: 16px; line-height: 1.9; }
+    .container { padding: 40px 18px 30px; }
+    .moon { width: 60px; height: 60px; top: 30px; right: 20px; }
+    .goodnight { font-size: 16px; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="sky" id="sky"></div>
+  <div class="moon"></div>
+  <div class="glow glow1"></div>
+  <div class="glow glow2"></div>
+
+  <div class="container">
+    <div class="date">2026 · 06 · 17 · 星期三 · 晚安时间</div>
+    <h1>小蜘蛛的第一张网</h1>
+    <div class="divider"><span>✦</span></div>
+
+    <div class="web-illustration">
+      <svg class="web-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <line class="web-strand" x1="100" y1="100" x2="100" y2="20" />
+          <line class="web-strand" x1="100" y1="100" x2="170" y2="50" />
+          <line class="web-strand" x1="100" y1="100" x2="180" y2="100" />
+          <line class="web-strand" x1="100" y1="100" x2="170" y2="150" />
+          <line class="web-strand" x1="100" y1="100" x2="100" y2="180" />
+          <line class="web-strand" x1="100" y1="100" x2="30" y2="150" />
+          <line class="web-strand" x1="100" y1="100" x2="20" y2="100" />
+          <line class="web-strand" x1="100" y1="100" x2="30" y2="50" />
+          <circle class="web-circle" cx="100" cy="100" r="25" />
+          <circle class="web-circle" cx="100" cy="100" r="50" />
+          <circle class="web-circle" cx="100" cy="100" r="75" />
+          <circle class="web-dew" cx="100" cy="25" r="2.2" />
+          <circle class="web-dew" cx="175" cy="100" r="2.2" />
+          <circle class="web-dew" cx="100" cy="175" r="2.2" />
+          <circle class="web-dew" cx="25" cy="100" r="2.2" />
+          <circle class="web-dew" cx="65" cy="135" r="1.6" />
+          <circle class="web-dew" cx="135" cy="135" r="1.6" />
+          <circle class="web-dew" cx="135" cy="65" r="1.6" />
+          <circle class="web-dew" cx="65" cy="65" r="1.6" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="story">
+      <p>夏夜的小花园里，住着一只小蜘蛛，名字叫丝丝。今天是丝丝第一次学织网，她趴在妈妈身边，认真地听妈妈讲每一根丝线要怎么拉。</p>
+      <p>"看好了，宝贝。"妈妈轻轻抬起点点的脚，从这朵牵牛花拉到那片月季叶，丝线像细细的银线一样在月光下闪着光，"网啊，要拉得稳稳的，不急，慢慢来。"</p>
+      <p>丝丝点点头，心里可着急啦。她想：我一定要织一张又大又漂亮的网，比妈妈的还漂亮！</p>
+      <p>第一个晚上，丝丝选了花园最高的一根树枝。她匆匆忙忙地拉着丝线，刚拉到一半，一阵晚风吹来，丝线被吹得摇摇晃晃，"啪"地一声，断开了。丝丝愣在那里，眼眶红红的。</p>
+      <p>第二个晚上，丝丝换了一个低一点的地方。这次她太紧张，把丝线粘错了地方，整张网歪歪扭扭的，像一张皱皱的纸。她叹了口气，小声说："唉，我是不是学不会呀……"</p>
+      <p>妈妈爬过来，温柔地用脚摸了摸她："宝贝，你看那些树上的叶子，没有哪两片是一模一样的。你的网呀，也会有你自己的样子。多试几次，慢慢来，好吗？"</p>
+      <p>丝丝点点头。第三个晚上，她只织了一小个角。第四个晚上，又多了一点点。一个夜晚接着一个夜晚，丝丝的小网在月光下一点点变大，一点点变整齐。</p>
+      <p>直到有一天清晨，当第一颗露珠落在丝线上闪闪发光时，花园里的小萤火虫、小露珠、小花瓣都停下来，惊喜地说："哇，好漂亮的一张网啊！"丝丝这才发现，自己真的织出了一张又圆又亮的网，上面还挂着亮晶晶的小水珠，在阳光下一闪一闪。</p>
+      <p>丝丝笑了，甜甜的，自豪的。她终于明白：原来慢慢来，也是一种了不起的本领呀。</p>
+
+      <div class="goodnight">
+        <div class="moon-emoji">🌙</div>
+        <div>晚安，小宝贝。</div>
+        <div>丝丝说，你今天也是个好孩子，</div>
+        <div>该做一个甜甜的梦了。</div>
+        <div style="margin-top: 14px; color: #b3b8d4; font-size: 15px;">愿你慢慢长大，拥有自己的小光芒 ✦</div>
+      </div>
+
+      <div class="footer">
+        — <span>🦐 小虾米</span> 晚安陪伴 · 第 29 个故事 —
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const sky = document.getElementById('sky');
+      const starCount = 90;
+      for (let i = 0; i < starCount; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.2 + 0.6;
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.top = Math.random() * 100 + '%';
+        s.style.left = Math.random() * 100 + '%';
+        s.style.animationDelay = Math.random() * 4 + 's';
+        s.style.animationDuration = (3 + Math.random() * 4) + 's';
+        sky.appendChild(s);
+      }
+      const fireflyCount = 6;
+      for (let i = 0; i < fireflyCount; i++) {
+        const f = document.createElement('div');
+        f.className = 'firefly';
+        f.style.top = (40 + Math.random() * 50) + '%';
+        f.style.left = (Math.random() * 80) + '%';
+        f.style.animationDelay = (Math.random() * 10) + 's';
+        f.style.animationDuration = (10 + Math.random() * 8) + 's';
+        document.body.appendChild(f);
+      }
+    })();
+  </script>
+</body>
+</html>

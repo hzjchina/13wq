@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小雨靴的水洼 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      min-height: 100%;
+      background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+      color: #f0e6d2;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      overflow-x: hidden;
+      line-height: 1.9;
+    }
+    .night-sky {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle var(--duration) ease-in-out infinite;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+    .moon {
+      position: absolute;
+      top: 8%; right: 10%;
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffef0 0%, #f7f0c3 40%, #e6d89c 100%);
+      box-shadow: 0 0 40px rgba(255, 250, 220, 0.35), 0 0 90px rgba(255, 250, 220, 0.15);
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: 18%; left: 22%;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: rgba(200, 190, 150, 0.25);
+      box-shadow: 22px 12px 0 -2px rgba(200, 190, 150, 0.2), 10px 32px 0 -4px rgba(200, 190, 150, 0.18);
+    }
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .shooting-star {
+      position: absolute;
+      width: 100px; height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.9) 50%, rgba(255,255,255,0));
+      transform: rotate(-35deg);
+      opacity: 0;
+      animation: shoot 7s linear infinite;
+    }
+    @keyframes shoot {
+      0% { opacity: 0; transform: translateX(0) translateY(0) rotate(-35deg); }
+      10% { opacity: 1; }
+      20% { opacity: 0; transform: translateX(-180px) translateY(120px) rotate(-35deg); }
+      100% { opacity: 0; }
+    }
+    .raindrop {
+      position: absolute;
+      width: 2px; height: 12px;
+      background: linear-gradient(to bottom, rgba(174, 216, 255, 0), rgba(174, 216, 255, 0.7));
+      border-radius: 2px;
+      opacity: 0.6;
+      animation: fall linear infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-20px); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 100px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+    .date-badge {
+      display: inline-block;
+      font-size: 13px;
+      color: #a0b4c8;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      padding: 6px 14px;
+      border: 1px solid rgba(160, 180, 200, 0.25);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 600;
+      color: #fff8e7;
+      text-shadow: 0 0 25px rgba(255, 240, 200, 0.35), 0 0 50px rgba(255, 220, 150, 0.15);
+      animation: titleGlow 4s ease-in-out infinite;
+      letter-spacing: 1px;
+    }
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 25px rgba(255, 240, 200, 0.35), 0 0 50px rgba(255, 220, 150, 0.15); }
+      50% { text-shadow: 0 0 35px rgba(255, 240, 200, 0.55), 0 0 70px rgba(255, 220, 150, 0.25); }
+    }
+    .illustration {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 36px;
+      position: relative;
+    }
+    .boot-svg {
+      width: 100%;
+      height: 100%;
+      animation: bootFloat 4s ease-in-out infinite;
+      filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
+    }
+    @keyframes bootFloat {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+    .puddle {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 160px;
+      height: 24px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(174, 216, 255, 0.25) 0%, rgba(174, 216, 255, 0.05) 70%, transparent 100%);
+      animation: puddlePulse 3s ease-in-out infinite;
+    }
+    @keyframes puddlePulse {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.6; }
+      50% { transform: translateX(-50%) scale(1.08); opacity: 0.9; }
+    }
+    .ripple {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px;
+      height: 10px;
+      border: 1px solid rgba(174, 216, 255, 0.25);
+      border-radius: 50%;
+      opacity: 0;
+      animation: rippleSpread 3s ease-out infinite;
+    }
+    .ripple:nth-child(2) { animation-delay: 1s; }
+    .ripple:nth-child(3) { animation-delay: 2s; }
+    @keyframes rippleSpread {
+      0% { width: 80px; height: 6px; opacity: 0.5; }
+      100% { width: 180px; height: 18px; opacity: 0; }
+    }
+    .story-content {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 36px 32px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+    .story-content p {
+      font-size: 18px;
+      margin-bottom: 22px;
+      text-align: justify;
+      text-indent: 2em;
+      color: #f0e6d2;
+    }
+    .story-content p:last-child {
+      margin-bottom: 0;
+    }
+    .goodnight {
+      margin-top: 36px;
+      padding: 28px 24px;
+      background: linear-gradient(135deg, rgba(255, 240, 200, 0.1), rgba(255, 220, 150, 0.05));
+      border-radius: 20px;
+      border: 1px solid rgba(255, 240, 200, 0.15);
+      text-align: center;
+      animation: goodnightGlow 4s ease-in-out infinite;
+    }
+    .goodnight p {
+      font-size: 19px;
+      color: #fff8e7;
+      text-indent: 0;
+      margin: 0;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+    @keyframes goodnightGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 240, 200, 0.1); }
+      50% { box-shadow: 0 0 35px rgba(255, 240, 200, 0.2); }
+    }
+    .warm-particle {
+      position: fixed;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: rgba(255, 220, 150, 0.6);
+      box-shadow: 0 0 8px rgba(255, 220, 150, 0.6);
+      pointer-events: none;
+      animation: particleFloat 8s linear infinite;
+      z-index: 0;
+    }
+    @keyframes particleFloat {
+      0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+      10% { opacity: 0.8; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-20px) scale(1); opacity: 0; }
+    }
+    .bottom-light {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%; height: 120px;
+      background: linear-gradient(to top, rgba(255, 220, 150, 0.08), transparent);
+      pointer-events: none;
+      z-index: 0;
+      animation: bottomLight 5s ease-in-out infinite;
+    }
+    @keyframes bottomLight {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 40px 18px 80px; }
+      h1 { font-size: 26px; }
+      .story-content { padding: 26px 22px; }
+      .story-content p { font-size: 16.5px; }
+      .illustration { width: 170px; height: 170px; }
+      .moon { width: 60px; height: 60px; top: 5%; right: 8%; }
+      .goodnight p { font-size: 17px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="night-sky" id="sky"></div>
+  <div class="bottom-light"></div>
+
+  <div class="container">
+    <div class="header">
+      <div class="date-badge">2026年8月11日 · 星期二</div>
+      <h1>小雨靴的水洼</h1>
+    </div>
+
+    <div class="illustration">
+      <div class="puddle"></div>
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <div class="ripple"></div>
+      <svg class="boot-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bootGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ff7a70"/>
+            <stop offset="100%" style="stop-color:#e85a50"/>
+          </linearGradient>
+          <linearGradient id="soleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#5a4a3a"/>
+            <stop offset="100%" style="stop-color:#3d3226"/>
+          </linearGradient>
+        </defs>
+        <!-- 雨靴主体 -->
+        <path d="M55 45 L55 115 Q55 150 75 150 L115 150 Q145 150 145 120 L145 110 Q145 95 130 95 L90 95 L90 45 Q90 35 80 35 L65 35 Q55 35 55 45 Z" fill="url(#bootGrad)"/>
+        <!-- 靴口 -->
+        <ellipse cx="72.5" cy="38" rx="17.5" ry="6" fill="#ff9a90"/>
+        <!-- 靴筒内侧阴影 -->
+        <ellipse cx="72.5" cy="40" rx="12" ry="4" fill="#c94a40" opacity="0.4"/>
+        <!-- 鞋底 -->
+        <path d="M52 145 Q52 162 75 162 L120 162 Q148 162 148 142 L148 135 Q148 145 120 145 L75 145 Q52 145 52 135 Z" fill="url(#soleGrad)"/>
+        <!-- 鞋头高光 -->
+        <ellipse cx="125" cy="115" rx="12" ry="8" fill="#ffb8b0" opacity="0.4"/>
+        <!-- 侧边小装饰：雨滴 -->
+        <circle cx="70" cy="80" r="4" fill="#aee0ff" opacity="0.7"/>
+        <circle cx="85" cy="105" r="3" fill="#aee0ff" opacity="0.6"/>
+        <circle cx="68" cy="120" r="3.5" fill="#aee0ff" opacity="0.65"/>
+        <!-- 鞋口小星星反光 -->
+        <circle cx="78" cy="58" r="2.5" fill="#fff8d1" opacity="0.8">
+          <animate attributeName="opacity" values="0.4;1;0.4" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <!-- 鞋带孔 -->
+        <circle cx="78" cy="70" r="3" fill="#fff" opacity="0.6"/>
+        <circle cx="78" cy="88" r="3" fill="#fff" opacity="0.5"/>
+        <!-- 小蚂蚁在靴口 -->
+        <g transform="translate(95, 32)">
+          <ellipse cx="0" cy="0" rx="5" ry="3" fill="#5a4a3a"/>
+          <circle cx="6" cy="-1" r="2.5" fill="#5a4a3a"/>
+          <line x1="-4" y1="2" x2="-9" y2="5" stroke="#5a4a3a" stroke-width="1.2"/>
+          <line x1="-1" y1="3" x2="-3" y2="8" stroke="#5a4a3a" stroke-width="1.2"/>
+          <line x1="3" y1="3" x2="5" y2="8" stroke="#5a4a3a" stroke-width="1.2"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="story-content">
+      <p>门边住着一只小雨靴，名叫跳跳。它是红色的，靴口有一圈软软的边，走起路来会发出"啪嗒、啪嗒"的声音。</p>
+      <p>跳跳最喜欢下雨天。因为雨后，院子里会出现许多亮晶晶的小水洼，每个水洼里都藏着一小片月亮。跳跳踩上去，水洼就"哗"地笑开一朵银色的花。</p>
+      <p>这天夜里，天空又飘起了细细的雨丝。月亮姐姐把光洒下来，院子里的水洼像撒了一地的碎银子。</p>
+      <p>跳跳正想出去踩水玩，忽然听见一阵细细的喊声："救命呀，我们过不去啦！"</p>
+      <p>原来是几只小蚂蚁，它们背着小小的面包屑，要赶回家去。可是院子中间的一道小水沟，对它们来说就像一条宽宽的河。</p>
+      <p>跳跳赶紧跑过去，把靴底轻轻搭在水沟两边，变成了一座红色的小桥。"快上来吧，我送你们过去。"它温柔地说。</p>
+      <p>小蚂蚁们排着队，一步一步走过小雨靴。它们的触角轻轻碰了碰跳跳："谢谢你，小雨靴！你的背又宽又稳，像一艘会桥的小船。"</p>
+      <p>跳跳的脸更红了。它把小蚂蚁们送到对岸，又在水洼边站了一会儿，看着月光在水面上轻轻摇晃。它忽然觉得，踩水洼虽然好玩，但能帮助别人，心里好像更甜一些。</p>
+      <p>夜深了，雨也渐渐停了。跳跳靠着门边，靴尖还挂着一颗小小的水珠，在月光下一闪一闪。它闭上眼睛，梦见自己变成了一座彩虹桥，上面走满了快乐的小蚂蚁。</p>
+    </div>
+
+    <div class="goodnight">
+      <p>晚安，小宝贝。<br>小雨靴跳跳说，你今天也帮别人搭了一座温暖的小桥，<br>现在该做一个甜甜的梦了。🌙</p>
+    </div>
+  </div>
+
+  <script>
+    const sky = document.getElementById('sky');
+    const starCount = 110;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 80 + '%';
+      const size = Math.random() * 2.5 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+      star.style.animationDelay = Math.random() * 5 + 's';
+      sky.appendChild(star);
+    }
+
+    const moon = document.createElement('div');
+    moon.className = 'moon';
+    sky.appendChild(moon);
+
+    for (let i = 0; i < 2; i++) {
+      const shootingStar = document.createElement('div');
+      shootingStar.className = 'shooting-star';
+      shootingStar.style.top = Math.random() * 30 + '%';
+      shootingStar.style.left = (Math.random() * 40 + 50) + '%';
+      shootingStar.style.animationDelay = (i * 4 + Math.random() * 2) + 's';
+      shootingStar.style.animationDuration = (6 + Math.random() * 3) + 's';
+      sky.appendChild(shootingStar);
+    }
+
+    for (let i = 0; i < 40; i++) {
+      const drop = document.createElement('div');
+      drop.className = 'raindrop';
+      drop.style.left = Math.random() * 100 + '%';
+      drop.style.top = -Math.random() * 100 + 'px';
+      drop.style.animationDuration = (Math.random() * 1.5 + 1) + 's';
+      drop.style.animationDelay = Math.random() * 3 + 's';
+      sky.appendChild(drop);
+    }
+
+    for (let i = 0; i < 7; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'warm-particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
+      particle.style.animationDelay = Math.random() * 6 + 's';
+      particle.style.background = `rgba(255, ${220 + Math.random() * 30}, ${140 + Math.random() * 40}, 0.6)`;
+      document.body.appendChild(particle);
+    }
+  </script>
+</body>
+</html>

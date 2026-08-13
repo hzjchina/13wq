@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 楚门的世界</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #38bdf8;
+    --gold: #fbbf24;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 48px;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(56,189,248,0.15);
+    color: var(--accent);
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .meta span {
+    font-size: 14px;
+    background: var(--card);
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: var(--muted);
+  }
+  .meta .highlight {
+    color: var(--gold);
+    font-weight: 600;
+  }
+  .poster {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+  .poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(56,189,248,0.08) 0%, transparent 60%),
+                radial-gradient(circle at 70% 30%, rgba(251,191,36,0.06) 0%, transparent 50%);
+  }
+  .poster-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .poster-text .big {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    color: var(--text);
+    opacity: 0.15;
+    line-height: 1;
+  }
+  .poster-text .small {
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 4px;
+  }
+  .section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section h2 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .section p {
+    font-size: 16px;
+    color: var(--text);
+    text-align: justify;
+  }
+  .section .quote {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    margin-top: 14px;
+  }
+  .why-list {
+    list-style: none;
+    padding: 0;
+  }
+  .why-list li {
+    font-size: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(148,163,184,0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .why-list li:last-child { border-bottom: none; }
+  .why-list li .num {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(56,189,248,0.15);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
+    opacity: 0.7;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 26px; }
+    .subtitle { font-size: 15px; }
+    .section { padding: 18px; }
+    .poster-text .big { font-size: 40px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">📽 经典电影推荐 · 第29期</div>
+    <h1>楚门的世界</h1>
+    <div class="subtitle">The Truman Show · 1998 · 美国</div>
+    <div class="meta">
+      <span class="highlight">豆瓣 9.4</span>
+      <span class="highlight">IMDb 8.2</span>
+      <span class="highlight">烂番茄 94%</span>
+      <span>彼得·威尔 导演</span>
+      <span>金·凯瑞 主演</span>
+      <span>第71届奥斯卡最佳导演等3项提名</span>
+      <span>金球奖最佳男主 / 最佳男配</span>
+    </div>
+
+    <div class="poster">
+      <div class="poster-text">
+        <div class="big">TRUMAN</div>
+        <div class="small">THE TRUMAN SHOW</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>剧情梗概</h2>
+      <p>楚门·伯班克是一个生活在美国小镇上的普通人。他有一份稳定的工作，一个温柔的妻子，几个贴心的朋友，日子平淡而幸福。直到有一天，一些奇怪的事情开始发生——天空中突然掉下一盏灯，广播里似乎有人在追踪他的行踪，他渐渐发现自己的人生似乎被某种力量操控着。</p>
+      <p class="quote">"如果再也不能见到你，祝你早安、午安、晚安。"</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>亮点所在</h2>
+      <ul class="why-list">
+        <li><span class="num">1</span><span><strong>天才的设定：</strong>整部电影的核心概念堪称神来之笔——一个从出生起就被直播的人生。这个概念在 1998 年显得超前到近乎预言，如今回望更令人不寒而栗。</span></li>
+        <li><span class="num">2</span><span><strong>金·凯瑞的蜕变：</strong>一向以夸张搞笑著称的金·凯瑞，在这部电影中展现了令人动容的细腻演技。他的眼神里有天真、有困惑、有觉醒，更有对自由的渴望。</span></li>
+        <li><span class="num">3</span><span><strong>无处不在的隐喻：</strong>影片中的每一个"路人"、每一句广告台词、每一次"意外"都在暗示更深层的真相。看第二遍时，你会发现无数初看时忽略的细节。</span></li>
+        <li><span class="num">4</span><span><strong> Philip Glass 的配乐：</strong>配乐大师菲利普·格拉斯的音乐如梦境般流淌，为影片增添了一层既温暖又诡异的独特氛围。</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>为什么值得一看</h2>
+      <p>《楚门的世界》不只是一部电影，它是一面镜子。它让我们追问：什么是真实？什么又是被设计好的"舒适"？当楚门最终站在那扇通往未知世界的门前时，他面对的不仅是自由，更是恐惧。我们每个人，或许都在某个无形的"片场"里，习惯了被安排好的生活，忘记了去追问、去冒险、去寻找属于自己的真实。</p>
+      <p class="quote">"我们无法在现实里找到出口，除非我们自己建造一扇门。"</p>
+    </div>
+
+    <div class="footer">晚安，好梦 🌙</div>
+  </div>
+</body>
+</html>

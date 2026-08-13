@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小木马的歌 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    min-height: 100vh;
+    background: radial-gradient(ellipse at top, #0c1a3e 0%, #060d2a 55%, #020514 100%);
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    color: #e8eef9;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  .sky {
+    position: fixed; inset: 0; z-index: 0; overflow: hidden;
+    background:
+      radial-gradient(ellipse at 18% 12%, rgba(140, 170, 240, 0.10) 0%, transparent 45%),
+      radial-gradient(ellipse at 82% 78%, rgba(200, 150, 230, 0.07) 0%, transparent 50%);
+  }
+  .star {
+    position: absolute;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.85);
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50%      { opacity: 1;    transform: scale(1.4); }
+  }
+  .big-star {
+    width: 3px; height: 3px;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 14px rgba(180, 210, 255, 0.5);
+  }
+  .moon {
+    position: fixed;
+    top: 7%; right: 9%;
+    width: 85px; height: 85px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8d6 0%, #ffe89a 55%, #f5cf6b 100%);
+    box-shadow:
+      0 0 28px rgba(255, 232, 154, 0.5),
+      0 0 65px rgba(255, 220, 120, 0.3),
+      0 0 110px rgba(255, 200, 100, 0.15);
+    animation: moonFloat 8s ease-in-out infinite;
+    z-index: 1;
+  }
+  .moon::before {
+    content: "";
+    position: absolute;
+    inset: -22px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 232, 154, 0.13) 0%, transparent 65%);
+    animation: moonGlow 6s ease-in-out infinite;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-10px) rotate(2deg); }
+  }
+  @keyframes moonGlow {
+    0%, 100% { transform: scale(1);   opacity: 0.6; }
+    50%      { transform: scale(1.2); opacity: 1; }
+  }
+  .shooting-star {
+    position: fixed;
+    width: 3px; height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fff, 0 0 12px #b0d8ff;
+    opacity: 0;
+    z-index: 1;
+  }
+  .shooting-star::after {
+    content: "";
+    position: absolute;
+    top: 50%; right: 100%;
+    width: 120px; height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.9), transparent);
+    transform: translateY(-50%);
+  }
+  .shooting-star.s1 {
+    top: 16%; left: 8%;
+    animation: shoot 7s linear infinite;
+    animation-delay: 2s;
+  }
+  .shooting-star.s2 {
+    top: 30%; left: 58%;
+    animation: shoot 9s linear infinite;
+    animation-delay: 5s;
+  }
+  @keyframes shoot {
+    0%   { transform: translate(0, 0) rotate(-20deg); opacity: 0; }
+    3%   { opacity: 1; }
+    20%  { transform: translate(420px, 140px) rotate(-20deg); opacity: 0; }
+    100% { transform: translate(420px, 140px) rotate(-20deg); opacity: 0; }
+  }
+  .page {
+    position: relative; z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, #ffe89a 0%, #ffc97a 50%, #ff9a6b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 24px rgba(255, 200, 100, 0.25);
+    animation: titleGlow 4s ease-in-out infinite;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 0.95em;
+    color: #b8c8e0;
+    letter-spacing: 0.2em;
+    opacity: 0.75;
+  }
+  @keyframes titleGlow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 200, 120, 0.4)); }
+    50%      { filter: drop-shadow(0 0 22px rgba(255, 220, 150, 0.7)); }
+  }
+  .horse-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 50px;
+    position: relative;
+  }
+  .horse-svg {
+    width: 200px; height: 220px;
+    filter: drop-shadow(0 0 18px rgba(255, 180, 120, 0.28));
+    animation: rockHorse 4s ease-in-out infinite;
+    transform-origin: center bottom;
+  }
+  @keyframes rockHorse {
+    0%, 100% { transform: rotate(-4deg); }
+    50%      { transform: rotate(4deg); }
+  }
+  .mane-flow {
+    animation: maneFlow 3s ease-in-out infinite;
+  }
+  @keyframes maneFlow {
+    0%, 100% { transform: translateX(0); opacity: 0.7; }
+    50%      { transform: translateX(2px); opacity: 1; }
+  }
+  .heart-glow {
+    animation: heartPulse 2.5s ease-in-out infinite;
+    transform-origin: center;
+  }
+  @keyframes heartPulse {
+    0%, 100% { opacity: 0.5; transform: scale(0.9); }
+    50%      { opacity: 1;   transform: scale(1.15); }
+  }
+  .warm-particle {
+    position: fixed;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 210, 140, 0.6);
+    box-shadow: 0 0 8px rgba(255, 200, 120, 0.5);
+    pointer-events: none;
+    z-index: 1;
+    animation: floatUp var(--p-dur) ease-in-out infinite;
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(0) scale(0.8); opacity: 0; }
+    20%  { opacity: 0.7; }
+    80%  { opacity: 0.5; }
+    100% { transform: translateY(-200px) scale(0.4); opacity: 0; }
+  }
+  .story {
+    background: linear-gradient(180deg,
+      rgba(22, 38, 75, 0.55) 0%,
+      rgba(10, 22, 48, 0.65) 100%);
+    border: 1px solid rgba(180, 210, 255, 0.12);
+    border-radius: 22px;
+    padding: 40px 36px;
+    box-shadow:
+      0 12px 50px rgba(0, 0, 0, 0.45),
+      inset 0 0 30px rgba(180, 210, 255, 0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    line-height: 1.95;
+    font-size: 1.08em;
+    letter-spacing: 0.04em;
+  }
+  .story p {
+    margin-bottom: 18px;
+    text-indent: 2em;
+    color: #d8e3f5;
+  }
+  .story p:last-child { margin-bottom: 0; }
+  .story .dialogue {
+    color: #ffd9a0;
+    text-shadow: 0 0 12px rgba(255, 180, 100, 0.25);
+  }
+  .divider {
+    text-align: center;
+    margin: 36px 0 28px;
+    color: #ffd9a0;
+    font-size: 1.4em;
+    letter-spacing: 1em;
+    opacity: 0.55;
+  }
+  .goodnight {
+    margin-top: 50px;
+    padding: 30px 28px;
+    text-align: center;
+    background: linear-gradient(135deg,
+      rgba(255, 180, 100, 0.10) 0%,
+      rgba(255, 220, 150, 0.05) 100%);
+    border: 1px solid rgba(255, 200, 120, 0.20);
+    border-radius: 18px;
+    color: #ffe8c4;
+    font-size: 1.05em;
+    line-height: 1.95;
+    letter-spacing: 0.05em;
+    animation: goodnightGlow 5s ease-in-out infinite;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% { box-shadow: 0 0 30px rgba(255, 180, 100, 0.15); }
+    50%      { box-shadow: 0 0 50px rgba(255, 200, 130, 0.30); }
+  }
+  .footer-stars {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    opacity: 0.7;
+  }
+  .footer-stars span {
+    width: 5px; height: 5px;
+    background: #ffe89a;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255, 232, 154, 0.85);
+    animation: twinkle 2.5s ease-in-out infinite;
+  }
+  .footer-stars span:nth-child(1) { animation-delay: 0s;   }
+  .footer-stars span:nth-child(2) { animation-delay: 0.4s; }
+  .footer-stars span:nth-child(3) { animation-delay: 0.8s; }
+  .footer-stars span:nth-child(4) { animation-delay: 1.2s; }
+  .footer-stars span:nth-child(5) { animation-delay: 1.6s; }
+  .footer-stars span:nth-child(6) { animation-delay: 2.0s; }
+  .footer-stars span:nth-child(7) { animation-delay: 2.4s; }
+  .floor-glow {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(255, 190, 120, 0.04) 40%,
+      rgba(255, 170, 100, 0.09) 100%);
+    z-index: 1;
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .page { padding: 40px 16px 60px; }
+    h1 { font-size: 1.7em; }
+    .story { padding: 28px 22px; font-size: 1em; }
+    .horse-svg { width: 160px; height: 180px; }
+    .moon { width: 65px; height: 65px; top: 5%; right: 6%; }
+  }
+</style>
+</head>
+<body>
+  <div class="sky" id="sky"></div>
+  <div class="moon"></div>
+  <div class="shooting-star s1"></div>
+  <div class="shooting-star s2"></div>
+  <div class="floor-glow"></div>
+
+  <!-- Warm floating particles -->
+  <div class="warm-particle" style="left: 15%; bottom: 10%; --p-dur: 8s; animation-delay: 0s;"></div>
+  <div class="warm-particle" style="left: 30%; bottom: 5%;  --p-dur: 10s; animation-delay: 2s;"></div>
+  <div class="warm-particle" style="left: 45%; bottom: 8%;  --p-dur: 9s; animation-delay: 4s;"></div>
+  <div class="warm-particle" style="left: 60%; bottom: 3%;  --p-dur: 11s; animation-delay: 1s;"></div>
+  <div class="warm-particle" style="left: 75%; bottom: 7%;  --p-dur: 8.5s; animation-delay: 3s;"></div>
+  <div class="warm-particle" style="left: 85%; bottom: 12%; --p-dur: 10.5s; animation-delay: 5s;"></div>
+
+  <div class="page">
+    <header>
+      <h1>小木马的歌</h1>
+      <div class="subtitle">— 儿 童 睡 前 故 事 —</div>
+    </header>
+
+    <div class="horse-wrap">
+      <svg class="horse-svg" viewBox="0 0 200 220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="woodGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"  stop-color="#c89a5a"/>
+            <stop offset="50%" stop-color="#b07a3a"/>
+            <stop offset="100%" stop-color="#8a5a28"/>
+          </linearGradient>
+          <linearGradient id="maneGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"  stop-color="#e8a050"/>
+            <stop offset="100%" stop-color="#c07a2a"/>
+          </linearGradient>
+          <radialGradient id="heartGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"  stop-color="#ff9999" stop-opacity="1"/>
+            <stop offset="60%" stop-color="#ff6b6b" stop-opacity="0.7"/>
+            <stop offset="100%" stop-color="#ff6b6b" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="rockerGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%"  stop-color="#a07a3a"/>
+            <stop offset="100%" stop-color="#7a5a28"/>
+          </linearGradient>
+        </defs>
+
+        <!-- Shadow under horse -->
+        <ellipse cx="100" cy="210" rx="70" ry="6" fill="#020514" opacity="0.5"/>
+
+        <!-- Rocker (curved base) -->
+        <path d="M 25 195 Q 100 225 175 195 L 168 188 Q 100 215 32 188 Z"
+              fill="url(#rockerGrad)" stroke="#6a4a18" stroke-width="1"/>
+
+        <!-- Rocker supports (legs connecting body to rocker) -->
+        <rect x="40" y="155" width="10" height="40" fill="#9a6a30" rx="2"/>
+        <rect x="150" y="155" width="10" height="40" fill="#9a6a30" rx="2"/>
+
+        <!-- Horse body -->
+        <ellipse cx="100" cy="130" rx="55" ry="32" fill="url(#woodGrad)" stroke="#8a5a28" stroke-width="1.5"/>
+
+        <!-- Heart on body (glowing) -->
+        <g class="heart-glow">
+          <circle cx="100" cy="130" r="12" fill="url(#heartGrad)"/>
+          <path d="M 96 128 Q 94 124 97 124 Q 100 124 100 127 Q 100 124 103 124 Q 106 124 104 128 L 100 134 Z"
+                fill="#ff8a8a" opacity="0.9"/>
+        </g>
+
+        <!-- Neck -->
+        <path d="M 145 115 Q 155 90 158 70 L 172 75 Q 168 95 160 120 Z"
+              fill="url(#woodGrad)" stroke="#8a5a28" stroke-width="1.5"/>
+
+        <!-- Head -->
+        <ellipse cx="168" cy="62" rx="20" ry="16" fill="url(#woodGrad)" stroke="#8a5a28" stroke-width="1.5"/>
+
+        <!-- Ear -->
+        <path d="M 158 48 L 155 38 L 165 44 Z" fill="#b07a3a" stroke="#8a5a28" stroke-width="1"/>
+
+        <!-- Eye -->
+        <circle cx="174" cy="58" r="2.5" fill="#1a1208"/>
+        <circle cx="174.5" cy="57" r="0.8" fill="#fff"/>
+
+        <!-- Nostril -->
+        <circle cx="182" cy="64" r="1.2" fill="#5a3a18"/>
+
+        <!-- Mouth/muzzle line -->
+        <path d="M 178 68 Q 180 70 182 69" stroke="#5a3a18" stroke-width="1" fill="none"/>
+
+        <!-- Mane (flowing) -->
+        <g class="mane-flow">
+          <path d="M 150 50 Q 145 42 142 52 Q 138 45 136 55 Q 134 48 132 58 Q 148 60 150 50 Z"
+                fill="url(#maneGrad)" opacity="0.9"/>
+          <path d="M 156 45 Q 152 36 150 48 Q 155 42 156 45 Z"
+                fill="#d08a40" opacity="0.8"/>
+        </g>
+
+        <!-- Tail -->
+        <path d="M 48 120 Q 30 125 22 140 Q 20 135 18 145 Q 25 142 28 150 Q 35 143 40 148 Q 42 138 48 135 Z"
+              fill="url(#maneGrad)" stroke="#8a5a28" stroke-width="0.5" opacity="0.9"/>
+
+        <!-- Saddle -->
+        <path d="M 80 102 Q 100 95 120 102 L 118 112 Q 100 108 82 112 Z"
+              fill="#cc5544" stroke="#a03020" stroke-width="1"/>
+        <circle cx="100" cy="107" r="2" fill="#ffe89a" opacity="0.8"/>
+
+        <!-- Saddle strap -->
+        <line x1="85" y1="110" x2="85" y2="155" stroke="#a03020" stroke-width="1.5"/>
+        <line x1="115" y1="110" x2="115" y2="155" stroke="#a03020" stroke-width="1.5"/>
+
+        <!-- Reins -->
+        <path d="M 165 66 Q 130 80 100 100" stroke="#cc5544" stroke-width="1.5" fill="none" opacity="0.7"/>
+      </svg>
+    </div>
+
+    <article class="story">
+      <p>在一间亮着暖黄色小灯的房间里，有一匹小木马。</p>
+
+      <p>她安安静静地站在角落，四只蹄子踩在弯弯的木摇架上。白天，小主人骑在她背上，咯咯咯地笑，摇啊摇，摇啊摇。那是小木马最开心的时刻。</p>
+
+      <p>可是到了晚上，房间里安静下来，小主人睡着了，小木马就开始做梦。</p>
+
+      <p>她梦见自己变成了一匹真正的大马，在绿色的草原上飞奔，风把鬃毛吹得飘起来，蹄子踏过溪流，水花溅得老高。</p>
+
+      <p><span class="dialogue">"如果我是一匹真正的马，"</span>小木马想，<span class="dialogue">"我就能带小主人去好多好多地方。去山顶看日出，去海边捡贝壳，去森林里追蝴蝶……"</span></p>
+
+      <p>可是每天早上醒来，她还是那匹小木马，站在角落里，哪儿也去不了。</p>
+
+      <p>有一天深夜，小主人突然从梦中惊醒，哇哇地哭了起来。</p>
+
+      <p>妈妈跑进来，抱起小主人轻轻拍着。可小主人还是哭，小手紧紧攥着被角，怎么也不肯松开。</p>
+
+      <p>妈妈轻声说：<span class="dialogue">"别怕别怕，你看，小木马还在呢。"</span></p>
+
+      <p>妈妈把小主人放在小木马背上，轻轻摇了摇。</p>
+
+      <p>一下，两下，三下……</p>
+
+      <p>小木马感觉到了小主人温热的小手，紧紧握着她的鞍子。小主人的眼泪滴在她背上，一点点暖。</p>
+
+      <p>小木马心想：<span class="dialogue">"我虽然不能跑，可我能摇啊。"</span></p>
+
+      <p>她拼命地把身子摇得更稳、更轻、更温柔。</p>
+
+      <p>摇啊摇，摇啊摇——</p>
+
+      <p>像妈妈的心跳，一下一下。</p>
+
+      <p>像摇篮的歌，轻轻缓缓。</p>
+
+      <p>小主人不哭了。他把脸贴在小木马的鬃毛上，眼睛慢慢闭起来。</p>
+
+      <p>妈妈在旁边轻声说：<span class="dialogue">"你看，小木马带着你跑呢，跑过山，跑过水，跑到好远好远的地方去啦。"</span></p>
+
+      <p>小木马听到了，心里忽然暖暖的。</p>
+
+      <p>她明白了——原来她从来没有停下过。每一次摇晃，都是一次奔跑；每一次咯吱咯吱的响声，都是一首歌。她不能去草原，但她能带着小主人去任何地方，去梦境里最温柔的角落。</p>
+
+      <p>那天夜里，小木马又做了一个梦。梦里她还是那匹小木马，站在温暖的房间里，月光从窗户洒进来。可这一次，她不再羡慕那些在大草原上奔跑的马了。</p>
+
+      <p>因为她知道，世界上最好的奔跑，不是跑得多远、多快——而是摇啊摇，摇啊摇，把一个害怕的孩子，摇进甜甜的梦里。</p>
+
+      <div class="divider">· · ·</div>
+
+      <div class="goodnight">
+        晚安，小宝贝。<br>
+        小木马说，你今天也是个好孩子。<br>
+        不管明天你走多远、跑多快，<br>
+        总有一份温柔在等你回家。<br>
+        现在，闭上眼睛吧，<br>
+        该做一个甜甜的、摇啊摇的梦了。
+      </div>
+
+      <div class="footer-stars">
+        <span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span>
+      </div>
+    </article>
+  </div>
+
+<script>
+  // Generate 110 random twinkling stars
+  const sky = document.getElementById('sky');
+  for (let i = 0; i < 110; i++) {
+    const star = document.createElement('div');
+    star.className = 'star' + (Math.random() > 0.7 ? ' big-star' : '');
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top  = Math.random() * 85 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.animationDelay = (Math.random() * 5) + 's';
+    sky.appendChild(star);
+  }
+</script>
+</body>
+</html>

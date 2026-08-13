@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小蚂蚁的月亮船 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0a1428 0%, #162744 40%, #1d3a5c 100%);
+      color: #f5f3e8;
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.9;
+    }
+
+    /* 星空背景层 */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle 3s infinite ease-in-out;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 8%;
+      right: 10%;
+      width: 90px;
+      height: 90px;
+      background: radial-gradient(circle at 35% 35%, #fffef0 0%, #f7e8b0 40%, #e6c875 100%);
+      border-radius: 50%;
+      box-shadow: 0 0 40px 10px rgba(247, 232, 176, 0.35), 0 0 80px 30px rgba(247, 232, 176, 0.12);
+      z-index: 1;
+      animation: moonGlow 5s ease-in-out infinite;
+    }
+
+    @keyframes moonGlow {
+      0%, 100% { box-shadow: 0 0 40px 10px rgba(247, 232, 176, 0.35), 0 0 80px 30px rgba(247, 232, 176, 0.12); transform: translateY(0); }
+      50% { box-shadow: 0 0 55px 15px rgba(247, 232, 176, 0.45), 0 0 100px 40px rgba(247, 232, 176, 0.18); transform: translateY(-8px); }
+    }
+
+    /* 流星 */
+    .shooting-star {
+      position: fixed;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      transform: rotate(-25deg);
+      opacity: 0;
+      z-index: 1;
+      animation: shoot 8s infinite ease-in-out;
+    }
+
+    .shooting-star:nth-child(1) { top: 15%; left: -20%; animation-delay: 0s; }
+    .shooting-star:nth-child(2) { top: 35%; left: -20%; animation-delay: 4s; }
+
+    @keyframes shoot {
+      0%, 80%, 100% { opacity: 0; transform: translateX(0) rotate(-25deg); }
+      10% { opacity: 1; }
+      30% { opacity: 0; transform: translateX(500px) rotate(-25deg); }
+    }
+
+    /* 水面波纹 */
+    .water {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 35%;
+      background: linear-gradient(180deg, rgba(29, 58, 92, 0) 0%, rgba(15, 38, 65, 0.8) 30%, rgba(8, 24, 45, 0.95) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .ripple {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 100%;
+      background: repeating-linear-gradient(90deg, transparent 0, transparent 80px, rgba(255,255,255,0.03) 80px, rgba(255,255,255,0.03) 82px);
+      animation: rippleMove 12s linear infinite;
+    }
+
+    .ripple:nth-child(2) { animation-delay: -6s; opacity: 0.6; }
+
+    @keyframes rippleMove {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* 主内容容器 */
+    .container {
+      position: relative;
+      z-index: 10;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 120px;
+    }
+
+    .story-card {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(12px);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 44px 36px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    }
+
+    .story-header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .story-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #fff9e0;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 20px rgba(247, 232, 176, 0.3);
+      animation: titleFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes titleFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .story-subtitle {
+      font-size: 1rem;
+      color: #b8c9dc;
+      letter-spacing: 1px;
+    }
+
+    .story-body {
+      font-size: 1.18rem;
+      color: #f0ede3;
+      text-align: justify;
+      text-indent: 2em;
+    }
+
+    .story-body p {
+      margin-bottom: 1.2em;
+    }
+
+    .story-body p:last-child {
+      text-indent: 0;
+      text-align: center;
+      margin-top: 40px;
+      padding: 28px 24px;
+      background: rgba(247, 232, 176, 0.08);
+      border-radius: 20px;
+      border: 1px solid rgba(247, 232, 176, 0.15);
+      font-size: 1.25rem;
+      color: #fff9e0;
+      animation: goodnightPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes goodnightPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(247, 232, 176, 0.1); }
+      50% { box-shadow: 0 0 40px rgba(247, 232, 176, 0.2); }
+    }
+
+    /* 小船插图 */
+    .boat-illustration {
+      text-align: center;
+      margin: 28px 0;
+      opacity: 0.85;
+      animation: boatRock 5s ease-in-out infinite;
+    }
+
+    @keyframes boatRock {
+      0%, 100% { transform: translateY(0) rotate(-1deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    .boat-illustration svg {
+      width: 160px;
+      height: auto;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.3));
+    }
+
+    /* 漂浮萤火虫 */
+    .firefly {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: #c8f560;
+      border-radius: 50%;
+      box-shadow: 0 0 12px 4px rgba(200, 245, 96, 0.5);
+      z-index: 2;
+      pointer-events: none;
+      animation: fly 15s ease-in-out infinite;
+    }
+
+    @keyframes fly {
+      0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+      25% { transform: translate(30px, -50px); opacity: 1; }
+      50% { transform: translate(-20px, -80px); opacity: 0.7; }
+      75% { transform: translate(40px, -30px); opacity: 1; }
+    }
+
+    /* 底部装饰 */
+    .footer-glow {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: radial-gradient(ellipse at center bottom, rgba(247, 232, 176, 0.08) 0%, transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+      animation: footerBreathe 6s ease-in-out infinite;
+    }
+
+    @keyframes footerBreathe {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.9; }
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .container { padding: 40px 18px 100px; }
+      .story-card { padding: 32px 24px; }
+      .story-title { font-size: 1.7rem; }
+      .story-body { font-size: 1.05rem; }
+      .moon { width: 65px; height: 65px; top: 5%; right: 8%; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 星空 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <!-- 萤火虫 -->
+  <div class="firefly" style="left: 12%; bottom: 25%; animation-delay: 0s;"></div>
+  <div class="firefly" style="left: 28%; bottom: 40%; animation-delay: 2s;"></div>
+  <div class="firefly" style="left: 72%; bottom: 32%; animation-delay: 4s;"></div>
+  <div class="firefly" style="left: 85%; bottom: 50%; animation-delay: 1s;"></div>
+  <div class="firefly" style="left: 50%; bottom: 20%; animation-delay: 3s;"></div>
+  <div class="firefly" style="left: 60%; bottom: 55%; animation-delay: 5s;"></div>
+
+  <!-- 水面 -->
+  <div class="water">
+    <div class="ripple"></div>
+    <div class="ripple"></div>
+  </div>
+
+  <!-- 底部光晕 -->
+  <div class="footer-glow"></div>
+
+  <!-- 主内容 -->
+  <div class="container">
+    <article class="story-card">
+      <header class="story-header">
+        <h1 class="story-title">小蚂蚁的月亮船</h1>
+        <p class="story-subtitle">儿童睡前故事</p>
+      </header>
+
+      <div class="boat-illustration">
+        <svg viewBox="0 0 200 120" xmlns="http://www.w3.org/2000/svg">
+          <!-- 月亮在水中的倒影 -->
+          <ellipse cx="150" cy="85" rx="35" ry="10" fill="rgba(247,232,176,0.15)"/>
+          <!-- 小船（落叶） -->
+          <path d="M30 70 Q60 95 120 80 Q145 75 155 65 Q130 60 90 62 Q55 63 30 70 Z" fill="#c4a35a" stroke="#a88b4a" stroke-width="2"/>
+          <path d="M35 72 Q60 88 110 76" fill="none" stroke="#b89a50" stroke-width="1.5" opacity="0.6"/>
+          <!-- 桅杆 -->
+          <line x1="75" y1="65" x2="75" y2="25" stroke="#8b7346" stroke-width="2" stroke-linecap="round"/>
+          <!-- 小帆（小蚂蚁用的蒲公英绒毛） -->
+          <path d="M78 28 Q105 35 115 55 Q95 50 78 48 Z" fill="#e8f0d8" opacity="0.9"/>
+          <!-- 小蚂蚁 -->
+          <circle cx="62" cy="60" r="5" fill="#5a4a3a"/>
+          <line x1="58" y1="62" x2="55" y2="66" stroke="#5a4a3a" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="66" y1="62" x2="69" y2="66" stroke="#5a4a3a" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="60" y1="65" x2="58" y2="70" stroke="#5a4a3a" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="64" y1="65" x2="66" y2="70" stroke="#5a4a3a" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- 小蚂蚁的眼睛 -->
+          <circle cx="60" cy="58" r="1.2" fill="#fff"/>
+          <circle cx="64" cy="58" r="1.2" fill="#fff"/>
+        </svg>
+      </div>
+
+      <div class="story-body">
+        <p>夏夜里，草丛边的空地上积了一小汪雨水。月亮又大又圆，像一块发光的奶酪挂在天上。</p>
+
+        <p>小蚂蚁妮妮背着一颗小露珠，摇摇晃晃地走到水边。她今天帮蒲公英妈妈搬了三粒种子，帮瓢虫姐姐找到回家的路，小翅膀都快累坏了。她只想找个安静的地方歇一歇。</p>
+
+        <p>忽然，一片金黄的落叶飘到水面上，弯弯的，两头尖尖，多像一艘小小的船呀！妮妮眼睛一亮，轻轻跳了上去。</p>
+
+        <p>“月亮那么远，要是我能坐着小船去找它，该多好啊！”妮妮握紧一根小细枝，当作船桨，轻轻拨动水面。</p>
+
+        <p>小船晃呀晃，水波一圈一圈散开。妮妮划了很久，月亮还是高高地挂在天上。她有点困了，也有点失落。</p>
+
+        <p>这时，一只萤火虫提着灯笼飞过来，落在她的船舷上：“妮妮，你要去哪儿？”</p>
+
+        <p>“我想去找月亮。”妮妮小声说，“可是它太远了，我去不到。”</p>
+
+        <p>萤火虫笑了，它吹了吹自己的灯笼，水面立刻铺满了金色的光点。“你看，月亮不是已经在陪着你了吗？它把光洒进水里，就像一艘会发光的船，一直跟着你。”</p>
+
+        <p>妮妮低头一看，水里真的有一轮亮亮的月亮，正随着小船一起晃呢。她又惊又喜，伸出小手摸了摸水面，月亮也伸出小手，碰了碰她的指尖。</p>
+
+        <p>“原来，我不需要到天上去。”妮妮打了个小小的哈欠，“月亮已经来到我的身边了。”</p>
+
+        <p>她把露珠放进船舱当枕头，把细枝搭在胸前。萤火虫为她熄灭了灯笼，只留下一点点温柔的绿光。晚风轻轻吹，小船轻轻摇，妮妮盖着月光，慢慢闭上了眼睛。</p>
+
+        <p>天上的月亮看着她，把银色的光披在她身上，好像在说：勇敢出发的小家伙， deserve 一个最甜的梦。</p>
+
+        <p>晚安，小宝贝。月亮船轻轻晃着，萤火虫守在旁边，它们都说，你今天也是个好孩子，该做一个甜甜的梦了。</p>
+      </div>
+    </article>
+  </div>
+
+  <script>
+    // 动态生成星星
+    const starsContainer = document.getElementById('stars');
+    const starCount = 100;
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 70 + '%';
+      const size = Math.random() * 2.5 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.animationDelay = Math.random() * 3 + 's';
+      star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>

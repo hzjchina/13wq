@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小袜子的晚安梦 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-top: #0f172a;
+      --bg-bottom: #1e293b;
+      --card-bg: rgba(30, 41, 59, 0.72);
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+      --accent: #fbbf24;
+      --moon: #fef3c7;
+      --glow: rgba(251, 191, 36, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    #sky {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.25; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0) 100%);
+      transform: rotate(-35deg);
+      opacity: 0;
+      animation: shoot 7s ease-out infinite;
+    }
+
+    @keyframes shoot {
+      0% { opacity: 0; transform: translateX(0) translateY(0) rotate(-35deg); }
+      10% { opacity: 1; }
+      20% { opacity: 0; transform: translateX(-220px) translateY(150px) rotate(-35deg); }
+      100% { opacity: 0; }
+    }
+
+    .moon {
+      position: absolute;
+      top: 6vh;
+      right: 8vw;
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #fffbeb 0%, var(--moon) 45%, #fde68a 100%);
+      box-shadow: 0 0 34px 8px rgba(253, 230, 138, 0.35), 0 0 70px 24px rgba(253, 230, 138, 0.12);
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: 22%;
+      left: 18%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(180, 160, 120, 0.18);
+      box-shadow: 24px 8px 0 -2px rgba(180, 160, 120, 0.14), 10px 30px 0 -4px rgba(180, 160, 120, 0.12);
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 8vh 20px 10vh;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 36px 28px 40px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+
+    h1 {
+      margin: 0 0 18px;
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      text-align: center;
+      letter-spacing: 2px;
+      color: #fef3c7;
+      text-shadow: 0 0 24px var(--glow);
+      animation: titleGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 18px var(--glow); }
+      50% { text-shadow: 0 0 34px rgba(251, 191, 36, 0.55); }
+    }
+
+    .illustration {
+      display: flex;
+      justify-content: center;
+      margin: 22px 0 28px;
+    }
+
+    .sock {
+      width: 110px;
+      height: auto;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.35));
+      animation: sockFloat 4s ease-in-out infinite;
+    }
+
+    .sock + .sock { animation-delay: -2s; margin-left: -10px; }
+
+    @keyframes sockFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    .story {
+      font-size: clamp(1.05rem, 3vw, 1.25rem);
+      line-height: 2;
+      color: var(--text);
+    }
+
+    .story p {
+      margin: 0 0 1.2em;
+      text-indent: 2em;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 26px 0;
+      opacity: 0.7;
+    }
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: dotPulse 2.4s ease-in-out infinite;
+    }
+
+    .dot:nth-child(2) { animation-delay: 0.3s; }
+    .dot:nth-child(3) { animation-delay: 0.6s; }
+    .dot:nth-child(4) { animation-delay: 0.9s; }
+    .dot:nth-child(5) { animation-delay: 1.2s; }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.35; transform: scale(0.8); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    .goodnight {
+      text-align: center;
+      margin-top: 28px;
+      padding: 22px;
+      border-radius: 18px;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.2);
+      color: #fef3c7;
+      font-size: clamp(1.1rem, 3.2vw, 1.3rem);
+      line-height: 1.7;
+      animation: goodnightGlow 5s ease-in-out infinite;
+    }
+
+    @keyframes goodnightGlow {
+      0%, 100% { box-shadow: 0 0 18px rgba(251,191,36,0.08); }
+      50% { box-shadow: 0 0 36px rgba(251,191,36,0.2); }
+    }
+
+    .warm-floor {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: radial-gradient(ellipse at center bottom, rgba(251, 191, 36, 0.18) 0%, rgba(251, 191, 36, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: floorBreath 6s ease-in-out infinite;
+    }
+
+    @keyframes floorBreath {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.85; }
+    }
+
+    @media (max-width: 480px) {
+      .wrap { padding: 6vh 16px 8vh; }
+      .card { padding: 26px 20px 32px; }
+      .sock { width: 86px; }
+      .moon { width: 64px; height: 64px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="sky" aria-hidden="true">
+    <div class="moon"></div>
+    <div class="shooting-star" style="top: 14vh; left: 72vw; animation-delay: 0s;"></div>
+    <div class="shooting-star" style="top: 26vh; left: 55vw; animation-delay: 3.5s;"></div>
+  </div>
+  <div class="warm-floor" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <h1>小袜子的晚安梦</h1>
+
+      <div class="illustration">
+        <svg class="sock" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sockGrad1" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#fca5a5"/>
+              <stop offset="100%" stop-color="#f87171"/>
+            </linearGradient>
+          </defs>
+          <path d="M30 10 h60 a10 10 0 0 1 10 10 v70 a40 40 0 0 1 -40 40 h-10 a45 45 0 0 0 -45 45 v5 a10 10 0 0 0 10 10 h60 a35 35 0 0 0 35 -35 v-135 a10 10 0 0 0 -10 -10 h-50 a10 10 0 0 0 -10 10 z" fill="url(#sockGrad1)"/>
+          <rect x="28" y="8" width="64" height="18" rx="6" fill="#fecaca"/>
+          <rect x="28" y="82" width="64" height="14" rx="4" fill="#fecaca"/>
+          <ellipse cx="78" cy="132" rx="12" ry="16" fill="#fecaca" opacity="0.9"/>
+        </svg>
+
+        <svg class="sock" viewBox="0 0 120 160" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="sockGrad2" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stop-color="#93c5fd"/>
+              <stop offset="100%" stop-color="#60a5fa"/>
+            </linearGradient>
+          </defs>
+          <path d="M30 10 h60 a10 10 0 0 1 10 10 v70 a40 40 0 0 1 -40 40 h-10 a45 45 0 0 0 -45 45 v5 a10 10 0 0 0 10 10 h60 a35 35 0 0 0 35 -35 v-135 a10 10 0 0 0 -10 -10 h-50 a10 10 0 0 0 -10 10 z" fill="url(#sockGrad2)"/>
+          <rect x="28" y="8" width="64" height="18" rx="6" fill="#dbeafe"/>
+          <rect x="28" y="82" width="64" height="14" rx="4" fill="#dbeafe"/>
+          <ellipse cx="78" cy="132" rx="12" ry="16" fill="#dbeafe" opacity="0.9"/>
+        </svg>
+      </div>
+
+      <article class="story">
+        <p>天边最后一抹晚霞藏进被子里的时候，晾衣绳上的一只小棉袜打了个哈欠。</p>
+        <p>“明天醒来，我又能穿上那只小脚丫，和他一起探险啦！”小袜子开心地想着。</p>
+        <p>可是夜里，一阵调皮的风吹过窗台，小袜子从晾衣绳上滑了下来，骨碌碌滚到了床底下。周围黑漆漆的，它有点儿害怕，忍不住缩成了一团。</p>
+        <p>“我是不是被忘掉了呢？”小袜子小声说。</p>
+        <p>就在这时，一道温柔的月光从窗帘缝里溜进来，像一条银色的小毯子，轻轻盖在小袜子身上。窗外飞进来一只萤火虫，提着一盏小小的绿灯笼。</p>
+        <p>“别难过，”萤火虫说，“我陪你去找另一只小袜子吧。”</p>
+        <p>小袜子勇敢地站起来，跟着萤火虫钻出床底。它们走过月光铺成的小路，绕过熟睡的小熊，穿过挂着星星的窗帘。忽然，小袜子看见了——在枕头旁边，另一只小袜子正伸长了脖子，焦急地四处张望。</p>
+        <p>“原来你在这里！”两只小袜子高兴地抱在一起。</p>
+        <p>它们悄悄回到小床上，一个裹住左脚，一个裹住右脚。脚丫暖暖的，心也暖暖的。小袜子轻轻地说：“我们永远不分开。”</p>
+        <p>月亮在窗外微微笑，把房间照得像撒了一层糖霜。小袜子和它的小伙伴一起，陪着小主人进入了甜甜的梦里。</p>
+      </article>
+
+      <div class="divider" aria-hidden="true">
+        <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+      </div>
+
+      <div class="goodnight">
+        晚安，小宝贝。<br>
+        小袜子说，你今天也是个好孩子，该做一个又暖又甜的梦了。
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const sky = document.getElementById('sky');
+      const count = window.innerWidth < 480 ? 80 : 110;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.5 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 70 + 'vh';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        star.style.animationDuration = (2.5 + Math.random() * 2.5) + 's';
+        sky.appendChild(star);
+      }
+    })();
+  </script>
+</body>
+</html>

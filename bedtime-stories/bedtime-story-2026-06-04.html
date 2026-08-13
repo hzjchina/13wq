@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>等风来的小风筝 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a1628 0%, #1a2a4a 30%, #1e3a5f 60%, #26466d 100%);
+    color: #e8e0d4;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+  }
+
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 35% 35%, #fffee0 0%, #f5e6b8 40%, #e8d5a0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15);
+    pointer-events: none;
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15); }
+    50% { box-shadow: 0 0 80px rgba(255, 250, 220, 0.55), 0 0 150px rgba(255, 250, 220, 0.2); }
+  }
+
+  .cloud-decor {
+    position: fixed;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 48px;
+  }
+
+  .header-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .story-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+    animation: floatCloud 3s ease-in-out infinite;
+  }
+
+  @keyframes floatCloud {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #f5e6b8;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(245, 230, 184, 0.3);
+  }
+
+  .subtitle {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    margin: 24px auto;
+    border-radius: 1px;
+  }
+
+  .story-text p {
+    font-size: 1.15em;
+    line-height: 2.1;
+    margin-bottom: 18px;
+    text-indent: 2.2em;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  .story-text p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .moral-section {
+    margin: 40px 0 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid rgba(245, 230, 184, 0.5);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .moral-section .moral-title {
+    font-size: 0.9em;
+    color: #f5e6b8;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .moral-section .moral-text {
+    font-size: 1em;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.7);
+    text-indent: 0;
+  }
+
+  .goodnight-section {
+    text-align: center;
+    margin-top: 32px;
+    padding: 32px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+    border-radius: 16px;
+  }
+
+  .goodnight-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 12px;
+    animation: gentlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .goodnight-text {
+    font-size: 1.25em;
+    color: #f5e6b8;
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .bottom-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 95, 0.5) 50%, rgba(10, 22, 40, 0.8) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 480px) {
+    .content-wrapper {
+      padding: 40px 16px 36px;
+    }
+    h1 { font-size: 1.6em; }
+    .story-text p {
+      font-size: 1.05em;
+      line-height: 2;
+    }
+    .moon {
+      width: 56px;
+      height: 56px;
+      top: 24px;
+      right: 5%;
+    }
+    .story-icon { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-container" id="stars"></div>
+<div class="moon"></div>
+<div class="cloud-decor" style="top:12%;left:5%;width:180px;height:60px;animation:floatCloud 8s ease-in-out infinite;"></div>
+<div class="cloud-decor" style="top:28%;left:72%;width:140px;height:44px;animation:floatCloud 11s ease-in-out infinite 2s;"></div>
+<div class="cloud-decor" style="top:65%;left:8%;width:120px;height:36px;animation:floatCloud 9s ease-in-out infinite 4s;"></div>
+<div class="bottom-glow"></div>
+
+<div class="content-wrapper">
+
+  <div class="header-area">
+    <div class="story-icon">🌙</div>
+    <h1>等风来的小风筝</h1>
+    <div class="subtitle">2026年6月4日 · 星期四 · 睡前故事</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="story-text">
+    <p>春天的山坡上，住着一个老爷爷和他的小孙子。一天，他们用竹条和彩纸做了一只小风筝，给它画上了蓝蓝的颜色、白白的云朵，还系上了一条长长的飘带。</p>
+    <p>"就叫你小蓝吧！"孙子高兴地说。</p>
+    <p>小蓝躺在窗台上，每天都能看到天上飞着的其他风筝。有的像老鹰，有的像蝴蝶，有的像长长的蜈蚣。它们在天上翻着跟头、跳着舞，看起来开心极了。</p>
+    <p>可是小蓝却有点害怕。</p>
+    <p>"那么高，万一摔下来怎么办？万一风太大了怎么办？"小蓝的心里装满了小小的担心。</p>
+    <p>第二天，爷爷带小蓝来到了山坡上。风轻轻地吹过来，叶子们开始沙沙地唱歌。</p>
+    <p>"准备好了吗？"爷爷握着小蓝的线，轻轻地把小蓝抛向了天空。</p>
+    <p>小蓝紧张得眼睛都闭了起来，浑身抖个不停。</p>
+    <p>这时候，一阵温柔的风抱住了小蓝。风悄悄地说："别怕，小蓝。我是风婆婆，我会托着你的。你只要放松，跟着我的节奏就好。"</p>
+    <p>小蓝慢慢地睁开了眼睛。</p>
+    <p>哇——它看见了什么？绿绿的山坡变得像一块小手帕，老爷爷的房子变成了一个小木块，小河像一条闪闪发光的银色丝带，弯弯曲曲地伸向远方。远处还有一大片油菜花，黄灿灿的，像给大地铺上了一层金色的被子。</p>
+    <p>"原来天上的风景这么美！"小蓝惊喜地叫了起来。</p>
+    <p>风婆婆托着它越飞越高，小蓝的飘带在身后画出好看的弧线。地上的小朋友们都仰着头喊："你们看，那只蓝色的小风筝飞得多好看呀！"</p>
+    <p>小蓝听了，心里暖暖的，再也不害怕了。</p>
+    <p>傍晚的时候，爷爷轻轻地把小蓝收了回来。小蓝虽然回到了窗台上，但心里装满了今天看到的美丽风景。</p>
+    <p>"爷爷，明天我们还能去飞吗？"</p>
+    <p>"当然啦，只要风来，我们就去。"</p>
+    <p>那天晚上，小蓝做了一个梦，梦见自己变成了一朵蓝色的云，在天空中悠然地飘着、飘着，和风婆婆一起，想飞去任何想去的地方。</p>
+  </div>
+
+  <div class="moral-section">
+    <div class="moral-title">🌟 寓意</div>
+    <div class="moral-text">
+      每个孩子心里都住着一只小风筝。面对新的事物，会紧张、会害怕，这都很正常。但请相信，总有温柔的力量在托着你——也许是爸爸妈妈的手，也许是老师的鼓励，也许是朋友的陪伴。勇敢地迈出那一步，你会看见一片你从未见过的美丽天空。
+    </div>
+  </div>
+
+  <div class="goodnight-section">
+    <span class="goodnight-icon">🌙💤</span>
+    <div class="goodnight-text">
+      晚安，做个好梦。<br>
+      🌙 本文由小虾米为爷自动生成
+    </div>
+  </div>
+
+  <div class="footer">
+    <em>本文由小虾米为爷自动生成</em>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 80;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.5 + 1).toFixed(1);
+    var top = Math.random() * 100;
+    var left = Math.random() * 100;
+    var dur = (Math.random() * 3 + 2).toFixed(1);
+    var delay = (Math.random() * 5).toFixed(1);
+    frag += '<div class="star" style="width:'+size+'px;height:'+size+'px;top:'+top+'%;left:'+left+'%;--dur:'+dur+'s;--delay:'+delay+'s;"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

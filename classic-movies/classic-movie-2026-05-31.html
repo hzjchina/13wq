@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>经典电影推荐 — 控方证人</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .card {
+            max-width: 680px;
+            width: 100%;
+            background: #fffef7;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+        }
+        .header {
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c17 100%);
+            padding: 36px 32px 28px;
+            text-align: center;
+            position: relative;
+        }
+        .header::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #c9a96e, #e8d5a3, #c9a96e);
+        }
+        .date-badge {
+            display: inline-block;
+            background: rgba(201,169,110,0.2);
+            color: #e8d5a3;
+            border: 1px solid rgba(201,169,110,0.4);
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+        .movie-title {
+            color: #fffef7;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            margin-bottom: 6px;
+        }
+        .movie-title-en {
+            color: #c9a96e;
+            font-size: 16px;
+            font-weight: 300;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
+        .body { padding: 32px; }
+        .meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+        .meta-item {
+            background: #f5f0e8;
+            border-radius: 10px;
+            padding: 14px 16px;
+            border-left: 3px solid #c9a96e;
+        }
+        .meta-label {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .meta-value {
+            font-size: 15px;
+            color: #2c1810;
+            font-weight: 600;
+        }
+        .section {
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #4a2c17;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title::before {
+            content: '';
+            width: 24px;
+            height: 2px;
+            background: #c9a96e;
+            border-radius: 1px;
+        }
+        .section p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #444;
+        }
+        .rating-row {
+            display: flex;
+            gap: 16px;
+            margin-top: 8px;
+            flex-wrap: wrap;
+        }
+        .rating-badge {
+            background: #2c1810;
+            color: #e8d5a3;
+            padding: 8px 18px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        .quote-box {
+            background: #f5f0e8;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            border-left: 4px solid #c9a96e;
+            font-style: italic;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px 32px 28px;
+            color: #999;
+            font-size: 12px;
+            letter-spacing: 2px;
+        }
+        .spoiler-free {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e8d5a3;
+            color: #4a2c17;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="header">
+            <div class="date-badge">2026 · 05 · 31</div>
+            <div class="movie-title">控方证人</div>
+            <div class="movie-title-en">Witness for the Prosecution</div>
+        </div>
+        <div class="body">
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <div class="meta-label">导演</div>
+                    <div class="meta-value">比利·怀尔德</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">年份</div>
+                    <div class="meta-value">1957 · 美国</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">类型</div>
+                    <div class="meta-value">悬疑 · 法庭 · 剧情</div>
+                </div>
+                <div class="meta-item">
+                    <div class="meta-label">片长</div>
+                    <div class="meta-value">116 分钟</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">评分</div>
+                <div class="rating-row">
+                    <span class="rating-badge">⭐ IMDb 8.4</span>
+                    <span class="rating-badge">⭐ 豆瓣 9.6</span>
+                    <span class="rating-badge">🍅 烂番茄 100%</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title">剧情梗概</div>
+                <p>伦敦著名刑辩律师韦菲爵士刚刚出院，医生严厉嘱咐他不能接案、不能激动。但一桩扑朔迷离的谋杀案找上门来——一位富有寡妇被杀，所有证据都指向嫌疑人沃尔。唯一的证人，是他那位冷若冰霜的德国妻子。更蹊跷的是，这位妻子不仅不为丈夫辩护，反而作为<strong>控方证人</strong>出庭，作出致命证词……一场在法庭内外的智力博弈就此展开。</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">亮点所在</div>
+                <p>🔹 <strong>阿加莎·克里斯蒂原著改编</strong>，推理女王亲自盖章认可的最佳改编之一<br>
+                🔹 <strong>比利·怀尔德导演</strong>，好莱坞黄金时代最会讲故事的大师，节奏精准到每个镜头<br>
+                🔹 <strong>法庭戏的天花板</strong>，层层反转却不靠故弄玄虚，每一次转折都有坚实铺垫<br>
+                🔹 查尔斯·劳顿饰演的律师堪称经典，幽默、机智、倔强，角色魅力拉满</p>
+            </div>
+
+            <div class="section">
+                <div class="section-title">为什么值得一看</div>
+                <p>这是一部「越看越聪明」的电影。在特效轰炸的年代，它用纯粹的剧本、表演和对白证明：好的故事才是电影的灵魂。即便你对黑白片有顾虑，它密集的台词交锋和出人意料的结局也会让你忘记年代感。</p>
+            </div>
+
+            <div class="quote-box">
+                <span class="spoiler-free">🔒 请勿剧透结局</span>
+                <p style="margin-top:10px;">片尾字幕曾打出一行：「影院经理请您协助，请勿向未观影者透露本片结局」——这种自信，来自一部真正的好电影。</p>
+            </div>
+        </div>
+        <div class="footer">
+            🎬 每日经典电影推荐 · 第13天
+        </div>
+    </div>
+</body>
+</html>

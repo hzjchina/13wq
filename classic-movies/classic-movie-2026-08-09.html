@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 当幸福来敲门</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+    line-height: 1.8;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: 80px 0 50px;
+    text-align: center;
+    background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+    border-bottom: 1px solid #30363d;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 30%, rgba(46, 160, 67, 0.06) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #58a6ff;
+    border: 1px solid rgba(88, 166, 255, 0.3);
+    border-radius: 20px;
+    padding: 4px 16px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+  .hero-title {
+    font-size: 38px;
+    font-weight: 800;
+    color: #f0f6fc;
+    margin-bottom: 8px;
+    position: relative;
+    letter-spacing: 1px;
+  }
+  .hero-subtitle {
+    font-size: 18px;
+    color: #8b949e;
+    margin-bottom: 30px;
+    position: relative;
+    font-weight: 300;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    position: relative;
+  }
+  .meta-pill {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    color: #8b949e;
+  }
+  .meta-pill strong {
+    color: #f0f6fc;
+    font-weight: 600;
+  }
+  .meta-pill .star { color: #d29922; }
+  /* Ratings */
+  .ratings {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    padding: 32px 0;
+    border-bottom: 1px solid #21262d;
+  }
+  .rating-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 18px 28px;
+    text-align: center;
+    min-width: 120px;
+  }
+  .rating-card .platform {
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 6px;
+  }
+  .rating-card .score {
+    font-size: 28px;
+    font-weight: 800;
+  }
+  .rating-card .score.green { color: #3fb950; }
+  .rating-card .score.yellow { color: #d29922; }
+  .rating-card .score.blue { color: #58a6ff; }
+  /* Section */
+  .section {
+    padding: 48px 0;
+    border-bottom: 1px solid #21262d;
+  }
+  .section:last-child { border-bottom: none; padding-bottom: 64px; }
+  .section-label {
+    font-size: 14px;
+    color: #58a6ff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: #58a6ff;
+    border-radius: 2px;
+  }
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #f0f6fc;
+    margin-bottom: 20px;
+  }
+  .section-text {
+    color: #adbac7;
+    font-size: 16px;
+    line-height: 2;
+    text-align: justify;
+  }
+  .section-text strong {
+    color: #f0f6fc;
+    font-weight: 600;
+  }
+  /* Highlights */
+  .highlight-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .highlight-item {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 20px 24px;
+    transition: border-color 0.2s;
+  }
+  .highlight-item:hover {
+    border-color: #58a6ff;
+  }
+  .highlight-item h4 {
+    font-size: 17px;
+    color: #f0f6fc;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .highlight-item .icon {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .highlight-item p {
+    font-size: 15px;
+    color: #8b949e;
+    line-height: 1.8;
+  }
+  /* Quote */
+  .quote-block {
+    background: #161b22;
+    border-left: 4px solid #3fb950;
+    border-radius: 0 12px 12px 0;
+    padding: 28px 32px;
+    margin: 0;
+  }
+  .quote-block p {
+    font-size: 18px;
+    color: #f0f6fc;
+    font-style: italic;
+    line-height: 1.8;
+    font-weight: 500;
+  }
+  .quote-block .attribution {
+    margin-top: 12px;
+    font-size: 14px;
+    color: #8b949e;
+    font-style: normal;
+  }
+  /* Info grid */
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .info-cell {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 16px 20px;
+  }
+  .info-cell .label {
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 4px;
+  }
+  .info-cell .value {
+    font-size: 15px;
+    color: #f0f6fc;
+    font-weight: 500;
+  }
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 32px 0;
+    color: #484f58;
+    font-size: 13px;
+    border-top: 1px solid #21262d;
+  }
+  .footer a {
+    color: #58a6ff;
+    text-decoration: none;
+  }
+  /* Responsive */
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .hero { padding: 50px 0 36px; }
+    .hero-title { font-size: 28px; }
+    .hero-subtitle { font-size: 15px; }
+    .meta-pill { font-size: 12px; padding: 5px 12px; }
+    .rating-card { padding: 14px 20px; min-width: 100px; }
+    .rating-card .score { font-size: 24px; }
+    .section { padding: 36px 0; }
+    .section-title { font-size: 20px; }
+    .section-text { font-size: 15px; }
+    .quote-block { padding: 20px 22px; }
+    .quote-block p { font-size: 16px; }
+    .highlight-item { padding: 16px 18px; }
+    .highlight-item h4 { font-size: 15px; }
+    .highlight-item p { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="container">
+    <span class="hero-tag">第 41 期 · 经典电影推荐</span>
+    <h1 class="hero-title">当幸福来敲门</h1>
+    <p class="hero-subtitle">The Pursuit of Happyness · 2006</p>
+    <div class="hero-meta">
+      <span class="meta-pill">导演 <strong>加布里埃莱·穆奇诺</strong></span>
+      <span class="meta-pill">主演 <strong>威尔·史密斯 / 贾登·史密斯</strong></span>
+      <span class="meta-pill">类型 <strong>传记 · 剧情</strong></span>
+      <span class="meta-pill">片长 <strong>117 分钟</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- Ratings -->
+<div class="container">
+  <div class="ratings">
+    <div class="rating-card">
+      <div class="platform">豆瓣</div>
+      <div class="score green">9.2</div>
+    </div>
+    <div class="rating-card">
+      <div class="platform">IMDb</div>
+      <div class="score yellow">8.0</div>
+    </div>
+    <div class="rating-card">
+      <div class="platform">烂番茄</div>
+      <div class="score blue">88%</div>
+    </div>
+    <div class="rating-card">
+      <div class="platform">Metacritic</div>
+      <div class="score yellow">64</div>
+    </div>
+  </div>
+</div>
+
+<!-- 剧情梗概 -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">SYNOPSIS</div>
+    <h2 class="section-title">剧情梗概</h2>
+    <p class="section-text">
+      1980年代的旧金山，克里斯·加德纳是一个苦苦挣扎的医疗设备推销员。他把全部积蓄投入了一种叫"骨密度扫描仪"的设备，却鲜有医院愿意购买。妻子不堪忍受经济压力离他而去，房租拖欠、税单催缴、停车罚单堆积如山——生活把他逼到了悬崖边上。
+    </p>
+    <p class="section-text" style="margin-top:16px;">
+      一个偶然的机会，他看到一位股票经纪人开着红色法拉利跑车，轻描淡写地说"只需懂数字和与人打交道"。克里斯决定放手一搏，争取进入了知名证券公司的实习项目。然而实习期<strong>整整六个月没有一分钱工资</strong>，二十个实习生中最终只录用一人，与此同时他还要独自带着五岁的儿子流落街头。
+    </p>
+    <p class="section-text" style="margin-top:16px;">
+      父子俩从公寓搬到汽车旅馆，从汽车旅馆搬到地铁厕所，从厕所搬到收容所。在最绝望的夜晚，克里斯用想象力把地铁厕所变成"洞穴探险"，让儿子在恐惧中笑出声来。他用全部的倔强和才智，在六个月的实习期内拼命证明自己——因为他知道，<strong>他输不起的不是一份工作，而是儿子眼中那个依然值得信赖的父亲</strong>。
+    </p>
+  </div>
+</div>
+
+<!-- 亮点 -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">HIGHLIGHTS</div>
+    <h2 class="section-title">亮点所在</h2>
+    <ul class="highlight-list">
+      <li class="highlight-item">
+        <h4><span class="icon">🎬</span>真实事件改编，比虚构更震撼</h4>
+        <p>原型人物克里斯·加德纳的真实经历。从流浪汉到华尔街精英，这不是好莱坞式的造梦，而是一个人一步一步从谷底爬上来的真实记录。电影结尾克里斯·加德纳本人短暂出镜，与威尔·史密斯擦肩而过的那一幕，让无数观众瞬间破防。</p>
+      </li>
+      <li class="highlight-item">
+        <h4><span class="icon">🌟</span>威尔·史密斯演艺生涯巅峰</h4>
+        <p>褪去动作巨星的耀眼外壳，威尔·史密斯贡献了从影以来最内敛、最有层次感的表演。他把一个中年男人的尊严、脆弱、绝望和倔强揉进了每一个眼神里——凭此片获得奥斯卡最佳男主角提名和金球奖剧情类最佳男主角提名。而饰演儿子的贾登·史密斯，正是他现实中的亲生儿子，父子间的化学反应浑然天成。</p>
+      </li>
+      <li class="highlight-item">
+        <h4><span class="icon">💧</span>地铁厕所那场戏——影史最催泪片段之一</h4>
+        <p>克里斯抱着熟睡的儿子蜷缩在地铁厕所的地板上，外面有人不断敲门，他一只脚抵住门、一只手捂住儿子的耳朵，眼泪无声地滑落。没有一句台词，却把一个父亲的无力与坚韧刻画到了骨头里。这一幕被无数影评人列为"最不忍看第二遍的电影片段"。</p>
+      </li>
+      <li class="highlight-item">
+        <h4><span class="icon">🏀</span>父子天台对话——关于梦想的最好教科书</h4>
+        <p>克里斯在篮球场上对儿子说出了影史经典台词："别让别人告诉你，你成不了才，即使是我也不行。"这段话并非刻意煽情，而是一个跌入谷底的父亲在告诫儿子的同时，也在对自己说。朴实到极致，力量到极致。</p>
+      </li>
+      <li class="highlight-item">
+        <h4><span class="icon">🎵</span>配乐克制而精准</h4>
+        <p>意大利作曲家安德烈·瓜特拉负责的配乐没有大肆煽情，而是用钢琴和弦乐的简洁旋律，像一只手轻轻搭在你的肩膀上。在克里斯奔跑、奔跑、再奔跑的镜头中，音乐与脚步声交织，把"一个人拼命活着"的节奏感推向极致。</p>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- 经典台词 -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">QUOTE</div>
+    <h2 class="section-title">经典台词</h2>
+    <div class="quote-block">
+      <p>"You got a dream, you gotta protect it. People can't do somethin' themselves, they wanna tell you you can't do it. If you want somethin', go get it. Period."</p>
+      <p style="margin-top:12px;">"如果你有梦想，就要去捍卫它。那些自己做不到的人，会告诉你你也做不到。如果你想要什么，就去争取。就这么简单。"</p>
+      <p class="attribution">—— 克里斯·加德纳</p>
+    </div>
+  </div>
+</div>
+
+<!-- 为什么值得一看 -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">WHY WATCH</div>
+    <h2 class="section-title">为什么值得一看</h2>
+    <p class="section-text">
+      因为它讲的不是一个"美国梦"的爽文故事，而是一个人在被生活反复碾压之后，依然选择站起来继续走的倔强。克里斯没有超能力，没有贵人天降，有的只是一个孩子的信任和一双不肯停下的脚。
+    </p>
+    <p class="section-text" style="margin-top:16px;">
+      它值得看，是因为它不说教。电影没有给你灌"努力就能成功"的鸡汤——事实上，克里斯的成功充满了运气、时机和常人难以承受的代价。它只是诚实地告诉你：<strong>幸福不是来敲门的，是你拼了命去追，追到了，才叫幸福</strong>。片名中的"Happyness"故意拼错了——那个"y"代表"You"，幸福由你自己定义。
+    </p>
+    <p class="section-text" style="margin-top:16px;">
+      它值得看，更是因为那对父子。当你看到克里斯在最狼狈的时刻依然为儿子撑起一片天，你会明白：所谓伟大的父亲，不是无所不能，而是在无能为力的时候，依然选择不放手。
+    </p>
+    <p class="section-text" style="margin-top:16px;">
+      如果你正经历低谷，如果你觉得生活不公，如果你需要一点继续走下去的力量——<strong>这部电影就是为你准备的</strong>。
+    </p>
+  </div>
+</div>
+
+<!-- 影片信息 -->
+<div class="container">
+  <div class="section">
+    <div class="section-label">DETAILS</div>
+    <h2 class="section-title">影片信息</h2>
+    <div class="info-grid">
+      <div class="info-cell">
+        <div class="label">上映年份</div>
+        <div class="value">2006 年 12 月 15 日</div>
+      </div>
+      <div class="info-cell">
+        <div class="label">制片国家</div>
+        <div class="value">美国</div>
+      </div>
+      <div class="info-cell">
+        <div class="label">导演</div>
+        <div class="value">加布里埃莱·穆奇诺</div>
+      </div>
+      <div class="info-cell">
+        <div class="label">编剧</div>
+        <div class="value">史蒂文·康拉德</div>
+      </div>
+      <div class="info-cell">
+        <div class="label">原著</div>
+        <div class="value">克里斯·加德纳自传</div>
+      </div>
+      <div class="info-cell">
+        <div class="label">片长</div>
+        <div class="value">117 分钟</div>
+      </div>
+      <div class="info-cell">
+        <div class="label">语言</div>
+        <div class="value">英语</div>
+      </div>
+      <div class="info-cell">
+        <div class="label">奥斯卡提名</div>
+        <div class="value">最佳男主角（威尔·史密斯）</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p>小虾米 🦐 · 经典电影推荐 · 第 41 期</p>
+  <p style="margin-top:4px;">2026 年 8 月 9 日 · 每日一部好电影</p>
+</div>
+
+</body>
+</html>

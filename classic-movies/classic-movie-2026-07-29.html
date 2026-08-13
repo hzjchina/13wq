@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 十二怒汉</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #fbbf24;
+    --warm: #f97316;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 20px 48px;
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(251,191,36,0.15);
+    color: var(--accent);
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: 1px;
+  }
+  .subtitle {
+    font-size: 17px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+  .meta span {
+    font-size: 14px;
+    background: var(--card);
+    padding: 6px 14px;
+    border-radius: 8px;
+    color: var(--muted);
+  }
+  .meta .highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .poster {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+  .poster::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 30% 50%, rgba(251,191,36,0.08) 0%, transparent 60%),
+                radial-gradient(circle at 70% 30%, rgba(249,115,22,0.06) 0%, transparent 50%);
+  }
+  .poster-text {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+  .poster-text .big {
+    font-size: 56px;
+    font-weight: 800;
+    letter-spacing: 8px;
+    color: var(--text);
+    opacity: 0.15;
+    line-height: 1;
+  }
+  .poster-text .small {
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 8px;
+    letter-spacing: 4px;
+  }
+  .section {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .section h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section h2 .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+  }
+  .section p {
+    font-size: 16px;
+    color: var(--text);
+    text-align: justify;
+  }
+  .section .quote {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    margin-top: 14px;
+  }
+  .why-list {
+    list-style: none;
+    padding: 0;
+  }
+  .why-list li {
+    font-size: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(148,163,184,0.1);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .why-list li:last-child { border-bottom: none; }
+  .why-list li .num {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(251,191,36,0.15);
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 12px;
+    opacity: 0.7;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 26px; }
+    .subtitle { font-size: 15px; }
+    .section { padding: 18px; }
+    .poster-text .big { font-size: 40px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge">🎬 经典电影推荐 · 第30期</div>
+    <h1>十二怒汉</h1>
+    <div class="subtitle">12 Angry Men · 1957 · 美国</div>
+    <div class="meta">
+      <span class="highlight">豆瓣 9.4</span>
+      <span class="highlight">IMDb 9.0</span>
+      <span class="highlight">烂番茄 100%</span>
+      <span>西德尼·吕美特 导演</span>
+      <span>亨利·方达 主演</span>
+      <span>柏林国际电影节金熊奖</span>
+      <span>IMDb Top 250 第5位</span>
+    </div>
+
+    <div class="poster">
+      <div class="poster-text">
+        <div class="big">JURY</div>
+        <div class="small">12 ANGRY MEN</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>剧情梗概</h2>
+      <p>一个炎热的夏日午后，纽约法院的一间陪审团会议室内，十二名来自不同阶层、互不相识的陪审员被关在一起，要对一桩看似证据确凿的谋杀案作出裁决。一个贫民窟的少年被指控用刀杀害了自己的父亲，法庭上人证物证俱全，几乎板上钉钉。十一票"有罪"，只有一人——八号陪审员——轻轻举起了手，投下了"无罪"的一票。在闷热逼仄的斗室中，一场关于偏见、理性与正义的拉锯战就此展开。</p>
+      <p class="quote">"这不是一场游戏。一条人命攥在我们手里。"</p>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>亮点所在</h2>
+      <ul class="why-list">
+        <li><span class="num">1</span><span><strong>一间房，96分钟，一场神级独幕剧：</strong>全片几乎只有一个场景——陪审团会议室。没有华丽的布景、没有动作场面，导演西德尼·吕美特仅靠镜头调度和节奏控制，让观众的心从头悬到尾。这是"单一场景叙事"的教科书级范本。</span></li>
+        <li><span class="num">2</span><span><strong>十二位演员的群像巅峰：</strong>十二名陪审员，十二种性格——有愤怒的父亲、冷漠的广告商、谨慎的老者、顽固的家长。每个人背后都有一段没说出口的故事，每个转变都有说服力。亨利·方达的沉静与坚定，李·科布的暴怒与崩溃，堪称表演艺术的教科书。</span></li>
+        <li><span class="num">3</span><span><strong>推理的纯粹魅力：</strong>不需要法医、不需要高科技，就是一支笔、一把刀、一张平面图。八号陪审员逐一拆解证人证词中的矛盾，每一步推理都像在解开一个精密的绳结，让人拍案叫绝。</span></li>
+        <li><span class="num">4</span><span><strong>摄影与温度的双重隐喻：</strong>影片的镜头从高处俯拍逐渐降为平视甚至仰拍，焦段从中景收窄为特写，配合室内越来越湿热的衣服和被汗水浸透的衬衣，将压抑与冲突推至顶点。电风扇转了整场电影，却直到最后才吹出真正的凉风。</span></li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2><span class="dot"></span>为什么值得一看</h2>
+      <p>《十二怒汉》拍摄于1957年，但在今天看来，它比大多数当代作品都更加锋利。这部电影真正厉害的地方，不在于它讲了一个"正义战胜偏见"的故事，而在于它让我们看到：理性说服是一件多么艰难的事。八号陪审员并不是靠一腔热血就赢了——他靠的是耐心、逻辑，和对"合理怀疑"的坚持。</p>
+      <p>影片没有告诉我们那个少年到底是不是凶手。它真正想说的是：在一个文明社会里，未经严格审视就夺走一个人的生命，哪怕只有万分之一的疑点，都不可以。在今天的社交媒体时代，"多数即正确"的逻辑无时无刻不在上演，这部电影像一面永不蒙尘的镜子，照出我们每一个人的盲从与偏见。</p>
+      <p class="quote">"无论你走到哪里，偏见总是遮蔽了真相。"</p>
+    </div>
+
+    <div class="footer">晚安，好梦 🌙</div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小被子的拥抱 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-deep: #0d1421;
+      --bg-mid: #162032;
+      --text: #fff8ee;
+      --muted: #b8c4d4;
+      --accent: #ffd8a6;
+      --accent2: #ffb07a;
+      --glow: rgba(255, 216, 166, 0.35);
+      --quilt-pink: #ffb8c6;
+      --quilt-blue: #a8d0ff;
+      --quilt-yellow: #ffe79e;
+      --quilt-green: #b8e6c8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(88, 111, 154, 0.2) 0%, transparent 45%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 176, 122, 0.1) 0%, transparent 40%),
+        linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      line-height: 1.9;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.25; transform: scale(0.8); }
+      to { opacity: 0.95; transform: scale(1.2); }
+    }
+
+    .moon {
+      position: fixed;
+      top: 5vh;
+      right: 8vw;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 35% 30%, #fffdf5 0%, #f5e6c8 40%, #e0c896 100%);
+      box-shadow:
+        0 0 30px rgba(255, 240, 210, 0.35),
+        0 0 70px rgba(255, 230, 180, 0.18);
+      z-index: 0;
+      animation: moonFloat 6s ease-in-out infinite alternate;
+    }
+
+    .moon::after {
+      content: '';
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 240, 210, 0.12);
+      animation: moonHalo 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes moonFloat {
+      from { transform: translateY(0); }
+      to { transform: translateY(12px); }
+    }
+
+    @keyframes moonHalo {
+      from { transform: scale(1); opacity: 0.4; }
+      to { transform: scale(1.15); opacity: 0.7; }
+    }
+
+    .meteor {
+      position: fixed;
+      width: 90px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+      border-radius: 2px;
+      opacity: 0;
+      z-index: 0;
+      transform: rotate(-35deg);
+    }
+
+    .meteor-1 { top: 18vh; left: 10vw; animation: meteorFly 7s linear 1.5s infinite; }
+    .meteor-2 { top: 35vh; left: 55vw; animation: meteorFly 9s linear 5s infinite; }
+
+    @keyframes meteorFly {
+      0% { opacity: 0; transform: translate(-20px, 20px) rotate(-35deg); }
+      10% { opacity: 1; }
+      30% { opacity: 0; transform: translate(180px, -120px) rotate(-35deg); }
+      100% { opacity: 0; transform: translate(180px, -120px) rotate(-35deg); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 8vh 24px 10vh;
+    }
+
+    .illustration {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 28px;
+      position: relative;
+    }
+
+    .illustration svg {
+      width: 100%;
+      height: 100%;
+      filter: drop-shadow(0 12px 30px rgba(0,0,0,0.35));
+      animation: quiltFloat 4.5s ease-in-out infinite alternate;
+    }
+
+    @keyframes quiltFloat {
+      from { transform: translateY(0) rotate(-1deg); }
+      to { transform: translateY(10px) rotate(1.5deg); }
+    }
+
+    .quilt-patch { animation: patchGlow 3s ease-in-out infinite alternate; }
+    .quilt-patch-2 { animation-delay: 0.6s; }
+    .quilt-patch-3 { animation-delay: 1.2s; }
+    .quilt-patch-4 { animation-delay: 1.8s; }
+
+    @keyframes patchGlow {
+      from { opacity: 0.85; }
+      to { opacity: 1; }
+    }
+
+    .warm-particle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--glow);
+      opacity: 0;
+      animation: warmRise 4s ease-out infinite;
+    }
+
+    .warm-particle:nth-child(1) { left: 20%; bottom: 10%; animation-delay: 0s; }
+    .warm-particle:nth-child(2) { left: 45%; bottom: 5%; animation-delay: 0.8s; }
+    .warm-particle:nth-child(3) { left: 70%; bottom: 12%; animation-delay: 1.6s; }
+    .warm-particle:nth-child(4) { left: 35%; bottom: 15%; animation-delay: 2.4s; }
+    .warm-particle:nth-child(5) { left: 60%; bottom: 8%; animation-delay: 3.2s; }
+
+    @keyframes warmRise {
+      0% { opacity: 0; transform: translateY(0) scale(0.6); }
+      20% { opacity: 0.8; }
+      80% { opacity: 0.4; }
+      100% { opacity: 0; transform: translateY(-70px) scale(1.2); }
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--accent);
+      text-shadow: 0 0 25px var(--glow);
+      letter-spacing: 2px;
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      from { text-shadow: 0 0 15px var(--glow); }
+      to { text-shadow: 0 0 35px rgba(255, 216, 166, 0.55); }
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 36px;
+      letter-spacing: 1px;
+    }
+
+    .story {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 32px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    }
+
+    .story p {
+      margin-bottom: 20px;
+      font-size: clamp(1.05rem, 2.8vw, 1.2rem);
+      text-indent: 2em;
+    }
+
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+
+    .goodnight {
+      margin-top: 36px;
+      padding: 26px 28px;
+      background: linear-gradient(135deg, rgba(255, 176, 122, 0.12), rgba(255, 184, 198, 0.1));
+      border: 1px solid rgba(255, 216, 166, 0.2);
+      border-radius: 20px;
+      text-align: center;
+      font-size: clamp(1.1rem, 3vw, 1.3rem);
+      color: var(--accent);
+      line-height: 1.8;
+      animation: goodnightGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes goodnightGlow {
+      from { box-shadow: 0 0 15px rgba(255, 216, 166, 0.1); }
+      to { box-shadow: 0 0 35px rgba(255, 216, 166, 0.25); }
+    }
+
+    .footer-stars {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 28px;
+    }
+
+    .footer-star {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+      animation: footerPulse 2.5s ease-in-out infinite alternate;
+    }
+
+    .footer-star:nth-child(2) { animation-delay: 0.4s; }
+    .footer-star:nth-child(3) { animation-delay: 0.8s; }
+    .footer-star:nth-child(4) { animation-delay: 1.2s; }
+    .footer-star:nth-child(5) { animation-delay: 1.6s; }
+
+    @keyframes footerPulse {
+      from { opacity: 0.3; transform: scale(0.8); }
+      to { opacity: 0.9; transform: scale(1.3); }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 6vh 18px 8vh; }
+      .story { padding: 24px 22px; }
+      .illustration { width: 150px; height: 150px; }
+      .moon { width: 64px; height: 64px; right: 5vw; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="meteor meteor-1"></div>
+  <div class="meteor meteor-2"></div>
+
+  <div class="container">
+    <div class="illustration">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="4" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <!-- 被子主体 -->
+        <path d="M30 70 Q55 55 100 60 Q145 55 170 70 L165 160 Q140 175 100 170 Q60 175 35 160 Z" fill="#fff5e6" stroke="#e8d5c0" stroke-width="2"/>
+        <!-- 补丁方块 -->
+        <rect x="45" y="80" width="38" height="32" rx="6" fill="#ffb8c6" class="quilt-patch quilt-patch-1" opacity="0.9"/>
+        <rect x="88" y="78" width="38" height="34" rx="6" fill="#a8d0ff" class="quilt-patch quilt-patch-2" opacity="0.9"/>
+        <rect x="131" y="82" width="32" height="30" rx="6" fill="#ffe79e" class="quilt-patch quilt-patch-3" opacity="0.9"/>
+        <rect x="52" y="118" width="34" height="32" rx="6" fill="#b8e6c8" class="quilt-patch quilt-patch-4" opacity="0.9"/>
+        <rect x="92" y="120" width="36" height="30" rx="6" fill="#ffd8a6" class="quilt-patch quilt-patch-1" opacity="0.9"/>
+        <rect x="133" y="120" width="30" height="30" rx="6" fill="#e8c4ff" class="quilt-patch quilt-patch-2" opacity="0.9"/>
+        <!-- 小图案 -->
+        <circle cx="64" cy="96" r="5" fill="#fff" opacity="0.8"/>
+        <path d="M104 90 l6 10 l6 -10 l-12 0" fill="#fff" opacity="0.8"/>
+        <circle cx="147" cy="97" r="4" fill="#fff" opacity="0.8"/>
+        <circle cx="69" cy="134" r="4" fill="#fff" opacity="0.8"/>
+        <path d="M110 132 q8 -8 16 0 q-8 12 -16 0" fill="#fff" opacity="0.8"/>
+        <!-- 折边 -->
+        <path d="M30 70 Q55 55 100 60 Q145 55 170 70" fill="none" stroke="#d4c0aa" stroke-width="3" stroke-linecap="round"/>
+        <!-- 暖光晕 -->
+        <ellipse cx="100" cy="175" rx="70" ry="12" fill="rgba(255, 184, 198, 0.2)" filter="url(#softGlow)"/>
+      </svg>
+      <div class="warm-particle"></div>
+      <div class="warm-particle"></div>
+      <div class="warm-particle"></div>
+      <div class="warm-particle"></div>
+      <div class="warm-particle"></div>
+    </div>
+
+    <h1>小被子的拥抱</h1>
+    <p class="subtitle">2026年8月10日 · 儿童睡前故事</p>
+
+    <div class="story">
+      <p>衣柜里住着一条小被子，它叫暖暖。暖暖不像羽绒被那样蓬松，也不像毛毯那样毛茸茸，它就是一条普普通通的棉布被子，上面缝着几块彩色的小补丁。</p>
+
+      <p>有一天晚上，小主人打开衣柜，挑来挑去。暖暖紧张得把四个角都蜷了起来：“我这么普通，他一定看不上我吧。”</p>
+
+      <p>可是，小主人却伸出手，轻轻抱起了暖暖。“今晚我想盖这一条。”他说。</p>
+
+      <p>暖暖又惊又喜，它被铺在床上，四个角掖得整整齐齐。小主人钻进来，把脸贴在暖暖的补丁上，小声说：“你的怀抱刚刚好。”</p>
+
+      <p>夜里，窗外下起了小雨，风也凉飕飕的。暖暖努力地把自己展得平平的，把小主人裹得紧紧的。它听见小主人在梦里笑了，还轻轻咂了咂嘴。</p>
+
+      <p>暖暖忽然明白了：自己不需要变成最漂亮的被子，只要这一个紧紧的拥抱，就能把小主人的梦烘得又香又甜。</p>
+
+      <p>月亮从窗帘缝里探进头来，温柔地看着他们。暖暖也轻轻地、轻轻地说：“晚安，我的小宝贝。愿你梦里全是甜甜的棉花糖。”</p>
+    </div>
+
+    <div class="goodnight">
+      晚安，小宝贝。<br>
+      暖暖说，你今天也是个好孩子，该做一个甜甜的梦了。
+    </div>
+
+    <div class="footer-stars">
+      <div class="footer-star"></div>
+      <div class="footer-star"></div>
+      <div class="footer-star"></div>
+      <div class="footer-star"></div>
+      <div class="footer-star"></div>
+    </div>
+  </div>
+
+  <script>
+    const starsContainer = document.getElementById('stars');
+    const starCount = 110;
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.2 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+      star.style.animationDelay = Math.random() * 4 + 's';
+      starsContainer.appendChild(star);
+    }
+  </script>
+</body>
+</html>

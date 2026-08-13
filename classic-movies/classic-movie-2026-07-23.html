@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 天堂电影院 (2026-07-23)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0806;
+    color: #e0d8cc;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(ellipse at 60% 30%, rgba(180,140,60,0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 70%, rgba(160,120,40,0.15) 0%, transparent 45%),
+      linear-gradient(135deg, #0a0704 0%, #1a1008 25%, #2a1a0a 50%, #3a2810 70%, #4a3218 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(200,160,80,0.06) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 100%);
+    z-index: 1;
+  }
+
+  .film-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 0 40px rgba(180,140,60,0.3);
+    letter-spacing: 6px;
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(200,170,140,0.6);
+    font-weight: 300;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(180,140,60,0.18);
+    border-color: rgba(200,160,80,0.35);
+    color: #d4b86c;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #120e08, #0a0704);
+    border: 1px solid rgba(180,140,60,0.1);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #b48c3c;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a098;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(180,140,60,0.05);
+    border: 1px solid rgba(180,140,60,0.1);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a098;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .highlights li::before {
+    content: '\2726';
+    position: absolute;
+    left: 0;
+    color: #b48c3c;
+    font-size: 10px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #120e08, #0a0704);
+    border-left: 3px solid #b48c3c;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(180,140,60,0.04), rgba(140,100,40,0.02));
+    border: 1px solid rgba(180,140,60,0.1);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #3a3028;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 2 3</div>
+
+  <div class="hero">
+    <div class="film-grain"></div>
+    <div class="hero-content">
+      <h1>天堂电影院</h1>
+      <div class="original-title">Nuovo Cinema Paradiso · 1988 · 意大利 / 法国</div>
+      <div class="hero-meta">
+        <span class="tag">朱塞佩·托纳多雷 导演</span>
+        <span class="tag">菲利普·努瓦雷 / 萨尔瓦托雷·卡西奥 主演</span>
+        <span class="tag gold">剧情 / 成长</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.5</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.2</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">90%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      一位功成名就的意大利导演萨尔瓦托雷，在罗马接到母亲从西西里老家打来的电话——阿尔弗雷多去世了。这个突如其来的消息，将他的记忆瞬间拉回到了二战后的姜卡尔多小镇。那时的他还叫"多多"，是个机灵调皮的小男孩，最大的乐趣就是溜进镇上唯一的天堂电影院，躲在幕布后面看电影。放映员阿尔弗雷多是个粗犷而温暖的中年男人，起初对这个小捣蛋鬼不胜其烦，但渐渐地，两人之间建立起了一段超越年龄的深厚友谊。阿尔弗雷多不仅教会了多多放映电影的秘密，更在他人生的每一个十字路口，给出了比电影更动人的指引。当多多长大成人、坠入爱河、面临抉择的时候，阿尔弗雷多讲了一个关于士兵与公主的故事——而这个故事，改变了一切。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>埃尼奥·莫里康内的配乐堪称影史巅峰，主题旋律一响起就让人眼眶发酸——温柔、怀旧、又不沉溺，是写给"逝去"本身的情书</li>
+      <li>多多与阿尔弗雷多的忘年交，是银幕上最打动人的友谊之一——没有血缘，却比父子更懂彼此</li>
+      <li>托纳多雷用"天堂电影院"这栋建筑作为整个小镇的灵魂：人们在这里哭、笑、恋爱、告别，电影院就是一座微缩的教堂</li>
+      <li>影片中的"戏中戏"——大量黑白老电影片段穿插其中，既是致敬经典，也构成了多多成长的时代共鸣</li>
+      <li>小男孩萨尔瓦托雷·卡西奥的表演浑然天成，那双大眼睛里的好奇、倔强和温柔，是任何训练都无法复制的纯真</li>
+      <li>结尾那段蒙太奇——在此不做剧透——只说是整个电影史上最具情感冲击力的三分钟之一，让你在看到之前永远猜不到会如此动人</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 第 62 届奥斯卡最佳外语片奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 戛纳电影节评审团大奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳外语片</div>
+      <div class="award-item"><span class="icon">🏆</span> 英国电影学院奖最佳外语片等 5 项大奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 意大利大卫奖最佳影片 / 最佳导演</div>
+      <div class="award-item"><span class="icon">🏆</span> 豆瓣电影 Top 250 第 49 位</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"生活不像电影，生活艰难多了。如果你不出去走走，你就会以为这就是全世界。"</p>
+    <div class="source">—— 阿尔弗雷多</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        如果把电影比作一门宗教，那《天堂电影院》就是它的《圣经》。这部电影最妙的地方在于——它讲的是电影，但感动你的永远是电影之外的东西。
+        它是一部"两面"的电影。一面是明亮的：童年、小镇、友谊、初恋、露天放映的烟火气，西西里的阳光好像能从银幕里溢出来。另一面是暗涌的：成长意味着告别、爱一个人不一定能在一起、而最伟大的成全有时看起来像最残忍的拒绝。托纳多雷没有说教，他只是安静地展示了时间的真相——有些东西，注定只能在记忆中完好无损。
+        如果你曾经离开过家乡、告别过某个人、或者只是在一个午后突然想起小时候的某个画面——《天堂电影院》会像一把钥匙，轻轻打开你心里的那扇门。它不是让你哭，它只是提醒你：你曾经那样用力地活过。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    人生与电影不同 · 第 24 期
+  </div>
+
+</div>
+</body>
+</html>

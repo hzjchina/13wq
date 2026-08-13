@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小八音盒的晚安曲 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: radial-gradient(ellipse at 50% 30%, #1a1040 0%, #0d0a28 40%, #060418 100%);
+  min-height: 100vh;
+  font-family: 'Georgia', 'Songti SC', 'Noto Serif SC', serif;
+  color: #e8d5f0;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ===== 星空 ===== */
+.starfield { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.star {
+  position: absolute; background: #fff; border-radius: 50%;
+  animation: twinkle var(--dur) ease-in-out infinite alternate;
+  animation-delay: var(--delay);
+}
+@keyframes twinkle { 0% { opacity: 0.15; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.2); } }
+
+/* ===== 月亮 ===== */
+.moon-wrap {
+  position: fixed; top: 5%; right: 8%; z-index: 1;
+  animation: moonFloat 8s ease-in-out infinite alternate;
+}
+@keyframes moonFloat { 0% { transform: translateY(0); } 100% { transform: translateY(-15px); } }
+
+.moon-glow-outer {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 130px; height: 130px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,240,200,0.12) 0%, transparent 70%);
+  animation: moonGlow 6s ease-in-out infinite alternate;
+}
+.moon-glow-inner {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 90px; height: 90px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,235,180,0.2) 0%, transparent 70%);
+  animation: moonGlow 6s ease-in-out infinite alternate;
+}
+@keyframes moonGlow { 0% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); } }
+
+.moon {
+  position: relative; width: 56px; height: 56px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff8e1, #f5e6a8 60%, #d4b96a 100%);
+  box-shadow: 0 0 30px rgba(255,235,180,0.4), inset -4px -4px 12px rgba(180,150,80,0.3);
+}
+.moon::before, .moon::after {
+  content: ''; position: absolute; border-radius: 50%;
+  background: rgba(200,180,120,0.25);
+}
+.moon::before { width: 10px; height: 10px; top: 15px; left: 12px; }
+.moon::after { width: 7px; height: 7px; top: 35px; left: 30px; }
+
+/* ===== 流星 ===== */
+.shooting-star {
+  position: fixed; width: 2px; height: 2px; background: #fff; border-radius: 50%;
+  z-index: 1; opacity: 0;
+}
+.shooting-star::after {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 80px; height: 1px;
+  background: linear-gradient(90deg, #fff, transparent);
+  transform-origin: left;
+}
+.shooting-star.s1 {
+  top: 15%; left: 10%;
+  animation: shoot1 7s ease-in infinite;
+  animation-delay: 2s;
+}
+@keyframes shoot1 {
+  0% { opacity: 0; transform: translate(0, 0) rotate(25deg); }
+  5% { opacity: 1; }
+  15% { opacity: 1; transform: translate(300px, 140px) rotate(25deg); }
+  20%, 100% { opacity: 0; transform: translate(300px, 140px) rotate(25deg); }
+}
+.shooting-star.s2 {
+  top: 25%; right: 15%;
+  animation: shoot2 9s ease-in infinite;
+  animation-delay: 5s;
+}
+@keyframes shoot2 {
+  0% { opacity: 0; transform: translate(0, 0) rotate(-20deg); }
+  5% { opacity: 1; }
+  15% { opacity: 1; transform: translate(-250px, 100px) rotate(-20deg); }
+  20%, 100% { opacity: 0; transform: translate(-250px, 100px) rotate(-20deg); }
+}
+
+/* ===== 主内容 ===== */
+.container {
+  position: relative; z-index: 2;
+  max-width: 680px; margin: 0 auto;
+  padding: 60px 24px 80px;
+}
+
+/* ===== 标题 ===== */
+.title-section { text-align: center; margin-bottom: 50px; }
+.title-main {
+  font-size: 2.4rem; font-weight: 700;
+  background: linear-gradient(135deg, #f0d8ff, #c8a8e8, #e8c8f0);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: 3px;
+  animation: titleGlow 4s ease-in-out infinite alternate;
+}
+@keyframes titleGlow {
+  0% { filter: drop-shadow(0 0 8px rgba(200,160,240,0.3)); }
+  100% { filter: drop-shadow(0 0 20px rgba(200,160,240,0.6)); }
+}
+.title-sub {
+  font-size: 0.85rem; color: #9888b0; margin-top: 12px;
+  letter-spacing: 4px;
+}
+
+/* ===== 八音盒 SVG 区 ===== */
+.musicbox-container {
+  display: flex; justify-content: center; margin: 40px 0 30px;
+  position: relative;
+}
+.musicbox-wrap {
+  position: relative;
+  animation: boxFloat 5s ease-in-out infinite alternate;
+}
+@keyframes boxFloat {
+  0% { transform: translateY(0) rotate(-1deg); }
+  100% { transform: translateY(-12px) rotate(1deg); }
+}
+.musicbox-glow {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 280px; height: 280px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(200,160,240,0.12) 0%, transparent 65%);
+  animation: glowPulse 5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes glowPulse {
+  0% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.95); }
+  100% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* ===== 音符漂浮 ===== */
+.music-note {
+  position: absolute; font-size: 1.4rem; color: rgba(220,180,255,0.6);
+  animation: noteFloat var(--dur) ease-out infinite;
+  animation-delay: var(--delay);
+  pointer-events: none;
+}
+@keyframes noteFloat {
+  0% { opacity: 0; transform: translateY(20px) scale(0.8); }
+  20% { opacity: 0.7; }
+  100% { opacity: 0; transform: translateY(-80px) scale(1.3) rotate(var(--rot)); }
+}
+
+/* ===== 故事正文 ===== */
+.story-text {
+  font-size: 1.18rem; line-height: 2.4;
+  color: #d8c8e8; text-align: justify;
+  text-indent: 2em;
+  letter-spacing: 0.5px;
+}
+.story-text p { margin-bottom: 1.8em; }
+.story-text .emphasize { color: #f0d0ff; font-weight: 600; }
+
+/* ===== 分隔星点 ===== */
+.divider {
+  display: flex; justify-content: center; align-items: center;
+  gap: 12px; margin: 36px 0;
+}
+.divider .dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(200,170,240,0.5);
+  animation: dotBreathe 3s ease-in-out infinite alternate;
+}
+.divider .dot:nth-child(1) { animation-delay: 0s; }
+.divider .dot:nth-child(2) { animation-delay: 0.4s; }
+.divider .dot:nth-child(3) { animation-delay: 0.8s; }
+.divider .dot:nth-child(4) { animation-delay: 1.2s; }
+.divider .dot:nth-child(5) { animation-delay: 1.6s; }
+@keyframes dotBreathe {
+  0% { opacity: 0.3; transform: scale(0.8); }
+  100% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 8px rgba(200,170,240,0.5); }
+}
+
+/* ===== 晚安语 ===== */
+.goodnight {
+  text-align: center; margin-top: 50px;
+  padding: 30px 20px;
+  border-top: 1px solid rgba(200,170,240,0.15);
+}
+.goodnight-text {
+  font-size: 1.12rem; color: #c8a8d8;
+  line-height: 2; letter-spacing: 1px;
+  animation: goodnightGlow 5s ease-in-out infinite alternate;
+}
+@keyframes goodnightGlow {
+  0% { text-shadow: 0 0 6px rgba(200,160,240,0.15); }
+  100% { text-shadow: 0 0 18px rgba(200,160,240,0.4); }
+}
+
+/* ===== 底部暖光带 ===== */
+.bottom-glow {
+  position: fixed; bottom: 0; left: 0; width: 100%; height: 120px;
+  background: linear-gradient(to top, rgba(120,80,180,0.08), transparent);
+  pointer-events: none; z-index: 0;
+  animation: bottomBreathe 6s ease-in-out infinite alternate;
+}
+@keyframes bottomBreathe {
+  0% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+/* ===== 底部光点 ===== */
+.bottom-dots { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
+.bottom-dots .bdot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(200,170,240,0.4);
+  animation: bdotBreathe 4s ease-in-out infinite alternate;
+}
+.bottom-dots .bdot:nth-child(1) { animation-delay: 0s; }
+.bottom-dots .bdot:nth-child(2) { animation-delay: 0.5s; }
+.bottom-dots .bdot:nth-child(3) { animation-delay: 1s; }
+.bottom-dots .bdot:nth-child(4) { animation-delay: 1.5s; }
+.bottom-dots .bdot:nth-child(5) { animation-delay: 2s; }
+.bottom-dots .bdot:nth-child(6) { animation-delay: 2.5s; }
+.bottom-dots .bdot:nth-child(7) { animation-delay: 3s; }
+@keyframes bdotBreathe {
+  0% { opacity: 0.2; box-shadow: none; }
+  100% { opacity: 0.8; box-shadow: 0 0 10px rgba(200,170,240,0.5); }
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 600px) {
+  .container { padding: 40px 16px 60px; }
+  .title-main { font-size: 1.8rem; }
+  .story-text { font-size: 1.06rem; line-height: 2.2; }
+  .moon-wrap { top: 3%; right: 5%; }
+  .moon { width: 44px; height: 44px; }
+  .moon-glow-outer { width: 100px; height: 100px; }
+  .moon-glow-inner { width: 70px; height: 70px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon-wrap">
+  <div class="moon-glow-outer"></div>
+  <div class="moon-glow-inner"></div>
+  <div class="moon"></div>
+</div>
+
+<!-- 流星 -->
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 底部暖光带 -->
+<div class="bottom-glow"></div>
+
+<div class="container">
+
+  <!-- 标题 -->
+  <div class="title-section">
+    <h1 class="title-main">小八音盒的晚安曲</h1>
+    <p class="title-sub">— 儿童睡前故事 —</p>
+  </div>
+
+  <!-- 八音盒 SVG -->
+  <div class="musicbox-container">
+    <div class="musicbox-wrap">
+      <div class="musicbox-glow"></div>
+      <!-- 漂浮音符 -->
+      <div class="music-note" style="--dur:5s; --delay:0s; --rot:15deg; top:10px; left:30px;">♪</div>
+      <div class="music-note" style="--dur:6s; --delay:1.5s; --rot:-10deg; top:20px; right:20px;">♫</div>
+      <div class="music-note" style="--dur:5.5s; --delay:3s; --rot:20deg; top:0; left:50%;">♪</div>
+      <div class="music-note" style="--dur:6.5s; --delay:2s; --rot:-15deg; top:15px; left:10px;">♩</div>
+      <div class="music-note" style="--dur:5s; --delay:4s; --rot:10deg; top:5px; right:35px;">♬</div>
+
+      <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- 底座阴影 -->
+        <ellipse cx="100" cy="175" rx="65" ry="8" fill="rgba(100,60,140,0.2)"/>
+        
+        <!-- 八音盒底座 -->
+        <rect x="45" y="120" width="110" height="55" rx="6" fill="url(#boxGrad)" stroke="#8b6db5" stroke-width="1.5"/>
+        
+        <!-- 底座前面板装饰 -->
+        <rect x="55" y="135" width="90" height="25" rx="3" fill="rgba(180,150,220,0.15)" stroke="#a888c8" stroke-width="0.8"/>
+        <!-- 面板上的小圆窗 -->
+        <circle cx="100" cy="148" r="8" fill="rgba(120,80,160,0.3)" stroke="#a888c8" stroke-width="1"/>
+        <circle cx="100" cy="148" r="4" fill="rgba(200,170,240,0.3)"/>
+        
+        <!-- 底座花纹 -->
+        <line x1="60" y1="165" x2="140" y2="165" stroke="rgba(200,170,240,0.3)" stroke-width="0.8"/>
+        
+        <!-- 顶盖 -->
+        <path d="M 45 120 Q 100 95 155 120 L 155 120 L 45 120 Z" fill="url(#lidGrad)" stroke="#8b6db5" stroke-width="1.5"/>
+        <!-- 顶盖装饰线 -->
+        <path d="M 55 118 Q 100 100 145 118" fill="none" stroke="rgba(220,200,250,0.4)" stroke-width="0.8"/>
+        
+        <!-- 发条钥匙 -->
+        <line x1="100" y1="175" x2="100" y2="188" stroke="#a888c8" stroke-width="2"/>
+        <circle cx="100" cy="192" r="6" fill="none" stroke="#c8a8e8" stroke-width="2"/>
+        <circle cx="100" cy="192" r="2" fill="#c8a8e8"/>
+        
+        <!-- 小芭蕾舞者 -->
+        <g id="dancer">
+          <!-- 头 -->
+          <circle cx="100" cy="55" r="9" fill="rgba(255,228,225,0.8)" stroke="#d4a0b0" stroke-width="1"/>
+          <!-- 发髻 -->
+          <circle cx="100" cy="48" r="4" fill="rgba(220,180,200,0.7)"/>
+          <!-- 身体 -->
+          <path d="M 100 64 L 95 85 L 105 85 Z" fill="rgba(255,200,210,0.7)" stroke="#d4a0b0" stroke-width="0.8"/>
+          <!-- 裙子 -->
+          <path d="M 88 82 Q 100 78 112 82 L 118 100 Q 100 94 82 100 Z" fill="url(#skirtGrad)" opacity="0.85" stroke="#d4a0b0" stroke-width="0.8"/>
+          <!-- 手臂 -->
+          <path d="M 96 68 Q 86 55 80 50" fill="none" stroke="#d4a0b0" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M 104 68 Q 114 55 120 50" fill="none" stroke="#d4a0b0" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- 腿 -->
+          <line x1="97" y1="100" x2="93" y2="115" stroke="#d4a0b0" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="103" y1="100" x2="107" y2="115" stroke="#d4a0b0" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- 舞者光晕 -->
+          <circle cx="100" cy="78" r="30" fill="none" stroke="rgba(220,180,255,0.08)" stroke-width="1"/>
+        </g>
+        
+        <!-- 转轴连接 -->
+        <line x1="100" y1="115" x2="100" y2="120" stroke="rgba(200,170,240,0.3)" stroke-width="1"/>
+        
+        <!-- 渐变定义 -->
+        <defs>
+          <linearGradient id="boxGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6a4a8a"/>
+            <stop offset="50%" stop-color="#5a3a7a"/>
+            <stop offset="100%" stop-color="#4a2a6a"/>
+          </linearGradient>
+          <linearGradient id="lidGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7a5a9a"/>
+            <stop offset="100%" stop-color="#5a3a7a"/>
+          </linearGradient>
+          <radialGradient id="skirtGrad" cx="0.5" cy="0.3" r="0.7">
+            <stop offset="0%" stop-color="rgba(255,200,220,0.6)"/>
+            <stop offset="100%" stop-color="rgba(200,150,200,0.4)"/>
+          </radialGradient>
+        </defs>
+        
+        <!-- 顶部装饰宝石 -->
+        <circle cx="100" cy="103" r="2.5" fill="rgba(220,180,255,0.6)">
+          <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <!-- 面板圆窗光 -->
+        <circle cx="100" cy="148" r="4" fill="rgba(220,180,255,0.2)">
+          <animate attributeName="opacity" values="0.1;0.5;0.1" dur="4s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-text">
+    <p>在一座旧旧的书架最高一层，住着一个紫色的小八音盒。它的盖子上有个小小的芭蕾舞者，穿着粉色的纱裙，踮着脚尖，好像随时准备跳舞。</p>
+
+    <p>可是，好久好久没有人拧动它的发条了。小八音盒安安静静地待在书架上，听着窗外风吹树叶的沙沙声，心里想着：<span class="emphasize">"要是有人能听我唱那首歌就好了。"</span></p>
+
+    <p>有一天晚上，窗子开了一条缝。一阵调皮的风"呼——"地溜了进来，在屋子里转了一圈。风碰了碰窗帘，窗帘飘了飘；风亲了亲书页，书页翻了几页。然后，风看见了书架最高处的小八音盒。</p>
+
+    <p>"咦，这是什么？"风好奇地凑过去，轻轻地、轻轻地吹了一口——正好吹在了八音盒的发条钥匙上。</p>
+
+    <p>"咔哒、咔哒、咔哒……"发条慢慢转了起来。小芭蕾舞者转了一个圈，又一个圈，又一个圈。叮——铃——铃——叮——铃——铃——</p>
+
+    <p>一首轻柔的曲子，像小溪流水一样从八音盒里流了出来。</p>
+
+    <p>床上的小不点本来翻来翻去睡不着，听见这音乐，身体慢慢变软了，眼皮慢慢变沉了。她小声说："好好听呀……是谁在唱歌？"</p>
+
+    <p>风轻轻吹着她的头发，说："是书架上的小八音盒呀，它等了好久好久，就是想为你唱这首歌呢。"</p>
+
+    <p>小不点笑了一下，把被子往上拉了拉，闭上眼睛。八音盒的曲子一圈一圈地转着，像一只温柔的手，轻轻拍着她的背。叮铃铃，叮铃铃……</p>
+
+    <p>风看见小不点睡着了，就悄悄地退出了窗外，顺手带上了窗户。芭蕾舞者跳完了最后一圈，八音盒也安静了下来。</p>
+
+    <p>可是那一整夜，小不点的梦里都飘着叮铃铃的旋律，像星星洒在被子上，像月光泡在牛奶里。</p>
+
+    <p>小八音盒还是待在书架最高处，可它再也不觉得孤单了。因为它知道——<span class="emphasize">总有一阵温柔的风，会记得来拧动它的发条；总有一个小小的耳朵，在等着听它的歌。</span></p>
+  </div>
+
+  <!-- 分隔 -->
+  <div class="divider">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    <p class="goodnight-text">
+      晚安，小宝贝。<br>
+      小八音盒说，你今天也是个好孩子，<br>
+      该做一个甜甜的梦了。<br>
+      叮——铃——铃——🌙
+    </p>
+    <div class="bottom-dots">
+      <span class="bdot"></span>
+      <span class="bdot"></span>
+      <span class="bdot"></span>
+      <span class="bdot"></span>
+      <span class="bdot"></span>
+      <span class="bdot"></span>
+      <span class="bdot"></span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// 生成星星
+const starfield = document.getElementById('starfield');
+const starCount = 110;
+for (let i = 0; i < starCount; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2.5 + 0.5;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+  star.style.setProperty('--delay', Math.random() * 5 + 's');
+  star.style.opacity = Math.random() * 0.7 + 0.3;
+  starfield.appendChild(star);
+}
+</script>
+
+</body>
+</html>

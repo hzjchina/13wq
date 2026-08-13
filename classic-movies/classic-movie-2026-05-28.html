@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 泰坦尼克号</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #0a0a0f;
+    color: #e0e0e0;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(180deg, #0a1628 0%, #0d2137 30%, #1a3a5c 60%, #0f2844 100%);
+  }
+  .stars {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 60%;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 25% 8%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1.5px 1.5px at 40% 20%, rgba(255,255,255,0.9), transparent),
+      radial-gradient(1px 1px at 55% 5%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 70% 18%, rgba(255,255,255,0.7), transparent),
+      radial-gradient(1.5px 1.5px at 85% 12%, rgba(255,255,255,0.8), transparent),
+      radial-gradient(1px 1px at 15% 30%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 50% 35%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 90% 28%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1px 1px at 35% 42%, rgba(255,255,255,0.3), transparent),
+      radial-gradient(1px 1px at 65% 38%, rgba(255,255,255,0.5), transparent),
+      radial-gradient(1.5px 1.5px at 78% 45%, rgba(255,255,255,0.6), transparent),
+      radial-gradient(1px 1px at 8% 50%, rgba(255,255,255,0.4), transparent),
+      radial-gradient(1px 1px at 92% 40%, rgba(255,255,255,0.5), transparent);
+    pointer-events: none;
+  }
+  .ocean-glow {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 100%; height: 45%;
+    background: linear-gradient(180deg, transparent 0%, rgba(10,40,80,0.3) 40%, rgba(8,30,60,0.6) 100%);
+    pointer-events: none;
+  }
+  .ship-silhouette {
+    position: absolute;
+    bottom: 32%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 320px;
+    height: 120px;
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+    padding: 0 24px;
+  }
+  .badge {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 1px solid rgba(180,200,220,0.3);
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(180,210,240,0.7);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 300;
+    letter-spacing: 6px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    color: #fff;
+    text-shadow: 0 0 40px rgba(100,160,220,0.3);
+  }
+  .hero .subtitle {
+    font-size: 20px;
+    font-weight: 300;
+    color: rgba(180,210,240,0.6);
+    letter-spacing: 4px;
+    margin-bottom: 36px;
+  }
+  .hero .tagline {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(200,215,230,0.7);
+    font-style: italic;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: float 2.5s ease-in-out infinite;
+  }
+  .scroll-hint span {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-right: 1.5px solid rgba(180,210,240,0.4);
+    border-bottom: 1.5px solid rgba(180,210,240,0.4);
+    transform: rotate(45deg);
+  }
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+  }
+
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .section {
+    padding: 80px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(180,210,240,0.4);
+    margin-bottom: 16px;
+  }
+  .section h2 {
+    font-size: 28px;
+    font-weight: 300;
+    color: #fff;
+    margin-bottom: 32px;
+    letter-spacing: 2px;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .info-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+  }
+  .info-card .label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(180,210,240,0.4);
+    margin-bottom: 10px;
+  }
+  .info-card .value {
+    font-size: 24px;
+    font-weight: 300;
+    color: #fff;
+  }
+  .info-card .value span {
+    font-size: 13px;
+    color: rgba(180,210,240,0.5);
+  }
+
+  .plot-text {
+    font-size: 15px;
+    line-height: 2;
+    color: rgba(200,215,230,0.75);
+    text-align: justify;
+  }
+
+  .highlights {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .highlight-item {
+    background: rgba(255,255,255,0.02);
+    border-left: 2px solid rgba(100,170,230,0.4);
+    padding: 20px 24px;
+    border-radius: 0 8px 8px 0;
+  }
+  .highlight-item h3 {
+    font-size: 15px;
+    font-weight: 500;
+    color: rgba(180,210,240,0.9);
+    margin-bottom: 8px;
+  }
+  .highlight-item p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: rgba(200,215,230,0.6);
+  }
+
+  .awards-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+  }
+  .award-tag {
+    background: rgba(218,165,32,0.1);
+    border: 1px solid rgba(218,165,32,0.25);
+    color: rgba(218,185,80,0.9);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+  }
+
+  .why-section {
+    text-align: center;
+  }
+  .why-text {
+    font-size: 15px;
+    line-height: 2.2;
+    color: rgba(200,215,230,0.7);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+  .quote-block {
+    margin: 40px auto 0;
+    max-width: 500px;
+    padding: 24px 32px;
+    border-left: 2px solid rgba(218,165,32,0.4);
+    text-align: left;
+  }
+  .quote-block p {
+    font-size: 16px;
+    font-style: italic;
+    line-height: 1.8;
+    color: rgba(218,195,130,0.8);
+  }
+  .quote-block .author {
+    font-size: 12px;
+    color: rgba(180,210,240,0.4);
+    margin-top: 12px;
+    font-style: normal;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 48px 24px 60px;
+    color: rgba(180,210,240,0.2);
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 36px; letter-spacing: 3px; }
+    .hero .subtitle { font-size: 15px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .highlights { grid-template-columns: 1fr; }
+    .section h2 { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="stars"></div>
+  <div class="ocean-glow"></div>
+  <svg class="ship-silhouette" viewBox="0 0 320 120" fill="none">
+    <path d="M20 90 L40 80 L60 70 L80 55 L100 50 L120 48 L140 48 L160 50 L180 52 L200 55 L220 60 L240 68 L260 78 L280 88 L300 95 L310 98 L10 98 L20 90Z" fill="rgba(180,210,240,0.6)"/>
+    <rect x="110" y="20" width="8" height="28" fill="rgba(180,210,240,0.5)"/>
+    <rect x="140" y="15" width="6" height="33" fill="rgba(180,210,240,0.5)"/>
+    <rect x="168" y="18" width="6" height="30" fill="rgba(180,210,240,0.5)"/>
+    <rect x="60" y="55" width="180" height="4" rx="2" fill="rgba(180,210,240,0.3)"/>
+  </svg>
+  <div class="hero-content">
+    <div class="badge">经典电影推荐 · 第10期</div>
+    <h1>泰坦尼克号</h1>
+    <div class="subtitle">TITANIC · 1997</div>
+    <p class="tagline">"To make each day count."<br>让每一天都算数。</p>
+  </div>
+  <div class="scroll-hint"><span></span></div>
+</div>
+
+<div class="container">
+
+  <div class="section">
+    <div class="section-label">about the film</div>
+    <h2>影片档案</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <div class="label">导演</div>
+        <div class="value">詹姆斯·卡梅隆</div>
+      </div>
+      <div class="info-card">
+        <div class="label">片长</div>
+        <div class="value">194 <span>分钟</span></div>
+      </div>
+      <div class="info-card">
+        <div class="label">类型</div>
+        <div class="value">爱情 / 灾难</div>
+      </div>
+      <div class="info-card">
+        <div class="label">IMDb</div>
+        <div class="value">7.9 <span>/ 10</span></div>
+      </div>
+      <div class="info-card">
+        <div class="label">豆瓣</div>
+        <div class="value">9.5 <span>/ 10</span></div>
+      </div>
+      <div class="info-card">
+        <div class="label">全球票房</div>
+        <div class="value">22亿 <span>美元+</span></div>
+      </div>
+    </div>
+    <div class="awards-row">
+      <span class="award-tag">奥斯卡最佳影片</span>
+      <span class="award-tag">最佳导演</span>
+      <span class="award-tag">最佳摄影</span>
+      <span class="award-tag">最佳剪辑</span>
+      <span class="award-tag">最佳原创配乐</span>
+      <span class="award-tag">最佳音效剪辑</span>
+      <span class="award-tag">最佳视觉效果</span>
+      <span class="award-tag">最佳艺术指导</span>
+      <span class="award-tag">最佳服装设计</span>
+      <span class="award-tag">金球奖最佳剧情片</span>
+      <span class="award-tag">金球奖最佳导演</span>
+      <span class="award-tag">金球奖最佳原创配乐</span>
+      <span class="award-tag">金球奖最佳原创歌曲</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-label">synopsis</div>
+    <h2>剧情梗概</h2>
+    <p class="plot-text">
+      1912年，被誉为"永不沉没"的豪华巨轮泰坦尼克号从英国南安普顿港启航，驶向纽约。船上汇聚了当时社会各个阶层的人——上流社会的贵族、追逐梦想的艺术家、寻找新生活的移民。
+    </p>
+    <br>
+    <p class="plot-text">
+      少女露丝·德维特·布卡特与母亲和未婚夫卡尔一道登船，看似拥有一切，内心却如困兽。一个偶然的机会，她结识了靠赌票赢得三等舱船票的流浪画家杰克·道森。杰克热情、自由、无拘无束的灵魂深深打动了露丝，两人在短暂的航程中迅速坠入爱河。
+    </p>
+    <br>
+    <p class="plot-text">
+      然而，巨轮在北大西洋的冰冷水域撞上了冰山。在命运的无情碾压之下，爱情、人性、生存的本能被推到了极限。这不仅是一场关于生死的考验，更是一次对人类勇气与牺牲精神的终极追问。
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-label">highlights</div>
+    <h2>影片亮点</h2>
+    <div class="highlights">
+      <div class="highlight-item">
+        <h3>前所未有的视觉奇观</h3>
+        <p>卡梅隆团队几乎按原比例复刻了泰坦尼克号，从餐具纹样到大理石楼梯，每一个细节都经得起考证。沉船场景的特效即便在今天看来依然震撼人心。</p>
+      </div>
+      <div class="highlight-item">
+        <h3>跨越阶层的爱情叙事</h3>
+        <p>杰克与露丝的爱情不仅是两个人的故事，更是对当时阶级固化的浪漫反抗。"你跳，我也跳"这句台词之所以动人，正因为它是自由意志对抗命运的呐喊。</p>
+      </div>
+      <div class="highlight-item">
+        <h3>对人性的多维刻画</h3>
+        <p>灾难面前，有人选择演奏到最后一刻的乐队，有挽手而立的老年夫妇，有自私逃跑的贵族，也有舍己救人的普通人。影片没有简单化任何一种选择。</p>
+      </div>
+      <div class="highlight-item">
+        <h3>永不过时的配乐</h3>
+        <p>詹姆斯·霍纳创作的配乐与席琳·迪翁演唱的主题曲《My Heart Will Go On》成为了跨越时代的经典旋律，至今仍是全球最具辨识度的电影音乐之一。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section why-section">
+    <div class="section-label">why watch</div>
+    <h2>为什么值得一看</h2>
+    <p class="why-text">
+      《泰坦尼克号》之所以伟大，不在于它讲述了一段爱情故事，而在于它用一段爱情故事承载了人类面对命运时最真实的情感——希望与绝望、勇敢与怯懦、牺牲与自私、爱情与生存。它让每一个观众都相信：即便在最黑暗的时刻，人性中依然有光。
+    </p>
+    <p class="why-text" style="margin-top: 20px;">
+      如果你还没看过，这是一个极佳的时机。三个小时的电影，你会经历从惊叹到心动、从紧张到落泪的完整情感旅程。而如果你已经看过，不妨在某个安静的夜晚重温——你会发现，不同的年龄和心境，会从同一部电影中读出截然不同的深意。
+    </p>
+    <div class="quote-block">
+      <p>"I'm the king of the world!"</p>
+      <div class="author">— Jack Dawson</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  经典电影推荐 · 2026.05.28 · 每晚八点准时推送
+</div>
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 - 千与千寻</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #0a0a0a;
+    color: #e8e6e1;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .hero {
+    position: relative;
+    padding: 60px 0 40px;
+    text-align: center;
+  }
+
+  .hero-label {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .hero-date {
+    font-size: 12px;
+    color: #555;
+    margin-top: 8px;
+    letter-spacing: 1px;
+  }
+
+  .poster-section {
+    position: relative;
+    margin: 0 auto 40px;
+    text-align: center;
+  }
+
+  .poster-frame {
+    width: 260px;
+    height: 380px;
+    margin: 0 auto;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    background: #111;
+  }
+
+  .poster-frame svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .info-bar {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+  }
+
+  .info-tag {
+    font-size: 12px;
+    color: #999;
+    padding: 6px 14px;
+    border: 1px solid #2a2a2a;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  .section {
+    margin-bottom: 36px;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: #d4c5a0;
+    margin-bottom: 16px;
+    letter-spacing: 2px;
+    position: relative;
+    padding-left: 16px;
+  }
+
+  .section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 16px;
+    background: #d4c5a0;
+    border-radius: 2px;
+  }
+
+  .rating-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .rating-card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 10px;
+    padding: 18px 12px;
+    text-align: center;
+  }
+
+  .rating-score {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .rating-score.gold { color: #d4c5a0; }
+  .rating-score.red { color: #e05050; }
+  .rating-score.green { color: #6ab04c; }
+
+  .rating-source {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 1px;
+  }
+
+  .synopsis {
+    font-size: 14.5px;
+    line-height: 2;
+    color: #bbb;
+    text-align: justify;
+  }
+
+  .highlight-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlight-list li {
+    position: relative;
+    padding: 14px 0 14px 28px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #bbb;
+    border-bottom: 1px solid #1a1a1a;
+  }
+
+  .highlight-list li:last-child {
+    border-bottom: none;
+  }
+
+  .highlight-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 22px;
+    width: 8px;
+    height: 8px;
+    border: 1.5px solid #d4c5a0;
+    border-radius: 50%;
+  }
+
+  .why-section {
+    background: #111;
+    border: 1px solid #1e1e1e;
+    border-radius: 12px;
+    padding: 24px;
+    margin-top: 10px;
+  }
+
+  .why-section p {
+    font-size: 14px;
+    line-height: 2;
+    color: #aaa;
+    margin-bottom: 14px;
+  }
+
+  .why-section p:last-child {
+    margin-bottom: 0;
+  }
+
+  .quote-block {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 15px;
+    color: #d4c5a0;
+    text-align: center;
+    padding: 24px;
+    margin: 36px 0;
+    border-top: 1px solid #1e1e1e;
+    border-bottom: 1px solid #1e1e1e;
+    line-height: 1.9;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px 0 20px;
+    color: #333;
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .awards-strip {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px 0 36px;
+  }
+
+  .award-badge {
+    font-size: 11px;
+    color: #d4c5a0;
+    border: 1px solid #3a3525;
+    background: #1a1810;
+    padding: 5px 12px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <div class="hero">
+    <div class="hero-label">经典电影推荐</div>
+    <h1 style="font-family:'Noto Serif SC',serif; font-size:28px; font-weight:600; color:#e8e6e1; letter-spacing:4px; margin-bottom:10px;">千与千寻</h1>
+    <p style="font-family:'Noto Serif SC',serif; font-size:15px; color:#888; letter-spacing:2px; font-style:italic;">Spirited Away</p>
+    <div class="hero-date">2026 年 5 月 24 日 &middot; 星期日</div>
+  </div>
+
+  <div class="poster-section">
+    <div class="poster-frame">
+      <svg viewBox="0 0 260 380" xmlns="http://www.w3.org/2000/svg">
+        <rect width="260" height="380" fill="#0a0a0a"/>
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="380">
+            <stop offset="0%" stop-color="#1a1a3a"/>
+            <stop offset="40%" stop-color="#2a1a2a"/>
+            <stop offset="100%" stop-color="#0a0a0a"/>
+          </linearGradient>
+          <linearGradient id="bathhouse" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d44a3a"/>
+            <stop offset="50%" stop-color="#8b2a1a"/>
+            <stop offset="100%" stop-color="#3a1010"/>
+          </linearGradient>
+          <radialGradient id="lanternGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#f8d868" stop-opacity="0.8"/>
+            <stop offset="60%" stop-color="#f8d868" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#f8d868" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+        <!-- Sky -->
+        <rect width="260" height="380" fill="url(#sky)"/>
+        <!-- Stars -->
+        <g fill="#fff" opacity="0.4">
+          <circle cx="40" cy="30" r="1"/>
+          <circle cx="90" cy="50" r="0.8"/>
+          <circle cx="150" cy="25" r="1.2"/>
+          <circle cx="200" cy="45" r="0.8"/>
+          <circle cx="30" cy="80" r="0.6"/>
+          <circle cx="220" cy="30" r="1"/>
+          <circle cx="180" cy="70" r="0.7"/>
+          <circle cx="70" cy="65" r="0.5"/>
+        </g>
+        <!-- Bathhouse silhouette -->
+        <g>
+          <rect x="60" y="120" width="140" height="180" rx="3" fill="url(#bathhouse)"/>
+          <!-- Roof tiers -->
+          <path d="M55 120 L130 90 L205 120" fill="#5a1a0a"/>
+          <path d="M60 110 L130 82 L200 110" fill="#6a2010"/>
+          <!-- Windows -->
+          <g fill="#f8d868" opacity="0.5">
+            <rect x="80" y="150" width="16" height="14" rx="2"/>
+            <rect x="105" y="150" width="16" height="14" rx="2"/>
+            <rect x="130" y="150" width="16" height="14" rx="2"/>
+            <rect x="155" y="150" width="16" height="14" rx="2"/>
+            <rect x="80" y="185" width="16" height="14" rx="2"/>
+            <rect x="105" y="185" width="16" height="14" rx="2"/>
+            <rect x="130" y="185" width="16" height="14" rx="2"/>
+            <rect x="155" y="185" width="16" height="14" rx="2"/>
+            <rect x="80" y="220" width="16" height="14" rx="2"/>
+            <rect x="105" y="220" width="16" height="14" rx="2"/>
+            <rect x="130" y="220" width="16" height="14" rx="2"/>
+            <rect x="155" y="220" width="16" height="14" rx="2"/>
+          </g>
+          <!-- Bridge -->
+          <path d="M40 185 L80 175 L180 175 L220 185" fill="#4a3020" stroke="#3a2010" stroke-width="0.5"/>
+        </g>
+        <!-- Lanterns -->
+        <circle cx="100" cy="135" r="12" fill="url(#lanternGlow)"/>
+        <circle cx="100" cy="135" r="4" fill="#f8d868" opacity="0.8"/>
+        <circle cx="150" cy="135" r="12" fill="url(#lanternGlow)"/>
+        <circle cx="150" cy="135" r="4" fill="#f8d868" opacity="0.8"/>
+        <!-- Chihiro silhouette -->
+        <g transform="translate(125, 270)">
+          <ellipse cx="0" cy="-10" rx="5" ry="8" fill="#e8d0a0" opacity="0.4"/>
+          <rect x="-6" y="-2" width="12" height="20" rx="3" fill="#d4a0a0" opacity="0.4"/>
+          <rect x="-7" y="14" width="4" height="12" rx="1" fill="#c0a0a0" opacity="0.3"/>
+          <rect x="3" y="14" width="4" height="12" rx="1" fill="#c0a0a0" opacity="0.3"/>
+        </g>
+        <!-- No-Face silhouette -->
+        <g transform="translate(175, 265)" opacity="0.25">
+          <ellipse cx="0" cy="-5" rx="8" ry="12" fill="#2a2030"/>
+          <circle cx="-3" cy="-8" r="2" fill="#1a1a1a"/>
+          <circle cx="5" cy="-8" r="2" fill="#1a1a1a"/>
+          <rect x="-5" y="5" width="10" height="18" rx="4" fill="#2a2030"/>
+        </g>
+        <!-- Film strip edges -->
+        <rect x="0" y="0" width="8" height="380" fill="#111"/>
+        <rect x="252" y="0" width="8" height="380" fill="#111"/>
+        <g fill="#1a1a1a">
+          <rect x="2" y="15" width="4" height="6" rx="1"/>
+          <rect x="2" y="35" width="4" height="6" rx="1"/>
+          <rect x="2" y="55" width="4" height="6" rx="1"/>
+          <rect x="2" y="75" width="4" height="6" rx="1"/>
+          <rect x="2" y="95" width="4" height="6" rx="1"/>
+          <rect x="2" y="115" width="4" height="6" rx="1"/>
+          <rect x="2" y="135" width="4" height="6" rx="1"/>
+          <rect x="2" y="155" width="4" height="6" rx="1"/>
+          <rect x="2" y="175" width="4" height="6" rx="1"/>
+          <rect x="2" y="195" width="4" height="6" rx="1"/>
+          <rect x="2" y="215" width="4" height="6" rx="1"/>
+          <rect x="2" y="235" width="4" height="6" rx="1"/>
+          <rect x="2" y="255" width="4" height="6" rx="1"/>
+          <rect x="2" y="275" width="4" height="6" rx="1"/>
+          <rect x="2" y="295" width="4" height="6" rx="1"/>
+          <rect x="2" y="315" width="4" height="6" rx="1"/>
+          <rect x="2" y="335" width="4" height="6" rx="1"/>
+          <rect x="2" y="355" width="4" height="6" rx="1"/>
+          <rect x="254" y="15" width="4" height="6" rx="1"/>
+          <rect x="254" y="35" width="4" height="6" rx="1"/>
+          <rect x="254" y="55" width="4" height="6" rx="1"/>
+          <rect x="254" y="75" width="4" height="6" rx="1"/>
+          <rect x="254" y="95" width="4" height="6" rx="1"/>
+          <rect x="254" y="115" width="4" height="6" rx="1"/>
+          <rect x="254" y="135" width="4" height="6" rx="1"/>
+          <rect x="254" y="155" width="4" height="6" rx="1"/>
+          <rect x="254" y="175" width="4" height="6" rx="1"/>
+          <rect x="254" y="195" width="4" height="6" rx="1"/>
+          <rect x="254" y="215" width="4" height="6" rx="1"/>
+          <rect x="254" y="235" width="4" height="6" rx="1"/>
+          <rect x="254" y="255" width="4" height="6" rx="1"/>
+          <rect x="254" y="275" width="4" height="6" rx="1"/>
+          <rect x="254" y="295" width="4" height="6" rx="1"/>
+          <rect x="254" y="315" width="4" height="6" rx="1"/>
+          <rect x="254" y="335" width="4" height="6" rx="1"/>
+          <rect x="254" y="355" width="4" height="6" rx="1"/>
+        </g>
+        <!-- Title text -->
+        <text x="130" y="350" text-anchor="middle" font-family="'Noto Serif SC', serif" font-size="16" fill="#d4c5a0" letter-spacing="3" opacity="0.85">千与千寻</text>
+        <text x="130" y="368" text-anchor="middle" font-family="Georgia, serif" font-size="9" fill="#555" letter-spacing="2" font-style="italic">Spirited Away</text>
+      </svg>
+    </div>
+  </div>
+
+  <div class="info-bar">
+    <span class="info-tag">2001</span>
+    <span class="info-tag">宫崎骏</span>
+    <span class="info-tag">吉卜力工作室</span>
+    <span class="info-tag">动画 / 125 分钟</span>
+  </div>
+
+  <div class="rating-grid">
+    <div class="rating-card">
+      <div class="rating-score gold">9.4</div>
+      <div class="rating-source">豆瓣</div>
+    </div>
+    <div class="rating-card">
+      <div class="rating-score red">8.6</div>
+      <div class="rating-source">IMDb</div>
+    </div>
+    <div class="rating-card">
+      <div class="rating-score green">96%</div>
+      <div class="rating-source">烂番茄</div>
+    </div>
+  </div>
+
+  <div class="awards-strip">
+    <span class="award-badge">奥斯卡最佳动画长片</span>
+    <span class="award-badge">柏林金熊奖</span>
+    <span class="award-badge">日本影史票房冠军</span>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">剧情梗概</h2>
+    <p class="synopsis">
+      十岁的千寻在搬家途中，与父母误入一条神秘的隧道，意外闯入了一个神灵与魔法的世界。父母因贪食变成了猪，千寻必须在汤婆婆经营的巨大浴场中工作，以换取解救家人的机会。在这个光怪陆离的世界里，她遇见了神秘的少年白龙、孤独的无脸男、会说话的煤球精灵，以及形形色色的神明与妖怪。千寻从最初的胆小怯懦，一步步变得勇敢而坚定，在一次次考验中寻找自己的名字，也寻找回家的路。
+    </p>
+  </div>
+
+  <div class="quote-block">
+    "曾经发生过的事情不可能忘记，只是暂时想不起来而已。"
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">影片亮点</h2>
+    <ul class="highlight-list">
+      <li><strong>无与伦比的想象力</strong> —— 宫崎骏创造的神隐世界瑰丽而完整：八百万神灵下榻的汤屋、会飞的白龙、驶过海面的水上列车……每一帧画面都是一次想象力的盛宴，让人叹为观止。</li>
+      <li><strong>久石让的灵魂配乐</strong> —— 主题曲《那个夏天》钢琴旋律一响起，所有关于成长、离别与重逢的情感便涌上心头。久石让的音乐与吉卜力的画面，是动画史上最完美的共生关系。</li>
+      <li><strong>无脸男的经典角色</strong> —— 他沉默、孤独、渴望被关注又不懂如何表达——无脸男是每一个在城市里迷失的人。从膨胀到回归，他的角色弧线是整部电影最深刻的隐喻之一。</li>
+      <li><strong>纯手工动画的极致</strong> —— 全片手绘，没有CG特效的辅助，却创造出了比任何数字特效都更具生命力的画面。那种手绘线条的温度和呼吸感，是冰冷的计算机无法复制的。</li>
+      <li><strong>跨越文化的共鸣</strong> —— 这是一个日本的故事，却打动了全世界。它用神道与日本泡汤文化的壳，装着关于成长、贪婪、记忆与爱的内核，任何文化背景的观众都能找到共鸣。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">为什么值得一看</h2>
+    <div class="why-section">
+      <p>
+        对很多人来说，《千与千寻》不仅仅是一部动画电影。它是一部给成年人的童话，也是一部给孩子的成人礼。
+      </p>
+      <p>
+        宫崎骏把一个人长大过程中会遇到的几乎所有课题，都装进了这个奇幻的故事里：离开熟悉的环境去一个陌生的世界（成长）、被迫工作养活自己（独立）、面对形形色色的人和诱惑（选择）、记得自己是谁（身份与自我），以及在孤独中找到同伴（羁绊与爱）。
+      </p>
+      <p>
+        它最了不起的地方在于，你十岁的时候看是奇幻冒险，二十岁的时候看是成长寓言，三十岁再看则是关于成年世界的洞见——每一次重温都能读出新的东西。这种层次感和厚度，是它真正经典的证明。
+      </p>
+      <p>
+        如果要推荐一部动画电影给从来没看过动画的人，那就是它了。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    每日经典电影推荐 &middot; 第 6 期
+  </div>
+
+</div>
+
+</body>
+</html>

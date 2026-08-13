@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 怕黑的小萤火虫 — 每日睡前故事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0a0e27 0%, #1a1a4e 40%, #2d1b69 70%, #1a1a4e 100%);
+    font-family: 'ZCOOL XiaoWei', 'PingFang SC', 'Microsoft YaHei', serif;
+    color: #e8e0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  .moon {
+    position: fixed;
+    top: 60px;
+    right: 80px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 35% 35%, #ffeebb, #ffd866);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(255, 230, 130, 0.5), 0 0 80px rgba(255, 230, 130, 0.2);
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 40px rgba(255, 230, 130, 0.5), 0 0 80px rgba(255, 230, 130, 0.2); }
+    50% { box-shadow: 0 0 60px rgba(255, 230, 130, 0.7), 0 0 120px rgba(255, 230, 130, 0.3); }
+  }
+
+  .story-container {
+    max-width: 600px;
+    width: 90%;
+    padding: 50px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(200, 190, 220, 0.6);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 400;
+    color: #ffd866;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255, 216, 102, 0.3);
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(200, 190, 220, 0.5);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 216, 102, 0.5), transparent);
+    margin: 0 auto 40px;
+  }
+
+  .story-content {
+    font-size: 17px;
+    line-height: 2;
+    color: #d8d0e8;
+    text-align: justify;
+  }
+
+  .story-content p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .moral {
+    margin-top: 40px;
+    padding: 24px 28px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 216, 102, 0.15);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .moral h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffd866;
+    margin-bottom: 12px;
+  }
+
+  .moral p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #c8c0d8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    color: rgba(255, 216, 102, 0.7);
+    animation: moonGlow 3s ease-in-out infinite;
+  }
+
+  .cloud {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 50%;
+    z-index: 0;
+    filter: blur(30px);
+  }
+
+  .cloud-1 { width: 200px; height: 80px; bottom: 15%; left: -50px; animation: drift 20s ease-in-out infinite; }
+  .cloud-2 { width: 300px; height: 60px; bottom: 30%; right: -80px; animation: drift 25s ease-in-out infinite reverse; }
+  .cloud-3 { width: 150px; height: 50px; bottom: 50%; left: 20%; animation: drift 18s ease-in-out infinite 5s; }
+
+  @keyframes drift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(30px); }
+  }
+
+  /* 萤火虫动画 */
+  .firefly {
+    position: fixed;
+    width: 6px; height: 6px;
+    background: radial-gradient(circle, #a8ff60, #78e84c, transparent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px 3px rgba(168, 255, 96, 0.5), 0 0 20px 8px rgba(168, 255, 96, 0.2);
+    z-index: 0;
+    pointer-events: none;
+    animation: fireflyFloat var(--fdur) ease-in-out infinite, fireflyGlow 2s ease-in-out infinite;
+  }
+
+  @keyframes fireflyFloat {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(var(--dx1), var(--dy1)); }
+    50% { transform: translate(var(--dx2), var(--dy2)); }
+    75% { transform: translate(var(--dx3), var(--dy3)); }
+  }
+
+  @keyframes fireflyGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  @media (max-width: 500px) {
+    .story-container { padding: 30px 24px; }
+    h1 { font-size: 22px; }
+    .story-content { font-size: 15px; }
+    .moon { width: 50px; height: 50px; top: 30px; right: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon"></div>
+<div class="cloud cloud-1"></div>
+<div class="cloud cloud-2"></div>
+<div class="cloud cloud-3"></div>
+<div id="fireflies"></div>
+
+<div class="story-container">
+  <div class="date-tag">2026 年 5 月 20 日 · 星期三</div>
+  <h1>✨ 怕黑的小萤火虫</h1>
+  <div class="subtitle">每日儿童睡前故事</div>
+  <div class="divider"></div>
+
+  <div class="story-content">
+    <p style="animation-delay: 0.2s;">在一片安静的森林里，住着一群萤火虫。每天傍晚，萤火虫们就会点亮自己的小灯，飞来飞去，像一串串会飞的小星星，把森林的夜晚装点得美极了。</p>
+    <p style="animation-delay: 0.6s;">可是，有一只叫"豆豆"的小萤火虫，它特别怕黑。一看到天变暗，它就赶紧躲进树叶底下，把自己裹得紧紧的。</p>
+    <p style="animation-delay: 1s;">"豆豆，出来玩呀！"小伙伴们在窗外喊它。</p>
+    <p style="animation-delay: 1.4s;">豆豆摇摇头："不行不行，外面太黑了，我害怕……"</p>
+    <p style="animation-delay: 1.8s;">一只老萤火虫飞到豆豆身边，轻轻地说："豆豆，你摸摸自己的尾巴。"</p>
+    <p style="animation-delay: 2.2s;">豆豆低头一看——它的尾巴上，有一个小小的光点，正一闪一闪地发着绿莹莹的光。虽然那光很小很小，但在黑暗里，却格外好看。</p>
+    <p style="animation-delay: 2.6s;">"你看，你自己就是一盏小灯呀。"老萤火虫笑着说，"黑暗并不可怕，可怕的是你忘记了自己有发光的能力。"</p>
+    <p style="animation-delay: 3s;">豆豆鼓起勇气，从树叶底下探出头来。它试着拍拍翅膀，飞了出去。一开始它飞得很慢很慢，但尾巴上的小光一直亮着，给它照亮了前方的路。</p>
+    <p style="animation-delay: 3.4s;">飞着飞着，它发现夜里的森林原来这么美——月亮像银盘子一样挂在天上，小溪闪着光，青蛙在唱歌，蟋蟀在拉小提琴。</p>
+    <p style="animation-delay: 3.8s;">"哇！原来夜晚这么好看！"豆豆开心地叫起来，尾巴上的光也变得更亮了。小伙伴们都围过来，一起跳舞、一起唱歌。</p>
+    <p style="animation-delay: 4.2s;">从那以后，豆豆再也不怕黑了。因为它知道，不管天有多黑，自己身上都带着一盏小小的灯。只要勇敢地飞出来，就能照亮自己的路，还能给身边的人带来温暖的光。</p>
+    <p style="animation-delay: 4.6s;">那天晚上，豆豆在月光下飞了好久好久。它觉得，这是它见过最美的夜晚。</p>
+  </div>
+
+  <div class="moral">
+    <h2>🌟 寓意</h2>
+    <p>每个小朋友身上都有独一无二的光芒。有时候我们害怕，是因为还没有发现自己的力量。勇敢一点，迈出第一步，你会发现自己比想象中更强大、更闪亮。</p>
+  </div>
+
+  <div class="goodnight">晚安，做个好梦。🌙</div>
+</div>
+
+<script>
+  // 生成星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 80; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 70 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.animationDelay = Math.random() * 5 + 's';
+    star.style.width = star.style.height = (1 + Math.random() * 3) + 'px';
+    starsContainer.appendChild(star);
+  }
+
+  // 生成萤火虫
+  const firefliesContainer = document.getElementById('fireflies');
+  for (let i = 0; i < 12; i++) {
+    const ff = document.createElement('div');
+    ff.className = 'firefly';
+    ff.style.left = (10 + Math.random() * 80) + '%';
+    ff.style.top = (20 + Math.random() * 60) + '%';
+    ff.style.setProperty('--fdur', (8 + Math.random() * 12) + 's');
+    ff.style.animationDelay = Math.random() * 5 + 's';
+    ff.style.setProperty('--dx1', (Math.random() * 60 - 30) + 'px');
+    ff.style.setProperty('--dy1', (Math.random() * 40 - 20) + 'px');
+    ff.style.setProperty('--dx2', (Math.random() * 60 - 30) + 'px');
+    ff.style.setProperty('--dy2', (Math.random() * 40 - 20) + 'px');
+    ff.style.setProperty('--dx3', (Math.random() * 60 - 30) + 'px');
+    ff.style.setProperty('--dy3', (Math.random() * 40 - 20) + 'px');
+    const size = 4 + Math.random() * 4;
+    ff.style.width = ff.style.height = size + 'px';
+    firefliesContainer.appendChild(ff);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌙 不会下雨的小云朵 — 每日睡前故事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #0f1b3d 0%, #1e3a6e 30%, #4a7fb5 60%, #87ceeb 80%, #b8e4f0 100%);
+    font-family: 'ZCOOL XiaoWei', 'PingFang SC', 'Microsoft YaHei', serif;
+    color: #e8f0f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+  }
+
+  .stars {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    width: 3px; height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: 0;
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; transform: scale(0.8); }
+    50% { opacity: 0.8; transform: scale(1.2); }
+  }
+
+  .sun {
+    position: fixed;
+    top: 40px;
+    right: 70px;
+    width: 90px; height: 90px;
+    background: radial-gradient(circle at 40% 40%, #fff8dc, #ffd866, #ffaa33);
+    border-radius: 50%;
+    box-shadow: 0 0 50px rgba(255, 200, 80, 0.6), 0 0 100px rgba(255, 170, 50, 0.3), 0 0 150px rgba(255, 140, 30, 0.15);
+    z-index: 0;
+    animation: sunPulse 5s ease-in-out infinite;
+  }
+
+  @keyframes sunPulse {
+    0%, 100% { box-shadow: 0 0 50px rgba(255, 200, 80, 0.6), 0 0 100px rgba(255, 170, 50, 0.3); }
+    50% { box-shadow: 0 0 70px rgba(255, 200, 80, 0.8), 0 0 140px rgba(255, 170, 50, 0.4); }
+  }
+
+  /* 漂浮的小云朵装饰 */
+  .deco-cloud {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50px;
+    z-index: 0;
+    filter: blur(2px);
+  }
+
+  .deco-cloud-1 { width: 160px; height: 50px; top: 12%; left: -30px; animation: cloudDrift 22s ease-in-out infinite; }
+  .deco-cloud-2 { width: 220px; height: 70px; top: 25%; right: -50px; animation: cloudDrift 28s ease-in-out infinite reverse; }
+  .deco-cloud-3 { width: 130px; height: 40px; top: 8%; left: 35%; animation: cloudDrift 18s ease-in-out infinite 3s; }
+
+  @keyframes cloudDrift {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(25px); }
+  }
+
+  /* 小鸟飞过 */
+  .bird {
+    position: fixed;
+    z-index: 0;
+    pointer-events: none;
+    animation: birdFly var(--bdur) linear infinite;
+  }
+
+  .bird::before, .bird::after {
+    content: '';
+    position: absolute;
+    width: 12px; height: 3px;
+    background: rgba(60, 60, 80, 0.3);
+    border-radius: 50%;
+    transform-origin: right center;
+    animation: wingFlap 0.4s ease-in-out infinite alternate;
+  }
+
+  .bird::after {
+    left: auto;
+    right: 0;
+    transform-origin: left center;
+  }
+
+  @keyframes birdFly {
+    0% { transform: translate(-100px, 0); }
+    100% { transform: translate(calc(100vw + 100px), var(--bend)); }
+  }
+
+  @keyframes wingFlap {
+    0% { transform: rotate(-20deg); }
+    100% { transform: rotate(20deg); }
+  }
+
+  .story-container {
+    max-width: 600px;
+    width: 90%;
+    padding: 50px 40px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(180, 210, 240, 0.6);
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 400;
+    color: #ffd866;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255, 216, 102, 0.3);
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: rgba(180, 210, 240, 0.5);
+    margin-bottom: 40px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255, 216, 102, 0.5), transparent);
+    margin: 0 auto 40px;
+  }
+
+  .story-content {
+    font-size: 17px;
+    line-height: 2;
+    color: #e0eaf4;
+    text-align: justify;
+  }
+
+  .story-content p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .moral {
+    margin-top: 40px;
+    padding: 24px 28px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 216, 102, 0.15);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .moral h2 {
+    font-size: 18px;
+    font-weight: 400;
+    color: #ffd866;
+    margin-bottom: 12px;
+  }
+
+  .moral p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: #c0d4e8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 20px;
+    color: rgba(255, 216, 102, 0.7);
+    animation: sunPulse 3s ease-in-out infinite;
+  }
+
+  /* 彩虹装饰 */
+  .rainbow {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 300px;
+    border-radius: 300px 300px 0 0;
+    background: 
+      radial-gradient(ellipse at center bottom, transparent 55%, 
+        rgba(255, 0, 0, 0.04) 55.5%, rgba(255, 0, 0, 0.04) 57%,
+        rgba(255, 165, 0, 0.04) 57.5%, rgba(255, 165, 0, 0.04) 59%,
+        rgba(255, 255, 0, 0.04) 59.5%, rgba(255, 255, 0, 0.04) 61%,
+        rgba(0, 128, 0, 0.04) 61.5%, rgba(0, 128, 0, 0.04) 63%,
+        rgba(0, 0, 255, 0.04) 63.5%, rgba(0, 0, 255, 0.04) 65%,
+        rgba(75, 0, 130, 0.04) 65.5%, rgba(75, 0, 130, 0.04) 67%,
+        rgba(148, 0, 211, 0.04) 67.5%, transparent 68%
+      );
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0;
+    animation: rainbowFade 8s ease-in-out 3s forwards;
+  }
+
+  @keyframes rainbowFade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  /* 飘落的花瓣 */
+  .petal {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: rgba(255, 180, 200, 0.4);
+    border-radius: 50% 0 50% 0;
+    z-index: 0;
+    pointer-events: none;
+    animation: petalFall var(--pdur) linear infinite;
+  }
+
+  @keyframes petalFall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.7; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+  @media (max-width: 500px) {
+    .story-container { padding: 30px 24px; }
+    h1 { font-size: 22px; }
+    .story-content { font-size: 15px; }
+    .sun { width: 55px; height: 55px; top: 25px; right: 30px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="sun"></div>
+<div class="deco-cloud deco-cloud-1"></div>
+<div class="deco-cloud deco-cloud-2"></div>
+<div class="deco-cloud deco-cloud-3"></div>
+<div class="rainbow"></div>
+<div id="birds"></div>
+<div id="petals"></div>
+
+<div class="story-container">
+  <div class="date-tag">2026 年 5 月 21 日 · 星期四</div>
+  <h1>☁️ 不会下雨的小云朵</h1>
+  <div class="subtitle">每日儿童睡前故事</div>
+  <div class="divider"></div>
+
+  <div class="story-content">
+    <p style="animation-delay: 0.2s;">在高高的天空中，住着一大片云朵家族。大云朵们每天都忙着聚在一起，把自己变得又黑又沉，然后哗啦啦地把雨洒向大地。小草喝了雨水会长高，花儿喝了雨水会开放，小河喝了雨水会唱歌。</p>
+    <p style="animation-delay: 0.6s;">云朵家族里，有一朵特别小的云，大家叫它"棉花糖"。棉花糖每天都努力地喝水蒸气，想让自己变得大大的、重重的，好把雨落下去。可是不管它怎么努力，它总是白白胖胖、轻轻飘飘的，一滴雨也下不来。</p>
+    <p style="animation-delay: 1s;">"棉花糖，你又下不了雨呀。"旁边的大云朵笑着说，"没关系，你就在旁边看着吧。"</p>
+    <p style="animation-delay: 1.4s;">棉花糖有点难过。它想：大家都那么有用，能下雨，能帮助大地，只有我，什么也做不了。</p>
+    <p style="animation-delay: 1.8s;">有一天，太阳特别特别大，烤得大地滚烫滚烫的。小草耷拉着脑袋，花儿合上了花瓣，连小河里的水都变少了。大云朵们赶紧聚在一起下了一场雨，可雨一停，太阳又火辣辣地晒起来了。</p>
+    <p style="animation-delay: 2.2s;">"怎么办呢？雨下完了，可太阳还是那么晒……"大云朵们也发愁了。</p>
+    <p style="animation-delay: 2.6s;">这时候，棉花糖轻轻地飘了过去，挡在了太阳和大地之间。因为它又白又软、轻轻柔柔的，正好把最毒的阳光挡住了，只留下暖洋洋的、柔柔的光。</p>
+    <p style="animation-delay: 3s;">小草抬起头来说："哇，好舒服呀！不晒了，可是也不冷！"</p>
+    <p style="animation-delay: 3.4s;">花儿也张开了花瓣："这个光刚刚好，暖暖的，不刺眼！"</p>
+    <p style="animation-delay: 3.8s;">蝴蝶飞出来说："谢谢小云朵！现在我可以安心地飞来飞去了！"</p>
+    <p style="animation-delay: 4.2s;">棉花糖惊呆了——原来自己虽然下不了雨，但可以给大家当一把温柔的伞呀！它开心极了，在天上飘来飘去，给小草遮阴，给花儿挡晒，给小蝴蝶做玩伴。</p>
+    <p style="animation-delay: 4.6s;">大云朵们看了，纷纷说："棉花糖，你可真了不起！我们只会下雨，可你做的是我们做不到的事呀！"</p>
+    <p style="animation-delay: 5s;">那天傍晚，太阳慢慢落山了，天边染上了橘红色和紫色的晚霞。棉花糖飘在半空中，被晚霞染成了粉粉的颜色，像一颗棉花糖变成了草莓味的。</p>
+    <p style="animation-delay: 5.4s;">地上的小朋友们指着她喊："你们看，那朵云好漂亮！"</p>
+    <p style="animation-delay: 5.8s;">棉花糖甜甜地笑了。它终于明白了：不是只有下雨才叫有用，能给世界带来温柔的庇护，也是一种了不起的本领。</p>
+  </div>
+
+  <div class="moral">
+    <h2>🌟 寓意</h2>
+    <p>每个人都有自己独特的本领。有的人像大云朵一样轰轰烈烈，有的人像棉花糖一样温柔安静。不必羡慕别人，也不必勉强自己变成别人的样子。找到属于自己的方式，温柔地守护身边的人，你也是世界上不可缺少的那一朵云。</p>
+  </div>
+
+  <div class="goodnight">晚安，做个好梦。🌙</div>
+</div>
+
+<script>
+  // 生成星星（只在上半部分显示）
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 35 + '%';
+    star.style.setProperty('--dur', (2 + Math.random() * 4) + 's');
+    star.style.animationDelay = Math.random() * 5 + 's';
+    star.style.width = star.style.height = (1 + Math.random() * 2.5) + 'px';
+    starsContainer.appendChild(star);
+  }
+
+  // 生成小鸟
+  const birdsContainer = document.getElementById('birds');
+  for (let i = 0; i < 3; i++) {
+    const bird = document.createElement('div');
+    bird.className = 'bird';
+    bird.style.top = (8 + Math.random() * 20) + '%';
+    bird.style.setProperty('--bdur', (15 + Math.random() * 10) + 's');
+    bird.style.setProperty('--bend', (Math.random() * 60 - 30) + 'px');
+    bird.style.animationDelay = (Math.random() * 10) + 's';
+    birdsContainer.appendChild(bird);
+  }
+
+  // 生成花瓣
+  const petalsContainer = document.getElementById('petals');
+  for (let i = 0; i < 8; i++) {
+    const petal = document.createElement('div');
+    petal.className = 'petal';
+    petal.style.left = (5 + Math.random() * 90) + '%';
+    petal.style.setProperty('--pdur', (8 + Math.random() * 12) + 's');
+    petal.style.animationDelay = (Math.random() * 8) + 's';
+    const size = 5 + Math.random() * 6;
+    petal.style.width = size + 'px';
+    petal.style.height = size + 'px';
+    petalsContainer.appendChild(petal);
+  }
+</script>
+
+</body>
+</html>

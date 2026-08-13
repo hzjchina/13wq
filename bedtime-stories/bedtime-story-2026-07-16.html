@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小铃铛的回音 — 儿童睡前故事</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&display=swap');
+
+  :root {
+    --bg-deep: #0a0e1a;
+    --bg-mid: #1a1f35;
+    --text-warm: #e8d5b7;
+    --text-soft: #c8b8a0;
+    --gold: #f2c94c;
+    --gold-soft: #e8b84b;
+    --moon-glow: rgba(242, 201, 76, 0.15);
+    --star-bright: #ffffff;
+    --star-dim: #a0b0d0;
+    --mountain: #1c2340;
+    --mountain-mid: #252d50;
+    --mountain-front: #2d3660;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(180deg, #060a18 0%, #0d1433 40%, #151d42 70%, #1c2748 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Noto Serif SC', 'STSong', 'SimSun', serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* Stars */
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: var(--star-bright);
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+  }
+
+  @keyframes twinkle2 {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.15; }
+  }
+
+  /* Moon */
+  .moon-container {
+    position: fixed;
+    top: 40px;
+    right: 60px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .moon-glow-outer {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(242,201,76,0.12) 0%, rgba(242,201,76,0.04) 40%, transparent 70%);
+    animation: moonPulse 4s ease-in-out infinite;
+  }
+
+  .moon-glow-inner {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(242,201,76,0.25) 0%, rgba(242,201,76,0.08) 50%, transparent 70%);
+    animation: moonPulse2 4s ease-in-out infinite;
+  }
+
+  .moon {
+    width: 60px; height: 60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff7d6 0%, #f2c94c 35%, #d4a52c 70%, #a87820 100%);
+    box-shadow: 0 0 30px rgba(242,201,76,0.5), 0 0 60px rgba(242,201,76,0.2);
+    position: relative;
+    animation: moonFloat 6s ease-in-out infinite;
+  }
+
+  @keyframes moonPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.7; }
+    50% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
+  }
+
+  @keyframes moonPulse2 {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+  }
+
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  /* Mountains */
+  .mountains {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .mountain-back {
+    position: absolute;
+    bottom: 0;
+    left: -5%;
+    width: 60%;
+    height: 200px;
+    background: linear-gradient(0deg, var(--mountain) 0%, transparent 100%);
+    clip-path: polygon(0% 100%, 15% 30%, 30% 55%, 45% 15%, 60% 50%, 80% 40%, 100% 100%);
+    opacity: 0.5;
+  }
+
+  .mountain-back2 {
+    position: absolute;
+    bottom: 0;
+    right: -5%;
+    width: 55%;
+    height: 180px;
+    background: linear-gradient(0deg, var(--mountain) 0%, transparent 100%);
+    clip-path: polygon(0% 60%, 20% 35%, 40% 20%, 55% 45%, 75% 30%, 90% 55%, 100% 100%);
+    opacity: 0.4;
+  }
+
+  .mountain-mid {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 140px;
+    background: linear-gradient(0deg, var(--mountain-mid) 0%, transparent 100%);
+    clip-path: polygon(0% 100%, 8% 50%, 18% 65%, 28% 35%, 38% 55%, 50% 25%, 62% 50%, 72% 38%, 82% 55%, 92% 42%, 100% 100%);
+    opacity: 0.7;
+  }
+
+  .mountain-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(0deg, var(--mountain-front) 0%, transparent 100%);
+    clip-path: polygon(0% 100%, 10% 65%, 22% 50%, 35% 70%, 48% 40%, 60% 60%, 75% 45%, 88% 65%, 100% 100%);
+    opacity: 0.85;
+  }
+
+  /* Main content */
+  .main-wrapper {
+    position: relative;
+    z-index: 10;
+    max-width: 680px;
+    width: 100%;
+    padding: 60px 30px 80px;
+    margin: 0 auto;
+  }
+
+  /* Temple + Bell SVG */
+  .illustration {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .bell-wrapper {
+    display: inline-block;
+    position: relative;
+  }
+
+  .bell-svg {
+    width: 100px;
+    height: 130px;
+    animation: bellSwing 3s ease-in-out infinite;
+    transform-origin: top center;
+  }
+
+  @keyframes bellSwing {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(3deg); }
+    75% { transform: rotate(-3deg); }
+  }
+
+  .echo-ripple {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(242,201,76,0.4);
+    border-radius: 50%;
+    animation: echoExpand 3s ease-out infinite;
+  }
+
+  .echo-ripple:nth-child(2) { animation-delay: 0.6s; }
+  .echo-ripple:nth-child(3) { animation-delay: 1.2s; }
+  .echo-ripple:nth-child(4) { animation-delay: 1.8s; }
+  .echo-ripple:nth-child(5) { animation-delay: 2.4s; }
+
+  @keyframes echoExpand {
+    0% { width: 20px; height: 20px; opacity: 0.6; }
+    100% { width: 180px; height: 120px; opacity: 0; }
+  }
+
+  /* Title */
+  .story-title {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+
+  .story-title h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    animation: titleGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(242,201,76,0.3); }
+    50% { text-shadow: 0 0 40px rgba(242,201,76,0.6), 0 0 80px rgba(242,201,76,0.2); }
+  }
+
+  .title-sub {
+    font-size: 0.85rem;
+    color: var(--text-soft);
+    letter-spacing: 0.12em;
+    margin-top: 6px;
+    opacity: 0.7;
+  }
+
+  /* Story text */
+  .story-body {
+    text-align: justify;
+    line-height: 2.2;
+    font-size: 1.15rem;
+    color: var(--text-warm);
+    letter-spacing: 0.04em;
+  }
+
+  .story-body p {
+    margin-bottom: 1.4em;
+    text-indent: 2em;
+  }
+
+  .story-body p.no-indent {
+    text-indent: 0;
+  }
+
+  /* Divider */
+  .divider {
+    text-align: center;
+    margin: 35px 0;
+    opacity: 0.4;
+  }
+
+  .divider span {
+    display: inline-block;
+    color: var(--gold-soft);
+    font-size: 1.2rem;
+    animation: dividerPulse 2.5s ease-in-out infinite;
+  }
+
+  .divider span:nth-child(2) { animation-delay: 0.3s; }
+  .divider span:nth-child(3) { animation-delay: 0.6s; }
+  .divider span:nth-child(4) { animation-delay: 0.9s; }
+
+  @keyframes dividerPulse {
+    0%, 100% { opacity: 0.3; transform: translateY(0); }
+    50% { opacity: 0.8; transform: translateY(-3px); }
+  }
+
+  /* Goodnight */
+  .goodnight {
+    text-align: center;
+    margin-top: 40px;
+    padding: 30px 20px;
+    position: relative;
+  }
+
+  .goodnight-inner {
+    display: inline-block;
+    position: relative;
+  }
+
+  .goodnight-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px; height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(242,201,76,0.08) 0%, transparent 70%);
+    animation: goodnightGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes goodnightGlow {
+    0%, 100% { opacity: 0.5; transform: translate(-50%, -50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  }
+
+  .goodnight p {
+    color: var(--gold-soft);
+    font-size: 1.2rem;
+    line-height: 2;
+    letter-spacing: 0.06em;
+    position: relative;
+  }
+
+  .goodnight .big {
+    font-size: 1.6rem;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 30px;
+    font-size: 0.75rem;
+    color: var(--text-soft);
+    opacity: 0.35;
+    letter-spacing: 0.1em;
+  }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .main-wrapper { padding: 40px 20px 60px; }
+    .story-title h1 { font-size: 1.5rem; }
+    .story-body { font-size: 1.05rem; line-height: 2; }
+    .moon-container { top: 20px; right: 20px; }
+    .moon { width: 45px; height: 45px; }
+    .moon-glow-outer { width: 130px; height: 130px; }
+    .bell-svg { width: 75px; height: 100px; }
+    .goodnight .big { font-size: 1.3rem; }
+  }
+
+  /* Slow fade-in for the page */
+  .main-wrapper {
+    animation: pageFadeIn 1.5s ease-out;
+  }
+
+  @keyframes pageFadeIn {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Stars -->
+<div class="stars-container" id="stars"></div>
+
+<!-- Moon -->
+<div class="moon-container">
+  <div class="moon-glow-outer"></div>
+  <div class="moon-glow-inner"></div>
+  <div class="moon"></div>
+</div>
+
+<!-- Mountains -->
+<div class="mountains">
+  <div class="mountain-back"></div>
+  <div class="mountain-back2"></div>
+  <div class="mountain-mid"></div>
+  <div class="mountain-front"></div>
+</div>
+
+<!-- Main Content -->
+<div class="main-wrapper">
+
+  <!-- Illustration: Bell + Echo ripples -->
+  <div class="illustration">
+    <div class="bell-wrapper">
+      <svg class="bell-svg" viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bellGrad" cx="40%" cy="30%">
+            <stop offset="0%" stop-color="#f5d78c"/>
+            <stop offset="40%" stop-color="#d4a52c"/>
+            <stop offset="100%" stop-color="#8b6914"/>
+          </radialGradient>
+          <filter id="bellGlow">
+            <feGaussianBlur stdDeviation="2" result="blur"/>
+            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Bell top ring -->
+        <circle cx="50" cy="12" r="6" fill="none" stroke="#d4a52c" stroke-width="2.5" opacity="0.7"/>
+        <!-- Bell body -->
+        <path d="M30 25 Q28 30 26 55 L22 90 Q20 105 50 110 Q80 105 78 90 L74 55 Q72 30 70 25 Z"
+              fill="url(#bellGrad)" filter="url(#bellGlow)" opacity="0.9"/>
+        <!-- Bell clapper -->
+        <line x1="50" y1="105" x2="50" y2="118" stroke="#c49a1c" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="50" cy="120" r="4.5" fill="#d4a52c" opacity="0.8">
+          <animate attributeName="opacity" values="0.5;0.9;0.5" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <!-- Bell rim highlight -->
+        <ellipse cx="50" cy="90" rx="26" ry="6" fill="none" stroke="#f5d78c" stroke-width="1.5" opacity="0.4"/>
+      </svg>
+      <div class="echo-ripple"></div>
+      <div class="echo-ripple"></div>
+      <div class="echo-ripple"></div>
+      <div class="echo-ripple"></div>
+      <div class="echo-ripple"></div>
+    </div>
+  </div>
+
+  <!-- Title -->
+  <div class="story-title">
+    <h1>小铃铛的回音</h1>
+    <div class="title-sub">— 儿童睡前故事 —</div>
+  </div>
+
+  <!-- Story Body -->
+  <div class="story-body">
+    <p>在一座温柔的小山坡上，有一座老老的石头小庙。庙的屋檐下，挂着一只小小的铜铃铛。</p>
+
+    <p>小铃铛很孤单。风来了，她轻轻晃一晃，发出"叮——"的一声。可是声音那么轻，那么细，好像刚说完，就散在风里了。</p>
+
+    <p>"没有人听得见我的声音吧。"小铃铛想。</p>
+
+    <p>白天，阳光照着她亮晶晶的身子，蝴蝶飞过，也不停一停。夜晚，星星一颗颗亮起来，她只能一个人挂在屋檐下，看着远方点点灯火。</p>
+
+    <p>有一天夜里，风婆婆吹得特别大。小铃铛被吹得摇来晃去，"叮叮当当——叮叮当当——"她发出了比自己想象中响亮得多的声音。</p>
+
+    <p>然后，奇妙的事情发生了。从小庙对面的山谷里，飘来了温柔的回应："叮叮当当——叮叮当当——"</p>
+
+    <p>小铃铛愣住了，轻轻问："是谁在学我说话呀？"</p>
+
+    <p>风婆婆笑了："傻孩子，那是山在回应你呢。"</p>
+
+    <p>"山在跟我说话？"小铃铛不敢相信。</p>
+
+    <p>"是啊。每一次你发出声音，山谷都会把它轻轻抱住，然后温柔地还给你。山一直在听——从来不会漏掉任何一声。"</p>
+
+    <p>小铃铛安静下来，屏住呼吸。风小了一些，她又轻轻摇了摇，"叮——"</p>
+
+    <p>一、二、三——山谷里的回音缓缓飘了回来。</p>
+
+    <p>"叮——"</p>
+
+    <p>原来，她从来没有孤单过。她说的每一句话，都有回应。只是以前她太着急了，没等到回音回来，就以为没有人听。</p>
+
+    <p>从那天起，小铃铛不再害怕了。白天，她安静地晒太阳；夜里，她轻轻哼着歌，等山谷把歌还回来。那声音穿过松林，越过溪流，把温柔的晚安送到每一扇亮着灯的小窗前。</p>
+
+    <p>山谷里住着的小兔、小松鼠、小狐狸，也都习惯了在睡前听一声远远的"叮——"，然后安心地闭上眼睛。他们知道，这个夜晚，有人在轻声说话，也有人温柔应答。</p>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <span>✦</span>&nbsp;&nbsp;<span>✦</span>&nbsp;&nbsp;<span>✦</span>&nbsp;&nbsp;<span>✦</span>
+  </div>
+
+  <!-- Goodnight -->
+  <div class="goodnight">
+    <div class="goodnight-inner">
+      <div class="goodnight-glow"></div>
+      <p>
+        <span class="big">晚安，小宝贝。</span>
+        小铃铛说，你说过的每一句话，都有人在听。<br>
+        这个世界一直在温柔地回应着你。<br>
+        现在，闭上眼睛，做一个甜甜的梦吧。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">— 小虾米の睡前故事屋 &#127769; —</div>
+
+</div>
+
+<script>
+// Generate stars
+(function() {
+  const container = document.getElementById('stars');
+  const count = 120;
+  let html = '';
+  for (let i = 0; i < count; i++) {
+    const size = Math.random() * 2.5 + 0.8;
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const dur = Math.random() * 3 + 2;
+    const delay = Math.random() * 5;
+    const animClass = Math.random() > 0.5 ? 'twinkle' : 'twinkle2';
+    html += `<div class="star" style="
+      left:${x}%; top:${y}%;
+      width:${size}px; height:${size}px;
+      animation-name:${animClass};
+      --dur:${dur}s;
+      --delay:${delay}s;
+    "></div>`;
+  }
+  container.innerHTML = html;
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小羽毛的旅途 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a0e27 0%, #121836 30%, #1a2248 60%, #0f1525 100%);
+    color: #e8dcc8;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空背景 */
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    animation: twinkle var(--duration) var(--delay) infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 8%;
+    right: 12%;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e7, #f0d88a 60%, #d4a843 100%);
+    box-shadow: 0 0 40px 15px rgba(240, 216, 138, 0.3), 0 0 80px 30px rgba(240, 216, 138, 0.15);
+    z-index: 1;
+    animation: moonFloat 6s infinite ease-in-out;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 80px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0.9));
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    animation: shoot 4s infinite ease-in;
+  }
+  .shooting-star:nth-child(1) {
+    top: 15%; left: 25%;
+    animation-delay: 2s;
+  }
+  .shooting-star:nth-child(2) {
+    top: 25%; left: 55%;
+    animation-delay: 5s;
+  }
+  @keyframes shoot {
+    0% { opacity: 0; transform: translate(0, 0) rotate(-30deg); }
+    5% { opacity: 1; }
+    15% { opacity: 0; transform: translate(200px, 200px) rotate(-30deg); }
+    100% { opacity: 0; transform: translate(200px, 200px) rotate(-30deg); }
+  }
+
+  /* 漂浮光点（代表轻柔的羽毛碎片） */
+  .soft-light {
+    position: fixed;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    animation: softDrift var(--d-duration) var(--d-delay) infinite ease-in-out;
+  }
+  @keyframes softDrift {
+    0%, 100% { opacity: 0.2; transform: translate(0, 0); }
+    20% { opacity: 0.7; transform: translate(15px, -40px); }
+    40% { opacity: 0.4; transform: translate(-10px, -80px); }
+    60% { opacity: 0.8; transform: translate(20px, -120px); }
+    80% { opacity: 0.3; transform: translate(-15px, -160px); }
+    100% { opacity: 0.1; transform: translate(0, -200px); }
+  }
+
+  /* 羽毛 SVG 插图 */
+  .feather-illustration {
+    position: relative;
+    width: 100%;
+    max-width: 240px;
+    margin: 0 auto 30px;
+    z-index: 2;
+    animation: featherFloat 5s infinite ease-in-out;
+  }
+  .feather-illustration svg {
+    width: 100%; height: auto;
+    filter: drop-shadow(0 0 14px rgba(200, 210, 230, 0.35));
+  }
+  @keyframes featherFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-8px) rotate(2deg); }
+    50% { transform: translateY(-3px) rotate(-1deg); }
+    75% { transform: translateY(-10px) rotate(1deg); }
+  }
+
+  /* 主体内容 */
+  .main-content {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 50px 28px 60px;
+  }
+
+  /* 标题 */
+  .title-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .story-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f0d88a;
+    letter-spacing: 0.05em;
+    animation: titleGlow 3s infinite ease-in-out;
+    text-shadow: 0 0 20px rgba(240, 216, 138, 0.4);
+    line-height: 1.5;
+  }
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(240, 216, 138, 0.4); }
+    50% { text-shadow: 0 0 35px rgba(240, 216, 138, 0.7), 0 0 60px rgba(240, 216, 138, 0.3); }
+  }
+  .subtitle {
+    font-size: 0.9rem;
+    color: rgba(232, 220, 200, 0.5);
+    margin-top: 8px;
+    letter-spacing: 0.15em;
+  }
+
+  /* 分割线 */
+  .divider {
+    width: 60px;
+    height: 2px;
+    margin: 30px auto;
+    background: linear-gradient(90deg, transparent, rgba(240, 216, 138, 0.5), transparent);
+    border-radius: 1px;
+  }
+
+  /* 故事正文 */
+  .story-text {
+    font-size: 1.15rem;
+    line-height: 2.2;
+    color: #d4cbb8;
+    letter-spacing: 0.02em;
+  }
+  .story-text p {
+    margin-bottom: 1.2em;
+    text-indent: 2em;
+  }
+  .story-text p:last-child {
+    margin-bottom: 0;
+  }
+  .story-text em {
+    color: #c8d8f0;
+    font-style: italic;
+  }
+
+  /* 晚安区域 */
+  .goodnight-area {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 35px;
+    position: relative;
+  }
+  .goodnight-area::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(200, 210, 230, 0.4), transparent);
+  }
+  .goodnight-text {
+    font-size: 1.3rem;
+    color: #f0d88a;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 14px;
+    animation: goodnightGlow 4s infinite ease-in-out;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+  .goodnight-sub {
+    font-size: 1rem;
+    color: #8a9bb5;
+    line-height: 1.8;
+  }
+  .goodnight-emoji {
+    font-size: 1.8rem;
+    margin-top: 16px;
+    animation: moonFloat 3s infinite ease-in-out;
+    display: inline-block;
+  }
+
+  /* 底部羽毛光点装饰 */
+  .feather-lights {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 24px;
+  }
+  .fl {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    animation: flBreathe var(--fl-duration) var(--fl-delay) infinite ease-in-out;
+  }
+  .fl:nth-child(1) { background: #c8d8f0; }
+  .fl:nth-child(2) { background: #f0d88a; }
+  .fl:nth-child(3) { background: #e8c8d8; }
+  .fl:nth-child(4) { background: #c8e8d0; }
+  .fl:nth-child(5) { background: #d8d0f0; }
+  .fl:nth-child(6) { background: #f0e0c0; }
+  .fl:nth-child(7) { background: #c0d8f0; }
+  @keyframes flBreathe {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); box-shadow: 0 0 4px 2px currentColor; }
+    50% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 12px 6px currentColor; }
+  }
+
+  /* 响应式 */
+  @media (max-width: 480px) {
+    .main-content { padding: 35px 20px 50px; }
+    .story-title { font-size: 1.6rem; }
+    .story-text { font-size: 1.05rem; line-height: 2; }
+    .goodnight-text { font-size: 1.15rem; }
+    .moon { width: 55px; height: 55px; top: 5%; right: 8%; }
+    .feather-illustration { max-width: 180px; }
+  }
+</style>
+</head>
+<body>
+  <!-- 星空 -->
+  <div class="stars-container" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+
+  <!-- 漂浮柔光粒子 -->
+  <div class="soft-light" style="top:15%;left:12%;--d-duration:8s;--d-delay:0s;background:#c8d8f0;"></div>
+  <div class="soft-light" style="top:25%;left:80%;--d-duration:9s;--d-delay:2s;background:#e8d8f0;"></div>
+  <div class="soft-light" style="top:40%;left:30%;--d-duration:7.5s;--d-delay:4s;background:#d8f0e8;"></div>
+  <div class="soft-light" style="top:55%;left:72%;--d-duration:8.5s;--d-delay:1s;background:#f0e8d8;"></div>
+  <div class="soft-light" style="top:65%;left:18%;--d-duration:9.5s;--d-delay:3s;background:#c8d8f0;"></div>
+  <div class="soft-light" style="top:70%;left:55%;--d-duration:7.8s;--d-delay:5s;background:#e8d8f0;"></div>
+  <div class="soft-light" style="top:80%;left:40%;--d-duration:8.2s;--d-delay:2.5s;background:#d8f0e8;"></div>
+  <div class="soft-light" style="top:35%;left:60%;--d-duration:9.2s;--d-delay:6s;background:#f0e8d8;"></div>
+
+  <!-- 主体内容 -->
+  <div class="main-content">
+    <!-- 羽毛插图 -->
+    <div class="feather-illustration">
+      <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- 羽轴 -->
+        <line x1="90" y1="10" x2="90" y2="195" stroke="#c8d0e0" stroke-width="3" stroke-linecap="round" opacity="0.9"/>
+        <!-- 左羽片 -->
+        <path d="M 90 20 Q 55 30 30 50 Q 15 65 10 90 Q 8 110 15 130 Q 25 155 50 170 Q 65 178 88 185" 
+              fill="url(#leftGrad)" stroke="none" opacity="0.85"/>
+        <!-- 右羽片 -->
+        <path d="M 90 20 Q 125 30 150 50 Q 165 65 170 90 Q 172 110 165 130 Q 155 155 130 170 Q 115 178 92 185" 
+              fill="url(#rightGrad)" stroke="none" opacity="0.85"/>
+        <!-- 羽轴高亮 -->
+        <line x1="90" y1="15" x2="90" y2="190" stroke="#e8ecf4" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <!-- 羽丝细节 - 左 -->
+        <line x1="90" y1="60" x2="40" y2="60" stroke="#b0bdd0" stroke-width="0.7" opacity="0.4"/>
+        <line x1="90" y1="80" x2="30" y2="85" stroke="#b0bdd0" stroke-width="0.7" opacity="0.4"/>
+        <line x1="90" y1="100" x2="25" y2="108" stroke="#b0bdd0" stroke-width="0.7" opacity="0.35"/>
+        <line x1="90" y1="120" x2="35" y2="128" stroke="#b0bdd0" stroke-width="0.7" opacity="0.35"/>
+        <line x1="90" y1="140" x2="45" y2="148" stroke="#b0bdd0" stroke-width="0.7" opacity="0.3"/>
+        <line x1="90" y1="160" x2="60" y2="165" stroke="#b0bdd0" stroke-width="0.7" opacity="0.25"/>
+        <!-- 羽丝细节 - 右 -->
+        <line x1="90" y1="60" x2="140" y2="60" stroke="#b0bdd0" stroke-width="0.7" opacity="0.4"/>
+        <line x1="90" y1="80" x2="150" y2="85" stroke="#b0bdd0" stroke-width="0.7" opacity="0.4"/>
+        <line x1="90" y1="100" x2="155" y2="108" stroke="#b0bdd0" stroke-width="0.7" opacity="0.35"/>
+        <line x1="90" y1="120" x2="145" y2="128" stroke="#b0bdd0" stroke-width="0.7" opacity="0.35"/>
+        <line x1="90" y1="140" x2="135" y2="148" stroke="#b0bdd0" stroke-width="0.7" opacity="0.3"/>
+        <line x1="90" y1="160" x2="120" y2="165" stroke="#b0bdd0" stroke-width="0.7" opacity="0.25"/>
+        <!-- 绒羽蓬松部 -->
+        <ellipse cx="88" cy="185" rx="18" ry="12" fill="#d8dff0" opacity="0.5"/>
+        <!-- 渐变 -->
+        <defs>
+          <linearGradient id="leftGrad" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stop-color="#e8ecf4"/>
+            <stop offset="100%" stop-color="#d0d8e8"/>
+          </linearGradient>
+          <linearGradient id="rightGrad" x1="1" y1="0" x2="0" y2="0">
+            <stop offset="0%" stop-color="#e8ecf4"/>
+            <stop offset="100%" stop-color="#d0d8e8"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+
+    <!-- 标题 -->
+    <div class="title-area">
+      <h1 class="story-title">小羽毛的旅途</h1>
+      <p class="subtitle">2026 年 7 月 6 日 · 睡前故事</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 故事正文 -->
+    <div class="story-text">
+      <p>在一棵高高的老槐树上，住着一位鸟妈妈。鸟妈妈的翅膀下，有一根最柔软、最洁白的小羽毛。每天傍晚，鸟妈妈都会用这根羽毛轻轻扫过鸟巢的边缘，像是在给还没出生的蛋宝宝铺好最舒服的小床。</p>
+
+      <p>可是，有一天傍晚，一阵调皮的风来了。它绕着小羽毛转了个圈，轻轻一吹——小羽毛就从鸟妈妈的翅膀上飘走了。</p>
+
+      <p>小羽毛在空中飘啊飘，它有一点难过。"鸟妈妈会不会担心？我只是一根小小的羽毛，离开了翅膀，还能做什么呢？"</p>
+
+      <p>风带着小羽毛飞过一片草地。草地上，一只小瓢虫正缩成一团，冷得瑟瑟发抖。"你还好吗？"小羽毛轻轻地落在小瓢虫身边。它张开自己薄薄的身体，像一床小小的被子，裹住了小瓢虫。没过多久，小瓢虫不再发抖了，它暖暖地睡着了，嘴角还带着笑。</p>
+
+      <p>天亮了，风又把小羽毛带到了山坡上。那里有一棵刚发芽的小豆苗，被正午的大太阳晒得叶子都耷拉了下来。小羽毛不声不响地飘过去，悬在小豆苗的头顶上。虽然它只能遮住一点点阳光，但对于小豆苗来说，刚刚好。小豆苗重新挺直了腰，感激地摇了摇嫩绿的叶子。</p>
+
+      <p>傍晚来临，风变得温柔起来。它不再调皮，而是轻轻地托着小羽毛，把它送回了那棵老槐树上。</p>
+
+      <p>鸟妈妈正在修补鸟巢。看到小羽毛飘回来，她的眼睛亮了起来。她用嘴衔起小羽毛，仔仔细细地把它铺在了巢底——那是整个鸟巢最中央、最柔软的位置。</p>
+
+      <p>"你是最柔软的羽毛，"鸟妈妈轻声说，"宝宝们会睡在你身上，做世界上最甜美的梦。"</p>
+
+      <p>小羽毛心里暖暖的。它终于明白了——真正的价值不在飞得多高、去得多远，而在于你愿意停在谁身边，给谁带去一点点温暖。</p>
+
+      <p>那天夜里，月亮特别圆、特别亮。三颗小小的鸟蛋安安静静地躺在小羽毛身上，像这世上最珍贵的宝石。而小羽毛，度过了它遇到过的最温柔、最幸福的一个夜晚。</p>
+    </div>
+
+    <!-- 晚安语 -->
+    <div class="goodnight-area">
+      <p class="goodnight-text">晚安，亲爱的小宝贝。</p>
+      <p class="goodnight-sub">小羽毛说，能被你爱着的人呀，<br>就是全世界最幸福的人。<br>现在，闭上眼睛，做个软软的、暖暖的梦吧。</p>
+      <div class="feather-lights">
+        <div class="fl" style="--fl-duration:2.5s;--fl-delay:0s;"></div>
+        <div class="fl" style="--fl-duration:3s;--fl-delay:0.3s;"></div>
+        <div class="fl" style="--fl-duration:2.8s;--fl-delay:0.6s;"></div>
+        <div class="fl" style="--fl-duration:3.2s;--fl-delay:0.9s;"></div>
+        <div class="fl" style="--fl-duration:2.6s;--fl-delay:1.2s;"></div>
+        <div class="fl" style="--fl-duration:3.4s;--fl-delay:1.5s;"></div>
+        <div class="fl" style="--fl-duration:2.9s;--fl-delay:1.8s;"></div>
+      </div>
+      <div class="goodnight-emoji">🪶🌙</div>
+    </div>
+  </div>
+
+  <script>
+    // 生成100颗随机闪烁星星
+    (function() {
+      const container = document.getElementById('stars');
+      const count = 100;
+      let html = '';
+      for (let i = 0; i < count; i++) {
+        const size = Math.random() * 2.5 + 1;
+        const top = Math.random() * 100;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 3 + 2;
+        const delay = Math.random() * 5;
+        html += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--duration:' + duration + 's;--delay:' + delay + 's;"></div>';
+      }
+      container.innerHTML = html;
+    })();
+  </script>
+</body>
+</html>

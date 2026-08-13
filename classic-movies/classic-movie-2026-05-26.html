@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 2026-05-26</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: #0a0a0f;
+    color: #e8e6e3;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(ellipse at 20% 50%, rgba(139, 69, 19, 0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(184, 134, 11, 0.1) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
+                linear-gradient(180deg, #0a0a0f 0%, #1a1510 50%, #0a0a0f 100%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    padding: 60px 30px;
+  }
+
+  .date-badge {
+    display: inline-block;
+    padding: 6px 18px;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 20px;
+    font-size: 13px;
+    color: #d4af37;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    font-weight: 500;
+  }
+
+  .movie-title {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(42px, 8vw, 72px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #d4af37 0%, #f5d76e 40%, #d4af37 60%, #b8860b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .movie-title-en {
+    font-family: 'Noto Serif SC', serif;
+    font-size: clamp(18px, 3vw, 26px);
+    color: rgba(212, 175, 55, 0.5);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 24px;
+    letter-spacing: 1px;
+  }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 36px;
+    align-items: center;
+  }
+
+  .meta-tag {
+    padding: 5px 14px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    font-size: 14px;
+    color: rgba(232, 230, 227, 0.7);
+  }
+
+  .meta-tag.highlight {
+    background: rgba(212, 175, 55, 0.12);
+    border-color: rgba(212, 175, 55, 0.3);
+    color: #d4af37;
+    font-weight: 500;
+  }
+
+  .divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, #d4af37, transparent);
+    margin: 36px 0;
+  }
+
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #d4af37;
+    margin-bottom: 16px;
+    font-weight: 500;
+  }
+
+  .synopsis {
+    font-size: 17px;
+    line-height: 1.9;
+    color: rgba(232, 230, 227, 0.85);
+    margin-bottom: 40px;
+    text-align: justify;
+  }
+
+  .highlights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .highlight-card {
+    padding: 28px 24px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(212, 175, 55, 0.12);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .highlight-card:hover {
+    background: rgba(212, 175, 55, 0.06);
+    border-color: rgba(212, 175, 55, 0.25);
+    transform: translateY(-2px);
+  }
+
+  .highlight-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .highlight-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #d4af37;
+    margin-bottom: 10px;
+  }
+
+  .highlight-desc {
+    font-size: 14px;
+    line-height: 1.7;
+    color: rgba(232, 230, 227, 0.65);
+  }
+
+  .why-watch {
+    padding: 32px;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.06) 0%, rgba(184, 134, 11, 0.03) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.15);
+    border-radius: 16px;
+    margin-bottom: 40px;
+  }
+
+  .why-watch p {
+    font-size: 16px;
+    line-height: 1.85;
+    color: rgba(232, 230, 227, 0.8);
+  }
+
+  .ratings {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+
+  .rating-item {
+    flex: 1;
+    min-width: 140px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .rating-score {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: #d4af37;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .rating-source {
+    font-size: 12px;
+    color: rgba(232, 230, 227, 0.4);
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: rgba(232, 230, 227, 0.25);
+    letter-spacing: 1px;
+  }
+
+  .quote {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(212, 175, 55, 0.6);
+    text-align: center;
+    margin: 30px 0;
+    line-height: 1.6;
+  }
+
+  .quote::before, .quote::after {
+    content: '"';
+    font-size: 28px;
+    color: rgba(212, 175, 55, 0.3);
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 40px 20px; }
+    .highlights { grid-template-columns: 1fr; }
+    .why-watch { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="container">
+
+    <div class="date-badge">2026.05.26 · 每日经典</div>
+
+    <h1 class="movie-title">十二怒汉</h1>
+    <div class="movie-title-en">12 Angry Men (1957)</div>
+
+    <div class="meta-row">
+      <span class="meta-tag highlight">⭐ IMDb 9.0</span>
+      <span class="meta-tag highlight">⭐ 豆瓣 9.4</span>
+      <span class="meta-tag">美国</span>
+      <span class="meta-tag">剧情 / 犯罪</span>
+      <span class="meta-tag">96 分钟</span>
+      <span class="meta-tag">导演：西德尼·吕美特</span>
+    </div>
+
+    <div class="ratings">
+      <div class="rating-item">
+        <div class="rating-score">9.0</div>
+        <div class="rating-source">IMDb Top 250 #5</div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-score">9.4</div>
+        <div class="rating-source">豆瓣 Top 250</div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-score">100%</div>
+        <div class="rating-source">烂番茄新鲜度</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">剧 情 梗 概</div>
+
+    <div class="synopsis">
+      一个闷热的夏日午后，纽约一间法院陪审室内，十二个素不相识的男人围坐在长桌旁。他们刚刚听完了一场谋杀案的审理——一名贫民窟出身的18岁少年，被指控用折叠刀刺死了自己的父亲。按照程序，陪审团必须达成一致裁决：有罪，还是无罪？<br><br>
+      初次投票的结果是 11:1——十一个人举起了"有罪"的手，只有一个人投了"无罪"。他并非确信少年无辜，只是觉得——一条人命，不该在五分钟之内就定下来。<br><br>
+      随着讨论的深入，证词中的漏洞一个接一个浮出水面，每个人的偏见、经历与盲点也逐一暴露。暴雨将至，空调坏了，房间越来越闷，而真相，却在这个令人窒息的空间里渐渐变得清晰……
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">亮 点 所 在</div>
+
+    <div class="highlights">
+      <div class="highlight-card">
+        <div class="highlight-icon">🎬</div>
+        <div class="highlight-title">单一场景的极致张力</div>
+        <div class="highlight-desc">全片99%的戏份发生在一间逼仄的陪审室里。没有追车，没有爆炸，只有十二个人围着一张桌子说话——但你看不到一秒钟的沉闷。吕美特用镜头景别从全景逐步推至特写，让观众在不知不觉中感到越来越强烈的压迫感，正如那些被逼着直面内心的陪审员。</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">🎭</div>
+        <div class="highlight-title">十二个人，十二种人性</div>
+        <div class="highlight-desc">从股市经纪人到建筑师，从移民钟表匠到广告人，十二位陪审员背景各异。他们的判断不仅基于证据，更被各自的阶级偏见、父子心结、种族歧视、从众心理所裹挟。这不是一部推理片，而是一部解剖人性的手术刀。</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">⚡</div>
+        <div class="highlight-title">"合理怀疑"的力量</div>
+        <div class="highlight-desc">8号陪审员没有证明少年无罪，他只做了一件事——证明"有罪"并非毫无疑问。这部电影最了不起的地方在于：它让你看到，司法制度中最珍贵的不是正义本身，而是给正义留出缝隙的那种审慎。</div>
+      </div>
+      <div class="highlight-card">
+        <div class="highlight-icon">📝</div>
+        <div class="highlight-title">教科书级的剧本</div>
+        <div class="highlight-desc">编剧雷金纳德·罗斯最初写的是一部电视剧本，后改编为电影。整部电影的每一个转折、每一次投票的变化、每一个人态度的转变都严丝合缝，逻辑链条环环相扣，堪称剧作结构的完美范本。</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="section-label">为 什 么 值 得 一 看</div>
+
+    <div class="why-watch">
+      <p>
+        《十二怒汉》上映近七十年，至今仍被全世界法学院、商学院和电影学院反复播放。它不是一部会过时的电影，因为偏见从不曾过时，从众从不曾消失，而"在人云亦云中保持独立思考"这件事，永远需要勇气。<br><br>
+        它只有96分钟，一间房间，十二个人——却比绝大多数大片都更让你在看完之后坐立不安。如果你还从没看过它，今夜就是最好的时机。
+      </p>
+    </div>
+
+    <div class="quote">偏见是盲目的，但正义需要睁开眼睛的人</div>
+
+    <div class="footer">
+      <div class="footer-text">每日经典电影推荐 · 第 8 期</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

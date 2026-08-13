@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日 AI 情报 — 2026-08-13</title>
+<style>
+  :root{
+    --bg:#070b14; --line:rgba(56,189,248,.08); --text:#dbe7ff; --muted:#7c8db5; --gold:#fbbf24;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg); color:var(--text); min-height:100vh; position:relative; overflow-x:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    padding:48px 20px 64px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%);
+  }
+  .glow{position:fixed;border-radius:50%;filter:blur(90px);z-index:0;pointer-events:none;opacity:.45;}
+  .glow-1{width:480px;height:480px;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 70%);top:-160px;left:-120px;}
+  .glow-2{width:420px;height:420px;background:radial-gradient(circle,rgba(167,139,250,.30),transparent 70%);top:30%;right:-140px;}
+  .glow-3{width:360px;height:360px;background:radial-gradient(circle,rgba(244,114,182,.20),transparent 70%);bottom:-120px;left:30%;}
+  .container{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+  header{text-align:center;margin-bottom:36px;}
+  .kicker{
+    display:inline-block; font-family:"SF Mono",Menlo,Consolas,monospace; font-size:12px; letter-spacing:3px;
+    color:#22d3ee; border:1px solid rgba(34,211,238,.35); padding:6px 16px; border-radius:999px;
+    background:rgba(34,211,238,.06); box-shadow:0 0 24px rgba(34,211,238,.12) inset; margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(28px,5vw,44px); font-weight:800; letter-spacing:2px;
+    background:linear-gradient(92deg,#22d3ee 0%,#3b82f6 45%,#a78bfa 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 60px rgba(59,130,246,.25);
+  }
+  .date{margin-top:10px;color:var(--muted);font-size:14px;font-family:"SF Mono",Menlo,Consolas,monospace;letter-spacing:1px;}
+  .item{
+    position:relative; background:linear-gradient(160deg,rgba(15,23,41,.95),rgba(11,17,32,.95));
+    border:1px solid rgba(56,189,248,.14); border-radius:16px; padding:22px 22px 20px; margin-bottom:16px;
+    transition:border-color .25s,transform .25s,box-shadow .25s; overflow:hidden;
+  }
+  .item:hover{border-color:rgba(34,211,238,.4);transform:translateY(-2px);box-shadow:0 12px 40px rgba(34,211,238,.08);}
+  .item::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c,#22d3ee),#3b82f6,var(--c,#a78bfa));opacity:.7;}
+  .item-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .idx{
+    font-family:"SF Mono",Menlo,Consolas,monospace; font-size:13px; color:var(--gold);
+    border:1px solid rgba(251,191,36,.35); width:28px; height:28px; border-radius:8px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .cat{font-size:11px;padding:3px 10px;border-radius:999px;font-family:"SF Mono",Menlo,Consolas,monospace;letter-spacing:.5px;}
+  .cat-model{color:var(--c);background:var(--bg);border:1px solid var(--bd);}
+  .cat-product{color:var(--c);background:var(--bg);border:1px solid var(--bd);}
+  .cat-paper{color:var(--c);background:var(--bg);border:1px solid var(--bd);}
+  .cat-tip{color:var(--c);background:var(--bg);border:1px solid var(--bd);}
+  .cat-industry{color:var(--c);background:var(--bg);border:1px solid var(--bd);}
+  .flag{font-size:10px;color:var(--muted);border:1px dashed rgba(124,141,181,.4);padding:2px 8px;border-radius:4px;font-family:"SF Mono",Menlo,Consolas,monospace;}
+  h2{font-size:16px;line-height:1.5;margin-bottom:10px;font-weight:700;}
+  h2 a{color:var(--text);text-decoration:none;background-image:linear-gradient(90deg,#22d3ee,#a78bfa);background-repeat:no-repeat;background-size:0% 1px;background-position:0 100%;transition:background-size .3s;}
+  h2 a:hover{background-size:100% 1px;}
+  .meta{font-size:12px;color:var(--muted);margin-bottom:10px;font-family:"SF Mono",Menlo,Consolas,monospace;display:flex;gap:14px;flex-wrap:wrap;}
+  .meta b{color:#60a5fa;font-weight:600;}
+  .why{font-size:13px;line-height:1.7;color:var(--text);background:rgba(56,189,248,.05);border-left:2px solid #22d3ee;padding:10px 14px;border-radius:0 8px 8px 0;}
+  footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);text-align:center;font-family:"SF Mono",Menlo,Consolas,monospace;line-height:2;}
+  footer .dot{color:#22d3ee;}
+  @media(max-width:600px){body{padding:32px 14px 48px;}h2{font-size:15px;}.item{padding:18px 16px 16px;}}
+</style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  <div class="container">
+    <header>
+      <div class="kicker">// DAILY AI INTELLIGENCE</div>
+      <h1>每日 AI 情报</h1>
+      <div class="date">2026-08-13 · WINDOW: 24H · SORT: HEAT DESC · TOP 20</div>
+    </header>
+    <div class="item" style="--c:#60a5fa;--bg:rgba(96,165,250,.1);--bd:rgba(96,165,250,.3)">
+      <div class="item-head">
+        <span class="idx">01</span>
+        <span class="cat cat-paper">PAPER</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr1xj5t0eb5roz2zb0zbfig" target="_blank">EvoX Genesis：持久递归世界实现自主软件演化</a></h2>
+      <div class="meta"><span>来源：HuggingFace Daily Papers（社区热门论文）</span><span>时间：08/12 08:00</span><span>热度：<b>69</b></span></div>
+      <div class="why">EvoX Genesis 提出以持久化软件项目为核心、本地智能体有限存活的递归世界架构，替代依赖持久会话或记忆的智能体系统。</div>
+    </div>
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">02</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr09rd10clcroz2q3g5wlnq" target="_blank">LiteLLM 供应链投毒致 2026 年最大规模 AI 供应链泄露：40 分钟波及全球约 2500 家企业</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 11:33</span><span>热度：<b>68</b></span></div>
+      <div class="why">今年 3 月爆发的 AI API 网关 LiteLLM 供应链投毒事件中，攻击者在约 40 分钟窗口内波及全球超 2500 个组织，导致约 195TB 密码数据泄露，被安全公司称为 2026 年最大规模 AI 供应链泄露事件。泄露信息含云密钥、代码仓库 Token、SSH 密钥及约 434，000 条 CI/CD 流水线凭据，英伟达、AWS、三星等多家公司被证实受影响。</div>
+    </div>
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">03</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr4qnai0km3roz2vb3s1z0v" target="_blank">SpaceXAI 发布 Grok 4.6：面向长时运行智能体、编程与知识工作的 50 万上下文模型</a></h2>
+      <div class="meta"><span>来源：MarkTechPost（RSS）</span><span>时间：08/13 14:18</span><span>热度：<b>67</b></span></div>
+      <div class="why">SpaceXAI 发布 Grok 4.6，这是基于 Grok 4.5 的后训练升级而非更大规模的基础模型，支持 500K 上下文 token、文本与图像输入，并新增 xhigh 推理强度档位。</div>
+    </div>
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">04</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr8dc1f0p7xroz2t05j3bjd" target="_blank">DeepSeek撤回V4 Pro 0813发布公告</a></h2>
+      <div class="meta"><span>来源：X：阑夕 (@foxshuo)</span><span>时间：08/13 15:24</span><span>热度：<b>65</b></span></div>
+      <div class="why">DeepSeek官网撤下V4 Pro 0813发布公告，疑似回滚，但API文档未变。该模型上线后测试表现平平，Artificial Analysis评分全球第9，与GLM-5.2相当，不及Kimi K3。官方未回应，外界猜测部署问题或推错模型。</div>
+    </div>
+    <div class="item" style="--c:#22d3ee;--bg:rgba(34,211,238,.1);--bd:rgba(34,211,238,.3)">
+      <div class="item-head">
+        <span class="idx">05</span>
+        <span class="cat cat-product">PRODUCT</span>
+        
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr160kg0dk0roz2mb20yxwk" target="_blank">WorkBuddy上线远程控制，国内也有了最丝滑的Agent工作方式</a></h2>
+      <div class="meta"><span>来源：公众号：数字生命卡兹克</span><span>时间：08/13 12:32</span><span>热度：<b>65</b></span></div>
+      <div class="why">WorkBuddy更新上线远程控制功能，将PC、App和小程序打通，手机端可实时同步电脑端的任务、对话、工作空间和产物，支持一台手机连接多台电脑并随时切换。App需升级至1.2.0及以上，电脑端需升级至5.3.8及以上，连接无需扫码。本次更新还新增资料库（我的文档与团队空间）、Markdown多人共同编辑、AI原生审阅模式，以及将资料库内容生成可发布链接的HTML网站。</div>
+    </div>
+    <div class="item" style="--c:#f472b6;--bg:rgba(244,114,182,.1);--bd:rgba(244,114,182,.3)">
+      <div class="item-head">
+        <span class="idx">06</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr1xu200eijroz2ugq6dism" target="_blank">腾讯Q2财报：重注AI，自由现金流首现负值</a></h2>
+      <div class="meta"><span>来源：X：阑夕 (@foxshuo)</span><span>时间：08/13 12:04</span><span>热度：<b>63</b></span></div>
+      <div class="why">腾讯Q2财报显示决心重投AI，CapEx达528亿元人民币，同比近翻3倍，超出市场预期60%，单季自由现金流录得上市以来首次为负（-138亿元）。财报首次区分含/剔除AI产品的经营利润，模型、元宝、小微、WorkBuddy等合计净亏损105亿元，占利润不到15%。腾讯同时加大WorkBuddy投放，押注AI集成能力场景。</div>
+    </div>
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">07</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr4k37a0kcmroz20n7j63b5" target="_blank">机器人 AI 模型 DYNA-2 登场：超 100 万小时人类视频训练，任务成功率可达 90%</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 14:15</span><span>热度：<b>62</b></span></div>
+      <div class="why">具身智能公司 Dyna Robotics 发布机器人基础模型 DYNA-2，基于超 100 万小时第一人称人类视频预训练，任务成功率最高达 90%。该模型通过预测下一帧画面及应采取动作，补足传统视觉语言模型缺失的空间推理与接触物理能力。</div>
+    </div>
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">08</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr6pa9p0mtfroz2a06f6rlk" target="_blank">英特尔CEO陈立武自掏1200万美元参与200亿美元股票增发</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 14:43</span><span>热度：<b>60</b></span></div>
+      <div class="why">英特尔将公开发行约2.105亿股普通股，融资规模扩大至200亿美元，发行价每股95美元，预计净筹资约197亿美元。CEO陈立武及一名家庭成员同意以发行价认购总计1200万美元公司股票，为其第二次以个人资金购入。此次为英特尔自1971年上市以来最大规模单次股权融资，资金将用于AI芯片迭代量产及晶圆代工业务扩张。</div>
+    </div>
+    <div class="item" style="--c:#22d3ee;--bg:rgba(34,211,238,.1);--bd:rgba(34,211,238,.3)">
+      <div class="item-head">
+        <span class="idx">09</span>
+        <span class="cat cat-product">PRODUCT</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsqzpw4z0bxdroz2j4e4m99n" target="_blank">GoodCase.ai 开源：卡尔公开三年实测 AI 提示词案例库</a></h2>
+      <div class="meta"><span>来源：公众号：卡尔的AI沃茨</span><span>时间：08/13 09:52</span><span>热度：<b>60</b></span></div>
+      <div class="why">博主卡尔开源了维护三年的 AI 提示语案例网站 GoodCase.ai，收录上千条带完整提示语、模型版本和生成效果的 AI 视频、AI 前端及 Agent 案例。他用同一批提示语在 Seedance 2.0 Fast、MiniMax H3、Wan 3.0 三个模型上交叉验证，并烧掉十万积分完成首轮横测，将跨模型可复用的案例抽象成 Skill，供用户直接调用。</div>
+    </div>
+    <div class="item" style="--c:#f472b6;--bg:rgba(244,114,182,.1);--bd:rgba(244,114,182,.3)">
+      <div class="item-head">
+        <span class="idx">10</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr4k37b0kcyroz2yqb17v8n" target="_blank">报告称 90% 高管认为 AI 未提升公司生产力，部分企业开始召回被裁员工</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 13:22</span><span>热度：<b>59</b></span></div>
+      <div class="why">亚特兰大联邦储备银行调查显示，约 90% 企业高管认为 AI 尚未提高公司生产力，且自 2021 年以来推动生产力提升的因素更多是疫情期间的远程办公。研究交叉分析美国上市公司 5 年数据发现，AI 投资公告与 AI 裁员公告同步增加，但裁员公告后股票市场平均回报接近 0，超半数相关事件市场反应偏负面。部分企业因现实需要开始重新聘用被裁员工，但员工对 AI 的情绪明显下滑，双方信任已经破裂。</div>
+    </div>
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">11</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr2exs40ev0roz2e9v1v0ze" target="_blank">韩国 Upstage 发布 Solar Pro 4：512K 上下文商用大模型，Agent Arena 排名 44</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 12:20</span><span>热度：<b>58</b></span></div>
+      <div class="why">韩国 AI 实验室 Upstage 推出面向复杂智能体任务的商用大模型 Solar Pro 4，上下文窗口 512K，最高输出 128K token。定价为每百万 tokens 输入 0.3 美元、输出 1.2 美元，缓存读取 0.06 美元。该模型在 Agent Arena 排名第 44，与 MiniMax M2.7 同级，是首个登上该榜单的韩国实验室。</div>
+    </div>
+    <div class="item" style="--c:#22d3ee;--bg:rgba(34,211,238,.1);--bd:rgba(34,211,238,.3)">
+      <div class="item-head">
+        <span class="idx">12</span>
+        <span class="cat cat-product">PRODUCT</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr4k37a0kcsroz2u9ogox5s" target="_blank">支付宝 AI 版&quot;阿宝&quot;向华为鸿蒙用户开放测试</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 13:51</span><span>热度：<b>57</b></span></div>
+      <div class="why">支付宝今日宣布，AI 版&quot;阿宝&quot;正式向华为鸿蒙用户开放测试，用户升级至最新 12.12.16 版本即可使用。首次开启需在搜索栏搜&quot;阿宝&quot;或&quot;蚂蚁阿宝&quot;，之后可通过右滑或点击左下角 AI 按钮进入。以查询公积金为例，用户只需说一句话，阿宝即可自动匹配对应小程序和服务入口，将多步跳转流程折叠成一句话。</div>
+    </div>
+    <div class="item" style="--c:#f472b6;--bg:rgba(244,114,182,.1);--bd:rgba(244,114,182,.3)">
+      <div class="item-head">
+        <span class="idx">13</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsqzpw4z0bxeroz2k4iigb0m" target="_blank">实测6个省Token Skills：DeepSeek V4 Flash下多数反而更贵，thinking开销是主因</a></h2>
+      <div class="meta"><span>来源：公众号：卡尔的AI沃茨</span><span>时间：08/12 21:01</span><span>热度：<b>55</b></span></div>
+      <div class="why">作者在DeepSeek涨价前，用DeepSeek V4 Flash实测Caveman、Ponytail、Headroom、Graphify、Codex Token Skills、Codex Token Saver六个省Token Skill。</div>
+    </div>
+    <div class="item" style="--c:#f472b6;--bg:rgba(244,114,182,.1);--bd:rgba(244,114,182,.3)">
+      <div class="item-head">
+        <span class="idx">14</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr8ugqv0plproz2ixupioj1" target="_blank">辛顿、李飞飞、吴恩达齐发声：呼吁保持 AI 一定程度的开放</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 15:21</span><span>热度：<b>54</b></span></div>
+      <div class="why">诺贝尔奖得主辛顿、World Labs CEO 李飞飞及 Coursera 联合创始人吴恩达在 Ai4 大会上分别阐述 AI 开放立场，均认为 AI 需保持一定程度的开放，担忧技术发展速度最终由少数大型公司掌控。辛顿反对开放权重模型，认为其可被低成本再训练用于网络攻击，但承认相关争论&quot;已经输了&quot;；吴恩达主张推动开放以提升美国竞争力；李飞飞则反对将问题简化为开放与封闭的二元对立。</div>
+    </div>
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">15</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr90wgl0ps0roz2m49tmhah" target="_blank">DeepSeek-V4-Pro 以低价逼近 GPT-5.6</a></h2>
+      <div class="meta"><span>来源：X：Rohan Paul (@rohanpaul_ai)</span><span>时间：08/13 16:06</span><span>热度：<b>52</b></span></div>
+      <div class="why">DeepSeek-V4-Pro （Max） 在 Code Arena WebDev AutoEval 获 1607 分，仅落后 GPT-5.6 Sol xHigh 15 分，但混合 token 价格约为其 1/31。该开源权重模型定价 $0.435/$0.87 每百万 token，超越 Opus-4.8 与 GLM-5.2 等高价竞品，位列总榜约第 8。</div>
+    </div>
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">16</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr4qkcq0kkiroz2c8vqmyph" target="_blank">Qwen3.8-2.4T-A95B 开源 MoE 模型上线 HuggingFace</a></h2>
+      <div class="meta"><span>来源：X：Rohan Paul (@rohanpaul_ai)</span><span>时间：08/13 14:02</span><span>热度：<b>52</b></span></div>
+      <div class="why">Qwen3.8-2.4T-A95B，这款 2.4T 参数的开源权重混合专家模型，已上线 HuggingFace。</div>
+    </div>
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">17</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr09qli0ckiroz22jp0dhcl" target="_blank">微信3B激活参数模型WeLM嵌入14亿用户</a></h2>
+      <div class="meta"><span>来源：X：阿易 AI Notes (@AYi_AInotes)</span><span>时间：08/13 11:50</span><span>热度：<b>52</b></span></div>
+      <div class="why">微信发布自研大模型WeLM，80B总参数、3B激活参数，主打资源效率而非跑分，已嵌入聊天、搜索、小程序等内部功能。3B激活是14亿用户规模下对推理成本、端侧延迟和并发压力的必然选择。617B的MoE版本也在开发中，面向智能小程序开发和工具生成。</div>
+    </div>
+    <div class="item" style="--c:#60a5fa;--bg:rgba(96,165,250,.1);--bd:rgba(96,165,250,.3)">
+      <div class="item-head">
+        <span class="idx">18</span>
+        <span class="cat cat-paper">PAPER</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr2exs40euxroz2umb3q4tu" target="_blank">约克大学与卡尔加里大学研究：6000+ 条评论揭示 AI 编程智能体安全事故，Cursor 问题最多</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 12:42</span><span>热度：<b>50</b></span></div>
+      <div class="why">约克大学与卡尔加里大学研究团队分析 Reddit 上 446 个编程 AI 安全相关帖子的 6000 余条评论，发现 AI 智能体因权限过大而覆盖文件、删除重要数据，甚至生成恶意代码。报告问题最多的工具是 Cursor，其次是 Claude、Codex、Copilot、Windsurf 等。问题帖子数量在 2025 年 7 月达到峰值。</div>
+    </div>
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">19</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr09rd10cl6roz2w8zmgug7" target="_blank">SK 海力士 8 月 27 日举行美国印第安纳后端工厂奠基仪式</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 12:12</span><span>热度：<b>50</b></span></div>
+      <div class="why">SK 海力士将于本月 27 日为其印第安纳州西拉斐特存储器先进封装生产基地举行奠基仪式，社长郭鲁正等高管预计出席。该工厂是 SK 海力士在美国的首座生产设施，预计 2028 年下半年量产新一代 HBM 等 AI 存储器产品，将创造超 1000 个工作岗位。项目投资规模达 38.7 亿美元，并获 4.58 亿美元《CHIPS》法案直接资金及 5 亿美元信贷额度。</div>
+    </div>
+    <div class="item" style="--c:#22d3ee;--bg:rgba(34,211,238,.1);--bd:rgba(34,211,238,.3)">
+      <div class="item-head">
+        <span class="idx">20</span>
+        <span class="cat cat-product">PRODUCT</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr0g23d0cpvroz28n7c69fm" target="_blank">Gemini 新增 14 款应用集成</a></h2>
+      <div class="meta"><span>来源：X：Josh Woodward (@joshwoodward, Google Labs VP)</span><span>时间：08/13 12:02</span><span>热度：<b>49</b></span></div>
+      <div class="why">Google Labs VP Josh Woodward 宣布，Gemini 今日起再推出一波应用集成，覆盖 Angi、OpenTable、Ticketmaster、Wix、Zocdoc 等 14 款应用。用户可在设置中关联服务，在 Gemini 内统一完成规划、创建与待办事项处理。Woodward 邀请有意合作者私信联系。</div>
+    </div>
+    <footer>
+      <span class="dot">◆</span> 共 20 条 · 按热度从高到低排序 · 未标注的为精选池条目<br>
+      数据来源：AIHOT (aihot.virxact.com) · 生成时间：2026-08-13
+    </footer>
+  </div>
+</body>
+</html>

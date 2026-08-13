@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 美丽人生 (2026-07-24)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060608;
+    color: #e0ded8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #444;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(ellipse at 70% 30%, rgba(180,60,60,0.22) 0%, transparent 50%),
+      radial-gradient(ellipse at 30% 70%, rgba(80,100,140,0.15) 0%, transparent 45%),
+      linear-gradient(135deg, #050508 0%, #0e0a10 25%, #1a1418 50%, #2a2028 70%, #322830 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 50% 40%, rgba(200,160,80,0.05) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 100%);
+    z-index: 1;
+  }
+
+  .film-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='6' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 46px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 0 40px rgba(180,140,60,0.3);
+    letter-spacing: 6px;
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(200,180,160,0.6);
+    font-weight: 300;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.8);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(180,140,60,0.18);
+    border-color: rgba(200,160,80,0.35);
+    color: #d4b86c;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #0e0e12, #08080a);
+    border: 1px solid rgba(180,140,60,0.1);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #b48c3c;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a098;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(180,140,60,0.05);
+    border: 1px solid rgba(180,140,60,0.1);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a098;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .highlights li::before {
+    content: '\2726';
+    position: absolute;
+    left: 0;
+    color: #b48c3c;
+    font-size: 10px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #0e0e12, #08080a);
+    border-left: 3px solid #b48c3c;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(180,140,60,0.04), rgba(140,100,40,0.02));
+    border: 1px solid rgba(180,140,60,0.1);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #2a2820;
+    letter-spacing: 2px;
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 24px 16px; }
+    .hero-content h1 { font-size: 32px; letter-spacing: 3px; }
+    .hero-content { padding: 20px; }
+    .section h2 { font-size: 18px; }
+    .score-card .value { font-size: 26px; }
+    .awards-grid { grid-template-columns: 1fr; }
+    .section p, .why-watch p { font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 2 4</div>
+
+  <div class="hero">
+    <div class="film-grain"></div>
+    <div class="hero-content">
+      <h1>美丽人生</h1>
+      <div class="original-title">La vita è bella · 1997 · 意大利</div>
+      <div class="hero-meta">
+        <span class="tag">罗伯托·贝尼尼 导演 / 主演</span>
+        <span class="tag">尼科莱塔·布拉斯基 主演</span>
+        <span class="tag gold">剧情 / 喜剧 / 战争</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.6</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.6</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">80%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      1939 年的意大利托斯卡纳，阳光灿烂。一个叫圭多的犹太青年来到阿雷佐小镇，他个子不高、其貌不扬，但浑身上下散发着用不完的热情和机灵劲儿。他在餐厅当服务员，靠一张嘴和满肚子笑话走街串巷，顺道追求一位名叫多拉的美丽姑娘——他叫她"公主"。几经周折，他真的赢得了她的心，两人结婚，有了一个可爱的儿子乔舒亚。故事的前半段是一出甜得发腻的爱情喜剧，笑料密集，阳光明媚。然而好景不长，就在乔舒亚五岁生日那天，圭多和儿子被送进了纳粹集中营。多拉虽然不是犹太人，却主动要求同行。为了不让年幼的儿子被恐惧吞噬，圭多做了一个令人心碎的决定——他告诉乔舒亚，这一切不过是一场大型游戏，积分最先到一千分的人，就能赢得一辆真正的坦克。从这一刻起，这个父亲用全部的幽默、谎言和勇气，在人间地狱里为儿子搭建了一个童话。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>罗伯托·贝尼尼一人身兼导演、编剧、主演三职，贡献了影史上最令人难忘的表演之一——戛纳评委破例起立鼓掌长达十二分钟</li>
+      <li>影片将前半段的浪漫喜剧与后半段的集中营悲剧无缝衔接，用幽默对抗绝望，这种"以笑写泪"的叙事策略在整个电影史上独此一家</li>
+      <li>父子之间的"坦克游戏"是影史最催泪的设定之一——一个父亲用谎言筑起的最后一道防线，既是欺骗也是最深的爱</li>
+      <li>配乐由尼古拉·皮奥瓦尼创作，主旋律简单而忧伤，在影片中反复出现，每一次响起都承载着不同的情感重量</li>
+      <li>贝尼尼与妻子尼科莱塔·布拉斯基戏里戏外都是夫妻，片中圭多对多拉的所有倾慕都是真实的化学反应</li>
+      <li>影片最核心的信息从不直白说出——它藏在圭多踩着步操走过广场时挤眉弄眼的笑里，藏在他被押走路过儿子藏身处时还故意大步流星的步态里</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 第 71 届奥斯卡最佳外语片</div>
+      <div class="award-item"><span class="icon">🏆</span> 第 71 届奥斯卡最佳男主角（贝尼尼）</div>
+      <div class="award-item"><span class="icon">🏆</span> 第 71 届奥斯卡最佳剧情配乐</div>
+      <div class="award-item"><span class="icon">🏆</span> 戛纳电影节评审团大奖</div>
+      <div class="award-item"><span class="icon">🏆</span> 格莱美最佳影视配乐</div>
+      <div class="award-item"><span class="icon">🏆</span> 豆瓣电影 Top 250 第 6 位</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"这是一个简单的故事，但不容易讲。就像一个寓言，充满了悲伤和惊奇。"</p>
+    <div class="source">—— 影片开场旁白</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        在所有关于战争与苦难的电影中，《美丽人生》是最特殊的一部。它不直接给你看恐怖——它让你看见一个父亲在恐怖面前如何弯下腰，用全部的幽默和想象力，把一整座集中营变成游乐园。贝尼尼的天才在于：他让你先笑，笑得前仰后合，然后在你不防备的时候，把你心碎的碎片一片一片递到你手里。
+        这部片子会颠覆你对"伟大"的理解。伟大不总是枪林弹雨里的冲锋陷阵——有时候，它就是一个瘦小的男人穿过集中营的铁丝网，为了给躲在铁皮箱里的儿子演完最后一场戏。他昂着头，大步流星，扮着鬼脸，即使身后押送他的人已举起了枪。
+        如果你还没看过，请在某个安静的夜晚独自观看，手机关掉，灯光调暗。它会在 116 分钟内完成一件几乎不可能的事——让你在笑和泪之间反复横跳，然后在最后一刻安静地、彻底地溃堤。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    早安，公主 · 第 25 期
+  </div>
+
+</div>
+</body>
+</html>

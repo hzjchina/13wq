@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 阿甘正传 (2026-07-17)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #060806;
+    color: #e0e0e0;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(ellipse at 80% 60%, rgba(90,160,120,0.35) 0%, transparent 45%),
+      radial-gradient(ellipse at 20% 80%, rgba(180,140,80,0.25) 0%, transparent 50%),
+      linear-gradient(135deg, #0a100c 0%, #162018 25%, #2a3526 50%, #4a5a40 70%, #7a8f6a 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 50%, rgba(160,200,160,0.12) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 100%);
+    z-index: 1;
+  }
+
+  .bench-lines {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.12;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 28px,
+        rgba(0,0,0,0.5) 28px,
+        rgba(0,0,0,0.5) 30px
+      );
+  }
+
+  .feather {
+    position: absolute;
+    top: 8%;
+    right: 15%;
+    width: 80px;
+    height: 120px;
+    z-index: 2;
+    opacity: 0.18;
+    background: radial-gradient(ellipse at 40% 50%, rgba(255,255,255,0.9) 0%, rgba(220,220,220,0.5) 30%, transparent 70%);
+    transform: rotate(25deg);
+    filter: blur(1px);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 0 40px rgba(120,160,120,0.3);
+    letter-spacing: 4px;
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(180,210,180,0.7);
+    font-weight: 300;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(120,160,120,0.2);
+    border-color: rgba(120,160,120,0.4);
+    color: #a8d0a8;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #0e120e, #080b08);
+    border: 1px solid rgba(120,160,120,0.1);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #7a9f7a;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a8a8;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(120,160,120,0.05);
+    border: 1px solid rgba(120,160,120,0.12);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a8a8;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .highlights li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: #7a9f7a;
+    font-size: 10px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #0e120e, #080b08);
+    border-left: 3px solid #7a9f7a;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(120,160,120,0.05), rgba(80,100,60,0.03));
+    border: 1px solid rgba(120,160,120,0.12);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #3a3a3a;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 1 7</div>
+
+  <div class="hero">
+    <div class="bench-lines"></div>
+    <div class="feather"></div>
+    <div class="hero-content">
+      <h1>阿甘正传</h1>
+      <div class="original-title">Forrest Gump · 1994 · 美国</div>
+      <div class="hero-meta">
+        <span class="tag">罗伯特·泽米吉斯 导演</span>
+        <span class="tag">汤姆·汉克斯 / 罗宾·怀特 主演</span>
+        <span class="tag gold">剧情 / 爱情</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.8</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.5</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">96%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      阿甘出生在二战后的美国南方小镇。他从小腿部有残疾，智商也被测试为低于常人，但母亲告诉他："你和其他人没什么不同。"在青梅竹马珍妮的鼓励下，他奇迹般地挣脱了支架，并发现自己在奔跑这件事上有着惊人的天赋。
+      从那一刻起，奔跑成了阿甘理解世界的方式。他跑进大学橄榄球场，跑进越南战场，跑进白宫，跑进乒乓球外交的历史瞬间，也跑进捕虾船 captain 的驾驶室。在时代的洪流里，阿甘似乎总是"被动"地抵达别人梦寐以求的位置，而他的目光始终只追随着一个人——那个让他"Run, Forrest, run"的女孩。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>汤姆·汉克斯贡献了教科书级别的表演，把一个"傻人有傻福"的角色演得天真、执拗又令人心碎</li>
+      <li>影片用当时最前沿的特效技术，把阿甘无缝嵌入肯尼迪、尼克松、列侬等真实历史影像中，虚构人物与真实历史严丝合缝</li>
+      <li>"人生就像一盒巧克力，你永远不知道下一颗是什么味道"成为跨越语言和文化障碍的流行语</li>
+      <li>罗伯特·泽米吉斯将美国近代史（越战、水门事件、乒乓外交、阿波罗登月）编织进个人成长史，以小见大</li>
+      <li>配乐温柔克制，羽毛飘落的片头和结尾首尾呼应，成为电影史上最经典的意象之一</li>
+      <li>它不渲染苦难，也不过度煽情，而是用一种近乎天真的视角，重新审视复杂的人性与时代</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 第 67 届奥斯卡最佳影片</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳男主角（汤姆·汉克斯）</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳导演</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳改编剧本</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳剪辑 / 最佳视觉效果</div>
+      <div class="award-item"><span class="icon">🏆</span> 美国国会图书馆国家电影保护局典藏</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"人生就像一盒巧克力，你永远不知道下一颗是什么味道。"</p>
+    <div class="source">—— 阿甘的妈妈</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        《阿甘正传》的高明之处，在于它用一个看似简单的人，讲透了复杂世界的运行规则。阿甘不懂政治、不懂权谋、不懂潮流，但他懂得一件事：认准了就去做。这种"钝感"在信息爆炸、人人焦虑的今天，反而像是一剂清凉药。
+        它也不是一部简单的成功学电影。阿甘经历了战争、失去、误解、离别，但他从未用怨恨去回应世界。当你看到他在珍妮墓前说出那段独白时，会明白这部电影真正想讲的不是逆袭，而是：一个人如何在不确定的时代里，保持善良和真诚。
+        如果你想找一部既能让你会心一笑、又能在某个深夜回味悠长的电影，《阿甘正传》是那种可以放在硬盘里、反复打开的作品。它不会给你标准答案，但它会让你觉得——世界再乱，总还有人在认真地奔跑。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    生活就像一盒巧克力，但今天的口味很甜 · 第 22 期
+  </div>
+
+</div>
+</body>
+</html>

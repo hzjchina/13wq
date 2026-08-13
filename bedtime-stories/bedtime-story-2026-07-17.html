@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小风筝的线 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0e27;
+    background: linear-gradient(180deg, #0a0e27 0%, #0d1535 40%, #111d3a 70%, #0a1428 100%);
+    color: #e8e6f0;
+    font-family: "Georgia", "Songti SC", "STSong", serif;
+    overflow-x: hidden;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* 星空容器 */
+  .starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 50px;
+    right: 8%;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e7, #f5e6b8 50%, #e8d090 100%);
+    box-shadow:
+      0 0 30px rgba(245, 230, 184, 0.4),
+      0 0 60px rgba(245, 230, 184, 0.2),
+      0 0 100px rgba(245, 230, 184, 0.1);
+    animation: moonFloat 6s ease-in-out infinite;
+    z-index: 1;
+  }
+
+  .moon::before {
+    content: '';
+    position: absolute;
+    top: 18%; left: 22%;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: rgba(200, 185, 140, 0.3);
+  }
+  .moon::after {
+    content: '';
+    position: absolute;
+    top: 55%; left: 60%;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: rgba(200, 185, 140, 0.25);
+  }
+
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px 2px rgba(255,255,255,0.6);
+    z-index: 1;
+    animation: shoot 8s linear infinite;
+    animation-delay: var(--sdelay, 0s);
+    opacity: 0;
+  }
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.7));
+  }
+  .shooting-star:nth-child(1) { top: 15%; left: -5%; --sdelay: 2s; }
+  .shooting-star:nth-child(2) { top: 35%; left: -5%; --sdelay: 5s; }
+
+  @keyframes shoot {
+    0% { transform: translate(0, 0); opacity: 0; }
+    5% { opacity: 1; }
+    20% { transform: translate(400px, 200px); opacity: 0; }
+    100% { transform: translate(400px, 200px); opacity: 0; }
+  }
+
+  /* 风筝漂浮粒子 */
+  .kite-particle {
+    position: fixed;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(255, 180, 120, 0.5);
+    box-shadow: 0 0 8px rgba(255, 180, 120, 0.3);
+    z-index: 1;
+    animation: floatUp var(--pdur, 12s) ease-in-out infinite;
+    animation-delay: var(--pdelay, 0s);
+  }
+
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.7; }
+    50% { transform: translateY(50vh) translateX(20px); opacity: 0.5; }
+    90% { opacity: 0.3; }
+    100% { transform: translateY(-10vh) translateX(-10px); opacity: 0; }
+  }
+
+  /* 内容容器 */
+  .container {
+    position: relative;
+    z-index: 10;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* SVG 风筝区域 */
+  .kite-scene {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    height: 180px;
+  }
+
+  .kite-svg {
+    animation: kiteSway 5s ease-in-out infinite;
+    transform-origin: center top;
+  }
+
+  @keyframes kiteSway {
+    0%, 100% { transform: rotate(-4deg) translateY(0); }
+    25% { transform: rotate(2deg) translateY(-5px); }
+    50% { transform: rotate(4deg) translateY(0); }
+    75% { transform: rotate(-2deg) translateY(-5px); }
+  }
+
+  .kite-string {
+    stroke: rgba(255, 200, 150, 0.25);
+    stroke-width: 1;
+    stroke-dasharray: 3 4;
+    fill: none;
+    animation: stringShimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes stringShimmer {
+    0%, 100% { stroke-opacity: 0.15; }
+    50% { stroke-opacity: 0.4; }
+  }
+
+  /* 标题 */
+  .title-wrap {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .story-title {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: #ffd9a0;
+    text-shadow: 0 0 20px rgba(255, 180, 100, 0.3);
+    margin-bottom: 8px;
+    animation: titleGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 20px rgba(255, 180, 100, 0.2); }
+    50% { text-shadow: 0 0 30px rgba(255, 180, 100, 0.4), 0 0 50px rgba(255, 180, 100, 0.1); }
+  }
+
+  .story-subtitle {
+    font-size: 0.9rem;
+    color: rgba(232, 230, 240, 0.4);
+    letter-spacing: 3px;
+  }
+
+  /* 故事正文 */
+  .story-body {
+    font-size: 1.15rem;
+    line-height: 2.1;
+    color: #d4d0e0;
+    letter-spacing: 0.5px;
+  }
+
+  .story-body p {
+    margin-bottom: 20px;
+    text-indent: 2em;
+  }
+
+  .story-body p .em {
+    color: #ffc88a;
+    font-weight: bold;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    margin-top: 50px;
+    padding: 30px 24px;
+    background: linear-gradient(135deg, rgba(255, 180, 100, 0.06), rgba(255, 200, 130, 0.03));
+    border: 1px solid rgba(255, 180, 100, 0.12);
+    border-radius: 16px;
+    text-align: center;
+    font-size: 1.1rem;
+    line-height: 2;
+    color: #e8c9a0;
+    animation: goodnightGlow 5s ease-in-out infinite;
+  }
+
+  @keyframes goodnightGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 180, 100, 0.05); }
+    50% { box-shadow: 0 0 35px rgba(255, 180, 100, 0.15); }
+  }
+
+  .goodnight .heart {
+    display: inline-block;
+    animation: heartBeat 2s ease-in-out infinite;
+  }
+
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  /* 底部光点 */
+  .bottom-lights {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 60px;
+    pointer-events: none;
+    z-index: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+  }
+
+  .bottom-light {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 180, 100, 0.3);
+    animation: lightBreath 3s ease-in-out infinite;
+    animation-delay: var(--ldelay, 0s);
+  }
+
+  @keyframes lightBreath {
+    0%, 100% { opacity: 0.1; transform: scale(0.8); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  /* 日期标记 */
+  .date-tag {
+    text-align: center;
+    font-size: 0.8rem;
+    color: rgba(232, 230, 240, 0.3);
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+
+  /* 响应式 */
+  @media (max-width: 600px) {
+    .container { padding: 40px 18px 70px; }
+    .story-title { font-size: 1.7rem; }
+    .story-body { font-size: 1.05rem; line-height: 2.0; }
+    .goodnight { font-size: 1rem; padding: 24px 18px; }
+    .moon { width: 70px; height: 70px; top: 30px; }
+    .kite-scene { height: 140px; }
+    .kite-svg { width: 100px; height: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+
+<!-- 漂浮粒子 -->
+<div class="kite-particle" style="left: 10%; --pdur: 14s; --pdelay: 0s;"></div>
+<div class="kite-particle" style="left: 25%; --pdur: 16s; --pdelay: 3s;"></div>
+<div class="kite-particle" style="left: 45%; --pdur: 13s; --pdelay: 6s;"></div>
+<div class="kite-particle" style="left: 65%; --pdur: 15s; --pdelay: 1s;"></div>
+<div class="kite-particle" style="left: 80%; --pdur: 12s; --pdelay: 4s;"></div>
+<div class="kite-particle" style="left: 90%; --pdur: 17s; --pdelay: 7s;"></div>
+
+<div class="container">
+
+  <!-- 风筝 SVG -->
+  <div class="kite-scene">
+    <svg class="kite-svg" width="120" height="150" viewBox="0 0 120 150">
+      <!-- 风筝线 -->
+      <path class="kite-string" d="M 60 75 Q 55 100, 58 130 Q 60 140, 60 150" />
+      <!-- 风筝主体 -->
+      <polygon points="60,10 95,45 60,80 25,45" fill="#e8533f" stroke="#ff6b4a" stroke-width="1.5" opacity="0.9"/>
+      <polygon points="60,10 95,45 60,45" fill="#c44530" opacity="0.7"/>
+      <polygon points="60,45 95,45 60,80" fill="#d44a35" opacity="0.5"/>
+      <!-- 十字骨架 -->
+      <line x1="60" y1="10" x2="60" y2="80" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+      <line x1="25" y1="45" x2="95" y2="45" stroke="rgba(255,255,255,0.2)" stroke-width="0.8"/>
+      <!-- 飘带 -->
+      <path d="M 60 80 Q 55 95, 62 100 Q 58 110, 65 115 Q 60 125, 66 130" stroke="#ff8866" stroke-width="2" fill="none" opacity="0.6"/>
+      <!-- 光晕 -->
+      <circle cx="60" cy="45" r="42" fill="none" stroke="rgba(255,140,90,0.08)" stroke-width="20" />
+    </svg>
+  </div>
+
+  <div class="date-tag">2026 年 7 月 17 日 · 晚安故事</div>
+
+  <div class="title-wrap">
+    <h1 class="story-title">🪁 小风筝的线</h1>
+    <div class="story-subtitle">A LITTLE KITE'S STRING</div>
+  </div>
+
+  <div class="story-body">
+    <p>小风筝是一只红色的燕子风筝，住在小阁楼的角落里。每天傍晚，小男孩明明都会带它去草地上放飞。风一吹，小风筝就高高地飞起来，看到远处的山、闪闪的河，还有像棉花糖一样的云。</p>
+
+    <p>"如果我飞得再高一点，就能碰到星星了！"小风筝心想。</p>
+
+    <p>可是，明明手中的线总是轻轻地拉着它。<span class="em">"别飞太高哦，"</span>明明仰着头说，<span class="em">"我怕找不到你。"</span></p>
+
+    <p>小风筝有点不高兴。它觉得那根线像一个笼子，不让它自由。</p>
+
+    <p>有一天，风特别大。呼——线断了！</p>
+
+    <p>小风筝开心极了，越飞越高，越飞越远。它飞过了屋顶，飞过了树梢，飞过了云朵。可是，天渐渐黑了，风也停了。小风筝慢慢地往下落，落进了一棵高高的大树里，挂在树枝上，动弹不得。</p>
+
+    <p>周围好安静，好黑。小风筝害怕了。它想念明明温暖的手，想念那根轻轻拉着它的线。</p>
+
+    <p><span class="em">"原来，那根线不是笼子，"</span>小风筝小声说，<span class="em">"是明明在说——我在这里，你别怕。"</span></p>
+
+    <p>月亮升起来了，把树枝照得亮亮的。远处传来脚步声——是明明！他找了好久好久，终于找到了挂在树上的小风筝。明明小心翼翼地把小风筝取下来，抱在怀里。<span class="em">"我找到你了，"</span>明明轻轻说，<span class="em">"我给你换一根更结实的线，好不好？"</span></p>
+
+    <p>小风筝靠在明明温暖的怀里，觉得这是世界上最安全的地方。从那以后，小风筝再也不想挣脱那根线了。因为它知道了——被牵着，是因为有人爱你；被拉着，是怕你走丢。</p>
+
+    <p>那根细细的线，是世界上最温柔的牵手。</p>
+  </div>
+
+  <div class="goodnight">
+    <span class="heart">🌙</span><br>
+    晚安，小宝贝。小风筝说，你今天也是个好孩子。<br>
+    不管你飞得多高，爱你的人，总会牵着你的手。<br>
+    该做一个甜甜的梦了。<br>
+    <span class="heart">⭐</span>
+  </div>
+
+</div>
+
+<!-- 底部光点 -->
+<div class="bottom-lights">
+  <div class="bottom-light" style="--ldelay: 0s;"></div>
+  <div class="bottom-light" style="--ldelay: 0.4s;"></div>
+  <div class="bottom-light" style="--ldelay: 0.8s;"></div>
+  <div class="bottom-light" style="--ldelay: 1.2s;"></div>
+  <div class="bottom-light" style="--ldelay: 1.6s;"></div>
+  <div class="bottom-light" style="--ldelay: 2.0s;"></div>
+  <div class="bottom-light" style="--ldelay: 2.4s;"></div>
+  <div class="bottom-light" style="--ldelay: 2.8s;"></div>
+</div>
+
+<script>
+  // 生成星星
+  const starfield = document.getElementById('starfield');
+  const starCount = 100;
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+    star.style.setProperty('--delay', Math.random() * 5 + 's');
+    star.style.opacity = Math.random() * 0.6 + 0.3;
+    starfield.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

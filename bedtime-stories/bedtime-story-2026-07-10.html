@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小荷叶的摇篮 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(180deg, #0a0e27 0%, #0d1b3e 35%, #102845 65%, #0a2235 100%);
+    min-height: 100vh;
+    font-family: "Georgia", "Songti SC", "STSong", serif;
+    color: #e8e8f0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空容器 */
+  .starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.8); }
+    50% { opacity: 0.9; transform: scale(1.2); }
+  }
+
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 50px;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fffbe6, #f5e6a8 50%, #e8d789 80%);
+    box-shadow:
+      0 0 30px rgba(245, 230, 168, 0.5),
+      0 0 60px rgba(245, 230, 168, 0.3),
+      0 0 100px rgba(245, 230, 168, 0.15);
+    z-index: 1;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 30px rgba(245,230,168,0.5), 0 0 60px rgba(245,230,168,0.3), 0 0 100px rgba(245,230,168,0.15); }
+    50% { box-shadow: 0 0 40px rgba(245,230,168,0.6), 0 0 80px rgba(245,230,168,0.35), 0 0 130px rgba(245,230,168,0.2); }
+  }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 6px #fff;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    transform-origin: right center;
+    transform: rotate(-30deg);
+  }
+  .ss1 { top: 15%; left: 60%; animation: shoot 8s ease-in infinite; animation-delay: 2s; }
+  .ss2 { top: 25%; left: 20%; animation: shoot 8s ease-in infinite; animation-delay: 5s; }
+
+  @keyframes shoot {
+    0% { transform: translate(0, 0); opacity: 0; }
+    3% { opacity: 1; }
+    10% { transform: translate(-150px, 80px); opacity: 0; }
+    100% { transform: translate(-150px, 80px); opacity: 0; }
+  }
+
+  /* 萤火虫 */
+  .firefly {
+    position: fixed;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 240, 130, 0.9);
+    box-shadow: 0 0 8px rgba(255, 240, 130, 0.8), 0 0 16px rgba(255, 240, 130, 0.4);
+    z-index: 1;
+    pointer-events: none;
+    animation: fly var(--flyDur, 12s) ease-in-out infinite, glow 2s ease-in-out infinite;
+  }
+
+  @keyframes fly {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(40px, -30px); }
+    50% { transform: translate(-20px, -50px); }
+    75% { transform: translate(30px, -20px); }
+  }
+
+  @keyframes glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  /* 水面波纹 */
+  .pond-ripple {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .ripple-layer {
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    width: 200%;
+    height: 100%;
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 40px,
+      rgba(100, 180, 220, 0.04) 40px,
+      rgba(100, 180, 220, 0.04) 80px
+    );
+    animation: rippleMove var(--ripDur, 20s) linear infinite;
+  }
+
+  @keyframes rippleMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(80px); }
+  }
+
+  /* 底部光带 */
+  .bottom-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background: linear-gradient(to top, rgba(80, 160, 200, 0.08), transparent);
+    z-index: 0;
+    pointer-events: none;
+    animation: bottomPulse 5s ease-in-out infinite;
+  }
+
+  @keyframes bottomPulse {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  /* 主要内容 */
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* SVG 荷叶插图 */
+  .lotus-illustration {
+    text-align: center;
+    margin-bottom: 36px;
+    animation: floatLeaf 6s ease-in-out infinite;
+  }
+
+  @keyframes floatLeaf {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(0.5deg); }
+  }
+
+  .lotus-illustration svg {
+    width: 180px;
+    height: auto;
+    filter: drop-shadow(0 0 20px rgba(100, 200, 150, 0.3));
+  }
+
+  /* 标题 */
+  .title {
+    text-align: center;
+    font-size: 2rem;
+    color: #a8e6cf;
+    text-shadow: 0 0 20px rgba(168, 230, 207, 0.3);
+    margin-bottom: 8px;
+    letter-spacing: 3px;
+    animation: titleFloat 5s ease-in-out infinite;
+  }
+
+  @keyframes titleFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 0.85rem;
+    color: rgba(168, 230, 207, 0.5);
+    margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(168, 230, 207, 0.4), transparent);
+    margin: 0 auto 40px;
+  }
+
+  /* 故事正文 */
+  .story {
+    font-size: 1.15rem;
+    line-height: 2.2;
+    color: #d4d4e8;
+    text-align: justify;
+  }
+
+  .story p {
+    margin-bottom: 1.8em;
+    text-indent: 2em;
+  }
+
+  .story p:first-child {
+    text-indent: 0;
+  }
+
+  /* 对话特殊样式 */
+  .story .dialogue {
+    color: #c8e6c9;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    margin-top: 48px;
+    padding: 28px 24px;
+    background: rgba(168, 230, 207, 0.06);
+    border: 1px solid rgba(168, 230, 207, 0.12);
+    border-radius: 16px;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: #b8e6c9;
+  }
+
+  .goodnight .heart {
+    display: inline-block;
+    margin: 0 4px;
+    animation: heartBeat 2s ease-in-out infinite;
+  }
+
+  @keyframes heartBeat {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.15); opacity: 1; }
+  }
+
+  /* 底部装饰 */
+  .footer-deco {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.2);
+    letter-spacing: 1px;
+  }
+
+  /* 响应式 */
+  @media (max-width: 600px) {
+    .container { padding: 40px 18px 60px; }
+    .title { font-size: 1.6rem; }
+    .story { font-size: 1.05rem; line-height: 2.1; }
+    .goodnight { font-size: 0.95rem; padding: 22px 18px; }
+    .moon { width: 55px; height: 55px; top: 25px; right: 25px; }
+    .lotus-illustration svg { width: 140px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star ss1"></div>
+<div class="shooting-star ss2"></div>
+
+<!-- 萤火虫 -->
+<div class="firefly" style="top: 30%; left: 15%; --flyDur: 14s;"></div>
+<div class="firefly" style="top: 45%; left: 80%; --flyDur: 11s; animation-delay: -3s;"></div>
+<div class="firefly" style="top: 60%; left: 10%; --flyDur: 13s; animation-delay: -6s;"></div>
+<div class="firefly" style="top: 20%; left: 85%; --flyDur: 16s; animation-delay: -2s;"></div>
+<div class="firefly" style="top: 55%; left: 50%; --flyDur: 15s; animation-delay: -8s;"></div>
+<div class="firefly" style="top: 70%; left: 70%; --flyDur: 12s; animation-delay: -4s;"></div>
+
+<!-- 水面波纹 -->
+<div class="pond-ripple">
+  <div class="ripple-layer" style="--ripDur: 25s;"></div>
+  <div class="ripple-layer" style="--ripDur: 35s; bottom: 10px; opacity: 0.5;"></div>
+</div>
+
+<!-- 底部光带 -->
+<div class="bottom-glow"></div>
+
+<!-- 主要内容 -->
+<div class="container">
+
+  <!-- 荷叶 SVG -->
+  <div class="lotus-illustration">
+    <svg viewBox="0 0 200 140" xmlns="http://www.w3.org/2000/svg">
+      <!-- 水面反光 -->
+      <ellipse cx="100" cy="125" rx="80" ry="8" fill="rgba(100,180,220,0.08)" />
+      <!-- 荷叶主体 -->
+      <ellipse cx="100" cy="80" rx="70" ry="42" fill="#2d6a4f" opacity="0.9" />
+      <ellipse cx="100" cy="78" rx="68" ry="40" fill="#40916c" opacity="0.85" />
+      <!-- 荷叶纹理 - 放射状线 -->
+      <g stroke="#52b788" stroke-width="0.8" opacity="0.4" fill="none">
+        <line x1="100" y1="78" x2="40" y2="50" />
+        <line x1="100" y1="78" x2="30" y2="78" />
+        <line x1="100" y1="78" x2="40" y2="106" />
+        <line x1="100" y1="78" x2="100" y2="38" />
+        <line x1="100" y1="78" x2="160" y2="50" />
+        <line x1="100" y1="78" x2="170" y2="78" />
+        <line x1="100" y1="78" x2="160" y2="106" />
+      </g>
+      <!-- 荷叶高光 -->
+      <ellipse cx="85" cy="65" rx="25" ry="12" fill="#74c69d" opacity="0.25" />
+      <!-- 雨滴 -->
+      <circle cx="105" cy="72" r="4" fill="rgba(180,220,255,0.6)" />
+      <circle cx="105" cy="72" r="2.5" fill="rgba(220,240,255,0.8)" />
+      <!-- 小萤火虫停在荷叶上 -->
+      <circle cx="120" cy="85" r="2.5" fill="rgba(255,240,130,0.9)">
+        <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="120" cy="85" r="5" fill="rgba(255,240,130,0.2)">
+        <animate attributeName="r" values="4;7;4" dur="2s" repeatCount="indefinite" />
+        <animate attributeName="opacity" values="0.2;0.4;0.2" dur="2s" repeatCount="indefinite" />
+      </circle>
+      <!-- 茎 -->
+      <path d="M 100 120 Q 98 100 100 80" stroke="#1b4332" stroke-width="2" fill="none" opacity="0.5" />
+    </svg>
+  </div>
+
+  <h1 class="title">小荷叶的摇篮</h1>
+  <p class="subtitle">2026 年 7 月 10 日 · 儿童睡前故事</p>
+  <div class="divider"></div>
+
+  <div class="story">
+    <p>小荷叶圆圆的，绿绿的，像一把小伞，静静地浮在池塘上。</p>
+
+    <p>有一天，一颗小雨滴从天上落下来，"啪嗒"一声，落在了小荷叶的手心里。</p>
+
+    <p class="dialogue">"哎呀，我好害怕，"小雨滴说，"我从那么高的地方掉下来，会不会碎掉呀？"</p>
+
+    <p>小荷叶轻轻晃了晃，把小雨滴托得稳稳的。"别怕别怕，你在我手心里，不会碎的。"小雨滴安全了，开心地在荷叶上滚来滚去，像一颗小珍珠。</p>
+
+    <p>后来，一只小青蛙跳上来，累得气喘吁吁。"太阳好大好大，我想找个凉快的地方歇歇脚。"小荷叶撑开身子，给小青蛙遮了一片阴凉。"来吧来吧，在我这里休息一会儿。"小青蛙舒服地趴着，呱呱地唱起了歌。</p>
+
+    <p>到了晚上，一只小萤火虫飞过来，飞得摇摇晃晃的。"我的灯笼快没光了，飞不动了……"小荷叶轻轻托住小萤火虫，让它在自己怀里歇息。"你休息一下，明天又能亮起来啦。"小萤火虫靠在荷叶上，微光一闪一闪，像在说谢谢。</p>
+
+    <p>月亮升起来了，把池塘照得亮亮的。小荷叶看着怀里的小雨滴、身旁的小青蛙、还有靠在身上的小萤火虫，忽然觉得好幸福。</p>
+
+    <p class="dialogue">"原来我是一张摇篮呀，"小荷叶悄悄说，"虽然我只是一片小小的叶子，但我能托住需要帮助的朋友。"</p>
+
+    <p>风轻轻吹过池塘，水面泛起小小的波纹，好像在说："是呀是呀，你是最温柔的小摇篮。"小荷叶在月光下，慢慢闭上了眼睛。怀里的小朋友们也都安安静静地睡着了。池塘好安静好安静，只有风在轻轻哼着歌。</p>
+  </div>
+
+  <div class="goodnight">
+    晚安，小宝贝。<br>
+    小荷叶说，你今天也像小摇篮一样，温柔地对待了身边的人。<span class="heart">🌙</span><br>
+    该做一个甜甜的梦了。
+  </div>
+
+  <div class="footer-deco">
+    · 小虾米睡前故事 · 每晚 20:30 温暖相伴 ·
+  </div>
+
+</div>
+
+<script>
+  // 生成星空
+  const starfield = document.getElementById('starfield');
+  const starCount = 100;
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+    star.style.setProperty('--delay', Math.random() * 5 + 's');
+    starfield.appendChild(star);
+  }
+</script>
+
+</body>
+</html>

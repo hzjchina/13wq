@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 千与千寻 Spirited Away (2001)</title>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-2: #21262d;
+      --text: #c9d1d9;
+      --text-secondary: #8b949e;
+      --accent: #f78166;
+      --accent-2: #58a6ff;
+      --accent-3: #d2a8ff;
+      --border: #30363d;
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 32px;
+      padding: 0 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.85rem;
+      color: var(--accent-3);
+      border: 1px solid var(--accent-3);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .poster-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .poster-placeholder {
+      width: 100%;
+      aspect-ratio: 2 / 3;
+      max-width: 280px;
+      margin: 0 auto 24px;
+      background: linear-gradient(135deg, #1a2840 0%, #2d4a6b 50%, #4a3a6b 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text);
+      font-size: 1.1rem;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poster-placeholder::before {
+      content: "千";
+      position: absolute;
+      font-size: 8rem;
+      font-weight: 700;
+      color: rgba(255, 255, 255, 0.08);
+      font-family: "PingFang SC", "Microsoft YaHei", serif;
+    }
+
+    .poster-placeholder-text {
+      position: relative;
+      z-index: 1;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 8px 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .meta-item {
+      background: var(--surface-2);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .meta-label {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .meta-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .rating-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .rating-tag {
+      background: rgba(210, 168, 255, 0.12);
+      color: var(--accent-3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      font-size: clamp(1.2rem, 4vw, 1.5rem);
+      margin-bottom: 16px;
+      color: var(--accent-2);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    h2::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background: var(--accent-2);
+      border-radius: 3px;
+    }
+
+    p {
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
+      margin-bottom: 16px;
+      color: var(--text);
+    }
+
+    p:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 14px;
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
+    }
+
+    li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent-3);
+      font-weight: 700;
+    }
+
+    .quote {
+      border-left: 4px solid var(--accent-3);
+      padding-left: 18px;
+      margin: 20px 0;
+      color: var(--text-secondary);
+      font-style: italic;
+      font-size: clamp(1rem, 2.8vw, 1.1rem);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin-top: 32px;
+      padding: 0 8px;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .poster-card,
+      section {
+        padding: 20px;
+        border-radius: 14px;
+      }
+
+      .meta-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge">第 34 期 · 经典电影推荐</div>
+      <h1>千与千寻 Spirited Away</h1>
+      <p class="subtitle">2001 · 日本 · 宫崎骏</p>
+    </header>
+
+    <div class="poster-card">
+      <div class="poster-placeholder">
+        <span class="poster-placeholder-text">电影海报占位</span>
+      </div>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <div class="meta-label">导演</div>
+          <div class="meta-value">宫崎骏</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">类型</div>
+          <div class="meta-value">动画 / 奇幻</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">制片</div>
+          <div class="meta-value">吉卜力工作室</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">配音</div>
+          <div class="meta-value">柊瑠美 / 入野自由</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">片长</div>
+          <div class="meta-value">125 分钟</div>
+        </div>
+        <div class="meta-item">
+          <div class="meta-label">荣誉</div>
+          <div class="meta-value">奥斯卡最佳动画长片</div>
+        </div>
+      </div>
+      <div class="rating-row">
+        <span class="rating-tag">豆瓣 9.4</span>
+        <span class="rating-tag">IMDb 8.6</span>
+        <span class="rating-tag">烂番茄 96%</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>剧情梗概</h2>
+      <p>十岁的小女孩千寻跟随父母搬家，途中误入一座被遗忘的古老小镇。好奇的一家人循着香气走进一座空无一人的食肆，父母因为贪吃变成了猪。千寻在夜色降临时独自徘徊，遇见一位神秘少年——他告诉她：这里是神灵休憩的汤屋，来客若不工作，就会被魔法永远剥夺名字。</p>
+      <p>为了救回父母，千寻签下契约、改名"千"，在汤屋开始了一场又一场的劳作。她帮助河神洗净污垢、给无脸男留一扇门、在暴风雨的海上寻找一个早就忘记自己名字的影子。每一次付出，都让她比昨日更勇敢一点；而"千寻"这个名字，也越来越像一个必须自己握住的东西。</p>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <ul>
+        <li><strong>手绘动画的巅峰：</strong>超过 1100 张手绘背景、11 万张原画，质感远胜同期 CG 动画，每一帧都像会呼吸的水彩画。</li>
+        <li><strong>想象力无边际的世界观：</strong>锅炉爷爷的药材库、汤婆婆的空中阁楼、电车划过水面、千与无脸男在雨夜的站台——每一个场景都自成宇宙。</li>
+        <li><strong>配乐史诗级：</strong>久石让的《あの夏へ》《いつも何度でも》与画面咬合得严丝合缝，听觉上几乎能"看见"那列海上的电车。</li>
+        <li><strong>角色塑造克制有力：</strong>白龙、无脸男、汤婆婆、钱婆婆、小玲——每个角色都带着自己隐秘的孤独，台词不多却令人难忘。</li>
+        <li><strong>主题不喊口号：</strong>关于成长、贪婪、失去与重获，电影几乎从不直说，全靠画面和细节传递，温柔而有重量。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <p>《千与千寻》是影史上第一部以动画片身份拿下奥斯卡最佳影片（此处为最佳动画长片）并摘下柏林金熊奖的作品，也是日本票房冠军保持了二十多年。一部完全手绘的儿童向电影，为什么能让全球的成年人也为之动容？</p>
+      <div class="quote">"它把'失去名字'写成了最温柔的成年寓言——当你忘记自己是谁，世界就会一点点把你吞掉。"</div>
+      <p>它适合每一个在工作里、关系里、欲望里被推着走的现代人。哪怕只是两个小时的抽离，也能让你在列车驶过水面时想起：自己最初的名字，是什么。</p>
+    </section>
+
+    <footer>
+      <p>本期推荐生成于 2026-08-02 · 经典电影推荐第 34 期</p>
+    </footer>
+  </div>
+</body>
+</html>

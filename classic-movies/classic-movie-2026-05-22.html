@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 - 美丽人生</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #0d0d0d 0%, #1a1a2e 40%, #16213e 100%);
+    min-height: 100vh;
+    color: #e0e0e0;
+    padding: 2rem 1rem;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .date-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 20px;
+    padding: 0.3rem 1.2rem;
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 1.2rem;
+  }
+  .header h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f5af19, #f12711);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  .header .subtitle {
+    font-size: 1.2rem;
+    color: #bbb;
+    font-style: italic;
+  }
+
+  /* Stats row */
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0 2.5rem;
+    flex-wrap: wrap;
+  }
+  .stat {
+    text-align: center;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 1rem 1.8rem;
+    min-width: 120px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .stat:hover {
+    transform: translateY(-3px);
+    border-color: #f5af19;
+  }
+  .stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    display: block;
+    background: linear-gradient(135deg, #f5af19, #f12711);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 0.3rem;
+  }
+
+  /* Meta strip */
+  .meta-strip {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .meta-item {
+    background: rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  .meta-item strong {
+    color: #f5af19;
+    font-weight: 600;
+  }
+
+  /* Sections */
+  .section {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .section:hover {
+    border-color: rgba(245,175,25,0.3);
+  }
+  .section h2 {
+    font-size: 1.5rem;
+    color: #f5af19;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .section h2 .icon {
+    font-size: 1.6rem;
+  }
+  .section p {
+    line-height: 1.85;
+    color: #d0d0d0;
+    font-size: 1.05rem;
+  }
+  .section ul {
+    list-style: none;
+    padding: 0;
+  }
+  .section ul li {
+    padding: 0.6rem 0;
+    line-height: 1.75;
+    color: #d0d0d0;
+    font-size: 1.02rem;
+    padding-left: 1.8rem;
+    position: relative;
+  }
+  .section ul li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: #f5af19;
+    font-size: 0.75rem;
+    top: 0.8rem;
+  }
+
+  /* Quote block */
+  .quote-block {
+    background: linear-gradient(135deg, rgba(245,175,25,0.08), rgba(241,39,17,0.06));
+    border-left: 3px solid #f5af19;
+    border-radius: 0 12px 12px 0;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    font-style: italic;
+    color: #ccc;
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+
+  /* Award grid */
+  .award-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .award-card {
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .award-card .trophy {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  .award-card .award-name {
+    font-weight: 600;
+    color: #f5af19;
+    font-size: 0.95rem;
+  }
+  .award-card .award-detail {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 0.3rem;
+  }
+
+  /* No spoiler badge */
+  .no-spoiler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: rgba(76,175,80,0.12);
+    border: 1px solid rgba(76,175,80,0.3);
+    color: #81c784;
+    border-radius: 20px;
+    padding: 0.6rem 1.5rem;
+    font-size: 0.9rem;
+    margin: 2rem auto 0;
+    width: fit-content;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    margin-top: 3rem;
+    color: #555;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 600px) {
+    .header h1 { font-size: 2rem; }
+    .stats { gap: 1rem; }
+    .stat { padding: 0.8rem 1.2rem; min-width: 90px; }
+    .section { padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header">
+    <div class="date-badge">2026 年 5 月 22 日</div>
+    <h1>美丽人生</h1>
+    <div class="subtitle">La vita è bella / Life Is Beautiful</div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <span class="stat-value">9.6</span>
+      <div class="stat-label">豆瓣评分</div>
+    </div>
+    <div class="stat">
+      <span class="stat-value">8.6</span>
+      <div class="stat-label">IMDb 评分</div>
+    </div>
+    <div class="stat">
+      <span class="stat-value">81%</span>
+      <div class="stat-label">烂番茄新鲜度</div>
+    </div>
+    <div class="stat">
+      <span class="stat-value">TOP 25</span>
+      <div class="stat-label">IMDb 历史排名</div>
+    </div>
+  </div>
+
+  <!-- Meta -->
+  <div class="meta-strip">
+    <div class="meta-item"><strong>导演</strong>&nbsp; 罗伯托·贝尼尼</div>
+    <div class="meta-item"><strong>主演</strong>&nbsp; 罗伯托·贝尼尼 / 尼可莱塔·布拉斯基</div>
+    <div class="meta-item"><strong>年份</strong>&nbsp; 1997</div>
+    <div class="meta-item"><strong>国家</strong>&nbsp; 意大利</div>
+    <div class="meta-item"><strong>时长</strong>&nbsp; 116 分钟</div>
+    <div class="meta-item"><strong>语言</strong>&nbsp; 意大利语 / 德语 / 英语</div>
+  </div>
+
+  <!-- Plot -->
+  <div class="section">
+    <h2><span class="icon">🎬</span>剧情梗概</h2>
+    <p>故事发生在二战前的意大利。犹太人圭多（Guido）是一个天性乐观、充满想象力的年轻人，他来到一座托斯卡纳小镇寻找自己的梦想。他用幽默和机智打动了美丽的女教师多拉，两人冲破重重阻碍终成眷属，还生了一个可爱的儿子约书亚。然而好景不长，法西斯政权将圭多和儿子抓进了纳粹集中营。为了保护年幼的儿子不受恐惧侵蚀，圭多决定撒一个伟大的谎言 —— 他告诉约书亚，这一切只是一场精心设计的游戏，他们必须遵守规则、完成任务、积攒分数，最终的奖品是一辆真正的坦克。在随时可能丧命的绝境中，圭多用尽全部智慧和勇气，守护着儿子对世界的纯真。</p>
+  </div>
+
+  <!-- Highlights -->
+  <div class="section">
+    <h2><span class="icon">✨</span>亮点所在</h2>
+    <ul>
+      <li><strong>独一无二的叙事结构</strong> —— 前半段是阳光灿烂的浪漫喜剧，后半段是暗无天日的集中营悲剧，两个极端在同一部电影里无缝衔接，这种结构在影史上极为罕见。</li>
+      <li><strong>罗伯托·贝尼尼的封神表演</strong> —— 身兼导演、编剧、主演三职，他用夸张又真诚的肢体表演、眼神和语调撑起了整部电影。他不是在"演"圭多，他就是圭多。</li>
+      <li><strong>"游戏"设定的天才构思</strong> —— 把一个孩子从集中营的恐怖中隔离出来，靠的不是武力，而是一种近乎荒诞的想象力。这个设定让影片有了超越苦难的精神内核。</li>
+      <li><strong>配乐与摄影的诗意</strong> —— 尼古拉·皮奥瓦尼的配乐温暖又忧伤，与托斯卡纳的金色阳光和集中营的灰蓝色调形成鲜明对比，每一帧画面都能当壁纸。</li>
+      <li><strong>绝不说教的表达</strong> —— 它不控诉、不煽情、不刻意催泪，只是安安静静地讲一个好故事，让观众自己去感受。真正的大师之作从不告诉你"该哭了"。</li>
+    </ul>
+  </div>
+
+  <!-- Why watch -->
+  <div class="section">
+    <h2><span class="icon">💡</span>为什么值得一看</h2>
+    <p>这不仅仅是一部关于二战和集中营的电影 —— 它更像是一部关于<strong>"人如何面对苦难"</strong>的寓言。圭多告诉我们：即使身处绝境，一个人仍然可以选择用什么方式去对待生活、对待自己爱的人。他的乐观不是愚蠢，而是一种极致的勇敢。</p>
+    <p style="margin-top:1rem;">很多人以为喜剧和悲剧是两种东西，但《美丽人生》证明了它们可以是一回事 —— 最高级的喜剧往往包裹着最深沉的悲剧。它让你笑到流泪，也让你哭到醒悟。</p>
+    <p style="margin-top:1rem;">这是一部能改变你看待世界方式的电影。无论你是第几次看，它都会给你一些新的东西。豆瓣 9.6 不是白来的。</p>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-block">
+    "Buongiorno, principessa!"（早安，公主！）<br>
+    —— 一句最平常的问候，在圭多口中却成了世间最美的情话，也是他对生活的全部态度。
+  </div>
+
+  <!-- Awards -->
+  <div class="section">
+    <h2><span class="icon">🏆</span>荣誉殿堂</h2>
+    <div class="award-grid">
+      <div class="award-card">
+        <div class="trophy">🎞️</div>
+        <div class="award-name">奥斯卡最佳男主角</div>
+        <div class="award-detail">罗伯托·贝尼尼（史上首位凭外语片获奖）</div>
+      </div>
+      <div class="award-card">
+        <div class="trophy">🌍</div>
+        <div class="award-name">奥斯卡最佳外语片</div>
+        <div class="award-detail">第71届奥斯卡金像奖</div>
+      </div>
+      <div class="award-card">
+        <div class="trophy">🎼</div>
+        <div class="award-name">奥斯卡最佳配乐</div>
+        <div class="award-detail">尼古拉·皮奥瓦尼</div>
+      </div>
+      <div class="award-card">
+        <div class="trophy">🇫🇷</div>
+        <div class="award-name">戛纳评审团大奖</div>
+        <div class="award-detail">第51届戛纳电影节</div>
+      </div>
+      <div class="award-card">
+        <div class="trophy">🇬🇧</div>
+        <div class="award-name">英国电影学院奖</div>
+        <div class="award-detail">最佳男主角</div>
+      </div>
+      <div class="award-card">
+        <div class="trophy">🇮🇹</div>
+        <div class="award-name">意大利大卫奖</div>
+        <div class="award-detail">9项大奖（最佳影片/导演/编剧等）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-spoiler">
+    🔒 以上内容全程无剧透，请放心阅读
+  </div>
+
+  <div class="footer">
+    每日经典电影推荐 · 2026-05-22
+  </div>
+
+</div>
+</body>
+</html>

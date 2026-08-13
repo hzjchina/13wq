@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小露珠的彩虹梦 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    background: linear-gradient(180deg, #0a1628 0%, #1a2a4a 30%, #1e3a5f 60%, #26466d 100%);
+    color: #e8e0d4;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.8); }
+  }
+
+  .moon {
+    position: fixed;
+    top: 40px;
+    right: 8%;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle at 35% 35%, #fffee0 0%, #f5e6b8 40%, #e8d5a0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15);
+    pointer-events: none;
+    z-index: 0;
+    animation: moonGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 60px rgba(255, 250, 220, 0.4), 0 0 120px rgba(255, 250, 220, 0.15); }
+    50% { box-shadow: 0 0 80px rgba(255, 250, 220, 0.55), 0 0 150px rgba(255, 250, 220, 0.2); }
+  }
+
+  .cloud-decor {
+    position: fixed;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .content-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 48px;
+  }
+
+  .header-area {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .story-icon {
+    font-size: 56px;
+    margin-bottom: 12px;
+    animation: floatCloud 3s ease-in-out infinite;
+  }
+
+  @keyframes floatCloud {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #f5e6b8;
+    font-weight: 600;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 12px rgba(245, 230, 184, 0.3);
+  }
+
+  .subtitle {
+    font-size: 0.95em;
+    color: rgba(255, 255, 255, 0.45);
+    letter-spacing: 1px;
+  }
+
+  .divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    margin: 24px auto;
+    border-radius: 1px;
+  }
+
+  .story-text p {
+    font-size: 1.15em;
+    line-height: 2.1;
+    margin-bottom: 18px;
+    text-indent: 2.2em;
+    color: rgba(255, 255, 255, 0.82);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
+
+  .story-text p:last-of-type {
+    margin-bottom: 0;
+  }
+
+  .moral-section {
+    margin: 40px 0 32px;
+    background: rgba(255, 255, 255, 0.06);
+    border-left: 3px solid rgba(245, 230, 184, 0.5);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    backdrop-filter: blur(4px);
+  }
+
+  .moral-section .moral-title {
+    font-size: 0.9em;
+    color: #f5e6b8;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .moral-section .moral-text {
+    font-size: 1em;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.7);
+    text-indent: 0;
+  }
+
+  .goodnight-section {
+    text-align: center;
+    margin-top: 32px;
+    padding: 32px 0;
+    background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.03) 100%);
+    border-radius: 16px;
+  }
+
+  .goodnight-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 12px;
+    animation: gentlePulse 3s ease-in-out infinite;
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.1); }
+  }
+
+  .goodnight-text {
+    font-size: 1.25em;
+    color: #f5e6b8;
+    line-height: 2;
+    letter-spacing: 1px;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.8em;
+    color: rgba(255,255,255,0.3);
+  }
+
+  .bottom-glow {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 120px;
+    background: linear-gradient(180deg, transparent 0%, rgba(30, 58, 95, 0.5) 50%, rgba(10, 22, 40, 0.8) 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 480px) {
+    .content-wrapper {
+      padding: 40px 16px 36px;
+    }
+    h1 { font-size: 1.6em; }
+    .story-text p {
+      font-size: 1.05em;
+      line-height: 2;
+    }
+    .moon {
+      width: 56px;
+      height: 56px;
+      top: 24px;
+      right: 5%;
+    }
+    .story-icon { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-container" id="stars"></div>
+<div class="moon"></div>
+<div class="cloud-decor" style="top:12%;left:5%;width:180px;height:60px;animation:floatCloud 8s ease-in-out infinite;"></div>
+<div class="cloud-decor" style="top:28%;left:72%;width:140px;height:44px;animation:floatCloud 11s ease-in-out infinite 2s;"></div>
+<div class="cloud-decor" style="top:65%;left:8%;width:120px;height:36px;animation:floatCloud 9s ease-in-out infinite 4s;"></div>
+<div class="bottom-glow"></div>
+
+<div class="content-wrapper">
+
+  <div class="header-area">
+    <div class="story-icon">🌙</div>
+    <h1>小露珠的彩虹梦</h1>
+    <div class="subtitle">2026年6月2日 · 星期二 · 睡前故事</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="story-text">
+    <p><strong>作者：小虾米 | 2026年6月2日</strong></p>
+    <p>清晨，太阳还没有完全升起，荷塘里安安静静的。</p>
+    <p>一片大大的荷叶上，住着一颗小小的露珠，名字叫露露。露露圆滚滚的、亮晶晶的，像一颗透明的小珍珠。每天清晨，她和小伙伴们在荷叶上滚来滚去，玩"看谁最圆"的游戏。</p>
+    <p>"露露今天最圆！"小伙伴们都说。</p>
+    <p>露露开心地滚了一圈，把早晨的第一缕阳光都收进了自己的身体里，闪闪发光。</p>
+    <p>可是露露有一个小小的烦恼——她怕太阳。</p>
+    <p>因为大露珠们告诉过她："太阳一出来，我们就会变轻、变小，然后就消失啦。"</p>
+    <p>"消失？"露露害怕极了，"我不要消失！我还没玩够呢！"</p>
+    <p>日子一天天过去，每天太阳升起的时候，露露都会躲到荷叶的背面。她看着小伙伴们在阳光下变成轻飘飘的水蒸气，升到天上去，心里又羡慕又害怕。</p>
+    <p>有一天，一只老蜻蜓飞过来，停在露露的荷叶边上。老蜻蜓的翅膀薄薄的，像两片玻璃纸，在阳光下闪着彩色的光。</p>
+    <p>"你好呀，小露珠。"老蜻蜓温和地说，"你怎么躲在叶子下面呀？"</p>
+    <p>露露小声说："我怕太阳……太阳一出来，我就会消失。"</p>
+    <p>老蜻蜓歪了歪头，笑着说："消失？不不不，你才不是消失呢！"</p>
+    <p>"那我会变成什么？"露露好奇地问。</p>
+    <p>老蜻蜓扇了扇翅膀，指着天空说："你会变成水蒸气，飞到天上去。在那儿，你会遇到好多好多朋友——从河里来的、从海里来的、从小草上来的——你们会聚在一起，变成一朵软软的云。"</p>
+    <p>"变成云？"露露瞪大了眼睛。</p>
+    <p>"对呀！"老蜻蜓接着说，"然后有一天，你又会变成雨，落回大地上来，落到泥土里，落到小草上，落到荷塘里。有时候啊——"老蜻蜓压低声音，像是在说一个大秘密，"有时候你还会变成彩虹！"</p>
+    <p>"彩虹？！"露露差点从叶子上滚下去。</p>
+    <p>"真的。当阳光穿过很多很多小水珠的时候，就会出现彩虹。那是世界上最美的桥，有红的、橙的、黄的、绿的、蓝的、紫的……"</p>
+    <p>露露听得入了迷。她从来不知道，原来"消失"不是结束，而是一场更大的冒险的开始。</p>
+    <p>第二天清晨，太阳慢慢升起来了。露露没有躲。</p>
+    <p>阳光照在她身上，暖洋洋的。她觉得自己越来越轻，越来越轻……慢慢地，她飘了起来，变成了一缕看不见的水蒸气。</p>
+    <p>"再见了，荷塘！"露露在心里轻轻说，"我会变成彩虹回来的！"</p>
+    <p>她越升越高，果然遇到了好多新朋友——从稻田里来的、从小溪里来的、从小猫喝水的碗里来的……大家抱在一起，变成了一朵白白胖胖的云。</p>
+    <p>露露飘过山川，飘过河流，飘过城市。她看到了从来没见过的风景：绿色的森林像一块块绒布，弯弯的河流像银色的丝带，城市的灯火在夜晚像满天的星星掉到了地上。</p>
+    <p>有一天下午，一阵凉风吹过，露露觉得身体变重了。她和朋友们手拉着手，变成雨滴，哗啦啦地落了下来。</p>
+    <p>而就在这时，太阳露出了笑脸，金色的阳光穿过雨幕——</p>
+    <p>天空中出现了一座彩虹桥！</p>
+    <p>红的、橙的、黄的、绿的、蓝的、紫的，整整齐齐地排在天空中。</p>
+    <p>荷塘里的小青蛙、小蜻蜓、小鱼都探出头来，惊叹道："好美的彩虹呀！"</p>
+    <p>而露露呢？她就是彩虹最左边那一抹淡淡的紫色。她安静地笑着，看着自己曾经住过的那片荷叶，心里满满的。</p>
+    <p>原来，每一次离开，都是一场新的相遇。每一次消失，都是另一种形式的出现。</p>
+  </div>
+
+  <div class="moral-section">
+    <div class="moral-title">🌟 寓意</div>
+    <div class="moral-text">
+      亲爱的孩子，有时候我们害怕改变，害怕离开熟悉的地方。但你知道吗？每一段结束，都是新旅程的开始。就像小露珠，她没有真的消失，而是变成云、变成雨、变成彩虹——变成了这世界上最美的风景。勇敢地去经历吧，你会发现自己比想象中更了不起。
+    </div>
+  </div>
+
+  <div class="goodnight-section">
+    <span class="goodnight-icon">🌙💤</span>
+    <div class="goodnight-text">
+      晚安，做个彩虹色的梦。<br>
+      🌈 _本文由小虾米为爷自动生成_
+    </div>
+  </div>
+
+  <div class="footer">
+    <em>本文由小虾米为爷自动生成</em>
+  </div>
+
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 80;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.5 + 1).toFixed(1);
+    var top = Math.random() * 100;
+    var left = Math.random() * 100;
+    var dur = (Math.random() * 3 + 2).toFixed(1);
+    var delay = (Math.random() * 5).toFixed(1);
+    frag += '<div class="star" style="width:'+size+'px;height:'+size+'px;top:'+top+'%;left:'+left+'%;--dur:'+dur+'s;--delay:'+delay+'s;"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

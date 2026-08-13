@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 #44 · 窃听风暴</title>
+<style>
+  :root {
+    --bg-deep: #1a1a2e;
+    --bg-card: #16213e;
+    --bg-soft: #0f3460;
+    --accent: #e94560;
+    --accent-soft: #e94560aa;
+    --text-primary: #eaeaea;
+    --text-secondary: #b0b0c0;
+    --text-muted: #7a7a8e;
+    --gold: #f5a623;
+    --border: #ffffff15;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(160deg, #1a1a2e 0%, #0d1b2a 50%, #1b2838 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ====== Hero ====== */
+  .hero {
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px 40px;
+    background: radial-gradient(ellipse at top, #0f3460 0%, transparent 70%),
+                linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
+    pointer-events: none;
+  }
+  .episode-badge {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 6vw, 46px);
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 30px rgba(233,69,96,0.3);
+  }
+  .hero .subtitle {
+    font-size: clamp(15px, 3.5vw, 19px);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .hero-tag {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: var(--bg-soft);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  /* ====== Container ====== */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ====== Rating Bar ====== */
+  .ratings {
+    display: flex;
+    gap: 12px;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+  .rating-card {
+    flex: 1;
+    min-width: 140px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .rating-card:hover { transform: translateY(-3px); }
+  .rating-card .platform {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .rating-card .score {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .rating-card .score::after {
+    content: ' / 10';
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* ====== Section ====== */
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+  .section-title .icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .section-title .bar {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-soft), transparent);
+  }
+  .section p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ====== Info Card ====== */
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 36px;
+  }
+  .info-row {
+    display: flex;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label {
+    width: 80px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .info-value {
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  /* ====== Highlight List ====== */
+  .highlight-list {
+    list-style: none;
+    padding: 0;
+  }
+  .highlight-list li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 16px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.7;
+  }
+  .highlight-list li:last-child { border-bottom: none; }
+  .highlight-list li::before {
+    content: '▶';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    color: var(--accent);
+    font-size: 12px;
+  }
+
+  /* ====== Quote Block ====== */
+  .quote-block {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .quote-block .source {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* ====== Award Badges ====== */
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .award-badge {
+    font-size: 13px;
+    padding: 7px 16px;
+    border-radius: 8px;
+    background: rgba(245,166,35,0.1);
+    color: var(--gold);
+    border: 1px solid rgba(245,166,35,0.25);
+    white-space: nowrap;
+  }
+
+  /* ====== Footer ====== */
+  .footer {
+    text-align: center;
+    padding: 40px 20px 30px;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  .footer .date {
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 600px) {
+    .hero { padding: 44px 16px 32px; min-height: 260px; }
+    .ratings { gap: 8px; }
+    .rating-card { min-width: 100px; padding: 14px 10px; }
+    .rating-card .score { font-size: 22px; }
+    .section p, .highlight-list li { font-size: 15px; }
+    .info-card { padding: 18px; }
+    .info-label { width: 64px; font-size: 13px; }
+    .info-value { font-size: 14px; }
+    .container { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="episode-badge">经典电影推荐 · 第 44 期</div>
+  <h1>窃听风暴</h1>
+  <div class="subtitle">The Lives of Others (2006)</div>
+  <div class="hero-meta">
+    <span class="hero-tag">弗洛里安·亨克尔·冯·多纳斯马克</span>
+    <span class="hero-tag">德国</span>
+    <span class="hero-tag">剧情 / 悬疑</span>
+    <span class="hero-tag">137分钟</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== Ratings ===== -->
+  <div class="ratings">
+    <div class="rating-card">
+      <div class="platform">豆瓣</div>
+      <div class="score">9.2</div>
+    </div>
+    <div class="rating-card">
+      <div class="platform">IMDb</div>
+      <div class="score">8.5</div>
+    </div>
+    <div class="rating-card">
+      <div class="platform">烂番茄</div>
+      <div class="score">93</div>
+    </div>
+  </div>
+
+  <!-- ===== Info Card ===== -->
+  <div class="info-card">
+    <div class="info-row">
+      <div class="info-label">导演</div>
+      <div class="info-value">弗洛里安·亨克尔·冯·多纳斯马克（处女作长片）</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">主演</div>
+      <div class="info-value">乌尔里希·穆埃 / 马蒂娜·格德克 / 塞巴斯蒂安·科赫</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">年份</div>
+      <div class="info-value">2006 年</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">国家</div>
+      <div class="info-value">德国</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">语言</div>
+      <div class="info-value">德语</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">奖项</div>
+      <div class="info-value">
+        <div class="awards">
+          <span class="award-badge">奥斯卡最佳外语片</span>
+          <span class="award-badge">德国电影奖7项大奖</span>
+          <span class="award-badge">欧洲电影奖3项</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 剧情梗概 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:rgba(233,69,96,0.15);">🎬</span>
+      剧情梗概
+      <span class="bar"></span>
+    </div>
+    <p>1984 年的东柏林。斯塔西（东德国家安全部）上尉维斯勒，是国家安全机器中一颗冰冷而忠诚的螺丝钉。他以审讯犯人时的心狠手辣和绝对忠诚而闻名，被上司视为"体制的完美工具"。</p>
+    <p>一天，上司命令维斯勒监听一位备受体制青睐的著名剧作家德莱曼——这位剧作家表面上歌颂体制，但上司怀疑他私下并不忠诚。维斯勒接受了任务，在剧作家的公寓里安装了满墙的监听设备，自己则蛰伏在阴暗的阁楼里，戴上耳机，24小时不间断地倾听着这对情侣的一切：他们的对话、争吵、欢笑、做爱时的喘息、深夜偷偷阅读的禁书、隐藏在墙后的打字机……</p>
+    <p>然而，随着日复一日的倾听，一种微妙的变化在维斯勒冰冷的心中悄然发生。他第一次从"被监听者"的生活中看到了自己从未拥有过的东西——自由的思想、真诚的情感、对艺术纯粹的热爱。当危险逼近剧作家时，这位本应将他送上断头台的监听者，面临着一个足以改变他人生命运的抉择……</p>
+  </div>
+
+  <!-- ===== 亮点所在 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:rgba(245,166,35,0.15);">⭐</span>
+      亮点所在
+      <span class="bar"></span>
+    </div>
+    <ul class="highlight-list">
+      <li><strong>处女作即封神。</strong>导演多纳斯马克用这部处女作长片直接摘得奥斯卡最佳外语片。他耗时数年走访前斯塔西特工和受害者，影片中每一处细节都经得起推敲。他是德国历史上最年轻的奥斯卡获奖导演。</li>
+      <li><strong>乌尔里希·穆埃的封神表演。</strong>饰演维斯勒的穆埃本人曾在东德时期被斯塔西监听过——他在现实生活中亲历了这段历史。他将自己生命中真实的创伤融入角色，那张几乎不动声色的面孔下，每一个微表情都在讲述一场灵魂的风暴。</li>
+      <li><strong>冷酷中的极致温情。</strong>影片最具冲击力的力量不在于展示极权的恐怖，而在于展示一个人如何被"听到的生活"慢慢改变。维斯勒偷走剧作家藏匿的布莱希特诗集、为保护剧作家而伪造监听报告——这些细微之处构成了全片最震撼人心的段落。</li>
+      <li><strong>一个令人窒息的结尾。</strong>影片的最后五分钟，堪称影史最精妙的收束之一。它不需要任何煽情，仅仅用一句台词和一个动作，就让此前两个小时的全部重量落在观众心头。这个结尾的余韵，许多观众在观影数年后仍记忆犹新。</li>
+      <li><strong>对历史记忆的精确还原。</strong>从斯塔西总部的灰绿色走廊到东柏林公寓里贴满墙纸的监听设备，从那个年代的打字机型号到街头的特拉贝特汽车——每个道具都是对1984年东德的忠实复刻。影片结束后，柏林的斯塔西博物馆馆长说："这部电影比我们博物馆更像那个年代。"</li>
+    </ul>
+  </div>
+
+  <!-- ===== Quote ===== -->
+  <div class="quote-block">
+    "它不是一部关于政治的电影，而是一部关于人性的电影。政治只是舞台，真正发生的事情在一个人安静地戴上耳机的那一刻才开始。"
+    <span class="source">—— 《纽约时报》影评</span>
+  </div>
+
+  <!-- ===== 为什么值得一看 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:rgba(15,52,96,0.6);">👁</span>
+      为什么值得一看
+      <span class="bar"></span>
+    </div>
+    <p>在所有关于极权体制的电影中，《窃听风暴》是极为罕见的一部——它没有控诉，没有呐喊，没有血腥的暴力场面。它的力量恰恰在于"安静"二字。</p>
+    <p>维斯勒是那个体制最完美的产物：没有朋友、没有家庭、没有爱好，办公室里只有一张床和几份卷宗。他存在的全部意义就是执行命令。但就是这样一个人，在倾听了另一个人的完整生活之后，内心深处某个被冰封了数十年的角落开始融化。这不是英雄主义的觉醒，而是一种几乎出于本能的、对"人之所以为人"的悄然回归。</p>
+    <p>电影最动人的追问是：一个人需要多大的勇气，才能在"被命令去毁灭别人的生活"和"选择保护别人的生活"之间做出选择？维斯勒的选择没有任何慷慨激昂的宣言，他只是默默做了——甚至在对方完全不知情的情况下做了。</p>
+    <p>这部电影提醒我们：在最冰冷的体制里，人性并没有消失，它只是被压到了极深的角落。而有时，唤醒它的不是一场革命，只是一首诗、一段旋律、一盏深夜阁楼里亮着的灯。</p>
+    <p>它是一部看完后会让你沉默很久的电影。不是因为悲伤，而是因为它让你重新相信了一些东西。</p>
+  </div>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="footer">
+  <div class="date">2026.08.12 · 第 44 期</div>
+  <div>每日经典电影推荐 · 小虾米 🦐 出品</div>
+</div>
+
+</body>
+</html>

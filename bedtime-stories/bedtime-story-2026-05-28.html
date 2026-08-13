@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌙 小海螺的歌声 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0e27 0%, #1a1a4e 30%, #2d1b69 60%, #1a1a4e 100%);
+      font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      color: #e8e0f0;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 星空背景 */
+    .stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--dur) ease-in-out infinite alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.2; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 40px;
+      right: 60px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff8e1, #ffd54f);
+      box-shadow: 0 0 40px rgba(255, 213, 79, 0.4), 0 0 80px rgba(255, 213, 79, 0.2);
+      z-index: 0;
+      animation: moonGlow 4s ease-in-out infinite alternate;
+    }
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: 15px; left: 20px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(255, 248, 225, 0.3);
+    }
+    @keyframes moonGlow {
+      0% { box-shadow: 0 0 40px rgba(255,213,79,0.4), 0 0 80px rgba(255,213,79,0.2); }
+      100% { box-shadow: 0 0 60px rgba(255,213,79,0.6), 0 0 120px rgba(255,213,79,0.3); }
+    }
+
+    /* 海浪动画 */
+    .ocean {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%; height: 180px;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .wave {
+      position: absolute;
+      bottom: 0; left: -10%;
+      width: 120%; height: 60px;
+      border-radius: 45%;
+      animation: waveMove var(--speed) ease-in-out infinite;
+      opacity: var(--opacity);
+    }
+    .wave1 { background: rgba(30, 60, 120, 0.5); bottom: 0; --speed: 8s; --opacity: 0.5; }
+    .wave2 { background: rgba(40, 80, 150, 0.4); bottom: 15px; --speed: 6s; --opacity: 0.4; }
+    .wave3 { background: rgba(50, 100, 180, 0.3); bottom: 30px; --speed: 10s; --opacity: 0.3; }
+    @keyframes waveMove {
+      0%, 100% { transform: translateX(-5%) rotate(-1deg); }
+      50% { transform: translateX(5%) rotate(1deg); }
+    }
+
+    /* 漂流瓶 */
+    .bottle {
+      position: fixed;
+      bottom: 60px;
+      left: -60px;
+      width: 40px; height: 60px;
+      z-index: 1;
+      animation: bottleFloat 20s ease-in-out infinite;
+      opacity: 0.5;
+    }
+    @keyframes bottleFloat {
+      0% { left: -60px; bottom: 60px; transform: rotate(-5deg); }
+      50% { bottom: 80px; transform: rotate(5deg); }
+      100% { left: calc(100% + 60px); bottom: 50px; transform: rotate(-3deg); }
+    }
+    .bottle-body {
+      width: 30px; height: 45px;
+      background: linear-gradient(135deg, rgba(200,230,255,0.5), rgba(150,200,230,0.3));
+      border-radius: 5px 5px 15px 15px;
+      margin: 0 auto;
+      border: 1px solid rgba(200,230,255,0.3);
+    }
+    .bottle-neck {
+      width: 14px; height: 15px;
+      background: linear-gradient(135deg, rgba(200,230,255,0.5), rgba(150,200,230,0.3));
+      border-radius: 3px 3px 0 0;
+      margin: 0 auto;
+      border: 1px solid rgba(200,230,255,0.3);
+      border-bottom: none;
+    }
+
+    /* 主要内容 */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 50px 30px 80px;
+    }
+
+    /* 标题区 */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      animation: fadeInDown 1s ease-out;
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .header .date {
+      font-size: 14px;
+      color: rgba(200, 180, 255, 0.6);
+      letter-spacing: 3px;
+      margin-bottom: 15px;
+    }
+    .header h1 {
+      font-size: 2.4em;
+      font-weight: 700;
+      background: linear-gradient(135deg, #e8d5ff, #b8d4ff, #ffd4e8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+    .header .subtitle {
+      font-size: 1.05em;
+      color: rgba(200, 200, 255, 0.65);
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    /* 故事卡片 */
+    .story-card {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 24px;
+      padding: 50px 45px;
+      margin-bottom: 40px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+      animation: fadeInUp 1s ease-out 0.3s both;
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .story-text {
+      font-size: 1.15em;
+      line-height: 2.2;
+      color: #d8d0e8;
+      text-align: justify;
+      text-indent: 2.5em;
+    }
+    .story-text p {
+      margin-bottom: 1.5em;
+    }
+    .story-text .highlight {
+      color: #ffd4e8;
+      font-weight: 600;
+    }
+    .story-text .ocean-word {
+      color: #b8d4ff;
+      font-weight: 500;
+    }
+
+    /* 插画区 */
+    .illustration {
+      text-align: center;
+      margin: 40px 0;
+      opacity: 0.85;
+    }
+    .illustration svg {
+      filter: drop-shadow(0 4px 20px rgba(100, 100, 255, 0.2));
+    }
+
+    /* 寓意卡片 */
+    .moral-card {
+      background: linear-gradient(135deg, rgba(100, 80, 200, 0.15), rgba(200, 100, 180, 0.1));
+      border: 1px solid rgba(200, 180, 255, 0.15);
+      border-radius: 20px;
+      padding: 35px 40px;
+      margin-top: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .moral-card::before {
+      content: '💎';
+      position: absolute;
+      top: -10px; left: 20px;
+      font-size: 40px;
+      opacity: 0.15;
+    }
+    .moral-card h3 {
+      font-size: 1.2em;
+      color: #d4c0ff;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .moral-card p {
+      font-size: 1.08em;
+      line-height: 2;
+      color: #c8bfe0;
+    }
+
+    /* 底部 */
+    .footer {
+      text-align: center;
+      padding: 40px 0 20px;
+      color: rgba(180, 170, 220, 0.4);
+      font-size: 0.9em;
+      animation: fadeInUp 1s ease-out 0.6s both;
+    }
+    .footer .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(200,180,255,0.3), transparent);
+      margin: 0 auto 20px;
+    }
+    .footer .sig {
+      font-style: italic;
+      letter-spacing: 1px;
+    }
+
+    /* 音频播放器 */
+    .audio-player {
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px 30px;
+      margin: 30px 0;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .audio-player button {
+      background: linear-gradient(135deg, #7c6db5, #a07cc0);
+      border: none;
+      border-radius: 50%;
+      width: 50px; height: 50px;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .audio-player button:hover { transform: scale(1.1); box-shadow: 0 4px 20px rgba(124,109,181,0.5); }
+    .audio-player .label {
+      font-size: 0.95em;
+      color: rgba(200,190,230,0.7);
+    }
+    .audio-player .status {
+      font-size: 0.85em;
+      color: rgba(200,190,230,0.5);
+      width: 100%;
+      text-align: center;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      .container { padding: 30px 18px 60px; }
+      .header h1 { font-size: 1.7em; }
+      .story-card { padding: 30px 22px; }
+      .story-text { font-size: 1.05em; line-height: 2; }
+      .moral-card { padding: 25px 22px; }
+      .moon { width: 50px; height: 50px; top: 20px; right: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="stars" id="stars"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 海浪 -->
+<div class="ocean">
+  <div class="wave wave1"></div>
+  <div class="wave wave2"></div>
+  <div class="wave wave3"></div>
+</div>
+
+<!-- 漂流瓶 -->
+<div class="bottle">
+  <div class="bottle-neck"></div>
+  <div class="bottle-body"></div>
+</div>
+
+<div class="container">
+
+  <!-- 标题 -->
+  <div class="header">
+    <div class="date" id="currentDate"></div>
+    <h1>🐚 小海螺的歌声</h1>
+    <div class="subtitle">每一个小小的声音，都能传到很远很远的地方</div>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-card">
+
+    <!-- 插画：海螺 -->
+    <div class="illustration">
+      <svg width="120" height="100" viewBox="0 0 120 100" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="shellGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#ffb7c5;stop-opacity:0.9"/>
+            <stop offset="100%" style="stop-color:#c490d1;stop-opacity:0.9"/>
+          </linearGradient>
+        </defs>
+        <!-- 海螺身体 -->
+        <path d="M60 85 C30 85, 15 65, 20 40 C25 15, 45 5, 60 10 C75 5, 95 15, 100 40 C105 65, 90 85, 60 85Z" fill="url(#shellGrad)" stroke="#e8a0c0" stroke-width="1.5"/>
+        <!-- 螺旋纹理 -->
+        <path d="M60 25 C55 30, 50 40, 48 55 C46 65, 50 75, 60 78" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="1.5"/>
+        <path d="M60 30 C65 34, 70 42, 72 55 C74 65, 70 73, 60 76" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="1"/>
+        <!-- 眼睛 -->
+        <circle cx="48" cy="38" r="3" fill="#5a4a7a"/>
+        <circle cx="48" cy="38" r="1.2" fill="#fff"/>
+        <circle cx="72" cy="38" r="3" fill="#5a4a7a"/>
+        <circle cx="72" cy="38" r="1.2" fill="#fff"/>
+        <!-- 微笑 -->
+        <path d="M54 46 Q60 52 66 46" fill="none" stroke="#5a4a7a" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 气泡 -->
+        <circle cx="30" cy="50" r="3" fill="none" stroke="rgba(200,220,255,0.5)" stroke-width="0.8">
+          <animate attributeName="cy" values="50;30;50" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="90" cy="55" r="2" fill="none" stroke="rgba(200,220,255,0.4)" stroke-width="0.8">
+          <animate attributeName="cy" values="55;35;55" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="4s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+
+    <div class="story-text">
+      <p>在大海的最深处，有一片<strong class="ocean-word">珊瑚花园</strong>，那里住着许多许多小动物。有小丑鱼、海龟爷爷、发光的水母姐姐，还有一只名叫<strong class="highlight">"螺螺"</strong>的小海螺。</p>
+
+      <p>螺螺和别的小海螺不太一样。别的海螺喜欢安安静静地贴在礁石上，一动不动。可是螺螺呢，它总是喜欢哼歌。</p>
+
+      <p>嗯——嗯——啦——啦——</p>
+
+      <p>螺螺的歌声很小很小，像气泡一样，咕嘟咕嘟地从它的壳里飘出来。可是，从来没有谁听到过。</p>
+
+      <p>有一天，小丑鱼游过来，皱着眉头说："螺螺，你知不知道，你的声音太小了，谁也听不见。大海里有那么多好听的声音——鲸鱼的歌唱、海豚的哨声、海浪拍打礁石的声音——你的声音，就像一粒沙子，根本不算什么。"</p>
+
+      <p>螺螺低下了头，慢慢把身子缩进了壳里。</p>
+
+      <p>它想：也许小丑鱼说得对，我的声音这么小，谁也不需要。</p>
+
+      <p>那天晚上，海上起了大风暴。风呼呼地吹，海浪高高地翻滚，大雨哗啦啦地落下来。在海底，一切都变得昏暗而混乱。小丑鱼找不到回家的路了，它在一个珊瑚缝里缩成一团，害怕得发抖。</p>
+
+      <p>海龟爷爷也迷路了，他叹着气说："唉，这么大的风浪，我分不清方向了……"</p>
+
+      <p>水母姐姐的发光也变得断断续续，一闪一闪的，像快要熄灭的蜡烛。</p>
+
+      <p>大家都在害怕的时候，螺螺躲在珊瑚旁边，又开始轻轻地哼歌了。</p>
+
+      <p>嗯——嗯——啦——啦——</p>
+
+      <p>它什么也没想，只是轻轻地、轻轻地哼着。这是它唯一会做的事情。</p>
+
+      <p>可是，奇妙的事情发生了。</p>
+
+      <p>螺螺的歌声虽然很小很小，但它很<strong class="highlight">稳</strong>。不像风声那样呼啸，不像海浪那样轰响，螺螺的歌声，像一条细细的、温暖的小绳子，慢慢地向四周延伸 ……</p>
+
+      <p>小丑鱼听到了。它从珊瑚缝里探出头，朝歌声的方向游去。</p>
+
+      <p>海龟爷爷听到了。他跟着那细细的歌声，慢慢地、稳稳地游向了回家的路。</p>
+
+      <p>水母姐姐也听到了。她循着歌声，找到了那片熟悉的发光的珊瑚——原来，那就是家。</p>
+
+      <p>风暴终于过去了。清晨的阳光穿过海面，洒在珊瑚花园里，一切又变得明亮而安静。</p>
+
+      <p>小丑鱼、海龟爷爷、水母姐姐，还有好多小动物，都游到了螺螺身边。</p>
+
+      <p>"螺螺，"小丑鱼轻声说，"昨晚，是你的歌声带我们回家的。"</p>
+
+      <p>海龟爷爷慢慢地点了点头："那么小的声音，却在最黑暗的时候，给了我们方向。"</p>
+
+      <p>水母姐姐发光发得很亮很亮，她笑着说："螺螺，你不知道，你的歌声，比鲸鱼的歌唱还要温暖。"</p>
+
+      <p>螺螺愣住了。它从来没想过，自己那么小的声音，竟然能帮到别人。</p>
+
+      <p>它轻轻地笑了，从壳里探出头来。</p>
+
+      <p>从那以后，每到夜晚，当大海变得安静的时候，如果你把耳朵贴在海螺壳上——</p>
+
+      <p>你就能听到，一阵轻轻的、温暖的歌声：嗯——嗯——啦——啦——</p>
+
+      <p>那是螺螺在唱歌。它知道了：<strong class="highlight">每一个小小的声音，都有它存在的意义。哪怕小得像一粒沙子，也能在别人最需要的时候，发出光来。</strong></p>
+    </div>
+
+    <!-- 寓意 -->
+    <div class="moral-card">
+      <h3>🌟 寓意</h3>
+      <p>
+        每个人都有自己的声音，有的响亮，有的轻柔。不要因为自己的声音小而感到自卑——在最黑暗、最困难的时刻，正是那些温柔而坚定的声音，最能给人方向和力量。你不需要变得很大声，才能被世界听见。认真做好自己，你的光，自会照亮某个人前行的路。
+      </p>
+    </div>
+
+  </div>
+
+  <!-- 底部 -->
+  <div class="footer">
+    <div class="divider"></div>
+    <div class="sig">🌙 晚安，做个好梦 ✨</div>
+    <div style="margin-top: 10px; font-size: 0.8em; color: rgba(180,170,220,0.3);">本文由 小虾米 为爷 自动生成 · 2026-05-28</div>
+  </div>
+
+</div>
+
+<script>
+  // 日期
+  const now = new Date();
+  const weekDays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  const dateStr = `${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日 ${weekDays[now.getDay()]}`;
+  document.getElementById('currentDate').textContent = dateStr;
+
+  // 星空
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 100; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.cssText = `
+      width: ${size}px; height: ${size}px;
+      top: ${Math.random() * 60}%;
+      left: ${Math.random() * 100}%;
+      --dur: ${Math.random() * 3 + 2}s;
+      animation-delay: ${Math.random() * 5}s;
+    `;
+    starsEl.appendChild(star);
+  }
+
+  // 打字机效果（可选）
+  // 此处留作将来扩展
+</script>
+
+</body>
+</html>

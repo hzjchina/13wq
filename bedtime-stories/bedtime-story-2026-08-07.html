@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小镜子的月光 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0b0e17;
+    min-height: 100vh;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+    overflow-x: hidden;
+  }
+  .container {
+    max-width: 720px;
+    width: 100%;
+    background: rgba(16, 22, 42, 0.85);
+    border-radius: 24px;
+    padding: 48px 40px 56px 40px;
+    box-shadow: 0 0 60px rgba(100, 149, 237, 0.12), 0 20px 60px rgba(0,0,0,0.4);
+    border: 1px solid rgba(100, 149, 237, 0.15);
+    position: relative;
+    z-index: 1;
+  }
+  .stars-bg {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite;
+    opacity: var(--opa);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: var(--opa); transform: scale(1); }
+    50% { opacity: 0.15; transform: scale(0.6); }
+  }
+  .moon {
+    position: fixed;
+    top: 40px; right: 60px;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle at 35% 35%, #fff9e6, #ffeaa7 50%, #f6d365 90%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(246, 211, 101, 0.3), 0 0 80px rgba(246, 211, 101, 0.15), 0 0 120px rgba(255, 234, 167, 0.08);
+    animation: moonPulse 6s ease-in-out infinite;
+    z-index: 0;
+    pointer-events: none;
+  }
+  @keyframes moonPulse {
+    0%, 100% { box-shadow: 0 0 40px rgba(246, 211, 101, 0.3), 0 0 80px rgba(246, 211, 101, 0.15), 0 0 120px rgba(255, 234, 167, 0.08); }
+    50% { box-shadow: 0 0 50px rgba(246, 211, 101, 0.45), 0 0 100px rgba(246, 211, 101, 0.25), 0 0 160px rgba(255, 234, 167, 0.12); }
+  }
+  .moon-crater {
+    position: absolute;
+    background: rgba(210, 180, 100, 0.15);
+    border-radius: 50%;
+  }
+  .moon-crater:nth-child(1) { width: 14px; height: 14px; top: 18px; left: 22px; }
+  .moon-crater:nth-child(2) { width: 8px; height: 8px; top: 45px; left: 50px; }
+  .moon-crater:nth-child(3) { width: 10px; height: 10px; top: 30px; left: 55px; }
+  .moon-crater:nth-child(4) { width: 6px; height: 6px; top: 55px; left: 25px; }
+  .moon-crater:nth-child(5) { width: 12px; height: 12px; top: 15px; left: 45px; }
+
+  .shooting-star {
+    position: fixed;
+    width: 100px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.8) 0%, transparent 100%);
+    border-radius: 2px;
+    animation: shoot 4s linear infinite;
+    opacity: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .shooting-star:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; animation-duration: 5s; }
+  .shooting-star:nth-child(2) { top: 25%; left: 70%; animation-delay: 2.5s; animation-duration: 6s; }
+  @keyframes shoot {
+    0% { opacity: 0; transform: translateX(0) translateY(0) scale(1); }
+    10% { opacity: 1; }
+    20% { opacity: 0; transform: translateX(120px) translateY(40px) scale(0.6); }
+    100% { opacity: 0; }
+  }
+
+  .mirror-svg {
+    display: block;
+    margin: 0 auto 28px auto;
+    width: 160px; height: 180px;
+    animation: mirrorFloat 5s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(200, 210, 255, 0.2));
+  }
+  @keyframes mirrorFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(1.5deg); }
+  }
+  .mirror-glow {
+    animation: mirrorGlow 3s ease-in-out infinite;
+  }
+  @keyframes mirrorGlow {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+  .light-beam {
+    animation: beamShift 4s ease-in-out infinite;
+  }
+  @keyframes beamShift {
+    0%, 100% { transform: translateX(0) rotate(-8deg); opacity: 0.6; }
+    50% { transform: translateX(6px) rotate(-4deg); opacity: 1; }
+  }
+  .light-spot {
+    animation: spotDance 3s ease-in-out infinite;
+  }
+  .light-spot:nth-child(1) { animation-delay: 0s; }
+  .light-spot:nth-child(2) { animation-delay: 0.7s; }
+  .light-spot:nth-child(3) { animation-delay: 1.4s; }
+  .light-spot:nth-child(4) { animation-delay: 2.1s; }
+  .light-spot:nth-child(5) { animation-delay: 2.8s; }
+  @keyframes spotDance {
+    0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+    50% { transform: translate(8px, -6px); opacity: 0.9; }
+  }
+  .petal-ring {
+    animation: petalShimmer 4s ease-in-out infinite;
+  }
+  @keyframes petalShimmer {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 32px;
+    color: #ffeaa7;
+    font-weight: 600;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(255, 234, 167, 0.3), 0 2px 8px rgba(0,0,0,0.3);
+    animation: titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 30px rgba(255, 234, 167, 0.3), 0 2px 8px rgba(0,0,0,0.3); }
+    50% { text-shadow: 0 0 50px rgba(255, 234, 167, 0.5), 0 2px 8px rgba(0,0,0,0.3); }
+  }
+  .subtitle {
+    text-align: center;
+    color: rgba(200, 210, 255, 0.5);
+    font-size: 14px;
+    margin-bottom: 36px;
+    letter-spacing: 4px;
+  }
+  .divider {
+    width: 80px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 234, 167, 0.4), transparent);
+    margin: 0 auto 36px auto;
+    border-radius: 1px;
+  }
+  .story {
+    font-size: 18px;
+    line-height: 2.2;
+    color: #d8dce6;
+    text-align: justify;
+  }
+  .story p { margin-bottom: 22px; text-indent: 2em; }
+  .story p:first-child { text-indent: 0; }
+
+  .goodnight {
+    margin-top: 40px;
+    padding: 28px 32px;
+    background: rgba(255, 234, 167, 0.06);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 234, 167, 0.15);
+    text-align: center;
+    animation: goodnightGlow 4s ease-in-out infinite;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 234, 167, 0.05); border-color: rgba(255, 234, 167, 0.15); }
+    50% { box-shadow: 0 0 35px rgba(255, 234, 167, 0.12); border-color: rgba(255, 234, 167, 0.25); }
+  }
+  .goodnight p {
+    font-size: 17px;
+    color: #ffeaa7;
+    line-height: 2.2;
+    margin-bottom: 6px;
+    text-indent: 0;
+  }
+  .goodnight p:last-child { margin-bottom: 0; }
+  .goodnight .emoji { font-size: 22px; margin: 0 4px; }
+
+  .bottom-glow {
+    position: fixed;
+    bottom: 0; left: 0; width: 100%; height: 120px;
+    background: linear-gradient(to top, rgba(100, 149, 237, 0.06), transparent);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bottom-stars {
+    position: fixed;
+    bottom: 20px; left: 0; width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .bottom-star {
+    width: 5px; height: 5px;
+    background: #ffeaa7;
+    border-radius: 50%;
+    animation: bottomStarPulse 3s ease-in-out infinite;
+  }
+  .bottom-star:nth-child(1) { animation-delay: 0s; }
+  .bottom-star:nth-child(2) { animation-delay: 0.5s; }
+  .bottom-star:nth-child(3) { animation-delay: 1s; }
+  .bottom-star:nth-child(4) { animation-delay: 1.5s; }
+  .bottom-star:nth-child(5) { animation-delay: 2s; }
+  .bottom-star:nth-child(6) { animation-delay: 2.5s; }
+  .bottom-star:nth-child(7) { animation-delay: 3s; }
+  @keyframes bottomStarPulse {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.8; transform: scale(1.4); }
+  }
+
+  @media (max-width: 600px) {
+    .container { padding: 32px 24px 40px 24px; border-radius: 16px; }
+    h1 { font-size: 24px; }
+    .story { font-size: 16px; line-height: 2; }
+    .goodnight { padding: 20px 20px; }
+    .goodnight p { font-size: 15px; }
+    .mirror-svg { width: 120px; height: 135px; }
+    .moon { width: 50px; height: 50px; top: 20px; right: 20px; }
+    body { padding: 20px 12px; }
+  }
+
+  /* Floating light particles */
+  .particle {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+    animation: particleFloat linear infinite;
+  }
+  @keyframes particleFloat {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.8; }
+    100% { transform: translateY(-20px) translateX(30px); opacity: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars-bg" id="starsBg"></div>
+
+<div class="moon">
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+  <div class="moon-crater"></div>
+</div>
+
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+
+<div class="bottom-glow"></div>
+<div class="bottom-stars">
+  <div class="bottom-star"></div>
+  <div class="bottom-star"></div>
+  <div class="bottom-star"></div>
+  <div class="bottom-star"></div>
+  <div class="bottom-star"></div>
+  <div class="bottom-star"></div>
+  <div class="bottom-star"></div>
+</div>
+
+<div class="container">
+
+<svg class="mirror-svg" viewBox="0 0 160 180" xmlns="http://www.w3.org/2000/svg">
+  <!-- Mirror stand -->
+  <ellipse cx="80" cy="165" rx="35" ry="8" fill="rgba(200, 190, 170, 0.2)" stroke="rgba(200, 190, 170, 0.3)" stroke-width="1"/>
+  <!-- Mirror stem -->
+  <rect x="75" y="120" width="10" height="45" rx="3" fill="rgba(200, 190, 170, 0.15)" stroke="rgba(200, 190, 170, 0.25)" stroke-width="1"/>
+  <!-- Mirror back plate -->
+  <circle cx="80" cy="75" r="52" fill="rgba(100, 100, 120, 0.2)" stroke="rgba(180, 175, 160, 0.3)" stroke-width="2"/>
+  <!-- Petal ring outer -->
+  <circle cx="80" cy="75" r="56" fill="none" stroke="rgba(255, 215, 140, 0.3)" stroke-width="1.5" class="petal-ring"/>
+  <!-- Petal decorations -->
+  <g class="petal-ring">
+    <circle cx="80" cy="19" r="4" fill="rgba(255, 215, 140, 0.4)" stroke="rgba(255, 215, 140, 0.5)" stroke-width="1"/>
+    <circle cx="80" cy="131" r="4" fill="rgba(255, 215, 140, 0.4)" stroke="rgba(255, 215, 140, 0.5)" stroke-width="1"/>
+    <circle cx="24" cy="75" r="4" fill="rgba(255, 215, 140, 0.4)" stroke="rgba(255, 215, 140, 0.5)" stroke-width="1"/>
+    <circle cx="136" cy="75" r="4" fill="rgba(255, 215, 140, 0.4)" stroke="rgba(255, 215, 140, 0.5)" stroke-width="1"/>
+    <circle cx="40.5" cy="35.5" r="3.5" fill="rgba(255, 215, 140, 0.35)" stroke="rgba(255, 215, 140, 0.45)" stroke-width="1"/>
+    <circle cx="119.5" cy="35.5" r="3.5" fill="rgba(255, 215, 140, 0.35)" stroke="rgba(255, 215, 140, 0.45)" stroke-width="1"/>
+    <circle cx="40.5" cy="114.5" r="3.5" fill="rgba(255, 215, 140, 0.35)" stroke="rgba(255, 215, 140, 0.45)" stroke-width="1"/>
+    <circle cx="119.5" cy="114.5" r="3.5" fill="rgba(255, 215, 140, 0.35)" stroke="rgba(255, 215, 140, 0.45)" stroke-width="1"/>
+  </g>
+  <!-- Mirror glass surface -->
+  <circle cx="80" cy="75" r="44" fill="rgba(180, 200, 230, 0.08)" stroke="rgba(200, 210, 240, 0.3)" stroke-width="1.5"/>
+  <!-- Mirror reflection lines -->
+  <line x1="48" y1="55" x2="60" y2="45" stroke="rgba(200, 210, 255, 0.25)" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="52" y1="60" x2="64" y2="50" stroke="rgba(200, 210, 255, 0.15)" stroke-width="1" stroke-linecap="round"/>
+  <!-- Mirror center glow -->
+  <circle cx="80" cy="75" r="16" fill="rgba(255, 234, 167, 0.06)" class="mirror-glow"/>
+  <!-- Moon reflection in mirror -->
+  <circle cx="75" cy="68" r="8" fill="rgba(255, 234, 167, 0.15)" class="mirror-glow"/>
+  <!-- Light beams coming from mirror -->
+  <g class="light-beam">
+    <line x1="80" y1="75" x2="140" y2="30" stroke="rgba(255, 234, 167, 0.2)" stroke-width="1" stroke-linecap="round"/>
+    <line x1="80" y1="75" x2="150" y2="55" stroke="rgba(255, 234, 167, 0.15)" stroke-width="0.8" stroke-linecap="round"/>
+  </g>
+  <g class="light-beam" style="animation-delay: 1s;">
+    <line x1="80" y1="75" x2="30" y2="25" stroke="rgba(255, 234, 167, 0.18)" stroke-width="1" stroke-linecap="round"/>
+    <line x1="80" y1="75" x2="15" y2="50" stroke="rgba(255, 234, 167, 0.12)" stroke-width="0.8" stroke-linecap="round"/>
+  </g>
+  <!-- Light spots on walls -->
+  <circle cx="145" cy="28" r="4" fill="rgba(255, 234, 167, 0.35)" class="light-spot"/>
+  <circle cx="152" cy="52" r="3" fill="rgba(255, 234, 167, 0.3)" class="light-spot"/>
+  <circle cx="25" cy="22" r="3.5" fill="rgba(255, 234, 167, 0.3)" class="light-spot"/>
+  <circle cx="12" cy="48" r="2.5" fill="rgba(255, 234, 167, 0.25)" class="light-spot"/>
+  <circle cx="100" cy="10" r="3" fill="rgba(255, 234, 167, 0.2)" class="light-spot"/>
+</svg>
+
+<h1>小镜子的月光</h1>
+<div class="subtitle">儿童睡前故事</div>
+<div class="divider"></div>
+
+<div class="story">
+  <p>朵朵的床头柜上，放着一面圆圆的银色小镜子。镜子边有一圈小小的金色花瓣，像围着一圈小太阳。这是朵朵过生日时，妈妈送给她的礼物。</p>
+  <p>白天，小镜子最开心了。朵朵会抱着它梳小辫子，对着镜子做鬼脸，还会把红色的小蝴蝶结在它面前晃来晃去。小镜子觉得自己是世界上最忙碌、最幸福的镜子。</p>
+  <p>可到了夜里，太阳落山了，房间慢慢变得黑黑的。朵朵把镜子放在床头柜上，就钻进被窝里呼呼了。小镜子孤零零地躺在那儿，只能看着窗外黑漆漆的天空。</p>
+  <p>它有点难过，小声对自己说："太阳走了，我就一点用也没有了。我又不会像月亮那样发光，又不会像星星那样眨眼睛。在黑夜里，谁需要一面不会亮的镜子呢？"</p>
+  <p>小镜子越想越伤心，觉得金色花瓣在黑暗里都变成了灰色。</p>
+  <p>月亮慢慢升起来了，圆圆的，像一盏挂在天上的灯笼。银色的月光从窗帘的缝隙里悄悄爬进来，正好落在了小镜子的身上。</p>
+  <p>"哎呀！"小镜子惊讶地叫了一声。它发现自己身上亮亮的，像穿了一件银色的衣裳。更神奇的是，当月光照在它身上的时候，它竟然把光反射到了墙上——墙上出现了一个小小的银色光斑，在轻轻地晃动。</p>
+  <p>小镜子赶紧坐直身子，努力接住更多的月光。于是，奇妙的事情发生了：房间里出现了好多好多银色的小光斑，它们有的跑到墙上画圈，有的跳到天花板上跳舞，还有的在床头滚来滚去。</p>
+  <p>朵朵本来睡得有点不安稳，她翻了个身，睁开眼睛，看到了满屋子的银色星光。她揉揉眼睛，小声说："哇……好多小星星在我的房间里！"</p>
+  <p>妈妈轻轻推开门，看到这一幕，温柔地笑了："这是月亮给朵朵的晚安礼物呢。你看，小镜子把月亮的光变成了你的星星。"</p>
+  <p>朵朵看着那些跳动的光斑，慢慢闭上了眼睛。她在被窝里小声说："谢谢你呀，小镜子。你让月光变成了我的星星，我好喜欢。"</p>
+  <p>小镜子第一次知道，原来自己也能做这么美好的事情。它静静地反射着月光，让光斑变成朵朵的守护星星。</p>
+  <p>窗外的月亮听到了，温柔地说："小镜子，你知道吗？光是我的，但温柔是你的。你离朵朵更近，你能把光送到她的梦里，这是月亮也做不到的呀。"</p>
+  <p>小镜子听了，金色花瓣好像在发光。它再也不为自己不会发光难过了。</p>
+  <p>从那以后，每一个有月亮的晚上，小镜子都会用心接住月光，把星星送到朵朵的房间里。它知道，自己不是光，但自己是光的桥梁——把遥远的温柔，变成身边的安全。</p>
+  <p>月亮慢慢升高，银色光斑在房间里轻轻跳着舞。小镜子守护着朵朵，看着她进入甜甜的梦乡。</p>
+</div>
+
+<div class="goodnight">
+  <p><span class="emoji">🌙</span> 晚安，小宝贝。小镜子说，你今天也是个好孩子，该做一个月光一样甜甜的梦了。月亮姐姐会照着你，星星们也会陪着你。快闭上眼睛，让好梦来找你吧。<span class="emoji">⭐</span></p>
+</div>
+
+</div>
+
+<script>
+  // Generate random stars
+  const starsContainer = document.getElementById('starsBg');
+  for (let i = 0; i < 120; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (Math.random() * 4 + 2) + 's');
+    star.style.setProperty('--opa', Math.random() * 0.6 + 0.2);
+    star.style.animationDelay = Math.random() * 5 + 's';
+    starsContainer.appendChild(star);
+  }
+  // Generate floating light particles
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 2;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.background = `rgba(255, 234, 167, ${Math.random() * 0.3 + 0.15})`;
+    p.style.animationDuration = (Math.random() * 8 + 10) + 's';
+    p.style.animationDelay = Math.random() * 10 + 's';
+    document.body.appendChild(p);
+  }
+</script>
+
+</body>
+</html>

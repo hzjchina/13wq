@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 教父 (2026-07-16)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #080604;
+    color: #e0e0e0;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #555;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background:
+      radial-gradient(ellipse at 70% 50%, rgba(220,170,90,0.4) 0%, transparent 45%),
+      radial-gradient(ellipse at 30% 80%, rgba(140,40,40,0.35) 0%, transparent 50%),
+      linear-gradient(135deg, #1a0a0a 0%, #2d1510 25%, #4a2515 50%, #6b3010 70%, #c8862e 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 70% 50%, rgba(255,200,120,0.18) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.18) 100%);
+    z-index: 1;
+  }
+
+  .venetian-blinds {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0.18;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 14px,
+        rgba(0,0,0,0.85) 14px,
+        rgba(0,0,0,0.85) 18px
+      );
+  }
+
+  .candle-glow {
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+    width: 240px;
+    height: 240px;
+    z-index: 2;
+    background: radial-gradient(circle, rgba(255,180,80,0.25) 0%, rgba(255,140,40,0.08) 40%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 44px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.8), 0 0 40px rgba(200,134,46,0.3);
+    letter-spacing: 4px;
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,200,140,0.7);
+    font-weight: 300;
+    margin-bottom: 12px;
+    font-style: italic;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(200,134,46,0.2);
+    border-color: rgba(200,134,46,0.4);
+    color: #e8b85a;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #141008, #0c0a06);
+    border: 1px solid rgba(200,134,46,0.1);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #c8862e;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #a8a8a8;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(200,134,46,0.05);
+    border: 1px solid rgba(200,134,46,0.12);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #bbb;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #a8a8a8;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .highlights li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: #c8862e;
+    font-size: 10px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #141008, #0c0a06);
+    border-left: 3px solid #c8862e;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #555;
+    font-style: normal;
+  }
+
+  .why-watch {
+    background: linear-gradient(145deg, rgba(200,134,46,0.05), rgba(140,40,40,0.03));
+    border: 1px solid rgba(200,134,46,0.12);
+    border-radius: 12px;
+    padding: 24px 28px;
+  }
+
+  .why-watch p {
+    font-size: 15px;
+    color: #ccc;
+    line-height: 2;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #3a3a3a;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">2026 · 0 7 · 1 6</div>
+
+  <div class="hero">
+    <div class="venetian-blinds"></div>
+    <div class="candle-glow"></div>
+    <div class="hero-content">
+      <h1>教 父</h1>
+      <div class="original-title">The Godfather · 1972 · 美国</div>
+      <div class="hero-meta">
+        <span class="tag">弗朗西斯·福特·科波拉 导演</span>
+        <span class="tag">马龙·白兰度 / 阿尔·帕西诺 主演</span>
+        <span class="tag gold">黑帮 / 剧情</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">9.2</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.3</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">97%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      1945 年的纽约，正值二战结束后的狂欢时节。一个意大利裔黑手党家族的"教父"在自己的书房里接见一位求情者——这位殡仪馆老板想为被凌辱的女儿讨回公道，但警局和法律都帮不了他。整个家族像一台精密运转的机器，从橄榄油生意到工会、从政客到好莱坞，所有人都在教父的电话簿上。
+      教父有个小儿子，是从西点军校退伍归来的二战英雄，也是家族里唯一试图走"正路"的人。他本可以成为参议员、成为律师、成为任何"干净"的人，但父亲遭遇暗杀的雨夜，彻底改变了他的人生轨迹。当最不可能继承家业的那个人最终坐上那把椅子时，整个家族的命运也翻向了另一页。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点一览</h2>
+    <ul class="highlights">
+      <li>马龙·白兰度贡献了影史最具标志性的表演之一——含糊不清的低语、沙哑的嗓音、揉捏面颊的小动作，让"教父"这个形象成为不可复制的经典</li>
+      <li>阿尔·帕西诺当时还是默默无闻的话剧演员，本片是他从影坛一跃封神的起点，年仅 33 岁</li>
+      <li>摄影师戈登·威利斯故意把所有室内戏都拍得很暗，被戏称"黑暗王子"，却开创了用光影塑造人物内心的先河</li>
+      <li>尼诺·罗塔的配乐，那段低吟的主旋律一响起来，整个西西里海风与黑手党的气息便扑面而来</li>
+      <li>改编自马里奥·普佐的同名畅销小说，剧本精雕细琢，对话句句是教科书</li>
+      <li>据说白兰度那段含糊的嗓音是刻意设计的——他在口腔里塞了棉花，让"教父"听起来像一头年迈的狮子</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>获奖与荣誉</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 第 45 届奥斯卡最佳影片</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳男主角（白兰度拒领，由"小姑娘"代上台宣读声明）</div>
+      <div class="award-item"><span class="icon">🏆</span> 奥斯卡最佳改编剧本</div>
+      <div class="award-item"><span class="icon">🏆</span> AFI 百年百大电影第 2 名</div>
+      <div class="award-item"><span class="icon">🏆</span> IMDb Top 250 常年前 5</div>
+      <div class="award-item"><span class="icon">🏆</span> 美国国会图书馆国家电影保护局典藏</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>"我将给他一个他无法拒绝的条件。"</p>
+    <div class="source">—— 维托·柯里昂</div>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得看</h2>
+    <div class="why-watch">
+      <p>
+        《教父》不仅是一部黑帮片，更是一部关于"权力如何改变一个人"的史诗。它用三小时讲清楚了一件事：一个好人是怎么一步步变成另一个人的——不是因为他坏，而是因为他爱他的人。
+        教父维托·柯里昂的"伟大"恰恰在于他不是传统意义上的反派。他拒绝毒品生意因为"那会毁掉下层的人"；他帮穷人、不分宗教地帮人；他用"文明"的方式运转着不文明的世界。这种复杂性，让这部 1972 年的电影在半个世纪后依然让人觉得新鲜。
+        而对观众来说，最大的魅力可能在于——它不教你做对的事，它只是把"做选择"这件事端到你面前，让你自己决定。如果你是初入职场的年轻人，你会看到什么是真正的"谈判"；如果你是父母，你会看到什么是"为家庭承担一切"；如果你是创业者，你会看到什么是"用人"。
+        在所有"男人必看电影榜单"上，《教父》常年稳坐第一。它不是教你成为教父，而是让你理解——每一个在成人世界里行走的人，都在做着自己的"教父式决定"。
+      </p>
+    </div>
+  </div>
+
+  <div class="footer">
+    把枪留下，把卡诺利卷带走 · 第 21 期
+  </div>
+
+</div>
+</body>
+</html>

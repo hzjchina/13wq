@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 海上钢琴师 (2026-06-05)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #0a0a0a;
+    color: #e8e8e8;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 40px 24px;
+  }
+
+  .date-tag {
+    text-align: center;
+    font-size: 13px;
+    color: #666;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .hero {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 36px;
+    aspect-ratio: 16/9;
+    background: linear-gradient(135deg, #0c1428 0%, #162544 30%, #1e3a5f 60%, #2a5a8a 80%, #4a8ab5 100%);
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at 20% 80%, rgba(74,138,181,0.12) 0%, transparent 50%),
+      radial-gradient(circle at 70% 30%, rgba(255,215,0,0.06) 0%, transparent 40%),
+      linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+    z-index: 1;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.02) 2px,
+        rgba(0,0,0,0.02) 4px
+      );
+    z-index: 2;
+  }
+
+  .piano-keys {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    z-index: 2;
+    opacity: 0.08;
+    background: repeating-linear-gradient(
+      90deg,
+      #fff 0px, #fff 14px,
+      #000 14px, #000 16px
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    padding: 32px;
+    width: 100%;
+  }
+
+  .hero-content h1 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .hero-content .original-title {
+    font-size: 16px;
+    color: rgba(255,255,255,0.55);
+    font-weight: 300;
+    margin-bottom: 12px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255,255,255,0.12);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+  }
+
+  .hero-meta .tag.gold {
+    background: rgba(218,165,32,0.2);
+    border-color: rgba(218,165,32,0.4);
+    color: #ffd700;
+  }
+
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 36px;
+  }
+
+  .score-card {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 20px 12px;
+    text-align: center;
+  }
+
+  .score-card .platform {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .score-card .value {
+    font-size: 32px;
+    font-weight: 700;
+    font-family: 'Noto Serif SC', serif;
+  }
+
+  .score-card .value.imdb { color: #f5c518; }
+  .score-card .value.douban { color: #00b51d; }
+  .score-card .value.rt { color: #fa320a; }
+
+  .section {
+    margin-bottom: 32px;
+  }
+
+  .section h2 {
+    font-family: 'Noto Serif SC', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 16px;
+    padding-left: 16px;
+    border-left: 3px solid #4a8ab5;
+  }
+
+  .section p {
+    font-size: 15px;
+    color: #b0b0b0;
+    line-height: 2;
+    text-align: justify;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .award-item {
+    background: rgba(74,138,181,0.06);
+    border: 1px solid rgba(74,138,181,0.15);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: #ccc;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .award-item .icon {
+    font-size: 16px;
+  }
+
+  .highlights {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlights li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 15px;
+    color: #b0b0b0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .highlights li::before {
+    content: '★';
+    position: absolute;
+    left: 0;
+    color: #4a8ab5;
+    font-size: 14px;
+  }
+
+  .quote-block {
+    background: linear-gradient(145deg, #1a1a1a, #111);
+    border-left: 3px solid #4a8ab5;
+    border-radius: 0 12px 12px 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif SC', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: #ddd;
+    text-align: center;
+  }
+
+  .quote-block .source {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 13px;
+    color: #666;
+    font-style: normal;
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 12px;
+    color: #444;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    .hero-content h1 { font-size: 28px; }
+    .scores { grid-template-columns: repeat(2, 1fr); }
+    .awards-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="date-tag">经典电影推荐 · 2026年6月5日</div>
+
+  <div class="hero">
+    <div class="piano-keys"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1>海上钢琴师</h1>
+      <div class="original-title">La Leggenda del Pianista sull'Oceano / The Legend of 1900 (1998)</div>
+      <div class="hero-meta">
+        <span class="tag">意大利</span>
+        <span class="tag">剧情 / 音乐</span>
+        <span class="tag">朱塞佩·托纳多雷</span>
+        <span class="tag">165 分钟</span>
+        <span class="tag gold">🎹 殿堂级配乐</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="scores">
+    <div class="score-card">
+      <div class="platform">IMDb</div>
+      <div class="value imdb">8.5</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">豆瓣</div>
+      <div class="value douban">9.3</div>
+    </div>
+    <div class="score-card">
+      <div class="platform">烂番茄</div>
+      <div class="value rt">89%</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      1900年，一个男婴被遗弃在远洋客轮弗吉尼亚号的头等舱，养父为他取名"1900"。这个从未踏足陆地的男孩，竟无师自通地学会了弹钢琴，他的指尖流淌出的旋律让所有人屏息。从此，大洋成了他的国土，琴键成了他的疆域，弗吉尼亚号就是他的整个世界。人们从世界各地赶来只为听他一曲，爵士乐之父向他发起巅峰对决，无数人劝他上岸——那里有名声、有财富、有爱情。但1900始终站在舷梯上，望着无边无际的城市，迟迟迈不出那最后一步。他说，钢琴有88个键，他能驾驭；可城市的街道没有尽头，他不知道该从哪里开始。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>这部电影为什么值得一看</h2>
+    <ul class="highlights">
+      <li><strong>恩尼奥·莫里康内的巅峰配乐。</strong>电影灵魂的一半在音乐里。莫里康内为1900谱写的每一段旋律都像是从角色体内自然生长出来的——从童年时天真烂漫的即兴弹奏，到海上风暴中与钢琴共舞的狂放，再到那场与爵士乐之父惊心动魄的斗琴，每一段音乐都既是剧情，也是独白，也是哲学。</li>
+      <li><strong>一个关于"边界"的诗意寓言。</strong>1900不是不敢下船，而是他清醒地选择了自己的世界。88个琴键是有尽头的，所以他可以创造出无限的音乐；而城市是无限的，他反而在无限面前失去了方向。这个故事真正在问的是：一个人到底需要多大的世界才能活下去？答案也许不是"越大越好"。</li>
+      <li><strong>蒂姆·罗斯的深情演绎。</strong>他演的1900不是怪人，不是天才的刻板印象，而是一个孤独而坚定的灵魂——他的眼神里既有孩童般的天真好奇，也有看透一切后的平静从容。那个站在舷梯中央、望向城市的长镜头，是他演艺生涯最动人的时刻之一。</li>
+      <li><strong>托纳多雷"时空三部曲"的浪漫极致。</strong>与《天堂电影院》《西西里的美丽传说》并称三部曲，这是最梦幻、最浪漫的一部。托纳多雷把一艘船变成了整个宇宙，把一个人的一生变成了一个关于"选择"的永恒追问——选择自己所爱，还是爱全世界所选择？</li>
+      <li><strong>从未过时的灵魂拷问。</strong>在一个人人都在追逐"更大更多更好"的时代，1900的故事像一首温柔的反调。他不是失败者，不是胆小鬼，他是极少数真正理解自己的人。看完这部电影，你会忍不住问自己：我的"弗吉尼亚号"在哪里？我是否也在某个舷梯前停下了脚步？</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>荣誉殿堂</h2>
+    <div class="awards-grid">
+      <div class="award-item"><span class="icon">🏆</span> 金球奖最佳原创配乐</div>
+      <div class="award-item"><span class="icon">🏆</span> 意大利大卫奖6项获奖</div>
+      <div class="award-item"><span class="icon">🎬</span> 大卫奖最佳导演</div>
+      <div class="award-item"><span class="icon">🎬</span> 大卫奖最佳摄影</div>
+      <div class="award-item"><span class="icon">🎬</span> 大卫奖最佳服装设计</div>
+      <div class="award-item"><span class="icon">🎵</span> 大卫奖最佳音乐（莫里康内）</div>
+      <div class="award-item"><span class="icon">⭐</span> 欧洲电影奖提名</div>
+      <div class="award-item"><span class="icon">⭐</span> 豆瓣电影 Top 250 在榜</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    <p>&ldquo;拿钢琴来说。键盘有始有终。你确切知道88个键就在那儿，错不了。它们并不是无限的，而你，才是无限的。你能在键盘上表现的音乐是无限的。我喜欢这样，我能应付。&rdquo;</p>
+    <div class="source">—— 1900 / Danny Boodmann T.D. Lemon 1900</div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 每晚 20:00 自动推送 · 由小虾米精选
+  </div>
+
+</div>
+</body>
+</html>

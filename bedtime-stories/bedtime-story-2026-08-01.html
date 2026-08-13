@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小纽扣的月光线 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-deep: #0b1026;
+      --bg-mid: #161b36;
+      --bg-soft: #25204a;
+      --text: #f8f5ff;
+      --muted: #cfc9e6;
+      --moon: #fff9d6;
+      --glow: rgba(255, 245, 200, 0.35);
+      --accent: #a8d0ff;
+      --warm: #ffd8a6;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 45%, var(--bg-soft) 100%);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      overflow-x: hidden;
+    }
+
+    #sky {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: #ffffff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle var(--dur, 3s) ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.25; transform: scale(0.7); }
+      100% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 6px rgba(255,255,255,0.6); }
+    }
+
+    .moon {
+      position: absolute;
+      top: 5vh;
+      right: 6vw;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffdf0, var(--moon));
+      box-shadow: 0 0 24px var(--glow), 0 0 60px rgba(255, 249, 214, 0.15);
+      animation: moonFloat 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes moonFloat {
+      0% { transform: translateY(0); box-shadow: 0 0 24px var(--glow), 0 0 60px rgba(255,249,214,0.12); }
+      100% { transform: translateY(-10px); box-shadow: 0 0 32px var(--glow), 0 0 80px rgba(255,249,214,0.22); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      top: 12vh;
+      left: -120px;
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffffff, transparent);
+      transform: rotate(-28deg);
+      opacity: 0;
+      animation: shoot 7s ease-out infinite 3s;
+    }
+
+    @keyframes shoot {
+      0% { left: -120px; opacity: 0; }
+      10% { opacity: 0.8; }
+      40% { left: 60vw; opacity: 0; }
+      100% { left: 60vw; opacity: 0; }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 6vh 20px 8vh;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 26px;
+      padding: 34px 32px 38px;
+      backdrop-filter: blur(14px);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+    }
+
+    .illustration {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 24px;
+      display: block;
+      animation: buttonFloat 5s ease-in-out infinite alternate;
+      filter: drop-shadow(0 0 16px rgba(168, 208, 255, 0.35));
+    }
+
+    @keyframes buttonFloat {
+      0% { transform: translateY(0) rotate(-2deg); }
+      100% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 700;
+      margin: 0 0 10px;
+      letter-spacing: 1px;
+      text-shadow: 0 0 18px rgba(255, 216, 166, 0.35);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 14px rgba(255, 216, 166, 0.25); }
+      100% { text-shadow: 0 0 26px rgba(255, 216, 166, 0.5); }
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 28px;
+    }
+
+    .story {
+      font-size: 18px;
+      line-height: 1.95;
+      color: var(--text);
+      text-align: justify;
+    }
+
+    .story p {
+      margin: 0 0 18px;
+      text-indent: 2em;
+    }
+
+    .divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin: 28px 0;
+      opacity: 0.6;
+    }
+
+    .divider span {
+      width: 6px;
+      height: 6px;
+      background: var(--warm);
+      border-radius: 50%;
+      animation: dotPulse 2.2s ease-in-out infinite alternate;
+    }
+
+    .divider span:nth-child(2) { animation-delay: 0.4s; }
+    .divider span:nth-child(3) { animation-delay: 0.8s; }
+    .divider span:nth-child(4) { animation-delay: 1.2s; }
+    .divider span:nth-child(5) { animation-delay: 1.6s; }
+
+    @keyframes dotPulse {
+      0% { transform: scale(0.7); opacity: 0.4; }
+      100% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 8px var(--warm); }
+    }
+
+    .goodnight {
+      text-align: center;
+      font-size: 19px;
+      line-height: 1.8;
+      color: var(--warm);
+      padding: 20px 16px;
+      border-radius: 18px;
+      background: rgba(255, 216, 166, 0.09);
+      border: 1px solid rgba(255, 216, 166, 0.18);
+      animation: goodnightGlow 4s ease-in-out infinite alternate;
+    }
+
+    @keyframes goodnightGlow {
+      0% { box-shadow: 0 0 12px rgba(255, 216, 166, 0.08); }
+      100% { box-shadow: 0 0 26px rgba(255, 216, 166, 0.22); }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 28px;
+      color: rgba(207, 201, 230, 0.6);
+      font-size: 13px;
+    }
+
+    @media (max-width: 540px) {
+      .wrap { padding: 5vh 16px 7vh; }
+      .card { padding: 26px 22px 30px; border-radius: 22px; }
+      h1 { font-size: 25px; }
+      .story { font-size: 16.5px; }
+      .goodnight { font-size: 17px; }
+      .illustration { width: 130px; height: 130px; }
+      .moon { width: 64px; height: 64px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="sky">
+    <div class="moon" aria-hidden="true"></div>
+    <div class="shooting-star" aria-hidden="true"></div>
+  </div>
+
+  <main class="wrap">
+    <article class="card">
+      <svg class="illustration" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <radialGradient id="buttonGrad" cx="40%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#6aa8ff" />
+            <stop offset="100%" stop-color="#2a5cb0" />
+          </radialGradient>
+          <radialGradient id="holeGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#142857" />
+            <stop offset="90%" stop-color="#0b1b3d" />
+          </radialGradient>
+          <linearGradient id="threadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#fff9d6" stop-opacity="0.9" />
+            <stop offset="100%" stop-color="#a8d0ff" stop-opacity="0.6" />
+          </linearGradient>
+        </defs>
+        <!-- moonbeam thread -->
+        <path d="M100 30 Q105 90 100 100" stroke="url(#threadGrad)" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.9">
+          <animate attributeName="d" values="M100 30 Q105 90 100 100; M100 30 Q95 90 100 100; M100 30 Q105 90 100 100" dur="4s" repeatCount="indefinite" />
+        </path>
+        <!-- button -->
+        <circle cx="100" cy="122" r="46" fill="url(#buttonGrad)" stroke="#8fc1ff" stroke-width="3" />
+        <circle cx="84" cy="108" r="8" fill="url(#holeGrad)" />
+        <circle cx="116" cy="108" r="8" fill="url(#holeGrad)" />
+        <circle cx="84" cy="136" r="8" fill="url(#holeGrad)" />
+        <circle cx="116" cy="136" r="8" fill="url(#holeGrad)" />
+        <!-- thread through top-left hole -->
+        <path d="M84 108 Q78 70 100 30" stroke="url(#threadGrad)" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.85" />
+        <!-- soft glow around button -->
+        <circle cx="100" cy="122" r="56" fill="none" stroke="#a8d0ff" stroke-width="1" opacity="0.25">
+          <animate attributeName="r" values="54;60;54" dur="3s" repeatCount="indefinite" />
+          <animate attributeName="opacity" values="0.2;0.35;0.2" dur="3s" repeatCount="indefinite" />
+        </circle>
+      </svg>
+
+      <h1>小纽扣的月光线</h1>
+      <p class="subtitle">儿童睡前故事 · 2026-08-01</p>
+
+      <div class="story">
+        <p>小蓝纽扣住在一间蓝色外套上，每天晚上，它都把小主人的秘密藏进圆圆的小身体里。</p>
+        <p>有一天，它的一根线松了，咕噜噜滚到床底下。四周黑黑的，小蓝纽扣害怕得发起抖来：“是不是我没有用了，所以被丢在这里？”</p>
+        <p>就在这时，一缕月光从窗帘缝里溜进来，像一根细细的银线，正好穿进小纽扣的小孔里。小纽扣顺着月光线轻轻地滑呀滑，滑到一只冻得发抖的小老鼠身边。</p>
+        <p>“你受伤了吗？”小纽扣小声问。</p>
+        <p>小老鼠点点头：“我的尾巴被草叶划破了，冷得睡不着。”</p>
+        <p>小纽扣想了想，用月光线缠住一根软软的稻草，轻轻绕在小老鼠的尾巴上。伤口不流血了，小老鼠也暖和起来。接着，小纽扣又凹面朝上，盛了一滴甜甜的露水，让小老鼠喝。最后，它用自己扁扁的身体当小枕头，陪着小老鼠进入梦乡。</p>
+        <p>第二天清晨，小主人打着手电筒找到了小纽扣，笑着说：“原来你在这里做好事呀。”她把小纽扣重新缝回外套，线在阳光里闪闪发亮。</p>
+        <p>从那以后，小蓝纽扣知道：哪怕自己再小，只要愿意伸出手，也能把爱编成一根温暖的线，系在这个世界的某个角落。</p>
+      </div>
+
+      <div class="divider" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div class="goodnight">
+        晚安，小宝贝。<br>
+        小蓝纽扣说，你今天也帮别人系上了一根温暖的线，<br>
+        该做一个甜甜的梦了。
+      </div>
+    </article>
+
+    <p class="footer">愿你每晚都有星光相伴 ✨</p>
+  </main>
+
+  <script>
+    (function() {
+      const sky = document.getElementById('sky');
+      const count = window.innerWidth < 540 ? 55 : 90;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.5 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 70 + 'vh';
+        star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+        star.style.animationDelay = (Math.random() * 5) + 's';
+        sky.appendChild(star);
+      }
+    })();
+  </script>
+</body>
+</html>

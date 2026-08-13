@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 花样年华</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(135deg, #1a0d1a 0%, #2d1a1f 40%, #1a0d2d 100%);
+    color: #e8e8e8;
+    min-height: 100vh;
+    padding: 0;
+    line-height: 1.8;
+  }
+  .container {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+  }
+  .hero {
+    text-align: center;
+    padding: 50px 20px 40px;
+    border-radius: 16px 16px 0 0;
+    background: linear-gradient(180deg, rgba(217,164,164,0.10) 0%, rgba(26,13,26,0.6) 100%);
+    border-bottom: 1px solid rgba(217,164,164,0.25);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #d9a4a4;
+    border: 1px solid rgba(217,164,164,0.4);
+    padding: 4px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 32px;
+    color: #f5e6e6;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+  }
+  .hero .subtitle {
+    font-size: 15px;
+    color: #c0a0a0;
+    margin-bottom: 4px;
+  }
+  .hero .year {
+    font-size: 14px;
+    color: #9a8484;
+  }
+  .ratings {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .rating-item {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 10px 18px;
+    text-align: center;
+    min-width: 90px;
+  }
+  .rating-item .score {
+    font-size: 22px;
+    font-weight: 700;
+    color: #d9a4a4;
+  }
+  .rating-item .label {
+    font-size: 11px;
+    color: #9a8484;
+    margin-top: 2px;
+  }
+  .content {
+    background: rgba(26,13,26,0.7);
+    border-radius: 0 0 16px 16px;
+    padding: 36px 28px;
+  }
+  .section {
+    margin-bottom: 36px;
+  }
+  .section:last-child { margin-bottom: 0; }
+  .section h2 {
+    font-size: 20px;
+    color: #d9a4a4;
+    margin-bottom: 16px;
+    padding-left: 14px;
+    border-left: 3px solid #d9a4a4;
+  }
+  .section p {
+    font-size: 16px;
+    color: #d8c8c8;
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+  .highlight-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .highlight-list li {
+    font-size: 16px;
+    color: #d8c8c8;
+    margin-bottom: 14px;
+    padding-left: 24px;
+    position: relative;
+  }
+  .highlight-list li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    color: #d9a4a4;
+    font-size: 14px;
+    top: 2px;
+  }
+  .awards {
+    background: rgba(217,164,164,0.06);
+    border: 1px solid rgba(217,164,164,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 8px;
+  }
+  .awards .award-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: #d9a4a4;
+    margin-bottom: 10px;
+  }
+  .awards p {
+    font-size: 15px;
+    color: #b8a0a0;
+    margin-bottom: 6px;
+  }
+  .quote {
+    font-style: italic;
+    color: #b09090;
+    text-align: center;
+    font-size: 15px;
+    margin-top: 32px;
+    padding: 20px;
+    border-top: 1px solid rgba(217,164,164,0.15);
+    border-bottom: 1px solid rgba(217,164,164,0.15);
+  }
+  .footer {
+    text-align: center;
+    margin-top: 36px;
+    font-size: 13px;
+    color: #6e5454;
+  }
+  @media (max-width: 600px) {
+    .container { padding: 20px 14px 40px; }
+    .hero { padding: 36px 14px 30px; }
+    .hero h1 { font-size: 25px; }
+    .content { padding: 28px 18px; }
+    .section h2 { font-size: 18px; }
+    .section p, .highlight-list li { font-size: 15px; }
+    .ratings { gap: 8px; }
+    .rating-item { min-width: 80px; padding: 8px 12px; }
+    .rating-item .score { font-size: 19px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="hero">
+    <span class="badge">每日经典电影 · 第 43 期</span>
+    <h1>花样年华</h1>
+    <p class="subtitle">In the Mood for Love · 王家卫</p>
+    <p class="year">2000 年 · 中国香港 · 文艺爱情</p>
+    <div class="ratings">
+      <div class="rating-item"><div class="score">8.8</div><div class="label">豆瓣</div></div>
+      <div class="rating-item"><div class="score">8.1</div><div class="label">IMDb</div></div>
+      <div class="rating-item"><div class="score">93%</div><div class="label">烂番茄</div></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="section">
+      <h2>剧情梗概</h2>
+      <p>1962 年的香港，两个陌生家庭先后搬进了同一栋公寓，狭长的走廊、昏黄的路灯、共用的楼梯间，让两对夫妻在日常的擦肩中熟络起来。</p>
+      <p>邻居间的闲谈不经意间揭开了一个秘密：两位配偶之间，竟存在着一段不该有的暧昧。当秘密被戳穿，两个被蒙在鼓里的"局外人"也由此相遇——他们是周慕云，一个怀才不遇的报社编辑；她是陈太太，一个温柔而隐忍的秘书。</p>
+      <p>他们没有声张，没有质问，只是开始一次次地见面，在茶餐厅、在出租车里、在狭窄的楼道里，用克制而试探的对话，反复推演"如果当初"的各种可能。一段从未真正发生的情愫，在花样年华的流转中悄然滋长。</p>
+    </div>
+
+    <div class="section">
+      <h2>亮点所在</h2>
+      <ul class="highlight-list">
+        <li><strong>旗袍的视觉诗篇</strong>——张曼玉在片中更换了 20 多套旗袍，每一套都根据场景与情绪精心选择。立领、碎花、紧裹的曲线，与九龙窄巷的斑驳光影共同构成影史最具辨识度的女性影像之一，已成为一种文化符号。</li>
+        <li><strong>克制的情感巅峰</strong>——整部影片没有拥抱、没有接吻，甚至最亲密的动作不过是擦肩时划过手背的手指。王家卫用"不发生"本身写就了一段最深的感情——越是没说出口的，越让人辗转难眠。</li>
+        <li><strong>光影的魔术</strong>——杜可风的摄影让这栋老公寓成为一座迷宫式的舞台：电梯门半开的瞬间、楼梯转角的明暗交替、走廊尽头摇曳的窗帘，每一次构图都是一张油画。</li>
+        <li><strong>配乐的迟到之重</strong>——梅林茂的 Yumeji's Theme 是这部影片的听觉签名。它只在该出现的时候出现——电梯门开、走廊相遇、雨天楼梯——每一次响起都像一根针落在心尖。</li>
+        <li><strong>时代的精确捕捉</strong>——旗袍、电话亭、留声机、麻将桌上的闲言、老式公寓的格局，1962 年的香港被彻底复原。这不是布景，而是有温度的怀旧。</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>为什么值得一看</h2>
+      <p>这部电影给出的命题是：真正的爱，是否一定要"发生"才算数？</p>
+      <p>王家卫给出了一个温柔而残酷的回答——有些感情正因为从未开始，才得以永远保持最初的模样。它停留在一句未说出口的"你好"，一双雨中共撑的伞，一碗面摊前的相对无言。这种"接近却永不抵达"的距离，比任何激烈的生离死别都更让人意难平。</p>
+      <p>它也让我们重新思考"成全"的含义。男女主角把所有的"如果"都咽回肚里，把心底最柔软的部分藏进那个不会被打开的石膏洞口。他们用克制保护了彼此，也完成了对自己感情的最高礼遇——尊重它的脆弱，所以从不轻易让它暴露。</p>
+      <p>这不是一部"看剧情"的电影，而是一部"看感觉"的电影。你会为一段从未发生的关系久久不能释怀——这就是它最了不起的地方。25 年过去，它依然是华语电影美学的天花板之一，是那种"一生一定要在大银幕前看一次"的电影。</p>
+    </div>
+
+    <div class="section">
+      <h2>荣誉与纪录</h2>
+      <div class="awards">
+        <p class="award-title">🏆 第 53 届戛纳国际电影节</p>
+        <p>梁朝伟 · 最佳男演员（华人影星戛纳男主第一人）</p>
+        <p>王家卫 · 技术大奖（Grand Prix de la Commission Supérieure Technique）</p>
+        <p class="award-title" style="margin-top:14px;">🌍 《视与听》(Sight &amp; Sight) 影史最伟大电影</p>
+        <p>2012 年版 · 第 15 位（华语电影最高排名）</p>
+        <p>2022 年版 · 第 30 位</p>
+        <p class="award-title" style="margin-top:14px;">🎬 国家级荣誉</p>
+        <p>被英国 BFI 评为"21 世纪百佳电影"之一</p>
+        <p>被《电影手册》评为"21 世纪初十年最具影响力影片"之一</p>
+      </div>
+    </div>
+
+    <div class="quote">
+      "如果多一张船票，你会不会跟我一起走？"<br>—— 周慕云
+    </div>
+
+    <div class="footer">
+      每日经典电影推荐 · 小虾米 🦐 出品
+    </div>
+  </div>
+</div>
+</body>
+</html>

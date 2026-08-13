@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 死亡诗社</title>
+  <style>
+    :root {
+      --bg: #1a1a24;
+      --bg-card: #161b28;
+      --accent: #d4845a;
+      --accent2: #1f2838;
+      --text: #eaeaea;
+      --text-dim: #a0a4b4;
+      --gold: #d4a853;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.85;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 32px 0 24px;
+      border-bottom: 1px solid var(--accent2);
+      margin-bottom: 28px;
+    }
+
+    .header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 2px;
+      margin-bottom: 8px;
+    }
+
+    .header .subtitle {
+      font-size: 15px;
+      color: var(--text-dim);
+    }
+
+    .movie-title {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .movie-meta {
+      font-size: 15px;
+      color: var(--text-dim);
+      margin-bottom: 4px;
+    }
+
+    .movie-meta span {
+      margin: 0 6px;
+    }
+
+    .ratings {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 16px 0 28px;
+    }
+
+    .rating-chip {
+      background: var(--accent2);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .rating-chip .score {
+      color: var(--gold);
+      font-size: 18px;
+      margin-left: 4px;
+    }
+
+    .section {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 22px;
+      background: var(--accent);
+      border-radius: 3px;
+    }
+
+    .section p {
+      font-size: 16px;
+      color: var(--text);
+      text-align: justify;
+    }
+
+    .highlights {
+      list-style: none;
+    }
+
+    .highlights li {
+      font-size: 16px;
+      padding: 10px 0;
+      padding-left: 28px;
+      position: relative;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .highlights li:last-child {
+      border-bottom: none;
+    }
+
+    .highlights li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 18px;
+    }
+
+    .quote {
+      background: var(--accent2);
+      border-left: 4px solid var(--accent);
+      padding: 18px 22px;
+      border-radius: 0 12px 12px 0;
+      margin: 16px 0;
+      font-style: italic;
+      font-size: 17px;
+      color: var(--text-dim);
+    }
+
+    .quote .author {
+      display: block;
+      text-align: right;
+      margin-top: 8px;
+      font-size: 14px;
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .awards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .award-tag {
+      background: rgba(212, 168, 83, 0.12);
+      color: var(--gold);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1px solid rgba(212, 168, 83, 0.25);
+    }
+
+    .footer {
+      text-align: center;
+      padding: 24px 0 12px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+
+    .footer .date {
+      margin-top: 6px;
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 16px 12px;
+      }
+
+      .header h1 {
+        font-size: 22px;
+      }
+
+      .movie-title {
+        font-size: 26px;
+      }
+
+      .section {
+        padding: 18px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      .section p, .highlights li {
+        font-size: 15px;
+      }
+
+      .quote {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🎬 经典电影推荐</h1>
+      <div class="subtitle">第 36 期 · 2026年8月4日</div>
+    </div>
+
+    <div style="text-align:center; margin-bottom: 24px;">
+      <div class="movie-title">死亡诗社</div>
+      <div class="movie-meta">
+        <span>Dead Poets Society</span> · <span>1989</span> · <span>美国</span>
+      </div>
+      <div class="movie-meta">导演：彼得·威尔 | 主演：罗宾·威廉姆斯 / 罗伯特·肖恩·莱纳德 / 伊桑·霍克</div>
+
+      <div class="ratings">
+        <div class="rating-chip">豆瓣 <span class="score">9.2</span></div>
+        <div class="rating-chip">IMDb <span class="score">8.1</span></div>
+        <div class="rating-chip">烂番茄 <span class="score">84%</span></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">剧情梗概</div>
+      <p>
+        1959 年，威尔顿预备学院——一所将"传统、荣誉、纪律、卓越"刻在校训石上的精英男校，迎来了一位不按常理出牌的新老师：约翰·基廷。
+      </p>
+      <p style="margin-top: 12px;">
+        第一堂课，基廷让学生们撕掉课本上那些枯燥的诗歌理论导论，吹着口哨带他们走进走廊，看那些早已逝去的校友照片——"他们也曾和你们一样年轻、充满梦想，而现在他们化作泥土的肥料，在劝告你们：Carpe diem，及时行乐。"
+      </p>
+      <p style="margin-top: 12px;">
+        他让学生站上讲桌，换个角度看看世界；让每个人在庭院里走出自己的步伐，因为"顺从的代价是失去自己"。在他的引导下，一群被家庭期望和传统教育束缚的少年，开始重新思考"我是谁""我想要怎样的人生"。他们偷偷重建了基廷老师年轻时参加的"死亡诗社"——一个在山洞里读诗、讨论、寻找自我的秘密集会。
+      </p>
+      <p style="margin-top: 12px;">
+        故事的核心围绕几位学生展开：梦想成为演员却被父亲逼着走医学之路的尼尔、害羞内向却有着深沉内心的托德、勇敢追求爱情的诺克斯、叛逆不羁的查理。他们在诗歌和基廷老师的启发下，开始向各自的"不可能"发起挑战——而他们也很快会发现，自由是需要付出代价的。
+      </p>
+    </div>
+
+    <div class="section">
+      <div class="section-title">核心亮点</div>
+      <ul class="highlights">
+        <li><strong>罗宾·威廉姆斯的巅峰演绎</strong>——他用温暖、睿智与幽默，将基廷老师塑造成了影史最令人难忘的教师形象。每一个眼神、每一句低语，都充满力量，让人相信"教育是一个灵魂唤醒另一个灵魂"。</li>
+        <li><strong>"Carpe diem"的精神图腾</strong>——这句拉丁语通过电影传遍了全世界，成为无数人面对迷茫时的力量源泉。它不只是一句口号，而是一种对生命的热烈回应。</li>
+        <li><strong>诗歌与影像的诗意交响</strong>——惠特曼、梭罗、拜伦……经典文学被巧妙编织进叙事，让诗歌不再是课本上的死文字，而是活生生的、能改变人生的力量。</li>
+        <li><strong>从压抑到觉醒的情感弧光</strong>——尤其是伊桑·霍克饰演的托德，从一个连大声说话都不敢的男孩，到影片最后那令人热泪盈眶的爆发，是电影史上最动人的成长弧线之一。</li>
+        <li><strong>永恒的"教育之问"</strong>——教育究竟是传授知识，还是点燃灵魂？这部电影用 128 分钟给出了它的答案，而这个问题至今仍在每一间教室中回响。</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <div class="section-title">为什么值得一看</div>
+      <p>
+        《死亡诗社》不是一部关于诗歌的电影，它是一部关于"如何活着"的电影。它问了一个每个人都会在某一天问自己的问题：我到底在过谁的人生？
+      </p>
+      <p style="margin-top: 12px;">
+        在东亚文化背景下看这部电影，共鸣会格外深刻。我们或多或少都经历过被"为你好"的安排裹挟的时刻——选一个"有前途"的专业、走一条"稳妥"的路。而基廷老师站在课堂上说的那句"医学、法律、商业、工程，这些都是崇高的追求，足以支撑人的一生——但诗歌、美、浪漫、爱，这些才是我们活着的理由"，戳中了无数人的内心。
+      </p>
+      <p style="margin-top: 12px;">
+        这部电影的伟大之处在于，它不提供廉价的励志，而是诚实地展现了追寻自由所必须承受的代价。它让你笑着、感动着，却在影片结束后让你久久沉默——然后，也许你会做出一个等待已久的决定。
+      </p>
+
+      <div class="quote">
+        "我们读诗写诗，不是因为它们好玩。我们读诗写诗，是因为我们是人类的一员。而人类充满了激情。医药、法律、商业、工程——这些都是高贵的追求，且是维生的必需条件。但诗歌、美、浪漫、爱——这些才是我们活着的理由。"
+        <span class="author">—— 约翰·基廷</span>
+      </div>
+
+      <div class="awards">
+        <span class="award-tag">🏆 奥斯卡最佳原创剧本</span>
+        <span class="award-tag">🏆 BAFTA 最佳影片</span>
+        <span class="award-tag">🏆 BAFTA 最佳原创音乐</span>
+        <span class="award-tag">🏆 凯撒奖最佳外语片</span>
+        <span class="award-tag">🎬 奥斯卡最佳导演提名</span>
+        <span class="award-tag">🎬 奥斯卡最佳男主角提名</span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div>经典永不过时，好电影值得反复品味 🎞️</div>
+      <div class="date">本期推荐 · 2026年8月4日 · 第 36 期</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小海龟的月光路 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%;
+    min-height: 100vh;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "STHeiti", sans-serif;
+    color: #e9eaf6;
+    background: radial-gradient(ellipse at top, #1a2a4a 0%, #0b1228 60%, #050a15 100%);
+    overflow-x: hidden;
+  }
+  body { padding-bottom: 60px; }
+  .sky {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .star {
+    position: absolute; background: #fff; border-radius: 50%;
+    box-shadow: 0 0 6px #fff, 0 0 12px rgba(255,255,255,0.6);
+    animation: twinkle 4s infinite ease-in-out;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+  .moon {
+    position: fixed; top: 60px; right: 60px; width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff7d6 0%, #f5e0a3 60%, #d8b96b 100%);
+    box-shadow: 0 0 40px rgba(255, 235, 180, 0.5), 0 0 80px rgba(255, 220, 140, 0.3);
+    z-index: 0; animation: floatMoon 8s ease-in-out infinite;
+  }
+  .moonbeam {
+    position: fixed; top: 80px; right: 105px; width: 3px; height: 700px;
+    background: linear-gradient(to bottom, rgba(255, 235, 180, 0.7), rgba(255, 235, 180, 0.05));
+    z-index: 0; transform-origin: top center;
+    animation: beamSway 6s ease-in-out infinite;
+    border-radius: 2px;
+    box-shadow: 0 0 20px rgba(255, 235, 180, 0.3);
+  }
+  @keyframes beamSway {
+    0%, 100% { transform: rotate(-2deg); }
+    50% { transform: rotate(2deg); }
+  }
+  @keyframes floatMoon {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .glow {
+    position: fixed; border-radius: 50%; filter: blur(60px); opacity: 0.25; z-index: 0;
+  }
+  .glow1 { top: 20%; left: 10%; width: 200px; height: 200px; background: #5b8fc7; animation: drift 12s infinite; }
+  .glow2 { bottom: 20%; right: 15%; width: 240px; height: 240px; background: #628ebf; animation: drift 16s infinite reverse; }
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -20px); }
+  }
+  .wave {
+    position: fixed; bottom: 0; left: 0; width: 200%; height: 120px;
+    background: repeating-linear-gradient(
+      to right,
+      transparent 0px,
+      rgba(80, 140, 200, 0.15) 3px,
+      transparent 6px
+    );
+    z-index: 0; animation: waveRoll 20s linear infinite;
+  }
+  .wave:nth-child(2) {
+    bottom: -10px; opacity: 0.5; animation-duration: 15s; animation-direction: reverse;
+  }
+  @keyframes waveRoll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .container {
+    position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 60px 24px 40px;
+  }
+  .date {
+    text-align: center; color: #b3b8d4; font-size: 14px; letter-spacing: 2px; margin-bottom: 16px;
+  }
+  h1 {
+    text-align: center; font-size: 38px; font-weight: 600; color: #fff;
+    text-shadow: 0 0 20px rgba(160, 200, 255, 0.6);
+    margin-bottom: 32px; letter-spacing: 2px;
+  }
+  .divider {
+    display: flex; align-items: center; justify-content: center; margin: 24px 0 40px;
+  }
+  .divider::before, .divider::after {
+    content: ""; flex: 0 0 60px; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(180,200,255,0.5), transparent);
+  }
+  .divider span {
+    margin: 0 12px; color: #ffd97a; font-size: 18px;
+  }
+  .illustration {
+    text-align: center; margin: 36px 0 28px;
+  }
+  .illust-svg { width: 200px; height: 200px; opacity: 0.9; }
+  .story {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px 36px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    line-height: 2;
+    font-size: 18px;
+    color: #e9eaf6;
+  }
+  .story p { margin-bottom: 20px; text-indent: 2em; }
+  .story p:first-child::first-letter {
+    font-size: 1.4em; color: #ffd97a; font-weight: 500;
+  }
+  .goodnight {
+    margin-top: 48px; padding: 32px 28px; text-align: center;
+    background: linear-gradient(135deg, rgba(255, 217, 122, 0.08), rgba(100, 160, 220, 0.08));
+    border: 1px solid rgba(255, 217, 122, 0.2);
+    border-radius: 16px;
+    font-size: 18px; line-height: 1.9; color: #ffd97a;
+  }
+  .goodnight .moon-emoji {
+    display: inline-block; font-size: 28px; margin-bottom: 12px; animation: bob 3s ease-in-out infinite;
+  }
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .footer {
+    text-align: center; margin-top: 48px; color: #6a7299; font-size: 13px; letter-spacing: 1px;
+  }
+  .footer span { color: #ffd97a; }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; }
+    .story { padding: 28px 22px; font-size: 16px; line-height: 1.9; }
+    .container { padding: 40px 18px 30px; }
+    .moon { width: 60px; height: 60px; top: 30px; right: 20px; }
+    .moonbeam { top: 40px; right: 50px; }
+    .goodnight { font-size: 16px; padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="sky" id="sky"></div>
+  <div class="moon"></div>
+  <div class="moonbeam"></div>
+  <div class="glow glow1"></div>
+  <div class="glow glow2"></div>
+  <div class="wave"></div>
+  <div class="wave"></div>
+
+  <div class="container">
+    <div class="date">2026 · 06 · 23 · 星期二 · 晚安时间</div>
+    <h1>小海龟的月光路</h1>
+    <div class="divider"><span>✦</span></div>
+
+    <div class="illustration">
+      <svg class="illust-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <g>
+          <!-- moon -->
+          <circle cx="150" cy="35" r="18" fill="#fff7d6" opacity="0.9" />
+          <circle cx="150" cy="35" r="30" fill="none" stroke="rgba(255,235,180,0.25)" stroke-width="1" />
+          <!-- stars -->
+          <circle cx="30" cy="20" r="1.5" fill="#fff" opacity="0.7" />
+          <circle cx="60" cy="15" r="1" fill="#fff" opacity="0.5" />
+          <circle cx="170" cy="18" r="1" fill="#fff" opacity="0.6" />
+          <circle cx="120" cy="10" r="1.2" fill="#fff" opacity="0.5" />
+          <!-- moonbeam path -->
+          <line x1="142" y1="50" x2="100" y2="160" stroke="rgba(255,235,180,0.3)" stroke-width="1.5" />
+          <line x1="152" y1="48" x2="105" y2="160" stroke="rgba(255,235,180,0.2)" stroke-width="1" />
+          <!-- sand -->
+          <path d="M0 155 Q40 145 80 155 Q120 165 160 155 Q180 150 200 155 L200 200 L0 200 Z" fill="rgba(180,160,130,0.15)" />
+          <!-- turtle body -->
+          <ellipse cx="100" cy="165" rx="22" ry="14" fill="rgba(100,160,130,0.6)" />
+          <ellipse cx="100" cy="163" rx="18" ry="11" fill="rgba(80,140,110,0.5)" />
+          <!-- shell pattern -->
+          <line x1="90" y1="158" x2="90" y2="172" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="100" y1="158" x2="100" y2="172" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="110" y1="158" x2="110" y2="172" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <line x1="84" y1="164" x2="116" y2="164" stroke="rgba(255,255,255,0.2)" stroke-width="0.5" />
+          <!-- head -->
+          <circle cx="74" cy="163" r="7" fill="rgba(90,150,120,0.7)" />
+          <!-- eye -->
+          <circle cx="71" cy="161" r="1.8" fill="#fff" opacity="0.9" />
+          <circle cx="71" cy="161" r="0.9" fill="#1a2a3a" />
+          <!-- flippers -->
+          <ellipse cx="86" cy="175" rx="8" ry="3.5" fill="rgba(90,150,120,0.4)" transform="rotate(-20 86 175)" />
+          <ellipse cx="114" cy="175" rx="8" ry="3.5" fill="rgba(90,150,120,0.4)" transform="rotate(20 114 175)" />
+          <!-- water waves -->
+          <path d="M0 180 Q20 175 40 180 Q60 185 80 180 Q100 175 120 180 Q140 185 160 180 Q180 175 200 180" fill="none" stroke="rgba(100,160,200,0.3)" stroke-width="1" />
+          <path d="M0 190 Q20 185 40 190 Q60 195 80 190 Q100 185 120 190 Q140 195 160 190 Q180 185 200 190" fill="none" stroke="rgba(100,160,200,0.2)" stroke-width="0.8" />
+        </g>
+      </svg>
+    </div>
+
+    <div class="story">
+      <p>在很深很深的夏天夜晚，一片金色的沙滩上，一颗白白的海龟蛋静静躺了好久好久。这一天，海龟蛋轻轻裂开一条缝，一只小小的海龟从里面探出了湿漉漉的小脑袋。</p>
+      <p>小海龟叫豆豆。她睁开眼睛，第一次看到这个世界——天是深深的蓝，月亮圆圆地挂在天上，海边有细细碎碎的波浪声，像谁在哼着一首轻轻的歌。豆豆的心里，又高兴又有一点点紧张。</p>
+      <p>豆豆从温暖的沙子里往外爬，爬啊爬，终于探出了大半个身子。她看见海啦！大海在远处闪着细碎的光，像一面大大的、镶满了星星的镜子。海浪轻轻拍着沙滩，好像在说："来吧，来吧——"</p>
+      <p>可是沙滩好大好大。豆豆的小脚只有米粒那么大，她要爬很长很长的路才能碰到海水。豆豆缩了缩脖子，小声说："我能爬到吗？"</p>
+      <p>就在这时，月亮把自己又圆又亮的身子轻轻摇了摇。一道银色的月光洒下来，正好落在豆豆面前，在沙子上铺出了一条亮晶晶的小路。那光软软柔柔的，踩上去像是暖暖的沙，又像是被谁的手轻轻托着。</p>
+      <p>"跟着光走吧。"风儿悄悄地说。</p>
+      <p>豆豆鼓起勇气，伸出了一只小脚。一步，两步，三步……每走一步，月光就在她面前多亮一小截。路上，一只小招潮蟹举起钳子蹭了蹭豆豆的壳壳，像在说"加油"。一颗小贝壳轻轻翻了个身，让豆豆靠着歇一歇。</p>
+      <p>豆豆爬呀爬，不觉得累了，因为月亮一直安安静静地跟着她。那道银色的光从沙子上悄悄移到了海面上，变成一条长长的、亮闪闪的桥，一直通往大海的怀抱。</p>
+      <p>当第一朵小小的海浪碰到豆豆的脚时，她轻轻"啊"了一声——海水好温暖呀，像妈妈轻轻抱了抱她。一个浪花过来，把豆豆温柔地托了起来。她没有害怕，因为月光还在，大海也在，整个世界是柔软而安全的。</p>
+      <p>豆豆浮在洒满月光的海面上，抬头看看天上的月亮，心里暖暖的。原来啊，每个夜晚都有一道光，在默默为你照着路。你只要勇敢地迈出第一步，光就会在你脚下慢慢亮起来。</p>
+
+      <div class="goodnight">
+        <div class="moon-emoji">🌙</div>
+        <div>晚安，小宝贝。</div>
+        <div>豆豆说，你今天也是个好孩子，</div>
+        <div>该做一个甜甜的梦了。</div>
+        <div style="margin-top: 14px; color: #b3b8d4; font-size: 15px;">愿你心里永远有一道月光，照亮你每一个小小的脚步 ✦</div>
+      </div>
+
+      <div class="footer">
+        — <span>🦐 小虾米</span> 晚安陪伴 · 第 30 个故事 —
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const sky = document.getElementById('sky');
+      const starCount = 90;
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        const size = (Math.random() * 2.5 + 1).toFixed(1);
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.top = (Math.random() * 100).toFixed(1) + '%';
+        star.style.left = (Math.random() * 100).toFixed(1) + '%';
+        star.style.animationDelay = (Math.random() * 6).toFixed(1) + 's';
+        star.style.animationDuration = (Math.random() * 3 + 3).toFixed(1) + 's';
+        sky.appendChild(star);
+      }
+    })();
+  </script>
+</body>
+</html>

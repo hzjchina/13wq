@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小风铃草的歌 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    min-height: 100%;
+    font-family: "Comic Sans MS", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: #0b1029;
+    color: #f4ecff;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 70% 15%, rgba(180, 150, 255, 0.18) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 80%, rgba(120, 100, 220, 0.12) 0%, transparent 55%),
+      linear-gradient(180deg, #0b1029 0%, #131942 55%, #1a1f55 100%);
+    position: relative;
+    padding: 40px 18px 80px;
+  }
+  /* 星空容器 */
+  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .star {
+    position: absolute;
+    background: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(255,255,255,0.9);
+    opacity: 0;
+    animation: twinkle 4s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.7); }
+    50%      { opacity: 1;    transform: scale(1.2); }
+  }
+  /* 月亮 */
+  .moon {
+    position: fixed;
+    top: 8%;
+    right: 9%;
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff7d6 0%, #ffe8a8 60%, #f1c75a 100%);
+    box-shadow:
+      0 0 30px rgba(255, 232, 168, 0.55),
+      0 0 80px rgba(255, 232, 168, 0.35),
+      0 0 140px rgba(255, 220, 140, 0.18);
+    animation: moonFloat 8s ease-in-out infinite;
+    z-index: 1;
+  }
+  .moon::before {
+    content: '';
+    position: absolute;
+    inset: -22px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 232, 168, 0.25) 0%, transparent 70%);
+    animation: haloPulse 5s ease-in-out infinite;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  @keyframes haloPulse {
+    0%, 100% { transform: scale(1);   opacity: 0.6; }
+    50%      { transform: scale(1.2); opacity: 1; }
+  }
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 3px; height: 3px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #fff;
+    opacity: 0;
+    z-index: 2;
+  }
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 120px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(180,150,255,0));
+    transform: translateY(1px);
+  }
+  .shooting-star.s1 { top: 14%; left: -10%; animation: shoot 7s linear infinite; animation-delay: 2s; }
+  .shooting-star.s2 { top: 32%; left: -10%; animation: shoot 9s linear infinite; animation-delay: 6s; }
+  @keyframes shoot {
+    0%   { transform: translate(0,0) rotate(15deg); opacity: 0; }
+    5%   { opacity: 1; }
+    25%  { transform: translate(110vw, 22vh) rotate(15deg); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  /* 主容器 */
+  .container {
+    position: relative;
+    z-index: 3;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 22px 40px;
+  }
+  /* 标题 */
+  .title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: bold;
+    color: #e8d8ff;
+    margin-bottom: 8px;
+    text-shadow: 0 0 18px rgba(200, 160, 255, 0.6);
+    animation: titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 18px rgba(200, 160, 255, 0.55); }
+    50%      { text-shadow: 0 0 30px rgba(220, 180, 255, 0.95); }
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 14px;
+    color: #b8a4dd;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+  }
+  /* 风铃草插图区 */
+  .scene {
+    position: relative;
+    height: 220px;
+    margin: 0 auto 30px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .ground {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 40px;
+    background: linear-gradient(180deg, rgba(60, 40, 100, 0.0), rgba(40, 28, 78, 0.55));
+    border-top: 1px dashed rgba(180, 150, 255, 0.2);
+  }
+  /* 风铃草 SVG 容器 */
+  .bellflower-wrap {
+    position: relative;
+    width: 180px;
+    height: 200px;
+    transform-origin: 50% 100%;
+    animation: sway 4.5s ease-in-out infinite;
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg); }
+  }
+  .bellflower-wrap svg { width: 100%; height: 100%; overflow: visible; }
+  /* 风流动线条 */
+  .wind-line {
+    position: absolute;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(220, 200, 255, 0.5), transparent);
+    border-radius: 50%;
+    opacity: 0;
+    animation: windFlow 6s ease-in-out infinite;
+  }
+  .wind-line.w1 { top: 30%; left: -20%; width: 140%; animation-delay: 0s; }
+  .wind-line.w2 { top: 50%; left: -20%; width: 130%; animation-delay: 2s; }
+  .wind-line.w3 { top: 70%; left: -20%; width: 120%; animation-delay: 4s; }
+  @keyframes windFlow {
+    0%   { opacity: 0; transform: translateX(-30%); }
+    30%  { opacity: 0.7; }
+    60%  { opacity: 0.7; transform: translateX(10%); }
+    100% { opacity: 0; transform: translateX(30%); }
+  }
+  /* 萤火虫 */
+  .firefly {
+    position: absolute;
+    width: 6px; height: 6px;
+    background: #c8ff8a;
+    border-radius: 50%;
+    box-shadow:
+      0 0 8px #c8ff8a,
+      0 0 18px rgba(200, 255, 138, 0.6);
+    opacity: 0;
+    animation: floatFirefly 9s ease-in-out infinite;
+  }
+  .firefly.f1 { top: 25%; left: 12%; animation-delay: 0s; }
+  .firefly.f2 { top: 60%; left: 80%; animation-delay: 2.5s; }
+  .firefly.f3 { top: 15%; left: 65%; animation-delay: 5s; }
+  .firefly.f4 { top: 50%; left: 25%; animation-delay: 7s; }
+  @keyframes floatFirefly {
+    0%   { transform: translate(0,0); opacity: 0; }
+    15%  { opacity: 1; }
+    50%  { transform: translate(40px, -30px); opacity: 0.8; }
+    85%  { opacity: 1; }
+    100% { transform: translate(0,0); opacity: 0; }
+  }
+  /* 故事卡片 */
+  .story-card {
+    background: linear-gradient(180deg, rgba(40, 30, 80, 0.55), rgba(25, 18, 60, 0.65));
+    border: 1px solid rgba(180, 150, 255, 0.2);
+    border-radius: 18px;
+    padding: 28px 26px;
+    line-height: 1.95;
+    font-size: 17px;
+    color: #ece1ff;
+    box-shadow:
+      0 8px 30px rgba(0, 0, 0, 0.4),
+      inset 0 0 30px rgba(180, 150, 255, 0.05);
+    backdrop-filter: blur(4px);
+  }
+  .story-card p {
+    margin-bottom: 16px;
+    text-indent: 2em;
+  }
+  .story-card p:last-child {
+    margin-bottom: 0;
+  }
+  /* 段落装饰：风铃 */
+  .wind-chime {
+    text-align: center;
+    color: #d6c4ff;
+    margin: 18px 0 8px;
+    font-size: 18px;
+    letter-spacing: 8px;
+    opacity: 0.75;
+    animation: chimeShimmer 3s ease-in-out infinite;
+  }
+  @keyframes chimeShimmer {
+    0%, 100% { opacity: 0.5; }
+    50%      { opacity: 1; }
+  }
+  /* 晚安语 */
+  .goodnight {
+    margin-top: 36px;
+    padding: 22px 22px;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(180, 150, 255, 0.1), rgba(120, 100, 220, 0.08));
+    border: 1px dashed rgba(200, 170, 255, 0.35);
+    border-radius: 14px;
+    color: #f0e4ff;
+    font-size: 16px;
+    line-height: 1.9;
+    animation: goodnightGlow 4s ease-in-out infinite;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% { box-shadow: 0 0 18px rgba(180, 150, 255, 0.2); }
+    50%      { box-shadow: 0 0 32px rgba(200, 170, 255, 0.5); }
+  }
+  .goodnight .moon-emoji {
+    font-size: 22px;
+    margin-right: 6px;
+  }
+  /* 底部星光点 */
+  .bottom-stars {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 28px;
+  }
+  .bottom-star {
+    width: 5px; height: 5px;
+    background: #d6c4ff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #d6c4ff;
+    animation: dotPulse 2.5s ease-in-out infinite;
+  }
+  .bottom-star:nth-child(2) { animation-delay: 0.3s; }
+  .bottom-star:nth-child(3) { animation-delay: 0.6s; }
+  .bottom-star:nth-child(4) { animation-delay: 0.9s; }
+  .bottom-star:nth-child(5) { animation-delay: 1.2s; }
+  .bottom-star:nth-child(6) { animation-delay: 1.5s; }
+  .bottom-star:nth-child(7) { animation-delay: 1.8s; }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.7); }
+    50%      { opacity: 1;   transform: scale(1.2); }
+  }
+  /* 响应式 */
+  @media (max-width: 600px) {
+    body { padding: 24px 12px 60px; }
+    .container { padding: 20px 14px 30px; }
+    .title { font-size: 26px; }
+    .story-card { padding: 22px 18px; font-size: 16px; line-height: 1.9; }
+    .moon { width: 65px; height: 65px; top: 5%; right: 6%; }
+    .scene { height: 180px; }
+    .bellflower-wrap { width: 150px; height: 170px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空背景 -->
+<div class="stars" id="stars"></div>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 流星 -->
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 萤火虫 -->
+<div class="firefly f1"></div>
+<div class="firefly f2"></div>
+<div class="firefly f3"></div>
+<div class="firefly f4"></div>
+
+<div class="container">
+
+  <h1 class="title">小风铃草的歌</h1>
+  <div class="subtitle">✦ 写给睡前的你 ✦</div>
+
+  <!-- 风铃草插图场景 -->
+  <div class="scene">
+    <div class="wind-line w1"></div>
+    <div class="wind-line w2"></div>
+    <div class="wind-line w3"></div>
+
+    <div class="bellflower-wrap">
+      <svg viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+        <!-- 茎 -->
+        <path d="M 90 200 Q 88 140 90 80" stroke="#5fa56b" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <!-- 叶片 -->
+        <ellipse cx="70" cy="150" rx="14" ry="6" fill="#6cbf78" transform="rotate(-25 70 150)" opacity="0.85"/>
+        <ellipse cx="110" cy="130" rx="12" ry="5" fill="#5fa56b" transform="rotate(25 110 130)" opacity="0.85"/>
+        <!-- 风铃花朵组 -->
+        <!-- 花朵 1 (主花) -->
+        <g transform="translate(90 70)">
+          <ellipse cx="0" cy="0" rx="14" ry="20" fill="#b48cf0" opacity="0.95"/>
+          <ellipse cx="-8" cy="-4" rx="10" ry="14" fill="#a577e0" opacity="0.9" transform="rotate(-15 -8 -4)"/>
+          <ellipse cx="8" cy="-4" rx="10" ry="14" fill="#9d6cd6" opacity="0.9" transform="rotate(15 8 -4)"/>
+          <circle cx="0" cy="6" r="3" fill="#ffe88c"/>
+        </g>
+        <!-- 花朵 2 -->
+        <g transform="translate(78 60)">
+          <ellipse cx="0" cy="0" rx="8" ry="12" fill="#a577e0" opacity="0.9"/>
+          <ellipse cx="-5" cy="-3" rx="6" ry="9" fill="#9265cf" opacity="0.9" transform="rotate(-20 -5 -3)"/>
+          <ellipse cx="5" cy="-3" rx="6" ry="9" fill="#9265cf" opacity="0.9" transform="rotate(20 5 -3)"/>
+        </g>
+        <!-- 花朵 3 -->
+        <g transform="translate(102 55)">
+          <ellipse cx="0" cy="0" rx="7" ry="11" fill="#9d6cd6" opacity="0.9"/>
+          <ellipse cx="-4" cy="-3" rx="5" ry="8" fill="#8a5cc0" opacity="0.9" transform="rotate(-20 -4 -3)"/>
+          <ellipse cx="4" cy="-3" rx="5" ry="8" fill="#8a5cc0" opacity="0.9" transform="rotate(20 4 -3)"/>
+        </g>
+        <!-- 小铃铛光点 -->
+        <circle cx="90" cy="78" r="2" fill="#ffe88c" opacity="0.9">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="78" cy="68" r="1.5" fill="#ffe88c" opacity="0.9">
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="102" cy="63" r="1.5" fill="#ffe88c" opacity="0.9">
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="2.8s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+
+    <div class="ground"></div>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-card">
+
+    <p>在篱笆下的小角落里，住着一朵紫色的小风铃草。</p>
+
+    <p>她很小，小到连蝴蝶都很少注意到她。但她有一件最喜欢的事 —— 听风从她身边经过。</p>
+
+    <p>每天傍晚，风都会轻轻地从山谷那边跑过来，绕过老槐树，穿过草丛，最后在小风铃草身边停下来，在她耳边哼一首轻轻的歌。</p>
+
+    <div class="wind-chime">♪ 沙沙沙 —— 沙沙沙 —— ♪</div>
+
+    <p>小风铃草的紫色小铃铛会跟着轻轻摇晃。她觉得，这一定是世界上最好听的歌，而且是风只对她一个人唱的。</p>
+
+    <p>"你好呀，风。"她每次都小声回答，"我也喜欢你唱的歌。"</p>
+
+    <p>但有一天傍晚，小风铃草听见了一件让她难过的事。</p>
+
+    <p>老槐树上的小麻雀叽叽喳喳地说："今天的风可真温柔啊，吹过来的时候痒痒的，像是在跟我挠痒痒呢！"</p>
+
+    <p>小风铃草愣住了。她抬起头，看见小麻雀的羽毛在风里轻轻地抖动。</p>
+
+    <p>"风也在跟小麻雀唱歌吗？"她小声问自己。</p>
+
+    <p>她低下头，有点难过："原来风不是只对我一个人唱歌啊。"</p>
+
+    <p>那天晚上，月亮慢慢地爬上山坡，小风铃草低着头，一句话也不说。</p>
+
+    <p>"为什么不开心呀？"一只路过的萤火虫轻轻地问。</p>
+
+    <p>"我以为风只对我一个人唱那首歌呢，"小风铃草小声说，"原来它对谁都会唱。"</p>
+
+    <p>萤火虫笑了笑，轻轻地落在她的紫色花瓣上："可是你听 ——"</p>
+
+    <p>风又来了。</p>
+
+    <p>风绕过大山，穿过田野，吹过老槐树。它对小麻雀轻轻吹了一口气，又对小蝴蝶轻轻吹了一口气，对向日葵轻轻吹了一口气，对池塘里的水波轻轻吹了一口气……</p>
+
+    <p>然后，它轻轻地来到小风铃草的身边。</p>
+
+    <div class="wind-chime">♪ 沙沙沙 —— 沙沙沙 —— ♪</div>
+
+    <p>"你听到了吗？"萤火虫小声说，"风对所有朋友都很温柔。可是你知道吗，它在你身边，会停得最久，唱得最轻呢。"</p>
+
+    <p>"真的吗？"小风铃草眨眨眼。</p>
+
+    <p>"你听，"萤火虫说，"它在别人那里都是匆匆走过，但在你这里，它弯下腰，在你耳边小声唱，因为它怕声音太大，会吓到你这样一朵小小的花。"</p>
+
+    <p>小风铃草认真地听。</p>
+
+    <p>风真的在她身边，慢慢地、慢慢地绕了一圈又一圈，像在讲一个长长的、温柔的故事。</p>
+
+    <p>她的小铃铛轻轻摇晃，发出比平时更小、更轻、更细的"沙沙"声 —— 那是一首只有她和风一起才能唱出来的歌。</p>
+
+    <p>"原来是这样啊，"小风铃草笑了，"风对我最温柔。"</p>
+
+    <p>萤火虫点点头："对呀，爱不是只能给一个人。但给你的时候，是最用心的那一份。"</p>
+
+    <p>那天晚上，小风铃草在月光下轻轻摇晃着，唱着自己的歌。她再也不难过，因为风对她最好，她知道风对她最温柔。</p>
+
+    <p>月亮看了很久很久，也忍不住笑了。</p>
+
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    <span class="moon-emoji">🌙</span>晚安，小宝贝。<br>
+    小风铃草说，你今天也是个好孩子，<br>
+    该做一个甜甜的梦了。<br>
+    风会轻轻地绕过你的小床，<br>
+    在你耳边哼一首只有你能听见的歌。
+  </div>
+
+  <!-- 底部星光 -->
+  <div class="bottom-stars">
+    <div class="bottom-star"></div>
+    <div class="bottom-star"></div>
+    <div class="bottom-star"></div>
+    <div class="bottom-star"></div>
+    <div class="bottom-star"></div>
+    <div class="bottom-star"></div>
+    <div class="bottom-star"></div>
+  </div>
+
+</div>
+
+<script>
+  // 生成随机星星
+  (function(){
+    const starsEl = document.getElementById('stars');
+    const count = 110;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 2.5 + 0.8;
+      s.style.width  = size + 'px';
+      s.style.height = size + 'px';
+      s.style.top  = Math.random() * 100 + '%';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.animationDelay = (Math.random() * 5) + 's';
+      s.style.animationDuration = (3 + Math.random() * 4) + 's';
+      starsEl.appendChild(s);
+    }
+  })();
+</script>
+
+</body>
+</html>
