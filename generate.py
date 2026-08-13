@@ -148,6 +148,9 @@ def process_module(module: dict) -> dict:
         # 睡前故事: 去掉 title 中 " — 儿童睡前故事" 后缀
         if module["key"] == "bedtime-stories":
             title = re.sub(r'\s*[—–\-]\s*儿童睡前故事\s*$', '', title)
+        # 经典电影: 去掉 "经典电影推荐..." 前缀，只保留片名
+        if module["key"] == "classic-movies":
+            title = re.sub(r'^.*[·|]\s*', '', title)
         summary = extract_summary(html)
         date = extract_date(html_file.name, module["pattern"])
 
