@@ -16,21 +16,56 @@
   --accent-hover: #388bfd;
   --accent-bg: rgba(56, 139, 253, 0.15);
   --shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --c-movie: #e94560;
+  --c-story: #8b5cf6;
+  --c-ai: #2f81f7;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background:
-    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(47, 129, 247, 0.10) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(136, 87, 229, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse 50% 40% at 0% 80%, rgba(233, 69, 96, 0.06) 0%, transparent 50%),
-    linear-gradient(180deg, #0d1117 0%, #0a0e16 100%);
-  background-attachment: fixed;
+  background: #0a0e16;
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   line-height: 1.6;
   min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ===== Animated Gradient Background ===== */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(47, 129, 247, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(136, 87, 229, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 0% 80%, rgba(233, 69, 96, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 50% at 50% 50%, rgba(20, 184, 166, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, #0d1117 0%, #0a0e16 50%, #0d1117 100%);
+  z-index: -2;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: -20%; left: -20%; right: -20%; bottom: -20%;
+  background:
+    radial-gradient(ellipse 40% 30% at 25% 35%, rgba(47, 129, 247, 0.14), transparent 50%),
+    radial-gradient(ellipse 35% 25% at 75% 65%, rgba(136, 87, 229, 0.14), transparent 50%),
+    radial-gradient(ellipse 30% 20% at 50% 85%, rgba(233, 69, 96, 0.10), transparent 50%),
+    radial-gradient(ellipse 25% 20% at 15% 70%, rgba(20, 184, 166, 0.08), transparent 50%);
+  animation: gradient-drift 25s ease-in-out infinite alternate;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes gradient-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(3%, -2%) scale(1.05); }
+  66%  { transform: translate(-3%, 2%) scale(0.98); }
+  100% { transform: translate(1%, 1%) scale(1.02); }
 }
 
 /* ===== Header ===== */
@@ -53,11 +88,7 @@ header {
   padding: 16px 24px;
 }
 
-.header-orbs {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.header-orbs { display: flex; align-items: center; gap: 10px; }
 
 .orb {
   width: 10px;
@@ -66,9 +97,9 @@ header {
   animation: orb-pulse 2.4s ease-in-out infinite;
 }
 
-.orb-1 { background: #e94560; box-shadow: 0 0 12px rgba(233, 69, 96, 0.6); animation-delay: 0s; }
-.orb-2 { background: #8b5cf6; box-shadow: 0 0 12px rgba(139, 92, 246, 0.6); animation-delay: 0.3s; }
-.orb-3 { background: #2f81f7; box-shadow: 0 0 12px rgba(47, 129, 247, 0.6); animation-delay: 0.6s; }
+.orb-1 { background: var(--c-movie); box-shadow: 0 0 12px rgba(233, 69, 96, 0.6); animation-delay: 0s; }
+.orb-2 { background: var(--c-story); box-shadow: 0 0 12px rgba(139, 92, 246, 0.6); animation-delay: 0.3s; }
+.orb-3 { background: var(--c-ai); box-shadow: 0 0 12px rgba(47, 129, 247, 0.6); animation-delay: 0.6s; }
 
 @keyframes orb-pulse {
   0%, 100% { opacity: 0.35; transform: scale(1); }
@@ -100,7 +131,7 @@ header {
   100% { left: 100%; }
 }
 
-/* ===== Tabs ===== */
+/* ===== Top Tabs ===== */
 .tabs {
   max-width: 1000px;
   margin: 0 auto;
@@ -149,6 +180,100 @@ header {
   color: var(--accent);
 }
 
+/* ===== Side Bookmark Tabs ===== */
+.side-tabs {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(20px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.side-tabs.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(-50%) translateX(0);
+}
+
+.side-tab {
+  height: 64px;
+  width: 6px;
+  border-radius: 8px 0 0 8px;
+  background: var(--bg-card);
+  cursor: pointer;
+  overflow: hidden;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--border);
+  border-right: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  box-shadow: -2px 0 8px rgba(0,0,0,0.3);
+}
+
+.side-tab:hover {
+  width: 175px;
+  padding-right: 16px;
+}
+
+.side-tab.active {
+  width: 8px;
+}
+
+.side-tab.active:hover {
+  width: 175px;
+}
+
+.side-tab-bar {
+  width: 6px;
+  height: 100%;
+  flex-shrink: 0;
+  transition: box-shadow 0.3s, width 0.3s;
+}
+
+.side-tab.active .side-tab-bar {
+  width: 8px;
+  box-shadow: 0 0 16px currentColor;
+}
+
+.side-tab:hover .side-tab-bar {
+  width: 6px;
+  box-shadow: none;
+}
+
+.side-tab-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  padding-left: 14px;
+  opacity: 0;
+  transition: opacity 0.15s ease 0.1s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.side-tab:hover .side-tab-label {
+  opacity: 1;
+}
+
+.side-tab-label .tab-count {
+  font-size: 12px;
+  background: var(--border);
+  color: var(--text-muted);
+  padding: 1px 7px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+}
+
 /* ===== Content ===== */
 .container {
   max-width: 1000px;
@@ -167,6 +292,7 @@ header {
   color: inherit;
   transition: all 0.2s;
   display: block;
+  cursor: pointer;
 }
 
 .card:hover {
@@ -208,7 +334,6 @@ header {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-
 
 /* ===== Pagination ===== */
 .pagination {
@@ -253,6 +378,82 @@ header {
   padding: 0 8px;
 }
 
+/* ===== Content Overlay (in-page viewing) ===== */
+.content-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0, 0, 0, 0.92);
+  z-index: 999;
+  display: none;
+  flex-direction: column;
+  animation: overlay-in 0.2s ease;
+}
+
+.content-overlay.visible {
+  display: flex;
+}
+
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.overlay-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 24px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.overlay-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  margin-right: 16px;
+}
+
+.overlay-close {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.overlay-close:hover {
+  background: var(--c-movie);
+  border-color: var(--c-movie);
+  color: #fff;
+}
+
+.overlay-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.overlay-body iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #fff;
+}
+
 /* ===== Loading & Empty ===== */
 .loading, .empty {
   text-align: center;
@@ -286,6 +487,8 @@ header {
   .card { padding: 16px; }
   .card-header { flex-direction: column; gap: 4px; }
   .card-date { font-size: 12px; }
+  .side-tab:hover { width: 145px; }
+  .side-tab-label { font-size: 13px; }
 }
 </style>
 </head>
@@ -305,6 +508,9 @@ header {
 
 <nav class="tabs" id="tabs"></nav>
 
+<!-- Side bookmark tabs (appear on scroll) -->
+<div class="side-tabs" id="side-tabs"></div>
+
 <main class="container">
   <div id="content">
     <div class="loading">加载中</div>
@@ -312,9 +518,27 @@ header {
   <div class="pagination" id="pagination" style="display:none;"></div>
 </main>
 
+<!-- Content overlay for in-page viewing -->
+<div class="content-overlay" id="content-overlay">
+  <div class="overlay-header">
+    <div class="overlay-title" id="overlay-title"></div>
+    <button class="overlay-close" id="overlay-close" title="关闭 (ESC)">✕</button>
+  </div>
+  <div class="overlay-body">
+    <iframe id="content-iframe" src=""></iframe>
+  </div>
+</div>
+
 <script src="data.js"></script>
 <script>
 const PAGE_SIZE = 20;
+
+// Module colors
+const MODULE_COLORS = {
+  'classic-movies': '#e94560',
+  'bedtime-stories': '#8b5cf6',
+  'ai-info': '#2f81f7',
+};
 
 let manifest = null;
 let currentModule = null;
@@ -324,8 +548,11 @@ function init() {
   if (window.MANIFEST) {
     manifest = window.MANIFEST;
     renderTabs();
+    renderSideTabs();
     const firstKey = Object.keys(manifest.modules)[0];
     selectModule(firstKey);
+    setupScrollListener();
+    setupOverlay();
   } else {
     document.getElementById('content').innerHTML =
       '<div class="empty">数据加载失败，请确保 data.js 文件存在</div>';
@@ -334,7 +561,6 @@ function init() {
 
 function renderTabs() {
   const tabsEl = document.getElementById('tabs');
-
   tabsEl.innerHTML = '';
   for (const [key, mod] of Object.entries(manifest.modules)) {
     const btn = document.createElement('button');
@@ -346,12 +572,37 @@ function renderTabs() {
   }
 }
 
+function renderSideTabs() {
+  const sideEl = document.getElementById('side-tabs');
+  sideEl.innerHTML = '';
+  for (const [key, mod] of Object.entries(manifest.modules)) {
+    const color = MODULE_COLORS[key] || '#2f81f7';
+    const btn = document.createElement('button');
+    btn.className = 'side-tab';
+    btn.dataset.module = key;
+    btn.innerHTML = `
+      <div class="side-tab-bar" style="background: ${color}; color: ${color};"></div>
+      <div class="side-tab-label">${mod.icon} ${mod.name} <span class="tab-count">${mod.items.length}</span></div>
+    `;
+    btn.addEventListener('click', () => {
+      selectModule(key);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    sideEl.appendChild(btn);
+  }
+}
+
 function selectModule(key) {
   currentModule = key;
   currentPage = 1;
 
-  // 更新tab状态
+  // Update top tabs
   document.querySelectorAll('.tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.module === key);
+  });
+
+  // Update side tabs
+  document.querySelectorAll('.side-tab').forEach(t => {
     t.classList.toggle('active', t.dataset.module === key);
   });
 
@@ -377,12 +628,8 @@ function renderList() {
   listEl.className = 'card-list';
 
   for (const item of pageItems) {
-    const card = document.createElement('a');
+    const card = document.createElement('div');
     card.className = 'card';
-    card.href = item.path;
-    card.target = '_blank';
-    card.rel = 'noopener';
-
     card.innerHTML = `
       <div class="card-header">
         <div class="card-title">${escapeHtml(item.title)}</div>
@@ -390,7 +637,7 @@ function renderList() {
       </div>
       <div class="card-summary">${escapeHtml(item.summary)}</div>
     `;
-
+    card.addEventListener('click', () => openContent(item.path, item.title));
     listEl.appendChild(card);
   }
 
@@ -478,13 +725,71 @@ function renderPagination(totalPages) {
   pagEl.appendChild(info);
 }
 
+/* ===== Scroll: show/hide side bookmark tabs ===== */
+function setupScrollListener() {
+  const sideTabs = document.getElementById('side-tabs');
+  const tabsEl = document.getElementById('tabs');
+
+  function checkScroll() {
+    const threshold = tabsEl.offsetTop + tabsEl.offsetHeight + 20;
+    if (window.scrollY > threshold) {
+      sideTabs.classList.add('visible');
+    } else {
+      sideTabs.classList.remove('visible');
+    }
+  }
+
+  window.addEventListener('scroll', checkScroll, { passive: true });
+  checkScroll();
+}
+
+/* ===== Content overlay: in-page viewing ===== */
+function setupOverlay() {
+  const overlay = document.getElementById('content-overlay');
+  const closeBtn = document.getElementById('overlay-close');
+
+  closeBtn.addEventListener('click', closeContent);
+
+  // Click on overlay background to close
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeContent();
+  });
+
+  // ESC to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && overlay.classList.contains('visible')) {
+      closeContent();
+    }
+  });
+}
+
+function openContent(path, title) {
+  const overlay = document.getElementById('content-overlay');
+  const iframe = document.getElementById('content-iframe');
+  const titleEl = document.getElementById('overlay-title');
+
+  iframe.src = path;
+  titleEl.textContent = title;
+  overlay.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeContent() {
+  const overlay = document.getElementById('content-overlay');
+  const iframe = document.getElementById('content-iframe');
+
+  iframe.src = '';
+  overlay.classList.remove('visible');
+  document.body.style.overflow = '';
+}
+
 function escapeHtml(str) {
   const div = document.createElement('div');
   div.textContent = str;
   return div.innerHTML;
 }
 
-// 启动
+// Start
 init();
 </script>
 
