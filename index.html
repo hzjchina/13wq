@@ -21,7 +21,12 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
-  background: var(--bg);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(47, 129, 247, 0.10) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 100%, rgba(136, 87, 229, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse 50% 40% at 0% 80%, rgba(233, 69, 96, 0.06) 0%, transparent 50%),
+    linear-gradient(180deg, #0d1117 0%, #0a0e16 100%);
+  background-attachment: fixed;
   color: var(--text);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
   line-height: 1.6;
@@ -31,10 +36,10 @@ body {
 /* ===== Header ===== */
 header {
   border-bottom: 1px solid var(--border);
-  padding: 20px 24px;
   position: sticky;
   top: 0;
-  background: var(--bg);
+  background: rgba(13, 17, 23, 0.85);
+  backdrop-filter: blur(12px);
   z-index: 100;
 }
 
@@ -43,27 +48,56 @@ header {
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 24px;
 }
 
-.logo {
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text);
+.header-orbs {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
 }
 
-.logo-sub {
-  font-size: 13px;
-  color: var(--text-muted);
-  font-weight: 400;
+.orb {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: orb-pulse 2.4s ease-in-out infinite;
 }
 
-.header-stats {
-  font-size: 13px;
-  color: var(--text-muted);
+.orb-1 { background: #e94560; box-shadow: 0 0 12px rgba(233, 69, 96, 0.6); animation-delay: 0s; }
+.orb-2 { background: #8b5cf6; box-shadow: 0 0 12px rgba(139, 92, 246, 0.6); animation-delay: 0.3s; }
+.orb-3 { background: #2f81f7; box-shadow: 0 0 12px rgba(47, 129, 247, 0.6); animation-delay: 0.6s; }
+
+@keyframes orb-pulse {
+  0%, 100% { opacity: 0.35; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.4); }
+}
+
+.header-line {
+  flex: 1;
+  max-width: 280px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(47, 129, 247, 0.5), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.header-line::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  animation: line-slide 3s ease-in-out infinite;
+}
+
+@keyframes line-slide {
+  0% { left: -50%; }
+  100% { left: 100%; }
 }
 
 /* ===== Tabs ===== */
@@ -244,8 +278,8 @@ header {
 
 /* ===== Responsive ===== */
 @media (max-width: 640px) {
-  header { padding: 14px 16px; }
-  .header-inner { flex-direction: column; gap: 8px; align-items: flex-start; }
+  .header-inner { padding: 12px 16px; }
+  .header-line { max-width: 80px; }
   .tabs { padding: 12px 16px 0; overflow-x: auto; }
   .tab { padding: 8px 14px; font-size: 13px; white-space: nowrap; }
   .container { padding: 16px; }
@@ -259,11 +293,13 @@ header {
 
 <header>
   <div class="header-inner">
-    <div class="logo">
-      📋 每日推送
-      <span class="logo-sub">内容聚合</span>
+    <div class="header-line"></div>
+    <div class="header-orbs">
+      <div class="orb orb-1"></div>
+      <div class="orb orb-2"></div>
+      <div class="orb orb-3"></div>
     </div>
-    <div class="header-stats" id="header-stats"></div>
+    <div class="header-line"></div>
   </div>
 </header>
 
@@ -298,12 +334,9 @@ function init() {
 
 function renderTabs() {
   const tabsEl = document.getElementById('tabs');
-  const statsEl = document.getElementById('header-stats');
-  let total = 0;
 
   tabsEl.innerHTML = '';
   for (const [key, mod] of Object.entries(manifest.modules)) {
-    total += mod.items.length;
     const btn = document.createElement('button');
     btn.className = 'tab';
     btn.dataset.module = key;
@@ -311,8 +344,6 @@ function renderTabs() {
     btn.addEventListener('click', () => selectModule(key));
     tabsEl.appendChild(btn);
   }
-
-  statsEl.textContent = `共 ${total} 篇`;
 }
 
 function selectModule(key) {

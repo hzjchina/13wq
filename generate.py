@@ -24,12 +24,12 @@ SITE_DIR = Path(__file__).parent          # Claw/site/
 
 MODULES = [
     {
-        "key": "ai-info",
-        "name": "AI情报",
-        "icon": "🤖",
-        "source": BASE_DIR / "ai-info",
-        "dest": SITE_DIR / "ai-info",
-        "pattern": r"ai-info-(\d{4}-\d{2}-\d{2})\.html",
+        "key": "classic-movies",
+        "name": "经典电影",
+        "icon": "🎬",
+        "source": BASE_DIR / "classic-movies",
+        "dest": SITE_DIR / "classic-movies",
+        "pattern": r"classic-movie-(\d{4}-\d{2}-\d{2})\.html",
     },
     {
         "key": "bedtime-stories",
@@ -40,12 +40,12 @@ MODULES = [
         "pattern": r"bedtime-story-(\d{4}-\d{2}-\d{2})\.html",
     },
     {
-        "key": "classic-movies",
-        "name": "经典电影",
-        "icon": "🎬",
-        "source": BASE_DIR / "classic-movies",
-        "dest": SITE_DIR / "classic-movies",
-        "pattern": r"classic-movie-(\d{4}-\d{2}-\d{2})\.html",
+        "key": "ai-info",
+        "name": "AI情报",
+        "icon": "🤖",
+        "source": BASE_DIR / "ai-info",
+        "dest": SITE_DIR / "ai-info",
+        "pattern": r"ai-info-(\d{4}-\d{2}-\d{2})\.html",
     },
 ]
 
@@ -145,6 +145,9 @@ def process_module(module: dict) -> dict:
             html = html_file.read_text(encoding="gbk", errors="ignore")
 
         title = extract_title(html)
+        # 睡前故事: 去掉 title 中 " — 儿童睡前故事" 后缀
+        if module["key"] == "bedtime-stories":
+            title = re.sub(r'\s*[—–\-]\s*儿童睡前故事\s*$', '', title)
         summary = extract_summary(html)
         date = extract_date(html_file.name, module["pattern"])
 
