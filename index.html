@@ -284,6 +284,7 @@ header {
   <div class="pagination" id="pagination" style="display:none;"></div>
 </main>
 
+<script src="data.js"></script>
 <script>
 const PAGE_SIZE = 20;
 
@@ -291,17 +292,15 @@ let manifest = null;
 let currentModule = null;
 let currentPage = 1;
 
-async function init() {
-  try {
-    const res = await fetch('manifest.json');
-    manifest = await res.json();
+function init() {
+  if (window.MANIFEST) {
+    manifest = window.MANIFEST;
     renderTabs();
-    // 默认选中第一个模块
     const firstKey = Object.keys(manifest.modules)[0];
     selectModule(firstKey);
-  } catch (e) {
+  } else {
     document.getElementById('content').innerHTML =
-      '<div class="empty">加载失败：' + e.message + '<br>请确保通过 HTTP 服务访问（非 file://）</div>';
+      '<div class="empty">数据加载失败，请确保 data.js 文件存在</div>';
   }
 }
 

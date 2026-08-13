@@ -178,15 +178,21 @@ def main():
         result = process_module(module)
         manifest["modules"][module["key"]] = result
 
-    # 写入 manifest.json
+    # 写入 manifest.json（保留兼容）
     manifest_path = SITE_DIR / "manifest.json"
     with open(manifest_path, "w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
 
+    # 写入 data.js（供 <script> 加载，支持 file:// 访问）
+    data_js_path = SITE_DIR / "data.js"
+    json_str = json.dumps(manifest, ensure_ascii=False, indent=2)
+    with open(data_js_path, "w", encoding="utf-8") as f:
+        f.write(f"window.MANIFEST = {json_str};\n")
+
     # 统计
     total = sum(len(m["items"]) for m in manifest["modules"].values())
     print(f"\n{'=' * 60}")
-    print(f"完成! manifest.json 已生成")
+    print(f"完成! manifest.json + data.js 已生成")
     print(f"总计: {total} 篇文章")
     for key, mod in manifest["modules"].items():
         print(f"  {mod['icon']} {mod['name']}: {len(mod['items'])} 篇")
