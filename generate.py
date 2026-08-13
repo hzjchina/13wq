@@ -156,7 +156,6 @@ def process_module(module: dict) -> dict:
             "date": date,
             "summary": summary,
             "path": f"{module['key']}/{html_file.name}",
-            "content": html,
         })
 
     # 按日期倒序
@@ -182,32 +181,15 @@ def main():
         result = process_module(module)
         manifest["modules"][module["key"]] = result
 
-    # 写入 manifest.json（不含 content，供工具使用）
-    manifest_clean = {"modules": {}}
-    for key, mod in manifest["modules"].items():
-        mod_clean = dict(mod)
-        mod_clean["items"] = [
-            {k: v for k, v in item.items() if k != "content"}
-            for item in mod["items"]
-        ]
-        manifest_clean["modules"][key] = mod_clean
-
+    # 写入 manifest.json
     manifest_path = SITE_DIR / "manifest.json"
     with open(manifest_path, "w", encoding="utf-8") as f:
-        json.dump(manifest_clean, f, ensure_ascii=False, indent=2)
-
-    # 写入 data.js（含完整 content，供页面 srcdoc 渲染）
-    data_js_path = SITE_DIR / "data.js"
-    json_str = json.dumps(manifest, ensure_ascii=False, separators=(",", ":"))
-    # 转义 </script> 防止破坏 <script> 标签
-    json_str = json_str.replace("</script>", "<\\/script>")
-    with open(data_js_path, "w", encoding="utf-8") as f:
-        f.write(f"window.MANIFEST = {json_str};\n")
+        json.dump(manifest, f, ensure_ascii=False, indent=2)
 
     # 统计
     total = sum(len(m["items"]) for m in manifest["modules"].values())
     print(f"\n{'=' * 60}")
-    print(f"完成! manifest.json + data.js 已生成")
+    print(f"完成! manifest.json 已生成")
     print(f"总计: {total} 篇文章")
     for key, mod in manifest["modules"].items():
         print(f"  {mod['icon']} {mod['name']}: {len(mod['items'])} 篇")

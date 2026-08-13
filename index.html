@@ -529,7 +529,6 @@ header {
   </div>
 </div>
 
-<script src="data.js"></script>
 <script>
 const PAGE_SIZE = 20;
 
@@ -544,18 +543,19 @@ let manifest = null;
 let currentModule = null;
 let currentPage = 1;
 
-function init() {
-  if (window.MANIFEST) {
-    manifest = window.MANIFEST;
+async function init() {
+  try {
+    const res = await fetch('manifest.json');
+    manifest = await res.json();
     renderTabs();
     renderSideTabs();
     const firstKey = Object.keys(manifest.modules)[0];
     selectModule(firstKey);
     setupScrollListener();
     setupOverlay();
-  } else {
+  } catch (e) {
     document.getElementById('content').innerHTML =
-      '<div class="empty">数据加载失败，请确保 data.js 文件存在</div>';
+      '<div class="empty">数据加载失败：' + e.message + '<br>请通过 HTTP 服务访问（如 python3 -m http.server）</div>';
   }
 }
 
@@ -637,7 +637,7 @@ function renderList() {
       </div>
       <div class="card-summary">${escapeHtml(item.summary)}</div>
     `;
-    card.addEventListener('click', () => openContent(item));
+    card.addEventListener('click', () => openContent(item.path, item.title));
     listEl.appendChild(card);
   }
 
@@ -763,13 +763,13 @@ function setupOverlay() {
   });
 }
 
-function openContent(item) {
+function openContent(path, title) {
   const overlay = document.getElementById('content-overlay');
   const iframe = document.getElementById('content-iframe');
   const titleEl = document.getElementById('overlay-title');
 
-  iframe.srcdoc = item.content;
-  titleEl.textContent = item.title;
+  iframe.src = path;
+  titleEl.textContent = title;
   overlay.classList.add('visible');
   document.body.style.overflow = 'hidden';
 }
@@ -778,7 +778,7 @@ function closeContent() {
   const overlay = document.getElementById('content-overlay');
   const iframe = document.getElementById('content-iframe');
 
-  iframe.srcdoc = '';
+  iframe.src = '';
   overlay.classList.remove('visible');
   document.body.style.overflow = '';
 }
