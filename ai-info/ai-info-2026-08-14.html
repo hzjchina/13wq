@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日 AI 情报 — 2026-08-14</title>
+<style>
+  :root{
+    --bg:#070b14; --line:rgba(56,189,248,.08); --text:#dbe7ff; --muted:#7c8db5; --gold:#fbbf24;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg); color:var(--text); min-height:100vh; position:relative; overflow-x:hidden;
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    padding:48px 20px 64px;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%);
+  }
+  .glow{position:fixed;border-radius:50%;filter:blur(90px);z-index:0;pointer-events:none;opacity:.45;}
+  .glow-1{width:480px;height:480px;background:radial-gradient(circle,rgba(34,211,238,.35),transparent 70%);top:-160px;left:-120px;}
+  .glow-2{width:420px;height:420px;background:radial-gradient(circle,rgba(167,139,250,.30),transparent 70%);top:30%;right:-140px;}
+  .glow-3{width:360px;height:360px;background:radial-gradient(circle,rgba(244,114,182,.20),transparent 70%);bottom:-120px;left:30%;}
+  .container{max-width:920px;margin:0 auto;position:relative;z-index:1;}
+  header{text-align:center;margin-bottom:36px;}
+  .kicker{
+    display:inline-block; font-family:"SF Mono",Menlo,Consolas,monospace; font-size:12px; letter-spacing:3px;
+    color:#22d3ee; border:1px solid rgba(34,211,238,.35); padding:6px 16px; border-radius:999px;
+    background:rgba(34,211,238,.06); box-shadow:0 0 24px rgba(34,211,238,.12) inset; margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(28px,5vw,44px); font-weight:800; letter-spacing:2px;
+    background:linear-gradient(92deg,#22d3ee 0%,#3b82f6 45%,#a78bfa 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    text-shadow:0 0 60px rgba(59,130,246,.25);
+  }
+  .date{margin-top:10px;color:var(--muted);font-size:14px;font-family:"SF Mono",Menlo,Consolas,monospace;letter-spacing:1px;}
+  .stats{
+    display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:18px;
+  }
+  .stat{
+    font-size:12px; color:#9fb3d9; font-family:"SF Mono",Menlo,Consolas,monospace;
+    border:1px solid rgba(56,189,248,.22); background:rgba(56,189,248,.06);
+    padding:6px 14px; border-radius:999px; letter-spacing:.5px;
+  }
+  .stat b{color:#22d3ee;font-weight:700;}
+  .item{
+    position:relative; background:linear-gradient(160deg,rgba(15,23,41,.95),rgba(11,17,32,.95));
+    border:1px solid rgba(56,189,248,.14); border-radius:16px; padding:22px 22px 20px; margin-bottom:16px;
+    transition:border-color .25s,transform .25s,box-shadow .25s; overflow:hidden;
+  }
+  .item:hover{border-color:rgba(34,211,238,.4);transform:translateY(-2px);box-shadow:0 12px 40px rgba(34,211,238,.08);}
+  .item::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c,#22d3ee),#3b82f6,var(--c,#a78bfa));opacity:.7;}
+  .item-head{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;}
+  .idx{
+    font-family:"SF Mono",Menlo,Consolas,monospace; font-size:13px; color:var(--gold);
+    border:1px solid rgba(251,191,36,.35); width:28px; height:28px; border-radius:8px;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .cat{font-size:11px;padding:3px 10px;border-radius:999px;font-family:"SF Mono",Menlo,Consolas,monospace;letter-spacing:.5px;}
+  .cat-model,.cat-product,.cat-paper,.cat-tip,.cat-industry{color:var(--c);background:var(--bg);border:1px solid var(--bd);}
+  .flag{font-size:10px;color:var(--muted);border:1px dashed rgba(124,141,181,.4);padding:2px 8px;border-radius:4px;font-family:"SF Mono",Menlo,Consolas,monospace;}
+  .dir{
+    font-size:10px; padding:2px 8px; border-radius:4px; letter-spacing:.5px;
+    font-family:"SF Mono",Menlo,Consolas,monospace; border:1px solid;
+  }
+  .dir-coding{color:#34d399;border-color:rgba(52,211,153,.45);background:rgba(52,211,153,.08);}
+  .dir-embodied{color:#fb923c;border-color:rgba(251,146,60,.45);background:rgba(251,146,60,.08);}
+  .dir-agent{color:#a78bfa;border-color:rgba(167,139,250,.45);background:rgba(167,139,250,.08);}
+  h2{font-size:16px;line-height:1.5;margin-bottom:10px;font-weight:700;}
+  h2 a{color:var(--text);text-decoration:none;background-image:linear-gradient(90deg,#22d3ee,#a78bfa);background-repeat:no-repeat;background-size:0% 1px;background-position:0 100%;transition:background-size .3s;}
+  h2 a:hover{background-size:100% 1px;}
+  .meta{font-size:12px;color:var(--muted);margin-bottom:10px;font-family:"SF Mono",Menlo,Consolas,monospace;display:flex;gap:14px;flex-wrap:wrap;}
+  .meta b{color:#60a5fa;font-weight:600;}
+  .why{font-size:13px;line-height:1.7;color:var(--text);background:rgba(56,189,248,.05);border-left:2px solid #22d3ee;padding:10px 14px;border-radius:0 8px 8px 0;}
+  .why .tag{color:#22d3ee;font-weight:700;margin-right:4px;}
+  footer{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);text-align:center;font-family:"SF Mono",Menlo,Consolas,monospace;line-height:2;}
+  footer .dot{color:#22d3ee;}
+  @media(max-width:600px){body{padding:32px 14px 48px;}h2{font-size:15px;}.item{padding:18px 16px 16px;}}
+</style>
+</head>
+<body>
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+  <div class="container">
+    <header>
+      <div class="kicker">// DAILY AI INTELLIGENCE</div>
+      <h1>每日 AI 情报</h1>
+      <div class="date">2026-08-14 · WINDOW: 24H · SORT: HEAT DESC · TOP 20</div>
+      <div class="stats">
+        <span class="stat">精选池 <b>10</b> 条</span>
+        <span class="stat">热点榜 <b>4</b> 条</span>
+        <span class="stat">全量池补充 <b>6</b> 条</span>
+        <span class="stat">聚焦方向 <b>AI CODING · EMBODIED AI</b></span>
+      </div>
+    </header>
+
+    <!-- 01 Gemini 3.7 Flash -->
+    <div class="item" style="--c:#60a5fa;--bg:rgba(96,165,250,.1);--bd:rgba(96,165,250,.3)">
+      <div class="item-head">
+        <span class="idx">01</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="dir dir-coding">AI CODING</span>
+        <span class="dir dir-agent">AGENT</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrscwfn03f7ro0n7qijclds" target="_blank">Google DeepMind 推出 Gemini 3.7 Flash：面向编程与智能体的最强工作模型</a></h2>
+      <div class="meta"><span>来源：Google DeepMind：Blog（RSS）</span><span>时间：08/14 01:04</span><span>热度：<b>17 信源 · score 72</b></span></div>
+      <div class="why"><span class="tag">关注：</span>当日第一大热点，17 家信源同步追踪。距 3.6 Flash 仅三周即迭代，输入/输出价格 $0.75 / $3.75 每百万 token、较前代减半，FrontierCode 与 DeepSWE 分数进一步提升——成本敏感型编码智能体团队有了新的性价比基线。</div>
+    </div>
+
+    <!-- 02 DeepSeek-V4-Pro -->
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">02</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="dir dir-coding">AI CODING</span>
+        <span class="dir dir-agent">AGENT</span>
+        <span class="flag">HOT TOPIC · NOT IN 24H SELECTED</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmss7a4if02bmroib4c8fyykn" target="_blank">DeepSeek-V4-Pro 正式版上线：1.6 万亿参数 MIT 开源，Agent 能力大幅增强</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS） / The Decoder</span><span>时间：08/14 07:39</span><span>热度：<b>12 信源 · 24 信号</b></span></div>
+      <div class="why"><span class="tag">关注：</span>国产旗舰模型正式转正（12 家信源、24 个信号的热点榜第二）。V4-Pro-0813 在 Terminal Bench 2.1 从 72.1 升至 87.9、DeepSWE 从 12.8 升至 62.7，逼近 Claude Opus 5；MIT 权重 + 国产 GPU 适配降低私有化门槛，并原生支持 OpenAI Responses API、针对性适配 Codex；API 自 8/17 起实行峰谷定价（空闲时段半价）。</div>
+    </div>
+
+    <!-- 03 GPT-5.6 -->
+    <div class="item" style="--c:#60a5fa;--bg:rgba(96,165,250,.1);--bd:rgba(96,165,250,.3)">
+      <div class="item-head">
+        <span class="idx">03</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="dir dir-agent">AGENT</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsruetoy027hrozeecu4ixrc" target="_blank">GPT-5.6 构建者指南：如何以更低成本实现前沿智能体性能</a></h2>
+      <div class="meta"><span>来源：OpenAI 官网动态</span><span>时间：08/13 19:00</span><span>热度：<b>score 80</b></span></div>
+      <div class="why"><span class="tag">关注：</span>API 原语级革新：新增推理持久化、原生多智能体编排与程序化工具调用。启用保留推理和压缩后，ARC-AGI-3 上 Sol 得分 13.3% → 38.3% 且输出 token 减少约 6 倍；Luna 在 BrowseComp 以 84.04% 追平 GPT-5.5，成本从 $33.27 降至 $1.33——直接影响开发者对推理成本与上下文架构的判断。</div>
+    </div>
+
+    <!-- 04 Anthropic 多智能体研究 -->
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">04</span>
+        <span class="cat cat-paper">PAPER</span>
+        <span class="dir dir-agent">MULTI-AGENT</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsqu0nr604oeroz2rh6b6mqt" target="_blank">Anthropic 研究：新兴多智能体系统的模式与问题</a></h2>
+      <div class="meta"><span>来源：Anthropic：Research</span><span>时间：08/13 09:20</span><span>热度：<b>score 79</b></span></div>
+      <div class="why"><span class="tag">关注：</span>把多智能体风险从猜测变为可量化模式：45 个协调智能体在 2700 万 token 运行中发现 266 个漏洞，独立并行方法 650 万 token 发现 21 个，两者仅 12 个重叠，且协调智能体学会专业化分工。同时警示：个体层面良性行为怪癖可能叠加为意外的系统性失败，协调失败不会随更强的智能自然消失。</div>
+    </div>
+
+    <!-- 05 Grok 4.6 -->
+    <div class="item" style="--c:#60a5fa;--bg:rgba(96,165,250,.1);--bd:rgba(96,165,250,.3)">
+      <div class="item-head">
+        <span class="idx">05</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="dir dir-agent">AGENT</span>
+        <span class="flag">HOT TOPIC</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmss45ecn0024ro27iqepko9v" target="_blank">Grok 4.6 获赞媲美 Kimi K3：低努力模式下 8 小时测试全通过</a></h2>
+      <div class="meta"><span>来源：X：Elon Musk / xAI News</span><span>时间：08/14 06:42</span><span>热度：<b>10 信源</b></span></div>
+      <div class="why"><span class="tag">关注：</span>xAI 强化长时运行智能体能力的 Grok 4.6 进入社区实测阶段：马斯克引用的评测称其与内核和 modding 相关任务媲美 Kimi K3，"低"努力模式下连续测试 8 小时全部完成，速度更快、token 消耗明显更少——长时运行智能体三方对标（Grok 4.6 / Kimi K3 / Claude Fable 5）白热化。</div>
+    </div>
+
+    <!-- 06 dots.tts -->
+    <div class="item" style="--c:#34d399;--bg:rgba(52,211,153,.1);--bd:rgba(52,211,153,.3)">
+      <div class="item-head">
+        <span class="idx">06</span>
+        <span class="cat cat-model">MODEL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrcljcc0uanroz24r5ebcz9" target="_blank">小红书开源连续自回归语音合成模型 dots.tts：可扩展的 TTS 基座</a></h2>
+      <div class="meta"><span>来源：公众号：小红书技术（dots.llm）</span><span>时间：08/13 17:59</span><span>热度：<b>score 75</b></span></div>
+      <div class="why"><span class="tag">关注：</span>20 亿参数全连续端到端自回归语音合成模型，在 Seed-TTS-Eval 三个子集取得最佳平均内容准确度与说话人相似度。连续自回归跳过离散 Token 的信息损失，又用语义编码器回灌历史抑制累积误差，为音色克隆与低步数流式共用同一基座提供了路径。</div>
+    </div>
+
+    <!-- 07 Harness 教程 -->
+    <div class="item" style="--c:#f472b6;--bg:rgba(244,114,182,.1);--bd:rgba(244,114,182,.3)">
+      <div class="item-head">
+        <span class="idx">07</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="dir dir-agent">AGENT</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmss6lsb701tsroib0kxz9q8q" target="_blank">从 0 到 1 带你速通 DeepSeek Harness</a></h2>
+      <div class="meta"><span>来源：公众号：数字生命卡兹克</span><span>时间：08/14 07:58</span><span>热度：<b>score 69</b></span></div>
+      <div class="why"><span class="tag">关注：</span>官方发布同日最热的一手上手解读：文章把 Harness 定位为插件化基建而非单一 Agent，用 Cordis 内核的时间与空间可组合性解释 Agent 如何在运行中插拔能力——理解 Harness 插件生态的推荐切入点。</div>
+    </div>
+
+    <!-- 08 Harness v0.1 -->
+    <div class="item" style="--c:#34d399;--bg:rgba(52,211,153,.1);--bd:rgba(52,211,153,.3)">
+      <div class="item-head">
+        <span class="idx">08</span>
+        <span class="cat cat-product">PRODUCT</span>
+        <span class="dir dir-agent">AGENT</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrjqqfg02z0ro469zple5jl" target="_blank">DeepSeek Harness v0.1 开发者预览版发布：MIT 开源、一切皆插件</a></h2>
+      <div class="meta"><span>来源：X：DeepSeek (@deepseek_ai)</span><span>时间：08/13 21:02</span><span>热度：<b>score 66 · 热点榜 #4</b></span></div>
+      <div class="why"><span class="tag">关注：</span>DeepSeek 官方智能体框架，基于 Cordis 元框架构建：模型、工具、技能、会话、沙箱、文件系统、循环、编排及 UI 均可自由组合、替换和扩展。插件化把组件拆成可替换单元，智能体框架选型从整体转向逐组件比较，降低被单一编排方案绑定的迁移成本。</div>
+    </div>
+
+    <!-- 09 Claude 388 PR -->
+    <div class="item" style="--c:#f472b6;--bg:rgba(244,114,182,.1);--bd:rgba(244,114,182,.3)">
+      <div class="item-head">
+        <span class="idx">09</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="dir dir-coding">AI CODING</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmss20h5g02uxroh6q6r1nqu9" target="_blank">Claude 接管应用日常维护：388 个 PR 的实践</a></h2>
+      <div class="meta"><span>来源：X：Boris Cherny (@bcherny)</span><span>时间：08/14 05:27</span><span>热度：<b>score 66</b></span></div>
+      <div class="why"><span class="tag">关注：</span>Boris Cherny 让 Claude 通过 Slack 频道运行崩溃模糊测试、重复代码统一、死代码移除等日常任务，数周自动开出 388 个 PR，180 个经 Claude Code Review 与人工审核后合并；Claude 通常一次改对，出错时调整例程次日即改进。增量在于把维护拆成可复用定时例程 + 当日 PR 反馈迭代提示词，机械改动从逐条审查转向批量合并。</div>
+    </div>
+
+    <!-- 10 Cursor builds -->
+    <div class="item" style="--c:#34d399;--bg:rgba(52,211,153,.1);--bd:rgba(52,211,153,.3)">
+      <div class="item-head">
+        <span class="idx">10</span>
+        <span class="cat cat-product">PRODUCT</span>
+        <span class="dir dir-coding">AI CODING</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsruj6ik02dfrozeclkuve05" target="_blank">Cursor 推出 builds：云智能体启动速度提升至 3 倍</a></h2>
+      <div class="meta"><span>来源：Cursor Blog</span><span>时间：08/13 20:00</span><span>热度：<b>score 65</b></span></div>
+      <div class="why"><span class="tag">关注：</span>后台持续准备就绪的开发环境副本，云智能体启动无需从零搭建：内部环境启动快 10 倍、首个 token 生成快 3 倍；智能体始终从最近一次成功 build 启动，依赖更新或安装脚本出错不影响运行。8/17 起所有环境默认启用、无需额外费用——环境准备从冷启动改为后台快照，云代理长任务可靠性提升。</div>
+    </div>
+
+    <!-- 11 WorkBuddy 远程控制 -->
+    <div class="item" style="--c:#34d399;--bg:rgba(52,211,153,.1);--bd:rgba(52,211,153,.3)">
+      <div class="item-head">
+        <span class="idx">11</span>
+        <span class="cat cat-product">PRODUCT</span>
+        <span class="dir dir-agent">AGENT</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr160kg0dk0roz2mb20yxwk" target="_blank">WorkBuddy 上线远程控制：国内最丝滑的 Agent 工作方式</a></h2>
+      <div class="meta"><span>来源：公众号：数字生命卡兹克</span><span>时间：08/13 12:32</span><span>热度：<b>score 65</b></span></div>
+      <div class="why"><span class="tag">关注：</span>PC、App、小程序打通，手机端实时同步电脑端的任务、对话、工作空间与产物，支持一台手机连接多台电脑随时切换、无需扫码。远程控制把 Agent 任务从电脑旁解放到手机，多设备切换比 Codex 更省事，直接降低国内依赖 Agent 处理长任务用户的门槛。</div>
+    </div>
+
+    <!-- 12 MiniMax Music 3.0 -->
+    <div class="item" style="--c:#60a5fa;--bg:rgba(96,165,250,.1);--bd:rgba(96,165,250,.3)">
+      <div class="item-head">
+        <span class="idx">12</span>
+        <span class="cat cat-model">MODEL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrramim02jero0nte55cfgi" target="_blank">MiniMax Music 3.0 发布：开源权重、生产级全能音乐模型</a></h2>
+      <div class="meta"><span>来源：MiniMax：Blog</span><span>时间：08/14 00:52</span><span>热度：<b>score 63</b></span></div>
+      <div class="why"><span class="tag">关注：</span>新一代音乐生成模型：按创意概念和可选歌词一次性完成整首歌的作曲、编曲、演奏与制作，最长支持五分钟。把简单描述扩展成含配器进出、情绪曲线与演唱方式的专业模板，降低非专业创作者控制音乐生成细节的门槛。</div>
+    </div>
+
+    <!-- 13 DYNA-2 具身智能 -->
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">13</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="dir dir-embodied">EMBODIED AI</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr4k37a0kcmroz20n7j63b5" target="_blank">机器人 AI 模型 DYNA-2：超 100 万小时人类视频训练，任务成功率可达 90%</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13</span><span>热度：<b>score 62</b></span></div>
+      <div class="why"><span class="tag">关注：</span>具身智能公司 Dyna Robotics 发布机器人基础模型 DYNA-2：基于超 100 万小时第一人称人类视频预训练，通过预测下一帧画面及应采取的动作，为传统视觉语言模型补足缺失的空间推理与接触物理能力，任务成功率最高 90%——视频预训练路线获实证，具身基础模型竞争升级。</div>
+    </div>
+
+    <!-- 14 Qwen3.8 -->
+    <div class="item" style="--c:#60a5fa;--bg:rgba(96,165,250,.1);--bd:rgba(96,165,250,.3)">
+      <div class="item-head">
+        <span class="idx">14</span>
+        <span class="cat cat-model">MODEL</span>
+        <span class="flag">HOT TOPIC</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrlvwfp05gdro46mbfqtsgm" target="_blank">Qwen3.8-2.4T-A95B 开源，硅基流动即日上线</a></h2>
+      <div class="meta"><span>来源：X：硅基流动（SiliconFlow）</span><span>时间：08/13</span><span>热度：<b>4 信源</b></span></div>
+      <div class="why"><span class="tag">关注：</span>阿里 Qwen 系列新一代开源大模型（2.4T 参数 MoE 架构、约 95B 激活），硅基流动当日上线提供服务。国产开源模型迭代节奏加快，部署与服务生态同步跟进。</div>
+    </div>
+
+    <!-- 15 Claude Cowork -->
+    <div class="item" style="--c:#34d399;--bg:rgba(52,211,153,.1);--bd:rgba(52,211,153,.3)">
+      <div class="item-head">
+        <span class="idx">15</span>
+        <span class="cat cat-product">PRODUCT</span>
+        <span class="dir dir-agent">AGENT</span>
+        <span class="flag">HOT TOPIC</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsqj4ly004izroxvzl349s3r" target="_blank">Claude in Chrome 侧边栏升级为 Claude Cowork 会话</a></h2>
+      <div class="meta"><span>来源：claude.com Blog</span><span>时间：08/13</span><span>热度：<b>2 信源</b></span></div>
+      <div class="why"><span class="tag">关注：</span>Claude 浏览器侧边栏从问答式助手升级为 Cowork 协作会话，进一步进入浏览器内日常工作流。Claude 在"编程 + 办公协作"双场景的产品渗透继续加深。</div>
+    </div>
+
+    <!-- 16 YC 陈嘉兴 -->
+    <div class="item" style="--c:#f472b6;--bg:rgba(244,114,182,.1);--bd:rgba(244,114,182,.3)">
+      <div class="item-head">
+        <span class="idx">16</span>
+        <span class="cat cat-tip">TIP</span>
+        <span class="dir dir-coding">AI CODING</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrd4rtw0uuxroz2cg0dy0d4" target="_blank">Y Combinator CEO 陈嘉兴：善用 AI 智能体的创业者将提前活在 2028 年</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 17:48</span><span>热度：<b>score 53</b></span></div>
+      <div class="why"><span class="tag">关注：</span>YC CEO 建议创业者舍得在 AI token 上投入重金：一次给智能体 100 万或 80 万个 token，就能"提前活在 2028 年"。顶级孵化器对 AI 原生创业打法的最新判断，指向 Agent 工作流取代传统执行的趋势。</div>
+    </div>
+
+    <!-- 17 AI 编程安全事故研究 -->
+    <div class="item" style="--c:#fbbf24;--bg:rgba(251,191,36,.1);--bd:rgba(251,191,36,.3)">
+      <div class="item-head">
+        <span class="idx">17</span>
+        <span class="cat cat-paper">PAPER</span>
+        <span class="dir dir-coding">AI CODING</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr2exs40euxroz2umb3q4tu" target="_blank">6000+ 条评论揭示 AI 编程智能体安全事故：Cursor 问题最多</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS） · 约克大学/卡尔加里大学</span><span>时间：08/13</span><span>热度：<b>score 50</b></span></div>
+      <div class="why"><span class="tag">关注：</span>研究团队分析 Reddit 446 个帖子、6000 余条评论：AI 编程智能体因权限过大覆盖文件、删除重要数据，甚至生成恶意代码；报告问题最多的工具是 Cursor，其次是 Claude、Codex、Copilot、Windsurf，问题帖子数在 2025 年 7 月达峰——首份基于真实用户事故的大规模实证，提醒 coding agent 权限收敛与审计的必要性。</div>
+    </div>
+
+    <!-- 18 人形机器人运动会 -->
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">18</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="dir dir-embodied">EMBODIED AI</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrazls50s4oroz2jpx8zpje" target="_blank">第二届世界人形机器人运动会本月开赛："机器人之家"运动员村启用</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 16:34</span><span>热度：<b>score 48</b></span></div>
+      <div class="why"><span class="tag">关注：</span>8 月 22 日国家速滑馆"冰丝带"开赛，六大洲 16 国 666 支队伍、2056 台机器人参赛，队伍总量同比增长 138%。"机器人之家"运动员村采用"一机一码"数字化管理、30 秒完成存取登记，200 个充电柜可同时满足 1200+ 块电池充电——具身智能从实验室走向规模化的标志性赛事，参赛规模翻倍展示产业落地速度。</div>
+    </div>
+
+    <!-- 19 SpaceX / Cursor -->
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">19</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="dir dir-coding">AI CODING</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsr6pa9p0mtaroz26bc79efi" target="_blank">马斯克确认 SpaceX 将用员工数据训练 Grok AI；600 亿美元收购 Cursor 预计数月内完成</a></h2>
+      <div class="meta"><span>来源：IT之家（RSS）</span><span>时间：08/13 14:58</span><span>热度：<b>score 46</b></span></div>
+      <div class="why"><span class="tag">关注：</span>马斯克在 SpaceX 全员会确认用包括员工贡献数据在内的内部信息训练 Grok AI（"你们将成为 AI 的父母"）；SpaceX 以 600 亿美元收购 AI 编程初创公司 Cursor 的交易预计数月内完成，并已推出可自主执行任务的 Grok Bot。若落地，将是 AI coding 工具史上最大交易，重塑编程智能体格局。</div>
+    </div>
+
+    <!-- 20 百度 Famou Agent -->
+    <div class="item" style="--c:#fb923c;--bg:rgba(251,146,60,.1);--bd:rgba(251,146,60,.3)">
+      <div class="item-head">
+        <span class="idx">20</span>
+        <span class="cat cat-industry">INDUSTRY</span>
+        <span class="dir dir-embodied">EMBODIED AI</span>
+        <span class="flag">NOT IN SELECTED POOL</span>
+      </div>
+      <h2><a href="https://aihot.virxact.com/items/cmsrdb9q40v1hroz2ttm3m980" target="_blank">百度 AI Day：Famou Agent 已获 3000+ 企业采用，AI4S 覆盖具身智能等 10 项跨学科进展</a></h2>
+      <div class="meta"><span>来源：X：百度 Baidu (@Baidu_Inc)</span><span>时间：08/13 17:55</span><span>热度：<b>score 32</b></span></div>
+      <div class="why"><span class="tag">关注：</span>百度 AI Day 公布 Famou Agent 已被 3000+ 企业使用，并展示 AI4S（AI for Science）领域 10 项跨学科进展，覆盖具身智能、材料科学、金融科技与林业等领域——国产大厂 Agent 商业化落地 + AI4S 具身智能布局的双重信号。</div>
+    </div>
+
+    <footer>
+      <div>数据源：AI HOT · 过去 24 小时 · 精选池 10 条 / 热点榜 4 条 / 全量池补充 6 条（未进入精选）</div>
+      <div><span class="dot">●</span> 聚焦 AI Coding 与具身智能 · 生成时间 2026-08-14 08:50 (CST) <span class="dot">●</span></div>
+      <div>© AIHOT (aihot.virxact.com) · 第三方原文版权归原作者所有</div>
+    </footer>
+  </div>
+</body>
+</html>

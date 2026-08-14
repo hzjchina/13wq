@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小橘灯的微光 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(to bottom, #0a0e27 0%, #1a2151 50%, #2a3270 100%);
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.85;
+    }
+
+    /* 星空 */
+    .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 8%;
+      right: 12%;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff9e6, #ffe5a8);
+      box-shadow: 0 0 60px rgba(255, 230, 150, 0.6), 0 0 100px rgba(255, 220, 130, 0.4);
+      z-index: 1;
+      animation: moon-float 6s ease-in-out infinite;
+    }
+    .moon::before {
+      content: '';
+      position: absolute;
+      inset: -25px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 230, 150, 0.25), transparent 70%);
+      animation: moon-pulse 4s ease-in-out infinite;
+    }
+    @keyframes moon-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes moon-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 0.9; }
+    }
+
+    /* 流星 */
+    .meteor {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+      z-index: 2;
+      animation: meteor-fall 1.5s linear infinite;
+    }
+    .meteor::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 90px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.9), transparent);
+      transform-origin: left center;
+      transform: rotate(215deg);
+    }
+    @keyframes meteor-fall {
+      0% { transform: translate(0, 0); opacity: 1; }
+      100% { transform: translate(-300px, 300px); opacity: 0; }
+    }
+
+    /* 容器 */
+    .container {
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      z-index: 3;
+    }
+
+    /* 标题 */
+    .title {
+      text-align: center;
+      font-size: 2.2em;
+      color: #ffd9a3;
+      margin-bottom: 12px;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px rgba(255, 180, 100, 0.6);
+      animation: title-glow 3s ease-in-out infinite;
+    }
+    @keyframes title-glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(255, 180, 100, 0.6); }
+      50% { text-shadow: 0 0 30px rgba(255, 200, 130, 0.9), 0 0 50px rgba(255, 180, 100, 0.5); }
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.95em;
+      color: #c8b8e0;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+      opacity: 0.85;
+    }
+
+    /* 插图 */
+    .illustration {
+      max-width: 280px;
+      margin: 0 auto 50px;
+      position: relative;
+    }
+    .orange-lantern {
+      animation: lantern-sway 5s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+    @keyframes lantern-sway {
+      0%, 100% { transform: rotate(-2.5deg); }
+      50% { transform: rotate(2.5deg); }
+    }
+
+    /* SVG 元素动画 */
+    .flame {
+      transform-origin: center bottom;
+      animation: flame-flicker 1.5s ease-in-out infinite alternate;
+    }
+    @keyframes flame-flicker {
+      0% { transform: scale(1, 1) translateY(0); opacity: 0.9; }
+      100% { transform: scale(1.08, 1.12) translateY(-1px); opacity: 1; }
+    }
+    .inner-light {
+      animation: inner-pulse 2s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes inner-pulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    .bottom-glow {
+      animation: bottom-pulse 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes bottom-pulse {
+      0%, 100% { opacity: 0.6; transform: scaleX(1); }
+      50% { opacity: 1; transform: scaleX(1.18); }
+    }
+    .bg-glow-circle {
+      animation: bg-pulse 4s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes bg-pulse {
+      0%, 100% { opacity: 0.7; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* 故事 */
+    .story {
+      font-size: 1.13em;
+      line-height: 2;
+      color: #ece4f5;
+      text-align: justify;
+      letter-spacing: 0.6px;
+    }
+    .story p {
+      margin-bottom: 1.4em;
+      text-indent: 2em;
+    }
+    .story p:first-child::first-letter {
+      font-size: 1.2em;
+      color: #ffd9a3;
+    }
+
+    /* 晚安语 */
+    .goodnight {
+      text-align: center;
+      margin: 60px auto 30px;
+      padding: 35px 25px;
+      background: linear-gradient(135deg, rgba(255, 180, 100, 0.12), rgba(255, 220, 150, 0.06));
+      border-radius: 24px;
+      max-width: 600px;
+      font-size: 1.05em;
+      color: #ffe5a8;
+      line-height: 2;
+      letter-spacing: 1.5px;
+      animation: gn-glow 3s ease-in-out infinite;
+      position: relative;
+    }
+    @keyframes gn-glow {
+      0%, 100% { box-shadow: 0 0 30px rgba(255, 180, 100, 0.3); }
+      50% { box-shadow: 0 0 55px rgba(255, 200, 130, 0.55); }
+    }
+    .goodnight::before {
+      content: '🌙';
+      display: block;
+      font-size: 2em;
+      margin-bottom: 15px;
+      animation: moon-icon 3s ease-in-out infinite;
+    }
+    @keyframes moon-icon {
+      0%, 100% { transform: rotate(-10deg); }
+      50% { transform: rotate(10deg); }
+    }
+
+    /* 分隔星点 */
+    .stars-divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin: 40px 0;
+    }
+    .star-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffe5a8;
+      box-shadow: 0 0 12px rgba(255, 200, 130, 0.7);
+      animation: dot-twinkle 2.5s ease-in-out infinite;
+    }
+    .star-dot:nth-child(2) { animation-delay: 0.3s; }
+    .star-dot:nth-child(3) { animation-delay: 0.6s; }
+    .star-dot:nth-child(4) { animation-delay: 0.9s; }
+    .star-dot:nth-child(5) { animation-delay: 1.2s; }
+    .star-dot:nth-child(6) { animation-delay: 1.5s; }
+    .star-dot:nth-child(7) { animation-delay: 1.8s; }
+    @keyframes dot-twinkle {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.5); opacity: 1; }
+    }
+
+    /* 暖色粒子 */
+    .warm-particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+      animation: float-up linear infinite;
+    }
+    @keyframes float-up {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-15vh) scale(1.3); opacity: 0; }
+    }
+
+    /* 底部暖光带 */
+    .bottom-band {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(to top, rgba(255, 150, 80, 0.18), transparent);
+      z-index: 1;
+      animation: band-pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes band-pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .moon { width: 60px; height: 60px; top: 5%; right: 8%; }
+      .title { font-size: 1.7em; letter-spacing: 2px; }
+      .container { padding: 60px 18px 40px; }
+      .story { font-size: 1.05em; line-height: 1.95; }
+      .illustration { max-width: 220px; }
+      .goodnight { padding: 25px 18px; font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 星星层 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="meteor" style="top: 18%; left: 22%; animation-delay: 0s;"></div>
+  <div class="meteor" style="top: 28%; left: 65%; animation-delay: 3.2s;"></div>
+
+  <!-- 底部暖光带 -->
+  <div class="bottom-band"></div>
+
+  <!-- 主容器 -->
+  <div class="container">
+    <h1 class="title">小橘灯的微光</h1>
+    <p class="subtitle">— 儿童睡前故事 · 2026.08.13 —</p>
+
+    <div class="illustration">
+      <svg class="orange-lantern" viewBox="0 0 240 280" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bg-glow-grad" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.35"/>
+            <stop offset="55%" stop-color="#ff9933" stop-opacity="0.18"/>
+            <stop offset="100%" stop-color="#ff5722" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="orange-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ffcc80"/>
+            <stop offset="50%" stop-color="#ff9933"/>
+            <stop offset="100%" stop-color="#e65100"/>
+          </linearGradient>
+          <radialGradient id="flame-grad" cx="50%" cy="80%">
+            <stop offset="0%" stop-color="#fffde7" stop-opacity="1"/>
+            <stop offset="20%" stop-color="#fff176" stop-opacity="0.95"/>
+            <stop offset="55%" stop-color="#ff9800" stop-opacity="0.85"/>
+            <stop offset="100%" stop-color="#ff5722" stop-opacity="0"/>
+          </radialGradient>
+          <radialGradient id="inner-grad" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#fff176" stop-opacity="0.75"/>
+            <stop offset="60%" stop-color="#ff9933" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#ff5722" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="bottom-glow-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ff9933" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#ff5722" stop-opacity="0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 整体光晕 -->
+        <circle cx="120" cy="155" r="115" fill="url(#bg-glow-grad)" class="bg-glow-circle"/>
+
+        <!-- 橘皮主体 -->
+        <path d="M 48 165
+                 C 48 115, 80 95, 120 95
+                 C 160 95, 192 115, 192 165
+                 C 192 205, 170 225, 120 225
+                 C 70 225, 48 205, 48 165 Z"
+              fill="url(#orange-grad)"/>
+
+        <!-- 顶部凹陷（深色内部） -->
+        <ellipse cx="120" cy="140" rx="56" ry="25" fill="#3d1f0a"/>
+
+        <!-- 内部透出的橘光 -->
+        <ellipse cx="120" cy="140" rx="50" ry="19" fill="url(#inner-grad)" class="inner-light"/>
+
+        <!-- 蜡油（融化的金色小湖） -->
+        <ellipse cx="120" cy="144" rx="44" ry="9" fill="#ffd966"/>
+        <ellipse cx="108" cy="142" rx="16" ry="2.5" fill="#fffbe6" opacity="0.65"/>
+
+        <!-- 蜡烛 -->
+        <rect x="115" y="103" width="10" height="38" rx="2" fill="#fff8dc"/>
+        <rect x="115" y="103" width="2.5" height="38" fill="#ffe082" opacity="0.65"/>
+
+        <!-- 蜡烛芯 -->
+        <line x1="120" y1="103" x2="120" y2="92" stroke="#5d4037" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- 火焰 -->
+        <g class="flame">
+          <path d="M 120 91
+                   C 111 78, 108 64, 120 49
+                   C 132 64, 129 78, 120 91 Z"
+                fill="url(#flame-grad)"/>
+          <ellipse cx="120" cy="78" rx="3" ry="6" fill="#fffde7" opacity="0.8"/>
+        </g>
+
+        <!-- 顶部小绿叶 -->
+        <ellipse cx="103" cy="115" rx="10" ry="4.5" fill="#558b2f" transform="rotate(-30 103 115)"/>
+        <ellipse cx="137" cy="115" rx="10" ry="4.5" fill="#558b2f" transform="rotate(30 137 115)"/>
+
+        <!-- 橘皮纹理小点 -->
+        <g fill="#fff3e0" opacity="0.45">
+          <circle cx="80" cy="155" r="1.5"/>
+          <circle cx="95" cy="180" r="1.8"/>
+          <circle cx="115" cy="200" r="1.5"/>
+          <circle cx="145" cy="175" r="1.7"/>
+          <circle cx="160" cy="155" r="1.5"/>
+          <circle cx="85" cy="195" r="1.3"/>
+          <circle cx="155" cy="195" r="1.4"/>
+          <circle cx="105" cy="170" r="1.3"/>
+          <circle cx="135" cy="155" r="1.4"/>
+          <circle cx="100" cy="135" r="1.2"/>
+          <circle cx="140" cy="135" r="1.2"/>
+          <circle cx="75" cy="170" r="1.2"/>
+          <circle cx="165" cy="175" r="1.3"/>
+          <circle cx="125" cy="210" r="1.3"/>
+        </g>
+
+        <!-- 底部光晕 -->
+        <ellipse cx="120" cy="240" rx="72" ry="13" fill="url(#bottom-glow-grad)" class="bottom-glow"/>
+      </svg>
+    </div>
+
+    <div class="story">
+      <p>从前，有一颗小小的橘子，长在一棵大大的橘树上。</p>
+
+      <p>秋天来了，橘叶一片一片地飘下，小橘子打了个哈欠，松开枝头，"啪嗒"一声，落到了一个蓝眼睛小姑娘的小竹篮里。</p>
+
+      <p>小姑娘把橘子带回了家。她剥开橘子皮，一股清清的香味飘进鼻子里。她一瓣一瓣地把甜甜的橘肉吃完，最后留下了一个圆圆的、厚厚的橘子皮。</p>
+
+      <p>"呀，这个橘子皮弯弯的、空空的，好像一个橙色的小碗。"小姑娘眨眨眼睛，把它轻轻翻过来，再放上一根短短的小蜡烛。蜡油滴进橘子皮里，凝成一小滩金黄色的小湖。</p>
+
+      <p>小姑娘用火柴轻轻点燃了小蜡烛。噗的一声，温暖的橘色光立刻从橘子皮的每一条小缝里挤出来，把整个房间都染得暖和和的。</p>
+
+      <p>"哇！"小姑娘把它捧在手里，举到了窗前。窗外的小园子里，月亮刚刚升起来，淡淡的银色月光洒在草地上，和橘色光轻轻地握了握手。</p>
+
+      <p>小橘灯看了看自己，第一次发现，原来自己这么小小、这么弯弯的橘子皮，也能发出这样温柔的橘色光。</p>
+
+      <p>"我想出去走走。"小橘灯轻轻对小姑娘说。小姑娘笑着点点头，把窗户推得更开了一些。</p>
+
+      <p>小橘灯探出窗台，用细细的橘色光在草地上画了一个小小的圆。蚂蚁妹妹看见了，赶紧背着她的米粒跑过来："谢谢你，小橘灯，我差点找不到回家的路了。"</p>
+
+      <p>萤火虫哥哥也飞来，绕着小橘灯轻轻转了一圈："你的光好温柔，像妈妈的怀抱。"</p>
+
+      <p>小猫头鹰从老橡树上飞下来，停在树枝上，轻声念起了一首晚安诗。花园里所有的小花都跟着点点头，慢慢合上花瓣，进入梦乡。</p>
+
+      <p>小橘灯听着听着，眼皮一点一点地眯起来了。</p>
+
+      <p>"我也想睡觉啦。"她小声地说。</p>
+
+      <p>小姑娘走到窗前，轻轻把小橘灯捧回到床头柜上，又给她盖上一块小小的手帕，就像给最爱的妹妹盖被子一样。</p>
+
+      <p>"晚安，小橘灯。"小姑娘也轻轻地说。</p>
+
+      <p>小橘灯眨了眨眼睛，用最后一点暖暖的橘色光，画了一颗心形的晚安。然后，她甜甜地睡着了。所有的光都轻轻地化成了一颗香香的梦。</p>
+    </div>
+
+    <div class="stars-divider">
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+    </div>
+
+    <div class="goodnight">
+      晚安，小宝贝。小橘灯说，你今天也是个好孩子，该做一个甜甜的、暖暖的梦了。
+    </div>
+  </div>
+
+  <script>
+    // 生成星星
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 110; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = (Math.random() * 4) + 's';
+      star.style.animationDuration = (3 + Math.random() * 3) + 's';
+      star.style.opacity = Math.random() * 0.5 + 0.5;
+      starsContainer.appendChild(star);
+    }
+
+    // 生成暖色粒子
+    const colors = ['#ffd966', '#ff9933', '#ffe5a8', '#ffb74d'];
+    for (let i = 0; i < 8; i++) {
+      const p = document.createElement('div');
+      p.className = 'warm-particle';
+      const size = Math.random() * 4 + 3;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = (10 + Math.random() * 80) + '%';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.animationDuration = (7 + Math.random() * 5) + 's';
+      document.body.appendChild(p);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 #45 · 放牛班的春天</title>
+<style>
+  :root {
+    --bg-deep: #1a1a2e;
+    --bg-card: #16213e;
+    --bg-soft: #0f3460;
+    --accent: #e94560;
+    --accent-soft: #e94560aa;
+    --text-primary: #eaeaea;
+    --text-secondary: #b0b0c0;
+    --text-muted: #7a7a8e;
+    --gold: #f5a623;
+    --border: #ffffff15;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Noto Sans SC", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(160deg, #1a1a2e 0%, #0d1b2a 50%, #1b2838 100%);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ====== Hero ====== */
+  .hero {
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px 40px;
+    background: radial-gradient(ellipse at top, #0f3460 0%, transparent 70%),
+                linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 4px);
+    pointer-events: none;
+  }
+  .episode-badge {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 6vw, 46px);
+    font-weight: 800;
+    text-align: center;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 30px rgba(233,69,96,0.3);
+  }
+  .hero .subtitle {
+    font-size: clamp(15px, 3.5vw, 19px);
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+  }
+  .hero-tag {
+    font-size: 12px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    background: var(--bg-soft);
+    color: var(--text-secondary);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  /* ====== Container ====== */
+  .container {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* ====== Rating Bar ====== */
+  .ratings {
+    display: flex;
+    gap: 12px;
+    margin: 32px 0;
+    flex-wrap: wrap;
+  }
+  .rating-card {
+    flex: 1;
+    min-width: 140px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 18px 16px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+  .rating-card:hover { transform: translateY(-3px); }
+  .rating-card .platform {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+    letter-spacing: 1px;
+  }
+  .rating-card .score {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .rating-card .score::after {
+    content: ' / 10';
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* ====== Section ====== */
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+  .section-title .icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    flex-shrink: 0;
+  }
+  .section-title .bar {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-soft), transparent);
+  }
+  .section p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ====== Info Card ====== */
+  .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 36px;
+  }
+  .info-row {
+    display: flex;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label {
+    width: 80px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .info-value {
+    color: var(--text-primary);
+    flex: 1;
+  }
+
+  /* ====== Highlight List ====== */
+  .highlight-list {
+    list-style: none;
+    padding: 0;
+  }
+  .highlight-list li {
+    position: relative;
+    padding: 12px 0 12px 28px;
+    font-size: 16px;
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.7;
+  }
+  .highlight-list li:last-child { border-bottom: none; }
+  .highlight-list li::before {
+    content: '\266B';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    color: var(--accent);
+    font-size: 14px;
+  }
+
+  /* ====== Quote Block ====== */
+  .quote-block {
+    background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+    border-left: 3px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .quote-block .source {
+    display: block;
+    margin-top: 10px;
+    font-size: 13px;
+    color: var(--text-muted);
+    font-style: normal;
+  }
+
+  /* ====== Award Badges ====== */
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .award-badge {
+    font-size: 13px;
+    padding: 7px 16px;
+    border-radius: 8px;
+    background: rgba(245,166,35,0.1);
+    color: var(--gold);
+    border: 1px solid rgba(245,166,35,0.25);
+    white-space: nowrap;
+  }
+
+  /* ====== Footer ====== */
+  .footer {
+    text-align: center;
+    padding: 40px 20px 30px;
+    color: var(--text-muted);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+    margin-top: 20px;
+  }
+  .footer .date {
+    color: var(--accent);
+    margin-bottom: 6px;
+  }
+
+  /* ====== Responsive ====== */
+  @media (max-width: 600px) {
+    .hero { padding: 44px 16px 32px; min-height: 260px; }
+    .ratings { gap: 8px; }
+    .rating-card { min-width: 100px; padding: 14px 10px; }
+    .rating-card .score { font-size: 22px; }
+    .section p, .highlight-list li { font-size: 15px; }
+    .info-card { padding: 18px; }
+    .info-label { width: 64px; font-size: 13px; }
+    .info-value { font-size: 14px; }
+    .container { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== Hero ===== -->
+<div class="hero">
+  <div class="episode-badge">经典电影推荐 · 第 45 期</div>
+  <h1>放牛班的春天</h1>
+  <div class="subtitle">Les Choristes (2004)</div>
+  <div class="hero-meta">
+    <span class="hero-tag">克里斯托夫·巴拉蒂</span>
+    <span class="hero-tag">法国</span>
+    <span class="hero-tag">剧情 / 音乐</span>
+    <span class="hero-tag">97分钟</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== Ratings ===== -->
+  <div class="ratings">
+    <div class="rating-card">
+      <div class="platform">豆瓣</div>
+      <div class="score">9.3</div>
+    </div>
+    <div class="rating-card">
+      <div class="platform">IMDb</div>
+      <div class="score">7.9</div>
+    </div>
+    <div class="rating-card">
+      <div class="platform">烂番茄</div>
+      <div class="score">8.7</div>
+    </div>
+  </div>
+
+  <!-- ===== Info Card ===== -->
+  <div class="info-card">
+    <div class="info-row">
+      <div class="info-label">导演</div>
+      <div class="info-value">克里斯托夫·巴拉蒂（处女作长片）</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">主演</div>
+      <div class="info-value">热拉尔·朱尼奥 / 让-巴蒂斯特·莫尼耶 / 弗朗索瓦·贝利昂</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">年份</div>
+      <div class="info-value">2004 年</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">国家</div>
+      <div class="info-value">法国 / 瑞士 / 德国</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">语言</div>
+      <div class="info-value">法语</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">配乐</div>
+      <div class="info-value">布鲁诺·库莱斯（奥斯卡最佳原创歌曲提名）</div>
+    </div>
+    <div class="info-row">
+      <div class="info-label">奖项</div>
+      <div class="info-value">
+        <div class="awards">
+          <span class="award-badge">奥斯卡最佳外语片提名</span>
+          <span class="award-badge">奥斯卡最佳歌曲提名</span>
+          <span class="award-badge">法国凯撒奖8项提名2项获奖</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 剧情梗概 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:rgba(233,69,96,0.15);">🎬</span>
+      剧情梗概
+      <span class="bar"></span>
+    </div>
+    <p>1949 年的法国。一位叫克莱门特·马修的中年音乐家，怀才不遇，辗转来到一所名为"池塘之底"的寄宿学校担任学监。这所学校收容的都是父母不在身边的"问题少年"，校长哈珊信奉"犯错必罚"的铁腕手段，动辄将学生关禁闭、施以体罚，校园里弥漫着恐惧与对抗。</p>
+    <p>马修不是英雄，他矮小、秃顶、微微驼背，手提一只破旧的皮箱。但他做了一件所有人都不屑做的事——他看到了这些孩子身上被遗忘的东西。他组建了一个合唱团，让每个孩子都找到自己的位置：唱得好的站在前排，跑调的负责举乐谱，最小的那个则被任命为"乐谱架助理"。</p>
+    <p>合唱团的声音一天天变得纯粹而动人。其中有一个叫皮埃尔·莫昂奇的男孩，沉默寡言、满脸叛逆，却拥有一副被天使亲吻过的嗓音。马修发现了他，但如何引导这个桀骜不驯的天才，同时抵抗校长的高压与命运的无常——这位平凡的学监，即将做出他一生中最重要的选择。</p>
+  </div>
+
+  <!-- ===== 亮点所在 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:rgba(245,166,35,0.15);">⭐</span>
+      亮点所在
+      <span class="bar"></span>
+    </div>
+    <ul class="highlight-list">
+      <li><strong>天籁般的童声合唱。</strong>影片的核心灵魂是那些由巴黎童声合唱团演绎的合唱段落。主题曲《Cerf-volant》（风筝）和《Vois sur ton chemin》（看看你走过的路）在影片上映后传遍全球，至今仍是各大童声合唱团的保留曲目。当那个天使般的男孩独唱声在空旷的教室里响起时，无数观众在银幕前湿了眼眶。</li>
+      <li><strong>热拉尔·朱尼奥的封神表演。</strong>作为法国国宝级演员，朱尼奥将马修这个平凡到近乎卑微的小人物演出了最动人的层次。他不伟岸、不英俊、甚至不勇敢，但他身上有一种最珍贵的东西——对每一个孩子的善意。朱尼奥那张略显愁苦的脸，在光影中散发出令人安心的温暖。</li>
+      <li><strong>让-巴蒂斯特·莫尼耶的天使嗓音。</strong>饰演莫昂奇的莫尼耶本身就是巴黎童声合唱团的成员，导演选中他时他只有14岁。影片中那几段独唱并非后期配音，而是现场实录——那个清澈到近乎透明的嗓音，至今被认为是影史上最纯净的声音之一。</li>
+      <li><strong>纸飞机的告别。</strong>影片中最经典的画面之一：当马修被迫离开学校时，漫天的纸飞机从教学楼的窗口飞出，每架纸翼上都写着孩子们歪歪扭扭的名字。没有一个人出来送行，但那满天飘落的纸飞机胜过一切言语。这个画面已成为影史最温暖人心的瞬间之一。</li>
+      <li><strong>一部关于"看见"的电影。</strong>马修没有改变学校的制度，没有推翻校长，也没有成为什么伟人。他只是做了一件最简单的事——他看见了每个孩子。那个被认为无可救药的捣蛋鬼，那个被所有人放弃的叛逆少年，在那个破旧的教室里，第一次被一个人认真倾听。</li>
+    </ul>
+  </div>
+
+  <!-- ===== Quote ===== -->
+  <div class="quote-block">
+    "这不仅仅是一部关于音乐的电影，更是一部关于教育的电影。它告诉我们：每一个孩子的心中都有一扇窗，只等一个人来打开它。"
+    <span class="source">—— 法国《电影手册》评论</span>
+  </div>
+
+  <!-- ===== 为什么值得一看 ===== -->
+  <div class="section">
+    <div class="section-title">
+      <span class="icon" style="background:rgba(15,52,96,0.6);">👁</span>
+      为什么值得一看
+      <span class="bar"></span>
+    </div>
+    <p>在这个崇尚英雄的时代，《放牛班的春天》讲的是一个反英雄的故事。马修不是那种振臂一呼、改变世界的人。他只是一个失意的中年男人，在人生最低谷的时候，把自己仅有的东西——对音乐的热爱——给了那些同样处于低谷的孩子。</p>
+    <p>影片的力量在于它对"教育"这个概念最本质的追问。校长哈珊用恐惧管理学校，效果是孩子们越来越暴戾；马修用尊重和音乐对待他们，奇迹就发生了。这不是什么高深的理论，但它需要一种极难的东西——耐心，以及真正把对方当作"人"来对待的意愿。</p>
+    <p>影片最后，马修拎着那只破旧的皮箱走出校门，身后没有人送行。但远处一辆公交车上，一个他曾最头疼的孩子跑出来追上了他。这个结尾没有热血，没有煽情，却比任何大团圆都更让人热泪盈眶——因为它说的不是"他改变了世界"，而是"他至少改变了一个人的命运"。而有时候，这就够了。</p>
+    <p>如果你曾在一个低谷期被某个人看见、被某段旋律治愈过，这部电影会让你想起那个人，想起那段旋律。如果你不曾有过，那么看完之后，你也许会成为那样一个人。</p>
+    <p>它只有 97 分钟，却像一首永不过时的童声合唱——简单、纯净，却在你心里回响了很久很久。</p>
+  </div>
+
+</div>
+
+<!-- ===== Footer ===== -->
+<div class="footer">
+  <div class="date">2026.08.13 · 第 45 期</div>
+  <div>每日经典电影推荐 · 小虾米 🦐 出品</div>
+</div>
+
+</body>
+</html>
