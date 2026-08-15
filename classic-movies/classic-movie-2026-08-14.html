@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 第 46 期 · 海上钢琴师</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --card: #1c2330;
+    --border: #2d333b;
+    --text: #e6edf3;
+    --text-dim: #9aa4b2;
+    --accent: #e0b34c;
+    --accent-soft: rgba(224, 179, 76, 0.12);
+    --red: #e5533c;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    line-height: 1.8;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  /* 头部 */
+  header {
+    text-align: center;
+    padding: 48px 20px 36px;
+    background: linear-gradient(180deg, #141b26 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .issue {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+  }
+
+  /* 评分卡 */
+  .scores {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 26px 0 6px;
+  }
+  .score {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 20px;
+    min-width: 100px;
+    text-align: center;
+  }
+  .score .num {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .score .label {
+    font-size: 12px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-top: 2px;
+  }
+
+  /* 信息卡 */
+  .meta {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 28px;
+    margin: 30px 0;
+  }
+  .meta h2 {
+    font-size: 15px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .meta table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .meta td {
+    padding: 8px 0;
+    font-size: 16px;
+    vertical-align: top;
+  }
+  .meta td:first-child {
+    color: var(--text-dim);
+    width: 86px;
+    white-space: nowrap;
+  }
+
+  /* 正文块 */
+  section {
+    margin: 30px 0;
+  }
+  section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-left: 14px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.4;
+  }
+  section p {
+    font-size: 17px;
+    color: var(--text);
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+
+  /* 亮点列表 */
+  .highlight {
+    background: var(--accent-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 26px;
+    margin: 16px 0;
+  }
+  .highlight li {
+    list-style: none;
+    padding: 10px 0;
+    font-size: 16.5px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .highlight li:last-child { border-bottom: none; }
+  .highlight li::before {
+    content: "✦";
+    color: var(--accent);
+    margin-right: 10px;
+  }
+
+  /* 经典台词 */
+  .quote {
+    background: var(--bg-soft);
+    border-radius: 14px;
+    padding: 26px 28px;
+    margin: 20px 0;
+    text-align: center;
+    border: 1px solid var(--border);
+  }
+  .quote .text {
+    font-size: 19px;
+    font-style: italic;
+    color: var(--text);
+    line-height: 1.9;
+    margin-bottom: 10px;
+  }
+  .quote .src {
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+
+  /* 提示 */
+  .note {
+    background: rgba(229, 83, 60, 0.08);
+    border: 1px solid rgba(229, 83, 60, 0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin: 24px 0;
+    font-size: 15px;
+    color: #f0b7ab;
+  }
+  .note strong { color: var(--red); }
+
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    padding: 36px 20px 48px;
+    border-top: 1px solid var(--border);
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 30px; }
+    body { font-size: 16px; }
+    section p { font-size: 16px; }
+    .meta { padding: 20px; }
+    .score { min-width: 86px; padding: 10px 14px; }
+    .score .num { font-size: 22px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="issue">经典电影推荐 · 第 46 期</div>
+  <h1>海上钢琴师</h1>
+  <div class="subtitle">The Legend of 1900 · 1998 · 意大利</div>
+  <div class="scores">
+    <div class="score"><div class="num">9.3</div><div class="label">豆瓣评分</div></div>
+    <div class="score"><div class="num">8.1</div><div class="label">IMDb</div></div>
+    <div class="score"><div class="num">54</div><div class="label">豆瓣Top250</div></div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="meta">
+    <h2>影片档案</h2>
+    <table>
+      <tr><td>导演</td><td>朱塞佩·托纳多雷（时空三部曲）</td></tr>
+      <tr><td>主演</td><td>蒂姆·罗斯、普鲁特·泰勒·文斯、梅兰尼·蒂埃里</td></tr>
+      <tr><td>配乐</td><td>埃尼奥·莫里康内（Ennio Morricone）</td></tr>
+      <tr><td>类型</td><td>剧情 / 音乐</td></tr>
+      <tr><td>片长</td><td>165 分钟（加长版）</td></tr>
+      <tr><td>荣誉</td><td>金球奖最佳配乐、意大利大卫奖等多项大奖</td></tr>
+    </table>
+  </div>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>1900 年，一个被遗弃在豪华邮轮「弗吉尼亚号」头等舱钢琴上的婴儿，被一名锅炉工收养，并取名「1900」。他在船上长大，从未踏足陆地，却无师自通地学会了弹钢琴，成为传奇的海上钢琴师。</p>
+    <p>故事由他的挚友——小号手麦克斯的回忆展开。麦克斯在多年后重返即将被炸毁的旧船，只为寻找那个一生不愿下船的故人，并向我们讲述 1900 在海上、在琴键间度过的一生。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul class="highlight">
+      <li>埃尼奥·莫里康内的配乐堪称影史教科书，斗琴与旋律片段百听不厌。</li>
+      <li>「斗琴」与「风浪中随钢琴滑行」两场戏，是无数影迷心中的神级名场面。</li>
+      <li>托纳多雷「时空三部曲」之一，与《天堂电影院》《西西里的美丽传说》齐名。</li>
+      <li>一部关于「选择」的寓言——天才困于方寸之地，却拥有无边的精神世界。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>这不止是一部关于音乐的电影，更是一面映照现代人内心的镜子。1900 一生不下船，不是怯懦，而是一种清醒的自我选择——在陆地上，有无数条路、无穷的选择，反而让人迷失；而在他熟悉的 88 个琴键之间，他拥有完整而纯粹的无限。</p>
+    <p>当你对未知感到焦虑、在人生的岔路口犹豫时，这部电影会给你一种安静的治愈。它温柔地告诉我们：人生的价值，不在于你走过多远，而在于你是否忠于自己的内心。</p>
+  </section>
+
+  <div class="quote">
+    <div class="text">「陆地？陆地对我来说是一艘太大的船，一个太漂亮的女人，一段太长的旅程，一瓶太浓的香水。」</div>
+    <div class="src">—— 1900</div>
+  </div>
+
+  <div class="note">
+    <strong>无剧透提示：</strong>以上仅呈现影片背景与主题，未涉及关键情节与结局。请放心沉浸式观看，最好配一副好耳机，让莫里康内的音乐带你上船。
+  </div>
+
+</div>
+
+<footer>
+  🦐 小虾米 · 经典电影推荐 · 2026-08-14
+</footer>
+
+</body>
+</html>

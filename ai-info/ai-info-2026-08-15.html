@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报速递 · 2026-08-15</title>
+<style>
+:root{
+  --bg:#05070f; --panel:#0a0f1e; --line:#1c2a4a;
+  --text:#e6edf7; --dim:#8b9bb8; --cyan:#22d3ee; --violet:#a78bfa; --pink:#f472b6; --amber:#fbbf24;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+  line-height:1.65; overflow-x:hidden;
+}
+/* 网格线背景 */
+body::before{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(34,211,238,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.05) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 100%);
+}
+/* 霓虹光晕 */
+body::after{
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(600px 300px at 15% -5%, rgba(34,211,238,.16), transparent 60%),
+    radial-gradient(700px 340px at 85% 10%, rgba(167,139,250,.14), transparent 60%),
+    radial-gradient(600px 320px at 50% 105%, rgba(244,114,182,.10), transparent 60%);
+}
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:56px 20px 80px}
+
+header{text-align:center; margin-bottom:44px}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; letter-spacing:.35em; color:var(--cyan);
+  padding:6px 18px; border:1px solid rgba(34,211,238,.3); border-radius:999px;
+  background:linear-gradient(90deg, rgba(34,211,238,.08), rgba(167,139,250,.08));
+  text-transform:uppercase;
+}
+h1{
+  margin:18px 0 6px; font-size:clamp(28px,5vw,44px); font-weight:800; letter-spacing:.04em;
+  background:linear-gradient(100deg,#22d3ee 10%,#a78bfa 50%,#f472b6 90%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+.sub{
+  font-size:13px; color:var(--dim);
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:10px;
+}
+.sub span{padding:4px 12px; border:1px solid var(--line); border-radius:8px; background:rgba(10,15,30,.7)}
+.sub b{color:var(--text); font-weight:600}
+
+.legend{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin:22px 0 8px; font-size:12px; color:var(--dim)}
+.legend i{display:inline-block; width:10px; height:10px; border-radius:3px; margin-right:6px; vertical-align:-1px}
+
+.grid{display:grid; grid-template-columns:1fr; gap:16px; margin-top:26px}
+@media (min-width:820px){.grid{grid-template-columns:1fr 1fr}}
+
+.card{
+  position:relative; display:flex; gap:14px;
+  background:linear-gradient(160deg, rgba(20,28,52,.85), rgba(10,15,30,.9));
+  border:1px solid var(--line); border-radius:14px; padding:18px 18px 14px;
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  overflow:hidden;
+}
+.card::before{
+  content:""; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg, var(--glow), transparent 80%);
+  opacity:.7;
+}
+.card::after{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(320px 140px at var(--glow-pos,20% 0%), color-mix(in srgb, var(--glow) 9%, transparent), transparent 70%);
+}
+.card:hover{
+  transform:translateY(-3px); border-color:color-mix(in srgb, var(--glow) 55%, transparent);
+  box-shadow:0 10px 34px -12px color-mix(in srgb, var(--glow) 45%, transparent);
+}
+.rank{
+  flex:0 0 40px; height:40px; display:flex; align-items:center; justify-content:center;
+  font-size:19px; font-weight:800; color:var(--glow);
+  border:1px solid color-mix(in srgb, var(--glow) 40%, transparent); border-radius:10px;
+  background:color-mix(in srgb, var(--glow) 8%, transparent);
+  font-variant-numeric:tabular-nums;
+}
+.card-body{flex:1; min-width:0}
+.card-top{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px}
+.tag{font-size:11px; padding:2px 9px; border-radius:999px; border:1px solid; white-space:nowrap; letter-spacing:.05em}
+.heat{display:flex; align-items:center; gap:7px; min-width:86px}
+.heat i{display:block; height:4px; flex:1; background:rgba(139,155,184,.14); border-radius:2px; overflow:hidden; position:relative}
+.heat i::after{content:""; position:absolute; inset:0; width:var(--w,0); background:linear-gradient(90deg,var(--glow),transparent); border-radius:2px; transition:width .4s}
+.heat b{font-size:12px; color:var(--dim); font-weight:600; font-variant-numeric:tabular-nums}
+
+h3{font-size:15.5px; font-weight:700; line-height:1.5; margin-bottom:8px}
+h3 a{color:var(--text); text-decoration:none; transition:color .2s}
+h3 a:hover{color:var(--glow)}
+.summary{font-size:13px; color:var(--dim); margin-bottom:10px; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden}
+.why{font-size:12.5px; color:#c8d6ea; background:rgba(255,255,255,.03); border-left:2px solid var(--glow); padding:7px 11px; border-radius:0 8px 8px 0; margin-bottom:11px}
+.why-ico{color:var(--glow); margin-right:5px}
+.meta{display:flex; flex-wrap:wrap; gap:8px; justify-content:space-between; font-size:11.5px; color:#5d6f8f}
+.src{overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:70%}
+.time{white-space:nowrap}
+
+footer{text-align:center; margin-top:46px; font-size:12px; color:#5d6f8f; line-height:2}
+footer .line{width:180px; height:1px; margin:0 auto 14px; background:linear-gradient(90deg,transparent,var(--cyan),transparent)}
+.attribution{color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">⚡ AI Daily Briefing</div>
+    <h1>AI 情报速递 · 8 月 15 日</h1>
+    <p class="sub">
+      <span>数据源 <b>AI HOT</b> · 过去 24 小时</span>
+      <span>精选 <b>10</b></span>
+      <span>全量池补充 <b>7</b></span>
+      <span>未进入精选 <b>3</b></span>
+    </p>
+    <div class="legend">
+      <span><i style="background:#22d3ee"></i>精选池</span>
+      <span><i style="background:#a78bfa"></i>全量池补充</span>
+      <span><i style="background:#fbbf24"></i>未进入精选（关键词池为空，全量池补足）</span>
+    </div>
+  </header>
+  <div class="grid">
+    
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">01</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:79%"></i><b>79</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmssv94cg0h4mroffsb9e7a88" target="_blank" rel="noopener">dots3-note Preview 开源：280B 参数轻量模型，主打长程智能体与多模态推理</a></h3>
+        <p class="summary">小红书技术开源 dots3-note Preview，这是 dots3 系列最轻量模型，总参数 280B、激活参数 16B，支持 512K 上下文及文本、视觉、语音多模态理解，并针对复杂推理和长程 Agent 任务优化。</p>
+        <p class="why"><span class="why-ico">✦</span> 小红书自研模型首次进开源视野，280B/16B MoE 结构+512K 上下文直接对标 DeepSeek/GLM 主力梯队，长程 Agent 与多模态是下一代竞争焦点</p>
+        <div class="meta">
+          <span class="src">公众号：小红书技术（dots.llm）</span>
+          <span class="time">北京时间 08-14 19:25</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">02</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:76%"></i><b>76</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmst2gs6d02lmro06sb7as7av" target="_blank" rel="noopener">OpenAI and Anthropic in price war as Chinese AI rivals gain ground</a></h3>
+        <p class="summary"></p>
+        <p class="why"><span class="why-ico">✦</span> 中美头部实验室价格战白热化，直接改写企业选型成本模型，与第 18 条『84% token 来自非前沿模型』互为印证</p>
+        <div class="meta">
+          <span class="src">Ars Technica：AI（RSS）</span>
+          <span class="time">北京时间 08-14 22:27</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">03</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:73%"></i><b>73</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmssir12d047oroffnpn5pcx1" target="_blank" rel="noopener">GLM-5.3 发布：编程能力开源第一，并涌现网络安全能力</a></h3>
+        <p class="summary">智谱发布GLM-5.3，基于与GLM-5.2相同的基座，通过极致的后训练Scaling提升智能上界，编程能力较前代提升50%，在Terminal Bench 3.0等公开基准中取得开源第一，并接近Claude Fable 5。模型在白盒代码审查等安全任务中表现持平Mythos 5，在CyberGym测试中得分84.5%。模型权重将在两周后开源，即日起上线ZCode、AutoClaw等工具。</p>
+        <p class="why"><span class="why-ico">✦</span> 编程能力开源第一、逼近 Claude Fable 5，后训练 Scaling 路线再次验证；两周后开源权重，对 AI coding 工具链是直接利好</p>
+        <div class="meta">
+          <span class="src">公众号：智谱（GLM）</span>
+          <span class="time">北京时间 08-14 13:31</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">04</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:71%"></i><b>71</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmst4z2qp05boro06ce7kxtgd" target="_blank" rel="noopener">2026年夏季开源模型生态观察：中国前沿模型规模领先，AMD与NVIDIA主导发布量</a></h3>
+        <p class="summary">2026年1至8月，Hugging Face公开模型仓库从243万增至296万，但85.6%的模型下载量不足200次，1.5%的仓库占据99.2%下载量。中国实验室月度最大开源模型参数规模在754B至2.78万亿之间，美国实验室七个月中五个月低于130B。AMD与NVIDIA各发布超200个新模型仓库，成为发布开源模型最多的机构。</p>
+        <p class="why"><span class="why-ico">✦</span> 中国实验室月度最大开源模型规模已达 2.78T 参数远超美国，开源生态的供给重心正在东移</p>
+        <div class="meta">
+          <span class="src">Hugging Face：Blog（RSS）</span>
+          <span class="time">北京时间 08-14 08:00</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">05</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:71%"></i><b>71</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmst3j53e03ncro068tgsr4xn" target="_blank" rel="noopener">通义千问开源 Qwen3.8 系列模型</a></h3>
+        <p class="summary">通义千问兑现承诺，开源 Qwen3.8 系列模型。其中 Qwen3.8-27B 为原生多模态稠密模型，仅 27B 参数即全面超越 Qwen3.7-Plus，原生支持 262K 上下文，可通过 YaRN 扩展至 1M tokens，采用 Apache 2.0 许可。Max 级 Qwen3.8-2.4T-A95B 的开放权重也已同步发布。</p>
+        <p class="why"><span class="why-ico">✦</span> 27B 稠密模型全面超越 Qwen3.7-Plus，Apache 2.0+262K 原生上下文，本地部署/私有化场景的高性价比之选</p>
+        <div class="meta">
+          <span class="src">X：通义千问 / Qwen (@Alibaba_Qwen)</span>
+          <span class="time">北京时间 08-14 23:02</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">06</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:68%"></i><b>68</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmst3joqo03pwro0658o4g1m3" target="_blank" rel="noopener">Cursor 正式被 SpaceX 收购</a></h3>
+        <p class="summary">Cursor 已被 SpaceX 正式收购，完成自 4 月启动的收购流程。合并后 Cursor 将获得全球最大 GPU 集群，以构建更强且运行成本更低的模型，从而以更低价格向客户提供更强大的模型。本周三发布的 Grok 4.6 是双方合作成果的早期体现。</p>
+        <p class="why"><span class="why-ico">✦</span> AI coding 工具赛道最大并购落地，Cursor 获得全球最大 GPU 集群，模型成本战将进一步加剧，AI coding 方向今日头条</p>
+        <div class="meta">
+          <span class="src">Cursor Blog</span>
+          <span class="time">北京时间 08-14 20:00</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">07</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:66%"></i><b>66</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmst9yj3c05utrodz443l0odv" target="_blank" rel="noopener">Gemini 3.7 Flash 全面上线 Pro 与 Ultra 用户</a></h3>
+        <p class="summary">Gemini 3.7 Flash 现已向 Gemini 聊天中的 Pro 和 Ultra 用户开放。该模型更新提升了多步骤任务的推理与准确性，如智能整合数十个文件和邮件为一份主文档。同时，Gemini Spark 也已运行于 3.7 Flash，通过改进对 Google Workspace 应用的工具调用，让个人 AI 智能体更精准。</p>
+        <p class="why"><span class="why-ico">✦</span> 主力 Flash 档模型全面开放，多文件整合与 Workspace 工具调用强化，Agent 场景性价比升级</p>
+        <div class="meta">
+          <span class="src">X：Gemini (@GeminiApp)</span>
+          <span class="time">北京时间 08-15 02:06</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">08</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:65%"></i><b>65</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmstc3u8j02xhro0xf5o1ouas" target="_blank" rel="noopener">Claude 文本水印机制如何运作</a></h3>
+        <p class="summary">未来 Claude 模型生成的文本将包含水印，用于判断文本由 Claude 撰写的可能性，这是 Anthropic 为遵守欧盟《AI 法案》而实施的变更。该方法基于 Google DeepMind 的 SynthID-Text 技术，对输出质量、创造力和可读性无实际影响，读者无法区分水印文本与普通文本，且不增加额外 token 或成本。</p>
+        <p class="why"><span class="why-ico">✦</span> 欧盟 AI 法案推动下的合规动作，SynthID-Text 落地，将影响所有 Claude 生成内容的可溯源性</p>
+        <div class="meta">
+          <span class="src">Anthropic：Newsroom（网页）</span>
+          <span class="time">北京时间 08-15 03:22</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">09</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:65%"></i><b>65</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmssi38vn03o9rofffr0z8lyb" target="_blank" rel="noopener">DeepSeek V4 Pro 登陆硅基流动，1M 上下文</a></h3>
+        <p class="summary">DeepSeek-V4-Pro-0813 正式上线硅基流动 SiliconFlow，提供 Day-0 支持，具备 1M 上下文窗口及低/高/最大三档推理强度，更侧重编码、工具调用与智能体工作流，仍保持 MIT 开源协议。定价为输入 $1.32/M、输出 $3.96/M、缓存命中 $0.44/M。同系列 DeepSeek-V4-Flash-0731 则面向追求速度与成本效益的日常生产场景。</p>
+        <p class="why"><span class="why-ico">✦</span> 1M 上下文+侧重编码/Agent 工作流，MIT 开源且价格为前沿闭源零头，AI coding 生产力首选</p>
+        <div class="meta">
+          <span class="src">X：硅基流动 SiliconFlow (@SiliconFlowAI)</span>
+          <span class="time">北京时间 08-14 12:55</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#a78bfa">
+      <div class="rank">10</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa33;background:#a78bfa11">全量池补充</span>
+          <span class="heat"><i style="--w:64%"></i><b>64</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmstd58nb03g1ro0xvgc38fqr" target="_blank" rel="noopener">谷歌用同态加密让私有化 AI 推理走向实用：开源编译器 HEIR 发布</a></h3>
+        <p class="summary">谷歌发布开源编译器 HEIR，可将预训练 AI 模型转换为直接处理加密输入，实现密码学级别的私有推理。该工具已支持深度推荐、信用卡欺诈检测、网络异常检测和热词识别四个应用，单线程 CPU 延迟数据已公开。谷歌正与 Belfort、Niobium 等硬件加速器厂商合作，以降低同态加密的成本开销。</p>
+        <p class="why"><span class="why-ico">✦</span> 同态加密推理走向实用，私有化 AI 的关键基础设施，开源编译器显著降低落地门槛</p>
+        <div class="meta">
+          <span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span>
+          <span class="time">北京时间 08-15 03:22</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#a78bfa">
+      <div class="rank">11</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa33;background:#a78bfa11">全量池补充</span>
+          <span class="heat"><i style="--w:63%"></i><b>63</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmstii6ix099qro0xq2uny6g9" target="_blank" rel="noopener">如何最大化 Claude Code 会话价值：高效利用每个 token 的实用技巧</a></h3>
+        <p class="summary">Anthropic 官方发布 Claude Code 高效使用指南，帮助开发者降低 token 成本。核心建议包括：任务间运行 /clear 清除无关上下文、在会话开始前设置模型和 effort 级别以避免破坏提示缓存、用 @-mention 直接附加文件以节省 Read 调用。提示缓存读取成本仅为正常输入的 0.1 倍，输出 token 价格约为输入的 5 倍，缓存过期时间为 1 小时。</p>
+        <p class="why"><span class="why-ico">✦</span> 官方 token 优化实践（提示缓存成本低至 0.1x），对重度使用 AI coding 的团队是直接降本指南</p>
+        <div class="meta">
+          <span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span>
+          <span class="time">北京时间 08-15 06:16</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#22d3ee">
+      <div class="rank">12</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee33;background:#22d3ee11">精选</span>
+          <span class="heat"><i style="--w:62%"></i><b>62</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmssf79uf05rwrod09r9ocb2w" target="_blank" rel="noopener">蚂蚁百灵与 ASystem 团队打通单机 Agentic RL 后训练闭环</a></h3>
+        <p class="summary">蚂蚁百灵与 ASystem 团队合作，用 Ling-3.0-tiny 和 AReno 在 DGX Spark 上跑通单机 Agentic RL 后训练闭环。以井字棋为最小验证任务，用 GSPO 算法训练 400 步后，rollout/rewards_mean 从约 -0.5 升至 0.4，response_len 降至约 850 tokens，工具调用与动作选择趋于稳定。</p>
+        <p class="why"><span class="why-ico">✦</span> 单机跑通 Agentic RL 后训练闭环，400 步训练即见效，Agent 后训练门槛大幅降低</p>
+        <div class="meta">
+          <span class="src">公众号：蚂蚁百灵（Ling）</span>
+          <span class="time">北京时间 08-14 12:00</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#fbbf24">
+      <div class="rank">13</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#fbbf24;border-color:#fbbf2433;background:#fbbf2411">未进入精选</span>
+          <span class="heat"><i style="--w:62%"></i><b>62</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmssfwwai06cirod0mc345fc0" target="_blank" rel="noopener">&quot;AI在家&quot;第一部分：一盒废料</a></h3>
+        <p class="summary">作者用eBay上的二手服务器硬件搭建家用AI数据中心，核心是四块AMD V620显卡（各32GB VRAM），搭配X299平台主板和Intel Core i9 10900X CPU。这些云游戏时代过剩的显卡因软件支持差而便宜，作者3D打印风扇导流罩解决散热问题，并调整BIOS设置让系统成功启动。</p>
+        <p class="why"><span class="why-ico">✦</span> 二手硬件搭建家用 AI 数据中心，云游戏显卡过剩与软件生态断裂的现实写照</p>
+        <div class="meta">
+          <span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span>
+          <span class="time">北京时间 08-14 11:48</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#a78bfa">
+      <div class="rank">14</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa33;background:#a78bfa11">全量池补充</span>
+          <span class="heat"><i style="--w:58%"></i><b>58</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmste9ki304hnro0xx8gqg6ku" target="_blank" rel="noopener">Anthropic 风险报告提及新模型 Model 2</a></h3>
+        <p class="summary">Anthropic 发布了其&quot;风险报告&quot;，其中提到一个新的&quot;Model 2&quot;，据推测是他们的下一代 Mythos 级模型。
+
+目前，Anthropic 暂无向公众发布该模型的计划。
+
+不会很快发布 👀</p>
+        <p class="why"><span class="why-ico">✦</span> Anthropic 下一代 Mythos 级模型在风险报告中露面，短期不发布，但方向性信号值得跟踪</p>
+        <div class="meta">
+          <span class="src">X：Testing Catalog (@testingcatalog)</span>
+          <span class="time">北京时间 08-15 04:10</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#a78bfa">
+      <div class="rank">15</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa33;background:#a78bfa11">全量池补充</span>
+          <span class="heat"><i style="--w:56%"></i><b>56</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmstge4lj05umro0xshnegv93" target="_blank" rel="noopener">X 开源 For You 算法，公开推荐权重与训练代码</a></h3>
+        <p class="summary">X 发布其 For You 推荐算法的大型开源更新，公开了用于帖子排名的实际权重，以及点赞、回复、转发、点击、观看时长、关注、屏蔽和举报对排名的影响。更新还包含 Phoenix 推荐模型的训练代码、SimClusters 发现机制、巴西 2026 选举所需的新过滤器，以及展示可能限制账号可见性标签的&quot;Under the Hood&quot;工具。</p>
+        <p class="why"><span class="why-ico">✦</span> 推荐算法权重与训练代码全公开，社交推荐透明度里程碑</p>
+        <div class="meta">
+          <span class="src">X：cb_doge (@cb_doge)</span>
+          <span class="time">北京时间 08-15 05:20</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#a78bfa">
+      <div class="rank">16</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa33;background:#a78bfa11">全量池补充</span>
+          <span class="heat"><i style="--w:55%"></i><b>55</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmstkn5hp0apdro0xudhl7k6o" target="_blank" rel="noopener">英伟达全面投产 Spectrum-X，全球首款量产 200G/lane CPO 交换机</a></h3>
+        <p class="summary">英伟达官宣全面投产 Spectrum-X 以太网光子交换机，成为全球首款量产的 200G/lane 共封装光器件（CPO）交换机系统。相比传统可插拔光模块，该架构功耗降至 1/5，激光器数量减至 1/4，AI 应用无中断运行时间延长 5 倍。</p>
+        <p class="why"><span class="why-ico">✦</span> 全球首款量产 CPO 交换机，AI 数据中心网络功耗降 5 倍，算力基础设施关键转折</p>
+        <div class="meta">
+          <span class="src">IT之家（RSS）</span>
+          <span class="time">北京时间 08-15 06:53</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#a78bfa">
+      <div class="rank">17</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa33;background:#a78bfa11">全量池补充</span>
+          <span class="heat"><i style="--w:55%"></i><b>55</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmstb1c7p01i5rov30jefiknu" target="_blank" rel="noopener">Claude Code 默认启用 Auto 模式</a></h3>
+        <p class="summary">Claude Code 即日起向 Pro、Max 和 Team 用户默认推出 Auto 模式作为权限模式。该模式通过独立分类器审查 shell 命令和操作，测试中能捕获 89% 的危险命令，而手动审批仅捕获 14%。已设置默认模式的用户不会被更改，仍可通过 Shift+Tab 随时切换。</p>
+        <p class="why"><span class="why-ico">✦</span> 权限模式默认化，独立分类器捕获 89% 危险命令，AI 编码安全自动化新范式</p>
+        <div class="meta">
+          <span class="src">X：Claude Devs (@ClaudeDevs)</span>
+          <span class="time">北京时间 08-15 02:32</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#a78bfa">
+      <div class="rank">18</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa33;background:#a78bfa11">全量池补充</span>
+          <span class="heat"><i style="--w:54%"></i><b>54</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmstlse4t0bhbro0x08idymf2" target="_blank" rel="noopener">谁真的需要SOTA模型？OpenRouter数据显示84%token来自非前沿模型</a></h3>
+        <p class="summary">OpenRouter数据显示，84%的模型token并非来自SOTA模型，用户最常用的六款模型性能约为前沿模型的77%，成本仅为Claude Fable 5的2.5%。8月10日当周，六款模型承载了80%流量，混合价格约$0.50/百万token，而Fable 5为$20。最佳开源模型性能已从一年前的48%提升至前沿模型的80%，企业正转向更小、微调或开源模型以优化性价比。</p>
+        <p class="why"><span class="why-ico">✦</span> 性价比模型主导实际生产流量，企业选型从『追 SOTA』转向『够用就好』</p>
+        <div class="meta">
+          <span class="src">Tomer Tunguz 博客（VC 分析）</span>
+          <span class="time">北京时间 08-14 08:00</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#fbbf24">
+      <div class="rank">19</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#fbbf24;border-color:#fbbf2433;background:#fbbf2411">未进入精选</span>
+          <span class="heat"><i style="--w:53%"></i><b>53</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmst5o69b05niro068zopln28" target="_blank" rel="noopener">AI Coding 越快，工程反馈越模糊</a></h3>
+        <p class="summary">AI Coding 让代码生成大幅提速，却打乱了软件工程原有的反馈机制：需求不拆解、阶段结果不定义、变更不可追溯，省下的开发时间会以 Bug、返工和沟通成本的形式补回来。AI 越快，人越需要主动制造检查点，让每一步结果可理解、可验证、可追溯。AI Coding 下半场的竞争将从生成速度转向工程过程清晰度与质量可控性。</p>
+        <p class="why"><span class="why-ico">✦</span> AI Coding 提速与反馈机制失衡的反思：下半场竞争从生成速度转向工程清晰度与质量可控</p>
+        <div class="meta">
+          <span class="src">X：小北 (@frxiaobei)</span>
+          <span class="time">北京时间 08-15 00:20</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="card" style="--glow:#fbbf24">
+      <div class="rank">20</div>
+      <div class="card-body">
+        <div class="card-top">
+          <span class="tag" style="color:#fbbf24;border-color:#fbbf2433;background:#fbbf2411">未进入精选</span>
+          <span class="heat"><i style="--w:49%"></i><b>49</b></span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmssfww3h06c2rod0ev1vb8c1" target="_blank" rel="noopener">《人形机器人试验方法》系列国家标准启动会在武汉举行，宇树科技、小米机器人参会</a></h3>
+        <p class="summary">《人形机器人试验方法》系列国家标准启动会8月13日在武汉光谷举行，总则、环境感知、决策规划、运动控制等7项标准同步启动编制，宇树科技、小米机器人等头部企业和高校的200多名代表参会。会上，湖北省人形机器人与具身智能标准工作组揭牌成立，首批委员涵盖29家单位。全国机器人标委会人形机器人分委会秘书长刘新表示，试验方法相当于国家认可的&quot;考试大纲&quot;，标准先立起来产业才能真正跑起来。</p>
+        <p class="why"><span class="why-ico">✦</span> 7 项试验方法国标启动，宇树/小米参会，具身智能『考试大纲』落地，标准先行走在产业前面</p>
+        <div class="meta">
+          <span class="src">IT之家（RSS）</span>
+          <span class="time">北京时间 08-14 11:26</span>
+        </div>
+      </div>
+    </article>
+  </div>
+  <footer>
+    <div class="line"></div>
+    <div>聚焦 AI coding 与具身智能 · 按热度从高到低排序</div>
+    <div class="attribution">数据来自 AI HOT（aihot.virxact.com）· 第三方原文版权归原作者 · 生成于 2026-08-15 08:30 (UTC+8)</div>
+  </footer>
+</div>
+</body>
+</html>

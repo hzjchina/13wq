@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 搏击俱乐部</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --card-bg: #ffffff;
+    --text: #2c2c2c;
+    --text-secondary: #6b6b6b;
+    --accent: #c0392b;
+    --accent-light: #e74c3c;
+    --border: #e0ddd5;
+    --shadow: rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .header-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 4px 14px;
+    border-radius: 20px;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+
+  .movie-title {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 6px;
+    color: var(--text);
+  }
+
+  .movie-meta {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+  }
+
+  .movie-meta span { margin-right: 12px; }
+
+  .rating-bar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  .rating-pill {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 16px;
+    text-align: center;
+    min-width: 90px;
+    box-shadow: 0 2px 8px var(--shadow);
+  }
+
+  .rating-pill .score {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+  }
+
+  .rating-pill .source {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+
+  .section {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 18px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+
+  .section p {
+    font-size: 16px;
+    color: var(--text);
+    line-height: 1.9;
+  }
+
+  .highlight-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .highlight-list li {
+    font-size: 15.5px;
+    padding: 10px 0;
+    border-bottom: 1px dashed var(--border);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .highlight-list li:last-child { border-bottom: none; }
+
+  .highlight-list .icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .quote-box {
+    background: #fdf6f0;
+    border-left: 4px solid var(--accent);
+    padding: 16px 20px;
+    border-radius: 0 10px 10px 0;
+    margin-top: 16px;
+    font-style: italic;
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.8;
+  }
+
+  .footer {
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-top: 32px;
+    padding-bottom: 20px;
+  }
+
+  .footer .date {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  @media (max-width: 480px) {
+    body { padding: 16px 12px; }
+    .movie-title { font-size: 26px; }
+    .section { padding: 18px; }
+    .rating-pill { min-width: 78px; padding: 8px 12px; }
+    .rating-pill .score { font-size: 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="header-badge">第 47 期经典推荐</div>
+
+  <h1 class="movie-title">搏击俱乐部</h1>
+  <div class="movie-meta">
+    <span>🎬 Fight Club</span>
+    <span>1999 · 美国</span>
+    <span>大卫·芬奇 导演</span>
+  </div>
+
+  <div class="rating-bar">
+    <div class="rating-pill">
+      <span class="score">9.0</span>
+      <span class="source">豆瓣</span>
+    </div>
+    <div class="rating-pill">
+      <span class="score">8.8</span>
+      <span class="source">IMDb</span>
+    </div>
+    <div class="rating-pill">
+      <span class="score">88%</span>
+      <span class="source">烂番茄</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">剧情梗概</div>
+    <p>
+      主人公是一名失眠的都市白领，日复一日在乏味的消费社会中麻木度日。一次偶然的航班相遇，他结识了一个名叫泰勒·德顿的神秘肥皂商人。两人一拍即合，在城市的地下空间里创建了一个名为「搏击俱乐部」的秘密组织——一个让男人们赤手空拳释放压抑、找回自我的地方。然而，这个俱乐部逐渐演变成一个远超任何人控制的庞大存在，主人公也慢慢意识到，事情远比他想象的更加疯狂和危险。
+    </p>
+  </div>
+
+  <div class="section">
+    <div class="section-title">亮点所在</div>
+    <ul class="highlight-list">
+      <li>
+        <span class="icon">🎭</span>
+        <span><strong>布拉德·皮特 + 爱德华·诺顿</strong>的化学反应堪称影史绝配，两人从外形到气质形成鲜明对照，对手戏张力十足。</span>
+      </li>
+      <li>
+        <span class="icon">🎨</span>
+        <span><strong>大卫·芬奇的视觉风格</strong>在本片达到巅峰——快速剪辑、暗黑色调、充满隐喻的蒙太奇，每一帧都像精心设计的艺术品。</span>
+      </li>
+      <li>
+        <span class="icon">📝</span>
+        <span><strong>颠覆性的叙事结构</strong>，结尾的反转被影迷奉为神来之笔，二十多年来反复被讨论和致敬，却从未被真正超越。</span>
+      </li>
+      <li>
+        <span class="icon">💥</span>
+        <span><strong>对现代消费主义的锋利批判</strong>——「你所拥有的东西，最终也会拥有你」——这句台词至今振聋发聩。</span>
+      </li>
+      <li>
+        <span class="icon">🎵</span>
+        <span><strong> Dust Brothers 的电子配乐</strong>与影片的躁动气质完美融合，成为 90 年代电影原声的经典代表。</span>
+      </li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <div class="section-title">为什么值得一看</div>
+    <p>
+      《搏击俱乐部》上映之初票房失利，却在 DVD 时代逆袭成为一代 cult 经典，被无数影迷奉为「精神圣经」。它不只讲了一个精彩的故事，更刺穿了现代都市人共同的隐痛：我们在物质丰裕中感到空虚，在社交网络里倍感孤独，在规训与秩序中逐渐丧失了真实的自我。影片用极端的方式叩问：当一个人被剥夺了所有社会身份，他到底是谁？
+    </p>
+    <p style="margin-top: 14px;">
+      大卫·芬奇用冷峻的镜头告诉我们：毁灭有时不是终点，而是重生的开始。二十五年过去，这部影片的预言性愈发明显——它谈论的不再只是某个时代的问题，而是整个人类在现代性困境中的永恒挣扎。
+    </p>
+    <div class="quote-box">
+      「我们是被历史遗忘的一代……没有目标，没有位置，没有属于我们的战争。」<br>
+      —— 泰勒·德顿
+    </div>
+  </div>
+
+  <div class="footer">
+    本期推荐：<span class="date">2026年8月15日</span> · 小虾米 🦐
+  </div>
+
+</div>
+</body>
+</html>

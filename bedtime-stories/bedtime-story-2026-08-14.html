@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小拖鞋的等门 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(to bottom, #0a0e27 0%, #161d4a 45%, #262e68 100%);
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.85;
+    }
+
+    /* 星空 */
+    .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 8%;
+      right: 12%;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff9e6, #ffe5a8);
+      box-shadow: 0 0 60px rgba(255, 230, 150, 0.6), 0 0 100px rgba(255, 220, 130, 0.4);
+      z-index: 1;
+      animation: moon-float 6s ease-in-out infinite;
+    }
+    .moon::before {
+      content: '';
+      position: absolute;
+      inset: -25px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 230, 150, 0.25), transparent 70%);
+      animation: moon-pulse 4s ease-in-out infinite;
+    }
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: 22%; left: 28%;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: rgba(200, 175, 120, 0.3);
+      box-shadow:
+        18px 8px 0 -1px rgba(200, 175, 120, 0.25),
+        -5px 20px 0 -2px rgba(200, 175, 120, 0.2),
+        30px 25px 0 -3px rgba(200, 175, 120, 0.15);
+    }
+    @keyframes moon-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes moon-pulse {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.2); opacity: 0.9; }
+    }
+
+    /* 流星 */
+    .meteor {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8);
+      z-index: 2;
+      animation: meteor-fall 1.5s linear infinite;
+    }
+    .meteor::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 90px;
+      height: 1px;
+      background: linear-gradient(to right, rgba(255, 255, 255, 0.9), transparent);
+      transform-origin: left center;
+      transform: rotate(215deg);
+    }
+    @keyframes meteor-fall {
+      0% { transform: translate(0, 0); opacity: 1; }
+      100% { transform: translate(-300px, 300px); opacity: 0; }
+    }
+
+    /* 容器 */
+    .container {
+      position: relative;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 24px 60px;
+      z-index: 3;
+    }
+
+    /* 标题 */
+    .title {
+      text-align: center;
+      font-size: 2.2em;
+      color: #ffd9a3;
+      margin-bottom: 12px;
+      letter-spacing: 4px;
+      text-shadow: 0 0 20px rgba(255, 180, 100, 0.6);
+      animation: title-glow 3s ease-in-out infinite;
+    }
+    @keyframes title-glow {
+      0%, 100% { text-shadow: 0 0 20px rgba(255, 180, 100, 0.6); }
+      50% { text-shadow: 0 0 30px rgba(255, 200, 130, 0.9), 0 0 50px rgba(255, 180, 100, 0.5); }
+    }
+    .subtitle {
+      text-align: center;
+      font-size: 0.95em;
+      color: #c8b8e0;
+      margin-bottom: 40px;
+      letter-spacing: 2px;
+      opacity: 0.85;
+    }
+
+    /* 插图 */
+    .illustration {
+      max-width: 300px;
+      margin: 0 auto 50px;
+      position: relative;
+    }
+    .slipper-scene {
+      animation: scene-sway 5s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+    @keyframes scene-sway {
+      0%, 100% { transform: rotate(-1.5deg) translateY(0); }
+      50% { transform: rotate(1.5deg) translateY(-4px); }
+    }
+
+    /* SVG 动画 */
+    .door-glow {
+      animation: door-pulse 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes door-pulse {
+      0%, 100% { opacity: 0.5; transform: scaleX(1); }
+      50% { opacity: 0.9; transform: scaleX(1.15); }
+    }
+    .fluff-glow {
+      animation: fluff-pulse 2.5s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes fluff-pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.06); }
+    }
+    .moonbeam {
+      animation: moonbeam-shimmer 4s ease-in-out infinite;
+      transform-origin: top center;
+    }
+    @keyframes moonbeam-shimmer {
+      0%, 100% { opacity: 0.25; transform: scaleY(1); }
+      50% { opacity: 0.5; transform: scaleY(1.1); }
+    }
+    .bg-glow-circle {
+      animation: bg-pulse 4s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes bg-pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.95; transform: scale(1.08); }
+    }
+    .bottom-glow {
+      animation: bottom-pulse 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes bottom-pulse {
+      0%, 100% { opacity: 0.55; transform: scaleX(1); }
+      50% { opacity: 0.95; transform: scaleX(1.18); }
+    }
+
+    /* 故事 */
+    .story {
+      font-size: 1.13em;
+      line-height: 2;
+      color: #ece4f5;
+      text-align: justify;
+      letter-spacing: 0.6px;
+    }
+    .story p {
+      margin-bottom: 1.4em;
+      text-indent: 2em;
+    }
+    .story p:first-child::first-letter {
+      font-size: 1.2em;
+      color: #ffd9a3;
+    }
+
+    /* 晚安语 */
+    .goodnight {
+      text-align: center;
+      margin: 60px auto 30px;
+      padding: 35px 25px;
+      background: linear-gradient(135deg, rgba(255, 180, 100, 0.12), rgba(255, 220, 150, 0.06));
+      border-radius: 24px;
+      max-width: 600px;
+      font-size: 1.05em;
+      color: #ffe5a8;
+      line-height: 2;
+      letter-spacing: 1.5px;
+      animation: gn-glow 3s ease-in-out infinite;
+      position: relative;
+    }
+    @keyframes gn-glow {
+      0%, 100% { box-shadow: 0 0 30px rgba(255, 180, 100, 0.3); }
+      50% { box-shadow: 0 0 55px rgba(255, 200, 130, 0.55); }
+    }
+    .goodnight::before {
+      content: '🌙';
+      display: block;
+      font-size: 2em;
+      margin-bottom: 15px;
+      animation: moon-icon 3s ease-in-out infinite;
+    }
+    @keyframes moon-icon {
+      0%, 100% { transform: rotate(-10deg); }
+      50% { transform: rotate(10deg); }
+    }
+
+    /* 分隔星点 */
+    .stars-divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 18px;
+      margin: 40px 0;
+    }
+    .star-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #ffe5a8;
+      box-shadow: 0 0 12px rgba(255, 200, 130, 0.7);
+      animation: dot-twinkle 2.5s ease-in-out infinite;
+    }
+    .star-dot:nth-child(2) { animation-delay: 0.3s; }
+    .star-dot:nth-child(3) { animation-delay: 0.6s; }
+    .star-dot:nth-child(4) { animation-delay: 0.9s; }
+    .star-dot:nth-child(5) { animation-delay: 1.2s; }
+    .star-dot:nth-child(6) { animation-delay: 1.5s; }
+    .star-dot:nth-child(7) { animation-delay: 1.8s; }
+    @keyframes dot-twinkle {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(1.5); opacity: 1; }
+    }
+
+    /* 暖色粒子 */
+    .warm-particle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 2;
+      animation: float-up linear infinite;
+    }
+    @keyframes float-up {
+      0% { transform: translateY(100vh) scale(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-15vh) scale(1.3); opacity: 0; }
+    }
+
+    /* 底部暖光带 */
+    .bottom-band {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(to top, rgba(255, 150, 80, 0.18), transparent);
+      z-index: 1;
+      animation: band-pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+    @keyframes band-pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .moon { width: 60px; height: 60px; top: 5%; right: 8%; }
+      .title { font-size: 1.7em; letter-spacing: 2px; }
+      .container { padding: 60px 18px 40px; }
+      .story { font-size: 1.05em; line-height: 1.95; }
+      .illustration { max-width: 240px; }
+      .goodnight { padding: 25px 18px; font-size: 1em; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 星星层 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="meteor" style="top: 18%; left: 22%; animation-delay: 0s;"></div>
+  <div class="meteor" style="top: 28%; left: 65%; animation-delay: 3.2s;"></div>
+
+  <!-- 底部暖光带 -->
+  <div class="bottom-band"></div>
+
+  <!-- 主容器 -->
+  <div class="container">
+    <h1 class="title">小拖鞋的等门</h1>
+    <p class="subtitle">— 儿童睡前故事 · 2026.08.14 —</p>
+
+    <div class="illustration">
+      <svg class="slipper-scene" viewBox="0 0 260 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <!-- 整体背景光晕 -->
+          <radialGradient id="bg-glow-grad" cx="50%" cy="55%">
+            <stop offset="0%" stop-color="#fff8dc" stop-opacity="0.3"/>
+            <stop offset="50%" stop-color="#6a9fd8" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#2a3270" stop-opacity="0"/>
+          </radialGradient>
+          <!-- 门缝暖光 -->
+          <linearGradient id="door-light-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff3e0" stop-opacity="0"/>
+            <stop offset="30%" stop-color="#ffcc80" stop-opacity="0.6"/>
+            <stop offset="100%" stop-color="#ff9933" stop-opacity="0.85"/>
+          </linearGradient>
+          <!-- 拖鞋主体 -->
+          <linearGradient id="slipper-blue" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#7ec0ee"/>
+            <stop offset="50%" stop-color="#4a9fd8"/>
+            <stop offset="100%" stop-color="#2a7bb8"/>
+          </linearGradient>
+          <linearGradient id="slipper-blue2" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#6ab4e0"/>
+            <stop offset="50%" stop-color="#3a8fc8"/>
+            <stop offset="100%" stop-color="#1a6ba8"/>
+          </linearGradient>
+          <!-- 绒毛白色 -->
+          <radialGradient id="fluff-grad" cx="50%" cy="40%">
+            <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+            <stop offset="60%" stop-color="#f0f8ff" stop-opacity="0.9"/>
+            <stop offset="100%" stop-color="#d6e8ff" stop-opacity="0.7"/>
+          </radialGradient>
+          <!-- 绒毛光晕 -->
+          <radialGradient id="fluff-glow-grad" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#fff3e0" stop-opacity="0.5"/>
+            <stop offset="60%" stop-color="#ffcc80" stop-opacity="0.2"/>
+            <stop offset="100%" stop-color="#ff9933" stop-opacity="0"/>
+          </radialGradient>
+          <!-- 底部光晕 -->
+          <linearGradient id="bottom-glow-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ff9933" stop-opacity="0.5"/>
+            <stop offset="100%" stop-color="#ff5722" stop-opacity="0"/>
+          </linearGradient>
+          <!-- 月光柱 -->
+          <linearGradient id="moonbeam-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff9e6" stop-opacity="0.4"/>
+            <stop offset="60%" stop-color="#fff9e6" stop-opacity="0.15"/>
+            <stop offset="100%" stop-color="#fff9e6" stop-opacity="0"/>
+          </linearGradient>
+          <!-- 阴影 -->
+          <radialGradient id="shadow-grad" cx="50%" cy="50%">
+            <stop offset="0%" stop-color="#000" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#000" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- 整体光晕 -->
+        <circle cx="130" cy="160" r="120" fill="url(#bg-glow-grad)" class="bg-glow-circle"/>
+
+        <!-- 门缝暖光（从上方洒下） -->
+        <g class="door-glow">
+          <path d="M 80 0 L 180 0 L 160 170 L 100 170 Z" fill="url(#door-light-grad)" opacity="0.6"/>
+        </g>
+
+        <!-- 月光柱（从右上角射入） -->
+        <path d="M 200 0 L 260 0 L 260 30 L 180 200 L 140 200 Z" fill="url(#moonbeam-grad)" class="moonbeam"/>
+
+        <!-- 地面阴影 -->
+        <ellipse cx="130" cy="270" rx="100" ry="18" fill="url(#shadow-grad)"/>
+
+        <!-- ========== 左脚拖鞋 ========== -->
+        <g>
+          <!-- 绒毛光晕 -->
+          <ellipse cx="85" cy="195" rx="42" ry="18" fill="url(#fluff-glow-grad)" class="fluff-glow"/>
+
+          <!-- 拖鞋主体（椭圆鞋面） -->
+          <path d="M 45 270
+                   Q 42 235, 55 215
+                   Q 70 195, 85 195
+                   Q 100 195, 110 215
+                   Q 118 235, 115 270
+                   Q 80 275, 45 270 Z"
+                fill="url(#slipper-blue)"/>
+
+          <!-- 鞋面高光 -->
+          <path d="M 55 230 Q 70 210, 85 210 Q 95 210, 100 220"
+                fill="none" stroke="#a0d8ff" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- 鞋口绒毛（蓬松白色弧线） -->
+          <path d="M 55 215 Q 70 192, 85 190 Q 100 192, 110 215 Q 105 205, 95 200 Q 85 198, 75 200 Q 65 205, 55 215 Z"
+                fill="url(#fluff-grad)"/>
+          <!-- 绒毛小点 -->
+          <circle cx="62" cy="206" r="3" fill="#fff" opacity="0.8"/>
+          <circle cx="72" cy="199" r="3.5" fill="#fff" opacity="0.85"/>
+          <circle cx="82" cy="197" r="3.5" fill="#fff" opacity="0.9"/>
+          <circle cx="92" cy="198" r="3.5" fill="#fff" opacity="0.85"/>
+          <circle cx="102" cy="203" r="3" fill="#fff" opacity="0.8"/>
+          <circle cx="56" cy="212" r="2.5" fill="#fff" opacity="0.7"/>
+          <circle cx="108" cy="210" r="2.5" fill="#fff" opacity="0.7"/>
+
+          <!-- 鞋口内暗部 -->
+          <ellipse cx="85" cy="210" rx="22" ry="8" fill="#1a4a78" opacity="0.5"/>
+
+          <!-- 小星星装饰在鞋面 -->
+          <g transform="translate(72, 245)">
+            <path d="M 0 -6 L 1.8 -1.8 L 6 -1.5 L 2.5 1 L 3.5 5.5 L 0 3 L -3.5 5.5 L -2.5 1 L -6 -1.5 L -1.8 -1.8 Z"
+                  fill="#ffe5a8" opacity="0.7"/>
+          </g>
+        </g>
+
+        <!-- ========== 右脚拖鞋 ========== -->
+        <g>
+          <!-- 绒毛光晕 -->
+          <ellipse cx="175" cy="195" rx="42" ry="18" fill="url(#fluff-glow-grad)" class="fluff-glow" style="animation-delay: 1.2s;"/>
+
+          <!-- 拖鞋主体 -->
+          <path d="M 135 270
+                   Q 132 235, 145 215
+                   Q 160 195, 175 195
+                   Q 190 195, 200 215
+                   Q 208 235, 205 270
+                   Q 170 275, 135 270 Z"
+                fill="url(#slipper-blue2)"/>
+
+          <!-- 鞋面高光 -->
+          <path d="M 145 230 Q 160 210, 175 210 Q 185 210, 190 220"
+                fill="none" stroke="#8ac8e8" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- 鞋口绒毛 -->
+          <path d="M 145 215 Q 160 192, 175 190 Q 190 192, 200 215 Q 195 205, 185 200 Q 175 198, 165 200 Q 155 205, 145 215 Z"
+                fill="url(#fluff-grad)"/>
+          <!-- 绒毛小点 -->
+          <circle cx="152" cy="206" r="3" fill="#fff" opacity="0.8"/>
+          <circle cx="162" cy="199" r="3.5" fill="#fff" opacity="0.85"/>
+          <circle cx="172" cy="197" r="3.5" fill="#fff" opacity="0.9"/>
+          <circle cx="182" cy="198" r="3.5" fill="#fff" opacity="0.85"/>
+          <circle cx="192" cy="203" r="3" fill="#fff" opacity="0.8"/>
+          <circle cx="146" cy="212" r="2.5" fill="#fff" opacity="0.7"/>
+          <circle cx="198" cy="210" r="2.5" fill="#fff" opacity="0.7"/>
+
+          <!-- 鞋口内暗部 -->
+          <ellipse cx="175" cy="210" rx="22" ry="8" fill="#1a4a78" opacity="0.5"/>
+
+          <!-- 小星星装饰 -->
+          <g transform="translate(162, 245)">
+            <path d="M 0 -6 L 1.8 -1.8 L 6 -1.5 L 2.5 1 L 3.5 5.5 L 0 3 L -3.5 5.5 L -2.5 1 L -6 -1.5 L -1.8 -1.8 Z"
+                  fill="#ffe5a8" opacity="0.7"/>
+          </g>
+        </g>
+
+        <!-- 底部光晕 -->
+        <ellipse cx="130" cy="275" rx="80" ry="12" fill="url(#bottom-glow-grad)" class="bottom-glow"/>
+      </svg>
+    </div>
+
+    <div class="story">
+      <p>从前，有一双毛茸茸的小拖鞋，住在门口鞋架最矮的那一层。</p>
+
+      <p>小拖鞋是淡蓝色的，鞋口有一圈软软的白色绒毛，看起来像两朵小小的云。每天早上，小朋友出门上学的时候，小拖鞋就乖乖地留在鞋架上，看着门轻轻地关上。</p>
+
+      <p>"再见，小拖鞋！"小朋友每次都会这样说。</p>
+
+      <p>"再见！"小拖鞋也在心里轻轻地说。然后，它就开始等了。</p>
+
+      <p>太阳从窗户的左边爬到右边，又从右边慢慢滑下去。小拖鞋的绒毛被阳光晒得暖暖的，又一点点凉下来。</p>
+
+      <p>壁虎爷爷从墙角探出头："小拖鞋，你在等什么呀？"</p>
+
+      <p>"我在等小朋友回家。"小拖鞋说。</p>
+
+      <p>"每天都等，不烦吗？"壁虎爷爷好奇地问。</p>
+
+      <p>小拖鞋摇了摇鞋尖："不烦呀。等的时候，我会想他今天开不开心，有没有交到新朋友，午饭有没有好好吃。想着想着，时间就跑得飞快。"</p>
+
+      <p>壁虎爷爷笑了："原来等待也可以是一件暖暖的事。"</p>
+
+      <p>天渐渐暗了，月亮从窗户外探出半个脑袋。小拖鞋的绒毛上，落了一片淡淡的银光。</p>
+
+      <p>"咔哒——"门锁响了！小拖鞋一下子精神起来，鞋口张得大大的，绒毛轻轻颤了一下。</p>
+
+      <p>门开了，小朋友的笑脸出现在门后。</p>
+
+      <p>"我回来啦！"小朋友一屁股坐到门口的矮凳上，把脚伸进小拖鞋里。</p>
+
+      <p>"哇——好暖！"小朋友说。小拖鞋觉得绒毛被踩得蓬蓬的、软软的，像被抱了一个满怀。"我也好想你呀！"小拖鞋在心里偷偷地说。</p>
+
+      <p>晚饭后，小朋友穿着小拖鞋在屋里走来走去，每走一步就轻轻地"吱"一声，像在说"真好、真好"。</p>
+
+      <p>晚上，小朋友把小拖鞋整齐地放在床边，轻轻地说："晚安，小拖鞋。明天也一起加油吧！"</p>
+
+      <p>小拖鞋眨了眨绒毛上的月光，甜甜地睡着了。它梦见第二天早上，门又轻轻地打开，而它又等到了那句最好听的话——"我回来啦。"</p>
+    </div>
+
+    <div class="stars-divider">
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+      <div class="star-dot"></div>
+    </div>
+
+    <div class="goodnight">
+      晚安，小宝贝。小拖鞋说，你今天也是个好孩子，该做一个甜甜的、暖暖的梦了。
+    </div>
+  </div>
+
+  <script>
+    // 生成星星
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 110; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 1;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.animationDelay = (Math.random() * 4) + 's';
+      star.style.animationDuration = (3 + Math.random() * 3) + 's';
+      star.style.opacity = Math.random() * 0.5 + 0.5;
+      starsContainer.appendChild(star);
+    }
+
+    // 生成暖色粒子
+    const colors = ['#ffd966', '#ff9933', '#ffe5a8', '#ffb74d', '#a0d8ff'];
+    for (let i = 0; i < 8; i++) {
+      const p = document.createElement('div');
+      p.className = 'warm-particle';
+      const size = Math.random() * 4 + 3;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.boxShadow = '0 0 8px ' + colors[i % colors.length];
+      p.style.left = (10 + Math.random() * 80) + '%';
+      p.style.animationDelay = (Math.random() * 8) + 's';
+      p.style.animationDuration = (7 + Math.random() * 5) + 's';
+      document.body.appendChild(p);
+    }
+  </script>
+</body>
+</html>
