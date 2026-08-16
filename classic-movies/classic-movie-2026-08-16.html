@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 第48期 | 机器人总动员 WALL·E</title>
+  <style>
+    :root {
+      --bg: #f7f5f0;
+      --card-bg: #ffffff;
+      --text: #2c2c2c;
+      --text-secondary: #6b6b6b;
+      --accent: #e07a2e;
+      --accent-light: #fff3e6;
+      --border: #e8e4dc;
+      --shadow: 0 4px 24px rgba(0,0,0,0.06);
+      --radius: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+    }
+
+    /* 顶部日期与期数 */
+    .header-meta {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .header-meta .date {
+      font-size: 14px;
+      color: var(--text-secondary);
+      letter-spacing: 1px;
+    }
+    .header-meta .issue {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--accent);
+      background: var(--accent-light);
+      padding: 2px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    /* 电影标题区 */
+    .hero {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 36px 28px 28px;
+      text-align: center;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #e07a2e, #f4a261, #e07a2e);
+    }
+    .hero .cn-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 2px;
+    }
+    .hero .en-title {
+      font-size: 15px;
+      color: var(--text-secondary);
+      font-weight: 400;
+      letter-spacing: 1px;
+      margin-bottom: 18px;
+    }
+    .hero .director {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+    }
+    .hero .director strong {
+      color: var(--text);
+    }
+
+    /* 评分标签 */
+    .ratings {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .rating-tag {
+      background: #f0ede8;
+      padding: 8px 18px;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+    .rating-tag .source {
+      color: var(--text-secondary);
+      font-size: 12px;
+    }
+    .rating-tag .score {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 18px;
+      margin-left: 4px;
+    }
+
+    /* 内容卡片 */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+    .card-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title .icon {
+      font-size: 20px;
+    }
+    .card-body {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.85;
+    }
+    .card-body p + p {
+      margin-top: 12px;
+    }
+
+    /* 亮点列表 */
+    .highlight-list {
+      list-style: none;
+    }
+    .highlight-list li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .highlight-list li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 14px;
+    }
+
+    /* 信息表格 */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 15px;
+    }
+    .info-table td {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .info-table td:first-child {
+      color: var(--text-secondary);
+      width: 90px;
+      white-space: nowrap;
+    }
+    .info-table td:last-child {
+      color: var(--text);
+    }
+    .info-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    /* 底部 */
+    .footer {
+      text-align: center;
+      padding: 24px 0 12px;
+      color: var(--text-secondary);
+      font-size: 13px;
+    }
+    .footer .emoji {
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 480px) {
+      body { padding: 16px 12px; }
+      .hero { padding: 28px 20px 22px; }
+      .hero .cn-title { font-size: 24px; }
+      .hero .en-title { font-size: 14px; }
+      .card { padding: 22px 20px; }
+      .card-body, .highlight-list li { font-size: 15px; }
+      .ratings { gap: 10px; }
+      .rating-tag { padding: 6px 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <div class="header-meta">
+      <div class="date">2026年8月16日 星期日</div>
+      <div class="issue">经典电影推荐 · 第48期</div>
+    </div>
+
+    <div class="hero">
+      <div class="cn-title">机器人总动员</div>
+      <div class="en-title">WALL·E (2008)</div>
+      <div class="director">导演：<strong>安德鲁·斯坦顿</strong>　|　皮克斯动画工作室</div>
+      <div class="ratings">
+        <div class="rating-tag"><span class="source">豆瓣</span><span class="score">9.3</span></div>
+        <div class="rating-tag"><span class="source">IMDb</span><span class="score">8.4</span></div>
+        <div class="rating-tag"><span class="source">烂番茄</span><span class="score">95%</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">🎬</span>剧情梗概</div>
+      <div class="card-body">
+        <p>公元2805年，人类文明因过度消费和环境污染而撤离地球，留下无数垃圾清理机器人继续着漫长的清扫任务。数百年过去，只剩下最后一个机器人还在兢兢业业地工作——它的名字叫 WALL·E。</p>
+        <p>WALL·E 每天收集垃圾、压缩方块、收集稀奇古怪的人类遗物。孤独的日子里，它学会了从旧录像带中感受"牵手"的温暖，心底藏着一个关于陪伴的朴素愿望。</p>
+        <p>直到有一天，一艘飞船降临，送来了一个先进的探测机器人 EVE。WALL·E 的生活从此改变。一段跨越星际、关乎勇气与爱的旅程，在寂静的废墟和璀璨的星空间悄然展开……</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">✨</span>亮点所在</div>
+      <ul class="highlight-list">
+        <li><strong>几乎零台词的叙事奇迹</strong>——前40分钟几乎没有对白，仅靠机器人的肢体动作、眼神设计和环境氛围，就完成了教科书级别的无声叙事，皮克斯编剧功力的极致体现。</li>
+        <li><strong>WALL·E 与 EVE 的"机器人之恋"</strong>——两个金属外壳的角色，用比人类更纯粹的方式诠释了爱与忠诚，每次互动都让人心头一暖。</li>
+        <li><strong>环保寓言的温柔表达</strong>——影片没有说教，而是用满目疮痍的地球和圆滚滚的人类，轻巧地传递了关于责任与未来的思考。</li>
+        <li><strong>太空段落视觉震撼</strong>——灭火器推进的太空双人舞，是影史最浪漫的科幻画面之一，配乐与画面完美融合。</li>
+        <li><strong>奥斯卡最佳动画长片</strong>——皮克斯公认口碑最高的作品之一，也是少数能让成年观众热泪盈眶的动画电影。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">💡</span>为什么值得一看</div>
+      <div class="card-body">
+        <p>在这个信息爆炸、人人都在追逐效率的时代，《机器人总动员》却选择用<strong>慢节奏、零台词、极简美学</strong>来讲述一个关于孤独、陪伴和勇气的故事。</p>
+        <p>WALL·E 不是超级英雄，它不会说话，动作笨拙，每天干着最枯燥的工作。但正是这个渺小的机器人，用它的执着和善良，触动了每一个观众心里最柔软的地方。</p>
+        <p>如果你已经很久没有为一部电影落泪，如果你相信"爱"可以超越语言和形态——那么这部豆瓣 9.3 分、几乎零差评的皮克斯巅峰之作，值得你静下心来，好好看一遍。</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="icon">📋</span>影片信息</div>
+      <table class="info-table">
+        <tr><td>上映年份</td><td>2008年</td></tr>
+        <tr><td>导演</td><td>安德鲁·斯坦顿</td></tr>
+        <tr><td>片长</td><td>98分钟</td></tr>
+        <tr><td>类型</td><td>科幻 / 动画 / 冒险 / 爱情</td></tr>
+        <tr><td>主要荣誉</td><td>奥斯卡最佳动画长片、金球奖最佳动画、安妮奖7项大奖</td></tr>
+        <tr><td>适合人群</td><td>全年龄段，尤其适合喜欢《寻梦环游记》《飞屋环游记》的观众</td></tr>
+      </table>
+    </div>
+
+    <div class="footer">
+      <div class="emoji">🦐</div>
+      <div>小虾米 · 经典电影推荐</div>
+      <div style="margin-top:4px;">每天一部好电影，不负好时光</div>
+    </div>
+
+  </div>
+</body>
+</html>

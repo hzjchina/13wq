@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小歪歪的甜蜜 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(to bottom, #0a0e27 0%, #1a1d4a 45%, #2c2659 100%);
+      color: #fff;
+      overflow-x: hidden;
+      line-height: 1.95;
+    }
+
+    /* 星空 */
+    .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle 4s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 6%;
+      right: 12%;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff8dc 0%, #ffe9a8 50%, #ffd380 100%);
+      box-shadow: 0 0 60px rgba(255, 232, 170, 0.5), 0 0 120px rgba(255, 220, 130, 0.25);
+      animation: moonFloat 7s infinite ease-in-out;
+      z-index: 0;
+    }
+    .moon::before, .moon::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 230, 160, 0.2);
+    }
+    .moon::before { width: 16px; height: 16px; top: 22%; left: 30%; }
+    .moon::after { width: 11px; height: 11px; top: 56%; left: 60%; }
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* 流星 */
+    .meteor {
+      position: fixed;
+      width: 2px;
+      height: 80px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+      top: 12%;
+      left: 18%;
+      transform: rotate(35deg);
+      animation: meteor 6s infinite ease-in;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .meteor.m2 {
+      top: 22%;
+      left: 60%;
+      animation-delay: 3s;
+    }
+    @keyframes meteor {
+      0% { opacity: 0; transform: rotate(35deg) translateX(0); }
+      10% { opacity: 1; }
+      40% { opacity: 0; }
+      100% { opacity: 0; transform: rotate(35deg) translateX(380px); }
+    }
+
+    /* 主容器 */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 28px 80px;
+    }
+
+    /* 标题 */
+    h1 {
+      font-size: 30px;
+      font-weight: 600;
+      text-align: center;
+      color: #fff5d6;
+      text-shadow: 0 0 18px rgba(255, 200, 120, 0.45);
+      letter-spacing: 1px;
+      animation: warmGlow 4s infinite ease-in-out;
+    }
+    @keyframes warmGlow {
+      0%, 100% { text-shadow: 0 0 18px rgba(255, 200, 120, 0.45); }
+      50% { text-shadow: 0 0 28px rgba(255, 220, 150, 0.7), 0 0 50px rgba(255, 200, 130, 0.3); }
+    }
+
+    /* 饼干 SVG */
+    .cookie-art {
+      display: block;
+      margin: 38px auto 32px;
+      width: 200px;
+      height: 200px;
+      animation: floatCookie 5s infinite ease-in-out;
+      filter: drop-shadow(0 0 18px rgba(255, 200, 130, 0.5));
+    }
+    @keyframes floatCookie {
+      0%, 100% { transform: translateY(0) rotate(-6deg); }
+      50% { transform: translateY(-10px) rotate(-3deg); }
+    }
+
+    /* 故事内容 */
+    .story {
+      font-size: 18px;
+      color: #fdf3df;
+      background: rgba(255, 255, 255, 0.04);
+      padding: 36px 30px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 220, 150, 0.18);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(4px);
+    }
+    .story p {
+      margin-bottom: 18px;
+      text-indent: 0;
+    }
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 晚安 */
+    .goodnight {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 19px;
+      color: #ffe7b8;
+      text-shadow: 0 0 14px rgba(255, 200, 130, 0.4);
+      animation: nightGlow 4.5s infinite ease-in-out;
+      padding: 0 20px;
+    }
+    @keyframes nightGlow {
+      0%, 100% { opacity: 0.85; }
+      50% { opacity: 1; text-shadow: 0 0 22px rgba(255, 220, 150, 0.7), 0 0 40px rgba(255, 200, 130, 0.3); }
+    }
+
+    /* 分隔星光 */
+    .divider {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 28px 0 18px;
+    }
+    .divider span {
+      width: 6px;
+      height: 6px;
+      background: #ffe5a8;
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 220, 150, 0.6);
+      animation: starBreath 3s infinite ease-in-out;
+    }
+    .divider span:nth-child(2) { animation-delay: 0.5s; }
+    .divider span:nth-child(3) { animation-delay: 1s; }
+    .divider span:nth-child(4) { animation-delay: 1.5s; }
+    .divider span:nth-child(5) { animation-delay: 2s; }
+    .divider span:nth-child(6) { animation-delay: 2.5s; }
+    .divider span:nth-child(7) { animation-delay: 3s; }
+    @keyframes starBreath {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* 萤火虫 */
+    .firefly {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle, #fff8c2 0%, #ffd680 50%, transparent 70%);
+      border-radius: 50%;
+      z-index: 1;
+      animation: fireflyDrift 9s infinite ease-in-out;
+      pointer-events: none;
+    }
+    @keyframes fireflyDrift {
+      0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+      25% { transform: translate(40px, -30px); opacity: 1; }
+      50% { transform: translate(-25px, -55px); opacity: 0.7; }
+      75% { transform: translate(20px, -25px); opacity: 1; }
+    }
+
+    /* 暖光粒子 */
+    .warm-particle {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background: radial-gradient(circle, #ffe2a0 0%, transparent 70%);
+      border-radius: 50%;
+      z-index: 1;
+      pointer-events: none;
+      animation: warmRise 8s infinite ease-in-out;
+    }
+    @keyframes warmRise {
+      0% { transform: translateY(0); opacity: 0.6; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-160px); opacity: 0; }
+    }
+
+    /* 底部暖光带 */
+    .glow-bottom {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 130px;
+      background: linear-gradient(to top, rgba(255, 180, 90, 0.08), transparent);
+      z-index: 0;
+      pointer-events: none;
+      animation: bottomBreath 5s infinite ease-in-out;
+    }
+    @keyframes bottomBreath {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      h1 { font-size: 24px; }
+      .story { font-size: 16px; padding: 26px 20px; }
+      .cookie-art { width: 160px; height: 160px; }
+      .goodnight { font-size: 17px; }
+      .moon { width: 60px; height: 60px; top: 4%; right: 6%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- 星空 -->
+  <div class="stars" id="stars"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="meteor"></div>
+  <div class="meteor m2"></div>
+
+  <!-- 萤火虫 -->
+  <div class="firefly" style="top: 22%; left: 14%; animation-delay: 0s;"></div>
+  <div class="firefly" style="top: 38%; left: 78%; animation-delay: 2s;"></div>
+  <div class="firefly" style="top: 60%; left: 8%; animation-delay: 4s;"></div>
+  <div class="firefly" style="top: 75%; left: 88%; animation-delay: 6s;"></div>
+
+  <!-- 暖光粒子 -->
+  <div class="warm-particle" style="bottom: 12%; left: 18%; animation-delay: 0s;"></div>
+  <div class="warm-particle" style="bottom: 18%; left: 38%; animation-delay: 1.5s;"></div>
+  <div class="warm-particle" style="bottom: 10%; left: 60%; animation-delay: 3s;"></div>
+  <div class="warm-particle" style="bottom: 22%; left: 82%; animation-delay: 4.5s;"></div>
+  <div class="warm-particle" style="bottom: 14%; left: 50%; animation-delay: 6s;"></div>
+  <div class="warm-particle" style="bottom: 20%; left: 25%; animation-delay: 7.5s;"></div>
+
+  <!-- 底部暖光带 -->
+  <div class="glow-bottom"></div>
+
+  <!-- 主内容 -->
+  <div class="container">
+    <h1>小歪歪的甜蜜</h1>
+
+    <!-- 小饼干 SVG -->
+    <svg class="cookie-art" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- 饼干本体 — 故意画歪的不规则形状 -->
+      <defs>
+        <radialGradient id="cookieGrad" cx="40%" cy="40%" r="70%">
+          <stop offset="0%" stop-color="#f6c97a"/>
+          <stop offset="60%" stop-color="#d99858"/>
+          <stop offset="100%" stop-color="#a06530"/>
+        </radialGradient>
+        <radialGradient id="chipGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#5a3520"/>
+          <stop offset="100%" stop-color="#3a1f12"/>
+        </radialGradient>
+        <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffe5a8" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#ffe5a8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 暖色光晕 -->
+      <circle cx="100" cy="100" r="92" fill="url(#glowGrad)" />
+
+      <!-- 不规则饼干外形 -->
+      <path d="M 50 60
+               Q 42 50 52 42
+               Q 60 30 78 30
+               Q 95 24 110 32
+               Q 130 26 145 38
+               Q 160 46 158 62
+               Q 168 78 160 95
+               Q 168 115 152 132
+               Q 140 152 118 152
+               Q 100 162 80 154
+               Q 60 152 48 138
+               Q 36 122 42 100
+               Q 32 82 50 60 Z"
+            fill="url(#cookieGrad)"
+            stroke="#7a4a20"
+            stroke-width="2"/>
+
+      <!-- 巧克力豆 -->
+      <circle cx="74" cy="68" r="7" fill="url(#chipGrad)"/>
+      <circle cx="118" cy="60" r="6" fill="url(#chipGrad)"/>
+      <circle cx="92" cy="95" r="8" fill="url(#chipGrad)"/>
+      <circle cx="135" cy="100" r="7" fill="url(#chipGrad)"/>
+      <circle cx="70" cy="120" r="6" fill="url(#chipGrad)"/>
+      <circle cx="120" cy="135" r="7" fill="url(#chipGrad)"/>
+      <circle cx="98" cy="135" r="6" fill="url(#chipGrad)"/>
+
+      <!-- 高光 -->
+      <ellipse cx="80" cy="55" rx="12" ry="6" fill="#fff5d6" opacity="0.35"/>
+      <ellipse cx="130" cy="78" rx="10" ry="4" fill="#fff5d6" opacity="0.25"/>
+
+      <!-- 可爱笑脸 -->
+      <circle cx="86" cy="92" r="2.2" fill="#3a1f12"/>
+      <circle cx="118" cy="92" r="2.2" fill="#3a1f12"/>
+      <path d="M 88 108 Q 100 116 114 108" stroke="#3a1f12" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+      <!-- 腮红 -->
+      <ellipse cx="78" cy="103" rx="5" ry="3" fill="#ff9a8a" opacity="0.55"/>
+      <ellipse cx="124" cy="103" rx="5" ry="3" fill="#ff9a8a" opacity="0.55"/>
+
+      <!-- 微笑的小星光 -->
+      <circle cx="40" cy="40" r="2" fill="#fff8c2" opacity="0.85"/>
+      <circle cx="162" cy="48" r="1.5" fill="#fff8c2" opacity="0.7"/>
+      <circle cx="170" cy="120" r="2" fill="#fff8c2" opacity="0.8"/>
+      <circle cx="34" cy="135" r="1.8" fill="#fff8c2" opacity="0.7"/>
+    </svg>
+
+    <!-- 故事正文 -->
+    <div class="story">
+      <p>厨房角落的饼干盒里，住着一块小饼干，名字叫小歪歪。</p>
+      <p>他被小妹妹的小手捏得歪歪扭扭——左边鼓起来一点，右边凹进去一块，糖霜也没抹均匀，看上去就像一弯刚刚升起来的小月亮，又像一朵落下就被风吹歪的小花瓣。他每天看着圆圆的、漂漂亮亮的同伴们被装进小盒子里带走，心里难过得像被压在糖罐底下的那一颗。</p>
+      <p>"我是最丑的那一个吧，"小歪歪小声对自己说，"谁会喜欢我呢。"</p>
+      <p>有一夜，厨房的灯都关了，月光从窗户斜斜照进来，刚好落在他的身上。一颗夜糖粒悄悄滚到他身边，轻轻说："小歪歪，你知道吗？糖罐子底下最甜，因为所有的糖浆都在那里慢慢凝成。"</p>
+      <p>小歪歪愣了愣，没说话。</p>
+      <p>"而且呀，"夜糖粒笑了，"你的边缘像花瓣，没有一片花瓣是圆的，可是大家都爱花瓣。"</p>
+      <p>第二天早晨，小妹妹不小心打翻了饼干盒，饼干们咕噜咕噜滚了一地。小歪歪也滚了出来，他紧张地闭上眼睛等小妹妹说他"丑"。</p>
+      <p>可是小妹妹轻轻捧起他，眼睛亮亮的："妈妈你看，这个像月亮！我要把它送给布娃娃当礼物。"</p>
+      <p>她把歪歪的小饼干贴在自己的脸颊上亲了一口，又笑嘻嘻地说："歪歪的好可爱啊。"</p>
+      <p>小歪歪觉得自己心里有什么东西一下子亮了，像是被月光照进来了一样——原来不圆不完美，也是一种特别的甜呀。</p>
+    </div>
+
+    <!-- 分隔星光 -->
+    <div class="divider">
+      <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- 晚安语 -->
+    <div class="goodnight">
+      晚安，小宝贝。<br>
+      小歪歪说，你不一定要圆圆的、漂漂亮亮的，<br>
+      歪歪的样子也很甜，你今天也是个好孩子，<br>
+      该做一个暖暖的梦了。
+    </div>
+  </div>
+
+  <script>
+    // 随机生成星空
+    const starsEl = document.getElementById('stars');
+    for (let i = 0; i < 110; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 0.5;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = (Math.random() * 4) + 's';
+      star.style.opacity = Math.random() * 0.5 + 0.4;
+      starsEl.appendChild(star);
+    }
+  </script>
+</body>
+</html>
