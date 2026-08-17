@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 第49期 · 黑客帝国</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --panel: #1c2333;
+    --border: #2d333b;
+    --text: #e6edf3;
+    --text-dim: #9aa4b2;
+    --accent: #4f8cff;
+    --accent-2: #00c853;
+    --gold: #ffc53d;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    padding: 0 0 48px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  /* 头部 */
+  .hero {
+    padding: 40px 20px 28px;
+    text-align: center;
+    background: linear-gradient(180deg, #0a0e14 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 3px 14px;
+    margin-bottom: 18px;
+    letter-spacing: 0.12em;
+  }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .hero .en {
+    font-size: 16px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .meta {
+    font-size: 15px;
+    color: var(--text-dim);
+  }
+  .meta span { margin: 0 6px; }
+
+  /* 评分条 */
+  .ratings {
+    display: flex;
+    gap: 12px;
+    margin: 24px auto 0;
+    max-width: 520px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .score {
+    flex: 1 1 140px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .score .num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .score .label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* 正文卡片 */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-top: 24px;
+  }
+  h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2 .dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  p { margin-bottom: 12px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+  .dim { color: var(--text-dim); }
+
+  ul { list-style: none; }
+  ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 11px;
+    width: 8px; height: 8px;
+    background: var(--accent-2);
+    border-radius: 50%;
+  }
+  ul li:last-child { margin-bottom: 0; }
+
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding: 12px 18px;
+    background: rgba(79,140,255,0.06);
+    border-radius: 0 10px 10px 0;
+    margin-top: 16px;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  /* 无剧透提示 */
+  .spoiler-free {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,197,61,0.08);
+    border: 1px solid rgba(255,197,61,0.3);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-top: 24px;
+    font-size: 15px;
+    color: var(--gold);
+  }
+
+  .footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 36px;
+    letter-spacing: 0.05em;
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+    .card { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">每日经典电影 · 第 49 期</div>
+  <h1>黑客帝国</h1>
+  <div class="en">The Matrix · 1999</div>
+  <div class="meta">
+    导演：沃卓斯基姐妹（当时为兄弟）<span>·</span> 主演：基努·里维斯 / 劳伦斯·菲什伯恩 / 凯瑞-安·莫斯
+  </div>
+  <div class="ratings">
+    <div class="score"><div class="num">9.1</div><div class="label">豆瓣评分</div></div>
+    <div class="score"><div class="num">8.7</div><div class="label">IMDb</div></div>
+    <div class="score"><div class="num">83%</div><div class="label">烂番茄</div></div>
+    <div class="score"><div class="num">4 项</div><div class="label">奥斯卡大奖</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="card">
+    <h2><span class="dot"></span>剧情梗概</h2>
+    <p>白天，他是一名再普通不过的程序员；夜晚，他化名「尼奥」，在网络的灰色地带游走。一个他反复寻找的疑问始终挥之不去——这个世界的真实性，似乎藏着某种说不清的裂缝。</p>
+    <p>直到一个神秘人找上门，递给他一枚红色药丸与一枚蓝色药丸，让他做出选择。吞下红丸，他将窥见世界背后的真相；吞下蓝丸，则继续安稳地活在那个他熟悉的世界里。</p>
+    <p>尼奥选择了一探究竟，从此卷入一场关乎人类命运的抗争——他所认知的一切，或许只是一场精心构筑的幻象。</p>
+    <div class="quote">「你看到的一切，都是别人想让你看到的。」</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>亮点所在</h2>
+    <ul>
+      <li><strong>划时代的「子弹时间」</strong>——那场360°慢动作旋转镜头，几乎重新定义了动作片的视觉语言，二十多年后依然被不断致敬。</li>
+      <li><strong>深刻的世界观内核</strong>——「缸中之脑」「红蓝药丸」等概念，成为讨论真实与虚拟、自由与奴役的哲学符号，影响远超电影本身。</li>
+      <li><strong>极致的东方美学混搭</strong>——香港武术指导袁和平操刀，把功夫、枪战与赛博朋克美学融合，开创了「子弹与拳脚齐飞」的新范式。</li>
+      <li><strong>基努·里维斯的巅峰</strong>——墨镜、黑色风衣、利落身手，塑造了影史最具辨识度的英雄形象之一。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>为什么值得一看</h2>
+    <p>这不是一部只想让你「爽」的动作片，而是一部会让人在散场后反复回味的电影。它抛出的问题至今仍在叩问每一个生活在数字时代的人：我们每天习以为常的一切，究竟有多少是真实，又有多少是被构建的叙事？</p>
+    <p class="dim">无论你是科幻迷、动作片爱好者，还是只想在周末看一部「有分量」的电影，它都不会让你失望。豆瓣 9.1、IMDb Top 250 常年前列、奥斯卡四项大奖加身，是公认经得起时间考验的科幻里程碑。</p>
+  </div>
+
+  <div class="spoiler-free">🛡️ 本文已严格避免剧透，剧情梗概仅点到即止，请放心阅读后再观影。</div>
+
+  <div class="footer">小虾米 · 每日经典电影推荐 · 2026-08-17</div>
+</div>
+
+</body>
+</html>

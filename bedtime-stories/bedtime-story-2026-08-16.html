@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小贝壳的摇篮曲 — 儿童睡前故事</title>
+    <style>
+        :root {
+            --bg-deep: #0a1628;
+            --bg-soft: #141e33;
+            --text-main: #f0e6d2;
+            --text-soft: #b8c5d6;
+            --accent-glow: #ffd9a8;
+            --accent-star: #fff8e7;
+            --card-bg: rgba(255, 255, 255, 0.06);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-soft) 60%, #1a2744 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            line-height: 1.9;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 星空背景 */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: var(--accent-star);
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; transform: scale(0.8); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        /* 月亮 */
+        .moon {
+            position: fixed;
+            top: 48px;
+            right: 36px;
+            width: 72px;
+            height: 72px;
+            background: radial-gradient(circle at 30% 30%, #fff8e7, #f5e6c8 50%, #c9b896 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(255, 217, 168, 0.25), 0 0 80px rgba(255, 217, 168, 0.1);
+            z-index: 0;
+            opacity: 0.9;
+        }
+
+        /* 流星 */
+        .shooting-star {
+            position: fixed;
+            top: 20%;
+            left: -120px;
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #fff8e7, transparent);
+            transform: rotate(-35deg);
+            opacity: 0;
+            animation: shoot 8s infinite ease-in-out;
+            animation-delay: 3s;
+            z-index: 0;
+        }
+
+        @keyframes shoot {
+            0%, 80%, 100% { opacity: 0; left: -120px; }
+            85% { opacity: 1; }
+            95% { left: 110%; opacity: 0; }
+        }
+
+        /* 内容卡片 */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 20px 80px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 40px 32px;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .header-icon {
+            text-align: center;
+            font-size: 3.2rem;
+            margin-bottom: 12px;
+            opacity: 0.92;
+        }
+
+        h1 {
+            font-size: 1.85rem;
+            font-weight: 600;
+            text-align: center;
+            color: var(--accent-glow);
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            margin-bottom: 36px;
+            letter-spacing: 1px;
+        }
+
+        .story-content p {
+            font-size: 1.18rem;
+            margin-bottom: 1.4em;
+            text-indent: 2em;
+            color: var(--text-main);
+        }
+
+        .goodnight {
+            margin-top: 44px;
+            padding: 28px;
+            background: rgba(255, 217, 168, 0.08);
+            border-radius: 20px;
+            border-left: 4px solid var(--accent-glow);
+        }
+
+        .goodnight p {
+            text-indent: 0;
+            font-size: 1.22rem;
+            color: var(--accent-glow);
+            text-align: center;
+            margin-bottom: 0.4em;
+            line-height: 1.8;
+        }
+
+        .date-tag {
+            text-align: center;
+            margin-top: 28px;
+            color: var(--text-soft);
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        /* 波浪底纹 */
+        .waves {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            z-index: 0;
+            opacity: 0.25;
+            pointer-events: none;
+        }
+
+        /* 响应式 */
+        @media (max-width: 640px) {
+            .container {
+                padding: 36px 16px 64px;
+            }
+            .card {
+                padding: 32px 22px;
+                border-radius: 22px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .story-content p {
+                font-size: 1.08rem;
+                line-height: 1.85;
+            }
+            .moon {
+                width: 56px;
+                height: 56px;
+                top: 28px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="moon"></div>
+    <div class="shooting-star"></div>
+    
+    <svg class="waves" viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path fill="rgba(255,255,255,0.08)" d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z"></path>
+        <path fill="rgba(255,255,255,0.05)" d="M0,80 C360,140 720,20 1080,80 C1260,110 1380,90 1440,80 L1440,120 L0,120 Z"></path>
+    </svg>
+
+    <div class="container">
+        <div class="card">
+            <div class="header-icon">🐚</div>
+            <h1>小贝壳的摇篮曲</h1>
+            <div class="subtitle">2026年8月16日 · 儿童睡前故事</div>
+            
+            <div class="story-content">
+                <p>太阳公公打了个哈欠，慢慢躲进海平面后面。金色的沙滩变得凉凉的，一只小小的贝壳被潮水轻轻留在岸边，她的名字叫小贝。</p>
+
+                <p>小贝只有小宝贝的手掌那么大，身上有一圈圈像彩虹一样的花纹。她想念大海妈妈温暖的怀抱，也想念浪花姐姐轻轻地摇晃。可是夜晚太安静了，安静得让她有点睡不着。</p>
+
+                <p>“滴答，滴答……”忽然，小贝听见自己身体里有细细的声音。她好奇地侧耳听，原来是海风穿过她的小身体，发出像风铃一样好听的声音。</p>
+
+                <p>小贝轻轻地哼起来：“睡吧，睡吧，小海星，海浪是你的小摇篮……睡吧，睡吧，小螃蟹，沙滩是你的软枕头……”</p>
+
+                <p>奇妙的事情发生了！不远处，一只翻不过身的小海龟慢慢安静下来，把脑袋缩进壳里；一群迷路的小银鱼不再慌乱，排成一排游向深海；就连沙滩上晒太阳的小螃蟹，也乖乖地钻进了小沙洞。</p>
+
+                <p>这时候，海边传来一个小女孩的声音：“妈妈，你听，有人在唱歌呢！”小女孩坐在窗边，海风把小贝的歌声送到她耳边。她打了个小哈欠，靠在妈妈怀里，睫毛像小扇子一样垂下来。</p>
+
+                <p>小贝唱得越来越轻，越来越慢。她知道，自己虽然很小很小，却可以用温柔的歌声，给夜晚的大海、沙滩，还有窗边的小朋友，都送上一个甜甜的梦。</p>
+
+                <p>月亮婆婆看着这一切，笑眯眯地洒下一片银光。小贝在月光下闭上了眼睛，心里暖洋洋的。她明白了：原来最好的爱，就是把心里的温柔唱给别人听。</p>
+            </div>
+
+            <div class="goodnight">
+                <p>晚安，小宝贝。</p>
+                <p>小贝壳说，你今天把温柔送给了世界，现在该做一个像大海一样甜甜的梦了。</p>
+            </div>
+            
+            <div class="date-tag">今晚也要乖乖睡觉哦 ✨</div>
+        </div>
+    </div>
+
+    <script>
+        // 生成随机星星
+        const starsContainer = document.getElementById('stars');
+        const starCount = 48;
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 2.5 + 1;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 80 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+            starsContainer.appendChild(star);
+        }
+    </script>
+</body>
+</html>

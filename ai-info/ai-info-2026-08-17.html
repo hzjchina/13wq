@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-08-17</title>
+<style>
+:root {
+  --bg:#05070f; --bg2:#0a0f1e; --card:#0d1326; --line:rgba(120,160,255,.10);
+  --txt:#e8edf7; --dim:#8b96b5; --cyan:#22d3ee; --violet:#8b5cf6; --pink:#f472b6;
+  --amber:#fbbf24; --green:#34d399; --red:#f87171;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+  line-height:1.65; overflow-x:hidden;
+}
+/* 网格线背景 */
+body::before {
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+}
+/* 霓虹光晕 */
+body::after {
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(700px 380px at 12% -5%, rgba(34,211,238,.16), transparent 60%),
+    radial-gradient(820px 420px at 88% 8%, rgba(139,92,246,.18), transparent 60%),
+    radial-gradient(600px 400px at 50% 110%, rgba(244,114,182,.10), transparent 60%);
+}
+.wrap { position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:48px 20px 80px; }
+
+/* 头部 */
+header { text-align:center; margin-bottom:44px; }
+.hud {
+  display:inline-flex; gap:10px; padding:8px 18px; border-radius:999px;
+  border:1px solid rgba(34,211,238,.3); background:rgba(34,211,238,.06);
+  font-size:12px; letter-spacing:2px; color:var(--cyan); text-transform:uppercase;
+  margin-bottom:18px;
+}
+.hud .dot { width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+h1 {
+  font-size:clamp(30px,5vw,46px); font-weight:800; letter-spacing:1px;
+  background:linear-gradient(92deg,#22d3ee 0%,#8b5cf6 50%,#f472b6 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 40px rgba(139,92,246,.25);
+}
+.date { margin-top:10px; color:var(--dim); font-size:15px; letter-spacing:3px; }
+.stat-row { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:22px; }
+.stat {
+  padding:10px 20px; border-radius:12px; border:1px solid var(--line);
+  background:rgba(13,19,38,.75); backdrop-filter:blur(6px); font-size:13px; color:var(--dim);
+}
+.stat b { color:var(--cyan); font-size:17px; margin-right:5px; }
+
+/* 统计条 */
+.overview {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:34px;
+}
+.ov-card {
+  padding:16px; border-radius:14px; border:1px solid var(--line);
+  background:linear-gradient(160deg, rgba(13,19,38,.9), rgba(10,15,30,.6));
+  text-align:center;
+}
+.ov-card .num { font-size:26px; font-weight:800; background:linear-gradient(92deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.ov-card .lbl { font-size:12px; color:var(--dim); margin-top:4px; letter-spacing:1px; }
+
+/* 卡片网格 */
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.card {
+  position:relative; display:flex; gap:14px; padding:20px 18px 18px 22px;
+  border-radius:16px; background:linear-gradient(165deg, rgba(17,24,46,.92), rgba(10,15,30,.85));
+  border:1px solid var(--line); overflow:hidden;
+  animation:rise .55s ease both; animation-delay:var(--d);
+  transition:transform .25s, border-color .25s, box-shadow .25s;
+}
+.card:hover { transform:translateY(-3px); border-color:rgba(139,92,246,.45); box-shadow:0 12px 34px rgba(80,60,180,.22), 0 0 0 1px rgba(139,92,246,.12) inset; }
+.card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg,var(--cyan),var(--violet),var(--pink)); opacity:.85; }
+@keyframes rise { from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
+
+.rank { font-size:13px; font-weight:800; color:var(--dim); letter-spacing:1px; min-width:22px; }
+.score { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-width:52px; padding-top:2px; }
+.score b { font-size:22px; font-weight:800; }
+.score span { font-size:10px; color:var(--dim); letter-spacing:2px; }
+.score.h3 b { color:var(--red); text-shadow:0 0 16px rgba(248,113,113,.5); }
+.score.h2 b { color:var(--amber); }
+.score.h1 b { color:var(--cyan); }
+
+.card-body { flex:1; min-width:0; }
+.tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.cat {
+  font-size:11px; padding:2px 10px; border-radius:999px; letter-spacing:1px;
+  border:1px solid rgba(34,211,238,.4); color:var(--cyan); background:rgba(34,211,238,.08);
+}
+.badge { font-size:11px; padding:2px 10px; border-radius:999px; letter-spacing:1px; }
+.badge.sel { border:1px solid rgba(139,92,246,.5); color:#c4b5fd; background:rgba(139,92,246,.12); }
+.badge.pool { border:1px solid rgba(139,148,181,.4); color:var(--dim); background:rgba(139,148,181,.08); }
+.badge.kw { border:1px solid rgba(251,191,36,.5); color:var(--amber); background:rgba(251,191,36,.10); }
+
+h3 { font-size:16.5px; font-weight:700; line-height:1.45; margin-bottom:8px; }
+h3 a { color:var(--txt); text-decoration:none; transition:color .2s; }
+h3 a:hover { color:var(--cyan); }
+.sum { font-size:13.5px; color:#aab4d0; margin-bottom:10px; }
+.why {
+  font-size:12.5px; color:#cfd6ea; background:rgba(34,211,238,.05);
+  border:1px solid rgba(34,211,238,.14); border-radius:10px; padding:9px 12px; margin-bottom:12px;
+}
+.why-tag {
+  display:inline-block; font-size:10px; color:var(--violet); letter-spacing:1px;
+  border:1px solid rgba(139,92,246,.45); border-radius:4px; padding:1px 7px; margin-right:7px;
+  background:rgba(139,92,246,.12); vertical-align:1px;
+}
+.meta { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:11.5px; color:var(--dim); }
+.src { max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+footer { margin-top:46px; text-align:center; color:#5b6580; font-size:12px; letter-spacing:1px; line-height:2; }
+footer .src-note { color:#7c88a8; }
+
+@media (max-width:760px) {
+  .grid { grid-template-columns:1fr; }
+  .overview { grid-template-columns:repeat(2,1fr); }
+  .card { padding-left:16px; }
+  .rank { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hud"><span class="dot"></span>DAILY AI INTELLIGENCE</div>
+    <h1>AI 情报日报</h1>
+    <div class="date">2026 · 08 · 17 ｜ 过去 24 小时 AI 圈要闻</div>
+    <div class="stat-row">
+      <div class="stat">数据源 <b>AI HOT</b> v1 · 24h 窗口</div>
+      <div class="stat">精选池 <b>2</b> 条</div>
+      <div class="stat">全量池 <b>15</b> 条</div>
+      <div class="stat">关键词补充 <b>3</b> 条</div>
+    </div>
+  </header>
+
+  <div class="overview">
+    <div class="ov-card"><div class="num">73</div><div class="lbl">最高热度</div></div>
+    <div class="ov-card"><div class="num">8</div><div class="lbl">AI Coding</div></div>
+    <div class="ov-card"><div class="num">2</div><div class="lbl">具身智能</div></div>
+    <div class="ov-card"><div class="num">6</div><div class="lbl">行业动态</div></div>
+  </div>
+
+  <div class="grid">
+
+    <article class="card" style="--d:0ms">
+      <div class="rank">01</div>
+      <div class="score h3"><b>73</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">模型</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmswesk6a0r2hrovml2edcl2c" target="_blank" rel="noopener">Qwen 3.8 27B 表现出色，但默认推理强度过高导致过度思考</a></h3>
+        <p class="sum">阿里 Qwen 实验室发布 Apache 2 许可的 27B 参数视觉大模型 Qwen 3.8 27B，官方基准显示其超越前代 Qwen 3.6 27B 及闭源 Qwen 3.7-Plus。</p>
+        <div class="why"><span class="why-tag">关注原因</span>开源视觉模型性能已超闭源前代，但默认推理档位过高会把单次生成从 137 秒拖到 21 分钟——推理强度默认值比模型能力更影响本地部署选型，对开源方案的工程取舍有直接指导意义。</div>
+        <div class="meta"><span class="src">Simon Willison 博客</span><span class="time">北京时间 08-17 06:00</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:40ms">
+      <div class="rank">02</div>
+      <div class="score h3"><b>73</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">智能体</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvptx2m061frovmjoavsi0l" target="_blank" rel="noopener">新兴多智能体系统的模式与问题</a></h3>
+        <p class="sum">随着AI智能体在共享代码库、市场等社会系统中承担更多任务，智能体间的真实交互将激增，其交互量可能超过人机交互。Anthropic实验显示，协调式智能体群在2700万token运行中发现266个漏洞，远超独立并行方法的21个，但两者互补性明显。智能体虽擅长工具使用，但在长期协作与协调方面仍面临挑战。</p>
+        <div class="why"><span class="why-tag">关注原因</span>Anthropic 首次把多智能体协作的失败模式量化成可观测案例：2700 万 token 运行中发现 266 个漏洞 vs 独立并行仅 21 个。智能体群协作将超过人机交互，这份实验是评估协作系统稀缺的实证基准。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-16 19:17</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:80ms">
+      <div class="rank">03</div>
+      <div class="score h3"><b>70</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsv8nxwi0bbqrosav8m3jpe7" target="_blank" rel="noopener">DeepSeek V4 Pro 能力高度绑定脚手架</a></h3>
+        <p class="sum">DeepSeek V4 Pro 能力高度绑定特定脚手架：同一模型同一任务，首轮塞入 25 个工具仅得 91 分，只给 bash 和 str_replace_editor 两个工具则稳定 96-99 分，两阶段锚定（先极简后解锁）连续 98-99 分。</p>
+        <div class="why"><span class="why-tag">关注原因</span>同一模型同一任务，塞 25 个工具只得 91 分，只给 2 个工具反而稳定 96-99 分——工具暴露数量与 Agent 表现呈反比，直接挑战 Agent 工程的工具设计常识。</div>
+        <div class="meta"><span class="src">X：阿易 AI Notes (@AYi_AInotes)</span><span class="time">北京时间 08-16 10:47</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:120ms">
+      <div class="rank">04</div>
+      <div class="score h3"><b>66</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">行业</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmswcdhsk0o73rovmkb30d313" target="_blank" rel="noopener">Stripe 超 70 亿美元收购 OpenRouter</a></h3>
+        <p class="sum">Stripe 已敲定以超 70 亿美元收购 AI 公司 OpenRouter 的协议。此前《华尔街日报》曾报道谈判价约为 100 亿美元，最终成交价低于该传闻。对 Stripe 而言这是一场重大胜利。</p>
+        <div class="why"><span class="why-tag">关注原因</span>70 亿美元级并购落定，支付巨头吞下 AI 模型网关，模型分发、计费与支付基础设施的关键卡位，直接改变 LLM 生态的商业链路。</div>
+        <div class="meta"><span class="src">X：Kim (@kimmonismus)</span><span class="time">北京时间 08-17 05:33</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:160ms">
+      <div class="rank">05</div>
+      <div class="score h2"><b>63</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">行业</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmswfjf6h0rj1rovm83aex54k" target="_blank" rel="noopener">筹备 IPO 之际，消息称 OpenAI 已解散旗下风险防范团队</a></h3>
+        <p class="sum">OpenAI 已于上月末解散旗下风险防范团队，相关职责按生物安全、网络安全等细分领域拆分并入现有业务团队。此前该团队核心工作是评估模型重大风险并制定缓解措施。公司正筹备规模空前的 IPO，内部持续动荡，已先后解散 AGI 筹备团队与超级对齐团队，多名安全相关高管近期相继离职。</p>
+        <div class="why"><span class="why-tag">关注原因</span>IPO 前夜接连解散 AGI 筹备、超级对齐与风险防范三大安全团队，安全高管陆续离职——资本化进程与 AI 安全治理的张力正在公开化。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-17 06:42</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:200ms">
+      <div class="rank">06</div>
+      <div class="score h2"><b>62</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">行业</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmswfjf6h0rj2rovmbtlm1y89" target="_blank" rel="noopener">Anthropic Claude 出现大规模服务故障，Claude.ai、Claude Code 等多项服务无法登录</a></h3>
+        <p class="sum">Anthropic Claude 于 8 月 17 日 5：58（北京时间）左右出现大规模服务故障，影响 Claude.ai、Claude Code 和 Claude Cowork，用户可能遇到无法登录、页面无法加载、请求无法完成等错误。</p>
+        <div class="why"><span class="why-tag">关注原因</span>AI coding 主力工具链全线宕机：Claude.ai、Claude Code、Claude Cowork 同时无法登录，对依赖 Claude 的开发者工作流造成直接冲击。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-17 06:36</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:240ms">
+      <div class="rank">07</div>
+      <div class="score h2"><b>62</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsw9khzl0mgmrovmlzjw5q23" target="_blank" rel="noopener">Codex 启用 GPT-5.6 Sol 百万 token 上下文</a></h3>
+        <p class="sum">Codex 现支持为 GPT-5.6 Sol 配置 100 万 token 上下文窗口，该模型文档标注窗口为 1，050，000 token。</p>
+        <div class="why"><span class="why-tag">关注原因</span>Codex 为 GPT-5.6 Sol 开放 105 万 token 上下文，长上下文编码（整库级重构、大型代码库分析）的落地信号。</div>
+        <div class="meta"><span class="src">X：Tibo (@thsottiaux)</span><span class="time">北京时间 08-17 04:12</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:280ms">
+      <div class="rank">08</div>
+      <div class="score h2"><b>60</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvat4yn0cvprosavz55ht6q" target="_blank" rel="noopener">DeepSeek 开源 Harness 及 11 个内部工程 Skill</a></h3>
+        <p class="sum">DeepSeek 开源其内部工程团队使用的 DeepSeek Harness 仓库，并附带 11 个真实工程级 Skill，涵盖 Code Review、质量门禁、PR 验收等标准流程。</p>
+        <div class="why"><span class="why-tag">关注原因</span>DeepSeek 开源内部工程团队真实使用的 Harness 与 11 个工程级 Skill（Code Review、质量门禁、PR 验收），是国内开源生态罕见的一手工程实践，3 天斩获 12.2 万星。</div>
+        <div class="meta"><span class="src">X：阿易 AI Notes (@AYi_AInotes)</span><span class="time">北京时间 08-16 11:58</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:320ms">
+      <div class="rank">09</div>
+      <div class="score h2"><b>59</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">安全</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvrykkw08i6rovmxbvco8nl" target="_blank" rel="noopener">Anthropic 自曝安全漏洞：生物武器过滤器曾失效近一年，涉及 1.33 亿次对话</a></h3>
+        <p class="sum">Anthropic 最新安全报告显示，其用于拦截化学、生物武器相关危险请求的部分安全分类器在 2025 年 5 月至 2026 年 4 月期间长期失效，约 5 万名外部承包商产生的 1.33 亿次对话未经过滤。内部调查未发现相关请求被实际用于滥用的证据，公司已加强外部承包商筛查要求。</p>
+        <div class="why"><span class="why-tag">关注原因</span>生物武器安全分类器失效近一年、1.33 亿次对话未过滤——AI 安全防线真实失效的罕见案例，对行业自检与监管都是重要警示。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-16 19:37</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:360ms">
+      <div class="rank">10</div>
+      <div class="score h1"><b>53</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmswha6w10t3crovmzks6x0yt" target="_blank" rel="noopener">反常识真相：Agent在真实工作场景成功率依然很低，多模型电商任务通过率不足50%</a></h3>
+        <p class="sum">阿里国际站开源的RealReplicaBench评测显示，107个真实电商任务中，Claude Opus 5以60.75%通过率居首，Qwen 3.8 Max和DeepSeek V4 Pro以49.53%并列第三，多数模型通过率不足50%。</p>
+        <div class="why"><span class="why-tag">关注原因</span>真实电商任务基准：最强模型通过率仅 60.75%，多数模型不足 50%——Agent 落地的真实水位线，远低于炒作预期，是评估 Agent 能力的关键参照。</div>
+        <div class="meta"><span class="src">公众号：数字生命卡兹克</span><span class="time">北京时间 08-17 08:09</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:400ms">
+      <div class="rank">11</div>
+      <div class="score h1"><b>53</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsw2odbj0g26rovmwwl0moxl" target="_blank" rel="noopener">网传Anthropic内部文档造假，Agent工程从Loop走向Graph是真趋势</a></h3>
+        <p class="sum">刷屏的Graph Engineering内部文档被证实为假，Claude Code负责人Boris Cherny于7月25日否认撰写，Karpathy入职时间线也对不上。</p>
+        <div class="why"><span class="why-tag">关注原因</span>刷屏的 Anthropic Graph Engineering 内部文档被证伪——Agent 工程领域信息鱼龙混杂，真伪鉴别本身就是重要能力。</div>
+        <div class="meta"><span class="src">X：阿易 AI Notes (@AYi_AInotes)</span><span class="time">北京时间 08-17 01:13</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:440ms">
+      <div class="rank">12</div>
+      <div class="score h1"><b>53</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">行业</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvkibff01ztrovm1v1yzf0x" target="_blank" rel="noopener">西门子测试Qwen与DeepSeek，欧洲企业转向中国开源模型</a></h3>
+        <p class="sum">中国开源模型正获欧洲企业青睐，西门子已公开测试Qwen和DeepSeek，在自托管LLM平台配合vLLM运行。本地推理可规避GDPR跨境数据传输限制，但自托管仅在服务器持续满载时优于租用API，且中国是西门子最大市场之一，采用中国模型有助于维持在华业务资格。</p>
+        <div class="why"><span class="why-tag">关注原因</span>西门子等欧洲巨头公开测试中国开源模型：本地推理规避 GDPR 跨境传输限制，地缘政治与合规双重因素正在推动开源模型出海。</div>
+        <div class="meta"><span class="src">X：Rohan Paul (@rohanpaul_ai)</span><span class="time">北京时间 08-16 16:36</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:480ms">
+      <div class="rank">13</div>
+      <div class="score h1"><b>53</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">行业</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmswfjf6h0riwrovmvu1c65lv" target="_blank" rel="noopener">DeepSeek API 峰谷定价方案今日生效，高峰时段价格翻倍</a></h3>
+        <p class="sum">DeepSeek API 峰谷定价方案今日（8月17日）正式生效，高峰时段（北京时间9：00-12：00、14：00-18：00）价格为空闲时段的两倍。以deepseek-v4-flash为例，高峰时段百万tokens输出价格为9.0元，空闲时段为4.5元；deepseek-v4-pro高峰时段百万tokens输出价格达27.0元。此前DeepSeek V4 Pro百万tokens输出价格为6元。</p>
+        <div class="why"><span class="why-tag">关注原因</span>DeepSeek 峰谷定价正式生效，高峰时段价格翻倍（v4-pro 输出 27 元/百万 tokens）——算力成本结构变化直接影响开发者的调用策略。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-17 07:03</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:520ms">
+      <div class="rank">14</div>
+      <div class="score h1"><b>52</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">行业</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsw0j8mh0eldrovmqc8ykudi" target="_blank" rel="noopener">斯坦福调查：84% 中国受访者对 AI 感到兴奋，美国仅 38%</a></h3>
+        <p class="sum">斯坦福《AI Index 2026》报告显示，84% 中国受访者对 AI 产品和服务感到兴奋，美国仅 38%；72% 中国受访者信任 AI，美国为 32%。报告指出，中美模型性能差距已基本消失，两国模型自 2025 年初交替领跑。美国公众对 AI 的讨论集中于就业替代、虚假信息等风险，而中国更强调将 AI 融入制造业、教育、医疗和科研等领域。</p>
+        <div class="why"><span class="why-tag">关注原因</span>斯坦福 AI Index 2026：中国 84% vs 美国 38% 对 AI 兴奋，且中美模型性能差距基本消失——全球 AI 舆论与竞争格局的关键数据点。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-16 23:22</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:560ms">
+      <div class="rank">15</div>
+      <div class="score h1"><b>52</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvject00kwmrosa7zrsipnd" target="_blank" rel="noopener">软件工程的基础知识为何比智能体炒作更重要</a></h3>
+        <p class="sum">作者认为，智能体工程的热潮掩盖了软件工程的核心：可调试、可维护、分层、可组合的代码仍依赖深思熟虑的推理，而这正是当前LLM的短板。LLM本质是预测而非推理，且无法区分好坏建议，存在提示注入等根本性缺陷。开源权重模型正让个人电脑具备相近能力，但工程的关键仍在于选择正确的抽象和管理认知负荷。</p>
+        <div class="why"><span class="why-tag">关注原因</span>反炒作视角：LLM 本质是预测而非推理，可调试、可维护的分层代码仍是短板——给过热的多智能体炒作泼冷水，工程底线思维值得参考。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-16 15:50</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:600ms">
+      <div class="rank">16</div>
+      <div class="score h1"><b>50</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvw8u9c0bk2rovmx3qa21vh" target="_blank" rel="noopener">第二届世界人形机器人运动会赛前冲刺：家政赛要求30分钟内完成收纳叠衣，大模型助力持续学习</a></h3>
+        <p class="sum">第二届世界人形机器人运动会将于8月22日在北京&quot;冰丝带&quot;开幕，51个项目共1301场比赛，666支队伍、2056台机器人参赛。家政场景赛中，机器人需在30分钟内完成物品收纳、衣物折叠等任务，赛队通过五种数据训练大模型，并开发&quot;终身学习机制&quot;应对关节磨损。福建队&quot;福智&quot;采用3D打印轻量化轮臂结构，搭载自研具身智能大模型，已在福州地铁站开展实境测试。</p>
+        <div class="why"><span class="why-tag">关注原因</span>8/22 北京冰丝带开赛：2056 台机器人、51 个项目，家政赛要求 30 分钟完成收纳叠衣，赛队开发终身学习机制对抗关节磨损——具身智能从实验室走向竞技场。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-16 21:52</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:640ms">
+      <div class="rank">17</div>
+      <div class="score h1"><b>50</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvat4q10cvjrosa6c6vn6j2" target="_blank" rel="noopener">千问办公首发上线 GLM-5.3 和 DeepSeek V4 Pro 模型，可直接选用</a></h3>
+        <p class="sum">千问办公首发上线 GLM-5.3 和 DeepSeek V4 Pro 两款前沿模型，用户可在产品首页「前沿模型」档位直接选用。DeepSeek V4 Pro 支持 100 万 token 上下文、最高 384K 输出；GLM-5.3 较 GLM-5.2 性能提升 50%。</p>
+        <div class="why"><span class="why-tag">关注原因</span>办公场景直接可选 DeepSeek V4 Pro（百万上下文）+ GLM-5.3（性能提升 50%），前沿模型正在快速进入生产力工具链。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-16 12:03</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:680ms">
+      <div class="rank">18</div>
+      <div class="score h1"><b>49</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">模型</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvegh540hmqrosakt8hzpwy" target="_blank" rel="noopener">GPT-5.6 Sol 分词效率比 Claude Opus 5 高 34.5%</a></h3>
+        <p class="sum">OpenAI 的 token 与其他模型不等价，每百万 token 价格对比会误导决策。GPT-5.6 Sol 的分词器在测试中仅用 766 个 token，而 Claude Opus 5 需约 1，170 个，少 34.5%。真正该比较的是每次成功结果的价格，而非单价。</p>
+        <div class="why"><span class="why-tag">关注原因</span>GPT-5.6 Sol 分词效率高 34.5%——token 单价对比会误导决策，按&#x27;每次成功结果&#x27;计价才是真实成本，对 API 选型有实操价值。</div>
+        <div class="meta"><span class="src">X：Tibo (@thsottiaux)</span><span class="time">北京时间 08-16 13:52</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:720ms">
+      <div class="rank">19</div>
+      <div class="score h1"><b>49</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsvf3h120hrorosafu5blwms" target="_blank" rel="noopener">反驳&quot;全塞进AGENTS.md&quot;：Skills是管理臃肿的工具</a></h3>
+        <p class="sum">针对&quot;Skills是bloat、应全塞进AGENTS.md&quot;的流行建议，多位AI从业者指出其误区。Skills采用渐进式披露，仅按需加载完整内容，而AGENTS.md每次会话全量加载。全塞进AGENTS.md会导致token成本高、关键指令被稀释及不可维护。适用边界仅在极简个人工具，多工作流场景应分层使用。</p>
+        <div class="why"><span class="why-tag">关注原因</span>Skills 渐进式披露按需加载 vs AGENTS.md 全量加载——&#x27;全塞进 AGENTS.md&#x27; 的建议被多位从业者反驳，token 成本与可维护性的权衡是 Agent 配置设计的关键问题。</div>
+        <div class="meta"><span class="src">X：阿易 AI Notes (@AYi_AInotes)</span><span class="time">北京时间 08-16 14:10</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:760ms">
+      <div class="rank">20</div>
+      <div class="score h1"><b>32</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsv28ffl06o1rosaemgjoyf2" target="_blank" rel="noopener">2026 世界机器人大会展位图揭晓：8 月 19 日开幕，宇树科技、优必选等参展</a></h3>
+        <p class="sum">2026 世界机器人大会将于 8 月 19 日至 23 日在北京经济技术开发区北人亦创国际会展中心举行，展位图已全部揭晓。新增的智创馆面积达 2 万平方米，宇树科技、优必选、银河通用等企业将带来机器人整机、具身智能及人形机器人最新成果。大会另设智造馆、智合馆及由两个临时展馆组成的智趣馆，AMD、SMC 等国际企业及多地人形机器人创新中心也将参展。</p>
+        <div class="why"><span class="why-tag">关注原因</span>8/19 北京开幕，新增 2 万平米智创馆，宇树、优必选、银河通用等展示人形机器人最新成果——具身智能产业风向标，明后天即开幕。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-16 08:11</span></div>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div>数据来源：AI HOT（aihot.virxact.com）· 过去 24 小时时间窗 · 按热度降序</div>
+    <div class="src-note">徽章说明：精选＝AI HOT 精选池｜全量池＝全量池补充｜未进入精选＝关键词命中但精选池为空，由全量池补充</div>
+    <div>生成时间：2026-08-17 08:20 北京时间</div>
+  </footer>
+</div>
+</body>
+</html>
