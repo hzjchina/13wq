@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-08-18</title>
+<style>
+:root {
+  --bg:#05070f; --bg2:#0a0f1e; --card:#0d1326; --line:rgba(120,160,255,.10);
+  --txt:#e8edf7; --dim:#8b96b5; --cyan:#22d3ee; --violet:#8b5cf6; --pink:#f472b6;
+  --amber:#fbbf24; --green:#34d399; --red:#f87171;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+  line-height:1.65; overflow-x:hidden;
+}
+/* 网格线背景 */
+body::before {
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+}
+/* 霓虹光晕 */
+body::after {
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(700px 380px at 12% -5%, rgba(34,211,238,.16), transparent 60%),
+    radial-gradient(820px 420px at 88% 8%, rgba(139,92,246,.18), transparent 60%),
+    radial-gradient(600px 400px at 50% 110%, rgba(244,114,182,.10), transparent 60%);
+}
+.wrap { position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:48px 20px 80px; }
+
+/* 头部 */
+header { text-align:center; margin-bottom:44px; }
+.hud {
+  display:inline-flex; gap:10px; padding:8px 18px; border-radius:999px;
+  border:1px solid rgba(34,211,238,.3); background:rgba(34,211,238,.06);
+  font-size:12px; letter-spacing:2px; color:var(--cyan); text-transform:uppercase;
+  margin-bottom:18px;
+}
+.hud .dot { width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+h1 {
+  font-size:clamp(30px,5vw,46px); font-weight:800; letter-spacing:1px;
+  background:linear-gradient(92deg,#22d3ee 0%,#8b5cf6 50%,#f472b6 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 40px rgba(139,92,246,.25);
+}
+.date { margin-top:10px; color:var(--dim); font-size:15px; letter-spacing:3px; }
+.stat-row { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:22px; }
+.stat {
+  padding:10px 20px; border-radius:12px; border:1px solid var(--line);
+  background:rgba(13,19,38,.75); backdrop-filter:blur(6px); font-size:13px; color:var(--dim);
+}
+.stat b { color:var(--cyan); font-size:17px; margin-right:5px; }
+
+/* 统计条 */
+.overview {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:34px;
+}
+.ov-card {
+  padding:16px; border-radius:14px; border:1px solid var(--line);
+  background:linear-gradient(160deg, rgba(13,19,38,.9), rgba(10,15,30,.6));
+  text-align:center;
+}
+.ov-card .num { font-size:26px; font-weight:800; background:linear-gradient(92deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.ov-card .lbl { font-size:12px; color:var(--dim); margin-top:4px; letter-spacing:1px; }
+
+/* 卡片网格 */
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.card {
+  position:relative; display:flex; gap:14px; padding:20px 18px 18px 22px;
+  border-radius:16px; background:linear-gradient(165deg, rgba(17,24,46,.92), rgba(10,15,30,.85));
+  border:1px solid var(--line); overflow:hidden;
+  animation:rise .55s ease both; animation-delay:var(--d);
+  transition:transform .25s, border-color .25s, box-shadow .25s;
+}
+.card:hover { transform:translateY(-3px); border-color:rgba(139,92,246,.45); box-shadow:0 12px 34px rgba(80,60,180,.22), 0 0 0 1px rgba(139,92,246,.12) inset; }
+.card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg,var(--cyan),var(--violet),var(--pink)); opacity:.85; }
+@keyframes rise { from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
+
+.rank { font-size:13px; font-weight:800; color:var(--dim); letter-spacing:1px; min-width:22px; }
+.score { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-width:52px; padding-top:2px; }
+.score b { font-size:22px; font-weight:800; }
+.score span { font-size:10px; color:var(--dim); letter-spacing:2px; }
+.score.h3 b { color:var(--red); text-shadow:0 0 16px rgba(248,113,113,.5); }
+.score.h2 b { color:var(--amber); }
+.score.h1 b { color:var(--cyan); }
+
+.card-body { flex:1; min-width:0; }
+.tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.cat {
+  font-size:11px; padding:2px 10px; border-radius:999px; letter-spacing:1px;
+  border:1px solid rgba(34,211,238,.4); color:var(--cyan); background:rgba(34,211,238,.08);
+}
+.badge { font-size:11px; padding:2px 10px; border-radius:999px; letter-spacing:1px; }
+.badge.sel { border:1px solid rgba(139,92,246,.5); color:#c4b5fd; background:rgba(139,92,246,.12); }
+.badge.pool { border:1px solid rgba(139,148,181,.4); color:var(--dim); background:rgba(139,148,181,.08); }
+.badge.kw { border:1px solid rgba(251,191,36,.5); color:var(--amber); background:rgba(251,191,36,.10); }
+
+h3 { font-size:16.5px; font-weight:700; line-height:1.45; margin-bottom:8px; }
+h3 a { color:var(--txt); text-decoration:none; transition:color .2s; }
+h3 a:hover { color:var(--cyan); }
+.sum { font-size:13.5px; color:#aab4d0; margin-bottom:10px; }
+.why {
+  font-size:12.5px; color:#cfd6ea; background:rgba(34,211,238,.05);
+  border:1px solid rgba(34,211,238,.14); border-radius:10px; padding:9px 12px; margin-bottom:12px;
+}
+.why-tag {
+  display:inline-block; font-size:10px; color:var(--violet); letter-spacing:1px;
+  border:1px solid rgba(139,92,246,.45); border-radius:4px; padding:1px 7px; margin-right:7px;
+  background:rgba(139,92,246,.12); vertical-align:1px;
+}
+.meta { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:11.5px; color:var(--dim); }
+.src { max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+footer { margin-top:46px; text-align:center; color:#5b6580; font-size:12px; letter-spacing:1px; line-height:2; }
+footer .src-note { color:#7c88a8; }
+
+@media (max-width:760px) {
+  .grid { grid-template-columns:1fr; }
+  .overview { grid-template-columns:repeat(2,1fr); }
+  .card { padding-left:16px; }
+  .rank { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hud"><span class="dot"></span>DAILY AI INTELLIGENCE</div>
+    <h1>AI 情报日报</h1>
+    <div class="date">2026 · 08 · 18 ｜ 过去 24 小时 AI 圈要闻</div>
+    <div class="stat-row">
+      <div class="stat">数据源 <b>AI HOT</b> v1 · 24h 窗口</div>
+      <div class="stat">精选池 <b>10</b> 条</div>
+      <div class="stat">全量池 <b>8</b> 条</div>
+      <div class="stat">关键词补充 <b>2</b> 条</div>
+    </div>
+  </header>
+
+  <div class="overview">
+    <div class="ov-card"><div class="num">81</div><div class="lbl">最高热度</div></div>
+    <div class="ov-card"><div class="num">9</div><div class="lbl">AI Coding</div></div>
+    <div class="ov-card"><div class="num">2</div><div class="lbl">具身智能</div></div>
+    <div class="ov-card"><div class="num">9</div><div class="lbl">行业动态</div></div>
+  </div>
+
+  <div class="grid">
+
+    <article class="card" style="--d:0ms">
+      <div class="rank">01</div>
+      <div class="score h3"><b>81</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxsvb5s0a4troz0z2q2nu3h" target="_blank" rel="noopener">Cursor 推出 Origin 代码托管服务，作为 GitHub 的替代方案</a></h3>
+        <p class="sum">Cursor 今日起向所有付费计划用户开放 Origin 代码托管的早期测试版，提供仓库、拉取请求、代码浏览及 GitHub 同步功能。用户可创建以 cursor.com/codebase/ 为前缀的仓库，或将 GitHub 仓库同步至 Origin 双向同步评论与审查。Vercel、Depot 和 Buildkite 集成已可用，智能体功能即将推出。</p>
+        <div class="why"><span class="why-tag">关注原因</span>Cursor 正式下场做代码托管、正面叫板 GitHub，且上线当日恰逢 GitHub 服务中断；双向同步 + 即将上线的智能体功能，AI 原生 IDE 正向工具链上游延伸，开发者平台格局可能被重塑。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-18 06:23</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:40ms">
+      <div class="rank">02</div>
+      <div class="score h3"><b>77</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">基建</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsx9jvre05y6romms3bo1umb" target="_blank" rel="noopener">NVIDIA 与 SB Energy 合作锁定俄亥俄州 PORTS-Pike 园区电力容量，OpenAI 将入驻</a></h3>
+        <p class="sum">NVIDIA 宣布与 SB Energy 合作，锁定俄亥俄州 PORTS-Pike 科技园区的电力容量（LPS）以独家部署 NVIDIA 算力，OpenAI 将成为租户。黄仁勋同步宣布该合作将为 OpenAI 建设 AI 工厂，该事件登顶当日热点榜。</p>
+        <div class="why"><span class="why-tag">关注原因</span>NVIDIA 罕见亲自锁定园区电力容量、OpenAI 以租户身份入驻——算力巨头从「卖卡」走向「运营 AI 工厂」，电力已成下一代 AI 军备竞赛的硬约束，产业链话语权正在转移。</div>
+        <div class="meta"><span class="src">NVIDIA Blog（RSS）</span><span class="time">北京时间 08-17 21:22</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:80ms">
+      <div class="rank">03</div>
+      <div class="score h3"><b>74</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">安全</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsx9696t05u7rommdoa60l4p" target="_blank" rel="noopener">OpenAI 如何用前沿智能加固自身防御：The Defender's Window</a></h3>
+        <p class="sum">OpenAI 在 OpenAI-Hugging Face 事件后反思低估了模型真实网络攻击能力，正通过四大支柱强化自身安全：用 Codex 验证代码漏洞、用智能体优先分流安全告警、持续枚举攻击路径，并仅向可信防御者开放网络能力。文中演示 ChatGPT Work（基于 GPT-5.6 Sol）15 分钟发现个人网站 13 个问题并在一小时内完成修复。</p>
+        <div class="why"><span class="why-tag">关注原因</span>前沿实验室的安全方法论正从「规则防御」转向「智能体化防御」：用 Codex 验漏洞、智能体分流告警，还明确「系统提示只是软约束、无法作为安全边界」——对 Agent 生产化安全设计有直接参考价值。</div>
+        <div class="meta"><span class="src">OpenAI：官网动态（RSS）</span><span class="time">北京时间 08-17 21:11</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:120ms">
+      <div class="rank">04</div>
+      <div class="score h3"><b>73</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsx9jy2a05yerommy1e0jc6t" target="_blank" rel="noopener">A 股迎来「人形机器人第一股」，宇树科技官宣 8 月 19 日科创板上市</a></h3>
+        <p class="sum">宇树科技宣布股票将于 2026 年 8 月 19 日在科创板上市，发行价 150.80 元/股，对应市值约 609.93 亿元，预计募资约 60.99 亿元。该公司 2023 至 2025 年营收分别为 1.59 亿元、3.93 亿元和 16.99 亿元，净利润分别为 -1114.51 万元、9547.47 万元和 2.78 亿元，是全球少数实现盈利的高性能通用机器人公司。</p>
+        <div class="why"><span class="why-tag">关注原因</span>A 股「人形机器人第一股」明日（8/19）正式挂牌：发行价 150.80 元对应市值约 610 亿元，且 2025 年已实现净利 2.78 亿元——全球少数盈利的通用机器人公司登陆 A 股，是具身智能赛道最具标志性的资本事件。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-17 21:22</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:160ms">
+      <div class="rank">05</div>
+      <div class="score h3"><b>71</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">提示词</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxwd7a40coxroz06g25sfaf" target="_blank" rel="noopener">一个实用的深度思考Prompt：用「双向钢人论证」让AI帮你挖出最本质的答案</a></h3>
+        <p class="sum">作者基于 Reddit 上「让 Claude 真正开始思考」的帖子，引入逻辑学中的「钢人论证」（steelman）概念，自创「双向钢人 Prompt」：通过重述真实问题、强化正反双方观点、找出关键变量、逼 AI 给出明确判断四步，旨在避免模型谄媚，帮助用户找到问题最本质的答案。</p>
+        <div class="why"><span class="why-tag">关注原因</span>少见的可复用「推理型」Prompt 工程范例：以钢人论证对抗模型谄媚，四步结构（重述→强化双反→找关键变量→逼判断）对深度思考场景有直接可操作性。</div>
+        <div class="meta"><span class="src">公众号：数字生命卡兹克</span><span class="time">北京时间 08-18 08:01</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:200ms">
+      <div class="rank">06</div>
+      <div class="score h3"><b>71</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">版权</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxld6es03o8roz0jblf3ii9" target="_blank" rel="noopener">404 Media 追踪珍本图书流向：亚马逊批量购书扫描用于 AI 训练后销毁</a></h3>
+        <p class="sum">404 Media 通过在一本珍本图书中放置追踪设备，首次揭露亚马逊未公开的购书行动：批量购入大量书籍，扫描用于 AI 训练数据，随后销毁。追踪显示这些书最终被送往亚马逊的一处人工智能训练中心。</p>
+        <div class="why"><span class="why-tag">关注原因</span>用追踪器实锤亚马逊「批量购书→扫描训练→销毁」的隐蔽语料管线，为 AI 训练数据来源与版权合规争议再添一条实证链条，登顶当日热点榜第二。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-18 02:53</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:240ms">
+      <div class="rank">07</div>
+      <div class="score h3"><b>70</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">隐私</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxkakju0300roz0zx6cvdeu" target="_blank" rel="noopener">如何禁用或避免侵入式 AI：一份覆盖 Windows、Chrome、Edge、Firefox 及主流应用的实用指南</a></h3>
+        <p class="sum">一份面向希望减少技术环境中侵入式 AI 的用户的操作指南，涵盖 Adobe Acrobat、Android/Gemini、Apple Intelligence、Chrome、Edge、Firefox、DuckDuckGo、Google Workspace、Slack、WhatsApp 及 Windows 11/Copilot 等主流平台。</p>
+        <div class="why"><span class="why-tag">关注原因</span>系统级「反 AI 侵入」操作手册热度走高，反映 AI 功能被塞进操作系统与常用软件后，用户反弹与自主权诉求已成为真实市场信号。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-18 02:23</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:280ms">
+      <div class="rank">08</div>
+      <div class="score h2"><b>69</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">智能体</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxv0p3v0bntroz0227a6b3j" target="_blank" rel="noopener">用 Google 的 Agent Development Kit 构建零信任 AI 智能体</a></h3>
+        <p class="sum">Google 开源了基于 ADK 和 Gemini 的零信任客服与退货智能体示例，演示如何防御提示注入等攻击。该架构在 LLM 上下文之外通过三层硬性安全机制保障：硬件支持的加密签名确保数据库写入不可抵赖、gVisor 沙箱隔离动态代码执行、确定性语义网关校验业务逻辑。</p>
+        <div class="why"><span class="why-tag">关注原因</span>Google 给出零信任智能体参考实现：硬件签名 + 沙箱 + 语义网关三层「上下文外」硬安全，明确系统提示词只是软约束——智能体生产部署的安全架构模板级参考。</div>
+        <div class="meta"><span class="src">Google Developers Blog（RSS）</span><span class="time">北京时间 08-18 07:22</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:320ms">
+      <div class="rank">09</div>
+      <div class="score h2"><b>63</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsx7ffrz049uromm6en3if02" target="_blank" rel="noopener">OpenRouter 推出 Activity 仪表盘与 Analytics API：按智能体、模型、请求追踪 AI 使用成本</a></h3>
+        <p class="sum">OpenRouter 发布 Activity 仪表盘和 beta Analytics API，可按智能体、模型、请求维度查看支出、token 量、缓存命中率等指标，并支持下钻至单条请求日志。</p>
+        <div class="why"><span class="why-tag">关注原因</span>AI 使用成本可观测性补上关键一环：按智能体/模型/请求维度追踪支出与缓存命中率，对多模型调用方是刚需，也预示模型网关的运营化竞争。</div>
+        <div class="meta"><span class="src">OpenRouter：Announcements（RSS）</span><span class="time">北京时间 08-17 20:22</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:360ms">
+      <div class="rank">10</div>
+      <div class="score h2"><b>63</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxswiog0a8croz031jgw1s3" target="_blank" rel="noopener">Claude Code 新技能 /design 支持 UI 设计</a></h3>
+        <p class="sum">Claude Code 现在可以设计了。新的 /design 技能（研究预览）将 Claude Design 的画板工作流带入 CLI 和 Desktop，基于 artifacts 构建。运行 /design 即可为你的 UI 获得可编辑画板——选择一个，调整它，然后让 Claude 实现它。</p>
+        <div class="why"><span class="why-tag">关注原因</span>Claude Code 把画板式 UI 设计工作流带进 CLI/桌面端，「生成→编辑→让 Claude 实现」闭环成型——AI coding 工具链正式切入设计环节，前端工作流将被重构。</div>
+        <div class="meta"><span class="src">X：Claude Devs (@ClaudeDevs)</span><span class="time">北京时间 08-18 06:24</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:400ms">
+      <div class="rank">11</div>
+      <div class="score h1"><b>56</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">行业</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxtz2j40atfroz0tl9y04od" target="_blank" rel="noopener">Anthropic 年化收入达 650 亿美元</a></h3>
+        <p class="sum">Anthropic 上周末私下向投资者通报财务最新情况，据报道其 7 月份年化收入运行率已达 650 亿美元，高于 5 月份的 470 亿美元（据彭博社）。OpenAI 年化收入运行率近期已超 400 亿美元。Anthropic 于 5 月以 9650 亿美元投后估值融资，投资者预计其 IPO 估值可能达 2 万亿美元或更高。</p>
+        <div class="why"><span class="why-tag">关注原因</span>两个月内年化收入从 470 亿跃升至 650 亿美元，商业化曲线陡峭并反超 OpenAI 口径；IPO 估值预期冲 2 万亿美元，是判断 AI 产业资本化走向的关键数字。</div>
+        <div class="meta"><span class="src">X：Rohan Paul (@rohanpaul_ai)</span><span class="time">北京时间 08-18 06:54</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:440ms">
+      <div class="rank">12</div>
+      <div class="score h1"><b>56</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxqq46m07msroz0jt2la4p6" target="_blank" rel="noopener">OpenRouter 图像生成 API：代码优先的接入教程</a></h3>
+        <p class="sum">OpenRouter 推出专用图像生成 API，通过统一请求格式和单一密钥即可调用多个提供商的图像模型。开发者向 POST /api/v1/images 发送请求，响应中 data[0].b64_json 包含 base64 编码的图像数据，解码后即可保存为本地文件，并支持通过 input_references 传入参考图像生成变体。</p>
+        <div class="why"><span class="why-tag">关注原因</span>模型网关从文本延伸到多模态：统一端点 + 单密钥聚合多家图像模型，图像生成接入成本被显著拉低，是「代码优先」接入多模态 API 的现成模板。</div>
+        <div class="meta"><span class="src">OpenRouter：Announcements（RSS）</span><span class="time">北京时间 08-18 05:23</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:480ms">
+      <div class="rank">13</div>
+      <div class="score h1"><b>49</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsx6cugr0281rommhk94edd2" target="_blank" rel="noopener">MathCode：内置数学形式化引擎的终端 AI 编程助手</a></h3>
+        <p class="sum">MathCode 是一款终端 AI 编程助手，内置数学形式化引擎，可将自然语言数学问题自动转换为 Lean 4 定理并尝试形式化证明。其持久化 Lean REPL 将编译检查从约 30 秒缩短至约 0.4 秒，并支持定理/公理库、智能体证明、子目标树并行证明及 Obsidian 知识图谱。支持 macOS（arm64）与 Linux（x86_64），默认后端需 codex CLI。</p>
+        <div class="why"><span class="why-tag">关注原因</span>AI 编程与形式化验证结合的代表性尝试：自然语言问题自动转 Lean 4 定理并形式化证明，编译检查从 30 秒压到 0.4 秒——数学/安全敏感场景的正确性保证路径值得跟进。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-17 19:52</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:520ms">
+      <div class="rank">14</div>
+      <div class="score h1"><b>49</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">观点</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxv1m3c0bplroz0wju3dm8n" target="_blank" rel="noopener">智能模型创意变异性不足制约价值（Ethan Mollick）</a></h3>
+        <p class="sum">沃顿商学院 Ethan Mollick 指出：从智能模型中获取创意变体需要付出努力，这严重限制了它们在问题解决和创意工作中的有效价值。AI 实验室在考虑创意任务时，需要更多地思考变异性。</p>
+        <div class="why"><span class="why-tag">关注原因</span>知名学者为「AI 创意不足」争论提供可操作框架：问题不在模型单次输出质量，而在变异性（variance）获取成本过高——直接指向采样策略与创意流程设计的改进空间。</div>
+        <div class="meta"><span class="src">X：Ethan Mollick (@emollick)</span><span class="time">北京时间 08-18 07:24</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:560ms">
+      <div class="rank">15</div>
+      <div class="score h1"><b>47</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">研究</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxom4me067nroz0o4k65gfl" target="_blank" rel="noopener">宾大研究：AI 智能体压缩后遗忘规则</a></h3>
+        <p class="sum">宾夕法尼亚大学新论文发现，AI 智能体在长会话压缩后常遗忘用户设定的规则，却仍记得任务本身。在 3 种长上下文设置中，现有压缩器平均仅保留 17% 的会话规则。简单修复方案是使用独立的 9B 参数提取器在压缩后恢复规则，使保留率提升至 90% 以上。</p>
+        <div class="why"><span class="why-tag">关注原因</span>实证揭示长会话压缩的「规则遗忘」盲区：压缩后只记得任务、忘了规则，17%→90% 的修复方案直接关系到智能体记忆与上下文管理的可靠性设计。</div>
+        <div class="meta"><span class="src">X：Rohan Paul (@rohanpaul_ai)</span><span class="time">北京时间 08-18 04:24</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:600ms">
+      <div class="rank">16</div>
+      <div class="score h1"><b>45</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxpts5p06yoroz00hfoz9ch" target="_blank" rel="noopener">Claude Code v2.1.234 发布：新增项目目录名变量与 GitLab MR 徽章，修复多项安全与稳定性问题</a></h3>
+        <p class="sum">Claude Code v2.1.234 新增可选 CLAUDE_CODE_PROJECT_DIR_NAME 环境变量、selection:clear 键绑定及 GitLab MR 徽章，并在用量限制重置后自动继续会话。</p>
+        <div class="why"><span class="why-tag">关注原因</span>CLI 编码工具高频迭代的又一快照：GitLab MR 徽章、项目目录名变量等针对团队协作场景的细节补全，反映 AI coding 工具正加速企业化落地。</div>
+        <div class="meta"><span class="src">Claude Code：GitHub Releases（RSS）</span><span class="time">北京时间 08-18 04:57</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:640ms">
+      <div class="rank">17</div>
+      <div class="score h1"><b>44</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxwjdln0d53roz0f8p16dud" target="_blank" rel="noopener">语义层、智能体支付与 TypeScript 提速：AI 工程化三线进展</a></h3>
+        <p class="sum">大淘宝技术通过语义层将指标、维度与实体关系组织为 Agent 可消费的业务定义，解决业务与技术间超 30% 的语义翻译成本。Stripe 总裁称智能体商业尚未大规模出现，已与 Tempo 设计机器支付协议，用 HTTP 402 响应实现机器可读交易。TypeScript 创始人谈编译器移植 Go 提速 10 倍，并认为 AI 无法取代软件工程师。</p>
+        <div class="why"><span class="why-tag">关注原因</span>AI 工程化三线进展浓缩：语义层砍 30%+ 翻译成本、HTTP 402 定义机器支付协议、TS 编译器移植 Go 提速 10 倍——分别对应数据、支付、编译三个基础层的 Agent 化改造。</div>
+        <div class="meta"><span class="src">X：洪明 (@hongming731)</span><span class="time">北京时间 08-18 08:05</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:680ms">
+      <div class="rank">18</div>
+      <div class="score h1"><b>42</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxfzdx50111rosw2six3hx3" target="_blank" rel="noopener">九光技术发布小睿 G3 人形机器人，可举起 50 公斤重杠铃</a></h3>
+        <p class="sum">九光技术今天在香港科学园发布新一代人形机器人小睿 G3，主打辅助人类负重工作。该机器人身高 173 厘米、体重小于 60 公斤，能拉动超 100 公斤物件或举起 50 公斤杠铃，并可响应语音指令完成杠铃搬运、定点摆放等操作。九光技术是一家位于香港的具身智能机器人企业。</p>
+        <div class="why"><span class="why-tag">关注原因</span>人形机器人「物理负载能力」再上台阶：173cm/60kg 的体量拉动 100kg+、举 50kg 杠铃，主打负重辅助场景——力控与运动能力的落地路径比通用交互更清晰。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-18 00:22</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:720ms">
+      <div class="rank">19</div>
+      <div class="score h1"><b>37</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxom4me067mroz0g5qt9mi1" target="_blank" rel="noopener">OpenAI 训练模型编写「超人类安全代码」</a></h3>
+        <p class="sum">OpenAI 联合创始人 Greg Brockman 表示，OpenAI 正专门训练模型编写「超人类安全代码」，以强化机构基础设施抵御 AI 攻击。他称未来数月每个组织都需大幅自动化安全程序，并呼吁安全社区加速提升防御能力，同时建议保留人工审查关键变更、消除修复延迟。</p>
+        <div class="why"><span class="why-tag">关注原因</span>AI 攻防升级的前瞻信号：安全代码的生成本身正在被 AI 自动化，Brockman 明确「未来数月每个组织都需自动化安全程序」——AI coding 在安全领域的分水岭可能比预期更近。</div>
+        <div class="meta"><span class="src">X：Rohan Paul (@rohanpaul_ai)</span><span class="time">北京时间 08-18 04:24</span></div>
+      </div>
+    </article>
+
+    <article class="card" style="--d:760ms">
+      <div class="rank">20</div>
+      <div class="score h1"><b>33</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">全量池</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsxv1lcv0boxroz0kwcqfmpn" target="_blank" rel="noopener">DeepSeek V4 Pro 0813 结合 J-Space 提升基准成绩</a></h3>
+        <p class="sum">有人将 DeepSeek V4 Pro 0813 与名为 J-Space 的 harness 结合，据称可减少扩展推理/工具调用过程中的错误，进而提升基准成绩。</p>
+        <div class="why"><span class="why-tag">关注原因</span>延续「模型能力高度绑定脚手架」的观察：同一模型换 harness（J-Space）即可减少扩展推理/工具调用错误——脚手架调优仍是低成本撬动 Agent 表现的杠杆。</div>
+        <div class="meta"><span class="src">X：Kim (@kimmonismus)</span><span class="time">北京时间 08-18 07:23</span></div>
+      </div>
+    </article>
+
+  </div>
+
+  <footer>
+    <div>数据来源：AI HOT（aihot.virxact.com）· 过去 24 小时窗口 · 共收录 20 条</div>
+    <div class="src-note">关键词查询（AI coding / 具身智能）精选池为空，补充条目已标注「未进入精选」· 生成于 2026-08-18</div>
+  </footer>
+</div>
+</body>
+</html>

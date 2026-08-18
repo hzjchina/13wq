@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>小猫的呼噜歌 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: #0b1230;
+    color: #f3eada;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+    min-height: 100%;
+    overflow-x: hidden;
+    line-height: 1.85;
+  }
+  body {
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(72, 95, 168, 0.25), transparent 60%),
+      radial-gradient(ellipse at 80% 80%, rgba(123, 86, 168, 0.20), transparent 60%),
+      linear-gradient(180deg, #060a1f 0%, #0b1230 45%, #16113a 100%);
+    position: relative;
+    padding-bottom: 80px;
+  }
+
+  /* ============ 星星 ============ */
+  .star {
+    position: fixed;
+    color: #fff8d6;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: twinkle var(--dur, 4s) ease-in-out infinite;
+    animation-delay: var(--delay, 0s);
+    opacity: 0;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.7); }
+    50%      { opacity: 0.95; transform: scale(1.15); }
+  }
+
+  /* ============ 月亮 ============ */
+  .moon {
+    position: fixed;
+    top: 60px;
+    right: 60px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff6c8 0%, #ffe28a 60%, #e9b65c 100%);
+    box-shadow:
+      0 0 30px rgba(255, 232, 153, 0.55),
+      0 0 60px rgba(255, 220, 130, 0.30);
+    animation: moonFloat 6s ease-in-out infinite;
+  }
+  .moon::before {
+    content: "";
+    position: absolute;
+    inset: -25px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 230, 160, 0.18) 0%, transparent 70%);
+    animation: moonHalo 6s ease-in-out infinite;
+  }
+  .moon::after {
+    content: "";
+    position: absolute;
+    top: 25%; left: 30%;
+    width: 14px; height: 14px;
+    border-radius: 50%;
+    box-shadow:
+      28px 12px 0 -3px rgba(255, 230, 180, 0.55),
+      -10px 22px 0 -4px rgba(255, 230, 180, 0.45),
+      18px 30px 0 -5px rgba(255, 230, 180, 0.40),
+      45px 6px 0 -2px rgba(255, 230, 180, 0.50);
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-10px); }
+  }
+  @keyframes moonHalo {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50%      { transform: scale(1.18); opacity: 1; }
+  }
+
+  /* ============ 流星 ============ */
+  .shooting-star {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 255, 255, 0.85);
+    pointer-events: none;
+    opacity: 0;
+    animation: shoot 3s ease-out infinite;
+    animation-delay: var(--shoot-delay, 8s);
+  }
+  .shooting-star::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 90px; height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.95), transparent);
+    transform: translateY(0.5px) translateX(-90px);
+  }
+  @keyframes shoot {
+    0%   { opacity: 0; transform: translate(0, 0); }
+    5%   { opacity: 1; }
+    30%  { opacity: 1; transform: translate(-280px, 180px); }
+    35%  { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* ============ 主容器 ============ */
+  main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 80px 28px 40px;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 500;
+    color: #ffe9b3;
+    letter-spacing: 4px;
+    text-shadow:
+      0 0 18px rgba(255, 220, 150, 0.45),
+      0 0 35px rgba(255, 200, 120, 0.25);
+    margin-bottom: 12px;
+    animation: titleBreathe 4.5s ease-in-out infinite;
+  }
+  @keyframes titleBreathe {
+    0%, 100% {
+      text-shadow:
+        0 0 18px rgba(255, 220, 150, 0.45),
+        0 0 35px rgba(255, 200, 120, 0.25);
+    }
+    50% {
+      text-shadow:
+        0 0 24px rgba(255, 230, 170, 0.70),
+        0 0 50px rgba(255, 210, 140, 0.45);
+    }
+  }
+  .subtitle {
+    color: #b6c1e0;
+    font-size: 14px;
+    letter-spacing: 6px;
+    margin-bottom: 36px;
+  }
+
+  /* ============ SVG 插画区域 ============ */
+  .scene {
+    width: 320px;
+    max-width: 90%;
+    margin: 18px auto 38px;
+    position: relative;
+  }
+  .scene svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 18px rgba(255, 220, 160, 0.35));
+  }
+  .scene-sway {
+    animation: sway 5s ease-in-out infinite;
+    transform-origin: 50% 70%;
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50%      { transform: rotate(1.5deg); }
+  }
+
+  /* 呼噜声波 */
+  .purr-wave {
+    fill: none;
+    stroke: rgba(255, 220, 160, 0.7);
+    stroke-width: 2;
+    stroke-linecap: round;
+    animation: purrPulse 3s ease-in-out infinite;
+    transform-origin: center;
+  }
+  .purr-wave-2 { animation-delay: 0.6s; opacity: 0.55; }
+  .purr-wave-3 { animation-delay: 1.2s; opacity: 0.4; }
+  @keyframes purrPulse {
+    0%, 100% { stroke-width: 1.5; opacity: 0.55; }
+    50%      { stroke-width: 3;   opacity: 1; }
+  }
+
+  /* 小光点 */
+  .sleep-dot {
+    animation: dotBreathe 2.4s ease-in-out infinite;
+    transform-origin: center;
+    transform-box: fill-box;
+  }
+  @keyframes dotBreathe {
+    0%, 100% { opacity: 0.4; transform: scale(0.85); }
+    50%      { opacity: 1;   transform: scale(1.2); }
+  }
+
+  /* 飘浮粒子 */
+  .float-particle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #ffd994 0%, rgba(255, 200, 120, 0.4) 70%, transparent 100%);
+    box-shadow: 0 0 10px rgba(255, 200, 120, 0.65);
+    animation: floatUp var(--fu, 7s) linear infinite;
+    animation-delay: var(--fud, 0s);
+    opacity: 0;
+  }
+  @keyframes floatUp {
+    0%   { transform: translateY(0)     scale(0.6); opacity: 0; }
+    15%  { opacity: 0.8; }
+    100% { transform: translateY(-180px) scale(1.2); opacity: 0; }
+  }
+
+  /* ============ 故事正文 ============ */
+  .story {
+    text-align: left;
+    font-size: 18px;
+    line-height: 2.1;
+    color: #ece6d3;
+    letter-spacing: 1.2px;
+    background: rgba(20, 26, 60, 0.45);
+    border-left: 3px solid rgba(255, 220, 150, 0.45);
+    border-radius: 12px;
+    padding: 28px 30px;
+    box-shadow:
+      0 0 25px rgba(120, 100, 200, 0.18),
+      inset 0 0 30px rgba(255, 230, 180, 0.05);
+    backdrop-filter: blur(4px);
+  }
+  .story p {
+    margin-bottom: 18px;
+  }
+  .story p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 关键字高亮（柔和淡色） */
+  .story em {
+    font-style: normal;
+    color: #ffe19a;
+    text-shadow: 0 0 8px rgba(255, 220, 150, 0.35);
+  }
+
+  /* 分隔星光 */
+  .star-divider {
+    text-align: center;
+    margin: 30px 0 22px;
+    letter-spacing: 18px;
+    color: #ffd994;
+    font-size: 18px;
+  }
+  .star-divider .d-dot {
+    display: inline-block;
+    animation: dotBreathe 2.8s ease-in-out infinite;
+  }
+  .star-divider .d-dot:nth-child(2) { animation-delay: 0.4s; }
+  .star-divider .d-dot:nth-child(3) { animation-delay: 0.8s; }
+  .star-divider .d-dot:nth-child(4) { animation-delay: 1.2s; }
+  .star-divider .d-dot:nth-child(5) { animation-delay: 1.6s; }
+  .star-divider .d-dot:nth-child(6) { animation-delay: 2.0s; }
+  .star-divider .d-dot:nth-child(7) { animation-delay: 2.4s; }
+
+  /* 晚安语 */
+  .goodnight {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 18px;
+    color: #ffd994;
+    line-height: 2;
+    letter-spacing: 2px;
+    padding: 22px 18px;
+    border-radius: 14px;
+    background: rgba(255, 220, 150, 0.08);
+    box-shadow: 0 0 25px rgba(255, 200, 120, 0.18) inset;
+    animation: goodnightHalo 5s ease-in-out infinite;
+  }
+  @keyframes goodnightHalo {
+    0%, 100% {
+      box-shadow: 0 0 25px rgba(255, 200, 120, 0.18) inset;
+      text-shadow: 0 0 10px rgba(255, 220, 150, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 38px rgba(255, 200, 120, 0.35) inset;
+      text-shadow: 0 0 18px rgba(255, 220, 150, 0.65);
+    }
+  }
+
+  /* 底部暖光带 */
+  .warm-band {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    height: 60px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      rgba(255, 195, 130, 0.12) 50%,
+      rgba(255, 175, 100, 0.22) 100%);
+    animation: bandBreathe 6s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+  @keyframes bandBreathe {
+    0%, 100% { opacity: 0.6; }
+    50%      { opacity: 1; }
+  }
+
+  /* 页脚 */
+  footer {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 12px;
+    color: #8b95b8;
+    letter-spacing: 3px;
+  }
+
+  /* ============ 响应式 ============ */
+  @media (max-width: 600px) {
+    h1 { font-size: 28px; letter-spacing: 2px; }
+    main { padding: 60px 18px 30px; }
+    .story { font-size: 16px; padding: 22px 20px; }
+    .moon { width: 60px; height: 60px; top: 30px; right: 24px; }
+    .moon::after { box-shadow:
+      18px 8px 0 -2px rgba(255, 230, 180, 0.55),
+      -6px 14px 0 -3px rgba(255, 230, 180, 0.45),
+      11px 20px 0 -4px rgba(255, 230, 180, 0.40); }
+    .scene { width: 260px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 110 颗随机星星 -->
+<script>
+  (function() {
+    const total = 110;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < total; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = 1 + Math.random() * 2.5;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.setProperty('--dur', (3 + Math.random() * 4) + 's');
+      s.style.setProperty('--delay', (Math.random() * 5) + 's');
+      frag.appendChild(s);
+    }
+    document.body.appendChild(frag);
+  })();
+</script>
+
+<!-- 月亮 -->
+<div class="moon"></div>
+
+<!-- 2 颗流星 -->
+<div class="shooting-star" style="top:18%; left:72%; --shoot-delay: 6s;"></div>
+<div class="shooting-star" style="top:28%; left:88%; --shoot-delay: 14s;"></div>
+
+<!-- 主插画：小猫米米 + 呼噜声波 + 小动物抱团 -->
+<div class="scene" style="margin-bottom: 56px;">
+  <div class="scene-sway" style="position:relative;">
+
+    <!-- 飘浮粒子（在 SVG 周围浮动） -->
+    <div class="float-particle" style="left:8%;  top:80%; --fu:7s; --fud:0s;"></div>
+    <div class="float-particle" style="left:22%; top:85%; --fu:8s; --fud:1.2s;"></div>
+    <div class="float-particle" style="left:38%; top:78%; --fu:9s; --fud:2.4s;"></div>
+    <div class="float-particle" style="left:55%; top:88%; --fu:7.5s;--fud:0.6s;"></div>
+    <div class="float-particle" style="left:70%; top:82%; --fu:8.5s;--fud:2.0s;"></div>
+    <div class="float-particle" style="left:85%; top:87%; --fu:9.5s;--fud:1.6s;"></div>
+    <div class="float-particle" style="left:48%; top:90%; --fu:7s; --fud:3.0s;"></div>
+    <div class="float-particle" style="left:15%; top:92%; --fu:8s; --fud:2.8s;"></div>
+
+    <svg viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+      <!-- 呼噜声波（左侧三道） -->
+      <path class="purr-wave"   d="M40,110 Q55,90 70,110 T100,110" />
+      <path class="purr-wave purr-wave-2" d="M25,135 Q45,110 65,135 T105,135" />
+      <path class="purr-wave purr-wave-3" d="M10,160 Q35,130 60,160 T110,160" />
+
+      <!-- 睡着的小猫米米（蜷成一团） -->
+      <g transform="translate(180,105)">
+        <!-- 身体（圆乎乎） -->
+        <ellipse cx="0" cy="0" rx="70" ry="55" fill="#f4d29a" />
+        <!-- 斑纹 -->
+        <ellipse cx="-25" cy="-15" rx="10" ry="14" fill="#d8a866" opacity="0.6" />
+        <ellipse cx="22" cy="10" rx="12" ry="9" fill="#d8a866" opacity="0.55" />
+        <ellipse cx="-10" cy="20" rx="8" ry="6" fill="#d8a866" opacity="0.5" />
+
+        <!-- 头（枕在前爪上，蜷着睡） -->
+        <ellipse cx="-55" cy="-5" rx="38" ry="32" fill="#f4d29a" />
+        <!-- 耳朵 -->
+        <path d="M -78,-30 L -85,-12 L -68,-18 Z" fill="#f4d29a" />
+        <path d="M -38,-32 L -32,-15 L -50,-18 Z" fill="#f4d29a" />
+        <!-- 耳朵内里 -->
+        <path d="M -76,-27 L -82,-16 L -72,-19 Z" fill="#f0b98a" />
+        <path d="M -40,-29 L -34,-17 L -46,-19 Z" fill="#f0b98a" />
+
+        <!-- 闭着的眼睛（弯弯的） -->
+        <path d="M -65,-8 Q -58,-2 -50,-8" stroke="#5c3a2a" stroke-width="2.5" fill="none" stroke-linecap="round" />
+        <!-- 嘴（小小微笑） -->
+        <path d="M -50,6 Q -46,9 -42,6" stroke="#5c3a2a" stroke-width="2" fill="none" stroke-linecap="round" />
+        <!-- 腮红 -->
+        <ellipse cx="-65" cy="3" rx="6" ry="4" fill="#f5a5a5" opacity="0.6" />
+        <ellipse cx="-45" cy="3" rx="6" ry="4" fill="#f5a5a5" opacity="0.6" />
+
+        <!-- 尾巴卷起来 -->
+        <path d="M 60,5 Q 95,-5 90,25 Q 80,38 60,30"
+              stroke="#f4d29a" stroke-width="16" fill="none" stroke-linecap="round" />
+
+        <!-- ZZZ 漂浮的梦 -->
+        <text x="-90" y="-50" font-size="20" fill="#ffe9b3" opacity="0.85" font-family="serif">z</text>
+        <text x="-75" y="-65" font-size="16" fill="#ffe9b3" opacity="0.7"  font-family="serif">z</text>
+        <text x="-58" y="-78" font-size="12" fill="#ffe9b3" opacity="0.55" font-family="serif">z</text>
+      </g>
+
+      <!-- 小动物抱团（蜷睡在米米脚边的小动物剪影） -->
+      <g transform="translate(0,205)">
+        <!-- 小兔子布布（侧面，耳朵长） -->
+        <g transform="translate(60,0)">
+          <ellipse cx="0" cy="0" rx="22" ry="16" fill="#f5e6e6" />
+          <ellipse cx="-22" cy="-8" rx="6" ry="10" fill="#f5e6e6" />
+          <path d="M -28,-30 L -22,-10 L -16,-26 Z" fill="#f5e6e6" />
+          <path d="M -34,-32 L -22,-12 L -18,-30 Z" fill="#f5e6e6" />
+          <!-- 闭眼 -->
+          <path d="M -10,-3 Q -7,0 -4,-3" stroke="#5c3a2a" stroke-width="1.5" fill="none" stroke-linecap="round" />
+          <ellipse cx="-15" cy="2" rx="3" ry="2" fill="#f5a5a5" opacity="0.7" />
+          <circle class="sleep-dot" cx="14" cy="-8" r="2" fill="#ffe9b3" />
+        </g>
+        <!-- 小田鼠豆豆（圆滚滚，侧睡） -->
+        <g transform="translate(150,3)">
+          <ellipse cx="0" cy="0" rx="22" ry="15" fill="#cda480" />
+          <ellipse cx="-22" cy="2" rx="8" ry="9" fill="#cda480" />
+          <!-- 闭眼 -->
+          <path d="M -10,-2 Q -7,1 -4,-2" stroke="#5c3a2a" stroke-width="1.5" fill="none" stroke-linecap="round" />
+          <!-- 小耳朵 -->
+          <ellipse cx="-25" cy="-6" rx="3" ry="4" fill="#cda480" />
+          <ellipse cx="-15" cy="-9" rx="3" ry="4" fill="#cda480" />
+          <ellipse cx="-15" cy="3" rx="4" ry="2.5" fill="#f5a5a5" opacity="0.5" />
+          <circle class="sleep-dot" cx="10" cy="-8" r="2" fill="#ffe9b3" style="animation-delay:0.5s" />
+        </g>
+        <!-- 小青蛙（缩成圆团） -->
+        <g transform="translate(240,5)">
+          <ellipse cx="0" cy="0" rx="20" ry="14" fill="#a8d49a" />
+          <ellipse cx="-18" cy="2" rx="6" ry="7" fill="#a8d49a" />
+          <!-- 闭眼（弧线） -->
+          <path d="M -10,-2 Q -7,1 -4,-2" stroke="#3a5c2a" stroke-width="1.5" fill="none" stroke-linecap="round" />
+          <!-- 小腮红 -->
+          <ellipse cx="-15" cy="3" rx="4" ry="2.5" fill="#f5a5a5" opacity="0.5" />
+          <circle class="sleep-dot" cx="8" cy="-6" r="2" fill="#ffe9b3" style="animation-delay:1.0s" />
+        </g>
+      </g>
+
+      <!-- 漂浮小花点缀 -->
+      <g>
+        <circle class="sleep-dot" cx="60"  cy="80"  r="2.5" fill="#ffe9b3" />
+        <circle class="sleep-dot" cx="110" cy="55"  r="2"   fill="#ffe9b3" style="animation-delay:1.4s" />
+        <circle class="sleep-dot" cx="270" cy="80"  r="2"   fill="#ffe9b3" style="animation-delay:0.8s" />
+        <circle class="sleep-dot" cx="295" cy="115" r="2.5" fill="#ffe9b3" style="animation-delay:2s" />
+        <circle class="sleep-dot" cx="155" cy="40"  r="1.8" fill="#ffe9b3" style="animation-delay:1.6s" />
+        <circle class="sleep-dot" cx="40"  cy="180" r="1.8" fill="#ffe9b3" style="animation-delay:0.4s" />
+        <circle class="sleep-dot" cx="280" cy="175" r="2"   fill="#ffe9b3" style="animation-delay:2.4s" />
+      </g>
+
+      <!-- 妈妈的影子（在角落，温柔的守护） -->
+      <g transform="translate(280,90)" opacity="0.65">
+        <ellipse cx="0" cy="0" rx="55" ry="42" fill="#3a2f5e" />
+        <ellipse cx="-38" cy="-3" rx="22" ry="18" fill="#3a2f5e" />
+        <path d="M -38,-22 L -50,-10 L -30,-14 Z" fill="#3a2f5e" />
+        <path d="M -38,-22 L -50,-10 L -30,-14 Z" fill="#3a2f5e" transform="translate(8,0)" />
+        <!-- 心形小灯标 -->
+        <circle class="sleep-dot" cx="20" cy="0" r="2.5" fill="#ffe9b3" style="animation-delay:0.2s" />
+      </g>
+
+    </svg>
+  </div>
+</div>
+
+<main>
+
+<h1>小猫的呼噜歌</h1>
+<div class="subtitle">一 晚 安 故 事 一</div>
+
+<div class="story">
+  <p>从前呀，在一座安静的森林里，住着一只小猫，她叫<em>米米</em>。米米最喜欢的事情，就是趴在妈妈怀里打呼噜——"呼噜噜，呼噜噜……"那声音软软的，像一团暖暖的云，也像风儿轻轻吹过草地。每次她一打呼噜，整间小屋子都会变得又温柔又安静，连窗外的月亮都忍不住靠得更近一些。</p>
+
+  <p>有一天晚上，小兔子<em>布布</em>哭着跑来找米米。她抽抽搭搭地说："米米，我睡不着，外面的风好大，我好害怕呀。"米米眨了眨圆眼睛，把布布拉进了自己的怀里。她没有讲什么大道理，只是开始轻轻地打呼噜——"呼噜噜，呼噜噜……"布布听着听着，眼睛慢慢变大了，然后变小了，最后她蜷成一个小毛球，甜甜地睡着了。</p>
+
+  <p>第二天，小田鼠<em>豆豆</em>也来了。他明天要第一次离开妈妈，自己去找过冬的粮食，心里紧张得不得了。米米又把豆豆拉进怀里，"呼噜噜，呼噜噜……"豆豆听着听着，紧皱的小眉头慢慢松开了，他打了一个大大的哈欠，也睡着了。</p>
+
+  <p>后来呀，整片森林的小动物们都知道了米米的呼噜歌。每当有谁害怕、担心、或者想妈妈的时候，就会轻轻地敲米米的门。米米从来不会说"我累了"，她只是把大家拉进怀里，安安静静地"呼噜噜"。小青蛙来了，小刺猬来了，小松鼠也来了……米米的呼噜声越唱越轻，越唱越柔，把整片森林都哄进了梦里。</p>
+
+  <p>可有一天晚上，米米自己也睡不着了。她想妈妈。她小声地说："妈妈，我也想有个人给我唱歌……"那一刻，她听见了——门外传来轻轻的"呼噜噜，呼噜噜……"原来妈妈一直都在门外守着，等她需要的时候，悄悄走进来。妈妈抱着米米，米米靠在小动物们堆成的小山上，所有的呼噜声汇在一起，变成了一首世界上最温柔的歌。</p>
+
+  <p>那首歌的名字呀，叫做<em>"我爱你"</em>。</p>
+</div>
+
+<div class="star-divider" aria-hidden="true">
+  <span class="d-dot">✦</span>
+  <span class="d-dot">✦</span>
+  <span class="d-dot">✦</span>
+  <span class="d-dot">✦</span>
+  <span class="d-dot">✦</span>
+  <span class="d-dot">✦</span>
+  <span class="d-dot">✦</span>
+</div>
+
+<div class="goodnight">
+  晚安，小宝贝。<br/>
+  米米说，今晚她把整片森林的呼噜声都唱给你听，<br/>
+  你今天也是个好孩子，该做一个甜甜的梦了。
+</div>
+
+<footer>
+  —— 小虾米 · 每日晚安故事 · 2026-08-17 ——
+</footer>
+
+</main>
+
+<div class="warm-band"></div>
+
+</body>
+</html>
