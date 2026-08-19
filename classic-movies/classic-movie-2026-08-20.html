@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 第52期 · 闻香识女人</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --panel: #1c2333;
+    --border: #2d333b;
+    --text: #e6edf3;
+    --text-dim: #9aa4b2;
+    --accent: #e8a04f;
+    --accent-2: #00c853;
+    --gold: #ffc53d;
+    --warm: #c45e3a;
+    --tango: #d4734e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    padding: 0 0 48px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  .hero {
+    padding: 40px 20px 28px;
+    text-align: center;
+    background: linear-gradient(180deg, #0a0e14 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--tango);
+    border: 1px solid var(--tango);
+    border-radius: 999px;
+    padding: 3px 14px;
+    margin-bottom: 18px;
+    letter-spacing: 0.12em;
+  }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .hero .en {
+    font-size: 16px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .meta {
+    font-size: 15px;
+    color: var(--text-dim);
+  }
+  .meta span { margin: 0 6px; }
+
+  .ratings {
+    display: flex;
+    gap: 12px;
+    margin: 24px auto 0;
+    max-width: 560px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .score {
+    flex: 1 1 120px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .score .num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--tango);
+  }
+  .score .label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-top: 24px;
+  }
+  h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2 .dot {
+    width: 8px; height: 8px;
+    background: var(--tango);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  p { margin-bottom: 12px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+  .dim { color: var(--text-dim); }
+
+  ul { list-style: none; }
+  ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 11px;
+    width: 8px; height: 8px;
+    background: var(--accent-2);
+    border-radius: 50%;
+  }
+  ul li:last-child { margin-bottom: 0; }
+
+  .quote {
+    border-left: 3px solid var(--tango);
+    padding: 12px 18px;
+    background: rgba(196,94,58,0.07);
+    border-radius: 0 10px 10px 0;
+    margin-top: 16px;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  .spoiler-free {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,197,61,0.08);
+    border: 1px solid rgba(255,197,61,0.3);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-top: 24px;
+    font-size: 15px;
+    color: var(--gold);
+  }
+
+  .oscar-tag {
+    text-align: center;
+    background: linear-gradient(90deg, transparent, rgba(255,197,61,0.10), transparent);
+    border: 1px solid rgba(255,197,61,0.25);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 24px 0 0;
+    font-size: 14px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 36px;
+    letter-spacing: 0.05em;
+  }
+
+  .deco {
+    text-align: center;
+    font-size: 22px;
+    margin-top: 12px;
+    opacity: 0.35;
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+    .card { padding: 20px 16px; }
+    .score { flex: 1 1 100px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">每日经典电影 · 第 52 期</div>
+  <h1>闻香识女人</h1>
+  <div class="en">Scent of a Woman · 1992</div>
+  <div class="meta">
+    导演：马丁·布莱斯特<span>·</span> 主演：阿尔·帕西诺 / 克里斯·奥唐纳 / 詹姆斯·瑞布霍恩
+  </div>
+  <div class="ratings">
+    <div class="score"><div class="num">9.1</div><div class="label">豆瓣评分</div></div>
+    <div class="score"><div class="num">8.0</div><div class="label">IMDb</div></div>
+    <div class="score"><div class="num">88%</div><div class="label">烂番茄</div></div>
+    <div class="score"><div class="num">奥斯卡</div><div class="label">最佳男主角</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="oscar-tag">🏆 阿尔·帕西诺职业生涯唯一一座奥斯卡影帝 · 金球奖最佳男主角</div>
+
+  <div class="card">
+    <h2><span class="dot"></span>剧情梗概</h2>
+    <p>查理是一所贵族寄宿学校的穷学生，靠奖学金读书，老实本分。感恩节假期，他接了一份临时工——陪护一位退休军官弗兰克·斯雷德中校度过周末，赚点路费回家过圣诞。</p>
+    <p>他事先被告知这位中校「不好对付」，但推开门的那一刻，他还是没做好准备：一个全盲的、暴躁的、满嘴脏话的老头，坐在黑暗的房间里，仅凭来人的香水味就能判断对方的年龄、发色，甚至心情。</p>
+    <p>弗兰克中校对这个安排了如指掌，他有自己的计划——去纽约，住最好的酒店，吃最好的餐厅，见最亲的人，然后……做一件谁也拦不住的事。而查理，这个被拉来当「眼睛」的穷学生，即将经历一个终身难忘的感恩节。</p>
+    <div class="quote">「我知道什么叫正确。正确这条路，人人都知道——但没有人走。为什么？因为太难了。」</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>亮点所在</h2>
+    <ul>
+      <li><strong>阿尔·帕西诺的「封神表演」</strong>——他演一个盲人，却不靠白眼翻斜来卖惨。他的眼睛始终睁着，却对焦在一个不存在的地方；他的头部微微后仰，用嗅觉和听觉替代视觉来「看」世界。这个角色让他从七次陪跑终于登顶奥斯卡，是影帝补票的教科书案例。</li>
+      <li><strong>影史最佳探戈</strong>——餐厅里，弗兰克中校邀请一位素不相识的年轻女士跳一支探戈。他看不见舞步，却踩得比任何人都精准。配乐《Por Una Cabeza》（一步之遥）响起的瞬间，整个世界安静下来，只有两个人在旋转。这段戏被无数电影学院拿来当教学素材，至今仍是「电影瞬间」榜单的常客。</li>
+      <li><strong>一老一少的双线成长</strong>——查理在学校卷入一场恶作剧事件，面临被开除的威胁，校长用保送名校做交换逼他告密。弗兰克中校自己的人生一团糟，却在关键时刻站出来替一个素昧平生的孩子挡了子弹。两个人都在对方的身上找到了自己丢失的东西。</li>
+      <li><strong>那段「演讲」</strong>——影片最后，弗兰克中校拄着拐杖走进学校礼堂，替查理做了一场没有讲稿的辩护。没有视力的老人，用声音穿透了整个礼堂的虚伪。这是阿尔·帕西诺从影以来最长的一段独白，也是整部电影的精神内核。</li>
+      <li><strong>「闻香」的设定</strong>——弗兰克失明后发展出超乎常人的嗅觉，能从女人身上的香水味中「看到」她的整个人。这个设定不只是噱头，它是一个失明者对抗世界的方式——你们用眼睛看到的，我用鼻子也能「看到」，而且看得更透。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>为什么值得一看</h2>
+    <p>这部电影的核心矛盾特别简单：一个穷学生要不要为了前途出卖同学？一个盲老兵要不要在人生最低谷继续走下去？两个问题，两条线，在一个感恩节周末交汇。</p>
+    <p>它的好在于——不装。弗兰克中校不是什么正能量导师，他粗俗、刻薄、好色、自杀倾向严重。但正因为如此，当他在最后站出来说那番话的时候，你知道他不是在念台词，他是拿命在说。一个烂人做了对的事，比一个好人做对的事更有说服力。</p>
+    <p class="dim">推荐给每一位正在面临选择的人——当你知道什么是正确的，却因为代价太大而不敢走的时候，这部电影会告诉你：走那条难路。不是因为容易的路走不通，而是因为走完之后你会不认识自己。</p>
+  </div>
+
+  <div class="spoiler-free">🛡️ 本文已严格避免剧透，剧情梗概仅点到即止，请放心阅读后再观影。</div>
+
+  <div class="deco">🎭 🎵 🥃</div>
+
+  <div class="footer">小虾米 · 每日经典电影推荐 · 2026-08-20</div>
+</div>
+
+</body>
+</html>

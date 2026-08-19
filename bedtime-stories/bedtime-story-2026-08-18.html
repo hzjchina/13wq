@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小糖果罐的甜甜梦 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-top: #1a1233;
+      --bg-mid: #2a1f4d;
+      --bg-bottom: #4a2e5a;
+      --text: #f3e9d9;
+      --accent: #ffd9a3;
+      --moon: #fff8dc;
+      --star: #ffffff;
+      --candy-pink: #ff9bb5;
+      --candy-mint: #9be3c6;
+      --candy-yellow: #ffd97a;
+      --candy-blue: #a5d8ff;
+      --candy-purple: #c9a5ff;
+      --shadow: rgba(255, 217, 163, 0.18);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100%;
+    }
+
+    body {
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
+      color: var(--text);
+      line-height: 1.9;
+      overflow-x: hidden;
+      position: relative;
+      padding-bottom: 60px;
+    }
+
+    /* Starfield */
+    .stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: var(--star);
+      border-radius: 50%;
+      opacity: 0.7;
+      animation: twinkle 3s infinite ease-in-out alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Shooting stars */
+    .shooting-star {
+      position: absolute;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,1) 50%, rgba(255,255,255,0));
+      transform: rotate(-45deg);
+      opacity: 0;
+      animation: shoot 6s infinite ease-out;
+    }
+
+    @keyframes shoot {
+      0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+      8% { opacity: 1; }
+      18% { transform: translateX(-400px) translateY(400px) rotate(-45deg); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    /* Moon */
+    .moon {
+      position: fixed;
+      top: 60px;
+      right: 80px;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fffef0, #fff8dc 60%, #f5e8b8 100%);
+      box-shadow:
+        0 0 30px rgba(255, 248, 220, 0.6),
+        0 0 60px rgba(255, 248, 220, 0.3),
+        0 0 100px rgba(255, 248, 220, 0.15);
+      animation: moonFloat 8s infinite ease-in-out;
+      z-index: 1;
+    }
+
+    .moon::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: 25%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(180, 160, 110, 0.18);
+    }
+
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: 55%;
+      left: 55%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(180, 160, 110, 0.14);
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .moon-halo {
+      position: fixed;
+      top: 30px;
+      right: 50px;
+      width: 170px;
+      height: 170px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 248, 220, 0.25), rgba(255, 248, 220, 0.08) 50%, transparent 80%);
+      animation: moonHaloPulse 5s infinite ease-in-out;
+      z-index: 0;
+    }
+
+    @keyframes moonHaloPulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.1); }
+    }
+
+    /* Content container */
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 30px 40px;
+    }
+
+    /* Title */
+    .title {
+      text-align: center;
+      font-size: 2.4rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: var(--accent);
+      text-shadow:
+        0 0 10px rgba(255, 217, 163, 0.5),
+        0 0 20px rgba(255, 217, 163, 0.3);
+      animation: titleGlow 4s infinite ease-in-out;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 1rem;
+      color: rgba(243, 233, 217, 0.6);
+      margin-bottom: 50px;
+      letter-spacing: 0.2em;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 10px rgba(255, 217, 163, 0.5), 0 0 20px rgba(255, 217, 163, 0.3); }
+      50% { text-shadow: 0 0 18px rgba(255, 217, 163, 0.8), 0 0 35px rgba(255, 217, 163, 0.5); }
+    }
+
+    /* Illustration block */
+    .illustration {
+      position: relative;
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 40px;
+      animation: jarFloat 5s infinite ease-in-out;
+    }
+
+    @keyframes jarFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
+    }
+
+    .jar-glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 240px;
+      height: 240px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255, 217, 163, 0.35), rgba(255, 217, 163, 0.12) 50%, transparent 80%);
+      animation: jarGlow 4s infinite ease-in-out;
+    }
+
+    @keyframes jarGlow {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* Story paragraphs */
+    .story {
+      font-size: 1.15rem;
+      line-height: 2.1;
+      color: rgba(243, 233, 217, 0.92);
+    }
+
+    .story p {
+      margin-bottom: 1.4em;
+      text-indent: 2em;
+    }
+
+    .story p:first-of-type::first-letter {
+      font-size: 1.3em;
+      color: var(--accent);
+    }
+
+    /* Divider stars */
+    .divider {
+      text-align: center;
+      margin: 40px 0 30px;
+      font-size: 1.2rem;
+      letter-spacing: 1.2em;
+      color: var(--accent);
+      opacity: 0.7;
+    }
+
+    .divider .dot {
+      display: inline-block;
+      animation: dividerTwinkle 3s infinite ease-in-out;
+    }
+
+    .divider .dot:nth-child(2) { animation-delay: 0.4s; }
+    .divider .dot:nth-child(3) { animation-delay: 0.8s; }
+    .divider .dot:nth-child(4) { animation-delay: 1.2s; }
+    .divider .dot:nth-child(5) { animation-delay: 1.6s; }
+    .divider .dot:nth-child(6) { animation-delay: 2s; }
+    .divider .dot:nth-child(7) { animation-delay: 2.4s; }
+
+    @keyframes dividerTwinkle {
+      0%, 100% { opacity: 0.4; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.15); }
+    }
+
+    /* Good night section */
+    .goodnight {
+      text-align: center;
+      margin-top: 50px;
+      padding: 30px 20px;
+      background: rgba(255, 217, 163, 0.06);
+      border-radius: 16px;
+      border: 1px solid rgba(255, 217, 163, 0.18);
+      animation: goodnightGlow 5s infinite ease-in-out;
+    }
+
+    @keyframes goodnightGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 217, 163, 0.12); }
+      50% { box-shadow: 0 0 35px rgba(255, 217, 163, 0.28); }
+    }
+
+    .goodnight .label {
+      font-size: 0.95rem;
+      color: rgba(243, 233, 217, 0.65);
+      letter-spacing: 0.3em;
+      margin-bottom: 12px;
+    }
+
+    .goodnight .text {
+      font-size: 1.15rem;
+      color: var(--accent);
+      line-height: 1.9;
+      font-weight: 500;
+    }
+
+    /* Floating candy particles */
+    .candy-particle {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      animation: candyRise 12s linear infinite;
+    }
+
+    @keyframes candyRise {
+      0% {
+        transform: translateY(0) scale(0.7);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.9;
+      }
+      90% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-110vh) scale(1.1);
+        opacity: 0;
+      }
+    }
+
+    /* Bottom warm light band */
+    .warm-band {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: linear-gradient(180deg, transparent, rgba(255, 217, 163, 0.06), rgba(255, 217, 163, 0.12));
+      z-index: 1;
+      pointer-events: none;
+      animation: warmBreath 6s infinite ease-in-out;
+    }
+
+    @keyframes warmBreath {
+      0%, 100% { opacity: 0.7; }
+      50% { opacity: 1; }
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .container {
+        padding: 40px 20px 30px;
+      }
+      .title {
+        font-size: 1.8rem;
+      }
+      .story {
+        font-size: 1.05rem;
+        line-height: 2;
+      }
+      .moon {
+        top: 30px;
+        right: 30px;
+        width: 80px;
+        height: 80px;
+      }
+      .moon-halo {
+        top: 10px;
+        right: 10px;
+        width: 120px;
+        height: 120px;
+      }
+      .illustration {
+        width: 180px;
+        height: 180px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Star field -->
+  <div class="stars" id="stars"></div>
+
+  <!-- Moon halo + moon -->
+  <div class="moon-halo"></div>
+  <div class="moon"></div>
+
+  <!-- Shooting stars -->
+  <div class="shooting-star" style="top: 18%; left: 75%; animation-delay: 1s;"></div>
+  <div class="shooting-star" style="top: 35%; left: 85%; animation-delay: 4s;"></div>
+
+  <div class="container">
+    <h1 class="title">小糖果罐的甜甜梦</h1>
+    <div class="subtitle">— 2026 年 8 月 18 日 · 晚安故事 —</div>
+
+    <!-- Candy jar illustration -->
+    <div class="illustration">
+      <div class="jar-glow"></div>
+      <svg viewBox="0 0 200 200" width="220" height="220" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glassGrad" cx="50%" cy="35%" r="65%">
+            <stop offset="0%" stop-color="rgba(255,255,255,0.45)"/>
+            <stop offset="60%" stop-color="rgba(255,255,255,0.18)"/>
+            <stop offset="100%" stop-color="rgba(255,255,255,0.08)"/>
+          </radialGradient>
+          <linearGradient id="lidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#c9a5ff"/>
+            <stop offset="100%" stop-color="#a06bdb"/>
+          </linearGradient>
+          <radialGradient id="candyPink" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#ffc9d6"/>
+            <stop offset="100%" stop-color="#ff8aa8"/>
+          </radialGradient>
+          <radialGradient id="candyMint" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#d5f7e7"/>
+            <stop offset="100%" stop-color="#7cd8b0"/>
+          </radialGradient>
+          <radialGradient id="candyYellow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#fff3c7"/>
+            <stop offset="100%" stop-color="#ffce5c"/>
+          </radialGradient>
+          <radialGradient id="candyBlue" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#dceeff"/>
+            <stop offset="100%" stop-color="#7eb8f0"/>
+          </radialGradient>
+          <filter id="jarShadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="2"/>
+          </filter>
+        </defs>
+
+        <!-- Lid -->
+        <rect x="55" y="22" width="90" height="22" rx="6" fill="url(#lidGrad)"/>
+        <rect x="50" y="40" width="100" height="10" rx="3" fill="#b88ce6"/>
+        <ellipse cx="100" cy="22" rx="45" ry="6" fill="#d8b8ff" opacity="0.6"/>
+
+        <!-- Jar body -->
+        <rect x="42" y="50" width="116" height="120" rx="14" fill="url(#glassGrad)" stroke="rgba(255,255,255,0.4)" stroke-width="1.2"/>
+
+        <!-- Jar shine highlight -->
+        <ellipse cx="60" cy="80" rx="6" ry="20" fill="rgba(255,255,255,0.45)"/>
+        <ellipse cx="58" cy="130" rx="3" ry="10" fill="rgba(255,255,255,0.3)"/>
+
+        <!-- Candy stars inside jar -->
+        <g class="candies">
+          <!-- Row 1 (bottom) -->
+          <circle cx="65" cy="158" r="6" fill="url(#candyPink)"/>
+          <polygon points="85,158 87,162 91,162 88,165 89,170 85,167 81,170 82,165 79,162 83,162" fill="url(#candyYellow)"/>
+          <circle cx="105" cy="158" r="6" fill="url(#candyMint)"/>
+          <polygon points="125,158 127,162 131,162 128,165 129,170 125,167 121,170 122,165 119,162 123,162" fill="url(#candyBlue)"/>
+          <circle cx="145" cy="158" r="6" fill="url(#candyPink)"/>
+
+          <!-- Row 2 -->
+          <polygon points="65,140 67,144 71,144 68,147 69,152 65,149 61,152 62,147 59,144 63,144" fill="url(#candyMint)"/>
+          <circle cx="85" cy="140" r="6" fill="url(#candyBlue)"/>
+          <polygon points="105,140 107,144 111,144 108,147 109,152 105,149 101,152 102,147 99,144 103,144" fill="url(#candyPink)"/>
+          <circle cx="125" cy="140" r="6" fill="url(#candyYellow)"/>
+          <polygon points="145,140 147,144 151,144 148,147 149,152 145,149 141,152 142,147 139,144 143,144" fill="url(#candyMint)"/>
+
+          <!-- Row 3 -->
+          <circle cx="65" cy="122" r="6" fill="url(#candyYellow)"/>
+          <polygon points="85,122 87,126 91,126 88,129 89,134 85,131 81,134 82,129 79,126 83,126" fill="url(#candyBlue)"/>
+          <circle cx="105" cy="122" r="6" fill="url(#candyMint)"/>
+          <polygon points="125,122 127,126 131,126 128,129 129,134 125,131 121,134 122,129 119,126 123,126" fill="url(#candyPink)"/>
+          <circle cx="145" cy="122" r="6" fill="url(#candyYellow)"/>
+
+          <!-- Row 4 -->
+          <polygon points="65,104 67,108 71,108 68,111 69,116 65,113 61,116 62,111 59,108 63,108" fill="url(#candyMint)"/>
+          <circle cx="85" cy="104" r="6" fill="url(#candyPink)"/>
+          <polygon points="105,104 107,108 111,108 108,111 109,116 105,113 101,116 102,111 99,108 103,108" fill="url(#candyBlue)"/>
+          <circle cx="125" cy="104" r="6" fill="url(#candyMint)"/>
+          <polygon points="145,104 147,108 151,108 148,111 149,116 145,113 141,116 142,111 139,108 143,108" fill="url(#candyYellow)"/>
+
+          <!-- Row 5 (top, fewer) -->
+          <circle cx="75" cy="86" r="5" fill="url(#candyBlue)"/>
+          <polygon points="95,86 97,90 101,90 98,93 99,98 95,95 91,98 92,93 89,90 93,90" fill="url(#candyPink)"/>
+          <circle cx="115" cy="86" r="5" fill="url(#candyYellow)"/>
+          <polygon points="135,86 137,90 141,90 138,93 139,98 135,95 131,98 132,93 129,90 133,90" fill="url(#candyMint)"/>
+
+          <!-- Tiny hearts and tiny moons floating above -->
+          <text x="80" y="78" font-size="6" fill="#ffb5cc">♥</text>
+          <text x="110" y="78" font-size="6" fill="#ffd97a">☾</text>
+        </g>
+
+        <!-- Light beam rising from jar mouth -->
+        <path d="M 100 22 Q 90 -10 70 -40" stroke="rgba(255,217,163,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M 100 22 Q 110 -10 130 -40" stroke="rgba(255,217,163,0.4)" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+        <path d="M 100 22 Q 100 -15 100 -45" stroke="rgba(255,255,255,0.5)" stroke-width="1" fill="none" stroke-linecap="round" stroke-dasharray="2,4"/>
+
+        <!-- Lid knob -->
+        <circle cx="100" cy="14" r="4" fill="#d8b8ff"/>
+      </svg>
+    </div>
+
+    <!-- Story body -->
+    <div class="story">
+      <p>窗台上，有一只圆圆的小糖果罐。它的肚子是透明的，盖子是淡淡的紫色，像戴着一顶小皇冠。</p>
+
+      <p>白天，孩子们从窗前跑过，有时候会踮起脚尖，把自己的小秘密、小愿望、小心情，轻轻地说给它听。然后小心翼翼地把一颗小星星糖，投进它透明的肚子里。"叮"一声，糖就安静地躺在那里，亮亮的，暖暖的。</p>
+
+      <p>小河马说："我今天摔了一跤，可是我没哭。"<br>小兔子说："我晚上有一点点怕黑。"<br>小刺猬说："我想妈妈再亲我一下。"</p>
+
+      <p>它们每一颗都不同——粉的像草莓，蓝的像云朵，黄的像小太阳，绿的像薄荷叶。每一颗上面，都贴着一个小小的名字。</p>
+
+      <p>夜深了，月亮爬上来，给小糖果罐的肚子镀上一层淡淡的银光。小糖果罐就开始轻轻地摇晃起来——叮叮，叮叮，叮叮。它摇晃一颗，就念一个名字。"小河马呀，你今天好勇敢。""小兔子呀，别怕，梦里也有月光。" "小刺猬呀，妈妈一定在梦里紧紧地抱着你呢。"</p>
+
+      <p>每一颗糖摇晃一下，就在罐子的小嘴巴上，吐出一缕淡淡的金光。那缕光啊，顺着风，飘呀飘呀，飘到孩子们的枕头上，轻轻地落在他们的嘴角。</p>
+
+      <p>孩子们在梦里都笑了，因为梦里有甜甜的味道。</p>
+
+      <p>小糖果罐摇晃了一整夜，肚子里的糖越来越轻，越来越亮。到了天快亮的时候，糖都变成了光，飞到了天上，变成了真正的星星。</p>
+
+      <p>小糖果罐又变得空空的，圆圆的，静静地等在窗台上。它知道，白天很快就会有孩子跑过来，踮着脚尖，偷偷告诉它一件甜甜的小事。</p>
+    </div>
+
+    <!-- Divider stars -->
+    <div class="divider">
+      <span class="dot">✦</span>
+      <span class="dot">✦</span>
+      <span class="dot">✦</span>
+      <span class="dot">✦</span>
+      <span class="dot">✦</span>
+      <span class="dot">✦</span>
+      <span class="dot">✦</span>
+    </div>
+
+    <!-- Good night -->
+    <div class="goodnight">
+      <div class="label">— 晚 安 —</div>
+      <div class="text">
+        晚安，小宝贝。<br>
+        小糖果罐说：你今天偷偷做的小小的好事，<br>
+        我都会帮你记进小星星糖里哦。<br>
+        明天的你，一定会甜甜地，暖暖地，发着光。
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom warm light band -->
+  <div class="warm-band"></div>
+
+  <script>
+    // Generate 110 random stars
+    const starsContainer = document.getElementById('stars');
+    for (let i = 0; i < 110; i++) {
+      const star = document.createElement('div');
+      star.className = 'star';
+      const size = Math.random() * 2.5 + 0.8;
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.top = Math.random() * 100 + '%';
+      star.style.left = Math.random() * 100 + '%';
+      star.style.animationDelay = (Math.random() * 3) + 's';
+      star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      starsContainer.appendChild(star);
+    }
+
+    // Generate 8 candy floating particles
+    const candyColors = [
+      'var(--candy-pink)',
+      'var(--candy-mint)',
+      'var(--candy-yellow)',
+      'var(--candy-blue)',
+      'var(--candy-purple)'
+    ];
+    for (let i = 0; i < 8; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'candy-particle';
+      const color = candyColors[Math.floor(Math.random() * candyColors.length)];
+      particle.style.background = color;
+      particle.style.boxShadow = `0 0 8px ${color}`;
+      particle.style.left = (15 + Math.random() * 70) + '%';
+      particle.style.bottom = '-20px';
+      particle.style.animationDelay = (Math.random() * 12) + 's';
+      particle.style.animationDuration = (10 + Math.random() * 6) + 's';
+      document.body.appendChild(particle);
+    }
+  </script>
+</body>
+</html>

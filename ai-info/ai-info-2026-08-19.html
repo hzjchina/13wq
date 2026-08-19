@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-08-19</title>
+<style>
+:root {
+  --bg:#05070f; --bg2:#0a0f1e; --card:#0d1326; --line:rgba(120,160,255,.10);
+  --txt:#e8edf7; --dim:#8b96b5; --cyan:#22d3ee; --violet:#8b5cf6; --pink:#f472b6;
+  --amber:#fbbf24; --green:#34d399; --red:#f87171;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro SC","PingFang SC","HarmonyOS Sans SC","Microsoft YaHei",sans-serif;
+  line-height:1.65; overflow-x:hidden;
+}
+body::before {
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+}
+body::after {
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(700px 380px at 12% -5%, rgba(34,211,238,.16), transparent 60%),
+    radial-gradient(820px 420px at 88% 8%, rgba(139,92,246,.18), transparent 60%),
+    radial-gradient(600px 400px at 50% 110%, rgba(244,114,182,.10), transparent 60%);
+}
+.wrap { position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:48px 20px 80px; }
+
+header { text-align:center; margin-bottom:44px; }
+.hud {
+  display:inline-flex; gap:10px; padding:8px 18px; border-radius:999px;
+  border:1px solid rgba(34,211,238,.3); background:rgba(34,211,238,.06);
+  font-size:12px; letter-spacing:2px; color:var(--cyan); text-transform:uppercase;
+  margin-bottom:18px;
+}
+.hud .dot { width:7px; height:7px; border-radius:50%; background:var(--cyan); box-shadow:0 0 10px var(--cyan); animation:pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+h1 {
+  font-size:clamp(30px,5vw,46px); font-weight:800; letter-spacing:1px;
+  background:linear-gradient(92deg,#22d3ee 0%,#8b5cf6 50%,#f472b6 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow:0 0 40px rgba(139,92,246,.25);
+}
+.date { margin-top:10px; color:var(--dim); font-size:15px; letter-spacing:3px; }
+.stat-row { display:flex; justify-content:center; gap:14px; flex-wrap:wrap; margin-top:22px; }
+.stat {
+  padding:10px 20px; border-radius:12px; border:1px solid var(--line);
+  background:rgba(13,19,38,.75); backdrop-filter:blur(6px); font-size:13px; color:var(--dim);
+}
+.stat b { color:var(--cyan); font-size:17px; margin-right:5px; }
+
+.overview {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:34px;
+}
+.ov-card {
+  padding:16px; border-radius:14px; border:1px solid var(--line);
+  background:linear-gradient(160deg, rgba(13,19,38,.9), rgba(10,15,30,.6));
+  text-align:center;
+}
+.ov-card .num { font-size:26px; font-weight:800; background:linear-gradient(92deg,var(--cyan),var(--violet)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.ov-card .lbl { font-size:12px; color:var(--dim); margin-top:4px; letter-spacing:1px; }
+
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.card {
+  position:relative; display:flex; gap:14px; padding:20px 18px 18px 22px;
+  border-radius:16px; background:linear-gradient(165deg, rgba(17,24,46,.92), rgba(10,15,30,.85));
+  border:1px solid var(--line); overflow:hidden;
+  animation:rise .55s ease both; animation-delay:var(--d);
+  transition:transform .25s, border-color .25s, box-shadow .25s;
+}
+.card:hover { transform:translateY(-3px); border-color:rgba(139,92,246,.45); box-shadow:0 12px 34px rgba(80,60,180,.22), 0 0 0 1px rgba(139,92,246,.12) inset; }
+.card::before { content:""; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg,var(--cyan),var(--violet),var(--pink)); opacity:.85; }
+@keyframes rise { from{opacity:0; transform:translateY(14px)} to{opacity:1; transform:none} }
+
+.rank { font-size:13px; font-weight:800; color:var(--dim); letter-spacing:1px; min-width:22px; }
+.score { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; min-width:52px; padding-top:2px; }
+.score b { font-size:22px; font-weight:800; }
+.score span { font-size:10px; color:var(--dim); letter-spacing:2px; }
+.score.h3 b { color:var(--red); text-shadow:0 0 16px rgba(248,113,113,.5); }
+.score.h2 b { color:var(--amber); }
+.score.h1 b { color:var(--cyan); }
+
+.card-body { flex:1; min-width:0; }
+.tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:8px; }
+.cat {
+  font-size:11px; padding:2px 10px; border-radius:999px; letter-spacing:1px;
+  border:1px solid rgba(34,211,238,.4); color:var(--cyan); background:rgba(34,211,238,.08);
+}
+.badge { font-size:11px; padding:2px 10px; border-radius:999px; letter-spacing:1px; }
+.badge.sel { border:1px solid rgba(139,92,246,.5); color:#c4b5fd; background:rgba(139,92,246,.12); }
+.badge.pool { border:1px solid rgba(139,148,181,.4); color:var(--dim); background:rgba(139,148,181,.08); }
+.badge.kw { border:1px solid rgba(251,191,36,.5); color:var(--amber); background:rgba(251,191,36,.10); }
+
+h3 { font-size:16.5px; font-weight:700; line-height:1.45; margin-bottom:8px; }
+h3 a { color:var(--txt); text-decoration:none; transition:color .2s; }
+h3 a:hover { color:var(--cyan); }
+.sum { font-size:13.5px; color:#aab4d0; margin-bottom:10px; }
+.why {
+  font-size:12.5px; color:#cfd6ea; background:rgba(34,211,238,.05);
+  border:1px solid rgba(34,211,238,.14); border-radius:10px; padding:9px 12px; margin-bottom:12px;
+}
+.why-tag {
+  display:inline-block; font-size:10px; color:var(--violet); letter-spacing:1px;
+  border:1px solid rgba(139,92,246,.45); border-radius:4px; padding:1px 7px; margin-right:7px;
+  background:rgba(139,92,246,.12); vertical-align:1px;
+}
+.meta { display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; font-size:11.5px; color:var(--dim); }
+.src { max-width:60%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+
+footer { margin-top:46px; text-align:center; color:#5b6580; font-size:12px; letter-spacing:1px; line-height:2; }
+footer .src-note { color:#7c88a8; }
+
+@media (max-width:760px) {
+  .grid { grid-template-columns:1fr; }
+  .overview { grid-template-columns:repeat(2,1fr); }
+  .card { padding-left:16px; }
+  .rank { display:none; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="hud"><span class="dot"></span>DAILY AI INTELLIGENCE</div>
+    <h1>AI 情报日报</h1>
+    <div class="date">2026 · 08 · 19 ｜ 过去 24 小时 AI 圈要闻</div>
+    <div class="stat-row">
+      <div class="stat">数据源 <b>AI HOT</b> v1 · 24h 窗口</div>
+      <div class="stat">精选池 <b>10</b> 条</div>
+      <div class="stat">热点榜 <b>7</b> 条</div>
+      <div class="stat">全量池补充 <b>10</b> 条</div>
+    </div>
+  </header>
+
+  <div class="overview">
+    <div class="ov-card"><div class="num">75</div><div class="lbl">最高热度</div></div>
+    <div class="ov-card"><div class="num">8</div><div class="lbl">AI Coding</div></div>
+    <div class="ov-card"><div class="num">4</div><div class="lbl">具身智能</div></div>
+    <div class="ov-card"><div class="num">20</div><div class="lbl">入选简报</div></div>
+  </div>
+
+  <div class="grid">
+
+    <article class="card" style="--d:0ms">
+      <div class="rank">01</div>
+      <div class="score h3"><b>65</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">安全 / 模型</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsz0hbsg05l0ro204080cotv" target="_blank" rel="noopener">OpenAI 在「关键网络能力」时代放缓模型开发节奏</a></h3>
+        <p class="sum">OpenAI 因 OpenAI-Hugging Face 事件及即将推出的 Astra 模型可能达到《预备框架》下的「关键网络安全能力」阈值，暂时放缓模型扩展速度：暂停最新部署模型的强化学习训练两周，并搁置最大规模前沿 RL 运行。公司加强研究环境安全，扩展思维链监控，采用多阶段激活分类器检测机制。</p>
+        <div class="why"><span class="why-tag">关注原因</span>12 个信源齐报、Sam Altman 与首席科学家亲自表态：安全工程效率首次成为前沿模型开发进度的硬约束——最高风险预警若 30 分钟无法排除误报就暂停训练，对齐与隔离迁移先于大规模 RL。</div>
+        <div class="meta"><span class="src">OpenAI：官网动态（RSS）</span><span class="time">北京时间 08-18 19:00</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:40ms">
+      <div class="rank">02</div>
+      <div class="score h3"><b>73</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">科学研究</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsz8gh3n06e4rodpl8l2syek" target="_blank" rel="noopener">Claude 如何加速蛋白质设计与分析化学研究</a></h3>
+        <p class="sum">Anthropic 公布两项实验：Claude（Mythos Preview 和 Opus 4.8）针对 15 个靶点设计蛋白质结合剂，成功 14 个，湿实验命中率达 22.6%-35.1%。</p>
+        <div class="why"><span class="why-tag">关注原因</span>命中率两倍于行业常规的 10-15%——Claude 从零设计蛋白结合体的效率已接近或超过专家，可显著压缩药物发现早期的计算与人工周期，AI 在湿实验室直接产出可验证成果。</div>
+        <div class="meta"><span class="src">Anthropic：Research（发表成果）</span><span class="time">北京时间 08-19 06:27</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:80ms">
+      <div class="rank">03</div>
+      <div class="score h3"><b>74</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsz79zol04j8rodpvun6zobl" target="_blank" rel="noopener">Mojo 语言正式开源，编译器与工具链全面开放</a></h3>
+        <p class="sum">Mojo🔥 语言正式开源，采用 Apache 2.0 许可证（含 LLVM 例外），编译器、工具链及全部源码已发布至 modular GitHub 仓库。Mojo 上周刚达成 1.0 版本（源码稳定），标准库自 2024 年起已接受社区贡献。</p>
+        <div class="why"><span class="why-tag">关注原因</span>1.0 达成一周即全面开源——AI 原生高性能语言进入可自建、可审计的新阶段，开发者能直接查看和修改标准库实现，摆脱对厂商二进制分发的单一依赖。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-19 05:26</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:120ms">
+      <div class="rank">04</div>
+      <div class="score h2"><b>75</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">开源 / 检索</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsyqip4o14umroz0ch5iv0iv" target="_blank" rel="noopener">Sentence Transformers v6.0 新增 MultiVectorEncoder，支持 ColBERT 风格多向量模型</a></h3>
+        <p class="sum">Sentence Transformers v6.0 新增第四种模型类型 MultiVectorEncoder，可直接加载 PyLate、Stanford-NLP ColBERT 及 colpali-engine 检查点，用于 ColBERT 式晚期交互检索。</p>
+        <div class="why"><span class="why-tag">关注原因</span>检索生态标准库首次原生支持多向量模型：与同骨干稠密模型相比平均 NDCG 高出约一个点，代价是索引体积增大数十倍——适合需要保留逐词精确匹配的 RAG 场景。</div>
+        <div class="meta"><span class="src">Hugging Face：Blog（RSS）</span><span class="time">北京时间 08-18 08:00</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:160ms">
+      <div class="rank">05</div>
+      <div class="score h2"><b>57</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsyxmnsf02bfro20cev3yiaw" target="_blank" rel="noopener">Anthropic 多款 Claude 模型出现性能下降</a></h3>
+        <p class="sum">Anthropic 正在调查影响多款 Claude 模型的性能下降问题，涉及 Claude Opus 5、Mythos 5、Fable 5、Sonnet 5、Haiku 4.5 等主力型号。</p>
+        <div class="why"><span class="why-tag">关注原因</span>主力模型集体「感冒」且官方在查——结合 Anthropic 年化收入 650 亿美元与渠道承压背景，对重度依赖 Claude API 的生产系统是直接风险信号，值得跟踪根因与恢复进度。</div>
+        <div class="meta"><span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span><span class="time">北京时间 08-19 01:09</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:200ms">
+      <div class="rank">06</div>
+      <div class="score h2"><b>58</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsyinad10ww0roz0454qu520" target="_blank" rel="noopener">Claude Code 新增 /design 命令，可在终端直接创建 UI 设计稿</a></h3>
+        <p class="sum">Anthropic 在 Claude Code 中发布 /design 命令早期预览版：可读取现有代码库、匹配当前 UI 风格，并生成多个可编辑的共享设计稿，能力来自 Claude Design，运行 claude update 即可体验。</p>
+        <div class="why"><span class="why-tag">关注原因</span>设计→代码的闭环在终端内正式打通——Agent 能先产出可视稿再动手改代码，前端工作流正在被 Claude Code 生态重构，是 AI coding 方向的重要产品信号。</div>
+        <div class="meta"><span class="src">The Decoder：AI News（RSS）</span><span class="time">北京时间 08-18 18:06</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:240ms">
+      <div class="rank">07</div>
+      <div class="score h2"><b>66</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">Agent 研究</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsz1974l06hbro20gosn5d78" target="_blank" rel="noopener">智能体记忆并非越多越好：八款模型评测显示剂量需按能力校准</a></h3>
+        <p class="sum">智能体记忆需按模型能力校准：强模型适合注入完整指南集（DeepSeek-V3.2 任务完成率 +9.5pp）；较弱模型用精选检索最佳（gpt-oss-120b +16.1pp 且仅 +5% token）。方法无需更新权重，通过从过往轨迹蒸馏指南并在推理时注入实现。</p>
+        <div class="why"><span class="why-tag">关注原因</span>用八款模型实测推翻「记忆越多越好」：弱模型配全量记忆反而更差更贵——为 Agent 上下文预算与记忆架构设计提供了量化校准依据。</div>
+        <div class="meta"><span class="src">Hugging Face：Blog（RSS）</span><span class="time">北京时间 08-19 02:09</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:280ms">
+      <div class="rank">08</div>
+      <div class="score h2"><b>67</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">评测方法</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsycmgww0rkrroz0nfma0z05" target="_blank" rel="noopener">设计 AI 评测：先求清晰，再谈可视化</a></h3>
+        <p class="sum">本文演示如何用开源评测框架 Inspect AI 和 Harbor 评估 agent 技能，并借助 Google Sheets 和 Data Studio 进行可视化分析。</p>
+        <div class="why"><span class="why-tag">关注原因</span>把技能评估拆成模型基线、技能条件与多维事实打分，让团队用同一套脚本量化技能增量，而不是凭单次演示做判断——Agent 团队落地评测体系的实操指南。</div>
+        <div class="meta"><span class="src">Google AI：DEV 作者专属（RSS）</span><span class="time">北京时间 08-18 15:00</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:320ms">
+      <div class="rank">09</div>
+      <div class="score h1"><b>65</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">智能体产品</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsz49ptt022qrodp5mc1nt1x" target="_blank" rel="noopener">Claude 现已支持 Gmail 邮件与 Google Drive 文件管理</a></h3>
+        <p class="sum">Claude 现在可以在 Gmail 中发送邮件，并管理 Google Drive 中的文件。让 Claude 回复某个邮件线程，它会起草并发送回复，你可以控制何时需要批准，所有付费套餐均可用。</p>
+        <div class="why"><span class="why-tag">关注原因</span>把 Gmail 起草发送与 Drive 文件操作收进对话，审批环节仍由人决定——智能体从「对话工具」走向「可代办事务的个人助理」，对重度办公用户是具体效率变化。</div>
+        <div class="meta"><span class="src">X：Claude (@claudeai)</span><span class="time">北京时间 08-19 04:06</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:360ms">
+      <div class="rank">10</div>
+      <div class="score h1"><b>63</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding / 运维</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsz1zjiy013pro3f1e0aafra" target="_blank" rel="noopener">Claude Tag 如何担任 Anthropic CI/CD 故障的一线响应者</a></h3>
+        <p class="sum">Anthropic 的 CI 工程师用 Claude Tag 构建值班智能体作为 CI/CD 故障一线响应者：中位 14 分钟发布首份基于证据的分析，最快案例 3 分钟内验证修复并确认错误率恢复基线，并已发布通用设置套件供其他团队部署。</p>
+        <div class="why"><span class="why-tag">关注原因</span>AI on-call 从概念落成可复制的工程架构：markdown 技能文件 + lessons.md 自我迭代，14 分钟首报、最快 4 分钟定位——值班智能化有了现成范式。</div>
+        <div class="meta"><span class="src">Claude：Blog（网页）</span><span class="time">北京时间 08-19 03:26</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:400ms">
+      <div class="rank">11</div>
+      <div class="score h1"><b>56</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsyq5azf143xroz086pubj8o" target="_blank" rel="noopener">宇树科技 2026 年 8 月科创板上市，发行价 21.1 美元</a></h3>
+        <p class="sum">宇树科技（Unitree Robotics）今日（8/19）在上交所科创板上市，IPO 发行价每股 21.1 美元，对应市盈率 219 倍，预计募资约 9.02 亿美元。</p>
+        <div class="why"><span class="why-tag">关注原因</span>A 股「人形机器人第一股」今日正式挂牌：发行价 21.1 美元、市盈率 219 倍——具身智能赛道最具标志性的资本事件落地，全球少数盈利的通用机器人公司进入二级市场。</div>
+        <div class="meta"><span class="src">X：X.PIN (@thexpin)</span><span class="time">北京时间 08-18 21:40</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:440ms">
+      <div class="rank">12</div>
+      <div class="score h1"><b>60</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">产品 / 安全</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsykcnkt0yh1roz0a9h404r5" target="_blank" rel="noopener">OpenAI 推出 ChatGPT for Teens：面向青少年的学习体验与更强安全保护</a></h3>
+        <p class="sum">OpenAI 发布 ChatGPT for Teens，为 13-17 岁用户自动启用，内置更强安全保护与家长控制：Study Mode、负责任作业提醒、测验与学习可视化、可设定时段的 Study Hours，引导青少年分步解题而非直接给答案，并宣布与 CodeAI 合作。</p>
+        <div class="why"><span class="why-tag">关注原因</span>青少年版把安全护栏和学习引导设为默认——家长与教师面对的不再是「是否允许用」，而是「如何设置边界」，AI 教育产品正式进入青少年专用时代。</div>
+        <div class="meta"><span class="src">OpenAI：官网动态（RSS）</span><span class="time">北京时间 08-18 19:00</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:480ms">
+      <div class="rank">13</div>
+      <div class="score h1"><b>64</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">开源</span>
+          <span class="badge sel">精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsy8afig0mvmroz0gb3hz0iq" target="_blank" rel="noopener">inclusionAI 开源 ConceptEdit：图像编辑数据生成管线</a></h3>
+        <p class="sum">蚂蚁集团开源 ConceptEdit：三阶段流程（VLM 生成指令、FLUX 执行编辑、VQA 评估筛选）构建大规模、基于分类法的图像编辑数据集，提供单概念与多概念两种变体，MIT 许可，支持断点续跑。</p>
+        <div class="why"><span class="why-tag">关注原因</span>把图像编辑数据生成拆成「指令生成→FLUX 编辑→VLM 评判」三步并内置质检——为构建带质量把关的图像编辑训练数据提供可复用框架。</div>
+        <div class="meta"><span class="src">蚂蚁 inclusionAI：GitHub 新仓库</span><span class="time">北京时间 08-18 13:34（收录）</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:520ms">
+      <div class="rank">14</div>
+      <div class="score h1"><b>42</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge pool">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsyw6ws9019bro20k4bm4rmu" target="_blank" rel="noopener">Asana 用 Codex 两周完成预计 5 年的工程工作</a></h3>
+        <p class="sum">Asana 借助 OpenAI Codex 在约两周内移除了过时的测试系统 Enzyme，完成原本预计耗时五年的工程任务。模型与基础设施成本约 $12K，而此前人员方案预估需约 $6M。</p>
+        <div class="why"><span class="why-tag">关注原因</span>「AI 两周干完五年工程、成本 $12K vs $6M」从口号变成上市公司公开案例——长尾技术债的清理逻辑与 ROI 判断被彻底改写。</div>
+        <div class="meta"><span class="src">OpenAI：官网动态（RSS）</span><span class="time">北京时间 08-18 15:00</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:560ms">
+      <div class="rank">15</div>
+      <div class="score h1"><b>48</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsyr6tn1016groidjfpt13b9" target="_blank" rel="noopener">Warp 推出 Warp Factories：面向 AI 开发的即装即用软件工厂系统</a></h3>
+        <p class="sum">Warp 发布 Warp Factories，一个用于构建和运营 AI 软件工厂的基础设施层，让企业能轻松部署智能体并获取使用路线图。</p>
+        <div class="why"><span class="why-tag">关注原因</span>AI 编码工具从「单点助手」走向「组织级软件工厂」——面向企业的智能体流水线基础设施正在成型，值得关注其对开发组织形态的影响。</div>
+        <div class="meta"><span class="src">TechCrunch：AI（RSS）</span><span class="time">北京时间 08-18 22:00</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:600ms">
+      <div class="rank">16</div>
+      <div class="score h1"><b>40</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding / 评测</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsy4p26x0jmproz0b4ouo4sp" target="_blank" rel="noopener">AI 编码智能体缺乏时间感知，评测需直接测时长</a></h3>
+        <p class="sum">Rohan Paul 指出，AI 编码智能体可能连续工作数小时却对时间流逝缺乏校准感知，长时程评测或需直接衡量智能体对时长的遵循能力。观点源自 Maksym Andriushchenko 等人关于 LLM 智能体时间感知能力的研究（ProgramBench、PaperBench、DeepSWE）。</p>
+        <div class="why"><span class="why-tag">关注原因</span>给 Agent 评测补上一个被忽视的维度：持续完成任务≠知道何时该停——长时程任务的「时间遵循能力」应成为独立评测指标。</div>
+        <div class="meta"><span class="src">X：Rohan Paul (@rohanpaul_ai)</span><span class="time">北京时间 08-18 11:32</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:640ms">
+      <div class="rank">17</div>
+      <div class="score h1"><b>42</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsysafuz01ohros3jja0dzpy" target="_blank" rel="noopener">人形机器人北京奥运场馆跑完室内跑道</a></h3>
+        <p class="sum">一段展示视频中，人形机器人在北京奥运场馆内跑完了整条室内跑道，腿部循环动作从起步到远端弯道保持一致。</p>
+        <div class="why"><span class="why-tag">关注原因</span>运动控制的公开实测：长距离稳定奔跑展示出人形机器人双足动态平衡的成熟度——恰逢今日（8/19）2026 世界机器人大会开幕，具身智能进入集中展示期。</div>
+        <div class="meta"><span class="src">X：Rohan Paul (@rohanpaul_ai)</span><span class="time">北京时间 08-18 22:30</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:680ms">
+      <div class="rank">18</div>
+      <div class="score h1"><b>39</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsy7un910mgnroz03f9ldqrg" target="_blank" rel="noopener">共生知行发布人形机器人驾驶卡丁车 Demo，展示直接感知-控制模型</a></h3>
+        <p class="sum">共生知行（Symbiosis Robotics）发布双足人形机器人驾驶卡丁车 Demo：直接感知-控制模型移除中间运动表征，将视觉、语言、身体状态直接映射为可执行动作，实现手-眼-脚协同驾驶。</p>
+        <div class="why"><span class="why-tag">关注原因</span>「全身智能」路线的高调公开验证：跳过中间表征让机器人直接感知-控制，赛车只是第一项测试，后续将转向移动操作与高精度视觉对准。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-18 12:33</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:720ms">
+      <div class="rank">19</div>
+      <div class="score h1"><b>39</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">AI coding</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsysa8mj01l0ros3tgis5yig" target="_blank" rel="noopener">ABC Legal 用 Claude Code 让全员造 Agent</a></h3>
+        <p class="sum">法律服务公司 ABC Legal 未设 AI 团队，而是让 15 名无编程经验的业务人员用 Claude Code 在一周内各自做出 Agent，一个月后公司内部已运行 50 多个 Agent。</p>
+        <div class="why"><span class="why-tag">关注原因</span>「全员造 Agent」在传统行业真实发生：无 AI 团队、无编程经验、一周上手——AI coding 工具的普及正在重构组织的能力分布。</div>
+        <div class="meta"><span class="src">X：小北 (@frxiaobei)</span><span class="time">北京时间 08-18 22:30</span></div>
+      </div>
+    </article>
+    <article class="card" style="--d:760ms">
+      <div class="rank">20</div>
+      <div class="score h1"><b>36</b><span>热度</span></div>
+      <div class="card-body">
+        <div class="tags">
+          <span class="cat">具身智能</span>
+          <span class="badge kw">未进入精选</span>
+        </div>
+        <h3><a href="https://aihot.virxact.com/items/cmsyozzzc1379roz027y7fht4" target="_blank" rel="noopener">卢伟冰：小米机器人将在 2026 世界机器人大会首次面向公众亮相</a></h3>
+        <p class="sum">小米集团总裁卢伟冰透露，小米机器人将在 2026 世界机器人大会（今日 8/19 开幕）首次面向公众亮相。小米选择 1.7 米左右全尺寸人形机器人，聚焦智能制造工厂产线场景；雷军此前透露机器人在汽车工厂「实习」4 个月，自攻螺母上件成功率从 90.2% 提升至 98%。</p>
+        <div class="why"><span class="why-tag">关注原因</span>大厂具身智能商业化路线图公开：不独立做机器人、与人车家全生态协同、先攻工厂产线——小米的落地路径对具身智能产业格局有风向标意义。</div>
+        <div class="meta"><span class="src">IT之家（RSS）</span><span class="time">北京时间 08-18 21:15</span></div>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    <div>数据来源：AI HOT（aihot.virxact.com） · 过去 24 小时窗口 · 生成于 2026-08-19 08:30</div>
+    <div class="src-note">「精选」= AI HOT 编辑精选池 ｜ 「未进入精选」= 精选池为空时按关键词由全量池补充（侧重 AI coding 与具身智能方向）</div>
+    <div>AI HOT attribution 保留 · 第三方原文版权归原作者</div>
+  </footer>
+</div>
+</body>
+</html>

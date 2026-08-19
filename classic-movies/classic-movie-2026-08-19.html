@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 · 第51期 · 忠犬八公的故事</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --panel: #1c2333;
+    --border: #2d333b;
+    --text: #e6edf3;
+    --text-dim: #9aa4b2;
+    --accent: #e8a04f;
+    --accent-2: #00c853;
+    --gold: #ffc53d;
+    --warm: #d97757;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    padding: 0 0 48px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  /* 头部 */
+  .hero {
+    padding: 40px 20px 28px;
+    text-align: center;
+    background: linear-gradient(180deg, #0a0e14 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--warm);
+    border: 1px solid var(--warm);
+    border-radius: 999px;
+    padding: 3px 14px;
+    margin-bottom: 18px;
+    letter-spacing: 0.12em;
+  }
+  .hero h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin-bottom: 6px;
+  }
+  .hero .en {
+    font-size: 16px;
+    color: var(--text-dim);
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .meta {
+    font-size: 15px;
+    color: var(--text-dim);
+  }
+  .meta span { margin: 0 6px; }
+
+  /* 评分条 */
+  .ratings {
+    display: flex;
+    gap: 12px;
+    margin: 24px auto 0;
+    max-width: 560px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .score {
+    flex: 1 1 120px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .score .num {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--warm);
+  }
+  .score .label {
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* 正文卡片 */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-top: 24px;
+  }
+  h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2 .dot {
+    width: 8px; height: 8px;
+    background: var(--warm);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  p { margin-bottom: 12px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+  .dim { color: var(--text-dim); }
+
+  ul { list-style: none; }
+  ul li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+  }
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 11px;
+    width: 8px; height: 8px;
+    background: var(--accent-2);
+    border-radius: 50%;
+  }
+  ul li:last-child { margin-bottom: 0; }
+
+  .quote {
+    border-left: 3px solid var(--warm);
+    padding: 12px 18px;
+    background: rgba(217,119,87,0.06);
+    border-radius: 0 10px 10px 0;
+    margin-top: 16px;
+    font-style: italic;
+    color: var(--text-dim);
+  }
+
+  /* 无剧透提示 */
+  .spoiler-free {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,197,61,0.08);
+    border: 1px solid rgba(255,197,61,0.3);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-top: 24px;
+    font-size: 15px;
+    color: var(--gold);
+  }
+
+  /* 真实事件标签 */
+  .true-story {
+    text-align: center;
+    background: linear-gradient(90deg, transparent, rgba(217,119,87,0.10), transparent);
+    border: 1px solid rgba(217,119,87,0.25);
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin: 24px 0 0;
+    font-size: 14px;
+    color: var(--warm);
+    letter-spacing: 0.05em;
+  }
+
+  .footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 36px;
+    letter-spacing: 0.05em;
+  }
+
+  /* 装饰性 paw 图标 */
+  .paw-deco {
+    text-align: center;
+    font-size: 22px;
+    margin-top: 12px;
+    opacity: 0.4;
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 26px; }
+    h2 { font-size: 19px; }
+    .card { padding: 20px 16px; }
+    .score { flex: 1 1 100px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">每日经典电影 · 第 51 期</div>
+  <h1>忠犬八公的故事</h1>
+  <div class="en">Hachi: A Dog's Tale · 2009</div>
+  <div class="meta">
+    导演：莱塞·霍尔斯道姆<span>·</span> 主演：理查·基尔 / 琼·艾伦 / 莎拉·罗默尔
+  </div>
+  <div class="ratings">
+    <div class="score"><div class="num">9.5</div><div class="label">豆瓣评分</div></div>
+    <div class="score"><div class="num">8.1</div><div class="label">IMDb</div></div>
+    <div class="score"><div class="num">88%</div><div class="label">烂番茄观众</div></div>
+    <div class="score"><div class="num">真实事件</div><div class="label">改编自日本</div></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="true-story">🐾 改编自日本真实事件 · 一段跨越物种的至纯忠诚</div>
+
+  <div class="card">
+    <h2><span class="dot"></span>剧情梗概</h2>
+    <p>一个深秋的傍晚，大学教授帕克在火车站台上捡到了一只迷路的小秋田犬。他本想为它找个家，却在不知不觉中被这个小家伙选作了「自己的人」。</p>
+    <p>日子一天天过去，小狗长大了，它有了自己的名字——「八公」。八公每天准时送帕克去车站上班，傍晚又准时蹲在站台上，等那扇门打开，等那个身影出现。日复一日，风雨无阻。</p>
+    <p>直到有一天，那个身影再也没有从门里走出来。而八公，依然在等。</p>
+    <p>它不懂什么是离别，不懂什么是死亡。它只知道——那个人说过会回来，那它就应该等。</p>
+    <div class="quote">「它不是在等一个永远不回来的人。它在等一个承诺。」</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>亮点所在</h2>
+    <ul>
+      <li><strong>真实事件的力量</strong>——原型八公（ハチ公）在日本东京涩谷车站苦等已故主人近十年，它的故事被写进教科书、铸成铜像、代代传颂。电影将舞台搬到美国，但那份忠诚的重量一分未减。</li>
+      <li><strong>理查·基尔的「温柔刻度」</strong>——他用最日常的喂饭、遛弯、打闹，把一个中年男人与小狗之间的默契演出了「父子感」。没有大悲大喜，只有细水长流的陪伴，反而更让人心疼。</li>
+      <li><strong>以狗的视角讲故事</strong>——导演把大量镜头交给八公自己：它的眼神、它的等待、它的奔跑。没有旁白翻译它的心思，但你看一眼就懂了。这是最高级的叙事——用沉默说尽一切。</li>
+      <li><strong>配乐如水、节奏如诗</strong>——普拉什·帕特尔的音乐克制到极致，只在关键时刻轻拨一下心弦，像秋天的风，吹过来才发觉眼眶已经湿了。</li>
+      <li><strong>豆瓣 9.5 的含金量</strong>——在中国影迷心中，它是「哭到看不了第二遍」的代名词，也是所有宠物电影难以逾越的天花板。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="dot"></span>为什么值得一看</h2>
+    <p>它讲的不是「一条狗有多聪明」，而是「一条狗有多认真」。认真到用一辈子去守一个约定，认真到全世界都告诉它「别等了」，它依然蹲在那里，日升月落，四季轮转。</p>
+    <p>这部电影最大的力量在于：它没有任何煽情技巧，没有反派、没有冲突、没有戏剧性反转。它只是老老实实讲了一只狗怎么过日子、怎么送人、怎么等人。可恰恰是这份老实，击穿了所有人最后的防线。</p>
+    <p class="dim">推荐给每一位曾经爱过、或正在爱着一个小生命的爷。看完之后，你会想回家抱抱身边那个毛茸茸的家伙——如果有的话。如果没有，你也会开始理解什么叫「值得被等待」。</p>
+  </div>
+
+  <div class="spoiler-free">🛡️ 本文已严格避免剧透，剧情梗概仅点到即止，请放心阅读后再观影。</div>
+
+  <div class="paw-deco">🐾 🐾 🐾</div>
+
+  <div class="footer">小虾米 · 每日经典电影推荐 · 2026-08-19</div>
+</div>
+
+</body>
+</html>
