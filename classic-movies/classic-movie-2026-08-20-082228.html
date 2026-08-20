@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>经典电影推荐 · 七武士</title>
+  <style>
+    :root {
+      --bg: #121416;
+      --surface: #1b1d21;
+      --text: #e8eaed;
+      --muted: #9aa0a6;
+      --accent: #f3b34b;
+      --accent-2: #d68a2a;
+      --border: #2f3338;
+      --shadow: rgba(0, 0, 0, 0.45);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 4rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .label {
+      display: inline-block;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent-2);
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 6vw, 2.75rem);
+      margin: 0 0 0.4rem;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: clamp(1rem, 3vw, 1.25rem);
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+    }
+
+    .meta span {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.9rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .ratings {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .rating-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 8px 24px var(--shadow);
+      transition: transform 0.2s ease, border-color 0.2s ease;
+    }
+
+    .rating-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent-2);
+    }
+
+    .rating-card .score {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .rating-card .source {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
+
+    section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 10px 30px var(--shadow);
+    }
+
+    section h2 {
+      font-size: clamp(1.25rem, 4vw, 1.5rem);
+      margin: 0 0 1rem;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    section h2::before {
+      content: "";
+      display: inline-block;
+      width: 6px;
+      height: 1.1em;
+      background: var(--accent-2);
+      border-radius: 3px;
+    }
+
+    section p {
+      margin: 0 0 0.9rem;
+      font-size: clamp(1rem, 2.8vw, 1.05rem);
+    }
+
+    section p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlights {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .highlights li {
+      position: relative;
+      padding-left: 1.6rem;
+      margin-bottom: 0.85rem;
+      font-size: clamp(1rem, 2.8vw, 1.05rem);
+    }
+
+    .highlights li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.8rem;
+      margin-top: 2rem;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 2rem 1rem 3rem;
+      }
+      section {
+        padding: 1.25rem;
+      }
+      .ratings {
+        gap: 0.75rem;
+      }
+      .rating-card {
+        padding: 0.85rem 0.5rem;
+      }
+      .rating-card .score {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="label">经典电影推荐</span>
+      <h1>七武士</h1>
+      <p class="subtitle">七人の侍 · Seven Samurai · 1954</p>
+      <p class="subtitle" style="font-size:0.95rem; margin-top:0.5rem;">黑泽明 导演 · 三船敏郎 / 志村乔 / 稻叶义男 主演</p>
+      <div class="meta">
+        <span>日本</span>
+        <span>动作 / 剧情</span>
+        <span>207 分钟</span>
+        <span>黑白</span>
+      </div>
+    </header>
+
+    <div class="ratings">
+      <div class="rating-card">
+        <div class="score">9.3</div>
+        <div class="source">豆瓣</div>
+      </div>
+      <div class="rating-card">
+        <div class="score">8.6</div>
+        <div class="source">IMDb</div>
+      </div>
+      <div class="rating-card">
+        <div class="score">97%</div>
+        <div class="source">烂番茄</div>
+      </div>
+    </div>
+
+    <section>
+      <h2>剧情梗概</h2>
+      <p>日本战国时代，一个贫困的山村常年遭到土匪劫掠。 harvest 在即，村民们决定不再坐以待毙，他们派出代表前往城镇，希望用仅有的粮食换来武士的庇护。</p>
+      <p>几经周折，七位身份各异的流浪武士答应了这场几乎毫无报酬的委托。他们来到村庄后，带领村民修筑防御、训练作战，并与人数远胜于己的土匪展开了一场力量悬殊的生死守护。</p>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <ul class="highlights">
+        <li><strong>群像塑造：</strong>七位武士个性鲜明，从老练沉稳的勘兵卫到野性难驯的菊千代，每个人都有完整的弧光。</li>
+        <li><strong>动作场面：</strong>泥泞中的马战与雨中对决，奠定了现代动作片剪辑与场面调度的黄金标准。</li>
+        <li><strong>叙事节奏：</strong>三个多小时的片长层次分明，前半段聚人、中段备战、末段决战，张力层层递进。</li>
+        <li><strong>摄影美学：</strong>黑白影像中的雨、烟雾、田野与人群，构成一幅幅充满东方气韵的史诗画卷。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <p>《七武士》不仅是日本电影的巅峰，更影响了此后半个多世纪的世界电影。《豪勇七蛟龙》《星球大战》《复仇者联盟》等经典都能在这里找到群像叙事与“组队出征”的原型。</p>
+      <p>黑泽明没有简单地把故事拍成善恶二元对立，而是始终关注着“守护”背后的代价：武士的尊严、农民的卑微、阶级的鸿沟，以及胜利之后那声沉重的叹息。如果你想知道一部动作片如何同时拥有史诗格局与人文厚度，《七武士》是不容错过的答案。</p>
+    </section>
+
+    <footer>
+      推荐时间：2026-08-20 · 所有内容内嵌于本文件，无需联网
+    </footer>
+  </div>
+</body>
+</html>
