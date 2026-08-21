@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-08-21</title>
+<style>
+:root {
+  --bg:#070b14; --bg2:#0a1020; --card:#0d1526; --line:rgba(120,140,255,.14);
+  --txt:#e6edf7; --dim:#8b98b3; --cy:#22d3ee; --pu:#a78bfa; --gr:#34d399; --am:#fbbf24;
+  --red:#f87171;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.65; overflow-x:hidden;
+}
+/* 网格线背景 */
+body::before {
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    linear-gradient(rgba(99,140,255,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99,140,255,.05) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 100%);
+}
+/* 霓虹光晕 */
+body::after {
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
+  background:
+    radial-gradient(600px 340px at 12% -5%, rgba(34,211,238,.16), transparent 60%),
+    radial-gradient(700px 420px at 88% 8%, rgba(167,139,250,.18), transparent 62%),
+    radial-gradient(520px 380px at 50% 110%, rgba(52,211,153,.10), transparent 60%);
+}
+.wrap { max-width:1080px; margin:0 auto; padding:56px 22px 80px; }
+header { text-align:center; margin-bottom:44px; position:relative; }
+.eyebrow {
+  display:inline-block; font-size:12px; letter-spacing:.35em; color:var(--cy);
+  border:1px solid rgba(34,211,238,.35); padding:6px 18px; border-radius:999px;
+  background:rgba(34,211,238,.07); margin-bottom:22px; text-transform:uppercase;
+  box-shadow:0 0 24px rgba(34,211,238,.25) inset;
+}
+h1 {
+  font-size:clamp(30px,5vw,46px); font-weight:800; letter-spacing:.02em;
+  background:linear-gradient(92deg,var(--cy) 0%, #60a5fa 45%, var(--pu) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 0 22px rgba(96,165,250,.35));
+}
+.sub { color:var(--dim); margin-top:12px; font-size:14px; letter-spacing:.12em; }
+.sub b { color:var(--txt); }
+.stats {
+  display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:26px;
+}
+.stat {
+  padding:10px 22px; border:1px solid var(--line); border-radius:14px;
+  background:linear-gradient(160deg, rgba(13,21,38,.9), rgba(13,21,38,.5));
+  box-shadow:0 0 18px rgba(34,211,238,.08);
+}
+.stat .n { font-size:24px; font-weight:800; color:var(--cy); }
+.stat .t { font-size:12px; color:var(--dim); margin-left:6px; }
+main { display:grid; gap:18px; }
+.card {
+  position:relative; display:grid; grid-template-columns:64px 64px 1fr; gap:18px;
+  padding:22px 24px; border:1px solid var(--line); border-radius:18px;
+  background:linear-gradient(165deg, rgba(17,26,48,.92), rgba(10,16,32,.88));
+  backdrop-filter:blur(6px);
+  transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+  animation:rise .6s ease both; animation-delay:calc(var(--i)*55ms);
+}
+.card:hover {
+  transform:translateY(-3px); border-color:rgba(34,211,238,.45);
+  box-shadow:0 0 0 1px rgba(34,211,238,.2), 0 14px 40px rgba(34,211,238,.10), 0 0 60px rgba(167,139,250,.10);
+}
+@keyframes rise { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:none; } }
+.rank {
+  font-size:13px; font-weight:700; color:var(--pu); letter-spacing:.1em;
+  border-right:1px dashed rgba(167,139,250,.3); align-self:start; padding-top:4px;
+}
+.score { text-align:center; align-self:start; }
+.score .num {
+  display:block; font-size:26px; font-weight:800; line-height:1.1;
+  color:transparent;
+  background:linear-gradient(180deg,#fff,var(--cy));
+  -webkit-background-clip:text; background-clip:text;
+  text-shadow:0 0 18px rgba(34,211,238,.5);
+}
+.score .lbl { font-size:10px; color:var(--dim); letter-spacing:.2em; }
+.body { min-width:0; }
+.meta { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:8px; }
+.pool { font-size:11px; padding:2px 10px; border-radius:999px; font-weight:600; letter-spacing:.06em; }
+.p-sel { color:#0a101a; background:linear-gradient(90deg,var(--cy),#60a5fa); box-shadow:0 0 14px rgba(34,211,238,.4); }
+.p-out { color:#0a101a; background:linear-gradient(90deg,var(--am),#f97316); box-shadow:0 0 14px rgba(251,191,36,.35); }
+.tag {
+  font-size:11px; color:var(--cy); border:1px solid rgba(34,211,238,.4);
+  padding:2px 9px; border-radius:6px; background:rgba(34,211,238,.06);
+}
+.tag-emb { color:var(--gr); border-color:rgba(52,211,153,.4); background:rgba(52,211,153,.06); }
+.tag-model { color:var(--pu); border-color:rgba(167,139,250,.4); background:rgba(167,139,250,.06); }
+.tag-industry { color:var(--am); border-color:rgba(251,191,36,.4); background:rgba(251,191,36,.06); }
+.src { font-size:11px; color:var(--dim); }
+.time { font-size:11px; color:var(--dim); margin-left:auto; }
+h3 { font-size:17px; line-height:1.5; margin-bottom:8px; }
+h3 a { color:var(--txt); text-decoration:none; transition:color .2s; }
+h3 a:hover { color:var(--cy); text-shadow:0 0 12px rgba(34,211,238,.5); }
+.summary { font-size:13.5px; color:#b9c4d8; }
+.why {
+  margin-top:10px; font-size:13px; color:#9fb2d4;
+  border-left:3px solid; border-image:linear-gradient(180deg,var(--cy),var(--pu)) 1;
+  padding-left:12px;
+}
+.why b {
+  color:var(--gr); margin-right:8px; font-weight:700;
+  background:linear-gradient(90deg,var(--gr),var(--cy));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+footer {
+  margin-top:50px; text-align:center; color:var(--dim); font-size:12px;
+  padding-top:22px; border-top:1px solid var(--line);
+}
+footer .hl { color:var(--cy); }
+.legend { margin-top:34px; text-align:center; font-size:12px; color:var(--dim); }
+.legend span { display:inline-block; margin:0 8px 6px; padding:2px 10px; border-radius:999px; font-size:11px; }
+@media (max-width:720px) {
+  .card { grid-template-columns:44px 1fr; gap:12px; padding:18px 16px; }
+  .rank { border-right:none; font-size:12px; }
+  .score { display:none; }
+  .time { margin-left:0; width:100%; margin-top:4px; }
+  .wrap { padding:40px 14px 60px; }
+  h3 { font-size:15.5px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">AI INTELLIGENCE DAILY</div>
+  <h1>AI 情报日报</h1>
+  <p class="sub">2026-08-21 周五 · 过去 24 小时 · <b>AI coding × 具身智能</b> 双主线</p>
+  <div class="stats">
+    <div class="stat"><span class="n">20</span><span class="t">条精选情报</span></div>
+    <div class="stat"><span class="n">8</span><span class="t">精选池</span></div>
+    <div class="stat"><span class="n">12</span><span class="t">全量池补充</span></div>
+    <div class="stat"><span class="n">7</span><span class="t">AI coding</span></div>
+    <div class="stat"><span class="n">6</span><span class="t">具身智能</span></div>
+  </div>
+</header>
+<main>
+
+  <div class="card" style="--i:1">
+    <div class="rank">NO.01</div>
+    <div class="score"><span class="num">82</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag">AI coding</span>
+        <span class="src">xAI：News</span>
+        <span class="time">08-21 03:38</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1xbu7q0b7troovffggr2jh" target="_blank" rel="noopener">Grok Build 全面上线网页与移动端，所有套餐可用</a></h3>
+      <p class="summary">Grok Build 面向所有套餐开放，支持网页、iOS、Android 三端。用户描述应用、游戏或网站后，Grok 可在聊天中实时生成可运行版本；新增发布分享、接入 X、调用 Grok 模型等能力，应用可获得 grok.me 链接并支持自定义域名、导出 GitHub。</p>
+      <p class="why"><b>值得关注</b>xAI 将「描述即应用」的 AI 生成能力推至全量用户并打通分发链路，AI coding 产品化正式进入大众市场，直接对标 Cursor / Claude Code 生态。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:2">
+    <div class="rank">NO.02</div>
+    <div class="score"><span class="num">72</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag">AI Agent</span>
+        <span class="src">IT之家</span>
+        <span class="time">08-20 18:24</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1di48c04vuro1q95i06dby" target="_blank" rel="noopener">阿里发布 Qwen-UI-Agent，主打让模型真正「会用」每一块屏幕</a></h3>
+      <p class="summary">阿里巴巴正式推出 Qwen-UI-Agent，一个以真实世界为中心的 GUI 智能体基座模型，覆盖移动端、电脑端、网页端及深度搜索（DeepSearch）环境。</p>
+      <p class="why"><b>值得关注</b>国产 GUI Agent 基座的关键落子——让模型理解并操作真实屏幕，是 AI coding 从「写代码」走向「操作软件」的必经环节。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:3">
+    <div class="rank">NO.03</div>
+    <div class="score"><span class="num">67</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag">AI Agent</span>
+        <span class="src">Mistral AI</span>
+        <span class="time">08-21 00:02</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1pkwbj04bxroovzkfca5c7" target="_blank" rel="noopener">Mistral 推出 Agentic Search：多步检索提升复杂文档查询准确率</a></h3>
+      <p class="summary">Mistral 发布 Agentic Search，通过 search、open、navigate、read、grep 五工具的多步检索循环，让模型在长文档与多来源中查找、定位并验证信息。</p>
+      <p class="why"><b>值得关注</b>「Agentic 检索」正成为各家标配：把一次查询变成多步验证循环，直指 RAG 在长文档场景的准确率痛点。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:4">
+    <div class="rank">NO.04</div>
+    <div class="score"><span class="num">65</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag">AI coding</span>
+        <span class="src">Claude：Blog</span>
+        <span class="time">08-20 21:26</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1k19bn06qgrokx1p75h1gv" target="_blank" rel="noopener">Claude Code 初创公司指南：五大规则与创始人洞见</a></h3>
+      <p class="summary">Anthropic 基于对十余家高增长公司的调研发布 Claude Code 使用指南，总结出「人人皆可交付、自动化繁琐工作、信任但验证、为重构而构建、原型-自用-产品化」五大规则。</p>
+      <p class="why"><b>值得关注</b>大厂开始系统输出 AI coding 工程方法论，五大规则是团队落地 Claude Code 的高信噪比实操参考。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:5">
+    <div class="rank">NO.05</div>
+    <div class="score"><span class="num">65</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag">数据基建</span>
+        <span class="src">Google Cloud</span>
+        <span class="time">08-21 00:47</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1r7jjh05lgroovc4zwypj6" target="_blank" rel="noopener">AlloyDB ScaNN 将向量搜索扩展到 100 亿向量</a></h3>
+      <p class="summary">AlloyDB 的 ScaNN 索引支持超过 100 亿向量规模，全新四层树架构将查询复杂度从 O(N^1/2) 降至 O(N^1/4)。内部测试 p95 延迟不超过 51 毫秒、召回率 95%。</p>
+      <p class="why"><b>值得关注</b>向量数据库规模天花板再次抬高——100 亿向量 + 51ms p95，Agent / RAG 应用的大规模检索成本曲线被显著压低。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:6">
+    <div class="rank">NO.06</div>
+    <div class="score"><span class="num">64</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-emb">具身智能</span>
+        <span class="src">IT之家</span>
+        <span class="time">08-20 10:25</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt0yhxp40j1yro2o31lx4buv" target="_blank" rel="noopener">Counterpoint：2026 上半年全球人形机器人出货量同比增近 300%，智元、宇树霸榜</a></h3>
+      <p class="summary">2026 上半年全球人形机器人出货突破 2.2 万台，同比增长近 300%。智元 AGIBOT 以 9,700 台居首、份额超 43%，前五名均为中国厂商、合计占 86%；Counterpoint 预计全年突破 5 万台。</p>
+      <p class="why"><b>值得关注</b>具身智能产业化进入放量期的最硬数据——中国厂商垄断前五，出货量拐点已确认，产业链订单弹性值得跟踪。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:7">
+    <div class="rank">NO.07</div>
+    <div class="score"><span class="num">63</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-industry">行业法律</span>
+        <span class="src">X：Rohan Paul</span>
+        <span class="time">08-21 06:48</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt243gbo0h2lroovglxyzaew" target="_blank" rel="noopener">苹果反击 OpenAI：再诉商业秘密窃取</a></h3>
+      <p class="summary">苹果 8 月 19 日向美国地区法院提交新回应，反驳 OpenAI 驳回诉讼的动议，重申大规模商业秘密盗用指控：刘畅利用认证漏洞下载数十份机密硬件文件，OpenAI 人员借招聘套取 CAD 图纸、原型及供应商细节。</p>
+      <p class="why"><b>值得关注</b>两大巨头法律战升级，牵动 AI 行业的人才流动、数据合规与模型训练取材边界，后续判决可能重塑行业惯例。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:8">
+    <div class="rank">NO.08</div>
+    <div class="score"><span class="num">63</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag">AI coding</span>
+        <span class="src">Claude：Blog</span>
+        <span class="time">08-21 04:27</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1z1q5n0c93roovlvh40tew" target="_blank" rel="noopener">Claude Platform 正式上线 Computer Use、Skills API 与 Files API，新增浏览器操作工具</a></h3>
+      <p class="summary">Anthropic 宣布 Computer Use、Skills API 与 Files API 在 Claude Platform 全面可用，并新增浏览器操作工具，让智能体可操作软件、调用团队技能并返回成品文件。</p>
+      <p class="why"><b>值得关注</b>Agent 能力平台化闭环：操作软件 → 调用技能 → 产出文件一次打通，Claude 生态的「可交付智能体」能力再上一个台阶。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:9">
+    <div class="rank">NO.09</div>
+    <div class="score"><span class="num">61</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag tag-model">模型</span>
+        <span class="src">Hugging Face</span>
+        <span class="time">08-21 01:06</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1rv5n8066iroovaxgoej1b" target="_blank" rel="noopener">Hugging Face 发布 LFM2.5 系列 DSpark 草稿模型，推理速度最高提升 3.18 倍</a></h3>
+      <p class="summary">LFM2.5 三款模型的 DSpark 草稿检查点通过投机解码，GPU 吞吐最高提升 3.18 倍、端侧最高 2.87 倍且输出质量不变；草稿模型约 300M 参数，函数调用延迟平均降 57%，已开源支持 llama.cpp 与 SGLang。</p>
+      <p class="why"><b>值得关注</b>低成本推理竞赛继续白热化：300M 草稿模型撬动 3 倍吞吐，小参数投机解码正成为端侧与 API 降本的核心杠杆。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:10">
+    <div class="rank">NO.10</div>
+    <div class="score"><span class="num">60</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-sel">精选池</span>
+        <span class="tag tag-industry">行业</span>
+        <span class="src">Claude：Blog</span>
+        <span class="time">08-21 01:56</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1tonwa07i9roovrze0ll65" target="_blank" rel="noopener">Anthropic 如何开展 AI 教学：Claude Academy 面向全球开放</a></h3>
+      <p class="summary">Anthropic 发布 Claude Academy，为全球数百万用户提供 AI 教学资源，借鉴内部员工培训方法，包含 4D AI Fluency Framework 与「ever-boarding」持续学习项目，强调以问题为中心、培养持久思维模式。</p>
+      <p class="why"><b>值得关注</b>头部厂商把内部 AI 素养方法论产品化并免费开放——AI 教学正成为生态竞争的新入口，也是今日热点榜 rank2。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:11">
+    <div class="rank">NO.11</div>
+    <div class="score"><span class="num">57</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-industry">商业</span>
+        <span class="src">TechCrunch</span>
+        <span class="time">08-21 06:54</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt24bh4r0h70roov30m6mczf" target="_blank" rel="noopener">Ramp 数据显示 OpenAI 在企业用户市场正追赶 Anthropic</a></h3>
+      <p class="summary">截至 7 月，Anthropic 在美国企业付费用户市场份额近 44%，OpenAI 近 40%；OpenAI 本季度增速更快，企业付费采用率从 3 月的 50% 升至 7 月的近 56%，但 5 月失去领先地位后尚未夺回。</p>
+      <p class="why"><b>值得关注</b>企业市场攻防战进入胶着：Anthropic 领先优势收窄至 4 个百分点，OpenAI 增速反超，「第二增长曲线」争夺激烈。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:12">
+    <div class="rank">NO.12</div>
+    <div class="score"><span class="num">57</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag">AI coding</span>
+        <span class="src">Hacker News 热门</span>
+        <span class="time">08-20 08:38</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt0t5va90el3ro2o5nyxc38o" target="_blank" rel="noopener">大语言模型时代的可扩展软件：LLM 让「Small Software」成为可能</a></h3>
+      <p class="summary">文章提出 LLM 辅助编程让个人定制软件成为可能（YC 的 Pete Koomen 称之为 Small Software）：LLM 大幅降低扩展开发成本，现代沙箱原语降低部署成本并提供安全边界，网络应用有望进化成用户可用自然语言安全扩展核心功能的「可扩展软件」。</p>
+      <p class="why"><b>值得关注</b>AI coding 正在重塑软件形态与分发——从静态应用走向用户可扩展的活软件，是理解下一代产品架构的重要视角。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:13">
+    <div class="rank">NO.13</div>
+    <div class="score"><span class="num">54</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-model">模型开源</span>
+        <span class="src">IT之家</span>
+        <span class="time">08-21 07:24</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt25dcg70hvqroov7kt1h3r0" target="_blank" rel="noopener">蚂蚁百灵开源 Ling-3.0-tiny / flash Base 模型，开放训练过程关键节点</a></h3>
+      <p class="summary">蚂蚁百灵正式开源 Ling-3.0-tiny-base 与 Ling-3.0-flash-base，除最终 Base checkpoint 外，同步开放预训练和中期训练的权重 checkpoint，共 6 个。</p>
+      <p class="why"><b>值得关注</b>罕见地把训练过程关键节点权重一并开源——训练透明化是国产开源生态的新信号，对研究复现与小模型落地有直接价值。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:14">
+    <div class="rank">NO.14</div>
+    <div class="score"><span class="num">52</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-emb">具身智能</span>
+        <span class="src">The Decoder</span>
+        <span class="time">08-20 17:23</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1bepuq02xzro1qxihkr3t7" target="_blank" rel="noopener">宇树科技科创板 IPO 估值约 500 亿美元，FT 质疑「循环融资」模式</a></h3>
+      <p class="summary">宇树上海 IPO 首日股价一度暴涨 629%、收盘涨 460%，估值约 500 亿美元，募资 61 亿元人民币，成为大陆首家上市的人形机器人公司。FT 报道其近四分之三收入依赖「制造商卖给国资训练中心、再买回训练数据」的循环模式，分析师质疑估值缺乏基本面支撑。</p>
+      <p class="why"><b>值得关注</b>人形机器人第一股的泡沫与真相之争：460% 涨幅 vs 循环融资质疑，直接决定市场对具身智能板块的定价逻辑。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:15">
+    <div class="rank">NO.15</div>
+    <div class="score"><span class="num">52</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag">AI coding</span>
+        <span class="src">Hacker News 热门</span>
+        <span class="time">08-21 05:54</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt226niw0en3roovfvcqsdgx" target="_blank" rel="noopener">Show HN：Huzzah——用持久化伪代码替代长文本提示词的 AI 编程新方法</a></h3>
+      <p class="summary">实验性编辑器 Huzzah 以声明式、持久化的伪代码文件替代长文本、命令式的一次性提示词来驱动 LLM 生成代码：保存文件时捕获 diff 并作为提示词，自动重新生成受影响的源代码。目前实验阶段、源码公开。</p>
+      <p class="why"><b>值得关注</b>把「提示词工程」变成可版本化、可 diff 的伪代码源码——AI 编程交互范式的新探索，HN 社区高热度讨论。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:16">
+    <div class="rank">NO.16</div>
+    <div class="score"><span class="num">51</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-emb">具身智能</span>
+        <span class="src">IT之家</span>
+        <span class="time">08-20 22:32</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1o80we030iroov4xmo0fz6" target="_blank" rel="noopener">特斯拉 Robotaxi 在奥斯汀或已实现完全无监督运行</a></h3>
+      <p class="summary">Robotaxi Tracker 数据显示，奥斯汀过去两周监测的 170 次行程全部无车内安全员、涉及 54 辆车；达拉斯、休斯敦等地过去一周也有约 30 辆无人驾驶特斯拉投入运营，接近此前 6 城无安全员车辆总和的两倍。</p>
+      <p class="why"><b>值得关注</b>Robotaxi 无监督运营规模首次跳升——从「有安全员试点」跨向「真无人规模化」，自动驾驶商业化再提速。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:17">
+    <div class="rank">NO.17</div>
+    <div class="score"><span class="num">51</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-emb">具身智能</span>
+        <span class="src">X：X.PIN</span>
+        <span class="time">08-20 21:16</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1jxrh906o7rokxdbcsskct" target="_blank" rel="noopener">宇树 CEO：人形机器人 3-5 年迎「ChatGPT 时刻」，IPO 后为市场预期降温</a></h3>
+      <p class="summary">王兴兴在 2026 世界机器人大会上称人形机器人尚不适合大规模进工厂或家庭（效率低、新任务需重训）。他给出具身智能「ChatGPT 时刻」量化标准：简单指令下在 80% 陌生环境完成约 80% 任务，预计 3-5 年、最迟 10 年。宇树 2025 年营收 2.52 亿美元、利润约 4,100 万美元。</p>
+      <p class="why"><b>值得关注</b>头部公司 CEO 亲自定义产业节奏的量化里程碑（80%×80%，3-5 年），是判断具身智能投资与落地时间表的关键参照。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:18">
+    <div class="rank">NO.18</div>
+    <div class="score"><span class="num">48</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-emb">具身智能</span>
+        <span class="src">IT之家</span>
+        <span class="time">08-20 15:38</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt197t4k0tzlro2oi6kufvmx" target="_blank" rel="noopener">北京人形机器人创新中心发布天工 Omni：全球首个 Humanoid Native 开放底座</a></h3>
+      <p class="summary">2026 世界机器人大会期间发布轻量化人形机器人天工 Omni，身高 1.35m、整机 39kg，官方称其为全球首个兼具感知移动与全身通用控制的 Humanoid Native 开放底座，CEO 熊友军称入局不算晚。</p>
+      <p class="why"><b>值得关注</b>「开放底座」定位直指机器人平台化竞争——硬件开源化 + 通用控制，可能重演手机/OS 时代的生态卡位逻辑。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:19">
+    <div class="rank">NO.19</div>
+    <div class="score"><span class="num">48</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag tag-emb">具身智能</span>
+        <span class="src">The Decoder</span>
+        <span class="time">08-20 20:35</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt1iwvsa05wwrokxeh7lzrap" target="_blank" rel="noopener">GEN-1.5：通用型 AI 仅凭单次演示教会机器人新任务</a></h3>
+      <p class="summary">机器人初创公司 Generalist AI 发布 GEN-1.5：将 3-12 秒演示作为「物理提示词」载入上下文窗口，机器人无需训练即可执行任务。十项测试平均成功率 59%，用五分钟数据训练十步后升至 83%，可串联两个提示词、使用仿真演示。结果均出自公司自身、未经独立验证。</p>
+      <p class="why"><b>值得关注</b>「视频演示即提示词」大幅拉低机器人技能获取成本，若被独立复现，将改写具身智能的数据与训练范式（仍需审慎对待）。</p>
+    </div>
+  </div>
+
+  <div class="card" style="--i:20">
+    <div class="rank">NO.20</div>
+    <div class="score"><span class="num">46</span><span class="lbl">HEAT</span></div>
+    <div class="body">
+      <div class="meta">
+        <span class="pool p-out">未进入精选</span>
+        <span class="tag">AI coding</span>
+        <span class="src">OpenAI Developers</span>
+        <span class="time">08-21 06:00</span>
+      </div>
+      <h3><a href="https://aihot.virxact.com/items/cmt22d5mz0euxroove8fy0jlm" target="_blank" rel="noopener">Codex 与 ChatGPT 共享线程：只读链接展示 AI 构建过程</a></h3>
+      <p class="summary">Codex 和 ChatGPT Work 中的共享线程可通过只读链接展示构建背后的过程，让其他人了解拉取请求、深度探讨或项目交接背后的背景与推理。</p>
+      <p class="why"><b>值得关注</b>AI 编程的可解释性协作新玩法：把 Agent 的推理链变成可分享的只读资产，重塑代码评审与团队交接的透明度。</p>
+    </div>
+  </div>
+
+</main>
+
+<div class="legend">
+  <span class="pool p-sel">精选池</span> AI HOT 编辑策展精选 &nbsp;·&nbsp;
+  <span class="pool p-out">未进入精选</span> 关键词精选池为空，由全量池补充
+</div>
+
+<footer>
+  数据来源：<span class="hl">AI HOT</span>（aihot.virxact.com）· 精选池 8 条 + 全量池补充 12 条，共 20 条 · 热点榜 5 条（OpenRouter×Stripe、GLM-5.3 为昨日已收录主题，其余 3 条在精选池内）<br>
+  时间窗：过去 24 小时（2026-08-20 ~ 2026-08-21）· 时间为北京时间 · 热度按 AI HOT score 降序 · 摘要与链接归 AI HOT 及原信源
+</footer>
+</div>
+</body>
+</html>
