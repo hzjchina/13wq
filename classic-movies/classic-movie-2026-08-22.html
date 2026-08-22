@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 沉默的羔羊</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --accent: #e94560;
+    --text: #f1f1f1;
+    --muted: #a0a0a0;
+    --gold: #f5c518;
+    --green: #4caf50;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .ratings {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  .rating-item {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    min-width: 100px;
+  }
+  .rating-item .score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .rating-item .source {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card h2 .icon {
+    font-size: 1.3rem;
+  }
+  .card p {
+    font-size: 1rem;
+    color: #d0d0d0;
+    text-align: justify;
+  }
+  .highlights {
+    list-style: none;
+  }
+  .highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #d0d0d0;
+  }
+  .highlights li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+    top: 0.15rem;
+  }
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .awards span {
+    background: rgba(233, 69, 96, 0.15);
+    color: var(--accent);
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(233, 69, 96, 0.25);
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.5rem; }
+    .card { padding: 1.25rem; }
+    .ratings { gap: 0.75rem; }
+    .rating-item { min-width: 80px; padding: 0.6rem 1rem; }
+    .rating-item .score { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">经典电影推荐 · 第 54 期</div>
+    <h1>沉默的羔羊</h1>
+    <div class="subtitle">The Silence of the Lambs (1991)</div>
+    <div class="meta">
+      <span>🎬 乔纳森·戴米</span>
+      <span>🎭 朱迪·福斯特 / 安东尼·霍普金斯</span>
+      <span>🇺🇸 美国</span>
+      <span>⏱ 118 分钟</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">
+        <div class="score">8.6</div>
+        <div class="source">IMDb</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">8.9</div>
+        <div class="source">豆瓣</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">96%</div>
+        <div class="source">烂番茄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">📖</span>剧情梗概</h2>
+    <p>联邦调查局（FBI）见习探员克拉丽斯·史达琳被委派调查一桩棘手的连环杀人案。凶手外号「水牛比尔」，专挑年轻女性下手，作案手法残忍且充满仪式感。为了尽快锁定凶手，克拉丽斯被迫去拜访一位被囚禁的精神病学家——汉尼拔·莱克特博士。莱克特博士智商极高、洞察力惊人，却也极度危险。两人之间展开了一场惊心动魄的心理博弈：克拉丽斯渴望从他口中获取破案的线索，而莱克特则在每一次对话中试图剥开她内心深处的创伤与秘密。随着调查深入，克拉丽斯不仅要与时间赛跑，还必须直面自己童年最痛苦的记忆……</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">✨</span>亮点所在</h2>
+    <ul class="highlights">
+      <li><strong>影史最迷人的反派之一：</strong>安东尼·霍普金斯仅凭短短 16 分钟的银幕时间，塑造了一个优雅、睿智、令人不寒而栗的「食人魔」形象，成为影史上最具影响力的反派角色之一。</li>
+      <li><strong>朱迪·福斯特的巅峰演绎：</strong>她将克拉丽斯内心的坚韧与脆弱完美融合，展现了一位女性在男性主导的世界里凭专业能力赢得尊重的过程，情感层次极为丰富。</li>
+      <li><strong>心理对决胜过血腥场面：</strong>影片最紧张的时刻往往不是暴力场景，而是两个人隔着玻璃的对话——每一句话都暗藏陷阱，每一个眼神都在较量。</li>
+      <li><strong>极度克制的叙事节奏：</strong>导演乔纳森·戴米用沉稳的镜头语言层层推进，让恐惧从画面之外渗透进来，而非依赖Jump Scare。</li>
+      <li><strong>摄影与配乐的精妙配合：</strong>大量特写镜头捕捉角色的微表情，霍华德·肖尔的配乐如幽灵般游走，将悬疑氛围推向极致。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🏆</span>为什么值得一看</h2>
+    <p>《沉默的羔羊》是影史罕见的「大满贯」赢家——它是迄今为止唯一一部同时斩获奥斯卡最佳影片、最佳导演、最佳男主角、最佳女主角和最佳改编剧本五项大奖的惊悚片。但比奖项更珍贵的是，它重新定义了犯罪惊悚片的深度：它不仅仅是一部「抓凶手」的电影，更是一场关于创伤、权力、性别与救赎的深刻探讨。</p>
+    <p>克拉丽斯与莱克特的关系堪称影史上最复杂的「医患」对手戏——他们彼此厌恶又彼此需要，互相试探又互相理解。当你看完这部电影，你记住的可能不是凶手是谁，而是那个在黑暗中尖叫的羔羊，以及一个年轻女性如何学会与恐惧共处。</p>
+    <div class="quote">"曾经有人口普查报告说，世界上有那么多人口。但当你看着某人的眼睛，你会发现，世界上只有一个人。"</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🎖</span>主要奖项</h2>
+    <div class="awards">
+      <span>奥斯卡最佳影片</span>
+      <span>奥斯卡最佳导演</span>
+      <span>奥斯卡最佳男主角</span>
+      <span>奥斯卡最佳女主角</span>
+      <span>奥斯卡最佳改编剧本</span>
+      <span>柏林电影节最佳导演</span>
+      <span>金球奖最佳女主角</span>
+      <span>英国电影学院奖最佳影片</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 2026年8月22日 · 所有内容仅供欣赏
+  </div>
+</div>
+</body>
+</html>
