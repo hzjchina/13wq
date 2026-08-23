@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小字典的星光页 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "STKaiti", "KaiTi", serif;
+  background: linear-gradient(to bottom, #0a0e2a 0%, #1a1f3a 50%, #2d1b3d 100%);
+  color: #e8e8f0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.8;
+}
+
+/* ============== 背景层 ============== */
+.night-sky { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.star { position: absolute; background: #fff; border-radius: 50%; box-shadow: 0 0 4px #fff; animation: twinkle 3s infinite; }
+@keyframes twinkle { 
+  0%, 100% { opacity: 0.3; transform: scale(1); } 
+  50% { opacity: 1; transform: scale(1.4); } 
+}
+
+/* 月亮 */
+.moon {
+  position: absolute; top: 60px; right: 80px; width: 90px; height: 90px;
+  background: radial-gradient(circle at 35% 35%, #fff8dc, #ffd700);
+  border-radius: 50%;
+  box-shadow: 0 0 40px rgba(255, 215, 0, 0.7), 0 0 80px rgba(255, 215, 0, 0.4);
+  animation: moonFloat 6s ease-in-out infinite;
+}
+.moon::before, .moon::after {
+  content: ''; position: absolute; background: rgba(180, 150, 90, 0.35); border-radius: 50%;
+}
+.moon::before { width: 12px; height: 12px; top: 22%; left: 32%; }
+.moon::after { width: 18px; height: 18px; top: 55%; left: 60%; }
+.moon-crater3 {
+  position: absolute; width: 8px; height: 8px; top: 70%; left: 28%;
+  background: rgba(180, 150, 90, 0.3); border-radius: 50%;
+}
+@keyframes moonFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+.moon-halo {
+  position: absolute; top: 30px; right: 50px; width: 130px; height: 130px;
+  border-radius: 50%;
+  box-shadow: 0 0 60px rgba(255, 215, 0, 0.35), inset 0 0 30px rgba(255, 215, 0, 0.2);
+  animation: haloPulse 4s ease-in-out infinite;
+}
+@keyframes haloPulse { 0%, 100% { opacity: 0.5; transform: scale(1); } 50% { opacity: 0.85; transform: scale(1.08); } }
+
+/* 流星 */
+.shooting-star {
+  position: absolute; width: 3px; height: 3px; background: #fff;
+  border-radius: 50%; box-shadow: 0 0 10px #fff, 0 0 20px #fff;
+  opacity: 0;
+}
+.shooting-star::after {
+  content: ''; position: absolute; top: 50%; right: 0; width: 80px; height: 1.5px;
+  background: linear-gradient(to left, rgba(255,255,255,1), transparent);
+  transform: translateY(-50%);
+}
+.shooting-star.s1 { top: 12%; left: 5%; animation: shoot 5s ease-in-out 0.5s infinite; }
+.shooting-star.s2 { top: 22%; left: 40%; animation: shoot 6s ease-in-out 3.5s infinite; }
+@keyframes shoot {
+  0% { transform: translate(0, 0) rotate(20deg); opacity: 0; }
+  5% { opacity: 1; }
+  60% { transform: translate(380px, 180px) rotate(20deg); opacity: 1; }
+  65% { opacity: 0; }
+  100% { transform: translate(380px, 180px) rotate(20deg); opacity: 0; }
+}
+
+/* ============== 主容器 ============== */
+.container {
+  position: relative; z-index: 1;
+  max-width: 720px; margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+/* 标题 */
+.title {
+  text-align: center; font-size: 38px; color: #ffd700;
+  text-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+  margin: 20px 0 10px; letter-spacing: 3px;
+  animation: titleGlow 3.5s ease-in-out infinite;
+  font-weight: bold;
+}
+@keyframes titleGlow { 
+  0%, 100% { text-shadow: 0 0 20px rgba(255, 215, 0, 0.5); } 
+  50% { text-shadow: 0 0 35px rgba(255, 215, 0, 0.9), 0 0 60px rgba(255, 215, 0, 0.4); } 
+}
+.subtitle { 
+  text-align: center; color: #a8b0d0; font-size: 14px; 
+  margin-bottom: 30px; opacity: 0.75; letter-spacing: 1px;
+}
+
+/* ============== 插图区域 ============== */
+.illustration {
+  position: relative; 
+  width: 100%; 
+  max-width: 380px; 
+  height: 300px; 
+  margin: 30px auto;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.dictionary-glow {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(135, 206, 250, 0.4) 0%, rgba(135, 206, 250, 0.1) 40%, transparent 70%);
+  animation: glowPulse 3.5s ease-in-out infinite;
+}
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.7; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.12); }
+}
+
+.dictionary-svg { 
+  position: relative; z-index: 2; 
+  animation: dictFloat 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 15px rgba(135, 206, 250, 0.5));
+}
+@keyframes dictFloat {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-15px) rotate(2deg); }
+}
+
+/* 飞出的字 */
+.flying-char {
+  position: absolute; 
+  font-family: "STKaiti", "KaiTi", serif;
+  font-size: 26px; font-weight: bold;
+  text-shadow: 0 0 14px currentColor, 0 0 25px currentColor;
+  z-index: 3;
+}
+.char-star { 
+  color: #ffd700; top: 10%; left: 22%; 
+  animation: floatUp 5s ease-in-out 0s infinite; 
+}
+.char-moon { 
+  color: #ffeb9c; top: 65%; left: 78%; 
+  animation: floatUp 5s ease-in-out 1.7s infinite; 
+}
+.char-dream { 
+  color: #dda0dd; top: 78%; left: 18%; 
+  animation: floatUp 5s ease-in-out 3.3s infinite; 
+}
+@keyframes floatUp {
+  0% { transform: translate(0, 30px) scale(0.6); opacity: 0; }
+  20% { transform: translate(0, 0) scale(1); opacity: 1; }
+  80% { transform: translate(10px, -50px) scale(1.1); opacity: 1; }
+  100% { transform: translate(15px, -90px) scale(0.8); opacity: 0; }
+}
+
+/* 萤火虫 */
+.firefly { 
+  position: absolute; 
+  width: 5px; height: 5px; 
+  background: #ffeb9c; 
+  border-radius: 50%; 
+  box-shadow: 0 0 10px #ffeb9c, 0 0 18px #ffeb9c;
+  animation: flyAround 9s ease-in-out infinite;
+  z-index: 3;
+}
+.f1 { top: 18%; left: 14%; animation-delay: 0s; }
+.f2 { top: 30%; left: 82%; animation-delay: 1.8s; }
+.f3 { top: 60%; left: 28%; animation-delay: 3.6s; }
+.f4 { top: 72%; left: 75%; animation-delay: 5.4s; }
+.f5 { top: 42%; left: 50%; animation-delay: 7.2s; }
+@keyframes flyAround {
+  0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+  20% { transform: translate(15px, -20px); opacity: 1; }
+  40% { transform: translate(-20px, 10px); opacity: 0.6; }
+  60% { transform: translate(10px, -25px); opacity: 1; }
+  80% { transform: translate(-12px, 15px); opacity: 0.5; }
+}
+
+/* ============== 故事正文 ============== */
+.story-content {
+  background: rgba(135, 206, 250, 0.05); 
+  border-radius: 16px; 
+  padding: 32px 30px;
+  margin-top: 30px; 
+  backdrop-filter: blur(10px); 
+  border: 1px solid rgba(135, 206, 250, 0.25);
+  font-size: 18px; 
+  line-height: 2;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+.story-content p { 
+  margin-bottom: 14px; 
+  text-indent: 2em; 
+  color: #e8e8f8; 
+  letter-spacing: 0.5px;
+}
+.story-content p:last-child { 
+  margin-bottom: 0; 
+  text-align: center;
+  font-style: italic;
+  color: #c9a8e0;
+  text-indent: 0;
+  margin-top: 20px;
+}
+
+/* ============== 暖粒子 ============== */
+.warm-particle { 
+  position: fixed; 
+  width: 6px; height: 6px; 
+  border-radius: 50%; 
+  background: radial-gradient(circle, #ffd9a3, #ffb84d);
+  opacity: 0; 
+  pointer-events: none;
+  z-index: 1;
+  box-shadow: 0 0 8px #ffb84d;
+  animation: particleUp 12s ease-in-out infinite;
+}
+.warm-particle.p1 { left: 8%; animation-delay: 0s; }
+.warm-particle.p2 { left: 22%; animation-delay: 1.5s; }
+.warm-particle.p3 { left: 38%; animation-delay: 3s; }
+.warm-particle.p4 { left: 55%; animation-delay: 4.5s; }
+.warm-particle.p5 { left: 70%; animation-delay: 6s; }
+.warm-particle.p6 { left: 85%; animation-delay: 7.5s; }
+.warm-particle.p7 { left: 45%; animation-delay: 9s; }
+.warm-particle.p8 { left: 28%; animation-delay: 10.5s; }
+@keyframes particleUp {
+  0% { transform: translateY(100vh); opacity: 0; }
+  8% { opacity: 0.7; }
+  92% { opacity: 0.4; }
+  100% { transform: translateY(-100px); opacity: 0; }
+}
+
+/* ============== 分隔星光点 ============== */
+.star-divider { 
+  display: flex; justify-content: center; gap: 14px; 
+  margin: 35px 0; 
+}
+.star-divider .sd { 
+  width: 7px; height: 7px; 
+  background: #ffeb9c; 
+  border-radius: 50%; 
+  box-shadow: 0 0 12px #ffeb9c, 0 0 18px #ffeb9c;
+  animation: breathe 2.5s ease-in-out infinite;
+}
+.star-divider .sd:nth-child(1) { animation-delay: 0s; }
+.star-divider .sd:nth-child(2) { animation-delay: 0.35s; }
+.star-divider .sd:nth-child(3) { animation-delay: 0.7s; }
+.star-divider .sd:nth-child(4) { animation-delay: 1.05s; }
+.star-divider .sd:nth-child(5) { animation-delay: 1.4s; }
+.star-divider .sd:nth-child(6) { animation-delay: 1.75s; }
+.star-divider .sd:nth-child(7) { animation-delay: 2.1s; }
+@keyframes breathe {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.6); opacity: 1; }
+}
+
+/* ============== 晚安语 ============== */
+.goodnight {
+  text-align: center; 
+  padding: 30px 20px; 
+  margin-top: 30px;
+  font-size: 19px; 
+  color: #ffd9a3; 
+  line-height: 2;
+  animation: gnGlow 4.5s ease-in-out infinite;
+  letter-spacing: 1px;
+}
+@keyframes gnGlow { 
+  0%, 100% { text-shadow: 0 0 15px rgba(255, 217, 163, 0.4); } 
+  50% { text-shadow: 0 0 28px rgba(255, 217, 163, 0.9), 0 0 50px rgba(255, 217, 163, 0.3); } 
+}
+.goodnight .moon-icon { font-size: 28px; margin: 0 6px; display: inline-block; }
+.goodnight .star-icon { font-size: 18px; color: #ffd700; }
+
+/* ============== 底部暖光带 ============== */
+.warm-band {
+  position: fixed; bottom: 0; left: 0; width: 100%; height: 60px;
+  background: linear-gradient(to top, rgba(255, 184, 77, 0.18), transparent);
+  pointer-events: none; z-index: 0;
+  animation: bandBreath 5s ease-in-out infinite;
+}
+@keyframes bandBreath { 
+  0%, 100% { opacity: 0.5; height: 60px; } 
+  50% { opacity: 1; height: 80px; } 
+}
+
+/* ============== 响应式 ============== */
+@media (max-width: 600px) {
+  .container { padding: 30px 16px 60px; }
+  .title { font-size: 28px; }
+  .subtitle { font-size: 13px; }
+  .story-content { padding: 22px 18px; font-size: 16px; }
+  .goodnight { font-size: 17px; padding: 25px 16px; }
+  .moon { width: 65px; height: 65px; right: 25px; top: 30px; }
+  .moon-halo { width: 100px; height: 100px; right: 8px; top: 12px; }
+  .illustration { height: 260px; }
+  .dictionary-glow { width: 200px; height: 200px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 背景层 -->
+<div class="night-sky" id="stars"></div>
+<div class="moon-halo"></div>
+<div class="moon">
+  <div class="moon-crater3"></div>
+</div>
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 暖粒子 -->
+<div class="warm-particle p1"></div>
+<div class="warm-particle p2"></div>
+<div class="warm-particle p3"></div>
+<div class="warm-particle p4"></div>
+<div class="warm-particle p5"></div>
+<div class="warm-particle p6"></div>
+<div class="warm-particle p7"></div>
+<div class="warm-particle p8"></div>
+
+<!-- 主内容 -->
+<div class="container">
+  <h1 class="title">小字典的星光页</h1>
+  <p class="subtitle">· 写给每个睡不着的夜晚 ·</p>
+
+  <div class="illustration">
+    <div class="dictionary-glow"></div>
+
+    <!-- SVG 字典插图 -->
+    <svg class="dictionary-svg" width="220" height="220" viewBox="0 0 220 220">
+      <!-- 地面阴影 -->
+      <ellipse cx="110" cy="200" rx="90" ry="6" fill="rgba(0,0,0,0.35)"/>
+      <!-- 翻开的白色内页（轻微可见） -->
+      <rect x="50" y="48" width="130" height="148" rx="4" fill="#fffaf0" stroke="#d8d8e8" stroke-width="1"/>
+      <!-- 书脊 -->
+      <rect x="46" y="48" width="14" height="148" fill="#1a3a5c"/>
+      <rect x="46" y="48" width="4" height="148" fill="rgba(255,255,255,0.2)"/>
+      <!-- 封面（蓝色） -->
+      <rect x="56" y="48" width="124" height="148" rx="4" fill="#4a90c2" stroke="#2c5687" stroke-width="2"/>
+      <rect x="56" y="48" width="124" height="148" rx="4" fill="url(#coverGradient)" opacity="0.7"/>
+      <defs>
+        <linearGradient id="coverGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" style="stop-color:rgba(255,255,255,0.25)"/>
+          <stop offset="100%" style="stop-color:rgba(0,0,0,0.15)"/>
+        </linearGradient>
+      </defs>
+      <!-- 封面边框线 -->
+      <rect x="62" y="54" width="112" height="136" rx="3" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1"/>
+      <!-- 装饰小星星 -->
+      <text x="68" y="74" font-size="14" fill="#ffd700" opacity="0.85">✦</text>
+      <text x="160" y="78" font-size="10" fill="#ffd700" opacity="0.7">✧</text>
+      <text x="70" y="172" font-size="10" fill="#ffd700" opacity="0.65">✧</text>
+      <text x="158" y="178" font-size="13" fill="#ffd700" opacity="0.85">✦</text>
+      <!-- 中央闪光光环 -->
+      <circle cx="118" cy="115" r="44" fill="none" stroke="#fff8dc" stroke-width="1" opacity="0.5"/>
+      <circle cx="118" cy="115" r="32" fill="none" stroke="#fff8dc" stroke-width="0.8" opacity="0.35"/>
+      <!-- 书中央文字"字典" -->
+      <text x="118" y="120" font-size="24" fill="#fff" text-anchor="middle" font-family="serif" font-weight="bold" opacity="0.95">字典</text>
+      <text x="118" y="142" font-size="10" fill="#fff" text-anchor="middle" opacity="0.7" letter-spacing="2">D I C T I O N A R Y</text>
+      <!-- 封面下方小"晚安"贴纸 -->
+      <g transform="translate(118, 175)">
+        <rect x="-22" y="-8" width="44" height="16" rx="3" fill="#ffd700" opacity="0.85"/>
+        <text x="0" y="3" font-size="9" fill="#1a3a5c" text-anchor="middle" font-weight="bold">GOOD NIGHT</text>
+      </g>
+      <!-- 闪光小星星 -->
+      <circle cx="118" cy="115" r="3" fill="#fff8dc">
+        <animate attributeName="r" values="2;4;2" dur="2s" repeatCount="indefinite"/>
+      </circle>
+    </svg>
+
+    <!-- 飞出的字 -->
+    <div class="flying-char char-star">星</div>
+    <div class="flying-char char-moon">月</div>
+    <div class="flying-char char-dream">梦</div>
+
+    <!-- 萤火虫 -->
+    <div class="firefly f1"></div>
+    <div class="firefly f2"></div>
+    <div class="firefly f3"></div>
+    <div class="firefly f4"></div>
+    <div class="firefly f5"></div>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-content">
+    <p>夜晚到了，月亮悄悄爬上了小萤家的屋顶。小宝贝小萤躺在床上，盖着她的小被子，翻来翻去，怎么也睡不着。</p>
+
+    <p>床头的小柜子上，躺着一本旧旧的小字典。它穿着浅蓝色的小衣裳，书角都被翻得圆圆的，一看就知道，陪过小主人很久很久了。</p>
+
+    <p>小字典轻轻地说："小萤，要不要我来给你讲个故事呀？"</p>
+
+    <p>小萤揉了揉眼睛，点点头。</p>
+
+    <p>小字典沙沙地翻开了第一页。哇，那页上写着一个"星"字——那个小小的"星"字竟然动了起来，从纸面上轻轻跳出来，变成了一颗亮晶晶的小星星，眨巴眨巴眼睛，落到小萤的鼻尖上，又软又暖。"嘿嘿，我叫小星。"小星小声说。</p>
+
+    <p>小字典又翻到下一页——"月"。一弯小小的月牙跳了出来，弯弯地挂到了小字典的书脊上。"我是小月，今晚陪你一起睡。"小月说。</p>
+
+    <p>再翻一页，"梦"。一朵软绵绵的云从书页里飘出来，绕着小萤转了一圈。"我叫小梦，悄悄地来啦。"小梦打了个小小的哈欠。</p>
+
+    <p>小字典一页接一页地翻过去。每翻一页，就有一个小小的字变成一颗柔软的萤火虫，绕着小萤飞一会儿，又轻轻地落在她的睫毛上。</p>
+
+    <p>小萤看着看着，眼睛慢慢地眯了起来，嘴角也弯弯地翘了起来。</p>
+
+    <p>翻到最后，小字典停在了最后一页。那里写着两个亮亮的字——"晚安"。</p>
+
+    <p>这两个字从纸面上轻轻飞起来，像两颗小小的暖灯，落在了小萤的眼睛上。</p>
+
+    <p>小萤笑了，轻轻地说："晚安，小字典。"</p>
+
+    <p>小字典温柔地说："晚安呀，我的小萤。你的梦里呀，会有满天的星光陪着你跳舞，会有最甜的糖果，会有最爱你的爸爸妈妈，还有——这本小小的字典，会永远陪在你身边。"</p>
+
+    <p>小萤做了一个甜甜的梦。梦里呀，满天的字都变成了星星，一闪一闪地对她说——</p>
+
+    <p>晚安，小萤。 ✦</p>
+  </div>
+
+  <div class="star-divider">
+    <div class="sd"></div>
+    <div class="sd"></div>
+    <div class="sd"></div>
+    <div class="sd"></div>
+    <div class="sd"></div>
+    <div class="sd"></div>
+    <div class="sd"></div>
+  </div>
+
+  <div class="goodnight">
+    <span class="moon-icon">🌙</span><br>
+    晚安呀，小宝贝。小字典说，<br>
+    你梦里会有一整页的星光，<br>
+    还有一个甜甜的晚安吻。<br>
+    闭上眼睛，做个好梦吧 <span class="star-icon">✦</span>
+  </div>
+</div>
+
+<div class="warm-band"></div>
+
+<script>
+// 随机生成 110 颗星星
+const starsContainer = document.getElementById('stars');
+for (let i = 0; i < 110; i++) {
+  const star = document.createElement('div');
+  star.className = 'star';
+  const size = Math.random() * 2 + 1;
+  star.style.width = size + 'px';
+  star.style.height = size + 'px';
+  star.style.top = Math.random() * 100 + '%';
+  star.style.left = Math.random() * 100 + '%';
+  star.style.animationDelay = Math.random() * 3 + 's';
+  star.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+  starsContainer.appendChild(star);
+}
+</script>
+
+</body>
+</html>

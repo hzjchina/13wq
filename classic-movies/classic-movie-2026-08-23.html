@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>经典电影推荐 — 绿皮书</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --accent: #2ecc71;
+    --text: #f1f1f1;
+    --muted: #a0a0a0;
+    --gold: #f5c518;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .ratings {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  .rating-item {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    min-width: 100px;
+  }
+  .rating-item .score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .rating-item .source {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card h2 .icon {
+    font-size: 1.3rem;
+  }
+  .card p {
+    font-size: 1rem;
+    color: #d0d0d0;
+    text-align: justify;
+    margin-bottom: 0.75rem;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .highlights {
+    list-style: none;
+  }
+  .highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #d0d0d0;
+  }
+  .highlights li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+    top: 0.15rem;
+  }
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .awards span {
+    background: rgba(46, 204, 113, 0.15);
+    color: var(--accent);
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(46, 204, 113, 0.25);
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.5rem; }
+    .card { padding: 1.25rem; }
+    .ratings { gap: 0.75rem; }
+    .rating-item { min-width: 80px; padding: 0.6rem 1rem; }
+    .rating-item .score { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">经典电影推荐 · 第 55 期</div>
+    <h1>绿皮书</h1>
+    <div class="subtitle">Green Book (2018)</div>
+    <div class="meta">
+      <span>🎬 彼得·法雷里</span>
+      <span>🎭 维果·莫腾森 / 马赫沙拉·阿里</span>
+      <span>🇺🇸 美国</span>
+      <span>⏱ 130 分钟</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">
+        <div class="score">8.2</div>
+        <div class="source">IMDb</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">8.9</div>
+        <div class="source">豆瓣</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">91%</div>
+        <div class="source">烂番茄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">📖</span>剧情梗概</h2>
+    <p>1962年的纽约，意大利裔白人托尼·利普是一个粗犷豪爽的「社会人」——他靠在夜总会当保镖维持生计，能说会道，擅长解决麻烦，却也带着那个时代典型的种族偏见。当夜总会装修停业，他急需一份工作养家糊口。</p>
+    <p>这时，一位名叫唐·雪利的黑人钢琴家正在招募司机。唐受过高等教育，举止优雅，持有三个博士学位，曾为总统演出，住在卡内基音乐厅楼上的豪华公寓里。他即将前往美国南部腹地进行为期八周的巡回演出——那是种族隔离法依然盛行的地区，一个黑人在那里旅行需要一本《绿皮书》作为安全指南，标明哪些旅馆、餐厅和加油站接待有色人种。</p>
+    <p>一个是不拘小节的纽约街头老炮儿，一个是精致到近乎孤傲的古典音乐家。两个人、一辆蓝绿色凯迪拉克，就这样踏上了穿越美国南方的公路之旅。一路上，他们遭遇了形形色色的偏见与刁难，也在彼此的世界里看到了从未想象过的风景……</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">✨</span>亮点所在</h2>
+    <ul class="highlights">
+      <li><strong>两位主演的神级化学反应：</strong>维果·莫腾森为了角色增重 20 公斤，把一个满口粗话、大口吃炸鸡的意大利老炮儿演得浑然天成；马赫沙拉·阿里则用克制的肢体语言和微妙的眼神，将一个内心骄傲却孤独的天才音乐家刻画得入木三分。一粗一细、一动一静，对手戏火花四溅。</li>
+      <li><strong>真实故事改编：</strong>片尾字幕揭示了这段友谊的真实结局——两人成为终生挚友，托尼后来成了唐的经纪人。现实远比虚构更有力量。</li>
+      <li><strong>幽默与沉重并行不悖：</strong>影片没有刻意说教，大量笑点来自两个世界的碰撞——托尼教唐吃炸鸡、写信给妻子；唐纠正托尼的语法和举止。笑过之后，南部种族歧视的冰冷现实又悄然而至。</li>
+      <li><strong>公路片的经典叙事：</strong>从纽约到新奥尔良，沿途的风景、音乐和小镇生活构成了一幅 1960 年代美国南部的生动画卷，凯迪拉克驰骋在公路上的镜头本身就是一幅画。</li>
+      <li><strong>那封信：</strong>托尼一路上给妻子写的信，从最初词不达日的流水账，到后来在唐的「润色」下变成充满诗意的情书——这条暗线温柔得让人心碎。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🏆</span>为什么值得一看</h2>
+    <p>《绿皮书》用一种极其温柔的方式讲述了一个残酷时代的故事。它没有声嘶力竭地控诉种族歧视，而是让你跟着两个截然不同的人一起上路，亲眼看着偏见如何在真实的相处中一点点瓦解——不是因为道德说教，而是因为一个人发现另一个人值得尊重。</p>
+    <p>影片最打动人的地方在于：它讲的不是一个白人拯救黑人的故事，也不是一个黑人感化白人的故事，而是两个各自带着局限的人，在旅途中互相打开了对方的世界。托尼让唐走下神坛、拥抱生活的烟火气；唐让托尼看到，优雅和尊严不是做作，而是一种选择。</p>
+    <p>在充斥着信息茧房和立场对立的今天，这部电影提醒我们一个古老而朴素的道理：真正的理解，永远始于坐在同一辆车里，走同一段路。</p>
+    <div class="quote">"世界上孤独的人，都害怕迈出第一步。"</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🎖</span>主要奖项</h2>
+    <div class="awards">
+      <span>奥斯卡最佳影片</span>
+      <span>奥斯卡最佳男配角</span>
+      <span>奥斯卡最佳原创剧本</span>
+      <span>金球奖最佳音乐/喜剧片</span>
+      <span>金球奖最佳男配角</span>
+      <span>金球奖最佳编剧</span>
+      <span>BAFTA最佳男配角</span>
+      <span>美国演员工会奖最佳男配</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 2026年8月23日 · 所有内容仅供欣赏
+  </div>
+</div>
+</body>
+</html>
