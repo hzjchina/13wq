@@ -176,6 +176,20 @@ def process_module(module: dict) -> dict:
             "path": f"{module['key']}/{html_file.name}",
         })
 
+    # 经典电影: 识别重复推荐，标记 "重温 x 次"
+    # 同一片名按日期升序数出现次序，第 2 次及以后出现 → rewatch = 出现次序
+    if module["key"] == "classic-movies":
+        seen = {}  # title -> 已出现次数
+        for item in sorted(items, key=lambda x: x["date"]):  # 日期升序
+            seen[item["title"]] = seen.get(item["title"], 0) + 1
+            if seen[item["title"]] >= 2:
+                item["rewatch"] = seen[item["title"]]
+        dup_titles = {t: c for t, c in seen.items() if c >= 2}
+        if dup_titles:
+            print(f"  重温标记: {len(dup_titles)} 部")
+            for t, c in dup_titles.items():
+                print(f"    [重温{c}次] {t}")
+
     # 按日期倒序
     items.sort(key=lambda x: x["date"], reverse=True)
     print(f"  总计: {len(items)} 篇, 新增: {len(synced)} 篇")

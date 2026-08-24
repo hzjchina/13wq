@@ -317,6 +317,22 @@ header {
   line-height: 1.4;
 }
 
+.rewatch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #f0a04b;
+  background: rgba(240, 160, 75, 0.14);
+  border: 1px solid rgba(240, 160, 75, 0.35);
+  border-radius: 10px;
+  padding: 1px 8px;
+  margin-left: 8px;
+  vertical-align: 2px;
+  white-space: nowrap;
+}
+
 .card-date {
   font-size: 13px;
   color: var(--text-muted);
@@ -678,9 +694,10 @@ function renderList() {
   for (const item of pageItems) {
     const card = document.createElement('div');
     card.className = 'card';
+    const badge = item.rewatch ? `<span class="rewatch-badge">🔁 重温${item.rewatch}次</span>` : '';
     card.innerHTML = `
       <div class="card-header">
-        <div class="card-title">${escapeHtml(item.title)}</div>
+        <div class="card-title">${escapeHtml(item.title)}${badge}</div>
         <div class="card-date">${item.date}</div>
       </div>
       <div class="card-summary">${escapeHtml(item.summary)}</div>
