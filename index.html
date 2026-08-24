@@ -452,6 +452,50 @@ header {
   height: 100%;
   border: none;
   background: #fff;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.overlay-body iframe.loaded {
+  opacity: 1;
+}
+
+/* Loading transition screen */
+.overlay-loader {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: #0d1117;
+  z-index: 2;
+  transition: opacity 0.3s ease;
+}
+
+.overlay-loader.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-spinner {
+  width: 42px;
+  height: 42px;
+  border: 3px solid rgba(255, 255, 255, 0.12);
+  border-top-color: #58a6ff;
+  border-radius: 50%;
+  animation: spinner-rotate 0.8s linear infinite;
+}
+
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+
+.loader-text {
+  font-size: 13px;
+  color: #8b949e;
+  letter-spacing: 1px;
 }
 
 /* ===== Loading & Empty ===== */
@@ -525,6 +569,10 @@ header {
     <button class="overlay-close" id="overlay-close" title="关闭 (ESC)">✕</button>
   </div>
   <div class="overlay-body">
+    <div class="overlay-loader" id="overlay-loader">
+      <div class="loader-spinner"></div>
+      <div class="loader-text">正在加载，请稍候…</div>
+    </div>
     <iframe id="content-iframe" src=""></iframe>
   </div>
 </div>
@@ -747,8 +795,16 @@ function setupScrollListener() {
 function setupOverlay() {
   const overlay = document.getElementById('content-overlay');
   const closeBtn = document.getElementById('overlay-close');
+  const iframe = document.getElementById('content-iframe');
+  const loader = document.getElementById('overlay-loader');
 
   closeBtn.addEventListener('click', closeContent);
+
+  // iframe 加载完成后：隐藏过渡屏，淡入内容
+  iframe.addEventListener('load', () => {
+    loader.classList.add('hidden');
+    iframe.classList.add('loaded');
+  });
 
   // Click on overlay background to close
   overlay.addEventListener('click', (e) => {
@@ -767,6 +823,11 @@ function openContent(path, title) {
   const overlay = document.getElementById('content-overlay');
   const iframe = document.getElementById('content-iframe');
   const titleEl = document.getElementById('overlay-title');
+  const loader = document.getElementById('overlay-loader');
+
+  // 重置状态：显示过渡屏，内容隐藏
+  iframe.classList.remove('loaded');
+  loader.classList.remove('hidden');
 
   iframe.src = path;
   titleEl.textContent = title;
