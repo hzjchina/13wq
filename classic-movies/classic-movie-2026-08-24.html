@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>经典电影推荐 — 末代皇帝</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --bg-soft: #161b22;
+    --panel: #1c2333;
+    --border: #2d333b;
+    --text: #e6edf3;
+    --text-dim: #9aa4b2;
+    --accent: #c9a227;
+    --accent-2: #d4734e;
+    --gold: #ffc53d;
+    --warm: #c45e3a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    padding: 0 0 48px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  .hero {
+    padding: 40px 20px 28px;
+    text-align: center;
+    background: linear-gradient(180deg, #0a0e14 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 3px 14px;
+    margin-bottom: 18px;
+    letter-spacing: 0.12em;
+  }
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--gold), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: 16px;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 20px;
+    font-size: 14px;
+    color: var(--text-dim);
+  }
+  .meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .meta .star { color: var(--gold); }
+
+  .section {
+    margin-top: 28px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-title::before {
+    content: "";
+    display: inline-block;
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px;
+  }
+  .panel p {
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.85;
+  }
+  .panel p + p { margin-top: 12px; }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+  }
+  .award-tag {
+    background: rgba(201, 162, 39, 0.08);
+    border: 1px solid rgba(201, 162, 39, 0.25);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--text-dim);
+    text-align: center;
+  }
+  .award-tag .cat {
+    display: block;
+    font-size: 12px;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+
+  .highlight-list {
+    list-style: none;
+  }
+  .highlight-list li {
+    position: relative;
+    padding-left: 24px;
+    color: var(--text-dim);
+    font-size: 16px;
+    line-height: 1.85;
+    margin-bottom: 10px;
+  }
+  .highlight-list li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+    top: 4px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding: 14px 18px;
+    background: rgba(201, 162, 39, 0.05);
+    border-radius: 0 8px 8px 0;
+    margin-top: 16px;
+  }
+  .quote p {
+    font-size: 15px;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+  .quote .source {
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--text-dim);
+    opacity: 0.7;
+    font-style: normal;
+  }
+
+  .footer {
+    margin-top: 36px;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .footer p {
+    font-size: 13px;
+    color: var(--text-dim);
+    opacity: 0.6;
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 26px; }
+    .hero { padding: 28px 16px 20px; }
+    .wrap { padding: 0 16px; }
+    .panel { padding: 16px; }
+    .awards-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="badge">经典电影推荐</div>
+  <h1>末代皇帝</h1>
+  <div class="subtitle">The Last Emperor · 1987</div>
+  <div class="meta">
+    <span><span class="star">★</span> 豆瓣 9.3</span>
+    <span><span class="star">★</span> IMDb 7.7</span>
+    <span>导演 贝纳尔多·贝托鲁奇</span>
+    <span>163 分钟</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="section">
+    <div class="section-title">剧情梗概</div>
+    <div class="panel">
+      <p>电影讲述了中国末代皇帝溥仪跌宕起伏的一生。从三岁被抱上龙椅、在紫禁城的红墙内度过孤独的童年，到被迫退位、在天津的租界中复辟梦碎，再到成为伪满洲国的傀儡，最后被改造为普通公民——溥仪的人生跨越了三个截然不同的时代。</p>
+      <p>影片以溥仪晚年被特赦后参观故宫的回忆为线索，通过闪回叙事，将个人命运与历史洪流交织在一起。那个曾经万人之上的孩子，最终学会了自己系鞋带、自己买票回家。</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title"> Oscar 荣耀</div>
+    <div class="panel">
+      <div class="awards-grid">
+        <div class="award-tag"><span class="cat">最佳影片</span>Best Picture</div>
+        <div class="award-tag"><span class="cat">最佳导演</span>Director</div>
+        <div class="award-tag"><span class="cat">最佳改编剧本</span>Screenplay</div>
+        <div class="award-tag"><span class="cat">最佳摄影</span>Cinematography</div>
+        <div class="award-tag"><span class="cat">最佳剪辑</span>Editing</div>
+        <div class="award-tag"><span class="cat">最佳音响</span>Sound</div>
+        <div class="award-tag"><span class="cat">最佳艺术指导</span>Art Direction</div>
+        <div class="award-tag"><span class="cat">最佳服装设计</span>Costume Design</div>
+        <div class="award-tag"><span class="cat">最佳原创音乐</span>Original Score</div>
+      </div>
+      <div class="quote">
+        <p>"这是奥斯卡历史上第一部也是唯一一部在故宫实景拍摄的电影。"</p>
+        <div class="source">— 1988 年第 60 届奥斯卡金像奖</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">为什么值得一看</div>
+    <div class="panel">
+      <ul class="highlight-list">
+        <li><strong>史诗级叙事：</strong>以一个人的一生浓缩中国半个世纪的历史变迁，从帝国到共和，从战火到新生，视角独特而震撼。</li>
+        <li><strong>极致的视觉美学：</strong>摄影师维托里奥·斯托拉罗的镜头每一帧都如同油画。紫禁城的恢弘、满洲里的苍凉、改造所的朴素，色彩语言讲述着时代的更替。</li>
+        <li><strong>故宫实景拍摄：</strong>剧组获得史无前例的许可进入故宫太和殿、乾清宫等核心区域实拍，这份影像本身已是不可复制的历史文献。</li>
+        <li><strong>坂本龙一的音乐：</strong>配乐融合了东方古典与西方交响，主题旋律《Where Is Armo?》凄美而空灵，至今仍是电影音乐史上的巅峰之作。</li>
+        <li><strong>尊龙的表演：</strong>尊龙将溥仪从孩童的天真到末路的沧桑诠释得层次分明，被誉为"为这个角色而生的演员"。</li>
+        <li><strong>关于自由的哲思：</strong>影片最动人的不是帝王之尊，而是溥仪终其一生在寻找"我是谁"——从囚于紫禁城到囚于时代，最终在日常小事中获得自由。</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">一句话推荐</div>
+    <div class="panel">
+      <div class="quote">
+        <p>"这是一部让人在宏大的历史画布中，看见一个渺小灵魂如何被时代裹挟、又如何最终找到自己的人性史诗。看一次，就是穿越一次历史，也审视一次自己的人生。"</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>经典电影推荐 · 2026-08-24 · 愿好电影陪伴你度过美好的一天</p>
+</div>
+
+</body>
+</html>

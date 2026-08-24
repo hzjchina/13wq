@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小枫叶的降落伞 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-top: #0b1026;
+      --bg-mid: #141a35;
+      --bg-bottom: #1f2647;
+      --text: #f8f4e6;
+      --muted: #b8c4e0;
+      --accent: #ff9f6b;
+      --accent-soft: #ffd6b8;
+      --moon: #fff8e1;
+      --leaf-red: #e35d4f;
+      --leaf-orange: #f4a261;
+      --leaf-yellow: #e9c46a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 45%, var(--bg-bottom) 100%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.85;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle var(--duration) ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.15; transform: scale(0.8); }
+      50% { opacity: var(--max-opacity, 0.9); transform: scale(1.2); }
+    }
+
+    .shooting-star {
+      position: fixed;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+      border-radius: 50%;
+      transform: rotate(-45deg);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .shooting-star:nth-of-type(1) {
+      top: 12%;
+      left: 75%;
+      animation: shoot 8s linear infinite;
+      animation-delay: 2s;
+    }
+
+    .shooting-star:nth-of-type(2) {
+      top: 22%;
+      left: 15%;
+      animation: shoot 10s linear infinite;
+      animation-delay: 6s;
+    }
+
+    @keyframes shoot {
+      0% { transform: translateX(0) translateY(0) rotate(-45deg); opacity: 0; }
+      10% { opacity: 1; }
+      25% { transform: translateX(-180px) translateY(180px) rotate(-45deg); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .moon {
+      position: fixed;
+      top: 45px;
+      right: 45px;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff 0%, var(--moon) 40%, #e6d9a8 100%);
+      box-shadow: 0 0 40px rgba(255, 248, 225, 0.35), 0 0 80px rgba(255, 248, 225, 0.15);
+      animation: moonFloat 6s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .moon::before {
+      content: "";
+      position: absolute;
+      top: 18%;
+      left: 22%;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(180, 170, 140, 0.25);
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      top: 55%;
+      left: 60%;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(180, 170, 140, 0.18);
+    }
+
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+
+    .title {
+      font-size: clamp(1.9rem, 6vw, 2.6rem);
+      text-align: center;
+      margin-bottom: 18px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--accent-soft);
+      text-shadow: 0 0 20px rgba(255, 214, 184, 0.35), 0 0 40px rgba(255, 214, 184, 0.15);
+      animation: titleGlow 3.5s ease-in-out infinite;
+    }
+
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 18px rgba(255, 214, 184, 0.3), 0 0 36px rgba(255, 214, 184, 0.1); }
+      50% { text-shadow: 0 0 28px rgba(255, 214, 184, 0.5), 0 0 55px rgba(255, 214, 184, 0.25); }
+    }
+
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 38px;
+      opacity: 0.85;
+    }
+
+    .illustration {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 36px;
+      position: relative;
+    }
+
+    .illustration svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      animation: leafFloat 5s ease-in-out infinite;
+    }
+
+    @keyframes leafFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-6px) rotate(2deg); }
+      50% { transform: translateY(-2px) rotate(0deg); }
+      75% { transform: translateY(-8px) rotate(-2deg); }
+    }
+
+    .leaf-glow {
+      animation: leafGlow 4s ease-in-out infinite;
+    }
+
+    @keyframes leafGlow {
+      0%, 100% { filter: drop-shadow(0 0 8px rgba(243, 162, 97, 0.35)); }
+      50% { filter: drop-shadow(0 0 20px rgba(243, 162, 97, 0.6)); }
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: rise 7s linear infinite;
+      opacity: 0;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(0) scale(0.6); opacity: 0; }
+      15% { opacity: 0.7; }
+      85% { opacity: 0.7; }
+      100% { transform: translateY(-220px) scale(1.1); opacity: 0; }
+    }
+
+    .story {
+      font-size: clamp(1.05rem, 3.2vw, 1.22rem);
+      line-height: 2.05;
+      text-align: justify;
+      text-indent: 2em;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+
+    .story p {
+      margin-bottom: 1.2em;
+    }
+
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0;
+      opacity: 0.7;
+    }
+
+    .divider-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      animation: dotPulse 3s ease-in-out infinite;
+    }
+
+    .divider-dot:nth-child(2) { animation-delay: 0.4s; }
+    .divider-dot:nth-child(3) { animation-delay: 0.8s; }
+    .divider-dot:nth-child(4) { animation-delay: 1.2s; }
+    .divider-dot:nth-child(5) { animation-delay: 1.6s; }
+
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.4; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.3); }
+    }
+
+    .goodnight {
+      text-align: center;
+      font-size: clamp(1.1rem, 3.4vw, 1.28rem);
+      color: var(--accent-soft);
+      line-height: 2;
+      padding: 28px 24px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: goodnightGlow 4.5s ease-in-out infinite;
+    }
+
+    @keyframes goodnightGlow {
+      0%, 100% { box-shadow: 0 0 20px rgba(255, 214, 184, 0.08); }
+      50% { box-shadow: 0 0 40px rgba(255, 214, 184, 0.2); }
+    }
+
+    .bottom-glow {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 90px;
+      background: linear-gradient(0deg, rgba(243, 162, 97, 0.18), transparent);
+      pointer-events: none;
+      z-index: 0;
+      animation: bottomGlow 5s ease-in-out infinite;
+    }
+
+    @keyframes bottomGlow {
+      0%, 100% { opacity: 0.6; }
+      50% { opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .container { padding: 40px 20px 60px; }
+      .moon { width: 60px; height: 60px; top: 30px; right: 25px; }
+      .illustration { width: 180px; height: 180px; }
+      .story { text-indent: 1.8em; }
+    }
+  </style>
+</head>
+<body>
+  <div id="stars"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="moon"></div>
+  <div class="bottom-glow"></div>
+
+  <div class="container">
+    <h1 class="title">小枫叶的降落伞</h1>
+    <p class="subtitle">2026年8月23日 · 儿童睡前故事</p>
+
+    <div class="illustration" id="illustration">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#e76f51"/>
+            <stop offset="50%" style="stop-color:#f4a261"/>
+            <stop offset="100%" style="stop-color:#e9c46a"/>
+          </linearGradient>
+          <filter id="softGlow">
+            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+
+        <!-- 枫叶 -->
+        <g class="leaf-glow" transform="translate(100, 100)">
+          <path d="M0,-75 C12,-55 35,-50 55,-60 C50,-40 55,-25 70,-20 C55,-10 50,5 58,25 C40,20 25,30 22,50 C10,38 -5,40 -15,55 C-20,35 -35,28 -52,32 C-45,15 -48,0 -62,-10 C-48,-18 -42,-32 -50,-52 C-32,-45 -12,-50 0,-75 Z"
+                fill="url(#leafGrad)" stroke="#d35400" stroke-width="1.2" opacity="0.95"/>
+          <!-- 主叶脉 -->
+          <path d="M0,-70 Q2,0 0,65" stroke="#b8442b" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <!-- 侧叶脉 -->
+          <path d="M0,-50 L25,-35 M0,-35 L30,-20 M0,-15 L28,-5 M0,5 L26,18 M0,25 L22,38 M0,45 L18,55" stroke="#b8442b" stroke-width="1" fill="none" opacity="0.7" stroke-linecap="round"/>
+          <path d="M0,-50 L-25,-35 M0,-35 L-30,-20 M0,-15 L-28,-5 M0,5 L-26,18 M0,25 L-22,38 M0,45 L-18,55" stroke="#b8442b" stroke-width="1" fill="none" opacity="0.7" stroke-linecap="round"/>
+          <!-- 叶柄 -->
+          <path d="M0,65 Q3,78 8,85" stroke="#8d6e63" stroke-width="3" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- 小瓢虫 -->
+        <g transform="translate(95, 88)">
+          <ellipse cx="0" cy="0" rx="9" ry="7" fill="#c0392b"/>
+          <circle cx="-3" cy="-2" r="1.6" fill="#2c3e50"/>
+          <circle cx="3" cy="-2" r="1.6" fill="#2c3e50"/>
+          <circle cx="0" cy="3" r="1.6" fill="#2c3e50"/>
+          <circle cx="-5" cy="2" r="1.2" fill="#2c3e50"/>
+          <circle cx="5" cy="2" r="1.2" fill="#2c3e50"/>
+          <circle cx="-8" cy="-4" r="2" fill="#2c3e50"/>
+          <circle cx="8" cy="-4" r="2" fill="#2c3e50"/>
+          <ellipse cx="0" cy="-7" rx="3" ry="2" fill="#1a1a1a"/>
+          <circle cx="-1.2" cy="-7.5" r="0.6" fill="#fff"/>
+          <circle cx="1.2" cy="-7.5" r="0.6" fill="#fff"/>
+        </g>
+
+        <!-- 飘落的微光 -->
+        <circle cx="70" cy="60" r="2" fill="#fff" opacity="0.6">
+          <animate attributeName="opacity" values="0.6;0.2;0.6" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="130" cy="120" r="1.5" fill="#fff" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;0.1;0.5" dur="4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="55" cy="130" r="1.8" fill="#ffd6b8" opacity="0.5">
+          <animate attributeName="opacity" values="0.5;0.1;0.5" dur="3.5s" repeatCount="indefinite"/>
+        </circle>
+      </svg>
+    </div>
+
+    <div class="story">
+      <p>枫树上住着一片最小的枫叶，大家都叫她小叶。</p>
+      <p>小叶是树梢上最后变红的那一片。每当风吹过，她身边的哥哥姐姐就一个接一个飞走了。小叶紧紧抓着树枝，小声说："我不敢。落下来，会不会很疼？"</p>
+      <p>树妈妈轻轻摇着枝条，温柔地回答："风会接住你，月光会陪着你。你不是掉下去，你是去变成别人的小伞。"</p>
+      <p>可是小叶还是害怕。她把自己卷成小小的一团，像一颗红色的小拳头。</p>
+      <p>这一天晚上，月亮特别圆，风也特别轻。小叶感觉自己的叶柄松了一点，又松了一点。她闭紧眼睛，"呼——"地一下，离开了树枝。</p>
+      <p>风真的接住了她。小叶像一只红色的小蝴蝶，转呀转，飘呀飘。她慢慢睁开眼睛，发现夜晚的森林比她想象中美多了：星星在树梢间眨眼睛，小河像一条银色的丝带，萤火虫提着小灯笼飞来飞去。</p>
+      <p>"救命呀！"</p>
+      <p>忽然，小叶听见一个小小的声音。她低头一看，原来是一只小瓢虫，正趴在一根湿漉漉的草尖上，翅膀沾了夜露，怎么也飞不起来。</p>
+      <p>"别怕，我来帮你！"小叶展开自己的身体，像一只圆圆的小降落伞，轻轻落到了草尖旁边。</p>
+      <p>"爬到我背上来。"小叶说。</p>
+      <p>小瓢虫小心翼翼地爬到小叶的叶脉上。小叶感觉痒痒的，她笑着让风再慢一点，再轻一点。她们一起飘过小河，飘过草地，飘过一片开着夜来香的花丛。</p>
+      <p>"谢谢你，小叶。你真是最棒的降落伞！"小瓢虫开心地说。</p>
+      <p>小叶也笑了："原来落下来一点儿也不可怕。我还能带着你，一起去看更远的地方呢。"</p>
+      <p>最后，她们轻轻落在一本打开的童话书上。小瓢虫抖抖翅膀，露水干了，它飞了起来，在小叶身边绕了三圈。</p>
+      <p>"晚安，勇敢的小叶。"</p>
+      <p>"晚安，可爱的小瓢虫。"</p>
+      <p>月光洒在她们身上，像盖了一层薄薄的银被子。</p>
+    </div>
+
+    <div class="divider">
+      <span class="divider-dot"></span>
+      <span class="divider-dot"></span>
+      <span class="divider-dot"></span>
+      <span class="divider-dot"></span>
+      <span class="divider-dot"></span>
+    </div>
+
+    <div class="goodnight">
+      晚安，小宝贝。<br>
+      小叶说，当你勇敢地张开双手，风会接住你，世界也会给你一个大大的拥抱。<br>
+      你今天也是个好孩子，该做一个甜甜的梦了。
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      const starsContainer = document.getElementById('stars');
+      const starCount = 110;
+
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.setProperty('--delay', (Math.random() * 5) + 's');
+        star.style.setProperty('--max-opacity', (Math.random() * 0.5 + 0.5).toFixed(2));
+        starsContainer.appendChild(star);
+      }
+
+      const illustration = document.getElementById('illustration');
+      const colors = ['#ff9f6b', '#f4a261', '#e9c46a', '#ffd6b8', '#e76f51', '#f8b595', '#c9ada7'];
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 6 + 4;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.background = colors[Math.floor(Math.random() * colors.length)];
+        p.style.left = (Math.random() * 80 + 10) + '%';
+        p.style.bottom = (Math.random() * 30) + 'px';
+        p.style.animationDuration = (Math.random() * 3 + 6) + 's';
+        p.style.animationDelay = (Math.random() * 5) + 's';
+        illustration.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>
