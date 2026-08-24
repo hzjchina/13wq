@@ -23,6 +23,12 @@
           "path": "classic-movies/classic-movie-2026-08-22.html"
         },
         {
+          "title": "七武士",
+          "date": "2026-08-20",
+          "summary": "经典电影推荐 · 七武士 经典电影推荐 七武士 七人の侍 · Seven Samurai · 1954 黑泽明 导演 · 三船敏郎 / 志村乔 / 稻叶义男 主演 日本 动作 / 剧情 207 分钟 黑白 9.3 豆瓣 8.6 IMDb 9...",
+          "path": "classic-movies/classic-movie-2026-08-20-082228.html"
+        },
+        {
           "title": "闻香识女人",
           "date": "2026-08-20",
           "summary": "经典电影推荐 · 第52期 · 闻香识女人 每日经典电影 · 第 52 期 闻香识女人 Scent of a Woman · 1992 导演：马丁·布莱斯特 · 主演：阿尔·帕西诺 / 克里斯·奥唐纳 / 詹姆斯·瑞布霍恩 9.1 豆瓣评分...",
@@ -334,12 +340,6 @@
           "date": "2026-05-21",
           "summary": "每日经典电影推荐 每日经典 · MAY 21 THE GODFATHER 教 父 9.2 IMDb 9.3 豆瓣 97% 烂番茄 1972 年份 剧情梗概 1945年的纽约，维托·柯里昂是意大利裔黑手党家族的首领，人称\"教父\"。他行事有自己...",
           "path": "classic-movies/classic-movie-2026-05-21.html"
-        },
-        {
-          "title": "七武士",
-          "date": "",
-          "summary": "经典电影推荐 · 七武士 经典电影推荐 七武士 七人の侍 · Seven Samurai · 1954 黑泽明 导演 · 三船敏郎 / 志村乔 / 稻叶义男 主演 日本 动作 / 剧情 207 分钟 黑白 9.3 豆瓣 8.6 IMDb 9...",
-          "path": "classic-movies/classic-movie-2026-08-20-082228.html"
         }
       ]
     },

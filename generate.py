@@ -95,8 +95,11 @@ def extract_summary(html: str, length: int = SUMMARY_LENGTH) -> str:
 
 
 def extract_date(filename: str, pattern: str) -> str:
-    """从文件名中提取日期"""
+    """从文件名中提取日期（宽松匹配，兼容 classic-movie-2026-08-20-082228.html 这类带时间戳后缀的文件名）"""
     match = re.search(pattern, filename)
+    if match:
+        return match.group(1)
+    match = re.search(r"(\d{4}-\d{2}-\d{2})", filename)
     if match:
         return match.group(1)
     return ""
