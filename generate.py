@@ -51,6 +51,11 @@ MODULES = [
 
 SUMMARY_LENGTH = 120  # 摘要字数
 
+# 经典电影特殊兜底：title 无片名的文件，手动指定片名
+MOVIE_TITLE_FALLBACK = {
+    "classic-movie-2026-05-21.html": "教父",
+}
+
 
 def extract_title(html: str) -> str:
     """从HTML中提取 <title> 标签内容"""
@@ -148,9 +153,19 @@ def process_module(module: dict) -> dict:
         # 睡前故事: 去掉 title 中 " — 儿童睡前故事" 后缀
         if module["key"] == "bedtime-stories":
             title = re.sub(r'\s*[—–\-]\s*儿童睡前故事\s*$', '', title)
-        # 经典电影: 去掉 "经典电影推荐..." 前缀，只保留片名
+        # 经典电影: 清理前缀，只保留片名
         if module["key"] == "classic-movies":
-            title = re.sub(r'^.*[·|]\s*', '', title)
+            # 1. 去掉尾部日期 (2026-06-01)
+            title = re.sub(r'\s*[(（]\d{4}-\d{2}-\d{2}[)）]\s*$', '', title)
+            # 2. 去掉 "经典电影推荐/每日经典电影推荐" 前缀 + 分隔符 + 期数 + 分隔符
+            #    分隔符涵盖 · | ｜ — – - : ：，片名内部的 · 不会被误伤
+            title = re.sub(
+                r'^(每日)?经典电影推荐\s*(?:[·|｜—–\-：:]\s*)?(?:第\s*\d+\s*期\s*)?(?:[·|｜—–\-：:]\s*)?',
+                '', title
+            ).strip()
+            # 3. 兜底：清理后为空 → 使用手动映射，仍无则用文件名
+            if not title:
+                title = MOVIE_TITLE_FALLBACK.get(html_file.name, html_file.name)
         summary = extract_summary(html)
         date = extract_date(html_file.name, module["pattern"])
 
