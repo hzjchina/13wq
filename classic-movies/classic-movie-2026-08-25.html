@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>无间道</title>
+<style>
+  :root {
+    --bg: #14161f;
+    --card: #1d2130;
+    --accent: #e74c3c;
+    --text: #f1f1f1;
+    --muted: #a0a0a0;
+    --gold: #f5c518;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .ratings {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  .rating-item {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    min-width: 100px;
+  }
+  .rating-item .score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .rating-item .source {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card h2 .icon {
+    font-size: 1.3rem;
+  }
+  .card p {
+    font-size: 1rem;
+    color: #d0d0d0;
+    text-align: justify;
+    margin-bottom: 0.75rem;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .highlights {
+    list-style: none;
+  }
+  .highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #d0d0d0;
+  }
+  .highlights li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+    top: 0.15rem;
+  }
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .awards span {
+    background: rgba(231, 76, 60, 0.15);
+    color: #f0a69e;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(231, 76, 60, 0.25);
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.5rem; }
+    .card { padding: 1.25rem; }
+    .ratings { gap: 0.75rem; }
+    .rating-item { min-width: 80px; padding: 0.6rem 1rem; }
+    .rating-item .score { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">经典电影推荐 · 第 56 期</div>
+    <h1>无间道</h1>
+    <div class="subtitle">Infernal Affairs (2002)</div>
+    <div class="meta">
+      <span>🎬 刘伟强 / 麦兆辉</span>
+      <span>🎭 刘德华 / 梁朝伟 / 黄秋生 / 曾志伟</span>
+      <span>🇨🇳 中国香港</span>
+      <span>⏱ 101 分钟</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">
+        <div class="score">9.3</div>
+        <div class="source">豆瓣</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">8.0</div>
+        <div class="source">IMDb</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">95%</div>
+        <div class="source">烂番茄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">📖</span>剧情梗概</h2>
+    <p>香港黑帮老大韩琛身边有一名得力干将，代号不详，行事狠辣，深得信任——他叫陈永仁，真实身份其实是警方安插进黑帮的卧底。十年前，他以警校肄业生的名义潜入黑社会，这一潜就是十年，全港知道他真实身份的人，只有警司黄志诚一个。</p>
+    <p>与此同时，警队里有一位前途无量的年轻督察刘建明，破案率惊人，升职如火箭，深受器重——他实际上是韩琛安插在警队的卧底，一路披荆斩棘，只为在体制内爬得更高、藏得更深。</p>
+    <p>一桩即将展开的毒品交易，让警方与黑帮同时布下天罗地网。两边的行动几乎同步，双方都嗅到了同一个令人背脊发凉的信息——「我这边，有内鬼。」谁是鬼？谁在演戏？两个身份互换的人，被命运推到了同一条钢丝上，一场步步惊心的猫鼠游戏就此开场……</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">✨</span>亮点所在</h2>
+    <ul class="highlights">
+      <li><strong>教科书级的「双卧底」结构：</strong>警中有贼、贼中有警，双向渗透的设定并非首创，但《无间道》把它拍成了模板——双方的每一步棋都踩在观众的神经上，信息差玩得滴水不漏，后来的警匪片几乎都在向它致敬。</li>
+      <li><strong>梁朝伟 × 刘德华双影帝对飙：</strong>一个阴郁隐忍、活在黑暗里十年，一个光鲜体面、活在谎言里十年。两人几乎没有正面对手戏，却隔着整座城市相互角力，眼神里全是戏。</li>
+      <li><strong>黄金配角群像：</strong>黄秋生、曾志伟两位老戏骨，一个演警察高层，一个演黑帮大佬，举手投足都是教科书级别，把港片群戏的水准拉到了天花板。</li>
+      <li><strong>影史级名场面：</strong>那场发生在天台上的对峙，一句「对不起，我是警察」，成为华语电影被引用、被致敬最多的桥段之一，二十多年过去依然是「神」的级别。</li>
+      <li><strong>影响全球的叙事功力：</strong>2006 年马丁·斯科塞斯翻拍《无间道风云》并斩获奥斯卡最佳影片——好莱坞用一座小金人，为这部华语原版的剧本盖了章。</li>
+      <li><strong>「无间」的哲学内核：</strong>片名出自佛经「无间地狱」，受苦无间、永无出期。两个卧底都是活在无间地狱里的人，这不是一部简单的警匪片，而是一部关于身份与宿命的寓言。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🏆</span>为什么值得一看</h2>
+    <p>如果你只看一部香港警匪片，那应该是《无间道》。它把商业类型片做到了极致——节奏紧绷、悬念迭起、表演封神，两个小时没有一帧是浪费的；同时，它又在商业的壳里装了一个存在主义的内核：一个人如果活着活着，忘了自己是谁，那他到底是谁？</p>
+    <p>陈永仁想做回一个堂堂正正的警察，却不得不亲手把自己活成最讨厌的人；刘建明想摆脱过去、重新开始，却发现自己早已和谎言长在了一起。他们的困境不在于输赢，而在于「我究竟是谁」这道无解的题。这种困境超越了警匪，直指每一个在身份与面具之间摇摆的普通人——这正是它二十年后依然不过时的原因。</p>
+    <p>看完你大概会懂，为什么「无间道」三个字，能成为整个华语影史的一个坐标。</p>
+    <div class="quote">"给我一个机会，我以前没得选，现在我想做个好人。"</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🎖</span>主要奖项</h2>
+    <div class="awards">
+      <span>香港金像奖最佳影片</span>
+      <span>金像奖最佳导演</span>
+      <span>金像奖最佳编剧</span>
+      <span>金像奖最佳男主角（梁朝伟）</span>
+      <span>金像奖最佳男配角（黄秋生）</span>
+      <span>金马奖最佳影片</span>
+      <span>金马奖最佳男主角（梁朝伟）</span>
+      <span>金马奖最佳男配角（黄秋生）</span>
+      <span>金紫荆奖最佳影片</span>
+      <span>2006 年被好莱坞翻拍获奥斯卡最佳影片</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 2026年8月25日 · 所有内容仅供欣赏
+  </div>
+</div>
+</body>
+</html>

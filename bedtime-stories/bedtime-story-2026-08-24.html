@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小沙漏的星沙 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow-x: hidden; }
+  body {
+    background: radial-gradient(ellipse at 50% 25%, #1a2547 0%, #0d1530 40%, #060a1e 70%, #030514 100%);
+    font-family: "Georgia", "Songti SC", "STSong", serif;
+    color: #e8e0d0;
+    min-height: 100vh;
+    position: relative;
+  }
+  #stars {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 1; pointer-events: none;
+  }
+  .star {
+    position: absolute; background: #fff; border-radius: 50%;
+    opacity: 0; animation: twinkle var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.1; transform: scale(0.6); }
+    50% { opacity: var(--max-op); transform: scale(1); }
+  }
+  .moon {
+    position: fixed; top: 5%; right: 8%;
+    width: 80px; height: 80px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff8e0, #f5e6b8 50%, #e0c890);
+    box-shadow:
+      0 0 30px rgba(255,248,224,0.4),
+      0 0 60px rgba(255,240,180,0.25),
+      0 0 100px rgba(255,235,160,0.12);
+    z-index: 2; animation: moonFloat 6s ease-in-out infinite;
+  }
+  .moon::before {
+    content: ''; position: absolute; top: 20%; left: 25%;
+    width: 10px; height: 10px; border-radius: 50%;
+    background: rgba(180,160,100,0.3);
+  }
+  .moon::after {
+    content: ''; position: absolute; top: 55%; left: 50%;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: rgba(180,160,100,0.25);
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .shooting-star {
+    position: fixed; width: 2px; height: 2px; background: #fff;
+    border-radius: 50%; z-index: 2; pointer-events: none;
+    box-shadow: 0 0 6px #fff;
+  }
+  .shooting-star::before {
+    content: ''; position: absolute; top: 0; left: 0;
+    width: 80px; height: 1px;
+    background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+    transform-origin: right center;
+  }
+  .shooting-star.s1 {
+    top: 15%; animation: shoot1 8s ease-in infinite;
+    animation-delay: 2s;
+  }
+  .shooting-star.s2 {
+    top: 30%; animation: shoot2 10s ease-in infinite;
+    animation-delay: 5s;
+  }
+  @keyframes shoot1 {
+    0% { transform: translate(-100px, 0) rotate(25deg); opacity: 0; }
+    5% { opacity: 1; }
+    15% { transform: translate(300px, 140px) rotate(25deg); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  @keyframes shoot2 {
+    0% { transform: translate(-100px, 0) rotate(20deg); opacity: 0; }
+    5% { opacity: 1; }
+    12% { transform: translate(350px, 120px) rotate(20deg); opacity: 0; }
+    100% { opacity: 0; }
+  }
+  .container {
+    position: relative; z-index: 10;
+    max-width: 620px; margin: 0 auto;
+    padding: 60px 24px 80px;
+    text-align: center;
+  }
+  .hourglass-wrapper {
+    width: 140px; height: 200px; margin: 0 auto 36px;
+    position: relative;
+    animation: hourglassFloat 5s ease-in-out infinite;
+  }
+  @keyframes hourglassFloat {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-8px) rotate(0.5deg); }
+  }
+  .hourglass-glow {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 180px; height: 240px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(255,210,120,0.15), rgba(255,200,100,0.05) 60%, transparent 80%);
+    animation: glowBreath 4s ease-in-out infinite;
+  }
+  @keyframes glowBreath {
+    0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(0.95); }
+    50% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.08); }
+  }
+  .title {
+    font-size: 26px; font-weight: bold; color: #fff5dc;
+    text-shadow: 0 0 20px rgba(255,220,150,0.4), 0 0 40px rgba(255,200,100,0.2);
+    margin-bottom: 8px; letter-spacing: 3px;
+    animation: titleGlow 3.5s ease-in-out infinite;
+  }
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 15px rgba(255,220,150,0.3), 0 0 30px rgba(255,200,100,0.15); }
+    50% { text-shadow: 0 0 25px rgba(255,220,150,0.6), 0 0 50px rgba(255,200,100,0.3); }
+  }
+  .subtitle {
+    font-size: 14px; color: #9098b8; margin-bottom: 40px;
+    letter-spacing: 2px;
+  }
+  .story {
+    font-size: 17px; line-height: 2.1; color: #d8d0c8;
+    text-align: left; padding: 0 8px;
+  }
+  .story p { margin-bottom: 18px; text-indent: 2em; }
+  .goodnight {
+    margin-top: 36px; padding: 20px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(255,220,150,0.08), rgba(255,200,100,0.04));
+    font-size: 16px; color: #ffe8b8; line-height: 1.9;
+    animation: goodnightGlow 4.5s ease-in-out infinite;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,220,150,0.1); }
+    50% { box-shadow: 0 0 40px rgba(255,220,150,0.25); }
+  }
+  .divider {
+    display: flex; justify-content: center; align-items: center;
+    gap: 12px; margin: 30px 0;
+  }
+  .divider .dot {
+    width: 4px; height: 4px; border-radius: 50%;
+    background: rgba(255,220,150,0.4);
+    animation: dotBreath 3s ease-in-out infinite;
+  }
+  .divider .dot:nth-child(2) { animation-delay: 0.4s; }
+  .divider .dot:nth-child(3) { animation-delay: 0.8s; }
+  .divider .dot:nth-child(4) { animation-delay: 1.2s; }
+  .divider .dot:nth-child(5) { animation-delay: 1.6s; }
+  @keyframes dotBreath {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 0.8; transform: scale(1.3); }
+  }
+  .warm-band {
+    position: fixed; bottom: 0; left: 0; width: 100%; height: 80px;
+    background: linear-gradient(to top, rgba(255,200,100,0.12), transparent);
+    z-index: 3; pointer-events: none;
+    animation: bandBreath 5s ease-in-out infinite;
+  }
+  @keyframes bandBreath {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 0.7; }
+  }
+  .particle {
+    position: fixed; border-radius: 50%;
+    pointer-events: none; z-index: 4;
+    animation: floatUp var(--dur) linear infinite;
+    animation-delay: var(--delay);
+  }
+  @keyframes floatUp {
+    0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.5; }
+    100% { transform: translateY(-10vh) translateX(var(--drift)); opacity: 0; }
+  }
+  @media (max-width: 600px) {
+    .container { padding: 40px 16px 60px; }
+    .title { font-size: 22px; letter-spacing: 2px; }
+    .story { font-size: 16px; line-height: 2.0; }
+    .goodnight { font-size: 15px; }
+    .moon { width: 60px; height: 60px; top: 4%; right: 5%; }
+    .hourglass-wrapper { width: 120px; height: 175px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+<div class="moon"></div>
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<div class="container">
+  <div class="hourglass-wrapper">
+    <div class="hourglass-glow"></div>
+    <svg viewBox="0 0 140 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <!-- 顶部木板 -->
+      <rect x="20" y="5" width="100" height="12" rx="3" fill="#8B7355" stroke="#6B5535" stroke-width="1"/>
+      <rect x="22" y="7" width="96" height="3" rx="1.5" fill="#A08055" opacity="0.6"/>
+      <!-- 底部木板 -->
+      <rect x="20" y="183" width="100" height="12" rx="3" fill="#8B7355" stroke="#6B5535" stroke-width="1"/>
+      <rect x="22" y="185" width="96" height="3" rx="1.5" fill="#A08055" opacity="0.6"/>
+      <!-- 四根柱子 -->
+      <rect x="24" y="17" width="4" height="166" rx="2" fill="#7B6345"/>
+      <rect x="112" y="17" width="4" height="166" rx="2" fill="#7B6345"/>
+      <!-- 玻璃外壳 - 上半部分 -->
+      <path d="M 34 17 L 106 17 L 72 95 L 68 95 Z" fill="rgba(200,220,255,0.08)" stroke="rgba(180,200,240,0.35)" stroke-width="1.2"/>
+      <!-- 玻璃外壳 - 下半部分 -->
+      <path d="M 68 105 L 72 105 L 106 183 L 34 183 Z" fill="rgba(200,220,255,0.08)" stroke="rgba(180,200,240,0.35)" stroke-width="1.2"/>
+      <!-- 中间收口环 -->
+      <rect x="60" y="93" width="20" height="14" rx="3" fill="#8B7355" stroke="#6B5535" stroke-width="0.8"/>
+      <!-- 上半部分沙子（剩余约1/3） -->
+      <path d="M 38 20 L 102 20 L 74 92 L 66 92 Z" fill="url(#sandTopGrad)" opacity="0.85"/>
+      <!-- 沙堆顶部弧线 -->
+      <path d="M 40 22 Q 70 28 100 22" fill="none" stroke="rgba(255,225,160,0.4)" stroke-width="0.8"/>
+      <!-- 下半部分已落沙堆 -->
+      <path d="M 40 181 Q 70 158 100 181 L 106 183 L 34 183 Z" fill="url(#sandBottomGrad)" opacity="0.9"/>
+      <!-- 沙堆顶弧 -->
+      <path d="M 45 165 Q 70 150 95 165" fill="none" stroke="rgba(255,225,160,0.3)" stroke-width="0.6"/>
+      <!-- 中间细沙流 -->
+      <line x1="70" y1="97" x2="70" y2="150" stroke="url(#sandStream)" stroke-width="1.5" stroke-dasharray="2,3">
+        <animate attributeName="stroke-dashoffset" from="0" to="-5" dur="0.3s" repeatCount="indefinite"/>
+      </line>
+      <!-- 落下的沙粒 - 发光 -->
+      <circle cx="70" cy="105" r="1.5" fill="#FFE8A0" opacity="0">
+        <animate attributeName="cy" values="98;150;158" dur="2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.9;0.6;0" dur="2s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="70" cy="120" r="1.2" fill="#FFE8A0" opacity="0">
+        <animate attributeName="cy" values="98;155;162" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.8;0.5;0" dur="2s" begin="0.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="70" cy="110" r="1" fill="#FFE8A0" opacity="0">
+        <animate attributeName="cy" values="98;148;155" dur="2s" begin="1s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.7;0.4;0" dur="2s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="70" cy="130" r="1.3" fill="#FFE8A0" opacity="0">
+        <animate attributeName="cy" values="98;152;160" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0;0.85;0.5;0" dur="2s" begin="1.5s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 上半沙面上的微光点 -->
+      <circle cx="55" cy="35" r="0.8" fill="#FFE8A0" opacity="0.6">
+        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="80" cy="50" r="0.7" fill="#FFE8A0" opacity="0.5">
+        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" begin="0.7s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="65" cy="65" r="0.6" fill="#FFE8A0" opacity="0.4">
+        <animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.8s" begin="1.2s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 下半沙堆上的微光点 -->
+      <circle cx="55" cy="170" r="0.8" fill="#FFE8A0" opacity="0.5">
+        <animate attributeName="opacity" values="0.2;0.8;0.2" dur="3s" begin="0.3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="82" cy="175" r="0.7" fill="#FFE8A0" opacity="0.4">
+        <animate attributeName="opacity" values="0.2;0.7;0.2" dur="2.7s" begin="1s" repeatCount="indefinite"/>
+      </circle>
+      <!-- 装饰星星 -->
+      <g opacity="0.6">
+        <circle cx="15" cy="50" r="1.5" fill="#FFE8A0">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="125" cy="80" r="1.2" fill="#FFE8A0">
+          <animate attributeName="opacity" values="0.2;0.7;0.2" dur="3s" begin="1s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="125" cy="130" r="1" fill="#FFE8A0">
+          <animate attributeName="opacity" values="0.2;0.6;0.2" dur="2.8s" begin="0.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="12" cy="150" r="1.3" fill="#FFE8A0">
+          <animate attributeName="opacity" values="0.3;0.7;0.3" dur="3.2s" begin="1.5s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+      <!-- 渐变定义 -->
+      <defs>
+        <linearGradient id="sandTopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#F5D070" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#D4A040" stop-opacity="0.85"/>
+        </linearGradient>
+        <linearGradient id="sandBottomGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#E8B850" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#D4A040" stop-opacity="0.9"/>
+        </linearGradient>
+        <linearGradient id="sandStream" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#FFE8A0" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#FFD070" stop-opacity="0.5"/>
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <h1 class="title">小沙漏的星沙</h1>
+  <p class="subtitle">— 儿童睡前故事 —</p>
+
+  <div class="story">
+    <p>在一张小床边的书桌上，住着一个玻璃做的小沙漏。</p>
+
+    <p>小沙漏的肚子里装满了金色的沙子。每天晚上，当小朋友闭上眼睛准备睡觉的时候，妈妈就会把小沙漏翻过来，金色的沙子就一粒一粒地往下落。</p>
+
+    <p>"沙沙沙，沙沙沙……"沙子落下来的声音很轻很轻，像小猫走路一样安静。</p>
+
+    <p>小沙漏心里有一个小小的烦恼。它觉得自己只是在数时间，数着数着，一晚上的时间就溜走了。"我只是个倒数时间的工具吧？"小沙漏有些难过地想。</p>
+
+    <p>有一天晚上，小朋友翻来覆去睡不着。妈妈轻轻拍着他的背，把小沙漏翻过来，小声说："宝贝，你看，每一粒沙子落下来，都带着妈妈的一句悄悄话——'平安长大''做个好梦''妈妈爱你'。等沙子全落完了，这些话就全跑到你梦里去了。"</p>
+
+    <p>小朋友眨巴眨巴眼睛，真的认认真真看起来了。他看见金色的沙子一粒一粒闪着光，像小小的星星从天上掉下来。</p>
+
+    <p>"妈妈，沙子会发光呢！"小朋友说。</p>
+
+    <p>"当然了，"妈妈笑着说，"因为每一粒沙子里，都藏着一个爱你的字。"</p>
+
+    <p>小沙漏听到这话，忽然觉得自己肚子里装的不再是普普通通的沙子了。原来，自己每一次翻转，都是在把满满的爱送进小朋友的梦里。</p>
+
+    <p>从那天起，小沙漏再也不难过了。它最喜欢的事情就是被翻转过来的那一刻——因为那是爱开始流动的时刻。沙子一粒一粒落，爱一字一字送。等最后一粒沙子轻轻落定的时候，小朋友已经甜甜地睡着了，嘴角还带着笑。</p>
+
+    <p>小沙漏静静地站在那里，肚子里空了一半，心却满满当当的。</p>
+  </div>
+
+  <div class="divider">
+    <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+  </div>
+
+  <div class="goodnight">
+    晚安，小宝贝。小沙漏说，你今天也是个好孩子，该做一个甜甜的梦了。每一粒落下的沙子，都是我送给你的星星。
+  </div>
+</div>
+
+<div class="warm-band"></div>
+
+<script>
+  // 生成 110 颗随机闪烁星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 110; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+    star.style.setProperty('--delay', Math.random() * 3 + 's');
+    star.style.setProperty('--max-op', (Math.random() * 0.5 + 0.5).toFixed(2));
+    starsContainer.appendChild(star);
+  }
+
+  // 生成 8 个暖色漂浮粒子
+  const colors = ['rgba(255,220,150,0.6)', 'rgba(255,200,120,0.5)', 'rgba(255,235,180,0.5)', 'rgba(255,210,140,0.4)'];
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = Math.random() * 4 + 2;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    const bgColor = colors[Math.floor(Math.random() * colors.length)];
+    p.style.background = bgColor;
+    p.style.boxShadow = '0 0 ' + (size * 2) + 'px ' + bgColor;
+    p.style.setProperty('--dur', (Math.random() * 8 + 10) + 's');
+    p.style.setProperty('--delay', Math.random() * 5 + 's');
+    p.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+    document.body.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
