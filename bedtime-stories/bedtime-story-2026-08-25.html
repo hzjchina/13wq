@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小凉帽的夏天晚安 — 儿童睡前故事</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: linear-gradient(180deg, #0a0e2a 0%, #0d1b3d 35%, #1a2547 70%, #2a1f3d 100%);
+      color: #e8e6f0;
+      font-family: "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 星云层 */
+    .nebula {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 30%, rgba(138, 100, 200, 0.10), transparent 60%),
+        radial-gradient(ellipse 500px 350px at 80% 70%, rgba(100, 180, 220, 0.08), transparent 60%),
+        radial-gradient(ellipse 700px 500px at 50% 90%, rgba(255, 180, 130, 0.05), transparent 70%);
+    }
+
+    /* 星星 */
+    .stars-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      animation: twinkle var(--dur, 4s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      box-shadow: 0 0 4px rgba(255, 255, 255, 0.8);
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--base-op, 0.5); transform: scale(1); }
+      50%      { opacity: 1; transform: scale(1.4); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 70px;
+      right: 60px;
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff8d6 0%, #ffe9a8 40%, #f5d896 80%);
+      box-shadow:
+        0 0 40px rgba(255, 232, 168, 0.5),
+        0 0 80px rgba(255, 215, 130, 0.3),
+        inset -10px -10px 20px rgba(180, 130, 50, 0.2);
+      z-index: 2;
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+    .moon::before {
+      content: '';
+      position: absolute;
+      top: 8px; left: 20px;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, transparent 35%, rgba(180, 130, 50, 0.18) 36%, transparent 50%),
+                  radial-gradient(circle at 70% 60%, transparent 25%, rgba(180, 130, 50, 0.15) 26%, transparent 40%);
+    }
+    .moon::after {
+      content: '';
+      position: absolute;
+      top: -20px; left: -20px;
+      width: 150px; height: 150px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 232, 168, 0.18) 0%, transparent 60%);
+      animation: moonHalo 4s ease-in-out infinite;
+    }
+    @keyframes moonFloat {
+      0%, 100% { transform: translateY(0); }
+      50%      { transform: translateY(-10px); }
+    }
+    @keyframes moonHalo {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50%      { opacity: 0.9; transform: scale(1.15); }
+    }
+
+    /* 流星 */
+    .meteor {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 8px #fff, 0 0 16px rgba(255, 240, 200, 0.8);
+      z-index: 2;
+      pointer-events: none;
+    }
+    .meteor::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: -120px;
+      transform: translateY(-50%);
+      width: 120px; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255, 240, 200, 0.9));
+    }
+    .meteor-1 {
+      top: 15%;
+      left: 75%;
+      animation: meteorFall 5s linear infinite;
+      animation-delay: 2s;
+    }
+    .meteor-2 {
+      top: 30%;
+      left: 25%;
+      animation: meteorFall 6s linear infinite;
+      animation-delay: 5s;
+    }
+    @keyframes meteorFall {
+      0%   { transform: translate(0, 0) rotate(35deg); opacity: 0; }
+      5%   { opacity: 1; }
+      60%  { opacity: 1; }
+      100% { transform: translate(380px, 300px) rotate(35deg); opacity: 0; }
+    }
+
+    /* 暖色粒子 */
+    .particles {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .particle {
+      position: absolute;
+      bottom: -10px;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      animation: floatUp var(--dur, 14s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      opacity: 0.65;
+    }
+    .particle.warm { background: radial-gradient(circle, #ffd9a8 0%, transparent 70%); }
+    .particle.amber { background: radial-gradient(circle, #ffb870 0%, transparent 70%); }
+    .particle.cream { background: radial-gradient(circle, #fff0c8 0%, transparent 70%); }
+    .particle.olive { background: radial-gradient(circle, #d4b878 0%, transparent 70%); }
+    @keyframes floatUp {
+      0%   { transform: translate(0, 0); opacity: 0; }
+      10%  { opacity: 0.7; }
+      50%  { transform: translate(var(--drift, 20px), -50vh); opacity: 0.8; }
+      90%  { opacity: 0.5; }
+      100% { transform: translate(var(--drift2, -10px), -100vh); opacity: 0; }
+    }
+
+    /* 萤火虫 */
+    .firefly {
+      position: fixed;
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: #fff7a8;
+      box-shadow: 0 0 6px #fff7a8, 0 0 12px rgba(255, 247, 168, 0.6);
+      animation: fireflyFly var(--dur, 12s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+      pointer-events: none;
+      z-index: 3;
+    }
+    @keyframes fireflyFly {
+      0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+      25%      { transform: translate(40px, -30px); opacity: 1; }
+      50%      { transform: translate(-20px, -60px); opacity: 0.5; }
+      75%      { transform: translate(30px, -20px); opacity: 0.9; }
+    }
+
+    /* 主体 */
+    main {
+      position: relative;
+      z-index: 10;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 80px 28px 120px;
+    }
+
+    /* 标题 */
+    .title-wrap { text-align: center; margin-bottom: 30px; }
+    h1 {
+      font-size: 2.2rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      color: #fff5d8;
+      text-shadow:
+        0 0 12px rgba(255, 200, 130, 0.6),
+        0 0 24px rgba(255, 180, 100, 0.3);
+      animation: titleGlow 4s ease-in-out infinite;
+    }
+    @keyframes titleGlow {
+      0%, 100% {
+        text-shadow:
+          0 0 12px rgba(255, 200, 130, 0.6),
+          0 0 24px rgba(255, 180, 100, 0.3);
+      }
+      50% {
+        text-shadow:
+          0 0 18px rgba(255, 220, 160, 0.8),
+          0 0 36px rgba(255, 200, 130, 0.5);
+      }
+    }
+    .subtitle {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: #c8b5d8;
+      letter-spacing: 0.15em;
+      opacity: 0.85;
+    }
+
+    /* 插图 SVG */
+    .illustration {
+      display: block;
+      margin: 40px auto;
+      width: 280px; max-width: 90%;
+      height: auto;
+      animation: hatFloat 5s ease-in-out infinite;
+      filter: drop-shadow(0 0 20px rgba(255, 200, 130, 0.4));
+    }
+    @keyframes hatFloat {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50%      { transform: translateY(-12px) rotate(3deg); }
+    }
+
+    /* 故事正文 */
+    .story {
+      font-size: 1.2rem;
+      line-height: 2.1;
+      color: #e8e6f0;
+      letter-spacing: 0.04em;
+      text-align: justify;
+    }
+    .story p {
+      margin-bottom: 1.4em;
+      text-indent: 2em;
+    }
+    .story p:last-child { margin-bottom: 0; }
+
+    /* 星空分隔 */
+    .divider {
+      text-align: center;
+      margin: 50px 0 36px;
+      font-size: 1.1rem;
+      color: #fff0c8;
+      letter-spacing: 0.8em;
+    }
+    .divider .dot {
+      display: inline-block;
+      margin: 0 6px;
+      animation: dotPulse 3s ease-in-out infinite;
+      color: #ffd9a8;
+      text-shadow: 0 0 8px rgba(255, 217, 168, 0.8);
+    }
+    .divider .dot:nth-child(1) { animation-delay: 0s; }
+    .divider .dot:nth-child(2) { animation-delay: 0.4s; }
+    .divider .dot:nth-child(3) { animation-delay: 0.8s; }
+    .divider .dot:nth-child(4) { animation-delay: 1.2s; }
+    .divider .dot:nth-child(5) { animation-delay: 1.6s; }
+    @keyframes dotPulse {
+      0%, 100% { opacity: 0.4; transform: scale(1); }
+      50%      { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* 晚安 */
+    .goodnight {
+      margin-top: 60px;
+      padding: 36px 28px;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255, 180, 130, 0.08), rgba(255, 220, 180, 0.04));
+      border-radius: 16px;
+      border: 1px solid rgba(255, 200, 150, 0.15);
+      box-shadow: 0 0 30px rgba(255, 200, 150, 0.1) inset;
+      animation: gnPulse 5s ease-in-out infinite;
+    }
+    @keyframes gnPulse {
+      0%, 100% { box-shadow: 0 0 30px rgba(255, 200, 150, 0.1) inset; }
+      50%      { box-shadow: 0 0 50px rgba(255, 220, 170, 0.2) inset; }
+    }
+    .goodnight p {
+      font-size: 1.15rem;
+      line-height: 2;
+      color: #fff0c8;
+      text-shadow: 0 0 10px rgba(255, 220, 170, 0.3);
+    }
+    .goodnight .gn-zh {
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    /* 底部暖光带 */
+    .warm-glow {
+      position: fixed;
+      bottom: 0; left: 0;
+      width: 100%; height: 80px;
+      background: linear-gradient(180deg, transparent 0%, rgba(255, 180, 130, 0.08) 50%, rgba(255, 150, 100, 0.18) 100%);
+      pointer-events: none;
+      z-index: 5;
+      animation: warmBreath 5s ease-in-out infinite;
+    }
+    @keyframes warmBreath {
+      0%, 100% { opacity: 0.6; }
+      50%      { opacity: 1; }
+    }
+
+    /* 分隔小星光 */
+    .bottom-stars {
+      position: fixed;
+      bottom: 24px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 6;
+      pointer-events: none;
+    }
+    .bottom-stars .bstar {
+      display: inline-block;
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #fff0c8;
+      margin: 0 8px;
+      box-shadow: 0 0 6px #fff0c8;
+      animation: bstarPulse 3s ease-in-out infinite;
+    }
+    .bottom-stars .bstar:nth-child(1) { animation-delay: 0s; }
+    .bottom-stars .bstar:nth-child(2) { animation-delay: 0.4s; }
+    .bottom-stars .bstar:nth-child(3) { animation-delay: 0.8s; }
+    .bottom-stars .bstar:nth-child(4) { animation-delay: 1.2s; }
+    .bottom-stars .bstar:nth-child(5) { animation-delay: 1.6s; }
+    .bottom-stars .bstar:nth-child(6) { animation-delay: 2.0s; }
+    .bottom-stars .bstar:nth-child(7) { animation-delay: 2.4s; }
+    @keyframes bstarPulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%      { opacity: 1; transform: scale(1.5); }
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      h1 { font-size: 1.6rem; }
+      .story { font-size: 1.05rem; line-height: 1.95; }
+      .moon { top: 40px; right: 30px; width: 80px; height: 80px; }
+      .illustration { width: 220px; }
+      main { padding: 60px 20px 120px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 背景层 -->
+  <div class="nebula"></div>
+  <div class="stars-container" id="starsContainer"></div>
+
+  <!-- 月亮 -->
+  <div class="moon"></div>
+
+  <!-- 流星 -->
+  <div class="meteor meteor-1"></div>
+  <div class="meteor meteor-2"></div>
+
+  <!-- 暖色粒子 -->
+  <div class="particles" id="particlesContainer"></div>
+
+  <!-- 萤火虫 -->
+  <div class="firefly" style="left:12%;top:55%;--dur:11s;--delay:0s"></div>
+  <div class="firefly" style="left:82%;top:48%;--dur:13s;--delay:1.5s"></div>
+  <div class="firefly" style="left:30%;top:30%;--dur:10s;--delay:3s"></div>
+  <div class="firefly" style="left:65%;top:75%;--dur:14s;--delay:2s"></div>
+  <div class="firefly" style="left:45%;top:62%;--dur:12s;--delay:0.8s"></div>
+  <div class="firefly" style="left:22%;top:78%;--dur:13s;--delay:2.6s"></div>
+
+  <!-- 主体 -->
+  <main>
+    <div class="title-wrap">
+      <h1>小凉帽的夏天晚安</h1>
+      <div class="subtitle">⭐ 儿 童 睡 前 故 事 ⭐</div>
+    </div>
+
+    <!-- SVG 草帽插图 -->
+    <svg class="illustration" viewBox="0 0 280 220" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="hatBody" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#fff2c2"/>
+          <stop offset="55%" stop-color="#f5d180"/>
+          <stop offset="100%" stop-color="#c9a25b"/>
+        </radialGradient>
+        <radialGradient id="hatRim" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#ffe3a0"/>
+          <stop offset="60%" stop-color="#d8b068"/>
+          <stop offset="100%" stop-color="#a88240"/>
+        </radialGradient>
+        <radialGradient id="bowGrad" cx="50%" cy="40%">
+          <stop offset="0%" stop-color="#ffc8e0"/>
+          <stop offset="100%" stop-color="#d96aa0"/>
+        </radialGradient>
+        <radialGradient id="haloGrad" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="rgba(255,210,150,0.4)"/>
+          <stop offset="100%" stop-color="rgba(255,210,150,0)"/>
+        </radialGradient>
+        <filter id="softGlow">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
+          <feMerge>
+            <feMergeNode in="blur"/>
+            <feMergeNode in="SourceGraphic"/>
+          </feMerge>
+        </filter>
+      </defs>
+
+      <!-- 整体光晕 -->
+      <circle cx="140" cy="110" r="130" fill="url(#haloGrad)">
+        <animate attributeName="r" values="125;135;125" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.6;1;0.6" dur="4s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- 帽檐 -->
+      <ellipse cx="140" cy="155" rx="120" ry="22" fill="url(#hatRim)" filter="url(#softGlow)"/>
+      <ellipse cx="140" cy="152" rx="118" ry="18" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="0.8"/>
+
+      <!-- 草编纹理（一圈圈的线） -->
+      <g opacity="0.25" stroke="#a37a3b" stroke-width="0.6" fill="none">
+        <ellipse cx="140" cy="155" rx="115" ry="20"/>
+        <ellipse cx="140" cy="155" rx="108" ry="18"/>
+        <ellipse cx="140" cy="155" rx="100" ry="16.5"/>
+        <ellipse cx="140" cy="155" rx="92" ry="15"/>
+        <ellipse cx="140" cy="155" rx="84" ry="13.5"/>
+      </g>
+
+      <!-- 帽顶（圆顶部分） -->
+      <ellipse cx="140" cy="105" rx="78" ry="55" fill="url(#hatBody)" filter="url(#softGlow)"/>
+
+      <!-- 帽顶纹理 -->
+      <g opacity="0.18" stroke="#8a6428" stroke-width="0.6" fill="none">
+        <path d="M 70 105 Q 140 95 210 105"/>
+        <path d="M 75 115 Q 140 107 205 115"/>
+        <path d="M 80 125 Q 140 120 200 125"/>
+        <path d="M 70 95 Q 140 85 210 95"/>
+      </g>
+
+      <!-- 帽顶高光 -->
+      <ellipse cx="115" cy="80" rx="22" ry="14" fill="rgba(255,255,255,0.35)"/>
+      <ellipse cx="115" cy="80" rx="10" ry="6" fill="rgba(255,255,255,0.5)"/>
+
+      <!-- 帽带 -->
+      <ellipse cx="140" cy="148" rx="78" ry="6" fill="#8a5a30" opacity="0.5"/>
+      <ellipse cx="140" cy="148" rx="78" ry="6" fill="none" stroke="#5c3a18" stroke-width="0.8" opacity="0.6"/>
+
+      <!-- 蝴蝶结 -->
+      <g transform="translate(140,145)">
+        <ellipse cx="-12" cy="0" rx="10" ry="7" fill="url(#bowGrad)" filter="url(#softGlow)">
+          <animate attributeName="transform" type="rotate" values="-2 0 0;2 0 0;-2 0 0" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <ellipse cx="12" cy="0" rx="10" ry="7" fill="url(#bowGrad)" filter="url(#softGlow)">
+          <animate attributeName="transform" type="rotate" values="2 0 0;-2 0 0;2 0 0" dur="3s" repeatCount="indefinite"/>
+        </ellipse>
+        <circle cx="0" cy="0" r="5" fill="#b85090"/>
+        <!-- 蝴蝶结尾巴 -->
+        <path d="M -3 5 Q -8 12 -6 18" stroke="#d96aa0" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+        <path d="M 3 5 Q 8 12 6 18" stroke="#d96aa0" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.7"/>
+      </g>
+
+      <!-- 帽子上散落的"夏天记忆"光点 -->
+      <g>
+        <!-- 蝉鸣声波 -->
+        <circle cx="60" cy="80" r="3" fill="#a8e6c8">
+          <animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="65" cy="85" r="2" fill="#a8e6c8" opacity="0.7">
+          <animate attributeName="opacity" values="0.3;0.9;0.3" dur="2.5s" begin="0.4s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="55" cy="85" r="2" fill="#a8e6c8" opacity="0.6">
+          <animate attributeName="opacity" values="0.3;0.8;0.3" dur="2.5s" begin="0.8s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- 笑声星 -->
+        <circle cx="210" cy="75" r="3" fill="#ffd9a8">
+          <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="220" cy="82" r="2" fill="#ffd9a8" opacity="0.7">
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="3s" begin="0.6s" repeatCount="indefinite"/>
+        </circle>
+
+        <!-- 荷塘波纹 -->
+        <g transform="translate(195, 130)" opacity="0.7">
+          <ellipse cx="0" cy="0" rx="6" ry="2" fill="none" stroke="#88c8e8" stroke-width="1">
+            <animate attributeName="rx" values="4;8;4" dur="3.2s" repeatCount="indefinite"/>
+            <animate attributeName="opacity" values="0.3;0.9;0.3" dur="3.2s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="0" cy="0" rx="3" ry="1" fill="none" stroke="#88c8e8" stroke-width="0.8">
+            <animate attributeName="rx" values="2;5;2" dur="3.2s" begin="0.4s" repeatCount="indefinite"/>
+          </ellipse>
+        </g>
+
+        <!-- 蝴蝶结上方小小心 -->
+        <g transform="translate(140, 130)" opacity="0.85">
+          <path d="M 0 4 C -4 0 -8 0 -8 -4 C -8 -8 -4 -10 0 -7 C 4 -10 8 -8 8 -4 C 8 0 4 0 0 4 Z"
+                fill="#ffb8c8">
+            <animate attributeName="opacity" values="0.6;1;0.6" dur="2.8s" repeatCount="indefinite"/>
+            <animateTransform attributeName="transform" type="scale"
+                              values="0.85;1.05;0.85" dur="2.8s" repeatCount="indefinite" additive="sum"/>
+          </path>
+        </g>
+      </g>
+
+      <!-- 帽顶边缘晃动的微光（晚安抖一抖） -->
+      <g opacity="0.6">
+        <circle cx="65" cy="148" r="1.8" fill="#fff0c8">
+          <animate attributeName="cy" values="148;140;148" dur="5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="215" cy="148" r="1.8" fill="#fff0c8">
+          <animate attributeName="cy" values="148;140;148" dur="5s" begin="1s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0.9;0.4" dur="5s" begin="1s" repeatCount="indefinite"/>
+        </circle>
+      </g>
+    </svg>
+
+    <!-- 故事正文 -->
+    <article class="story">
+      <p>夏天的夜晚，月亮悄悄爬上了窗台。</p>
+      <p>小草帽就躺在木椅的一角。她的帽檐被晚风吹得轻轻颤，像一片小小的、金色的湖面。她戴了一整个夏天——帮小主人挡过大太阳，挡过急雨，替小主人接住过掉下来的小红豆，也接住过一整只跌跌撞撞的小蜻蜓。</p>
+      <p>有一天傍晚，奶奶把她摘下来放在椅子上，轻轻摸了摸她的帽檐："这顶帽子戴过一整个夏天呢。她会记得的。"小草帽听见了，心里藏起一串小小的问号——我会记得什么呢？</p>
+      <p>等小主人睡着了，晚风从窗外溜进来，轻轻抬起她的帽檐——"咕咕……咕咕……"，她抖出几声夏天最后的小蝉鸣，细细的，像树叶在打盹。"哗——"她又抖出一小圈荷塘的波纹，水纹一圈一圈，像有人在慢慢摇一只小摇篮。"呵——"她抖出小主人打哈欠的尾音，懒懒的，暖暖的。</p>
+      <p>小凉帽就这样，一边抖着夏天，一边轻轻晃着自己，像一只正在数星星的小摇篮。她还怕自己的声音太大，吵醒了那个正在做梦的小宝贝——所以她把帽檐再压低一点点。</p>
+      <p>月亮从窗户外探进半个头，看了看，轻轻笑了："这顶小帽子，藏着整个夏天呢。"小凉帽听了，帽檐又轻轻抬了抬，像有点害羞，又像有点得意。她把自己慢慢变成一个弯弯的小月牙——</p>
+      <p>然后，她把蝉鸣、笑声、波纹、还有一点点夏天的风，全都轻轻收进帽顶的小蝴蝶结里，变成一颗亮晶晶的、小小的暖，跳进小主人的枕头。</p>
+    </article>
+
+    <!-- 分隔 -->
+    <div class="divider">
+      <span class="dot">✦</span><span class="dot">✦</span><span class="dot">✦</span><span class="dot">✦</span><span class="dot">✦</span>
+    </div>
+
+    <!-- 晚安 -->
+    <div class="goodnight">
+      <span class="gn-zh">🌙 晚 安 🌙</span>
+      <p>小宝贝，晚安。</p>
+      <p>小凉帽说，今年夏天我陪着你，偷偷数了 365 次你的笑声；明年夏天我也还在这里，等你再戴上我，去吹吹晚风。</p>
+      <p>你今天也是个好孩子。<br>该做一个甜甜的、装着蝉鸣和波纹的小梦啦。</p>
+    </div>
+  </main>
+
+  <!-- 底部暖光带 -->
+  <div class="warm-glow"></div>
+  <div class="bottom-stars">
+    <span class="bstar"></span><span class="bstar"></span><span class="bstar"></span>
+    <span class="bstar"></span><span class="bstar"></span><span class="bstar"></span><span class="bstar"></span>
+  </div>
+
+  <script>
+    // 生成 110 颗随机星星
+    (function() {
+      const starsContainer = document.getElementById('starsContainer');
+      const total = 110;
+      for (let i = 0; i < total; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.2 + 0.8;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.setProperty('--dur', (Math.random() * 4 + 2.5) + 's');
+        star.style.setProperty('--delay', (Math.random() * 5) + 's');
+        star.style.setProperty('--base-op', (Math.random() * 0.4 + 0.3) + '');
+        starsContainer.appendChild(star);
+      }
+    })();
+
+    // 生成 8 个暖色粒子
+    (function() {
+      const container = document.getElementById('particlesContainer');
+      const total = 8;
+      const classes = ['warm', 'warm', 'amber', 'amber', 'cream', 'cream', 'olive', 'warm'];
+      for (let i = 0; i < total; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle ' + classes[i % classes.length];
+        p.style.left = (Math.random() * 100) + '%';
+        p.style.setProperty('--dur', (Math.random() * 8 + 12) + 's');
+        p.style.setProperty('--delay', (Math.random() * 8) + 's');
+        p.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+        p.style.setProperty('--drift2', (Math.random() * 50 - 25) + 'px');
+        container.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>

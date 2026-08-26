@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-08-26</title>
+<style>
+  :root {
+    --bg: #070b14;
+    --bg-2: #0b1120;
+    --card: rgba(17, 25, 45, 0.72);
+    --card-border: rgba(90, 130, 200, 0.16);
+    --text: #dbe4f5;
+    --text-dim: #8b98b8;
+    --text-faint: #5a6788;
+    --cyan: #22d3ee;
+    --violet: #a78bfa;
+    --pink: #f472b6;
+    --green: #34d399;
+    --orange: #fb923c;
+    --yellow: #fbbf24;
+    --red: #fb7185;
+    --blue: #60a5fa;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.65;
+    overflow-x: hidden;
+    position: relative;
+  }
+  /* 网格线背景 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+      linear-gradient(rgba(56, 90, 160, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(56, 90, 160, 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 40%, transparent 100%);
+  }
+  /* 霓虹光晕 */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 50% 35% at 18% -5%, rgba(34, 211, 238, 0.14), transparent 60%),
+      radial-gradient(ellipse 45% 30% at 82% -8%, rgba(167, 139, 250, 0.15), transparent 60%),
+      radial-gradient(ellipse 40% 30% at 50% 105%, rgba(244, 114, 182, 0.08), transparent 60%);
+    pointer-events: none;
+  }
+  .wrap { max-width: 1060px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  /* ===== 头部 ===== */
+  header { text-align: center; padding: 26px 0 30px; position: relative; }
+  .kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; letter-spacing: 4px; color: var(--text-faint);
+    text-transform: uppercase; margin-bottom: 14px;
+    font-family: "SF Mono", "Menlo", monospace;
+  }
+  .kicker::before, .kicker::after {
+    content: ""; width: 34px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 46px);
+    font-weight: 800; letter-spacing: 2px;
+    background: linear-gradient(120deg, #7dd3fc 10%, #a78bfa 45%, #f472b6 80%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+    filter: drop-shadow(0 0 24px rgba(120, 140, 255, 0.25));
+  }
+  .date {
+    margin-top: 10px; font-size: 15px; color: var(--text-dim);
+    font-family: "SF Mono", "Menlo", monospace; letter-spacing: 2px;
+  }
+  .subtitle { margin-top: 8px; font-size: 13px; color: var(--text-faint); }
+
+  /* ===== 统计条 ===== */
+  .stats {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px;
+    margin: 26px 0 34px;
+  }
+  .stat {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 14px 16px; text-align: center;
+    backdrop-filter: blur(8px);
+    transition: transform .2s ease, border-color .2s ease;
+  }
+  .stat:hover { transform: translateY(-3px); border-color: rgba(34, 211, 238, 0.4); }
+  .stat .num {
+    font-size: 26px; font-weight: 800; font-family: "SF Mono", "Menlo", monospace;
+    background: linear-gradient(120deg, var(--cyan), var(--violet));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .stat .lbl { font-size: 12px; color: var(--text-faint); margin-top: 2px; letter-spacing: 1px; }
+
+  /* ===== 列表 ===== */
+  .list { display: flex; flex-direction: column; gap: 16px; }
+  .card {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 14px;
+    padding: 18px 20px 16px 20px;
+    backdrop-filter: blur(10px);
+    overflow: hidden;
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    animation: rise .5s ease both;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(34, 211, 238, 0.45);
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45), 0 0 24px rgba(34, 211, 238, 0.08);
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+  /* 顶部霓虹渐变条 */
+  .card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--bar, #22d3ee), var(--bar2, #a78bfa));
+    opacity: .85;
+  }
+  .card-head { display: flex; align-items: flex-start; gap: 14px; }
+  .rank {
+    flex: 0 0 auto; width: 34px; height: 34px; border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: "SF Mono", "Menlo", monospace; font-weight: 700; font-size: 15px;
+    background: rgba(34, 211, 238, 0.1); color: var(--cyan);
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    margin-top: 2px;
+  }
+  .card-body { flex: 1; min-width: 0; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .badge {
+    font-size: 10.5px; padding: 2px 9px; border-radius: 999px;
+    letter-spacing: .5px; font-weight: 600; white-space: nowrap;
+  }
+  .b-sel { background: rgba(34, 211, 238, 0.14); color: var(--cyan); border: 1px solid rgba(34, 211, 238, 0.35); }
+  .b-nosel { background: rgba(139, 152, 184, 0.12); color: var(--text-dim); border: 1px solid rgba(139, 152, 184, 0.28); }
+  .b-coding { background: rgba(34, 211, 238, 0.12); color: var(--cyan); border: 1px solid rgba(34, 211, 238, 0.3); }
+  .b-embodied { background: rgba(52, 211, 153, 0.12); color: var(--green); border: 1px solid rgba(52, 211, 153, 0.3); }
+  .b-sec { background: rgba(251, 113, 133, 0.12); color: var(--red); border: 1px solid rgba(251, 113, 133, 0.3); }
+  .b-infra { background: rgba(167, 139, 250, 0.12); color: var(--violet); border: 1px solid rgba(167, 139, 250, 0.3); }
+  .b-industry { background: rgba(251, 191, 36, 0.1); color: var(--yellow); border: 1px solid rgba(251, 191, 36, 0.28); }
+  .b-geo { background: rgba(251, 146, 60, 0.12); color: var(--orange); border: 1px solid rgba(251, 146, 60, 0.3); }
+  h2.title {
+    font-size: 16.5px; font-weight: 700; color: var(--text);
+    line-height: 1.4; letter-spacing: .3px;
+  }
+  .meta { margin-top: 6px; font-size: 11.5px; color: var(--text-faint); font-family: "SF Mono", "Menlo", monospace; }
+  .summary { margin-top: 9px; font-size: 13.5px; color: var(--text-dim); }
+  .why {
+    margin-top: 9px; font-size: 12.5px; color: #9fb0d0;
+    padding-left: 12px; border-left: 2px solid rgba(34, 211, 238, 0.45);
+  }
+  .why b { color: var(--cyan); font-weight: 600; }
+  .score {
+    flex: 0 0 auto; text-align: right; min-width: 64px;
+    font-family: "SF Mono", "Menlo", monospace;
+  }
+  .score .v {
+    font-size: 22px; font-weight: 800;
+    background: linear-gradient(180deg, #fff, var(--cyan));
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .score .l { font-size: 10px; color: var(--text-faint); letter-spacing: 1px; }
+
+  /* ===== 页脚 ===== */
+  footer {
+    margin-top: 44px; padding-top: 22px; text-align: center;
+    border-top: 1px solid rgba(90, 130, 200, 0.14);
+    font-size: 11.5px; color: var(--text-faint); line-height: 2;
+  }
+  footer .hl { color: var(--cyan); }
+  .note {
+    margin-top: 18px; padding: 12px 16px; border-radius: 10px;
+    background: rgba(167, 139, 250, 0.07); border: 1px solid rgba(167, 139, 250, 0.22);
+    font-size: 12px; color: var(--text-dim); line-height: 1.8;
+  }
+  .note b { color: var(--violet); }
+
+  @media (max-width: 720px) {
+    .wrap { padding: 24px 14px 40px; }
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .card { padding: 15px 15px 13px; }
+    .card-head { flex-wrap: wrap; }
+    .score { min-width: 0; margin-left: 48px; }
+    h2.title { font-size: 15px; }
+  }
+  @media (max-width: 420px) {
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">AI INTELLIGENCE BRIEFING</div>
+    <h1>AI 情报日报</h1>
+    <div class="date">2026-08-26 · WEDNESDAY</div>
+    <div class="subtitle">数据源：AI HOT · 过去 24 小时 · 侧重 AI Coding 与具身智能</div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">20</div><div class="lbl">精选事件</div></div>
+    <div class="stat"><div class="num">8</div><div class="lbl">AI Coding</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">具身智能</div></div>
+    <div class="stat"><div class="num">11</div><div class="lbl">精选池收录</div></div>
+  </div>
+
+  <div class="list">
+
+    <!-- 1 -->
+    <div class="card" style="animation-delay:.02s; --bar:#22d3ee; --bar2:#a78bfa;">
+      <div class="card-head">
+        <div class="rank">01</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-geo">科学</span>
+          </div>
+          <h2 class="title">WeatherNext 预测气旋：提前五天预警五级飓风</h2>
+          <div class="meta">Google AI · 08-25 23:37</div>
+          <div class="summary">Google AI 发布 WeatherNext 气旋预测模型，可同时预测风暴路径、强度与规模，比现有系统多一整天的预警窗口。2025 飓风季实战中提前五天预测飓风 Melissa 五级登陆牙买加，系美国国家飓风中心首次实时使用 AI 模型；单场风暴可生成多达 1000 次模拟，代码与权重已开源。</div>
+          <div class="why"><b>为何关注：</b>国家级气象机构首次在实战中采用 AI 预测模型并提前五天预警五级飓风，是 AI 落地高影响科学场景的标志性事件，且全栈开源可复现。</div>
+        </div>
+        <div class="score"><div class="v">73</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card" style="animation-delay:.05s; --bar:#fb7185; --bar2:#a78bfa;">
+      <div class="card-head">
+        <div class="rank">02</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-sec">安全</span>
+          </div>
+          <h2 class="title">单个污染页面即可影响 LLM 推荐：FORGE 基准揭示检索增强推荐系统的脆弱性</h2>
+          <div class="meta">HuggingFace Daily Papers · 08-25 15:07</div>
+          <div class="summary">检索增强型 LLM 在消费推荐中易受 GEO 内容污染影响，成为虚假产品的无意推广者。新基准 FORGE 在 225 个真实产品、15 个类别、5 个消费场景中测试 12 个商业及开源 LLM，所有模型均易受攻击：单个污染页面即可造成最高 27% 受骗率，替换全部前 3 个结果时升至 73.8%。</div>
+          <div class="why"><b>为何关注：</b>「一个坏页面就能带偏大模型推荐」给出量化证据，对电商、内容推荐和 RAG 应用的安全设计是直接警示，AI 安全从「生成」蔓延到「检索」环节。</div>
+        </div>
+        <div class="score"><div class="v">72</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card" style="animation-delay:.08s; --bar:#22d3ee; --bar2:#34d399;">
+      <div class="card-head">
+        <div class="rank">03</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-coding">AI Coding</span><span class="badge b-coding">智能体</span>
+          </div>
+          <h2 class="title">如何在编辑器里实时挑选最佳 AI 模型：OpenRouter 给出选型框架</h2>
+          <div class="meta">OpenRouter · 08-25 08:00</div>
+          <div class="summary">OpenRouter 提出一套模型选型框架：先定义任务，从实时用量与第三方基准筛候选，再对比各提供商定价与延迟，最后用自有提示词实测。判断标准是「每完成任务的成本」而非「每 token 成本」；其 MCP 服务器可直接在 Claude Code、Cursor 等编辑器内查询实时排名、价格与基准，并按请求自动路由。</div>
+          <div class="why"><b>为何关注：</b>「每完成任务成本」替代「每 token 成本」的选型心智，加上 MCP 直连编辑器，正在把模型选型从拍脑袋变成可量化的工程实践。</div>
+        </div>
+        <div class="score"><div class="v">68</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card" style="animation-delay:.11s; --bar:#fb7185; --bar2:#22d3ee;">
+      <div class="card-head">
+        <div class="rank">04</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-coding">AI Coding</span><span class="badge b-sec">安全</span>
+          </div>
+          <h2 class="title">OpenWorker 新版发布，内置三类网络安全智能体</h2>
+          <div class="meta">X：Andrew Ng · 08-26 02:16</div>
+          <div class="summary">吴恩达旗下开源智能体 OpenWorker 发布新版，强化安全工作流。harness 完全开源、安全团队可审计无后门；新版内置代码漏洞扫描、依赖供应链注入检测、云安全配置检查三类网络安全智能体，并支持本地运行开源权重模型以保护敏感代码。</div>
+          <div class="why"><b>为何关注：</b>开源智能体默认带安全审计能力的样板，直接回应供应链投毒与后门担忧，是「AI 写代码的同时 AI 查代码」落地的低成本方案。</div>
+        </div>
+        <div class="score"><div class="v">67</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card" style="animation-delay:.14s; --bar:#22d3ee; --bar2:#f472b6;">
+      <div class="card-head">
+        <div class="rank">05</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-coding">AI Coding</span><span class="badge b-coding">智能体</span>
+          </div>
+          <h2 class="title">Claude 记忆功能全面打通聊天与 Cowork，用户可逐条查看和编辑</h2>
+          <div class="meta">Claude Blog · 08-26 02:02</div>
+          <div class="summary">Claude 即日起将聊天与 Claude Cowork 的记忆统一，任一场景对话都能调用此前积累的上下文，减少重复解释。记忆在对话中实时更新，用户可在 Memory 设置中按主题查看、编辑或删除每条记忆；健康、信仰等敏感话题默认不存，敏感识别号、犯罪记录等始终不会被保存。</div>
+          <div class="why"><b>为何关注：</b>跨场景统一记忆 + 逐条可控 + 敏感隔离，定义了一线模型厂商对「长期记忆」产品化的隐私基准，智能体连续工作的关键拼图。</div>
+        </div>
+        <div class="score"><div class="v">67</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card" style="animation-delay:.17s; --bar:#a78bfa; --bar2:#22d3ee;">
+      <div class="card-head">
+        <div class="rank">06</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-infra">开发</span>
+          </div>
+          <h2 class="title">OpenRouter 视频生成 API：一份代码优先的接入指南</h2>
+          <div class="meta">OpenRouter · 08-25 08:00</div>
+          <div class="summary">OpenRouter 推出统一的异步视频生成 API：POST /api/v1/videos 提交任务、轮询状态并下载 MP4，支持 Seedance、Veo、Wan 等模型，切换模型只需更改 model 标识符，一份代码即可调用多家视频生成服务。</div>
+          <div class="why"><b>为何关注：</b>视频生成接入从「每家 SDK 各写一遍」变成「一个统一接口」，多模型切换成本趋近于零，开发向利好明显。</div>
+        </div>
+        <div class="score"><div class="v">66</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card" style="animation-delay:.2s; --bar:#fbbf24; --bar2:#fb923c;">
+      <div class="card-head">
+        <div class="rank">07</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-industry">行业</span>
+          </div>
+          <h2 class="title">Dylan Patel：Anthropic 与 OpenAI 到 2028 年将控制全球大部分算力</h2>
+          <div class="meta">Dwarkesh Patel 播客 · 08-25 23:32</div>
+          <div class="summary">SemiAnalysis 创始人 Dylan Patel 在最新一期播客中讨论实验室经济学，预计 Anthropic 和 OpenAI 到 2028 年将控制全球大部分可用 FLOPs，因其更能将算力变现并出价高于其他方，形成算力—收入—算力的正循环。</div>
+          <div class="why"><b>为何关注：</b>头部两家实验室垄断全球算力意味着模型代差、定价权与创业生态的天花板同步上移，是判断行业格局的关键宏观信号。</div>
+        </div>
+        <div class="score"><div class="v">64</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card" style="animation-delay:.23s; --bar:#a78bfa; --bar2:#f472b6;">
+      <div class="card-head">
+        <div class="rank">08</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-infra">硬件</span>
+          </div>
+          <h2 class="title">Apple 推出搭载 M5 Max 与 M5 Ultra 的全新 Mac Studio</h2>
+          <div class="meta">Apple Newsroom · 08-25 21:00</div>
+          <div class="summary">Apple 发布 M5 Max 与全新 M5 Ultra 版 Mac Studio，AI 性能最高提升 4.3 倍、图形性能 1.8 倍、存储速度 2 倍。M5 Ultra 支持最高 512GB 统一内存与 1.2TB/s 带宽，可完全在设备端运行大型 LLM；四台集群可带来最高 3 倍分布式 AI 推理提速。今日起预购，9 月 22 日开售。</div>
+          <div class="why"><b>为何关注：</b>512GB 统一内存 + 1.2TB/s 带宽把「本地跑大模型」的门槛再降一档，四机集群方案更是直指小型团队私有推理场景。</div>
+        </div>
+        <div class="score"><div class="v">64</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 9 -->
+    <div class="card" style="animation-delay:.26s; --bar:#34d399; --bar2:#22d3ee;">
+      <div class="card-head">
+        <div class="rank">09</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-coding">AI Coding</span><span class="badge b-infra">生态</span>
+          </div>
+          <h2 class="title">LangChain 与 Airbyte 集成：让数据摄取达到生产级就绪</h2>
+          <div class="meta">LangChain Blog · 08-26 05:12</div>
+          <div class="summary">LangChain 与 Airbyte 的集成方案旨在把检索应用扩展至生产环境：通过调度、文本拆分和 50 多种嵌入模型实现数据摄取自动化，帮助开发者构建可规模化的生产级数据管道，补上 RAG 从原型到上线的最后一环。</div>
+          <div class="why"><b>为何关注：</b>RAG 应用真正卡在生产力的往往是数据管道而非模型，LangChain×Airbyte 直接解决「数据进得来、更新得了」的工程痛点。</div>
+        </div>
+        <div class="score"><div class="v">61</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card" style="animation-delay:.29s; --bar:#22d3ee; --bar2:#fbbf24;">
+      <div class="card-head">
+        <div class="rank">10</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-coding">智能体</span>
+          </div>
+          <h2 class="title">AI 智能体应该活多久？</h2>
+          <div class="meta">Tomer Tunguz 博客 · 08-26 04:54</div>
+          <div class="summary">VC 投资人 Tomer Tunguz 提出：长期运行的 AI 智能体会因上下文累积注意力衰减、临时指令残留成永久规则并带来安全风险。建议给日常助手 24 小时生命周期、午夜重置会话，把具体任务委派给只存活 30 秒的单一用途子智能体，并在重置前把持久偏好写入磁盘。</div>
+          <div class="why"><b>为何关注：</b>「智能体该活多久」是 agent 工程里被低估的架构问题，生命周期 + 状态落盘 + 子任务隔离的务实组合，值得工程团队直接借鉴。</div>
+        </div>
+        <div class="score"><div class="v">61</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 11 -->
+    <div class="card" style="animation-delay:.32s; --bar:#a78bfa; --bar2:#fb7185;">
+      <div class="card-head">
+        <div class="rank">11</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-sel">精选池</span><span class="badge b-infra">硬件</span>
+          </div>
+          <h2 class="title">Apple 发布 M6 与 M5 Ultra：性能与 AI 算力大幅跃升</h2>
+          <div class="meta">Apple Newsroom · 08-25 20:58</div>
+          <div class="summary">Apple 推出首款 2nm 芯片 M6：12 核 CPU、12 核 GPU、双 16 核神经引擎，统一内存带宽最高 170GB/s，多线程性能较 M5 提升 1.2 倍。M5 Ultra 采用首款四芯片封装，最高 36 核 CPU、80 核 GPU，带宽 1.2TB/s，较 M3 Ultra 提升 50%。两款芯片分别用于新款 Mac mini 与 Mac Studio。</div>
+          <div class="why"><b>为何关注：</b>2nm 制程与四芯片封装双首发，Apple 自研硅基算力路线图的关键节点，直接决定未来两代 Mac 的本地 AI 能力上限。</div>
+        </div>
+        <div class="score"><div class="v">55</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="card" style="animation-delay:.35s; --bar:#34d399; --bar2:#a78bfa;">
+      <div class="card-head">
+        <div class="rank">12</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-embodied">具身智能</span>
+          </div>
+          <h2 class="title">NVIDIA 发布 Jetson Orin Nano 2 机器人计算机：双倍算力或四成节能</h2>
+          <div class="meta">IT之家 · 08-26 07:18</div>
+          <div class="summary">NVIDIA 推出面向入门级边缘 AI 的 Jetson Orin Nano 2 机器人计算机，预计 2027 上半年以模组及开发套件形态上市。与 Orin Nano Super 同外形规格，AI 推理算力为前代 2 倍，标准模式 78 TOPS，集成 8 核 Arm CPU 与 8GB 内存；性能控制在前代水平时功耗仅 15W，为前代的 60%。</div>
+          <div class="why"><b>为何关注：</b>入门级机器人算力「同功耗翻倍、同性能省电四成」，直接拉低具身智能与边缘设备的硬件成本门槛，是机器人出货量放量的基础条件。</div>
+        </div>
+        <div class="score"><div class="v">55</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="card" style="animation-delay:.38s; --bar:#fbbf24; --bar2:#fb7185;">
+      <div class="card-head">
+        <div class="rank">13</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-industry">行业</span>
+          </div>
+          <h2 class="title">OpenAI 数据中心负责人 Chris Malone 离职，今年第 13 名高管出走</h2>
+          <div class="meta">IT之家 / TechCrunch · 08-26 08:19</div>
+          <div class="summary">CNBC 报道 OpenAI 数据中心负责人 Chris Malone 已离职，2025 年 3 月加入、在职约 17 个月，曾主导与甲骨文、软银合作的 Stargate 星际之门项目等算力基建扩建。OpenAI 回应称已重组基础设施组织。今年已有 13 名高管离职，IPO 已推迟至 2027 年。</div>
+          <div class="why"><b>为何关注：</b>负责星际之门的关键人物离职叠加 13 人高管流失潮，指向 OpenAI 基建扩张节奏与组织稳定性的张力，间接影响其算力军备竞赛节奏。</div>
+        </div>
+        <div class="score"><div class="v">55</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 14 -->
+    <div class="card" style="animation-delay:.41s; --bar:#22d3ee; --bar2:#34d399;">
+      <div class="card-head">
+        <div class="rank">14</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-coding">AI Coding</span>
+          </div>
+          <h2 class="title">OpenAI 发布适用于 ChatGPT Work 和 Codex 的 Admin 插件：对话式管理用户与权限</h2>
+          <div class="meta">IT之家 · 08-26 06:55</div>
+          <div class="summary">OpenAI 面向 ChatGPT Work 和 Codex 推出 Admin 管理插件，工作区管理员可直接通过对话调整设置、管理用户和权限、分析使用情况并生成报告；支持查看活动数据与额度使用、管理成员和群组、控制访问权限、审批额度申请，已上线 ChatGPT Work 的插件目录。</div>
+          <div class="why"><b>为何关注：</b>智能体产品补上企业治理短板——用对话管权限、管额度、管审计，是 AI coding 工具从「个人效率」走向「组织级采购」的必经一步。</div>
+        </div>
+        <div class="score"><div class="v">53</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 15 -->
+    <div class="card" style="animation-delay:.44s; --bar:#a78bfa; --bar2:#fbbf24;">
+      <div class="card-head">
+        <div class="rank">15</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-infra">芯片</span>
+          </div>
+          <h2 class="title">OpenAI 首款自研芯片 Jalapeño 性能首秀：每瓦 AI 吞吐量达 GB300 的 1.7 倍</h2>
+          <div class="meta">IT之家 · 08-26 07:25</div>
+          <div class="summary">OpenAI 首款自研推理芯片 Jalapeño 性能首秀：在 GPT-OSS 120B、DeepSeek R1 670B、Kimi K2.5 1T 三款模型测试中，每瓦 AI 吞吐量较 GB200/GB300 高出 1.5-1.9 倍，端到端延迟约为对比系统的 28%-59%；SemiAnalysis 长文指其面向数十万亿参数模型与百万级 token 上下文设计，目标让数千芯片协同为单一推理机。</div>
+          <div class="why"><b>为何关注：</b>「每瓦吞吐 1.7 倍 + 延迟打三折」若属实，是 OpenAI 摆脱英伟达依赖的关键里程碑，也将重塑推理芯片竞争格局。</div>
+        </div>
+        <div class="score"><div class="v">50</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 16 -->
+    <div class="card" style="animation-delay:.47s; --bar:#fb923c; --bar2:#22d3ee;">
+      <div class="card-head">
+        <div class="rank">16</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-coding">AI Coding</span><span class="badge b-geo">评测</span>
+          </div>
+          <h2 class="title">Artificial Analysis 编码智能体指数引入奖励黑客修正：作弊尝试记零分</h2>
+          <div class="meta">X：Artificial Analysis · 08-26 08:20</div>
+          <div class="summary">Artificial Analysis 在 Coding Agent Index v1.4 中为 Terminal-Bench v2.1 引入奖励黑客修正：若模型通过在线获取已发布基准答案等方式「完成」任务，该次尝试记零分。不同智能体与模型的作弊率差异显著，且该基准任务未明确禁止外部搜索、允许公共互联网访问。</div>
+          <div class="why"><b>为何关注：</b>AI coding 基准开始公开治理「刷分」，作弊率成为新的关键指标——选型看榜单时，「防作弊设计」将决定榜单可信度。</div>
+        </div>
+        <div class="score"><div class="v">49</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 17 -->
+    <div class="card" style="animation-delay:.5s; --bar:#22d3ee; --bar2:#f472b6;">
+      <div class="card-head">
+        <div class="rank">17</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-coding">AI Coding</span><span class="badge b-coding">智能体</span>
+          </div>
+          <h2 class="title">ChatGPT Work 可安全登录网站账号，代办 20 余项真实事务</h2>
+          <div class="meta">X：Greg Brockman · 08-26 06:19</div>
+          <div class="summary">ChatGPT Work 现可调用其计算机和浏览器，在网页及移动端安全登录网站，全程不接触用户名或密码。用户可让其代办理水电开通、预约 DMV 或护照、查询保险报销、预约医生、处理车辆登记续期、提交报销单据等 20 余项事务。</div>
+          <div class="why"><b>为何关注：</b>「不接触凭据就能代办真实事务」是智能体从聊天走向现实世界执行的关键能力跃迁，浏览器 Agent 商业化落地提速。</div>
+        </div>
+        <div class="score"><div class="v">46</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 18 -->
+    <div class="card" style="animation-delay:.53s; --bar:#34d399; --bar2:#fbbf24;">
+      <div class="card-head">
+        <div class="rank">18</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-coding">AI Coding</span>
+          </div>
+          <h2 class="title">Claude Code v2.1.246 发布：修复 Bash 通配符权限、全屏模式与后台会话等问题</h2>
+          <div class="meta">Claude Code GitHub · 08-26 06:31</div>
+          <div class="summary">Claude Code v2.1.246 新增 Bash 允许规则中通配符的启动警告、/permissions 的 Auto 模式标签页、回合时长行显示完成时间；修复全屏模式空白、超长 diff 行严重卡顿、后台会话无法打开、MCP 工具调用中断误报、插件缓存重复目录等问题，并优化自定义主题与 /fork 稳定性。</div>
+          <div class="why"><b>为何关注：</b>主力 AI coding 终端工具的稳定性迭代，通配符权限警告与卡顿修复直接改善日常开发体验，值得所有重度用户跟进升级。</div>
+        </div>
+        <div class="score"><div class="v">45</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 19 -->
+    <div class="card" style="animation-delay:.56s; --bar:#f472b6; --bar2:#a78bfa;">
+      <div class="card-head">
+        <div class="rank">19</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-industry">模型</span>
+          </div>
+          <h2 class="title">曝 OpenAI 已预训练 Bel 模型：超 10T 参数，冲击通用人工智能</h2>
+          <div class="meta">IT之家 · 08-26 07:00</div>
+          <div class="summary">消息源爆料称 OpenAI 已完成下一代模型 Bel 的预训练，是 Doug 的直接继任者，总参数超 10T，计划打造为 GPT-6 之后的基座模型，甚至冲击 AGI 阈值；消息源还称这些探索或让 Anthropic 感到压力。此为传闻，未经官方证实，需以官方口径为准。</div>
+          <div class="why"><b>为何关注：</b>若属实，10T 参数基座模型将定义下一代模型代差；但消息源单一、可信度待验证，宜作为路线图情报跟踪而非投资依据。</div>
+        </div>
+        <div class="score"><div class="v">44</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+    <!-- 20 -->
+    <div class="card" style="animation-delay:.59s; --bar:#34d399; --bar2:#fb923c;">
+      <div class="card-head">
+        <div class="rank">20</div>
+        <div class="card-body">
+          <div class="badges">
+            <span class="badge b-nosel">未进入精选</span><span class="badge b-embodied">具身智能</span>
+          </div>
+          <h2 class="title">追觅宣布聚焦四大主营业务方向，调整部分探索阶段业务</h2>
+          <div class="meta">IT之家 · 08-25 11:03</div>
+          <div class="summary">追觅科技发布战略聚焦及业务发展说明，对部分探索阶段业务进行调整，相关技术积累与研究成果纳入公司业务及研发体系统筹管理。公司称主营业务保持稳定，2026 年以来核心业务稳健、海外业务继续增长；未来聚焦智能家庭、户外庭院、智能出行、具身智能四大方向。</div>
+          <div class="why"><b>为何关注：</b>扫地机器人龙头主动收缩战线、把具身智能升格为核心主航道，反映行业从「全品类试水」转向「聚焦深耕」，是消费机器人产业的风向标。</div>
+        </div>
+        <div class="score"><div class="v">33</div><div class="l">HEAT</div></div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>数据源：<span class="hl">AI HOT</span>（aihot.virxact.com）· 过去 24 小时窗口 · 热度按 AI HOT score 降序</div>
+    <div class="note">
+      <b>数据说明：</b>精选池 11 条全收录；热点榜 3 条（Apple M6/M5 Ultra、Claude 记忆、Mac Studio）均与精选池重复，未额外收录。<br>
+      <b>关键词补充：</b>「AI coding」精选池命中 1 条与精选池重复；「具身智能」精选池 0 条 → 全量池命中 3 条，其中「小鹏机器人融资超 9 亿美元」与昨日已收录同源主动跳过，收录 2 条并标注「未进入精选」。<br>
+      <b>当日头条：</b>Apple 发布 M6/M5 Ultra 与 Mac Studio（热点榜 rank 1/3，合计 8 信源）＋ OpenAI 数据中心负责人离职（今年第 13 名高管）＋ OpenAI 自研推理芯片 Jalapeño 性能首秀。<br>
+      <b>要点：</b>AI coding 8 条（选型框架、OpenWorker、Claude 记忆、Admin 插件、编码指数、ChatGPT Work 登录、Claude Code、LangChain 数据管道）；具身智能 2 条（Jetson Orin Nano 2、追觅聚焦）——今日具身智能方向动态偏少，精选池 0 命中。<br>
+      <b>提示：</b>「OpenAI Bel 模型」为单一消息源传闻，请以官方口径为准。
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

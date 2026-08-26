@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>罗马假日</title>
+<style>
+  :root {
+    --bg: #17161c;
+    --card: #23212b;
+    --accent: #e8b84b;
+    --text: #f1f1f1;
+    --muted: #a8a4b0;
+    --gold: #f5c518;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #17161c;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .ratings {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  .rating-item {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    min-width: 100px;
+  }
+  .rating-item .score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .rating-item .source {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card h2 .icon {
+    font-size: 1.3rem;
+  }
+  .card p {
+    font-size: 1rem;
+    color: #d5d2da;
+    text-align: justify;
+    margin-bottom: 0.75rem;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .highlights {
+    list-style: none;
+  }
+  .highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #d5d2da;
+  }
+  .highlights li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+    top: 0.15rem;
+  }
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .awards span {
+    background: rgba(232, 184, 75, 0.12);
+    color: #e8cf8a;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(232, 184, 75, 0.25);
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.5rem; }
+    .card { padding: 1.25rem; }
+    .ratings { gap: 0.75rem; }
+    .rating-item { min-width: 80px; padding: 0.6rem 1rem; }
+    .rating-item .score { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">经典电影推荐 · 第 57 期</div>
+    <h1>罗马假日</h1>
+    <div class="subtitle">Roman Holiday (1953)</div>
+    <div class="meta">
+      <span>🎬 威廉·惠勒</span>
+      <span>🎭 奥黛丽·赫本 / 格利高里·派克</span>
+      <span>🇺🇸 美国</span>
+      <span>⏱ 118 分钟</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">
+        <div class="score">9.1</div>
+        <div class="source">豆瓣</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">8.0</div>
+        <div class="source">IMDb</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">98%</div>
+        <div class="source">烂番茄</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">📖</span>剧情梗概</h2>
+    <p>安妮公主到访罗马，进行一场日程排满的国事访问——握手、致辞、剪彩，每一分钟都被礼仪和公众目光填满。她在王室的重压下喘不过气，于是在某个深夜，趁随从不备，悄悄溜出使馆，跳上街头，做了一回"普通人"。</p>
+    <p>可这位第一次独自上街的公主很快闹了笑话——药力发作，她竟在长椅上睡了过去。深夜归来的穷记者乔·布莱德利（格利高里·派克 饰）好心把她带回公寓。第二天清晨，他对着报纸头条愣住了：眼前这位无名小姐，正是各国记者挤破头想采访的安妮公主！</p>
+    <p>一个天大的独家新闻近在眼前。乔决定假装不知情，带着这位"逃学"的公主逛遍罗马——许愿池、西班牙广场、街头咖啡馆，顺便让摄影师朋友偷拍独家照片。只是他没想到，这一天的罗马漫游，会让两个身份天差地别的人，悄然生出某种说不清、道不明的情愫……</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">✨</span>亮点所在</h2>
+    <ul class="highlights">
+      <li><strong>赫本的银幕首作即封神：</strong>24 岁的奥黛丽·赫本把公主的高贵与少女的俏皮融为一体，凭此片一举拿下奥斯卡最佳女主角——她的优雅、灵动与标志性的短发造型，从此定义了整个时代的审美。</li>
+      <li><strong>教科书级的「公主出逃」叙事：</strong>高高在上的公主 + 市井平凡的记者，一天限定的浪漫邂逅，这个模板后来被全世界爱情片反复临摹，它正是开山鼻祖。</li>
+      <li><strong>罗马，本身就是主角：</strong>许愿池、西班牙广场、真理之口、万神殿……电影拍完，罗马成了全世界影迷的浪漫圣地，西班牙广场的台阶至今被称作"罗马假日台阶"。</li>
+      <li><strong>影史最动人的告别：</strong>影片结尾公主的最后一句话和那个转身，被誉为影史最经典的结局之一——不剧透，但看过的人没有一个能忘记。</li>
+      <li><strong>派克 × 赫本的化学反应：</strong>格利高里·派克的风度与幽默，配上赫本的清澈与天真，两人的对手戏行云流水，是黑白片时代最高级的浪漫。</li>
+      <li><strong>喜剧外壳下的克制与优雅：</strong>它没有一句露骨的情话，却让"爱而不得"的遗憾美到极致——真正的浪漫片，往往什么都不用说破。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🏆</span>为什么值得一看</h2>
+    <p>如果说有哪部电影能同时满足"好看"与"伟大"两个标准，《罗马假日》就是答案。它没有任何特效、没有宏大场面，靠的仅仅是一个好故事、两个好演员和一座美丽的城市——却让全世界的观众笑了七十多年，也怅然了七十多年。</p>
+    <p>它讲的其实不只是一个爱情故事：公主想逃离的是身不由己的人生，记者想抓住的是改变命运的机遇，两个人都在这场"假日"里，短暂地做了一回自己想成为的人。那种"拥有过一天，胜过遗憾一生"的克制与浪漫，正是它历久弥新的秘密。</p>
+    <p>无论你是想重温黑白片的黄金时代，还是只想在忙碌的一天里被温柔治愈，这部 118 分钟的电影都值得你坐下，静静地看完——然后久久回味。</p>
+    <div class="quote">"罗马，当然是罗马。我会用一生的时间，珍藏这座城市给我的记忆。"</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🎖</span>主要奖项</h2>
+    <div class="awards">
+      <span>奥斯卡最佳女主角（奥黛丽·赫本）</span>
+      <span>奥斯卡最佳故事</span>
+      <span>奥斯卡最佳服装设计</span>
+      <span>英国电影学院奖最佳女主角</span>
+      <span>美国国家评论协会奖最佳影片</span>
+      <span>金球奖最佳女主角</span>
+      <span>AFI 百年百大爱情片第 4 位</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 2026年8月26日 · 所有内容仅供欣赏
+  </div>
+</div>
+</body>
+</html>
