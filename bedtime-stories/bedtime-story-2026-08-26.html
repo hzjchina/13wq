@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小万花筒的奇妙转 — 儿童睡前故事</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0a0e27;
+  color: #e8e0d0;
+  font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ===== 星空背景 ===== */
+.starfield {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  animation: twinkle var(--dur) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.15; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ===== 月亮 ===== */
+.moon-wrap {
+  position: fixed;
+  top: 4%; right: 8%;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.moon {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #fff8e7, #f5e6b8 60%, #e8d489);
+  box-shadow:
+    0 0 20px rgba(255, 246, 214, 0.4),
+    0 0 50px rgba(255, 240, 180, 0.25),
+    0 0 90px rgba(255, 235, 160, 0.12);
+  position: relative;
+  animation: moon-float 6s ease-in-out infinite;
+}
+
+.moon::after {
+  content: '';
+  position: absolute;
+  top: 14%; left: 10%;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: rgba(200, 180, 120, 0.3);
+}
+
+@keyframes moon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+/* ===== 流星 ===== */
+.meteor {
+  position: fixed;
+  width: 2px; height: 2px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 6px #fff;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.meteor::after {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 80px; height: 1px;
+  background: linear-gradient(to left, rgba(255,255,255,0.8), transparent);
+}
+
+.meteor-1 {
+  top: 15%; left: 10%;
+  animation: meteor-1 4s linear infinite;
+  animation-delay: 1s;
+}
+
+.meteor-2 {
+  top: 30%; left: 30%;
+  animation: meteor-2 5s linear infinite;
+  animation-delay: 3s;
+}
+
+@keyframes meteor-1 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(200px, 150px); opacity: 0; }
+}
+
+@keyframes meteor-2 {
+  0% { transform: translate(0, 0); opacity: 0; }
+  10% { opacity: 1; }
+  100% { transform: translate(-180px, 120px); opacity: 0; }
+}
+
+/* ===== 主内容 ===== */
+.container {
+  position: relative;
+  z-index: 10;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 40px 20px 60px;
+}
+
+/* ===== 标题 ===== */
+.title-section {
+  text-align: center;
+  margin-bottom: 35px;
+  animation: title-glow 4s ease-in-out infinite;
+}
+
+@keyframes title-glow {
+  0%, 100% { text-shadow: 0 0 15px rgba(255, 200, 100, 0.3), 0 0 30px rgba(255, 180, 80, 0.15); }
+  50% { text-shadow: 0 0 25px rgba(255, 220, 130, 0.5), 0 0 50px rgba(255, 200, 100, 0.25); }
+}
+
+.story-title {
+  font-size: 26px;
+  font-weight: 600;
+  color: #ffd97a;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+}
+
+.story-subtitle {
+  font-size: 13px;
+  color: rgba(255, 215, 130, 0.5);
+  letter-spacing: 4px;
+}
+
+/* ===== 万花筒 SVG ===== */
+.kaleido-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0 35px;
+}
+
+.kaleido-svg {
+  width: 180px; height: 200px;
+  animation: kaleido-float 5s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(180, 140, 220, 0.3));
+}
+
+@keyframes kaleido-float {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+.kaleido-glow {
+  animation: glow-breath 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes glow-breath {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+.shard-red { animation: shard-rotate 8s linear infinite; transform-origin: 90px 75px; }
+.shard-blue { animation: shard-rotate 10s linear infinite reverse; transform-origin: 90px 75px; }
+.shard-green { animation: shard-rotate 7s linear infinite; transform-origin: 90px 75px; animation-delay: 1s; }
+.shard-yellow { animation: shard-rotate 9s linear infinite reverse; transform-origin: 90px 75px; animation-delay: 2s; }
+
+@keyframes shard-rotate {
+  0% { transform: rotate(0deg); opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { transform: rotate(360deg); opacity: 0.5; }
+}
+
+/* ===== 故事正文 ===== */
+.story-body {
+  font-size: 17px;
+  line-height: 2;
+  color: #e8e0d0;
+  letter-spacing: 0.5px;
+}
+
+.story-body p {
+  margin-bottom: 14px;
+  text-indent: 2em;
+}
+
+.story-body p:first-child {
+  text-indent: 0;
+}
+
+.dialog {
+  color: #c8b8e8;
+}
+
+.dialog-warm {
+  color: #ffd9a0;
+}
+
+/* ===== 分隔星光 ===== */
+.star-divider {
+  text-align: center;
+  margin: 28px 0;
+  letter-spacing: 12px;
+}
+
+.star-divider span {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 220, 130, 0.4);
+  animation: star-breath 3s ease-in-out infinite;
+}
+
+.star-divider span:nth-child(2) { animation-delay: 0.3s; }
+.star-divider span:nth-child(3) { animation-delay: 0.6s; }
+.star-divider span:nth-child(4) { animation-delay: 0.9s; }
+.star-divider span:nth-child(5) { animation-delay: 1.2s; }
+.star-divider span:nth-child(6) { animation-delay: 1.5s; }
+.star-divider span:nth-child(7) { animation-delay: 1.8s; }
+
+@keyframes star-breath {
+  0%, 100% { opacity: 0.2; box-shadow: 0 0 4px rgba(255, 220, 130, 0.3); }
+  50% { opacity: 0.8; box-shadow: 0 0 8px rgba(255, 220, 130, 0.6); }
+}
+
+/* ===== 晚安语 ===== */
+.goodnight {
+  text-align: center;
+  margin-top: 30px;
+  padding: 25px 20px;
+  background: linear-gradient(135deg, rgba(255, 200, 100, 0.06), rgba(180, 140, 220, 0.06));
+  border-radius: 16px;
+  border: 1px solid rgba(255, 210, 120, 0.12);
+}
+
+.goodnight p {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #ffd97a;
+  animation: goodnight-glow 5s ease-in-out infinite;
+}
+
+@keyframes goodnight-glow {
+  0%, 100% { text-shadow: 0 0 10px rgba(255, 200, 100, 0.2); }
+  50% { text-shadow: 0 0 20px rgba(255, 220, 130, 0.4), 0 0 40px rgba(255, 200, 100, 0.15); }
+}
+
+/* ===== 漂浮粒子 ===== */
+.particle {
+  position: fixed;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ===== 底部暖光带 ===== */
+.warm-strip {
+  position: fixed;
+  bottom: 0; left: 0; width: 100%; height: 4px;
+  background: linear-gradient(to right, transparent, rgba(255, 200, 100, 0.3), rgba(255, 180, 80, 0.15), transparent);
+  z-index: 5;
+  animation: strip-breath 5s ease-in-out infinite;
+}
+
+@keyframes strip-breath {
+  0%, 100% { opacity: 0.5; height: 4px; }
+  50% { opacity: 0.9; height: 6px; }
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 480px) {
+  .container { padding: 30px 16px 50px; }
+  .story-title { font-size: 22px; }
+  .story-body { font-size: 16px; line-height: 1.9; }
+  .kaleido-svg { width: 150px; height: 170px; }
+  .moon { width: 50px; height: 50px; }
+  .goodnight p { font-size: 15px; }
+}
+</style>
+</head>
+<body>
+
+<!-- 星空背景 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon-wrap">
+  <div class="moon"></div>
+</div>
+
+<!-- 流星 -->
+<div class="meteor meteor-1"></div>
+<div class="meteor meteor-2"></div>
+
+<div class="container">
+
+  <!-- 标题 -->
+  <div class="title-section">
+    <h1 class="story-title">小万花筒的奇妙转</h1>
+    <p class="story-subtitle">儿 童 睡 前 故 事</p>
+  </div>
+
+  <!-- 万花筒 SVG 插图 -->
+  <div class="kaleido-wrap">
+    <svg class="kaleido-svg" viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg">
+      <!-- 外圈光晕 -->
+      <circle class="kaleido-glow" cx="90" cy="75" r="55" fill="none" stroke="rgba(180,140,220,0.2)" stroke-width="2"/>
+      <circle class="kaleido-glow" cx="90" cy="75" r="62" fill="none" stroke="rgba(255,200,100,0.1)" stroke-width="1" style="animation-delay:1s"/>
+
+      <!-- 万花筒筒身 -->
+      <rect x="55" y="40" width="70" height="100" rx="35" ry="35" fill="url(#tubeGrad)" stroke="rgba(255,200,100,0.3)" stroke-width="1.5"/>
+
+      <!-- 渐变定义 -->
+      <defs>
+        <linearGradient id="tubeGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#3a2d5a"/>
+          <stop offset="30%" stop-color="#5a4a8a"/>
+          <stop offset="50%" stop-color="#7a6aaa"/>
+          <stop offset="70%" stop-color="#5a4a8a"/>
+          <stop offset="100%" stop-color="#3a2d5a"/>
+        </linearGradient>
+        <radialGradient id="eyeGrad">
+          <stop offset="0%" stop-color="#1a1535"/>
+          <stop offset="60%" stop-color="#0d0a20"/>
+          <stop offset="100%" stop-color="#0a0815"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 金色花纹 -->
+      <path d="M 55 70 Q 90 65 125 70" fill="none" stroke="rgba(255,200,100,0.35)" stroke-width="1"/>
+      <path d="M 55 110 Q 90 115 125 110" fill="none" stroke="rgba(255,200,100,0.35)" stroke-width="1"/>
+
+      <!-- 观察孔（顶部圆窗） -->
+      <circle cx="90" cy="40" r="14" fill="url(#eyeGrad)" stroke="rgba(255,200,100,0.4)" stroke-width="1.5"/>
+      <!-- 圆窗内的彩色碎片 -->
+      <g clip-path="circle(12px at 90 40)">
+        <circle class="shard-red" cx="90" cy="40" r="6" fill="rgba(255,100,80,0.6)"/>
+        <circle class="shard-blue" cx="85" cy="38" r="4" fill="rgba(100,150,255,0.6)"/>
+        <circle class="shard-green" cx="93" cy="42" r="3.5" fill="rgba(100,220,120,0.6)"/>
+        <circle class="shard-yellow" cx="88" cy="43" r="3" fill="rgba(255,220,80,0.6)"/>
+      </g>
+      <!-- 圆窗中心微光 -->
+      <circle cx="90" cy="40" r="2" fill="rgba(255,255,255,0.4)" style="animation: glow-breath 3s ease-in-out infinite"/>
+
+      <!-- 底部旋转转盘 -->
+      <ellipse cx="90" cy="140" rx="35" ry="8" fill="rgba(80,60,120,0.5)" stroke="rgba(255,200,100,0.25)" stroke-width="1"/>
+      <ellipse cx="90" cy="138" rx="30" ry="6" fill="rgba(100,80,160,0.3)"/>
+
+      <!-- 筒身装饰星星 -->
+      <g opacity="0.6">
+        <circle cx="65" cy="60" r="1.5" fill="#ffd97a" style="animation: glow-breath 2.5s ease-in-out infinite"/>
+        <circle cx="115" cy="65" r="1.5" fill="#ffd97a" style="animation: glow-breath 2.5s ease-in-out infinite;animation-delay:0.8s"/>
+        <circle cx="70" cy="120" r="1.5" fill="#ffd97a" style="animation: glow-breath 2.5s ease-in-out infinite;animation-delay:1.2s"/>
+        <circle cx="110" cy="125" r="1.5" fill="#ffd97a" style="animation: glow-breath 2.5s ease-in-out infinite;animation-delay:1.6s"/>
+        <circle cx="90" cy="95" r="1.5" fill="#ffd97a" style="animation: glow-breath 2.5s ease-in-out infinite;animation-delay:2s"/>
+      </g>
+
+      <!-- 底座 -->
+      <rect x="70" y="145" width="40" height="6" rx="3" fill="rgba(80,60,120,0.4)"/>
+      <ellipse cx="90" cy="155" rx="30" ry="4" fill="rgba(60,45,100,0.3)"/>
+
+      <!-- 散落的彩色光点 -->
+      <circle cx="40" cy="80" r="2" fill="rgba(255,100,80,0.4)" style="animation: glow-breath 3s ease-in-out infinite"/>
+      <circle cx="140" cy="85" r="2" fill="rgba(100,150,255,0.4)" style="animation: glow-breath 3s ease-in-out infinite;animation-delay:1s"/>
+      <circle cx="45" cy="100" r="2" fill="rgba(100,220,120,0.4)" style="animation: glow-breath 3s ease-in-out infinite;animation-delay:1.5s"/>
+      <circle cx="135" cy="105" r="2" fill="rgba(255,220,80,0.4)" style="animation: glow-breath 3s ease-in-out infinite;animation-delay:2s"/>
+    </svg>
+  </div>
+
+  <!-- 故事正文 -->
+  <div class="story-body">
+    <p>在窗台的最高一层，住着一个小万花筒。</p>
+
+    <p>它圆滚滚的，身上套着一层金色的纸，看上去就像一个小小的望远镜。可它心里总有点难过。</p>
+
+    <p class="dialog">"我不过是根纸筒，"它小声说，"里面装了几块碎玻璃片，有什么了不起的呢？"</p>
+
+    <p>旁边的小望远镜听了，摇摇头：<span class="dialog">"我可以看到很远很远的星星呢。你呢？你能看到什么？"</span></p>
+
+    <p>小万花筒低下头，不说话了。它觉得自己什么也看不到，什么也做不了。</p>
+
+    <p>有一天晚上，一个小女孩把小万花筒捧在了手心里。她把眼睛凑近小万花筒的小圆孔，轻轻一转——</p>
+
+    <p class="dialog-warm">"哇！"小女孩睁大了眼睛。</p>
+
+    <p>小万花筒吓了一跳。它不知道发生了什么，只觉得肚子里的碎玻璃片哗啦哗啦地翻了个身。</p>
+
+    <p><span class="dialog-warm">"好漂亮！"</span>小女孩又转了一下。</p>
+
+    <p>这一回，红的、蓝的、绿的、黄的小碎片，像一群调皮的小星星，手拉手转成了一个大大的花朵。</p>
+
+    <p>再转一下，花朵变成了一条弯弯曲曲的彩虹河。</p>
+
+    <p>再转一下，彩虹河变成了满天的烟花，噼里啪啦地开。</p>
+  </div>
+
+  <!-- 分隔星光 -->
+  <div class="star-divider">
+    <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+
+  <div class="story-body">
+    <p>小女孩看得入了迷，转了一遍又一遍。每一遍都是全新的图案，没有一次是重复的。</p>
+
+    <p><span class="dialog-warm">"妈妈，你看！"小女孩兴奋地举着小万花筒，"每次转都不一样！好神奇啊！"</span></p>
+
+    <p>妈妈温柔地笑了：<span class="dialog">"是啊，因为每一片小小的碎玻璃，都在认真地发光。它们每一次碰在一起，都会变成新的样子。"</span></p>
+
+    <p>小万花筒听了，心里暖烘烘的。</p>
+
+    <p>原来，它不是什么也做不了。它肚子里那些看起来零零碎碎的小碎片，每一次相遇，都能拼出一个全新的、别人从没见过的漂亮图案。</p>
+
+    <p>它不需要像望远镜那样看到很远的星星，它只需要被轻轻地转一下，就能变出一整个宇宙的美丽。</p>
+
+    <p>那天晚上，小女孩抱着小万花筒睡着了。月光从窗户照进来，照在小万花筒的金色纸壳上，亮闪闪的。</p>
+
+    <p>小万花筒安静地躺在小女孩的怀里，心想：明天，我要再给她拼一个从没出现过的图案。</p>
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight">
+    <p>晚安，小宝贝。小万花筒说，你每一天也是全新的，你肚子里的每一颗小小的心意，每一次碰在一起，都会变成这个世界上从没有过的、独一无二的漂亮。</p>
+  </div>
+
+</div>
+
+<!-- 漂浮暖色粒子 -->
+<div id="particles"></div>
+
+<!-- 底部暖光带 -->
+<div class="warm-strip"></div>
+
+<script>
+// 生成星空
+(function() {
+  const sf = document.getElementById('starfield');
+  const count = 110;
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2 + 0.5;
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+    s.style.setProperty('--delay', Math.random() * 3 + 's');
+    sf.appendChild(s);
+  }
+})();
+
+// 生成漂浮粒子
+(function() {
+  const pc = document.getElementById('particles');
+  const colors = [
+    'rgba(255,200,100,0.5)',
+    'rgba(180,140,220,0.5)',
+    'rgba(255,180,80,0.4)',
+    'rgba(200,160,255,0.4)',
+    'rgba(255,220,130,0.4)',
+    'rgba(160,120,200,0.4)',
+    'rgba(255,100,80,0.3)',
+    'rgba(100,150,255,0.3)'
+  ];
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.background = colors[i];
+    p.style.left = (Math.random() * 100) + '%';
+    p.style.bottom = '0';
+    p.style.boxShadow = '0 0 6px ' + colors[i];
+    const dur = Math.random() * 4 + 6;
+    const delay = Math.random() * 5;
+    p.style.animation = `floatUp ${dur}s ease-in-out infinite`;
+    p.style.animationDelay = delay + 's';
+    pc.appendChild(p);
+  }
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes floatUp {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      15% { opacity: 1; }
+      85% { opacity: 0.8; }
+      100% { transform: translateY(-100vh) translateX(${Math.random() * 40 - 20}px); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+})();
+</script>
+
+</body>
+</html>

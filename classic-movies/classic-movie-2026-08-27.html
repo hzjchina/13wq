@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>三傻大闹宝莱坞</title>
+<style>
+  :root {
+    --bg: #17161c;
+    --card: #23212b;
+    --accent: #e8b84b;
+    --text: #f1f1f1;
+    --muted: #a8a4b0;
+    --gold: #f5c518;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 1rem;
+  }
+  .container {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+  .header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #17161c;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    letter-spacing: 0.02em;
+  }
+  .subtitle {
+    font-size: 1rem;
+    color: var(--muted);
+    font-weight: 400;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.25rem;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+  .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+  .ratings {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+  .rating-item {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    min-width: 100px;
+  }
+  .rating-item .score {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+  .rating-item .source {
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: 0.25rem;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 1.75rem;
+    margin-bottom: 1.25rem;
+  }
+  .card h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .card h2 .icon {
+    font-size: 1.3rem;
+  }
+  .card p {
+    font-size: 1rem;
+    color: #d5d2da;
+    text-align: justify;
+    margin-bottom: 0.75rem;
+  }
+  .card p:last-child { margin-bottom: 0; }
+  .highlights {
+    list-style: none;
+  }
+  .highlights li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    color: #d5d2da;
+  }
+  .highlights li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.85rem;
+    top: 0.15rem;
+  }
+  .awards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  .awards span {
+    background: rgba(232, 184, 75, 0.12);
+    color: #e8cf8a;
+    font-size: 0.8rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 8px;
+    border: 1px solid rgba(232, 184, 75, 0.25);
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding-left: 1rem;
+    margin-top: 1rem;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .footer {
+    text-align: center;
+    padding: 2rem 0 1rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.5rem; }
+    .card { padding: 1.25rem; }
+    .ratings { gap: 0.75rem; }
+    .rating-item { min-width: 80px; padding: 0.6rem 1rem; }
+    .rating-item .score { font-size: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <div class="badge">经典电影推荐 · 第 58 期</div>
+    <h1>三傻大闹宝莱坞</h1>
+    <div class="subtitle">3 Idiots (2009)</div>
+    <div class="meta">
+      <span>🎬 拉库马·希拉尼</span>
+      <span>🎭 阿米尔·汗 / 马德哈万 / 沙尔曼·乔希</span>
+      <span>🇮🇳 印度</span>
+      <span>⏱ 171 分钟</span>
+    </div>
+    <div class="ratings">
+      <div class="rating-item">
+        <div class="score">9.2</div>
+        <div class="source">豆瓣</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">8.4</div>
+        <div class="source">IMDb</div>
+      </div>
+      <div class="rating-item">
+        <div class="score">TOP 250</div>
+        <div class="source">双榜常驻</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">📖</span>剧情梗概</h2>
+    <p>多年以后，两位早已功成名就的老同学——法罕和拉加——突然接到一通神秘电话：当年那个不辞而别、消失多年的挚友兰彻，终于有了音讯。两人当即放下一切，踏上千里寻友的旅程，一路追溯着兰彻的踪迹，也一路跌进对帝国理工学院那段青春岁月的回忆里。</p>
+    <p>那是一所印度最顶尖的工程学院，在那里，死记硬背是唯一法则，分数和排名决定一切，连校长都被学生叫做"病毒"。而兰彻——一个用好奇心对抗权威、把"追求卓越，成功自然追随"挂在嘴边的怪才——就像闯入僵化体制的一阵旋风。他用最离经叛道的方式回答教授的刁难，用最天真烂漫的态度对待每一次考试，也在不知不觉中，一点一点改变着身边被现实压垮的人……</p>
+    <p>一场与"病毒"的十年赌约，一段横跨大学与职场的青春回望。当谜底在旅程终点揭开，你会发现，这场寻人之旅找到的，远不止一个人。</p>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">✨</span>亮点所在</h2>
+    <ul class="highlights">
+      <li><strong>阿米尔·汗的封神表演：</strong>他把"天才怪咖"兰彻演得又疯又暖、灵气四溢——全片最动人的力量，几乎都藏在他那双眼睛和那句招牌口头禅里。</li>
+      <li><strong>笑中带泪的教育反思：</strong>喜剧外壳下，是对填鸭式教育、名校焦虑和"成绩定义人生"的深刻叩问，嬉笑怒骂间句句戳心，全球观众都能共鸣。</li>
+      <li><strong>「All is well」文化符号：</strong>"一切顺利"这句台词成为影史级流行文化符号，那句"心很脆弱，得学会哄它"更是治愈了无数人。</li>
+      <li><strong>精巧的双线叙事：</strong>现实寻友与青春回忆两条时间线交织推进，悬念一路吊到最后才揭晓，节奏行云流水，半点不拖沓。</li>
+      <li><strong>宝莱坞视听盛宴：</strong>标志性的歌舞场面赏心悦目，配乐朗朗上口，在影院里你会不由自主跟着打拍子。</li>
+      <li><strong>配角个个出彩：</strong>死记硬背的"消音器"查图尔、被家庭期望压垮的拉加、含泪追梦的法罕……每个角色都鲜活立体，映照出生活中不同的你我。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🏆</span>为什么值得一看</h2>
+    <p>豆瓣 9.2、IMDb 8.4，双双长驻 Top 250——上映十余年，它依然是全球口碑最坚挺的非英语片之一，也是无数人的"人生电影"。它好笑到让你在影院前仰后合，又深刻到让你散场后沉默很久。</p>
+    <p>它讲的从来不只是应试教育与大学时光：是关于热爱、关于友情、关于"做自己"的勇气，是每一个被分数、被期望、被"别人家的孩子"压得喘不过气的人，都能从中找到自己的故事。兰彻那句"追求卓越，成功自然追随"，至今仍是无数人面对迷茫时的精神支柱。</p>
+    <p>无论你正处在人生哪个阶段，这部 171 分钟的电影都值得坐下来，笑着看完，哭着想完——然后，给你许久没联系的老朋友发一条消息。</p>
+    <div class="quote">"心很脆弱，你得学会去哄它，不管遇到多大困难，告诉你的心——All is well！"</div>
+  </div>
+
+  <div class="card">
+    <h2><span class="icon">🎖</span>主要奖项</h2>
+    <div class="awards">
+      <span>印度国家电影奖最佳娱乐片</span>
+      <span>印度电影观众奖最佳影片</span>
+      <span>印度电影观众奖最佳导演</span>
+      <span>印度电影观众奖最佳男配角</span>
+      <span>入围亚洲电影大奖最佳影片</span>
+      <span>改编自奇坦·巴哈特小说《五点人》</span>
+      <span>刷新印度影史全球票房纪录（当年）</span>
+      <span>豆瓣电影 TOP 250 常驻</span>
+    </div>
+  </div>
+
+  <div class="footer">
+    经典电影推荐 · 2026年8月27日 · 所有内容仅供欣赏
+  </div>
+</div>
+</body>
+</html>
