@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小云朵的晚安信 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-deep: #0f1524;
+      --bg-soft: #1a2338;
+      --text: #f3f6ff;
+      --text-soft: #c6d2ec;
+      --accent: #9db4ff;
+      --gold: #ffd9a8;
+      --moon: #fff8e1;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: radial-gradient(ellipse at 80% 10%, #2a3b66 0%, transparent 45%),
+                  radial-gradient(ellipse at 20% 90%, #1f2d4f 0%, transparent 40%),
+                  linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-soft) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      line-height: 1.85;
+      padding: 1.2rem;
+      overflow-x: hidden;
+    }
+    .stars {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.65;
+      animation: twinkle 3s infinite ease-in-out alternate;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.35; transform: scale(0.85); }
+      100% { opacity: 1; transform: scale(1.15); }
+    }
+    .moon {
+      position: fixed;
+      top: 1.5rem;
+      right: 1.5rem;
+      width: 4.2rem;
+      height: 4.2rem;
+      background: var(--moon);
+      border-radius: 50%;
+      box-shadow: 0 0 2.5rem rgba(255, 248, 225, 0.35), inset -0.6rem -0.4rem 0 rgba(0,0,0,0.08);
+      z-index: 0;
+      animation: moonGlow 6s infinite ease-in-out alternate;
+    }
+    @keyframes moonGlow {
+      0% { box-shadow: 0 0 2.2rem rgba(255,248,225,0.28); }
+      100% { box-shadow: 0 0 3.2rem rgba(255,248,225,0.48); }
+    }
+    .card {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 2.5rem auto 3rem;
+      background: rgba(255, 255, 255, 0.055);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 26px;
+      padding: 2.2rem 1.9rem;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+    }
+    h1 {
+      font-size: 1.9rem;
+      text-align: center;
+      margin-bottom: 0.6rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+    .subtitle {
+      text-align: center;
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+    }
+    .story {
+      font-size: 1.15rem;
+      color: var(--text-soft);
+      text-indent: 2em;
+      margin-bottom: 1.25rem;
+    }
+    .goodnight {
+      margin-top: 2.2rem;
+      padding: 1.4rem 1.2rem;
+      background: rgba(157, 180, 255, 0.11);
+      border-radius: 18px;
+      text-align: center;
+      color: var(--text);
+      font-size: 1.1rem;
+      line-height: 1.95;
+      border: 1px solid rgba(157, 180, 255, 0.18);
+    }
+    .goodnight strong {
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .clouds {
+      text-align: center;
+      margin: 1.6rem 0 0.4rem;
+      font-size: 2rem;
+      opacity: 0.75;
+      animation: floatCloud 5s infinite ease-in-out alternate;
+    }
+    @keyframes floatCloud {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-8px); }
+    }
+    @media (max-width: 520px) {
+      body { padding: 0.9rem; }
+      .card { padding: 1.6rem 1.3rem; margin: 1.5rem auto; }
+      h1 { font-size: 1.55rem; }
+      .story { font-size: 1.05rem; text-indent: 1.8em; }
+      .moon { width: 3.2rem; height: 3.2rem; top: 1rem; right: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+
+  <article class="card">
+    <h1>小云朵的晚安信</h1>
+    <p class="subtitle">写给每一个准备甜甜入睡的小宝贝</p>
+
+    <p class="story">在很高很高的天上，住着一朵小小的云，大家都叫她“绵绵”。绵绵不像那些又大又白的云，她喜欢四处飘着，给地上的人们送去软软的好梦。</p>
+
+    <p class="story">每天晚上，月亮奶奶都会交给绵绵一封信，信封上写着一个小朋友的名字。绵绵的任务，就是把信轻轻地放进那个小朋友的窗子里。信里装的不是字，而是一整夜的星星、摇篮曲和甜甜的梦。</p>
+
+    <p class="story">这天晚上，绵绵收到了一封信，上面写着“小雨”。她飘呀飘，飘到一座小房子上空，从窗户往里看。小雨正躺在床上，眼睛睁得圆圆的，怎么也睡不着。原来，她白天在幼儿园和好朋友闹了别扭，心里还装着一点点难过。</p>
+
+    <p class="story">绵绵轻轻地把信从窗缝里送了进去。信飘到小雨的枕头边，一下子化作一阵暖暖的风，吹进小雨的耳朵里。风里有月亮奶奶温柔的声音：“小雨，勇敢的小宝贝，明天太阳出来的时候，去牵起好朋友的手吧。一句‘对不起’和一个大大的拥抱，就能让云朵重新变回棉花糖一样软软白白的。”</p>
+
+    <p class="story">小雨的眼皮慢慢变重了。她梦见自己和好朋友在草地上追着小云朵跑，绵绵就飘在她们头顶，一会儿变成小兔子，一会儿变成大棉花糖，把笑声撒得满天都是。</p>
+
+    <p class="story">天快亮的时候，绵绵回到天上。月亮奶奶笑着摸摸她的头：“绵绵今天又送出去一封好信呢。”绵绵打了一个小小的哈欠，软软地说：“让每个小朋友都带着微笑睡觉，就是我最开心的事呀。”</p>
+
+    <div class="clouds">☁️ ☁️ ☁️</div>
+
+    <div class="goodnight">
+      <strong>晚安，小宝贝。</strong><br>
+      小云朵绵绵说，你今天也是个勇敢又善良的好孩子，该做一个像棉花糖一样甜甜的梦了。<br>
+      星星已经关灯，月亮也盖好了被子，快快闭上眼睛吧。<br>
+      <strong>晚安。🌙</strong>
+    </div>
+  </article>
+
+  <script>
+    (function() {
+      const container = document.getElementById('stars');
+      const count = window.innerWidth < 520 ? 35 : 60;
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.2 + 1;
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.top = Math.random() * 100 + 'vh';
+        s.style.animationDelay = (Math.random() * 3) + 's';
+        s.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+        container.appendChild(s);
+      }
+    })();
+  </script>
+</body>
+</html>

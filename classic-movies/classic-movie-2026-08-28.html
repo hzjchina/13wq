@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>钢琴家</title>
+<style>
+  :root {
+    --bg: #0e0f13;
+    --bg-soft: #16181f;
+    --card: #1c1f28;
+    --gold: #d4af6a;
+    --gold-soft: #e8c98a;
+    --text: #f2eee6;
+    --text-dim: #a9a49a;
+    --line: #2b2f3a;
+    --red: #e0604f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 56px; }
+
+  /* 头部 */
+  .hero { text-align: center; padding: 34px 16px 30px; position: relative; }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(212,175,106,0.14), transparent 65%);
+    pointer-events: none;
+  }
+  .en { letter-spacing: 4px; font-size: 13px; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+  .title { font-size: clamp(40px, 9vw, 58px); font-weight: 800; letter-spacing: 10px; color: var(--gold-soft); }
+  .sub { margin-top: 12px; font-size: 15px; color: var(--text-dim); }
+  .sub b { color: var(--text); font-weight: 600; }
+
+  /* 评分 */
+  .scores { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 26px 0 8px; }
+  .score {
+    flex: 1 1 90px; max-width: 150px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 10px; text-align: center;
+  }
+  .score .num { font-size: 26px; font-weight: 800; color: var(--gold); }
+  .score .label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  /* 区块 */
+  section { margin-top: 30px; }
+  .sec-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 19px; font-weight: 700; color: var(--gold-soft);
+    margin-bottom: 14px;
+  }
+  .sec-title::before {
+    content: ""; width: 4px; height: 20px; border-radius: 2px;
+    background: linear-gradient(var(--gold), var(--gold-soft));
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .card p { color: var(--text); font-size: 16px; }
+  .card p + p { margin-top: 12px; }
+  .dim { color: var(--text-dim); }
+
+  /* 亮点列表 */
+  ul.hl { list-style: none; }
+  ul.hl li {
+    position: relative; padding: 10px 0 10px 26px;
+    border-bottom: 1px dashed var(--line); font-size: 15.5px;
+  }
+  ul.hl li:last-child { border-bottom: none; }
+  ul.hl li::before {
+    content: "♪"; position: absolute; left: 2px; top: 10px;
+    color: var(--gold); font-size: 16px;
+  }
+  ul.hl b { color: var(--gold-soft); }
+
+  /* 无剧透提示 */
+  .tip {
+    margin-top: 30px; text-align: center;
+    background: linear-gradient(135deg, rgba(212,175,106,0.10), rgba(212,175,106,0.03));
+    border: 1px solid rgba(212,175,106,0.35);
+    border-radius: 12px; padding: 14px 18px;
+    font-size: 13.5px; color: var(--gold);
+  }
+
+  footer { text-align: center; margin-top: 36px; font-size: 12.5px; color: #6b675f; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 20px 14px 44px; }
+    .title { letter-spacing: 6px; }
+    .card { padding: 16px 16px; }
+    .scores { gap: 8px; }
+    .score { flex-basis: 80px; padding: 10px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="en">The Pianist · 2002</div>
+    <h1 class="title">钢琴家</h1>
+    <p class="sub">导演 <b>罗曼·波兰斯基</b> · 主演 <b>阿德里安·布劳迪</b> · 真实事件改编</p>
+    <div class="scores">
+      <div class="score"><div class="num">9.3</div><div class="label">豆瓣</div></div>
+      <div class="score"><div class="num">8.5</div><div class="label">IMDb</div></div>
+      <div class="score"><div class="num">95%</div><div class="label">烂番茄</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="sec-title">剧情梗概</h2>
+    <div class="card">
+      <p>1939 年，华沙。犹太裔钢琴家什皮尔曼正在电台录制肖邦的夜曲，炮火声骤然打断了琴声——战争开始了。</p>
+      <p>纳粹占领下的犹太人被一步步剥夺尊严与生存空间：被驱赶进犹太区，被送往集中营。什皮尔曼在亲友相继离散后独自幸存下来，从此开始了漫长的逃亡与躲藏——废弃的公寓、医院的阁楼、被炸毁的废墟，都曾是他的容身之所。</p>
+      <p>他凭借惊人的求生意志与陌生人的善意，在瓦砾与死亡之间坚持着，而支撑他的，始终是脑中回响的琴声。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">亮点所在</h2>
+    <div class="card">
+      <ul class="hl">
+        <li><b>真实故事</b>：改编自钢琴家什皮尔曼的同名自传，他是大屠杀中真实幸存下来的音乐家，片名即出自他的身份。</li>
+        <li><b>导演本人就是亲历者</b>：波兰斯基是华沙犹太人，童年亲历纳粹占领，母亲死于集中营——影片因此带着无可替代的真实质感。</li>
+        <li><b>影史最年轻影帝</b>：阿德里安·布劳迪为角色减重约 14 公斤、卖掉公寓，以 29 岁之龄成为奥斯卡史上最年轻的影帝，表演被誉为「用身体诠释绝望」。</li>
+        <li><b>肖邦配乐贯穿全片</b>：琴声与枪声的对抗，让音乐成为文明在野蛮中最后的尊严。</li>
+        <li><b>奖项收割机</b>：戛纳金棕榈奖 + 奥斯卡最佳导演、最佳男主角、最佳改编剧本。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">为什么值得一看</h2>
+    <div class="card">
+      <p>它不靠煽情与口号，而是用近乎冷静克制的镜头，把战争的残酷与一个人的求生史诗铺陈在你面前。全片没有英雄主义的光环，只有一个普通音乐家跌跌撞撞的幸存之路——越是克制，越是震撼。</p>
+      <p class="dim">关于尊严、艺术与人性的底线，看完你会明白：当世界陷入黑暗时，音乐和记忆，是一个人最后能带走的东西。</p>
+    </div>
+  </section>
+
+  <div class="tip">🎹 无剧透承诺：以上只讲背景与看点，最动人的「高光时刻」留给你亲自观看。</div>
+
+  <footer>— 每日经典电影 · 第 59 期 —</footer>
+</div>
+</body>
+</html>
