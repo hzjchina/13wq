@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>小算盘的叮当 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-deep: #0c1024;
+      --bg-soft: #1a1f3d;
+      --text: #f3f6ff;
+      --text-soft: #d6def0;
+      --accent: #b4cdf6;
+      --gold: #ffd9a8;
+      --wood: #c79b6a;
+      --bead: #ffd58a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; }
+    body {
+      background:
+        radial-gradient(ellipse 700px 480px at 18% 28%, rgba(120, 100, 200, 0.12), transparent 60%),
+        radial-gradient(ellipse 600px 400px at 82% 78%, rgba(80, 160, 220, 0.10), transparent 60%),
+        radial-gradient(ellipse 800px 500px at 50% 100%, rgba(255, 170, 120, 0.08), transparent 70%),
+        linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-soft) 100%);
+      color: var(--text);
+      font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+      line-height: 1.85;
+      overflow-x: hidden;
+      padding: 1.2rem;
+    }
+
+    /* 星空 */
+    .stars {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 4px rgba(255,255,255,0.6);
+      animation: twinkle var(--dur, 4s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: var(--base, 0.4); transform: scale(0.9); }
+      50%      { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 1.6rem;
+      right: 1.6rem;
+      width: 4.5rem;
+      height: 4.5rem;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff8e1 0%, #ffe9b8 45%, #f5d896 85%);
+      box-shadow:
+        0 0 32px rgba(255, 232, 168, 0.45),
+        0 0 80px rgba(255, 215, 130, 0.25),
+        inset -8px -8px 18px rgba(180, 130, 50, 0.18);
+      z-index: 1;
+      animation: moonFloat 6s ease-in-out infinite;
+    }
+    .moon::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 16px;
+      width: 50px; height: 50px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 30% 35%, transparent 30%, rgba(180,130,50,0.22) 31%, transparent 50%),
+        radial-gradient(circle at 65% 70%, transparent 22%, rgba(180,130,50,0.16) 23%, transparent 40%);
+    }
+    .moon::after {
+      content: '';
+      position: absolute; inset: -22px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,232,168,0.18) 0%, transparent 60%);
+      animation: moonHalo 5s ease-in-out infinite;
+    }
+    @keyframes moonFloat { 0%,100% { transform: translateY(0);} 50% { transform: translateY(-8px);} }
+    @keyframes moonHalo  { 0%,100% { opacity:.5; transform: scale(1);} 50% { opacity:.95; transform: scale(1.15);} }
+
+    /* 流星 */
+    .meteor {
+      position: fixed;
+      width: 2px; height: 2px;
+      background: #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #fff;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+    }
+    .meteor::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 80px; height: 1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.85), transparent);
+      transform-origin: 0 0;
+      transform: rotate(20deg);
+    }
+    @keyframes shoot {
+      0%   { opacity: 0; transform: translate(0,0); }
+      5%   { opacity: 1; }
+      80%  { opacity: 1; }
+      100% { opacity: 0; transform: translate(-380px, 160px); }
+    }
+
+    /* 卡片 */
+    .card {
+      position: relative;
+      z-index: 2;
+      max-width: 720px;
+      margin: 2.5rem auto 3rem;
+      background: rgba(255, 255, 255, 0.055);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 28px;
+      padding: 2.4rem 2rem 2.6rem;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+    }
+    h1 {
+      font-size: 1.95rem;
+      text-align: center;
+      margin-bottom: 0.4rem;
+      color: var(--gold);
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      animation: titleGlow 3.6s ease-in-out infinite;
+    }
+    .subtitle {
+      text-align: center;
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 1.4rem;
+      letter-spacing: 0.04em;
+    }
+    @keyframes titleGlow {
+      0%,100% { text-shadow: 0 0 12px rgba(255,217,168,0.5); }
+      50%     { text-shadow: 0 0 22px rgba(255,217,168,0.85); }
+    }
+
+    /* 算盘图 */
+    .abacus {
+      margin: 0.6rem auto 1.6rem;
+      width: 280px;
+      max-width: 80%;
+      display: block;
+      animation: abacusFloat 5s ease-in-out infinite;
+      transform-origin: center;
+      filter: drop-shadow(0 12px 28px rgba(120, 100, 200, 0.35));
+    }
+    @keyframes abacusFloat {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50%     { transform: translateY(-6px) rotate(1deg); }
+    }
+    .bead-glow { animation: beadPulse var(--dur, 2.6s) ease-in-out infinite; animation-delay: var(--delay, 0s); transform-origin: center; }
+    @keyframes beadPulse {
+      0%,100% { opacity: 0.7; filter: drop-shadow(0 0 2px rgba(255,213,138,0.3)); }
+      50%     { opacity: 1;   filter: drop-shadow(0 0 12px rgba(255,213,138,0.95)); }
+    }
+
+    /* 正文 */
+    .story {
+      font-size: 1.13rem;
+      color: var(--text-soft);
+      text-indent: 2em;
+      margin-bottom: 1.25rem;
+      letter-spacing: 0.02em;
+    }
+    .ding {
+      display: inline-block;
+      animation: dingJump 1.2s ease-in-out infinite;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    @keyframes dingJump {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(-3px); }
+    }
+
+    /* 晚安语 */
+    .goodnight {
+      margin-top: 2rem;
+      padding: 1.5rem 1.4rem;
+      background: rgba(180, 205, 246, 0.10);
+      border: 1px solid rgba(180, 205, 246, 0.22);
+      border-radius: 20px;
+      text-align: center;
+      color: var(--text);
+      font-size: 1.08rem;
+      line-height: 2;
+      animation: goodNightGlow 5s ease-in-out infinite;
+    }
+    .goodnight strong { color: var(--gold); font-weight: 600; }
+    @keyframes goodNightGlow {
+      0%,100% { box-shadow: 0 0 18px rgba(180,205,246,0.18); }
+      50%     { box-shadow: 0 0 30px rgba(255,217,168,0.32); }
+    }
+
+    /* 分隔星光 */
+    .divider {
+      text-align: center;
+      margin: 1.2rem 0 0.4rem;
+      color: var(--accent);
+      letter-spacing: 0.5em;
+      font-size: 0.9rem;
+      opacity: 0.85;
+    }
+    .divider span {
+      display: inline-block;
+      animation: blink 2.4s ease-in-out infinite;
+    }
+    .divider span:nth-child(2) { animation-delay: 0.4s; }
+    .divider span:nth-child(3) { animation-delay: 0.8s; }
+    .divider span:nth-child(4) { animation-delay: 1.2s; }
+    .divider span:nth-child(5) { animation-delay: 1.6s; }
+    @keyframes blink {
+      0%,100% { opacity: 0.5; transform: scale(0.85); }
+      50%     { opacity: 1;   transform: scale(1.15); }
+    }
+
+    /* 漂浮粒子（书桌上飘起的暖色光点） */
+    .particle {
+      position: fixed;
+      pointer-events: none;
+      border-radius: 50%;
+      z-index: 1;
+      animation: floatUp var(--dur, 14s) linear infinite;
+      animation-delay: var(--delay, 0s);
+      opacity: 0;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      8%   { opacity: 0.6; }
+      92%  { opacity: 0.6; }
+      100% { transform: translateY(-110vh) translateX(var(--drift, 20px)); opacity: 0; }
+    }
+
+    /* 底部暖光带 */
+    .bottom-glow {
+      position: fixed;
+      bottom: -60px; left: 50%;
+      transform: translateX(-50%);
+      width: 90vw; max-width: 1100px;
+      height: 140px;
+      background: radial-gradient(ellipse at center top, rgba(255, 200, 140, 0.18), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      animation: bottomPulse 5.5s ease-in-out infinite;
+    }
+    @keyframes bottomPulse {
+      0%,100% { opacity: 0.7; }
+      50%     { opacity: 1; }
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 0.9rem; }
+      .card { padding: 1.7rem 1.3rem 1.9rem; margin: 1.4rem auto; border-radius: 22px; }
+      h1 { font-size: 1.55rem; }
+      .subtitle { font-size: 0.85rem; }
+      .story { font-size: 1.02rem; text-indent: 1.8em; }
+      .moon { width: 3.4rem; height: 3.4rem; top: 1rem; right: 1rem; }
+      .abacus { width: 230px; }
+      .goodnight { font-size: 1rem; padding: 1.2rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="bottom-glow"></div>
+
+  <article class="card">
+    <h1>小算盘的叮当</h1>
+    <p class="subtitle">写给每颗独一无二的小珠子</p>
+
+    <!-- 算盘 SVG：木框 + 横梁 + 上 2 珠 + 下 5 珠 × 5 列，珠子轮流发光 -->
+    <svg class="abacus" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d6a872"/>
+          <stop offset="50%" stop-color="#b88450"/>
+          <stop offset="100%" stop-color="#8c5e36"/>
+        </linearGradient>
+        <radialGradient id="bead" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fff3d0"/>
+          <stop offset="55%" stop-color="#ffd58a"/>
+          <stop offset="100%" stop-color="#c08a45"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 外框 -->
+      <rect x="6" y="6" width="268" height="188" rx="14" ry="14"
+            fill="url(#wood)" stroke="#5a3a1f" stroke-width="3"/>
+      <rect x="14" y="14" width="252" height="172" rx="9" ry="9"
+            fill="#3b2918" opacity="0.35"/>
+
+      <!-- 上档横梁 -->
+      <rect x="20" y="58" width="240" height="10" fill="#5a3a1f" opacity="0.6"/>
+      <!-- 下档横梁 -->
+      <rect x="20" y="118" width="240" height="10" fill="#5a3a1f" opacity="0.6"/>
+      <!-- 中分隔竖线（每列一颗） -->
+      <g stroke="#7a4d28" stroke-width="1.5" opacity="0.55">
+        <line x1="60"  y1="20" x2="60"  y2="180"/>
+        <line x1="100" y1="20" x2="100" y2="180"/>
+        <line x1="140" y1="20" x2="140" y2="180"/>
+        <line x1="180" y1="20" x2="180" y2="180"/>
+        <line x1="220" y1="20" x2="220" y2="180"/>
+      </g>
+
+      <!-- 上排珠子（每列 2 颗，靠下堆积） -->
+      <g>
+        <!-- 第1列 上2珠 -->
+        <circle class="bead-glow" cx="60" cy="49" r="10" fill="url(#bead)" style="--dur:2.6s; --delay:0s"/>
+        <circle class="bead-glow" cx="60" cy="34" r="10" fill="url(#bead)" style="--dur:2.6s; --delay:0.3s"/>
+        <!-- 第2列 -->
+        <circle class="bead-glow" cx="100" cy="49" r="10" fill="url(#bead)" style="--dur:2.9s; --delay:0.4s"/>
+        <circle class="bead-glow" cx="100" cy="34" r="10" fill="url(#bead)" style="--dur:2.9s; --delay:0.7s"/>
+        <!-- 第3列 -->
+        <circle class="bead-glow" cx="140" cy="49" r="10" fill="url(#bead)" style="--dur:2.4s; --delay:0.9s"/>
+        <circle class="bead-glow" cx="140" cy="34" r="10" fill="url(#bead)" style="--dur:2.4s; --delay:1.2s"/>
+        <!-- 第4列 -->
+        <circle class="bead-glow" cx="180" cy="49" r="10" fill="url(#bead)" style="--dur:3.1s; --delay:1.4s"/>
+        <circle class="bead-glow" cx="180" cy="34" r="10" fill="url(#bead)" style="--dur:3.1s; --delay:1.7s"/>
+        <!-- 第5列 -->
+        <circle class="bead-glow" cx="220" cy="49" r="10" fill="url(#bead)" style="--dur:2.7s; --delay:1.9s"/>
+        <circle class="bead-glow" cx="220" cy="34" r="10" fill="url(#bead)" style="--dur:2.7s; --delay:2.2s"/>
+      </g>
+
+      <!-- 下排珠子（每列 5 颗，靠上堆积） -->
+      <g>
+        <!-- 第1列 下5珠 -->
+        <circle class="bead-glow" cx="60"  cy="89" r="10" fill="url(#bead)" style="--dur:2.5s; --delay:0.2s"/>
+        <circle class="bead-glow" cx="60"  cy="104" r="10" fill="url(#bead)" style="--dur:2.5s; --delay:0.5s"/>
+        <circle class="bead-glow" cx="60"  cy="134" r="10" fill="url(#bead)" style="--dur:2.5s; --delay:0.8s"/>
+        <circle class="bead-glow" cx="60"  cy="149" r="10" fill="url(#bead)" style="--dur:2.5s; --delay:1.1s"/>
+        <circle class="bead-glow" cx="60"  cy="164" r="10" fill="url(#bead)" style="--dur:2.5s; --delay:1.4s"/>
+        <!-- 第2列 -->
+        <circle class="bead-glow" cx="100" cy="89" r="10" fill="url(#bead)" style="--dur:2.8s; --delay:0.6s"/>
+        <circle class="bead-glow" cx="100" cy="104" r="10" fill="url(#bead)" style="--dur:2.8s; --delay:0.9s"/>
+        <circle class="bead-glow" cx="100" cy="134" r="10" fill="url(#bead)" style="--dur:2.8s; --delay:1.2s"/>
+        <circle class="bead-glow" cx="100" cy="149" r="10" fill="url(#bead)" style="--dur:2.8s; --delay:1.5s"/>
+        <circle class="bead-glow" cx="100" cy="164" r="10" fill="url(#bead)" style="--dur:2.8s; --delay:1.8s"/>
+        <!-- 第3列 -->
+        <circle class="bead-glow" cx="140" cy="89" r="10" fill="url(#bead)" style="--dur:2.3s; --delay:1.0s"/>
+        <circle class="bead-glow" cx="140" cy="104" r="10" fill="url(#bead)" style="--dur:2.3s; --delay:1.3s"/>
+        <circle class="bead-glow" cx="140" cy="134" r="10" fill="url(#bead)" style="--dur:2.3s; --delay:1.6s"/>
+        <circle class="bead-glow" cx="140" cy="149" r="10" fill="url(#bead)" style="--dur:2.3s; --delay:1.9s"/>
+        <circle class="bead-glow" cx="140" cy="164" r="10" fill="url(#bead)" style="--dur:2.3s; --delay:2.2s"/>
+        <!-- 第4列 -->
+        <circle class="bead-glow" cx="180" cy="89" r="10" fill="url(#bead)" style="--dur:3.0s; --delay:1.3s"/>
+        <circle class="bead-glow" cx="180" cy="104" r="10" fill="url(#bead)" style="--dur:3.0s; --delay:1.6s"/>
+        <circle class="bead-glow" cx="180" cy="134" r="10" fill="url(#bead)" style="--dur:3.0s; --delay:1.9s"/>
+        <circle class="bead-glow" cx="180" cy="149" r="10" fill="url(#bead)" style="--dur:3.0s; --delay:2.2s"/>
+        <circle class="bead-glow" cx="180" cy="164" r="10" fill="url(#bead)" style="--dur:3.0s; --delay:2.5s"/>
+        <!-- 第5列 -->
+        <circle class="bead-glow" cx="220" cy="89" r="10" fill="url(#bead)" style="--dur:2.6s; --delay:1.7s"/>
+        <circle class="bead-glow" cx="220" cy="104" r="10" fill="url(#bead)" style="--dur:2.6s; --delay:2.0s"/>
+        <circle class="bead-glow" cx="220" cy="134" r="10" fill="url(#bead)" style="--dur:2.6s; --delay:2.3s"/>
+        <circle class="bead-glow" cx="220" cy="149" r="10" fill="url(#bead)" style="--dur:2.6s; --delay:2.6s"/>
+        <circle class="bead-glow" cx="220" cy="164" r="10" fill="url(#bead)" style="--dur:2.6s; --delay:2.9s"/>
+      </g>
+
+      <!-- 木框四角小装饰铜钉 -->
+      <g fill="#7a4d28">
+        <circle cx="18" cy="18" r="3"/>
+        <circle cx="262" cy="18" r="3"/>
+        <circle cx="18" cy="182" r="3"/>
+        <circle cx="262" cy="182" r="3"/>
+      </g>
+
+      <!-- 顶部小星星提示 -->
+      <g fill="#ffd9a8">
+        <circle cx="140" cy="-2" r="2.5" opacity="0.85"/>
+      </g>
+    </svg>
+
+    <p class="story">在老书桌的一个角落，住着一把小算盘。它的木盒子是深棕色的，里面排着两排圆圆的小珠子。每一个珠子和每一个珠子挨着肩，安安静静的，谁也不出声。</p>
+
+    <p class="story">算盘的邻居是小八音盒。八音盒每天都会奏一首好听的曲子，叮叮咚咚像喷泉一样冒出来。算盘趴在墙边听着，心里有点难过："我的声音一点都不好听，八音盒才会唱歌呢。"</p>
+
+    <p class="story">算盘瞧瞧自己，又硬又短的小木棍从上往下一拨，<span class="ding">"哒——"</span>珠子碰着珠子，发出一声脆响。再从上往下一拨，<span class="ding">"哒哒哒——"</span>。它听了听，说："这也算歌吗？太硬，太吵，跟小锤子敲桌子似的。"</p>
+
+    <p class="story">这天晚上，月亮把小窗子照得亮亮的。老爷爷的小孙子小吉翻来翻去睡不着，他揉着眼睛小声说："爷爷，我怕黑，我睡不着。"老爷爷心疼地摸摸他的头，走到书桌前，轻轻把小算盘抱了过来。</p>
+
+    <p class="story">"算盘爷爷，我们要请它帮忙哦。"老爷爷对小吉笑了一下，然后伸出拇指和食指，捏住最右边那颗珠子，轻轻往上一拨——<span class="ding">"叮——"</span>，珠子亮起一星点金光。接着拨下一颗，<span class="ding">"叮、叮、叮——"</span>，一颗，两颗，三颗，五颗珠子被拨成一首小调。每拨一颗，珠子都会在月光里闪一下，就像小小的星星落在算盘里。</p>
+
+    <p class="story">老爷爷又从下排最中间拨起，<span class="ding">"哒、哒哒哒、哒——哒哒——"</span>。哒哒声的节奏比叮叮声慢一点，像雨点落在小池塘里，又像小马哒哒走回家。两排声音合在一起，叮叮是亮的，哒哒是软的，把小吉轻轻包围起来。小吉的眼皮一点一点变重，嘴巴也不嘟了，最后轻轻地打了小呼噜。</p>
+
+    <p class="story">小算盘发着呆，过了好久才偷偷地笑出声。它终于明白了：原来不用像八音盒那样端端庄庄地唱歌呀。它自己的声音——<span class="ding">"叮叮"是亮闪闪的星光，"哒哒"是软乎乎的雨滴</span>，叮叮和哒哒合在一起，就是一首最温柔、最独特的摇篮曲。每一颗珠子都有自己的位置，自己才能唱的，自己才是独一无二的歌。</p>
+
+    <p class="story">月亮从窗外探进来，对小算盘眨了眨眼："晚安，小珠子们。今晚，你们也把自己最闪的那颗，送给梦里的孩子吧。"</p>
+
+    <div class="divider">
+      <span>✦</span><span>✦</span><span>✦</span><span>✦</span><span>✦</span>
+    </div>
+
+    <div class="goodnight">
+      <strong>晚安，小宝贝。</strong><br>
+      小算盘说，你也是世界上<span class="ding">独</span>一<span class="ding">无</span>二的小珠子，<br>
+      不用像别人一样唱歌，<span class="ding">"叮叮"是你的星光，"哒哒"是你的雨滴</span>。<br>
+      你自己的声音，就是最温柔的晚安曲。<br>
+      现在，把眼睛闭上，让属于自己的歌，轻轻带你去梦里。<br>
+      <strong>晚安。🌙</strong>
+    </div>
+  </article>
+
+  <script>
+    // 星星
+    (function() {
+      const c = document.getElementById('stars');
+      const n = window.innerWidth < 520 ? 60 : 100;
+      for (let i = 0; i < n; i++) {
+        const s = document.createElement('div');
+        s.className = 'star';
+        const size = Math.random() * 2.4 + 0.8;
+        s.style.width = size + 'px';
+        s.style.height = size + 'px';
+        s.style.left = Math.random() * 100 + 'vw';
+        s.style.top = Math.random() * 100 + 'vh';
+        s.style.setProperty('--dur', (Math.random() * 2.5 + 2.5) + 's');
+        s.style.setProperty('--delay', (Math.random() * 4) + 's');
+        s.style.setProperty('--base', (Math.random() * 0.3 + 0.3));
+        c.appendChild(s);
+      }
+    })();
+
+    // 流星
+    (function() {
+      function makeMeteor() {
+        const m = document.createElement('div');
+        m.className = 'meteor';
+        m.style.top = (Math.random() * 40) + 'vh';
+        m.style.left = (Math.random() * 60 + 30) + 'vw';
+        m.style.animation = 'shoot ' + (Math.random() * 1.2 + 1.4) + 's ease-out forwards';
+        document.body.appendChild(m);
+        setTimeout(() => m.remove(), 2800);
+      }
+      setTimeout(makeMeteor, 1500);
+      setTimeout(makeMeteor, 4500);
+      setInterval(() => {
+        if (Math.random() < 0.5) makeMeteor();
+      }, 9000);
+    })();
+
+    // 书桌上的暖色漂浮光点（珠子的微光飘到夜空里）
+    (function() {
+      const colors = ['255,213,138', '255,235,180', '255,200,140', '180,205,246'];
+      for (let i = 0; i < 10; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 4 + 2;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = (Math.random() * 100) + 'vw';
+        p.style.bottom = (-Math.random() * 20) + 'px';
+        p.style.background = `rgba(${colors[i % colors.length]}, 0.9)`;
+        p.style.boxShadow = `0 0 8px rgba(${colors[i % colors.length]}, 0.7)`;
+        p.style.setProperty('--dur', (Math.random() * 6 + 12) + 's');
+        p.style.setProperty('--delay', (Math.random() * 10) + 's');
+        p.style.setProperty('--drift', (Math.random() * 80 - 40) + 'px');
+        document.body.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>

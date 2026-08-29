@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>龙猫</title>
+<style>
+  :root {
+    --bg: #0e0f13;
+    --bg-soft: #16181f;
+    --card: #1c1f28;
+    --gold: #c9b26a;
+    --gold-soft: #e3d18c;
+    --green: #8fae72;
+    --text: #f2eee6;
+    --text-dim: #a9a49a;
+    --line: #2b2f3a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 56px; }
+
+  /* 头部 */
+  .hero { text-align: center; padding: 34px 16px 30px; position: relative; }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(143,174,114,0.14), transparent 65%);
+    pointer-events: none;
+  }
+  .en { letter-spacing: 4px; font-size: 13px; color: var(--green); text-transform: uppercase; margin-bottom: 10px; }
+  .title { font-size: clamp(40px, 9vw, 58px); font-weight: 800; letter-spacing: 10px; color: var(--gold-soft); }
+  .sub { margin-top: 12px; font-size: 15px; color: var(--text-dim); }
+  .sub b { color: var(--text); font-weight: 600; }
+
+  /* 评分 */
+  .scores { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 26px 0 8px; }
+  .score {
+    flex: 1 1 90px; max-width: 150px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 10px; text-align: center;
+  }
+  .score .num { font-size: 26px; font-weight: 800; color: var(--gold); }
+  .score .label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  /* 区块 */
+  section { margin-top: 30px; }
+  .sec-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 19px; font-weight: 700; color: var(--gold-soft);
+    margin-bottom: 14px;
+  }
+  .sec-title::before {
+    content: ""; width: 4px; height: 20px; border-radius: 2px;
+    background: linear-gradient(var(--gold), var(--gold-soft));
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .card p { color: var(--text); font-size: 16px; }
+  .card p + p { margin-top: 12px; }
+  .dim { color: var(--text-dim); }
+
+  /* 亮点列表 */
+  ul.hl { list-style: none; }
+  ul.hl li {
+    position: relative; padding: 10px 0 10px 26px;
+    border-bottom: 1px dashed var(--line); font-size: 15.5px;
+  }
+  ul.hl li:last-child { border-bottom: none; }
+  ul.hl li::before {
+    content: "✦"; position: absolute; left: 2px; top: 10px;
+    color: var(--green); font-size: 14px;
+  }
+  ul.hl b { color: var(--gold-soft); }
+
+  /* 无剧透提示 */
+  .tip {
+    margin-top: 30px; text-align: center;
+    background: linear-gradient(135deg, rgba(143,174,114,0.10), rgba(143,174,114,0.03));
+    border: 1px solid rgba(143,174,114,0.35);
+    border-radius: 12px; padding: 14px 18px;
+    font-size: 13.5px; color: var(--green);
+  }
+
+  footer { text-align: center; margin-top: 36px; font-size: 12.5px; color: #6b675f; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 20px 14px 44px; }
+    .title { letter-spacing: 6px; }
+    .card { padding: 16px 16px; }
+    .scores { gap: 8px; }
+    .score { flex-basis: 80px; padding: 10px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="en">My Neighbor Totoro · 1988</div>
+    <h1 class="title">龙猫</h1>
+    <p class="sub">导演 <b>宫崎骏</b> · 吉卜力工作室 · 久石让配乐</p>
+    <div class="scores">
+      <div class="score"><div class="num">9.2</div><div class="label">豆瓣</div></div>
+      <div class="score"><div class="num">8.1</div><div class="label">IMDb</div></div>
+      <div class="score"><div class="num">93%</div><div class="label">烂番茄</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="sec-title">剧情梗概</h2>
+    <div class="card">
+      <p>小月和小梅姐妹俩随父亲搬进乡下一座年久失修的老屋，陪伴住院的妈妈。父亲在大学教书，姐妹俩便在这片充满蝉鸣与稻田的乡野里开始了新生活。</p>
+      <p>打扫老屋时的奇遇、雨后等车的夜晚、森林深处的参天大树——她们渐渐发现，这片山野里住着一些神秘的生物。其中最大的一只，圆滚滚、毛茸茸，被小梅称作「龙猫」。</p>
+      <p>一段关于童年、姐妹情与大自然魔法的夏日时光，就此缓缓展开。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">亮点所在</h2>
+    <div class="card">
+      <ul class="hl">
+        <li><b>吉卜力的开山名片</b>：宫崎骏治愈美学的集大成之作，龙猫自此成为吉卜力工作室的官方标志，是全球最著名的动画形象之一。</li>
+        <li><b>久石让的传世配乐</b>：《我的邻居龙猫》《风之甬道》旋律一响，乡野与童年的画面便扑面而来，是无数人的童年 BGM。</li>
+        <li><b>罕见的「无冲突」叙事</b>：没有反派、没有拯救世界，只有日常与想象——却以最朴素的童真打动了全世界的观众。</li>
+        <li><b>自然主义美学巅峰</b>：雨天车站、稻田蛙鸣、樟树森林，宫崎骏笔下的乡野生活细腻得让人想立刻住进去。</li>
+        <li><b>影史地位</b>：英国《帝国》杂志 2019 年「影史最伟大动画电影」评选中高居前列，影响了一代又一代动画人与观众。</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">为什么值得一看</h2>
+    <div class="card">
+      <p>这是一部不需要任何理由就能看下去的电影。它不讲大道理，不设悬念，只是安安静静地把童年最美好的一面捧到你面前——那份对世界的信任、对未知的好奇，还有家人之间的温暖。</p>
+      <p class="dim">成年人的世界里充满了焦虑与追赶，而《龙猫》像一场温柔的回溯：提醒你，心里那个相信「树梢上住着精灵」的孩子，一直都在。</p>
+    </div>
+  </section>
+
+  <div class="tip">🍃 无剧透承诺：以上只讲背景与看点，最动人的「高光时刻」留给你亲自观看。</div>
+
+  <footer>— 每日经典电影 · 第 60 期 —</footer>
+</div>
+</body>
+</html>
