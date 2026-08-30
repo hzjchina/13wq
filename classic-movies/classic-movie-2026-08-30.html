@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雨中曲</title>
+<style>
+  :root {
+    --bg: #0c1018;
+    --bg-soft: #121826;
+    --card: #1a2233;
+    --gold: #e8c96a;
+    --gold-soft: #f4dd9b;
+    --blue: #7fb3e8;
+    --text: #eef1f6;
+    --text-dim: #a3adc0;
+    --line: #27324a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 56px; }
+
+  /* 头部 */
+  .hero { text-align: center; padding: 34px 16px 30px; position: relative; }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(127,179,232,0.16), transparent 65%);
+    pointer-events: none;
+  }
+  .en { letter-spacing: 4px; font-size: 13px; color: var(--blue); text-transform: uppercase; margin-bottom: 10px; }
+  .title { font-size: clamp(40px, 9vw, 58px); font-weight: 800; letter-spacing: 10px; color: var(--gold-soft); }
+  .sub { margin-top: 12px; font-size: 15px; color: var(--text-dim); }
+  .sub b { color: var(--text); font-weight: 600; }
+
+  /* 评分 */
+  .scores { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 26px 0 8px; }
+  .score {
+    flex: 1 1 90px; max-width: 150px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 10px; text-align: center;
+  }
+  .score .num { font-size: 26px; font-weight: 800; color: var(--gold); }
+  .score .label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  /* 区块 */
+  section { margin-top: 30px; }
+  .sec-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 19px; font-weight: 700; color: var(--gold-soft);
+    margin-bottom: 14px;
+  }
+  .sec-title::before {
+    content: ""; width: 4px; height: 20px; border-radius: 2px;
+    background: linear-gradient(var(--gold), var(--gold-soft));
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .card p { color: var(--text); font-size: 16px; }
+  .card p + p { margin-top: 12px; }
+  .dim { color: var(--text-dim); }
+
+  /* 亮点列表 */
+  ul.hl { list-style: none; }
+  ul.hl li {
+    position: relative; padding: 10px 0 10px 26px;
+    border-bottom: 1px dashed var(--line); font-size: 15.5px;
+  }
+  ul.hl li:last-child { border-bottom: none; }
+  ul.hl li::before {
+    content: "✦"; position: absolute; left: 2px; top: 10px;
+    color: var(--blue); font-size: 14px;
+  }
+  ul.hl b { color: var(--gold-soft); }
+
+  /* 无剧透提示 */
+  .tip {
+    margin-top: 30px; text-align: center;
+    background: linear-gradient(135deg, rgba(127,179,232,0.10), rgba(127,179,232,0.03));
+    border: 1px solid rgba(127,179,232,0.35);
+    border-radius: 12px; padding: 14px 18px;
+    font-size: 13.5px; color: var(--blue);
+  }
+
+  footer { text-align: center; margin-top: 36px; font-size: 12.5px; color: #5f6b80; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 20px 14px 44px; }
+    .title { letter-spacing: 6px; }
+    .card { padding: 16px 16px; }
+    .scores { gap: 8px; }
+    .score { flex-basis: 80px; padding: 10px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="en">Singin' in the Rain · 1952</div>
+    <h1 class="title">雨中曲</h1>
+    <p class="sub">导演 <b>斯坦利·多南 / 吉恩·凯利</b> · 吉恩·凯利、黛比·雷诺斯、唐纳德·奥康纳 主演</p>
+    <div class="scores">
+      <div class="score"><div class="num">9.0</div><div class="label">豆瓣</div></div>
+      <div class="score"><div class="num">8.3</div><div class="label">IMDb</div></div>
+      <div class="score"><div class="num">100%</div><div class="label">烂番茄</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="sec-title">剧情梗概</h2>
+    <div class="card">
+      <p>1920 年代末的好莱坞，正经历一场天翻地覆的行业革命——无声电影即将被有声电影取代。当红默片巨星唐·洛克伍德原本风光无限，却在这场技术洪流中骤然失声：他的嗓音、他的表演方式，在新纪元面前显得格格不入。</p>
+      <p>为了不被淘汰，他被迫尝试转型拍摄歌舞片，并在混乱的筹备过程中，遇见了一位嗓音动人、性格直爽的女孩凯西。两个原本属于不同世界的人，因为一部注定麻烦不断的电影，被推到了聚光灯下。一场关于爱情、友情与自我革新的欢腾冒险，就此开场。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">亮点所在</h2>
+    <div class="card">
+      <ul class="hl">
+        <li><b>影史歌舞片第一</b>：AFI「百年百大歌舞片」第 1 位，「百年百大电影」第 5 位，无可争议的类型天花板</li>
+        <li><b>雨中独舞</b>：吉恩·凯利在瓢泼大雨中撑着伞起舞的片段，是电影史上被致敬最多的画面之一</li>
+        <li><b>默片到有声片的真实切片</b>：用喜剧方式还原了 1920 年代末明星们面对技术变革的窘态，笑声背后是真实的影史</li>
+        <li><b>教科书级喜剧节奏</b>：配音乌龙、口型对不上、试音翻车……笑料密集且高级，全程无冷场</li>
+        <li><b>华丽的好莱坞黄金美学</b>：色彩浓烈的歌舞场面、华丽的戏服布景，每一帧都像老电影的明信片</li>
+        <li><b>金曲传世</b>：《Singin' in the Rain》《Make 'Em Laugh》等旋律，至今仍是歌舞片的代名词</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">为什么值得一看</h2>
+    <div class="card">
+      <p>这是一部「看了就会开心」的电影。它没有沉重的主题，却把最纯粹的欢乐做到了极致——欢快的旋律、灵动的舞步、密集的笑点，哪怕过了七十多年，依然能让人嘴角上扬。</p>
+      <p>同时，它又是一堂生动的电影史课：它用最欢乐的方式，记录了好莱坞历史上最剧烈的一次技术转型，让今天的观众笑着理解「变革」二字的分量。无论你是想放松心情，还是想补一部真正的经典，它都是不会错的选择。</p>
+    </div>
+  </section>
+
+  <div class="tip">🫧 放心观看，以上介绍不含剧透</div>
+
+  <footer>经典电影推荐 · 第 61 期 · 2026-08-30</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>小陀螺的平衡 — 儿童睡前故事</title>
+  <style>
+    :root {
+      --bg-deep: #0d1321;
+      --bg-card: rgba(30, 38, 56, 0.72);
+      --text-main: #f7f3e8;
+      --text-soft: #d6d0c0;
+      --accent: #f9c872;
+      --moon: #fff9e6;
+      --star: #ffffff;
+      --glow: rgba(249, 200, 114, 0.35);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      min-height: 100vh;
+      font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+      background: radial-gradient(ellipse at top, #1a233a 0%, var(--bg-deep) 55%, #080b14 100%);
+      color: var(--text-main);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 星空背景 */
+    .stars {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .star {
+      position: absolute;
+      background: var(--star);
+      border-radius: 50%;
+      opacity: 0.6;
+      animation: twinkle var(--duration, 3s) ease-in-out infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.25; transform: scale(0.85); }
+      100% { opacity: 0.95; transform: scale(1.15); }
+    }
+
+    /* 月亮 */
+    .moon {
+      position: fixed;
+      top: 6vh;
+      right: 8vw;
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fffdf5 0%, #f6ebc7 40%, #e6d2a0 100%);
+      box-shadow: 0 0 28px rgba(255, 249, 230, 0.35), 0 0 60px rgba(255, 249, 230, 0.15);
+      z-index: 1;
+      animation: moonFloat 8s ease-in-out infinite alternate;
+    }
+
+    .moon::after {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      top: 24px;
+      left: 28px;
+      border-radius: 50%;
+      background: rgba(180, 165, 130, 0.22);
+      box-shadow: 26px 10px 0 -3px rgba(180, 165, 130, 0.18), 10px 36px 0 -5px rgba(180, 165, 130, 0.14);
+    }
+
+    @keyframes moonFloat {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-10px); }
+    }
+
+    /* 流星 */
+    .shooting-star {
+      position: fixed;
+      width: 100px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.9), rgba(255,255,255,0));
+      transform: rotate(-35deg);
+      opacity: 0;
+      z-index: 1;
+      animation: shoot 7s linear infinite;
+    }
+
+    .shooting-star:nth-of-type(1) { top: 15%; left: 75%; animation-delay: 0s; }
+    .shooting-star:nth-of-type(2) { top: 35%; left: 60%; animation-delay: 3.5s; width: 130px; }
+
+    @keyframes shoot {
+      0% { transform: translateX(0) translateY(0) rotate(-35deg); opacity: 0; }
+      12% { opacity: 0.8; }
+      24% { opacity: 0; transform: translateX(-160px) translateY(110px) rotate(-35deg); }
+      100% { opacity: 0; }
+    }
+
+    /* 内容卡片 */
+    .wrap {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 8vh 5vw 10vh;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 720px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 38px 34px 46px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 8px;
+      text-shadow: 0 0 24px var(--glow);
+      animation: titleGlow 4s ease-in-out infinite alternate;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: var(--text-soft);
+      margin-bottom: 26px;
+      opacity: 0.85;
+    }
+
+    @keyframes titleGlow {
+      0% { text-shadow: 0 0 18px rgba(249, 200, 114, 0.25); }
+      100% { text-shadow: 0 0 34px rgba(249, 200, 114, 0.55); }
+    }
+
+    /* SVG 陀螺插图 */
+    .illustration {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 28px;
+      filter: drop-shadow(0 0 18px rgba(249, 200, 114, 0.2));
+      animation: topFloat 5s ease-in-out infinite;
+    }
+
+    @keyframes topFloat {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-8px) rotate(2deg); }
+    }
+
+    .top-body {
+      animation: topSpin 1.6s linear infinite;
+      transform-origin: 110px 118px;
+    }
+
+    @keyframes topSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .wobble-line {
+      stroke-dasharray: 6 6;
+      animation: wobbleDraw 3s linear infinite;
+    }
+
+    @keyframes wobbleDraw {
+      0% { stroke-dashoffset: 0; opacity: 0.6; }
+      100% { stroke-dashoffset: -48; opacity: 0.9; }
+    }
+
+    .top-glow {
+      animation: glowPulse 2.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% { opacity: 0.35; }
+      100% { opacity: 0.75; }
+    }
+
+    /* 故事正文 */
+    .story {
+      text-align: left;
+      font-size: 1.125rem;
+      line-height: 2;
+      color: var(--text-main);
+      margin-bottom: 32px;
+    }
+
+    .story p {
+      text-indent: 2em;
+      margin-bottom: 1em;
+    }
+
+    .story p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* 分隔星光 */
+    .divider {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 28px 0;
+      opacity: 0.7;
+    }
+
+    .divider span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: dotBreathe 3s ease-in-out infinite alternate;
+    }
+
+    .divider span:nth-child(2) { animation-delay: 0.4s; }
+    .divider span:nth-child(3) { width: 7px; height: 7px; animation-delay: 0.8s; }
+    .divider span:nth-child(4) { animation-delay: 1.2s; }
+    .divider span:nth-child(5) { animation-delay: 1.6s; }
+
+    @keyframes dotBreathe {
+      0% { opacity: 0.35; transform: scale(0.8); }
+      100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* 晚安语 */
+    .goodnight {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--accent);
+      background: rgba(249, 200, 114, 0.08);
+      border-radius: 18px;
+      padding: 22px 26px;
+      display: inline-block;
+      text-align: center;
+      animation: goodnightGlow 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes goodnightGlow {
+      0% { box-shadow: 0 0 12px rgba(249, 200, 114, 0.12); }
+      100% { box-shadow: 0 0 28px rgba(249, 200, 114, 0.32); }
+    }
+
+    /* 底部暖光带 */
+    .warm-floor {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 80px;
+      background: radial-gradient(ellipse at center bottom, rgba(249, 200, 114, 0.18) 0%, transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+      animation: floorBreathe 5s ease-in-out infinite alternate;
+    }
+
+    @keyframes floorBreathe {
+      0% { opacity: 0.4; }
+      100% { opacity: 0.8; }
+    }
+
+    /* 漂浮粒子 */
+    .particle {
+      position: fixed;
+      border-radius: 50%;
+      background: rgba(249, 200, 114, 0.35);
+      filter: blur(1px);
+      z-index: 1;
+      pointer-events: none;
+      animation: rise 9s linear infinite;
+    }
+
+    @keyframes rise {
+      0% { transform: translateY(100vh) scale(0.6); opacity: 0; }
+      15% { opacity: 0.7; }
+      85% { opacity: 0.5; }
+      100% { transform: translateY(-20vh) scale(1.1); opacity: 0; }
+    }
+
+    /* 响应式 */
+    @media (max-width: 480px) {
+      .wrap { padding: 6vh 4vw 8vh; }
+      .card { padding: 28px 22px 34px; border-radius: 22px; }
+      h1 { font-size: 1.55rem; }
+      .subtitle { font-size: 0.85rem; }
+      .story { font-size: 1rem; line-height: 1.9; }
+      .illustration { width: 170px; height: 170px; }
+      .goodnight { font-size: 0.95rem; padding: 18px 20px; }
+      .moon { width: 68px; height: 68px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+  <div class="shooting-star"></div>
+  <div class="shooting-star"></div>
+  <div class="warm-floor"></div>
+
+  <div class="wrap">
+    <article class="card">
+      <h1>小陀螺的平衡</h1>
+      <p class="subtitle">2026年8月29日 · 儿童睡前故事</p>
+
+      <svg class="illustration" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" aria-label="一只摇摇晃晃却很开心的小陀螺">
+        <defs>
+          <linearGradient id="topGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#f9c872"/>
+            <stop offset="100%" stop-color="#e89b4b"/>
+          </linearGradient>
+          <linearGradient id="stemGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#fff5d9"/>
+            <stop offset="100%" stop-color="#d4b07a"/>
+          </linearGradient>
+          <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="rgba(249,200,114,0.45)"/>
+            <stop offset="100%" stop-color="rgba(249,200,114,0)"/>
+          </radialGradient>
+        </defs>
+
+        <!-- 底部光晕 -->
+        <ellipse cx="110" cy="178" rx="58" ry="14" fill="url(#glowGrad)" class="top-glow" />
+
+        <!-- 摇摆轨迹 -->
+        <path d="M 62 178 Q 90 158 110 178 T 158 178" fill="none" stroke="rgba(249,200,114,0.35)" stroke-width="2" class="wobble-line"/>
+
+        <!-- 陀螺主体 -->
+        <g class="top-body">
+          <!-- 陀螺圆盘 -->
+          <ellipse cx="110" cy="142" rx="46" ry="18" fill="#c47d3a"/>
+          <path d="M 64 142 Q 64 110 110 98 Q 156 110 156 142 Q 156 160 110 160 Q 64 160 64 142 Z" fill="url(#topGrad)"/>
+          <!-- 陀螺上的花纹 -->
+          <ellipse cx="110" cy="118" rx="34" ry="10" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+          <ellipse cx="110" cy="132" rx="28" ry="7" fill="none" stroke="rgba(255,255,255,0.45)" stroke-width="2"/>
+          <circle cx="90" cy="128" r="3" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="130" cy="128" r="3" fill="rgba(255,255,255,0.7)"/>
+          <circle cx="110" cy="145" r="4" fill="rgba(255,255,255,0.7)"/>
+          <!-- 陀螺柄 -->
+          <rect x="105" y="78" width="10" height="24" rx="2" fill="url(#stemGrad)"/>
+          <circle cx="110" cy="78" r="6" fill="#fff5d9"/>
+          <!-- 陀螺尖端 -->
+          <path d="M 104 158 L 110 182 L 116 158 Z" fill="#a86a2f"/>
+        </g>
+      </svg>
+
+      <div class="story">
+        <p>夜深了，玩具箱里静悄悄的。一只叫“转转”的小陀螺躺在角落里，望着天花板上月亮洒下来的光斑，轻轻叹了一口气。</p>
+        <p>转转不是不想跳舞。每当小主人把他按在地板上旋转，他都会使劲地转呀转。可是别的陀螺转起来像一根笔直的小柱子，又稳又神气；转转却总是摇摇晃晃，一会儿向左歪，一会儿向右倒，像喝醉了酒的小蜜蜂。</p>
+        <p>“我为什么不能稳稳地转呢？”转转难过地想。他试着把身体绷得直直的，屏住呼吸，可没转两圈，还是“啪嗒”一声倒在地上。</p>
+        <p>有一天晚上，小主人把转转拿了出来。她没有急着让他站直，而是用手指轻轻一转——转转便晃晃悠悠地画起圈圈来，左一圈，右一圈，像在地板上跳着一支可爱的波浪舞。</p>
+        <p>“妈妈你看，”小主人笑了起来，“转转转得真有趣，他好像在给我画小彩虹呢！”</p>
+        <p>转转愣住了。原来，他歪歪扭扭的样子，在小主人眼里并不是失败，而是一种特别的舞蹈。他不再使劲让自己变得笔直，而是顺着那股轻轻摇晃的劲儿，越转越开心。木马上系着的红丝带为他鼓掌，积木搭成的小城堡也露出了一排小窗户，像是在对他微笑。</p>
+        <p>从那以后，转转每晚都为玩具箱里的伙伴们跳一曲波浪舞。他说：“不用和别人转得一模一样，摇摇晃晃的我，也能转出属于自己的快乐呀。”</p>
+      </div>
+
+      <div class="divider">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <p class="goodnight">
+        晚安，小宝贝。<br>
+        小陀螺转转说，你今天也是个勇敢又可爱的好孩子，<br>
+        该做一个摇摇晃晃、甜甜蜜蜜的梦了。🌙
+      </p>
+    </article>
+  </div>
+
+  <script>
+    (function() {
+      const starsContainer = document.getElementById('stars');
+      const count = 100;
+      for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        const size = Math.random() * 2.2 + 1;
+        star.style.width = size + 'px';
+        star.style.height = size + 'px';
+        star.style.left = Math.random() * 100 + 'vw';
+        star.style.top = Math.random() * 100 + 'vh';
+        star.style.setProperty('--duration', (Math.random() * 2.5 + 2) + 's');
+        star.style.animationDelay = (Math.random() * 3) + 's';
+        starsContainer.appendChild(star);
+      }
+
+      // 漂浮粒子
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 5 + 3;
+        p.style.width = size + 'px';
+        p.style.height = size + 'px';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = (Math.random() * 4 + 7) + 's';
+        p.style.animationDelay = Math.random() * 5 + 's';
+        document.body.appendChild(p);
+      }
+    })();
+  </script>
+</body>
+</html>
