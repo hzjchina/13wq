@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美丽心灵</title>
+<style>
+  :root {
+    --bg: #0c1018;
+    --bg-soft: #121826;
+    --card: #1a2233;
+    --gold: #e8c96a;
+    --gold-soft: #f4dd9b;
+    --blue: #7fb3e8;
+    --text: #eef1f6;
+    --text-dim: #a3adc0;
+    --line: #27324a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.75;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 56px; }
+
+  /* 头部 */
+  .hero { text-align: center; padding: 34px 16px 30px; position: relative; }
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(127,179,232,0.16), transparent 65%);
+    pointer-events: none;
+  }
+  .en { letter-spacing: 4px; font-size: 13px; color: var(--blue); text-transform: uppercase; margin-bottom: 10px; }
+  .title { font-size: clamp(40px, 9vw, 58px); font-weight: 800; letter-spacing: 10px; color: var(--gold-soft); }
+  .sub { margin-top: 12px; font-size: 15px; color: var(--text-dim); }
+  .sub b { color: var(--text); font-weight: 600; }
+
+  /* 评分 */
+  .scores { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 26px 0 8px; }
+  .score {
+    flex: 1 1 90px; max-width: 150px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 10px; text-align: center;
+  }
+  .score .num { font-size: 26px; font-weight: 800; color: var(--gold); }
+  .score .label { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+  /* 区块 */
+  section { margin-top: 30px; }
+  .sec-title {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 19px; font-weight: 700; color: var(--gold-soft);
+    margin-bottom: 14px;
+  }
+  .sec-title::before {
+    content: ""; width: 4px; height: 20px; border-radius: 2px;
+    background: linear-gradient(var(--gold), var(--gold-soft));
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .card p { color: var(--text); font-size: 16px; }
+  .card p + p { margin-top: 12px; }
+  .dim { color: var(--text-dim); }
+
+  /* 亮点列表 */
+  ul.hl { list-style: none; }
+  ul.hl li {
+    position: relative; padding: 10px 0 10px 26px;
+    border-bottom: 1px dashed var(--line); font-size: 15.5px;
+  }
+  ul.hl li:last-child { border-bottom: none; }
+  ul.hl li::before {
+    content: "✦"; position: absolute; left: 2px; top: 10px;
+    color: var(--blue); font-size: 14px;
+  }
+  ul.hl b { color: var(--gold-soft); }
+
+  /* 无剧透提示 */
+  .tip {
+    margin-top: 30px; text-align: center;
+    background: linear-gradient(135deg, rgba(127,179,232,0.10), rgba(127,179,232,0.03));
+    border: 1px solid rgba(127,179,232,0.35);
+    border-radius: 12px; padding: 14px 18px;
+    font-size: 13.5px; color: var(--blue);
+  }
+
+  footer { text-align: center; margin-top: 36px; font-size: 12.5px; color: #5f6b80; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 20px 14px 44px; }
+    .title { letter-spacing: 6px; }
+    .card { padding: 16px 16px; }
+    .scores { gap: 8px; }
+    .score { flex-basis: 80px; padding: 10px 6px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="en">A Beautiful Mind · 2001</div>
+    <h1 class="title">美丽心灵</h1>
+    <p class="sub">导演 <b>朗·霍华德</b> · 罗素·克劳、詹妮弗·康纳利、艾德·哈里斯 主演</p>
+    <div class="scores">
+      <div class="score"><div class="num">9.1</div><div class="label">豆瓣</div></div>
+      <div class="score"><div class="num">8.2</div><div class="label">IMDb</div></div>
+      <div class="score"><div class="num">94%</div><div class="label">烂番茄观众</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2 class="sec-title">剧情梗概</h2>
+    <div class="card">
+      <p>天才数学家约翰·纳什年轻时就凭借「博弈论」一鸣惊人，一篇论文足以让他名垂青史。爱情、事业、荣誉接踵而至，他的人生看起来是一幅完美画卷。</p>
+      <p>然而，就在他站上学术巅峰之际，一个潜伏已久的秘密开始悄然侵蚀他的世界——他渐渐分不清真实与虚幻的边界，被看不见的敌人缠上了。在漫长的岁月里，他凭借惊人的意志与妻子的陪伴，与内心的风暴搏斗，最终学会与之共存，重新拥抱生活。</p>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">亮点所在</h2>
+    <div class="card">
+      <ul class="hl">
+        <li><b>罗素·克劳封神演技</b>：从意气风发的天才，到饱受困扰的病人，再到晚年淡泊的学者，一段跨度极大的表演，拿遍当年各大影帝奖项</li>
+        <li><b>真实人物传记</b>：改编自诺贝尔经济学奖得主约翰·纳什的真实人生，现实往往比电影更震撼</li>
+        <li><b>奥斯卡四项大奖</b>：最佳影片 + 最佳导演 + 最佳男配角 + 最佳改编剧本，第 74 届奥斯卡最大赢家</li>
+        <li><b>詹妮弗·康纳利的坚守</b>：妻子一角温柔而坚韧，是全片最动人的情感支点</li>
+        <li><b>「博弈论」的银幕科普</b>：纳什均衡等概念被讲得通俗又迷人，理科生会心一笑，文科生也能看懂</li>
+        <li><b>不煽情的治愈力</b>：没有滥情的眼泪，只用克制的镜头讲述「与困境和解」，后劲十足</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="sec-title">为什么值得一看</h2>
+    <div class="card">
+      <p>这是一部关于天才、爱与救赎的真实故事。它没有把精神疾病浪漫化，而是冷静又温柔地展现一个人如何与内心看不见的敌人搏斗数十年，并最终和解。</p>
+      <p>纳什的故事告诉我们：真正的强大不是没有脆弱，而是在脆弱中依然选择前行。无论你正处于人生的高光还是低谷，这部电影都能给你一种安静而坚定的力量。</p>
+    </div>
+  </section>
+
+  <div class="tip">🧠 放心观看，以上介绍不含剧透</div>
+
+  <footer>经典电影推荐 · 第 62 期 · 2026-08-31</footer>
+</div>
+</body>
+</html>

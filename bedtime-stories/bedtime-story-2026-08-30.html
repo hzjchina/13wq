@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蝴蝶的晚安舞 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #0a0e27 0%, #131838 35%, #1a1f4a 60%, #241a3e 85%, #2d1f3a 100%);
+    min-height: 100vh;
+    font-family: "PingFang SC", "Microsoft YaHei", "Hiragino Sans GB", sans-serif;
+    color: #e8e0f0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空容器 */
+  .starfield {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  /* 星星 */
+  .star {
+    position: absolute;
+    border-radius: 50%;
+    background: #fff;
+    opacity: 0;
+    animation: twinkle var(--dur) ease-in-out infinite var(--delay);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.15; transform: scale(0.6); }
+    50% { opacity: 1; transform: scale(1.3); }
+  }
+
+  /* 月亮 */
+  .moon-wrap {
+    position: fixed;
+    top: 6%; right: 8%;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon-glow-outer {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,243,190,0.12) 0%, rgba(255,243,190,0) 70%);
+    animation: moonPulse 5s ease-in-out infinite;
+  }
+  .moon-glow-inner {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,245,200,0.2) 0%, rgba(255,245,200,0) 70%);
+    animation: moonPulse 4s ease-in-out infinite 0.5s;
+  }
+  @keyframes moonPulse {
+    0%, 100% { opacity: 0.5; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 1; transform: translate(-50%,-50%) scale(1.08); }
+  }
+  .moon-body {
+    position: relative;
+    width: 72px; height: 72px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff9e0, #f5e6a8 50%, #e0cf85 90%);
+    box-shadow: 0 0 25px rgba(255,240,180,0.4);
+  }
+  .moon-crater {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(200,185,120,0.35);
+  }
+  .moon-crater.c1 { width: 14px; height: 14px; top: 20%; left: 50%; }
+  .moon-crater.c2 { width: 8px; height: 8px; top: 55%; left: 25%; }
+  .moon-crater.c3 { width: 10px; height: 10px; top: 65%; left: 60%; }
+
+  /* 流星 */
+  .shooting-star {
+    position: fixed;
+    width: 2px; height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    z-index: 1;
+    pointer-events: none;
+    box-shadow: 0 0 6px 1px rgba(255,255,255,0.8);
+    opacity: 0;
+  }
+  .shooting-star::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.8), transparent);
+  }
+  .shooting-star.s1 {
+    top: 12%; left: 5%;
+    animation: shoot 8s linear infinite 2s;
+  }
+  .shooting-star.s2 {
+    top: 25%; left: 60%;
+    animation: shoot 10s linear infinite 6s;
+  }
+  @keyframes shoot {
+    0% { opacity: 0; transform: translate(0,0) rotate(25deg); }
+    5% { opacity: 1; }
+    20% { opacity: 1; transform: translate(300px, 140px) rotate(25deg); }
+    21%, 100% { opacity: 0; transform: translate(300px, 140px) rotate(25deg); }
+  }
+
+  /* 主内容 */
+  .container {
+    position: relative;
+    z-index: 10;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+
+  /* 故事卡片 */
+  .story-card {
+    background: rgba(20, 22, 55, 0.55);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 24px;
+    padding: 48px 36px 52px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 蝴蝶 SVG */
+  .butterfly-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  .butterfly-svg {
+    width: 160px; height: 120px;
+    filter: drop-shadow(0 0 12px rgba(255,200,230,0.3));
+    animation: butterflyFloat 5s ease-in-out infinite;
+  }
+  @keyframes butterflyFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-12px) rotate(2deg); }
+  }
+  .butterfly-svg .wing-left {
+    transform-origin: 80px 60px;
+    animation: flapL 0.9s ease-in-out infinite;
+  }
+  .butterfly-svg .wing-right {
+    transform-origin: 80px 60px;
+    animation: flapR 0.9s ease-in-out infinite;
+  }
+  @keyframes flapL {
+    0%, 100% { transform: scaleX(1) skewY(0deg); }
+    50% { transform: scaleX(0.5) skewY(-3deg); }
+  }
+  @keyframes flapR {
+    0%, 100% { transform: scaleX(1) skewY(0deg); }
+    50% { transform: scaleX(0.5) skewY(3deg); }
+  }
+
+  .butterfly-glow {
+    animation: butterflyGlow 3s ease-in-out infinite;
+  }
+  @keyframes butterflyGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+  }
+
+  /* 标题 */
+  .story-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    color: #ffd9ec;
+    margin-bottom: 8px;
+    text-shadow: 0 0 20px rgba(255,180,220,0.4), 0 0 40px rgba(255,150,200,0.15);
+    animation: titleGlow 4s ease-in-out infinite;
+    letter-spacing: 2px;
+  }
+  @keyframes titleGlow {
+    0%, 100% { text-shadow: 0 0 15px rgba(255,180,220,0.3), 0 0 30px rgba(255,150,200,0.1); }
+    50% { text-shadow: 0 0 25px rgba(255,180,220,0.55), 0 0 50px rgba(255,150,200,0.2); }
+  }
+  .story-subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 36px;
+    letter-spacing: 3px;
+  }
+
+  /* 分隔星光 */
+  .divider-stars {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin: 20px 0;
+  }
+  .divider-stars .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: rgba(255,210,170,0.6);
+    box-shadow: 0 0 8px rgba(255,200,150,0.4);
+    animation: dotBreath 3s ease-in-out infinite;
+  }
+  .divider-stars .dot:nth-child(2) { animation-delay: 0.4s; }
+  .divider-stars .dot:nth-child(3) { animation-delay: 0.8s; }
+  .divider-stars .dot:nth-child(4) { animation-delay: 1.2s; }
+  .divider-stars .dot:nth-child(5) { animation-delay: 1.6s; }
+  .divider-stars .line {
+    width: 40px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,200,150,0.3), transparent);
+  }
+  @keyframes dotBreath {
+    0%, 100% { opacity: 0.3; transform: scale(0.7); }
+    50% { opacity: 1; transform: scale(1.2); }
+  }
+
+  /* 正文 */
+  .story-text {
+    font-size: 17px;
+    line-height: 2.1;
+    color: #d4ccee;
+    letter-spacing: 0.5px;
+  }
+  .story-text p {
+    margin-bottom: 16px;
+    text-indent: 2em;
+  }
+  .story-text .dialogue {
+    color: #ffc7d8;
+    font-style: normal;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 32px;
+    padding: 24px 20px;
+    border-radius: 16px;
+    background: rgba(255,180,220,0.05);
+    border-top: 1px solid rgba(255,180,220,0.12);
+    border-bottom: 1px solid rgba(255,180,220,0.12);
+    font-size: 16px;
+    line-height: 1.9;
+    color: #f0c8e0;
+    animation: goodnightGlow 5s ease-in-out infinite;
+  }
+  @keyframes goodnightGlow {
+    0%, 100% {
+      box-shadow: inset 0 0 20px rgba(255,180,220,0.05);
+      text-shadow: 0 0 8px rgba(255,180,220,0.1);
+    }
+    50% {
+      box-shadow: inset 0 0 30px rgba(255,180,220,0.12);
+      text-shadow: 0 0 15px rgba(255,180,220,0.25);
+    }
+  }
+
+  /* 萤火虫 */
+  .firefly {
+    position: fixed;
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: rgba(200,255,150,0.9);
+    box-shadow: 0 0 10px 2px rgba(180,255,120,0.5);
+    z-index: 2;
+    pointer-events: none;
+    animation: fireflyFloat 12s ease-in-out infinite;
+  }
+  @keyframes fireflyFloat {
+    0%, 100% { opacity: 0; transform: translate(0, 0); }
+    10% { opacity: 0.9; }
+    50% { opacity: 0.6; transform: translate(40px, -60px); }
+    90% { opacity: 0.9; }
+    99% { opacity: 0; transform: translate(80px, -120px); }
+  }
+
+  /* 漂浮粒子 */
+  .particle {
+    position: fixed;
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    z-index: 2;
+    pointer-events: none;
+    animation: particleRise 10s linear infinite;
+  }
+  @keyframes particleRise {
+    0% { opacity: 0; transform: translateY(0) translateX(0); }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.4; }
+    100% { opacity: 0; transform: translateY(-100vh) translateX(var(--drift, 20px)); }
+  }
+
+  /* 底部暖光带 */
+  .bottom-warmth {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 120px;
+    background: linear-gradient(180deg, transparent, rgba(255,180,130,0.06) 40%, rgba(255,160,100,0.1));
+    z-index: 3;
+    pointer-events: none;
+    animation: warmthBreath 5s ease-in-out infinite;
+  }
+  @keyframes warmthBreath {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  /* 花瓣装饰 */
+  .petal-deco {
+    position: fixed;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.4;
+    animation: petalDrift 15s linear infinite;
+  }
+  @keyframes petalDrift {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.4; }
+    90% { opacity: 0.2; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .container { padding: 40px 14px 70px; }
+    .story-card { padding: 36px 22px 44px; border-radius: 18px; }
+    .story-title { font-size: 22px; letter-spacing: 1px; }
+    .story-text { font-size: 15px; line-height: 2; }
+    .goodnight { font-size: 14px; }
+    .butterfly-svg { width: 130px; height: 98px; }
+    .moon-wrap { top: 4%; right: 5%; }
+    .moon-body { width: 56px; height: 56px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 星空 -->
+<div class="starfield" id="starfield"></div>
+
+<!-- 月亮 -->
+<div class="moon-wrap">
+  <div class="moon-glow-outer"></div>
+  <div class="moon-glow-inner"></div>
+  <div class="moon-body">
+    <div class="moon-crater c1"></div>
+    <div class="moon-crater c2"></div>
+    <div class="moon-crater c3"></div>
+  </div>
+</div>
+
+<!-- 流星 -->
+<div class="shooting-star s1"></div>
+<div class="shooting-star s2"></div>
+
+<!-- 主内容 -->
+<div class="container">
+  <div class="story-card">
+
+    <!-- 蝴蝶 SVG -->
+    <div class="butterfly-wrap">
+      <svg class="butterfly-svg" viewBox="0 0 160 120" xmlns="http://www.w3.org/2000/svg">
+        <!-- 光晕 -->
+        <ellipse class="butterfly-glow" cx="80" cy="60" rx="70" ry="50" fill="url(#butterflyGlowGrad)" opacity="0.3"/>
+
+        <defs>
+          <radialGradient id="butterflyGlowGrad">
+            <stop offset="0%" stop-color="#ffb8d8" stop-opacity="0.4"/>
+            <stop offset="100%" stop-color="#ffb8d8" stop-opacity="0"/>
+          </radialGradient>
+          <linearGradient id="wingGradL" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ff9ec7"/>
+            <stop offset="50%" stop-color="#d4a0e8"/>
+            <stop offset="100%" stop-color="#7eb8f5"/>
+          </linearGradient>
+          <linearGradient id="wingGradR" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#ff9ec7"/>
+            <stop offset="50%" stop-color="#d4a0e8"/>
+            <stop offset="100%" stop-color="#7eb8f5"/>
+          </linearGradient>
+          <linearGradient id="lowerWingL" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#c89ee8"/>
+            <stop offset="100%" stop-color="#6ba0e0"/>
+          </linearGradient>
+          <linearGradient id="lowerWingR" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#c89ee8"/>
+            <stop offset="100%" stop-color="#6ba0e0"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 左上翅 -->
+        <path class="wing-left" d="M78,58 Q40,20 15,35 Q5,50 12,65 Q30,72 78,58 Z" fill="url(#wingGradL)" opacity="0.88"/>
+        <!-- 左下翅 -->
+        <path class="wing-left" d="M78,60 Q45,75 30,95 Q35,105 55,100 Q72,88 78,62 Z" fill="url(#lowerWingL)" opacity="0.85"/>
+        <!-- 右上翅 -->
+        <path class="wing-right" d="M82,58 Q120,20 145,35 Q155,50 148,65 Q130,72 82,58 Z" fill="url(#wingGradR)" opacity="0.88"/>
+        <!-- 右下翅 -->
+        <path class="wing-right" d="M82,60 Q115,75 130,95 Q125,105 105,100 Q88,88 82,62 Z" fill="url(#lowerWingR)" opacity="0.85"/>
+
+        <!-- 翅膀斑点 -->
+        <circle cx="28" cy="48" r="5" fill="#fff5e0" opacity="0.7"/>
+        <circle cx="42" cy="85" r="3.5" fill="#fff5e0" opacity="0.6"/>
+        <circle cx="132" cy="48" r="5" fill="#fff5e0" opacity="0.7"/>
+        <circle cx="118" cy="85" r="3.5" fill="#fff5e0" opacity="0.6"/>
+        <circle cx="22" cy="40" r="2.5" fill="#ffd9a0" opacity="0.5"/>
+        <circle cx="138" cy="40" r="2.5" fill="#ffd9a0" opacity="0.5"/>
+
+        <!-- 身体 -->
+        <ellipse cx="80" cy="60" rx="4" ry="28" fill="#3a2a4e"/>
+        <ellipse cx="80" cy="60" rx="2.5" ry="26" fill="#5a4068" opacity="0.7"/>
+
+        <!-- 头 -->
+        <circle cx="80" cy="32" r="5" fill="#4a3560"/>
+        <!-- 触角 -->
+        <path d="M78,28 Q72,15 68,8" stroke="#4a3560" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <path d="M82,28 Q88,15 92,8" stroke="#4a3560" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <circle cx="68" cy="8" r="1.8" fill="#ff9ec7"/>
+        <circle cx="92" cy="8" r="1.8" fill="#ff9ec7"/>
+
+        <!-- 身体分节光 -->
+        <circle cx="80" cy="48" r="1.5" fill="#ffd9a0" opacity="0.5"/>
+        <circle cx="80" cy="60" r="1.5" fill="#ffd9a0" opacity="0.5"/>
+        <circle cx="80" cy="72" r="1.5" fill="#ffd9a0" opacity="0.5"/>
+      </svg>
+    </div>
+
+    <h1 class="story-title">小蝴蝶的晚安舞</h1>
+    <p class="story-subtitle">2026年8月30日 · 儿童睡前故事</p>
+
+    <div class="divider-stars">
+      <div class="line"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="line"></div>
+    </div>
+
+    <div class="story-text">
+      <p>在一片开满野花的草地上，住着一只小蝴蝶，她叫小舞。</p>
+
+      <p>小舞最喜欢跳舞了。从太阳刚升起来，她就开始跳舞——在蒲公英上转圈圈，在雏菊间穿梭，在小溪边轻轻一掠，划出一道漂亮的弧线。</p>
+
+      <p>其他蝴蝶都说：<span class="dialogue">"小舞，你跳得真好看！"</span></p>
+
+      <p>可是到了傍晚，太阳慢慢落下去，蝴蝶们一个接一个飞回花丛里，收起翅膀，准备睡觉了。</p>
+
+      <p><span class="dialogue">"小舞，该睡啦。"</span>蝴蝶妈妈轻轻说。</p>
+
+      <p><span class="dialogue">"再跳一会儿嘛，"</span>小舞扇扇翅膀，<span class="dialogue">"就一小会儿！"</span></p>
+
+      <p>月亮升上来了，银色的光洒在草地上。小舞还在跳。她跳过睡着的牵牛花，牵牛花的花瓣轻轻颤了颤，好像在梦里鼓掌。她跳过睡着的瓢虫，瓢虫蜷了蜷身子，把小被子似的翅膀盖得更紧了。她跳过荷叶上打盹的青蛙，青蛙"咕"了一声，翻了个身，嘴角弯了弯。</p>
+
+      <p><span class="dialogue">"原来大家都在做梦呀。"</span>小舞轻轻说。</p>
+
+      <p>这时候，她的翅膀有点酸了，动作也慢了下来。风婆婆悄悄走过来，温柔地托住她。</p>
+
+      <p><span class="dialogue">"小舞，跳了一天累了吧？"</span>风婆婆说，<span class="dialogue">"闭上眼睛，在梦里也可以跳舞哦。梦里的大舞台，比草地还大呢。"</span></p>
+
+      <p>小舞想了想，点点头。她轻轻落在一片最柔软的花瓣上，收起翅膀。月光像一床薄被子，轻轻盖在她身上。</p>
+
+      <p><span class="dialogue">"明天，我再跳给大家看。"</span>小舞小声说，然后闭上了眼睛。</p>
+
+      <p>风婆婆帮她哼了一支轻轻的曲子。花瓣摇篮摇呀摇，小舞的嘴角弯了弯——她一定是在梦里，跳着更大更大的舞。</p>
+    </div>
+
+    <div class="goodnight">
+      晚安，小宝贝。小蝴蝶说，你今天也跳了一整天的好舞，现在该收起翅膀，做一朵梦里的大花了。梦里想怎么转圈圈都行呢。
+    </div>
+
+  </div>
+</div>
+
+<!-- 底部暖光 -->
+<div class="bottom-warmth"></div>
+
+<script>
+  // 生成星星
+  const starfield = document.getElementById('starfield');
+  const starCount = 110;
+  for (let i = 0; i < starCount; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (Math.random() * 3 + 2) + 's');
+    star.style.setProperty('--delay', Math.random() * 4 + 's');
+    starfield.appendChild(star);
+  }
+
+  // 生成萤火虫
+  const fireflyCount = 6;
+  for (let i = 0; i < fireflyCount; i++) {
+    const ff = document.createElement('div');
+    ff.className = 'firefly';
+    ff.style.left = Math.random() * 100 + '%';
+    ff.style.top = (50 + Math.random() * 40) + '%';
+    ff.style.animationDelay = (i * 2) + 's';
+    ff.style.animationDuration = (10 + Math.random() * 6) + 's';
+    document.body.appendChild(ff);
+  }
+
+  // 生成暖色漂浮粒子
+  const particleCount = 8;
+  const colors = ['rgba(255,200,150,0.6)', 'rgba(255,180,220,0.5)', 'rgba(200,180,255,0.5)'];
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '0';
+    p.style.background = colors[i % colors.length];
+    p.style.boxShadow = '0 0 6px ' + colors[i % colors.length];
+    p.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+    p.style.animationDelay = (i * 1.5) + 's';
+    p.style.animationDuration = (8 + Math.random() * 6) + 's';
+    document.body.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
