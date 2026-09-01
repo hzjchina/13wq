@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小桂花的香香梦 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #0a0e27 0%, #1a1f4b 40%, #2d1b4e 100%);
+    min-height: 100vh;
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    color: #f0e6d3;
+    overflow-x: hidden;
+    position: relative;
+  }
+  .stars {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur) ease-in-out infinite alternate;
+    opacity: var(--op);
+  }
+  @keyframes twinkle {
+    0% { opacity: var(--op); transform: scale(1); }
+    100% { opacity: 0.2; transform: scale(0.6); }
+  }
+  .moon {
+    position: fixed;
+    top: 40px; right: 40px;
+    width: 90px; height: 90px;
+    background: radial-gradient(circle at 35% 35%, #fff9e6, #f0e6c8 40%, #d4c4a0 100%);
+    border-radius: 50%;
+    box-shadow: 0 0 40px rgba(240, 230, 200, 0.25), 0 0 80px rgba(240, 230, 200, 0.1);
+    z-index: 1;
+    animation: moonFloat 6s ease-in-out infinite;
+  }
+  .moon::before {
+    content: '';
+    position: absolute;
+    top: 18px; left: 22px;
+    width: 14px; height: 14px;
+    background: rgba(180, 170, 150, 0.25);
+    border-radius: 50%;
+  }
+  .moon::after {
+    content: '';
+    position: absolute;
+    top: 45px; left: 50px;
+    width: 10px; height: 10px;
+    background: rgba(180, 170, 150, 0.2);
+    border-radius: 50%;
+  }
+  @keyframes moonFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .shooting-star {
+    position: fixed;
+    width: 100px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.9), rgba(255,255,255,0));
+    transform: rotate(-35deg);
+    z-index: 1;
+    opacity: 0;
+  }
+  .shooting-star:nth-of-type(1) {
+    top: 15%; left: 60%;
+    animation: shoot 4s ease-out infinite;
+    animation-delay: 1s;
+  }
+  .shooting-star:nth-of-type(2) {
+    top: 35%; left: 20%;
+    animation: shoot 5s ease-out infinite;
+    animation-delay: 3s;
+  }
+  @keyframes shoot {
+    0% { opacity: 0; transform: rotate(-35deg) translateX(0); }
+    10% { opacity: 1; }
+    20% { opacity: 0; transform: rotate(-35deg) translateX(-180px); }
+    100% { opacity: 0; }
+  }
+  .container {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 24px 80px;
+  }
+  .title {
+    text-align: center;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-weight: 600;
+    color: #ffeaa7;
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+    text-shadow: 0 0 20px rgba(255, 234, 167, 0.3);
+    animation: titleGlow 4s ease-in-out infinite alternate;
+  }
+  @keyframes titleGlow {
+    0% { text-shadow: 0 0 20px rgba(255, 234, 167, 0.3); }
+    100% { text-shadow: 0 0 35px rgba(255, 234, 167, 0.55), 0 0 60px rgba(255, 200, 100, 0.2); }
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(200, 190, 220, 0.7);
+    margin-bottom: 32px;
+    letter-spacing: 1px;
+  }
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .divider-line {
+    width: 60px; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 234, 167, 0.4), transparent);
+  }
+  .divider-dot {
+    width: 6px; height: 6px;
+    background: #ffeaa7;
+    border-radius: 50%;
+    opacity: 0.6;
+    animation: dotPulse 2.5s ease-in-out infinite;
+  }
+  @keyframes dotPulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.3); }
+  }
+  .illustration {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+  .illustration svg {
+    max-width: 320px;
+    width: 100%;
+    filter: drop-shadow(0 0 25px rgba(255, 200, 80, 0.15));
+    animation: svgFloat 5s ease-in-out infinite;
+  }
+  @keyframes svgFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  .story {
+    font-size: clamp(1.05rem, 3vw, 1.2rem);
+    line-height: 2;
+    text-align: justify;
+    color: #e8e0d4;
+    margin-bottom: 36px;
+  }
+  .story p {
+    text-indent: 2em;
+    margin-bottom: 1.2em;
+  }
+  .goodnight {
+    text-align: center;
+    padding: 28px 20px;
+    background: rgba(255, 234, 167, 0.06);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 234, 167, 0.15);
+    margin-bottom: 40px;
+    animation: gnGlow 5s ease-in-out infinite alternate;
+  }
+  @keyframes gnGlow {
+    0% { box-shadow: 0 0 15px rgba(255, 234, 167, 0.05); }
+    100% { box-shadow: 0 0 30px rgba(255, 234, 167, 0.15); }
+  }
+  .goodnight p {
+    font-size: clamp(1.1rem, 3.2vw, 1.35rem);
+    color: #ffeaa7;
+    line-height: 1.8;
+    text-indent: 0;
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+  .bottom-glow {
+    position: fixed;
+    bottom: 0; left: 0;
+    width: 100%; height: 120px;
+    background: linear-gradient(0deg, rgba(255, 200, 100, 0.08), transparent);
+    pointer-events: none;
+    z-index: 1;
+    animation: bottomPulse 5s ease-in-out infinite alternate;
+  }
+  @keyframes bottomPulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 1; }
+  }
+  .petal-particle {
+    position: fixed;
+    border-radius: 50% 0 50% 50%;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.5;
+    animation: petalFloat var(--pdur) ease-in-out infinite;
+  }
+  @keyframes petalFloat {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+  }
+  @media (max-width: 480px) {
+    .container { padding: 40px 18px 60px; }
+    .moon { width: 60px; height: 60px; top: 20px; right: 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="moon"></div>
+<div class="shooting-star"></div>
+<div class="shooting-star"></div>
+<div class="bottom-glow"></div>
+
+<div class="container">
+  <h1 class="title">小桂花的香香梦</h1>
+  <p class="subtitle">儿童睡前故事 · 2026年8月31日</p>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <div class="illustration">
+    <svg viewBox="0 0 320 280" xmlns="http://www.w3.org/2000/svg">
+      <!-- 树枝 -->
+      <path d="M20 240 Q80 200 120 160 Q160 120 200 80 Q240 40 280 20" 
+            stroke="#5a3d1f" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <path d="M120 160 Q140 180 170 190" 
+            stroke="#5a3d1f" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M200 80 Q220 100 250 110" 
+            stroke="#5a3d1f" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+      <!-- 叶子 -->
+      <ellipse cx="100" cy="175" rx="16" ry="8" fill="#3a6b3a" transform="rotate(-30 100 175)"/>
+      <ellipse cx="140" cy="150" rx="18" ry="9" fill="#4a7a3a" transform="rotate(-10 140 150)"/>
+      <ellipse cx="180" cy="105" rx="16" ry="8" fill="#3a6b3a" transform="rotate(20 180 105)"/>
+      <ellipse cx="230" cy="65" rx="17" ry="8" fill="#4a7a3a" transform="rotate(-15 230 65)"/>
+      <ellipse cx="260" cy="45" rx="14" ry="7" fill="#3a6b3a" transform="rotate(25 260 45)"/>
+
+      <!-- 普通桂花簇 -->
+      <g fill="#d4a843" opacity="0.8">
+        <circle cx="90" cy="168" r="3.5"/>
+        <circle cx="96" cy="172" r="3"/>
+        <circle cx="92" cy="178" r="3"/>
+        <circle cx="86" cy="174" r="3"/>
+        <circle cx="94" cy="165" r="2.5"/>
+      </g>
+      <g fill="#d4a843" opacity="0.75">
+        <circle cx="135" cy="142" r="3"/>
+        <circle cx="141" cy="146" r="3.5"/>
+        <circle cx="137" cy="152" r="3"/>
+        <circle cx="131" cy="148" r="2.5"/>
+      </g>
+      <g fill="#d4a843" opacity="0.7">
+        <circle cx="175" cy="98" r="3"/>
+        <circle cx="181" cy="102" r="3"/>
+        <circle cx="177" cy="108" r="2.5"/>
+        <circle cx="171" cy="104" r="2.5"/>
+      </g>
+      <g fill="#d4a843" opacity="0.65">
+        <circle cx="225" cy="58" r="3"/>
+        <circle cx="231" cy="62" r="2.5"/>
+        <circle cx="227" cy="68" r="2.5"/>
+        <circle cx="221" cy="64" r="2"/>
+      </g>
+
+      <!-- 主角金金（主角桂花）-->
+      <g>
+        <circle cx="155" cy="128" r="12" fill="#ffe066" opacity="0.25">
+          <animate attributeName="r" values="12;16;12" dur="3s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.25;0.4;0.25" dur="3s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="155" cy="128" r="5" fill="#ffd700"/>
+        <circle cx="150" cy="124" r="3.5" fill="#ffec8b"/>
+        <circle cx="160" cy="124" r="3.5" fill="#ffec8b"/>
+        <circle cx="150" cy="132" r="3.5" fill="#ffec8b"/>
+        <circle cx="160" cy="132" r="3.5" fill="#ffec8b"/>
+        <circle cx="155" cy="122" r="3" fill="#fff5a0"/>
+        <circle cx="155" cy="134" r="3" fill="#fff5a0"/>
+        <circle cx="147" cy="128" r="3" fill="#fff5a0"/>
+        <circle cx="163" cy="128" r="3" fill="#fff5a0"/>
+      </g>
+
+      <!-- 飘散香味 -->
+      <g stroke="#ffe066" fill="none" stroke-width="1.5" opacity="0.5" stroke-linecap="round">
+        <path d="M140 120 Q110 100 80 110" opacity="0.6">
+          <animate attributeName="d" values="M140 120 Q110 100 80 110;M138 118 Q108 98 78 108;M140 120 Q110 100 80 110" dur="4s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.6;0.2;0.6" dur="4s" repeatCount="indefinite"/>
+        </path>
+        <path d="M165 115 Q180 90 200 85" opacity="0.5">
+          <animate attributeName="d" values="M165 115 Q180 90 200 85;M163 113 Q178 88 198 83;M165 115 Q180 90 200 85" dur="3.5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.5;0.15;0.5" dur="3.5s" repeatCount="indefinite"/>
+        </path>
+        <path d="M150 105 Q145 70 160 50" opacity="0.4">
+          <animate attributeName="d" values="M150 105 Q145 70 160 50;M148 103 Q143 68 158 48;M150 105 Q145 70 160 50" dur="5s" repeatCount="indefinite"/>
+          <animate attributeName="opacity" values="0.4;0.1;0.4" dur="5s" repeatCount="indefinite"/>
+        </path>
+      </g>
+
+      <!-- 香味粒子 -->
+      <circle cx="80" cy="110" r="2" fill="#ffe066" opacity="0.6">
+        <animate attributeName="cy" values="110;90;70" dur="3s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.6;0.3;0" dur="3s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="200" cy="85" r="2" fill="#ffe066" opacity="0.5">
+        <animate attributeName="cy" values="85;65;45" dur="3.5s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0.2;0" dur="3.5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="160" cy="50" r="1.5" fill="#ffe066" opacity="0.4">
+        <animate attributeName="cy" values="50;30;10" dur="4s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.4;0.2;0" dur="4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="120" cy="95" r="1.5" fill="#ffe066" opacity="0.5">
+        <animate attributeName="cy" values="95;75;55" dur="3.2s" repeatCount="indefinite"/>
+        <animate attributeName="opacity" values="0.5;0.2;0" dur="3.2s" repeatCount="indefinite"/>
+      </circle>
+
+      <!-- 小熊剪影（简笔画） -->
+      <g opacity="0.5" transform="translate(40, 210)">
+        <circle cx="15" cy="12" r="10" fill="#6b5b4f"/>
+        <circle cx="6" cy="4" r="4" fill="#6b5b4f"/>
+        <circle cx="24" cy="4" r="4" fill="#6b5b4f"/>
+        <ellipse cx="15" cy="26" rx="12" ry="10" fill="#6b5b4f"/>
+        <circle cx="12" cy="11" r="1.2" fill="#3a3028"/>
+        <circle cx="18" cy="11" r="1.2" fill="#3a3028"/>
+        <ellipse cx="15" cy="15" rx="2" ry="1.5" fill="#3a3028"/>
+      </g>
+
+      <!-- 小白兔剪影 -->
+      <g opacity="0.4" transform="translate(260, 220)">
+        <ellipse cx="12" cy="18" rx="10" ry="8" fill="#c4b8a8"/>
+        <ellipse cx="8" cy="6" rx="3" ry="8" fill="#c4b8a8"/>
+        <ellipse cx="16" cy="6" rx="3" ry="8" fill="#c4b8a8"/>
+        <circle cx="10" cy="15" r="1" fill="#8a7a6a"/>
+        <circle cx="14" cy="15" r="1" fill="#8a7a6a"/>
+      </g>
+
+      <!-- 小鱼 -->
+      <g opacity="0.45" transform="translate(220, 240)">
+        <ellipse cx="10" cy="5" rx="10" ry="5" fill="#7a9aaa"/>
+        <polygon points="20,5 28,0 28,10" fill="#7a9aaa"/>
+        <circle cx="6" cy="4" r="1" fill="#4a5a6a"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="story">
+    <p>桂花树上住着一朵小小的桂花，名叫金金。她是整棵树最小的一朵，藏在绿叶深处，不仔细看都发现不了。</p>
+
+    <p>金金很羡慕院子里的大红玫瑰，那么鲜艳，蝴蝶都围着它跳舞。她也羡慕金灿灿的向日葵，那么高，能一直望到太阳。可金金只是米粒那么大，黄黄的，藏在叶子后面。</p>
+
+    <p>"我这么小，香味肯定也小得没人闻得到。"金金难过地低下了头。</p>
+
+    <p>那天晚上，月亮升起来了，给桂花树披上一层银纱。一阵温柔的风吹过——呼——</p>
+
+    <p>"好香呀！"窗台前的小熊深深吸了一口气，"是糖果的味道吗？"</p>
+
+    <p>"不是糖果，"风轻轻说，"是桂花的香，甜甜的呢。"</p>
+
+    <p>小熊闭上眼睛，很快就打着小呼噜睡着了，嘴角还翘着，一定是梦见了蜂蜜罐。</p>
+
+    <p>风继续吹，把小桂花的香味送到小河边。</p>
+
+    <p>"咕噜咕噜，这是什么味道？"水里的小鱼儿冒出头来。</p>
+
+    <p>"是桂花的香，暖暖的呢。"风笑着说。</p>
+
+    <p>小鱼儿吐了个泡泡，慢慢沉到水草床上："真香呀，我要做个有桂花香的梦……"</p>
+
+    <p>风又吹到了篱笆旁，小白兔正在数星星："一、二、三……哎呀，数不清啦！"</p>
+
+    <p>"闻闻这个，"风把香味送给小白兔，"这是桂花在跟你说晚安呢。"</p>
+
+    <p>小白兔闻了闻，觉得眼皮变得好沉好沉："晚安，小桂花……"她蜷成一团，很快就睡着了。</p>
+
+    <p>金金在树上看着这一切，心里亮堂堂的。原来，小小的自己也能把香甜的梦送给这么多朋友呀！</p>
+
+    <p>月亮婆婆笑着说："孩子，世界上最美好的东西，不一定非要最大最显眼。就像你的香味，轻轻的，却能飘得好远好远，把温柔送到每个需要的地方。"</p>
+
+    <p>金金开心地摇了摇小花瓣。风又吹起来了，带着她的香味，飞向更远的地方，飞向每个小朋友的窗前。</p>
+
+    <p>今晚，你也闻到桂花的香味了吗？</p>
+  </div>
+
+  <div class="goodnight">
+    <p>晚安，小宝贝。<br>小桂花说，你今天也是一颗小小的、香香的星星，<br>该做一个甜甜的梦了。</p>
+  </div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-dot"></div>
+    <div class="divider-line"></div>
+  </div>
+</div>
+
+<script>
+  // 生成星星
+  const starsContainer = document.getElementById('stars');
+  for (let i = 0; i < 110; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    const size = Math.random() * 2.5 + 1;
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.setProperty('--dur', (Math.random() * 2.5 + 1.5) + 's');
+    star.style.setProperty('--op', Math.random() * 0.6 + 0.3);
+    star.style.animationDelay = Math.random() * 3 + 's';
+    starsContainer.appendChild(star);
+  }
+
+  // 生成飘落的花瓣粒子
+  for (let i = 0; i < 8; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal-particle';
+    const size = Math.random() * 6 + 3;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.setProperty('--pdur', (Math.random() * 6 + 8) + 's');
+    p.style.animationDelay = Math.random() * 8 + 's';
+    const colors = ['#ffe066', '#ffd700', '#ffec8b', '#d4a843', '#f0d878'];
+    p.style.background = colors[Math.floor(Math.random() * colors.length)];
+    document.body.appendChild(p);
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>后窗</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --card-2: #1c2330;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-dim: #9aa7b4;
+    --accent: #58a6ff;
+    --douban: #00b51d;
+    --imdb: #f5c518;
+    --tomato: #fa320a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.75;
+    padding: 24px 16px 48px;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  .hero {
+    background: linear-gradient(160deg, #1c2a3d 0%, var(--card) 55%);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 36px 28px 30px;
+    text-align: center;
+    margin-bottom: 22px;
+  }
+  .badge-top {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid rgba(88,166,255,.4);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: clamp(34px, 8vw, 48px);
+    font-weight: 800;
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+  }
+  .en {
+    font-size: 16px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .meta { font-size: 15px; color: var(--text-dim); }
+  .meta b { color: var(--text); font-weight: 600; }
+
+  .scores {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .score {
+    background: var(--card-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 18px;
+    min-width: 96px;
+  }
+  .score .num { font-size: 22px; font-weight: 800; }
+  .score .src { font-size: 12px; color: var(--text-dim); }
+  .score.douban .num { color: var(--douban); }
+  .score.imdb .num { color: var(--imdb); }
+  .score.tomato .num { color: var(--tomato); }
+
+  .section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 22px;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  p { font-size: 16px; color: var(--text); }
+  .dim { color: var(--text-dim); }
+
+  .highlights li {
+    font-size: 15.5px;
+    margin: 0 0 14px 22px;
+    color: var(--text);
+  }
+  .highlights li b { color: var(--accent); }
+
+  .why { font-size: 15.5px; }
+  .why li { margin: 0 0 10px 22px; }
+
+  .note {
+    text-align: center;
+    font-size: 13.5px;
+    color: var(--text-dim);
+    margin-top: 20px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="badge-top">今日经典 · 悬疑篇</div>
+    <h1>后窗</h1>
+    <div class="en">Rear Window · 1954</div>
+    <div class="meta">
+      导演 <b>阿尔弗雷德·希区柯克</b> · 主演 <b>詹姆斯·斯图尔特</b> / <b>格蕾丝·凯利</b>
+    </div>
+    <div class="scores">
+      <div class="score douban"><div class="num">9.0</div><div class="src">豆瓣</div></div>
+      <div class="score imdb"><div class="num">8.7</div><div class="src">IMDb</div></div>
+      <div class="score tomato"><div class="num">98%</div><div class="src">烂番茄</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      一位摄影师因腿伤打着石膏，被困在公寓里动弹不得。百无聊赖的夏日午后，他唯一的消遣，就是透过窗户观察对面公寓楼里邻居们的日常——练舞的女孩、独居的作曲家、热恋中的情侣……每一扇窗都是一出小戏。
+    </p>
+    <p style="margin-top:12px">
+      直到某天，他隐约察觉对面某户人家的生活出现了不寻常的迹象，疑云在心中越滚越大。他拉上女友和护士一起"侦探"起来，越接近真相，危险似乎也离他越近——可他连门都出不去。
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>亮点所在</h2>
+    <ul class="highlights">
+      <li><b>教科书级的单一场景叙事</b>：全片几乎只在一间公寓内拍摄，却构建出整片"邻里宇宙"。希区柯克证明——空间受限，想象力永不受限。</li>
+      <li><b>"偷窥"主题的开创者</b>：关于"看与被看"的经典思辨。镜头即视线，你与主角一同成为窥视者，这种沉浸感在当年石破天惊，后世无数电影致敬。</li>
+      <li><b>格蕾丝·凯利的银幕女神时刻</b>：女主角的每一套造型都是时装教科书，优雅、果敢，与斯图尔特火花四溅。</li>
+      <li><b>悬念大师的节奏控制</b>：希区柯克"延迟揭示"的手法在这里发挥到极致，节奏张弛有度，全程无尿点。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得一看</h2>
+    <ul class="why">
+      <li>影史悬疑天花板之一，AFI 百年百大悬疑片第 14 位，无数悬疑片的灵感源头。</li>
+      <li>你会忍不住跟着一起推理，看完会对"眼见为实"产生全新的思考。</li>
+      <li>两个小时轻松好消化，既是烧脑谜题，又是绝佳的观影享受——入门希区柯克的不二之选。</li>
+    </ul>
+  </div>
+
+  <div class="note">本文不含剧透，放心食用 🍿</div>
+
+</div>
+</body>
+</html>
