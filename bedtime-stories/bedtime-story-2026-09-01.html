@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="AfkCSQVlFro2KvWaDZ9s0Q">
+<head data-page-node-id="WwdVIjABQgyIZJZE2AJLRz">
+<meta charset="UTF-8" data-page-node-id="XjjoEfkSYt032wNVlABnsh">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="PtfaCp3P6T1F17WF8hGELM">
+<title>小书包的开学礼 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #0b1026 0%, #141a3a 45%, #1d2150 100%);
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #e8ecf8;
+    overflow-x: hidden;
+    padding-bottom: 60px;
+  }
+
+  /* ===== 星空 ===== */
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: .15; transform: scale(.8); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  /* ===== 月亮 ===== */
+  .moon-wrap {
+    position: fixed; top: 48px; right: 36px; z-index: 1;
+    animation: moonFloat 7s ease-in-out infinite;
+  }
+  @keyframes moonFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .moon {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #fffbe8 0%, #ffe9a8 60%, #f5c96b 100%);
+    box-shadow: 0 0 30px 10px rgba(255, 233, 168, .35), 0 0 90px 30px rgba(255, 233, 168, .12);
+    position: relative;
+  }
+  .moon::before, .moon::after {
+    content: ""; position: absolute; border-radius: 50%;
+    background: rgba(210, 180, 110, .28);
+  }
+  .moon::before { width: 14px; height: 14px; top: 18px; left: 16px; }
+  .moon::after { width: 9px; height: 9px; bottom: 20px; right: 20px; }
+  .moon-halo {
+    position: absolute; inset: -14px; border-radius: 50%;
+    border: 1px solid rgba(255, 233, 168, .18);
+    animation: haloBreath 4s ease-in-out infinite;
+  }
+  @keyframes haloBreath { 0%,100% { transform: scale(1); opacity:.6; } 50% { transform: scale(1.12); opacity:.15; } }
+
+  /* ===== 流星 ===== */
+  .meteor {
+    position: fixed; width: 130px; height: 2px; z-index: 1;
+    background: linear-gradient(90deg, #fff, transparent);
+    border-radius: 2px; opacity: 0;
+    animation: shoot 9s linear infinite;
+  }
+  .meteor.m1 { top: 12%; left: 60%; animation-delay: 2s; }
+  .meteor.m2 { top: 30%; left: 80%; animation-delay: 6.5s; animation-duration: 12s; }
+  @keyframes shoot {
+    0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+    4% { opacity: 1; }
+    12% { transform: translate(-340px, 230px) rotate(-35deg); opacity: 0; }
+    100% { transform: translate(-340px, 230px) rotate(-35deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; padding: 90px 20px 30px; }
+
+  /* ===== 标题 ===== */
+  .title {
+    text-align: center;
+    font-size: clamp(26px, 6.5vw, 36px);
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #ffe9a8;
+    text-shadow: 0 0 18px rgba(255, 233, 168, .45);
+    animation: titleGlow 4s ease-in-out infinite;
+    margin-bottom: 6px;
+  }
+  @keyframes titleGlow { 0%,100% { text-shadow: 0 0 12px rgba(255,233,168,.35); } 50% { text-shadow: 0 0 26px rgba(255,233,168,.75); } }
+  .subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(232, 236, 248, .55);
+    letter-spacing: 2px;
+    margin-bottom: 26px;
+  }
+
+  /* ===== 插图 ===== */
+  .illustration {
+    display: flex; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .bag-svg {
+    width: 240px; height: auto;
+    filter: drop-shadow(0 0 24px rgba(255, 190, 120, .28));
+    animation: bagFloat 5s ease-in-out infinite;
+  }
+  @keyframes bagFloat { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+
+  /* ===== 故事正文 ===== */
+  .story {
+    background: rgba(255, 255, 255, .045);
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    padding: 26px 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .3);
+  }
+  .story p {
+    font-size: 17.5px;
+    line-height: 1.95;
+    letter-spacing: .5px;
+    color: #e8ecf8;
+    margin-bottom: 18px;
+    text-align: justify;
+  }
+  .story p:last-of-type { margin-bottom: 8px; }
+
+  /* ===== 晚安语 ===== */
+  .goodnight {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 2;
+    color: #ffe9a8;
+    letter-spacing: 1px;
+    animation: gdGlow 5s ease-in-out infinite;
+    text-shadow: 0 0 16px rgba(255, 233, 168, .4);
+  }
+  @keyframes gdGlow { 0%,100% { text-shadow: 0 0 10px rgba(255,233,168,.3); } 50% { text-shadow: 0 0 28px rgba(255,233,168,.7); } }
+  .gd-stars { display: flex; justify-content: center; gap: 14px; margin-top: 12px; }
+  .gd-stars i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #ffe9a8;
+    animation: gdStar 3s ease-in-out infinite;
+  }
+  .gd-stars i:nth-child(2) { animation-delay: .5s; }
+  .gd-stars i:nth-child(3) { animation-delay: 1s; }
+  .gd-stars i:nth-child(4) { animation-delay: 1.5s; }
+  .gd-stars i:nth-child(5) { animation-delay: 2s; }
+  @keyframes gdStar { 0%,100% { opacity:.3; transform: scale(.8); } 50% { opacity:1; transform: scale(1.3); } }
+
+  /* ===== 底部暖光带 ===== */
+  .glow-band {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 120px; z-index: 1;
+    background: radial-gradient(ellipse at 50% 120%, rgba(255, 190, 120, .16), transparent 70%);
+    animation: bandBreath 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes bandBreath { 0%,100% { opacity:.6; } 50% { opacity:1; } }
+
+  /* ===== 漂浮粒子 ===== */
+  .particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+  .particle {
+    position: absolute; bottom: -10px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255, 215, 150, .55);
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0% { transform: translateY(0); opacity: 0; }
+    12% { opacity: .8; }
+    100% { transform: translateY(-105vh); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .moon-wrap { top: 30px; right: 22px; }
+    .moon { width: 54px; height: 54px; }
+    .wrap { padding-top: 78px; }
+    .story p { font-size: 16.5px; }
+  }
+</style>
+</head>
+<body data-page-node-id="yv2EHCij6J9AOuvB8C9hI3">
+
+<div class="stars" id="stars" data-page-node-id="MeEPFcAKNO9WEDp9xpwq6H"></div>
+<div class="moon-wrap" data-page-node-id="FAEcHoAd7ixu2u3N5Z7J7m"><div class="moon" data-page-node-id="N34YtPKDosL5W3jLdkyZNZ"><div class="moon-halo" data-page-node-id="suotd8pkyMvk5murS1Zr9B"></div></div></div>
+<div class="meteor m1" data-page-node-id="f3RsSH1i5zm8zqansZFm6U"></div>
+<div class="meteor m2" data-page-node-id="4Lvzv5F8r0wxXBI7xkTxtb"></div>
+<div class="glow-band" data-page-node-id="wiuSQeuonkFS9FpjW7UaBD"></div>
+<div class="particles" id="particles" data-page-node-id="VmFZCaUQIApOr7pFV6Jf4J"></div>
+
+<div class="wrap" data-page-node-id="5NHYEDyQnLDmcNBqNwQbxr">
+
+  <div class="title" data-page-node-id="zZBCT9hm2PHT6bTBxUPOZR">小书包的开学礼</div>
+  <div class="subtitle" data-page-node-id="Dvf03Wy8wcY5ZFIGfeeyCV">睡前故事 · 晚安好梦</div>
+
+  <div class="illustration" data-page-node-id="hyhKtRT6B9wJp9VhX7CPj2">
+    <svg class="bag-svg" viewBox="0 0 240 200" xmlns="http://www.w3.org/2000/svg" data-page-node-id="2chERSg6wWuZyRU20N50Eb">
+      <defs data-page-node-id="oBBoYJKDz3YaUSFjDc8niK">
+        <linearGradient id="bagBody" x1="0" y1="0" x2="1" y2="1" data-page-node-id="uOsd3F0iUYpl0OpiQeii5W">
+          <stop offset="0%" stop-color="#7a5cff" data-page-node-id="9N37Rd39Z4GJ0V7UMTZ5mQ"/>
+          <stop offset="100%" stop-color="#4a3aa8" data-page-node-id="l5Hm13Kn17MUkAdRTjE9bj"/>
+        </linearGradient>
+        <linearGradient id="pocket" x1="0" y1="0" x2="0" y2="1" data-page-node-id="2AVb86kMYiQ0BNdNze13U8">
+          <stop offset="0%" stop-color="#8d6bff" data-page-node-id="UGSpz4ii399qh7LaUv1vGd"/>
+          <stop offset="100%" stop-color="#5b46c4" data-page-node-id="4c8YRHhicm6sH77OWfcbHX"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 光晕 -->
+      <ellipse cx="120" cy="110" rx="108" ry="80" fill="rgba(255,190,120,.10)" data-page-node-id="TPjcNLVVz5Dbdo3Qjh73Jm">
+        <animate attributeName="rx" values="108;118;108" dur="4s" repeatCount="indefinite" data-page-node-id="IOCeAmfuNPFEh0jerqJ7m9"/>
+        <animate attributeName="opacity" values=".10;.22;.10" dur="4s" repeatCount="indefinite" data-page-node-id="Q9d4sJbkhMdk1UrFcsz5GF"/>
+      </ellipse>
+
+      <!-- 提手 -->
+      <path d="M100 42 Q120 14 140 42" fill="none" stroke="#d9b8ff" stroke-width="7" stroke-linecap="round" data-page-node-id="m22FK6LmFCVmOIVUfKy74H"/>
+      <path d="M100 42 Q120 14 140 42" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="2" stroke-linecap="round" data-page-node-id="Lf2KTteCEZw8W7Z8J7LJxy"/>
+
+      <!-- 背带 -->
+      <path d="M88 58 L52 34 M152 58 L188 34" stroke="#6b55d6" stroke-width="9" stroke-linecap="round" data-page-node-id="UjYB6oAhTCnJwxNHWLg16J"/>
+      <path d="M88 58 L52 34 M152 58 L188 34" stroke="rgba(255,255,255,.15)" stroke-width="2" stroke-linecap="round" data-page-node-id="rmQbOoCjvzkeMPkpriCJFy"/>
+
+      <!-- 书包主体 -->
+      <rect x="46" y="52" width="148" height="118" rx="26" fill="url(#bagBody)" stroke="#9d85ff" stroke-width="2.5" data-page-node-id="lNQGcd3n9xgZEBhjSFfVBg"/>
+
+      <!-- 前袋 -->
+      <rect x="66" y="86" width="108" height="72" rx="18" fill="url(#pocket)" stroke="rgba(217,184,255,.5)" stroke-width="2" data-page-node-id="tZKom87N1K6awGX8nCUXEp"/>
+
+      <!-- 袋盖 -->
+      <path d="M60 78 Q120 56 180 78 L180 94 Q120 74 60 94 Z" fill="#8d6bff" opacity=".9" data-page-node-id="xrVzQ6tACJ57WTTo7WhirT"/>
+
+      <!-- 拉链 -->
+      <path d="M50 74 Q120 96 190 74" fill="none" stroke="#ffe9a8" stroke-width="3" stroke-dasharray="7 5" opacity=".8" data-page-node-id="0kt5CyxGKOGjpHVS7OoGek"/>
+
+      <!-- 星星装饰（呼吸发光） -->
+      <g class="dec-stars" data-page-node-id="pS7WaHMg2HY5VY2g877MYM">
+        <circle cx="172" cy="72" r="4" fill="#ffe9a8" data-page-node-id="DAD3sAXNJKBX7pxBxKeTXU">
+          <animate attributeName="opacity" values=".4;1;.4" dur="2.6s" repeatCount="indefinite" data-page-node-id="EF0iAU0jVH8v8T0xEQV1ay"/>
+          <animate attributeName="r" values="3;5;3" dur="2.6s" repeatCount="indefinite" data-page-node-id="8MhIG1bxpfgcDAbLZpQGbD"/>
+        </circle>
+        <circle cx="80" cy="100" r="3" fill="#ffd796" data-page-node-id="gxqw95C2X3TzJUXFlmZoLC">
+          <animate attributeName="opacity" values=".4;1;.4" dur="3.2s" begin=".6s" repeatCount="indefinite" data-page-node-id="9GmrCpQMAsLUS3xseIWZ4L"/>
+          <animate attributeName="r" values="2;4;2" dur="3.2s" begin=".6s" repeatCount="indefinite" data-page-node-id="VD8KIL5ecxTAEdo2jImUy4"/>
+        </circle>
+        <circle cx="150" cy="130" r="2.5" fill="#ffd796" data-page-node-id="bWfTgQrXwlOEPB87jz7dy1">
+          <animate attributeName="opacity" values=".4;1;.4" dur="2.9s" begin="1.2s" repeatCount="indefinite" data-page-node-id="33qMTi9IvHmrooLoerymXx"/>
+          <animate attributeName="r" values="2;3.5;2" dur="2.9s" begin="1.2s" repeatCount="indefinite" data-page-node-id="qr4F1SCeQ6AnGJcM2jDE7w"/>
+        </circle>
+      </g>
+
+      <!-- 小爱心 -->
+      <path d="M120 138 c-2.5 -4 -9 -4 -9 1.5 c0 3.5 5 6.5 9 9.5 c4 -3 9 -6 9 -9.5 c0 -5.5 -6.5 -5.5 -9 -1.5 Z" fill="#ff9db1" opacity=".9" data-page-node-id="kVqHrdoHrl3pe7fvtPfgBI">
+        <animate attributeName="opacity" values=".55;1;.55" dur="3.4s" begin=".9s" repeatCount="indefinite" data-page-node-id="i6rQ7IRmRCVaWPNqwJoW9w"/>
+      </path>
+
+      <!-- 糖纸星星（口袋里的秘密） -->
+      <circle cx="120" cy="112" r="7" fill="#ffe9a8" data-page-node-id="7TKyuBmACLhMcEWzV7BBy9">
+        <animate attributeName="opacity" values=".3;.9;.3" dur="3s" repeatCount="indefinite" data-page-node-id="UWsLsRYbeAqQpjVo43gIBu"/>
+      </circle>
+      <path d="M120 105 l1.8 3.6 4 .6 -2.9 2.8 .7 4 -3.6 -1.9 -3.6 1.9 .7 -4 -2.9 -2.8 4 -.6 Z" fill="#ffd796" data-page-node-id="9xrdWgfZNPXeQd2BPOsusu">
+        <animate attributeName="opacity" values=".5;1;.5" dur="3s" repeatCount="indefinite" data-page-node-id="t1yct083cTwE6PUu3O1swb"/>
+      </path>
+
+      <!-- 口袋里的纸条 -->
+      <rect x="88" y="116" width="22" height="14" rx="3" fill="#fff6e0" opacity=".85" data-page-node-id="RoXJHbdvS3Er7gZ8lu3sQQ">
+        <animate attributeName="opacity" values=".6;.95;.6" dur="3.6s" repeatCount="indefinite" data-page-node-id="eUXtZjkW1EUTWnqtXAuYrr"/>
+      </rect>
+      <line x1="92" y1="121" x2="106" y2="121" stroke="#c9a86a" stroke-width="1.4" stroke-linecap="round" opacity=".8" data-page-node-id="3jgOPCkFuq3rey2JOR2mlq"/>
+      <line x1="92" y1="125" x2="103" y2="125" stroke="#c9a86a" stroke-width="1.4" stroke-linecap="round" opacity=".8" data-page-node-id="DyknCrG7UrVehx5rFCI77U"/>
+
+      <!-- 底部亮线 -->
+      <path d="M60 162 Q120 172 180 162" fill="none" stroke="rgba(255,233,168,.5)" stroke-width="2.5" stroke-linecap="round" data-page-node-id="ndz0HDsbBg6B0Tn0tBKiB6">
+        <animate attributeName="opacity" values=".25;.6;.25" dur="3.8s" repeatCount="indefinite" data-page-node-id="NpDuwTHvrY5a85bIHvISH5"/>
+      </path>
+    </svg>
+  </div>
+
+  <div class="story" data-page-node-id="MLeSyC3CqPuGaFuXS67Yn7">
+    <p data-page-node-id="6MvhaECXZ3n6smBIoQqyZZ">明天就是开学第一天，小书包满满被挂在窗边，一夜都没有睡好。</p>
+    <p data-page-node-id="epdg1hG1A1DmgCVW06YJeh">它摸摸自己的肚子，里面空空的，什么也没有装。"万一……我装不下小朋友的东西，那可怎么办呀？"满满担心地想。</p>
+    <p data-page-node-id="2Q3SDPXwMSkQCLwxhAjgUs">天刚蒙蒙亮，一双小手就把满满抱了起来。铅笔、橡皮、小水壶，一样一样，轻轻地放了进来。"欢迎你呀，新朋友！"铅笔在它肚子里蹭了蹭，橡皮也冲它眨了眨眼睛。满满觉得肚子里痒痒的、暖暖的，忽然不那么害怕了。</p>
+    <p data-page-node-id="J88CAuO4Thmhx5frDRFVMC">要出门的时候，妈妈偷偷往满满的小口袋里塞了一样东西——一颗用糖纸包着的小星星，还有一张小纸条，上面写着："满满，祝你今天开开心心。"</p>
+    <p data-page-node-id="T3hGNJi6axq7snTyU3rZ23">一路上，满满把小纸条捂得紧紧的，像捂着一个只有自己知道的秘密。</p>
+    <p data-page-node-id="zlnfEAtTb7oyZxV8daqrXA">学校里真热闹呀。小朋友坐在窗边，满满就安安静静地待在他身边。第一节课，铅笔在纸上"沙沙沙"地写字；第二节课，橡皮帮它擦掉小错误；课间的时候，小朋友从满满肚子里拿出小水壶，"咕咚咕咚"喝了一大口，满满觉得自己的心里也甜丝丝的。</p>
+    <p data-page-node-id="jCiAi0eBsu5w6s2YZHGgFU">放学回家的时候，小朋友往满满肚子里放了一样新东西：一朵老师奖励的小红花。满满忽然明白啦——它才不是一只空空的包呢。它装着铅笔的勇气，装着橡皮的温柔，装着妈妈的祝福。它呀，是一只小小的"勇气城堡"！</p>
+    <p data-page-node-id="yF9t7C2UAEFpduPChD7dOo">晚上，满满挂在老地方，月光轻轻地给它盖上一层银被子。它听着小朋友均匀的呼吸声，安心地闭上了眼睛，也做了一个甜甜的、装满了美好明天的梦。</p>
+  </div>
+
+  <div class="goodnight" data-page-node-id="aCJLq2wEMZWKhUozdsNL5x">
+    晚安，小宝贝。<br data-page-node-id="DYFal4G5MajBB1aLlp8pM8">
+    小书包说，你今天也是个勇敢的好孩子，该做一个甜甜的梦了。
+    <div class="gd-stars" data-page-node-id="Yx1lhO2LyYb9vbBCkiWVJS">
+      <i data-page-node-id="5POJCIJ5HwjPc4PRqSz6V1"></i><i data-page-node-id="SN2uLwKg3OVCoTvE0R7Tm9"></i><i data-page-node-id="v903PuDmtDiqHpehJCnQpI"></i><i data-page-node-id="KqiGdGzYI7I8kVrVZyP14L"></i><i data-page-node-id="3Acz3cSZYWfbjNbnlXiNBg"></i>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // 星星
+  var starsEl = document.getElementById('stars');
+  var starCount = 110;
+  var html = '';
+  for (var i = 0; i < starCount; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 3).toFixed(1);
+    html += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;left:' +
+      (Math.random() * 100).toFixed(2) + '%;top:' + (Math.random() * 100).toFixed(2) +
+      '%;--dur:' + dur + 's;animation-delay:' + delay + 's"></div>';
+  }
+  starsEl.innerHTML = html;
+
+  // 漂浮粒子
+  var pEl = document.getElementById('particles');
+  var html2 = '';
+  for (var j = 0; j < 9; j++) {
+    var w = (Math.random() * 3 + 2).toFixed(1);
+    var left = (Math.random() * 100).toFixed(2);
+    var d = (Math.random() * 8 + 10).toFixed(1);
+    var delay2 = (Math.random() * 10).toFixed(1);
+    html2 += '<div class="particle" style="width:' + w + 'px;height:' + w + 'px;left:' + left +
+      '%;animation-duration:' + d + 's;animation-delay:' + delay2 + 's"></div>';
+  }
+  pEl.innerHTML = html2;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>心灵捕手</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(170deg, #0b1220 0%, #101a2e 45%, #0d1524 100%);
+    min-height: 100vh;
+    color: #e6edf3;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    padding: 30px 16px 56px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+
+  .hero {
+    background: linear-gradient(160deg, rgba(88,166,255,.10), rgba(88,166,255,.02) 60%), #131c2f;
+    border: 1px solid rgba(88,166,255,.22);
+    border-radius: 20px;
+    padding: 40px 26px 32px;
+    text-align: center;
+    margin-bottom: 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before, .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(88,166,255,.10), transparent 70%);
+  }
+  .hero::before { width: 260px; height: 260px; top: -80px; right: -60px; }
+  .hero::after { width: 200px; height: 200px; bottom: -70px; left: -50px; }
+
+  .badge-top {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #58a6ff;
+    border: 1px solid rgba(88,166,255,.4);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(36px, 8.5vw, 50px);
+    font-weight: 800;
+    letter-spacing: 5px;
+    margin-bottom: 8px;
+    background: linear-gradient(180deg, #ffffff, #9ecbff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .en {
+    font-size: 16px;
+    color: #8b98a9;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+  }
+  .meta { font-size: 15px; color: #9aa7b4; }
+  .meta b { color: #e6edf3; font-weight: 600; }
+
+  .scores {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    position: relative;
+  }
+  .score {
+    background: #0f1830;
+    border: 1px solid rgba(88,166,255,.2);
+    border-radius: 12px;
+    padding: 10px 18px;
+    min-width: 98px;
+  }
+  .score .num { font-size: 22px; font-weight: 800; }
+  .score .src { font-size: 12px; color: #8b98a9; }
+  .score.douban .num { color: #3fb950; }
+  .score.imdb .num { color: #f5c518; }
+  .score.tomato .num { color: #fa320a; }
+
+  .section {
+    background: #131c2f;
+    border: 1px solid rgba(88,166,255,.14);
+    border-radius: 16px;
+    padding: 24px 22px;
+    margin-bottom: 16px;
+  }
+  h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #9ecbff;
+  }
+  h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: #58a6ff;
+    border-radius: 2px;
+  }
+  p { font-size: 16px; color: #d7dee8; }
+  p + p { margin-top: 12px; }
+
+  .highlights li {
+    font-size: 15.5px;
+    margin: 0 0 14px 22px;
+    color: #d7dee8;
+  }
+  .highlights li b { color: #58a6ff; }
+  .highlights li:last-child { margin-bottom: 4px; }
+
+  .why { font-size: 15.5px; }
+  .why li { margin: 0 0 10px 22px; color: #d7dee8; }
+  .why li:last-child { margin-bottom: 2px; }
+
+  .formula {
+    margin-top: 18px;
+    padding: 14px 18px;
+    background: #0a1122;
+    border: 1px dashed rgba(88,166,255,.3);
+    border-radius: 12px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 15px;
+    color: #7ee787;
+    text-align: center;
+    letter-spacing: 1px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .note {
+    text-align: center;
+    font-size: 13.5px;
+    color: #8b98a9;
+    margin-top: 20px;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="badge-top">今日经典 · 成长篇</div>
+    <h1>心灵捕手</h1>
+    <div class="en">Good Will Hunting · 1997</div>
+    <div class="meta">
+      导演 <b>格斯·范·桑特</b> · 主演 <b>马特·达蒙</b> / <b>罗宾·威廉姆斯</b> / <b>本·阿弗莱克</b>
+    </div>
+    <div class="scores">
+      <div class="score douban"><div class="num">8.9</div><div class="src">豆瓣</div></div>
+      <div class="score imdb"><div class="num">8.3</div><div class="src">IMDb</div></div>
+      <div class="score tomato"><div class="num">97%</div><div class="src">烂番茄</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>剧情梗概</h2>
+    <p>
+      年轻的清洁工威尔在麻省理工做杂工，看似平凡无奇，却随手解出了走廊黑板上那道让全校师生头疼的数学难题。教授震惊之余找到了他——一个天赋异禀、却浑身是刺的天才少年。
+    </p>
+    <p>
+      教授想把他引向学术之路，威尔却一次次抗拒。直到心理医生肖恩的出现，两人从针锋相对、互相试探，到慢慢打开彼此的心门。这场跨越年龄的对话，改变的不只是威尔一个人。
+    </p>
+    <div class="formula">∇²φ = 0 &nbsp;·&nbsp; e^{iπ} + 1 = 0 &nbsp;·&nbsp; To be, or not to be</div>
+  </div>
+
+  <div class="section">
+    <h2>亮点所在</h2>
+    <ul class="highlights">
+      <li><b>影史级对手戏</b>：罗宾·威廉姆斯与马特·达蒙的几场对话戏，被誉为教科书般的表演，温和而震撼。</li>
+      <li><b>天才与街头的反差</b>：一个能解出顶级数学难题的清洁工，一个满口粗话却心藏孤独的少年——人物的层次感极强。</li>
+      <li><b>马特·达蒙 &amp; 本·阿弗莱克自编自演</b>：两个好友一起写剧本、一起主演，凭此拿下奥斯卡最佳原创剧本，本身就是一段传奇。</li>
+      <li><b>经典台词密度极高</b>：关于选择、关于爱、关于"你值得拥有更好"，几乎每一句都值得摘抄。</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>为什么值得一看</h2>
+    <ul class="why">
+      <li>一部关于天赋、选择与自我和解的电影——天才少年要过的关，不是数学题，而是"敢不敢去爱、敢不敢拥抱自己的人生"。</li>
+      <li>奥斯卡最佳男配角 + 最佳原创剧本，金球奖最佳编剧，近 30 年来无数人的成长启蒙片。</li>
+      <li>看完你会明白：真正的"捕手"，不是抓住天才，而是接住那颗害怕受伤的心。</li>
+    </ul>
+  </div>
+
+  <div class="note">本文不含剧透，放心食用 🎬</div>
+
+</div>
+</body>
+</html>
