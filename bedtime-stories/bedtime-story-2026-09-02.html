@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="RZTOyGqOZcewR4pxfWJ9D5">
+<head data-page-node-id="jtprYYeu9N9WoxBqY1DiQJ">
+<meta charset="UTF-8" data-page-node-id="G88EoGRuakwcqOPx7uDnix">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="PKDGaCC5CACPoHZv2oeuAT">
+<title>小蜜蜂的甜秘密 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #0a1026 0%, #151c40 48%, #1f2452 100%);
+    min-height: 100vh;
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    color: #eaeefb;
+    overflow-x: hidden;
+    padding-bottom: 60px;
+  }
+
+  /* ===== 星空 ===== */
+  .stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: .15; transform: scale(.8); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  /* ===== 月亮 ===== */
+  .moon-wrap {
+    position: fixed; top: 48px; right: 36px; z-index: 1;
+    animation: moonFloat 7s ease-in-out infinite;
+  }
+  @keyframes moonFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+  .moon {
+    width: 72px; height: 72px; border-radius: 50%;
+    background: radial-gradient(circle at 38% 35%, #fffbe8 0%, #ffe9a8 60%, #f5c96b 100%);
+    box-shadow: 0 0 30px 10px rgba(255, 233, 168, .35), 0 0 90px 30px rgba(255, 233, 168, .12);
+    position: relative;
+  }
+  .moon::before, .moon::after {
+    content: ""; position: absolute; border-radius: 50%;
+    background: rgba(210, 180, 110, .28);
+  }
+  .moon::before { width: 14px; height: 14px; top: 18px; left: 16px; }
+  .moon::after { width: 9px; height: 9px; bottom: 20px; right: 20px; }
+  .moon-halo {
+    position: absolute; inset: -14px; border-radius: 50%;
+    border: 1px solid rgba(255, 233, 168, .18);
+    animation: haloBreath 4s ease-in-out infinite;
+  }
+  @keyframes haloBreath { 0%,100% { transform: scale(1); opacity:.6; } 50% { transform: scale(1.12); opacity:.15; } }
+
+  /* ===== 流星 ===== */
+  .meteor {
+    position: fixed; width: 130px; height: 2px; z-index: 1;
+    background: linear-gradient(90deg, #fff, transparent);
+    border-radius: 2px; opacity: 0;
+    animation: shoot 9s linear infinite;
+  }
+  .meteor.m1 { top: 12%; left: 60%; animation-delay: 2s; }
+  .meteor.m2 { top: 30%; left: 80%; animation-delay: 6.5s; animation-duration: 12s; }
+  @keyframes shoot {
+    0% { transform: translate(0, 0) rotate(-35deg); opacity: 0; }
+    4% { opacity: 1; }
+    12% { transform: translate(-340px, 230px) rotate(-35deg); opacity: 0; }
+    100% { transform: translate(-340px, 230px) rotate(-35deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 640px; margin: 0 auto; padding: 90px 20px 30px; }
+
+  /* ===== 标题 ===== */
+  .title {
+    text-align: center;
+    font-size: clamp(26px, 6.5vw, 36px);
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #ffe9a8;
+    text-shadow: 0 0 18px rgba(255, 233, 168, .45);
+    animation: titleGlow 4s ease-in-out infinite;
+    margin-bottom: 6px;
+  }
+  @keyframes titleGlow { 0%,100% { text-shadow: 0 0 12px rgba(255,233,168,.35); } 50% { text-shadow: 0 0 26px rgba(255,233,168,.75); } }
+  .subtitle {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(232, 236, 248, .55);
+    letter-spacing: 2px;
+    margin-bottom: 26px;
+  }
+
+  /* ===== 插图 ===== */
+  .illustration {
+    display: flex; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .bee-svg {
+    width: 250px; height: auto;
+    filter: drop-shadow(0 0 24px rgba(255, 215, 130, .25));
+    animation: beeFloat 5s ease-in-out infinite;
+  }
+  @keyframes beeFloat { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-12px) rotate(2deg); } }
+  .wing { animation: wingFlap .55s ease-in-out infinite; transform-origin: 60% 20%; }
+  @keyframes wingFlap { 0%,100% { transform: rotate(0deg); } 50% { transform: rotate(-24deg); } }
+
+  /* ===== 故事正文 ===== */
+  .story {
+    background: rgba(255, 255, 255, .045);
+    border: 1px solid rgba(255, 255, 255, .09);
+    border-radius: 20px;
+    backdrop-filter: blur(6px);
+    padding: 26px 24px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, .3);
+  }
+  .story p {
+    font-size: 17.5px;
+    line-height: 1.95;
+    letter-spacing: .5px;
+    color: #e8ecf8;
+    margin-bottom: 18px;
+    text-align: justify;
+  }
+  .story p:last-of-type { margin-bottom: 8px; }
+
+  /* ===== 晚安语 ===== */
+  .goodnight {
+    margin-top: 24px;
+    text-align: center;
+    font-size: 17px;
+    line-height: 2;
+    color: #ffe9a8;
+    letter-spacing: 1px;
+    animation: gdGlow 5s ease-in-out infinite;
+    text-shadow: 0 0 16px rgba(255, 233, 168, .4);
+  }
+  @keyframes gdGlow { 0%,100% { text-shadow: 0 0 10px rgba(255,233,168,.3); } 50% { text-shadow: 0 0 28px rgba(255,233,168,.7); } }
+  .gd-stars { display: flex; justify-content: center; gap: 14px; margin-top: 12px; }
+  .gd-stars i {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #ffe9a8;
+    animation: gdStar 3s ease-in-out infinite;
+  }
+  .gd-stars i:nth-child(2) { animation-delay: .5s; }
+  .gd-stars i:nth-child(3) { animation-delay: 1s; }
+  .gd-stars i:nth-child(4) { animation-delay: 1.5s; }
+  .gd-stars i:nth-child(5) { animation-delay: 2s; }
+  @keyframes gdStar { 0%,100% { opacity:.3; transform: scale(.8); } 50% { opacity:1; transform: scale(1.3); } }
+
+  /* ===== 底部暖光带 ===== */
+  .glow-band {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 120px; z-index: 1;
+    background: radial-gradient(ellipse at 50% 120%, rgba(255, 200, 110, .16), transparent 70%);
+    animation: bandBreath 5s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @keyframes bandBreath { 0%,100% { opacity:.6; } 50% { opacity:1; } }
+
+  /* ===== 漂浮粒子 ===== */
+  .particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+  .particle {
+    position: absolute; bottom: -10px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: rgba(255, 220, 150, .55);
+    animation: rise linear infinite;
+  }
+  @keyframes rise {
+    0% { transform: translateY(0); opacity: 0; }
+    12% { opacity: .8; }
+    100% { transform: translateY(-105vh); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .moon-wrap { top: 30px; right: 22px; }
+    .moon { width: 54px; height: 54px; }
+    .wrap { padding-top: 78px; }
+    .story p { font-size: 16.5px; }
+  }
+</style>
+</head>
+<body data-page-node-id="AdvJyeGCWF2Z18eWiUjmir">
+
+<div class="stars" id="stars" data-page-node-id="YgtLdPV5YM2BvwL7tXmFTn"></div>
+<div class="moon-wrap" data-page-node-id="BtrHzkKYNbhv28am1WYO3n"><div class="moon" data-page-node-id="AvQDeOBCNhU6Mn4B7j1wL3"><div class="moon-halo" data-page-node-id="zX0cWgybeFtPYUD2lTSyFW"></div></div></div>
+<div class="meteor m1" data-page-node-id="iqJFDf7jGGaeAffqEEiy4y"></div>
+<div class="meteor m2" data-page-node-id="7RCicvPsi7lZBbEhMNDgc5"></div>
+<div class="glow-band" data-page-node-id="6elYuVC6NcyiKCNdbw9yyr"></div>
+<div class="particles" id="particles" data-page-node-id="NKFeNCN6LBGC4L45I90dJi"></div>
+
+<div class="wrap" data-page-node-id="AIEorxjjJPL4qIakwRg91p">
+
+  <div class="title" data-page-node-id="z1oLkvoouK4Scnofcc1p4O">小蜜蜂的甜秘密</div>
+  <div class="subtitle" data-page-node-id="sif73XURDoqpdTFPpzpHe3">睡前故事 · 晚安好梦</div>
+
+  <div class="illustration" data-page-node-id="Iw3nZArLx0TqSSaDgxD6nZ">
+    <svg class="bee-svg" viewBox="0 0 250 190" xmlns="http://www.w3.org/2000/svg" data-page-node-id="TWfEb8vWDkXEGHqrOKrWLK">
+      <defs data-page-node-id="b1Tifbi2dj073AZh9kKC5A">
+        <linearGradient id="beeBody" x1="0" y1="0" x2="0" y2="1" data-page-node-id="vh2F5LvMFEiHFpKB5K8CWR">
+          <stop offset="0%" stop-color="#ffce54" data-page-node-id="UpfUqwrCz7dyEHOoa6hDQX"/>
+          <stop offset="100%" stop-color="#f5a623" data-page-node-id="XeDsU8UzgAqzarOPplM0VC"/>
+        </linearGradient>
+        <linearGradient id="flowerC" x1="0" y1="0" x2="0" y2="1" data-page-node-id="sTLlRSX2oY4p2qFwUGhYv2">
+          <stop offset="0%" stop-color="#ff8fc0" data-page-node-id="6iv97G6coJOJY1LGx0pUkI"/>
+          <stop offset="100%" stop-color="#e75a9c" data-page-node-id="X1TlQZe81r3dl6CFDTnlpP"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 光晕 -->
+      <ellipse cx="125" cy="105" rx="112" ry="82" fill="rgba(255,215,130,.10)" data-page-node-id="ELU9AC7XjmilbcazjtbyV7">
+        <animate attributeName="rx" values="112;122;112" dur="4s" repeatCount="indefinite" data-page-node-id="UqXA0iD1ozvM7LdiOMI2GW"/>
+        <animate attributeName="opacity" values=".10;.22;.10" dur="4s" repeatCount="indefinite" data-page-node-id="meLKuf2qlJxEsOtbDYbbdq"/>
+      </ellipse>
+
+      <!-- 蜜滴路线（虚线弧） -->
+      <path d="M205 96 Q120 40 92 92" fill="none" stroke="rgba(255,215,130,.45)" stroke-width="2" stroke-dasharray="5 7" data-page-node-id="uUPceHME5HrOizju8Ebp52">
+        <animate attributeName="stroke-dashoffset" values="0;-36" dur="3s" repeatCount="indefinite" data-page-node-id="GUmeU6Dq8I4wyEaXpg3uSS"/>
+      </path>
+      <!-- 蜜滴光点 -->
+      <circle cx="150" cy="66" r="3" fill="#ffd782" data-page-node-id="ZRDkDItHx85lTU7s6SAotd">
+        <animate attributeName="opacity" values=".3;1;.3" dur="2.4s" repeatCount="indefinite" data-page-node-id="8pmmvaVGuZsOotJPnK2q8w"/>
+        <animate attributeName="cy" values="62;60;62" dur="2.4s" repeatCount="indefinite" data-page-node-id="SedKrGpCZ4q3wox9UgWrgR"/>
+      </circle>
+
+      <!-- 小花 -->
+      <g data-page-node-id="gNTwKWL43whORNxPsNgilO">
+        <animateTransform attributeName="transform" type="translate" values="0 0;0 -5;0 0" dur="4s" repeatCount="indefinite" data-page-node-id="qAC5S639rSCTfr5lJDX1XV"/>
+        <circle cx="44" cy="128" r="17" fill="url(#flowerC)" opacity=".9" data-page-node-id="A8Tnug57CKrVCWE2z2b3d4"/>
+        <circle cx="44" cy="128" r="6" fill="#fff3b0" data-page-node-id="TRhzPBPjQmO0ZbQ9uZY7b6"/>
+        <circle cx="37" cy="121" r="6" fill="url(#flowerC)" opacity=".8" data-page-node-id="UzqDIKTQaCjuIwKwRgvpSM"/>
+        <circle cx="51" cy="121" r="6" fill="url(#flowerC)" opacity=".8" data-page-node-id="maYXy1FzQfhrj6lJOm2evu"/>
+        <circle cx="37" cy="135" r="6" fill="url(#flowerC)" opacity=".8" data-page-node-id="WorU2qPMawx83kjjdCEyXl"/>
+        <circle cx="51" cy="135" r="6" fill="url(#flowerC)" opacity=".8" data-page-node-id="Rlt33nlNCHNni1P3uc6wT0"/>
+        <circle cx="44" cy="128" r="5" fill="#fff3b0" data-page-node-id="2Y5EnxRKxSTFLfGbotMSZs">
+          <animate attributeName="opacity" values=".6;1;.6" dur="3s" repeatCount="indefinite" data-page-node-id="f22bSBvM5oFQVsAOEpg5u7"/>
+        </circle>
+        <line x1="44" y1="143" x2="44" y2="158" stroke="#5bb85b" stroke-width="4" stroke-linecap="round" data-page-node-id="ELGHTsEkpVGtUtdDeYHitW"/>
+        <path d="M38 150 Q32 142 30 134" fill="none" stroke="#7ccb7c" stroke-width="3" stroke-linecap="round" data-page-node-id="SmDB5bTOGyJ7KnrMYxzdJS"/>
+      </g>
+
+      <!-- 小蜜蜂 -->
+      <g data-page-node-id="5SOom6v1UAHy7EPmRIyw1B">
+        <!-- 翅膀 -->
+        <ellipse class="wing" cx="106" cy="58" rx="20" ry="13" fill="rgba(200,225,255,.55)" stroke="rgba(255,255,255,.5)" stroke-width="1.5" data-page-node-id="FxAniliSEURxifqBbJVwIB"/>
+        <ellipse class="wing" cx="128" cy="54" rx="16" ry="11" fill="rgba(200,225,255,.4)" stroke="rgba(255,255,255,.4)" stroke-width="1.5" style="animation-delay:.12s" data-page-node-id="srqZpxl3g9i5a5JZSvmfzG"/>
+        <!-- 身体 -->
+        <ellipse cx="122" cy="92" rx="38" ry="28" fill="url(#beeBody)" stroke="#d98e1f" stroke-width="2" data-page-node-id="o5dyVuYFAIvRDG2Pw8FDTH"/>
+        <!-- 条纹 -->
+        <path d="M96 84 q26 -8 52 0" fill="none" stroke="#4a3520" stroke-width="7" opacity=".85" data-page-node-id="hUfTHPp9NqDtxz7viaATJi"/>
+        <path d="M93 98 q29 -10 58 0" fill="none" stroke="#4a3520" stroke-width="7" opacity=".85" data-page-node-id="nNThuQUiPE6hRWl8cP8LJJ"/>
+        <!-- 尾针 -->
+        <path d="M84 92 l-12 1 l10 6 Z" fill="#4a3520" data-page-node-id="hPdCR6EBnaPQUJnPuoiQf9"/>
+        <!-- 头 -->
+        <circle cx="160" cy="90" r="20" fill="#ffd354" stroke="#d98e1f" stroke-width="2" data-page-node-id="SqIRsHzrHWfQXoi43t1X3f"/>
+        <!-- 眼睛 -->
+        <circle cx="167" cy="86" r="5" fill="#33241a" data-page-node-id="5WlOM4sZ36XCUTBPwkcVF2"/>
+        <circle cx="169" cy="84.5" r="1.8" fill="#fff" opacity=".9" data-page-node-id="OvxAc6mWsAEgIqz2skcGJZ"/>
+        <!-- 触角 -->
+        <path d="M168 74 q6 -12 14 -14" fill="none" stroke="#4a3520" stroke-width="2.4" stroke-linecap="round" data-page-node-id="S9lSW5jPMpihgyneDSOHEa"/>
+        <path d="M162 72 q2 -14 10 -18" fill="none" stroke="#4a3520" stroke-width="2.4" stroke-linecap="round" data-page-node-id="sBaJWPqvIKhAucNCf3xVIE"/>
+        <circle cx="182" cy="60" r="3" fill="#4a3520" data-page-node-id="6YvTyCxIExbFSW3oFdbHm7"/>
+        <circle cx="172" cy="54" r="3" fill="#4a3520" data-page-node-id="fiShSbJ4FN0y04yiK1H9Dr"/>
+        <!-- 足 -->
+        <path d="M150 110 q4 12 -4 16 M120 114 q0 12 -6 15 M98 106 q-6 10 -14 12" fill="none" stroke="#d98e1f" stroke-width="3" stroke-linecap="round" data-page-node-id="KlBcJ1rG4EKZpvgCQu7Inj"/>
+        <!-- 微笑 -->
+        <path d="M163 95 q4 4 9 2" fill="none" stroke="#4a3520" stroke-width="2" stroke-linecap="round" data-page-node-id="yc34ly15AGKxAXD6uUd4db"/>
+        <!-- 腮红 -->
+        <ellipse cx="158" cy="95" rx="4" ry="2.6" fill="rgba(255,120,120,.45)" data-page-node-id="4UZl2Mfc8iEXJDDJl6ijxG"/>
+      </g>
+
+      <!-- 蜂窝（右上） -->
+      <g data-page-node-id="C5TCAsObd6vF9Df1fUx6gc">
+        <path d="M206 44 l10 6 l0 12 l-10 6 l-10 -6 l0 -12 Z" fill="#ffce54" stroke="#d98e1f" stroke-width="2" opacity=".95" data-page-node-id="IBBWnZNvlBNPJ4e2Ts5fd0"/>
+        <path d="M216 50 l10 6 l0 12 l-10 6 l-10 -6 l0 -12 Z" fill="#ffdf7e" stroke="#e0a62f" stroke-width="2" opacity=".9" data-page-node-id="LYTr2nRnqj8gJnwDXdp8Vi"/>
+        <path d="M206 62 l10 6 l0 12 l-10 6 l-10 -6 l0 -12 Z" fill="#ffce54" stroke="#d98e1f" stroke-width="2" opacity=".95" data-page-node-id="JflWoK3dgBVEGRAT4iUnqj"/>
+        <circle cx="211" cy="51" r="3" fill="#fff3b0" data-page-node-id="b8akI1uRjx6gc23WC55WsE">
+          <animate attributeName="opacity" values=".4;1;.4" dur="2.8s" repeatCount="indefinite" data-page-node-id="xkPB4Ee8izZG056DyyS0GU"/>
+        </circle>
+        <circle cx="221" cy="57" r="3" fill="#fff3b0" data-page-node-id="F3Dt8dYpFBVClLGOMNWtOd">
+          <animate attributeName="opacity" values=".4;1;.4" dur="3.3s" begin=".7s" repeatCount="indefinite" data-page-node-id="AYez7NTMjRuQQw74SMT3i5"/>
+        </circle>
+        <circle cx="211" cy="69" r="3" fill="#fff3b0" data-page-node-id="4V3hpZZqN6jZGjMjlXy4gV">
+          <animate attributeName="opacity" values=".4;1;.4" dur="3.6s" begin="1.3s" repeatCount="indefinite" data-page-node-id="4LH7WdxLQftGkyZfmVzb1Q"/>
+        </circle>
+      </g>
+
+      <!-- 六边形边框点 -->
+      <circle cx="24" cy="52" r="2.5" fill="#ffd782" data-page-node-id="Gj95x7mFPDcKvcYtTnJovp">
+        <animate attributeName="opacity" values=".3;.9;.3" dur="3.4s" begin=".4s" repeatCount="indefinite" data-page-node-id="hxFwcm1QFrkrrkAkImXoDJ"/>
+      </circle>
+      <circle cx="222" cy="116" r="2.5" fill="#ffd782" data-page-node-id="vtwcgWUgHcqmTfvAXapXKu">
+        <animate attributeName="opacity" values=".3;.9;.3" dur="3s" begin="1s" repeatCount="indefinite" data-page-node-id="Ibfbo57NIhvCNFCvKUyRxQ"/>
+      </circle>
+    </svg>
+  </div>
+
+  <div class="story" data-page-node-id="qyLAmoofQAI5i0B3eC436W">
+    <p data-page-node-id="DxEzaFRKq8opCaISQrC0Cz">清晨，花园里响起一阵轻快的"嗡嗡"声——小蜜蜂嗡嗡第一次自己出门采蜜啦。</p>
+    <p data-page-node-id="sm5XTEcJ7nUxftIU1yZx6a">它飞过牵牛花，牵牛花举起紫色的小喇叭，吹出凉凉的晨风。"这不是我要找的甜。"嗡嗡摇摇头，继续往前飞。</p>
+    <p data-page-node-id="ieVRk4s3A1ErCVG79NDuNQ">它飞过向日葵，向日葵把金色的大脸盘转向太阳，笑得亮堂堂的。嗡嗡绕着它转了三圈，花粉香香的、暖暖的，可还不是嗡嗡心里想的那种甜。</p>
+    <p data-page-node-id="Ozg7qPJM0W71dQ4GHRdAGt">它又飞过一片桂花树，小小的桂花躲在叶子后面，把香味揉进风里。好香呀！嗡嗡深深吸了一口气。可是，风一吹，香味就飘散了。</p>
+    <p data-page-node-id="0rmgKcLx1rDPFVf4zayQve">太阳越爬越高，嗡嗡有点累了。它停在一片荷叶上，荷叶轻轻摇啊摇，像一把绿色的小摇椅。</p>
+    <p data-page-node-id="HYOUQQalbv8FrmTFAGTw0z">"到底什么，才是世界上最甜的东西呢？"嗡嗡问荷叶上的露珠。</p>
+    <p data-page-node-id="rCVyHcRfLXD1JQHQbpldwJ">露珠眨眨眼睛："你飞了这么远，最想飞回哪里去呀？"</p>
+    <p data-page-node-id="OlA266fhlkGpeIf6Be35DO">嗡嗡愣住了。它忽然想起蜂巢里温暖的六边形小房间，想起妈妈轻轻拍它翅膀的模样，想起伙伴们等它回家时那片热闹的"嗡嗡"声。</p>
+    <p data-page-node-id="JwiC9X2AEDCyWfifGAk18l">"我想回家！"嗡嗡大声说。</p>
+    <p data-page-node-id="DaUwXYMHdjr1NSUhIG7oWS">它用最快的速度飞回蜂巢，把采到的第一口花蜜，小心地送进妈妈嘴里。"甜不甜呀？"嗡嗡紧张地问。</p>
+    <p data-page-node-id="5WkCgLonF1B7OE47AxhbCC">妈妈笑了，轻轻把它搂进怀里："甜。这是我吃过最甜的花蜜。"</p>
+    <p data-page-node-id="RlA59jXKFSm6DtQ5xWylOb">嗡嗡忽然明白了——世界上最甜的东西，不是最大的花，也不是最香的花，而是你的心里，住着一个想要分享的人。有了那份心意，普普通通的花蜜，也会变得特别特别甜。</p>
+    <p data-page-node-id="Tbc7AzJHXf3JFDADKfba5U">这个甜甜的秘密呀，嗡嗡决定只告诉月亮。</p>
+    <p data-page-node-id="JzZ8Qb2AgiWdni9OVy8OhG">夜晚，花园安静下来。嗡嗡睡在蜂巢里，翅膀底下藏着一小滴花蜜——那是明天要分给伙伴们的。它想：明天，我要把这个甜秘密，讲给每一个好朋友听。</p>
+  </div>
+
+  <div class="goodnight" data-page-node-id="ecWWM7fWwjEIAAeNtGBHPM">
+    晚安，小宝贝。<br data-page-node-id="WwYFZoTeSUeH4GkrlrD41M">
+    小蜜蜂说，愿意把甜甜的东西分给别人的你，今晚一定会做一个比蜜还甜的梦。
+    <div class="gd-stars" data-page-node-id="r4VdeghZfBOuNQNNbgsmvY">
+      <i data-page-node-id="xKoCz0cPhiRvjJMgHuHqE3"></i><i data-page-node-id="7JFSkmoq0KK9zyzboeBuXD"></i><i data-page-node-id="DrYyVvVh0nGl31OCmcUFEk"></i><i data-page-node-id="I8YnQdsBBT9tlqBsoAIAyY"></i><i data-page-node-id="JjvnDskLkrG1uV5dHGbTVV"></i>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  // 星星
+  var starsEl = document.getElementById('stars');
+  var starCount = 110;
+  var html = '';
+  for (var i = 0; i < starCount; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 3).toFixed(1);
+    html += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;left:' +
+      (Math.random() * 100).toFixed(2) + '%;top:' + (Math.random() * 100).toFixed(2) +
+      '%;--dur:' + dur + 's;animation-delay:' + delay + 's"></div>';
+  }
+  starsEl.innerHTML = html;
+
+  // 漂浮粒子
+  var pEl = document.getElementById('particles');
+  var html2 = '';
+  for (var j = 0; j < 9; j++) {
+    var w = (Math.random() * 3 + 2).toFixed(1);
+    var left = (Math.random() * 100).toFixed(2);
+    var d = (Math.random() * 8 + 10).toFixed(1);
+    var delay2 = (Math.random() * 10).toFixed(1);
+    html2 += '<div class="particle" style="width:' + w + 'px;height:' + w + 'px;left:' + left +
+      '%;animation-duration:' + d + 's;animation-delay:' + delay2 + 's"></div>';
+  }
+  pEl.innerHTML = html2;
+</script>
+
+</body>
+</html>

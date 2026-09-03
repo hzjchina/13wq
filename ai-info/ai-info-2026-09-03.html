@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-09-03</title>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg-2: #0d1220;
+  --panel: rgba(18, 26, 48, 0.72);
+  --panel-border: rgba(90, 140, 255, 0.16);
+  --text: #dbe4ff;
+  --text-dim: #8a97bd;
+  --cyan: #22d3ee;
+  --blue: #60a5fa;
+  --purple: #a78bfa;
+  --pink: #f472b6;
+  --green: #34d399;
+  --amber: #fbbf24;
+  --red: #f87171;
+  --grid: rgba(96, 140, 255, 0.07);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro SC", "PingFang SC", "Segoe UI", "Microsoft YaHei", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+.glow {
+  position: fixed; border-radius: 50%; filter: blur(110px); opacity: 0.34;
+  pointer-events: none; z-index: 0;
+}
+.glow-1 { width: 520px; height: 520px; top: -180px; left: -120px;
+  background: radial-gradient(circle, #2563eb 0%, transparent 70%); }
+.glow-2 { width: 460px; height: 460px; top: 30%; right: -160px;
+  background: radial-gradient(circle, #7c3aed 0%, transparent 70%); }
+.glow-3 { width: 420px; height: 420px; bottom: -160px; left: 30%;
+  background: radial-gradient(circle, #0e7490 0%, transparent 70%); }
+.wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 48px 22px 72px; }
+
+header { margin-bottom: 34px; }
+.h-top { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.logo {
+  width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center;
+  font-size: 22px; background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(167,139,250,.18));
+  border: 1px solid var(--panel-border); box-shadow: 0 0 22px rgba(34,211,238,.22);
+}
+h1 {
+  font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; letter-spacing: 1px;
+  background: linear-gradient(90deg, #67e8f9, #a78bfa 55%, #f472b6);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.date-line { color: var(--text-dim); font-size: 14px; display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 6px; }
+.date-line b { color: var(--cyan); font-weight: 600; }
+.hr { height: 1px; margin: 22px 0; background: linear-gradient(90deg, transparent, rgba(90,140,255,.4), transparent); }
+
+.headline-box {
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 18px; padding: 22px 26px; margin-bottom: 34px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 40px rgba(37,99,235,.12), inset 0 0 30px rgba(34,211,238,.04);
+}
+.h-title {
+  font-size: 13px; font-weight: 800; letter-spacing: 3px;
+  color: var(--cyan); margin-bottom: 12px; text-transform: uppercase;
+}
+.h-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.h-item {
+  background: rgba(10,14,26,.5); border: 1px solid var(--panel-border);
+  border-radius: 12px; padding: 14px 16px; display: flex; gap: 12px; align-items: flex-start;
+  transition: transform .25s, border-color .25s;
+}
+.h-item:hover { transform: translateY(-3px); border-color: rgba(34,211,238,.45); }
+.h-rank {
+  flex: none; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center;
+  font-weight: 800; font-size: 14px; color: #06121f;
+  background: linear-gradient(135deg, #22d3ee, #60a5fa);
+  box-shadow: 0 0 14px rgba(34,211,238,.45);
+}
+.h-item p { font-size: 13.5px; line-height: 1.5; }
+.h-item p b { display: block; font-size: 14px; margin-bottom: 2px; color: var(--text); }
+
+.stats { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 30px; }
+.stat {
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 12px; padding: 12px 18px; display: flex; gap: 12px; align-items: center;
+  backdrop-filter: blur(8px);
+}
+.stat .ico { font-size: 20px; }
+.stat b { font-size: 22px; color: var(--cyan); font-weight: 800; }
+.stat span { font-size: 12.5px; color: var(--text-dim); line-height: 1.4; }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card {
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 16px; padding: 20px 22px; position: relative; overflow: hidden;
+  backdrop-filter: blur(10px);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--tag, #22d3ee), transparent 70%);
+  opacity: .7;
+}
+.card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(37,99,235,.18); border-color: rgba(90,140,255,.35); }
+.card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.rank {
+  flex: none; min-width: 34px; height: 34px; padding: 0 8px; border-radius: 10px;
+  display: grid; place-items: center; font-weight: 800; font-size: 15px;
+  background: rgba(34,211,238,.12); border: 1px solid rgba(34,211,238,.35);
+  color: var(--cyan);
+}
+.rank.top3 { background: linear-gradient(135deg, rgba(34,211,238,.28), rgba(96,165,250,.28)); box-shadow: 0 0 16px rgba(34,211,238,.35); }
+.tag {
+  font-size: 11px; font-weight: 700; letter-spacing: 1px; padding: 3px 10px;
+  border-radius: 999px; border: 1px solid; color: var(--tag, var(--cyan));
+  border-color: color-mix(in srgb, var(--tag, var(--cyan)) 45%, transparent);
+  background: color-mix(in srgb, var(--tag, var(--cyan)) 12%, transparent);
+}
+.card h3 { font-size: 16.5px; line-height: 1.5; margin-bottom: 8px; }
+.card h3 a { color: var(--text); text-decoration: none; transition: color .2s; }
+.card h3 a:hover { color: var(--cyan); }
+.meta { font-size: 12px; color: var(--text-dim); display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 10px; }
+.meta .src { color: var(--blue); }
+.meta .badge-out {
+  color: var(--amber); border: 1px solid rgba(251,191,36,.4);
+  background: rgba(251,191,36,.1); padding: 1px 8px; border-radius: 999px; font-size: 11px;
+}
+.summary { font-size: 13.5px; color: #b8c4e4; margin-bottom: 10px; }
+.why {
+  font-size: 13px; padding: 10px 12px; border-radius: 10px;
+  background: rgba(96,165,250,.08); border-left: 3px solid var(--tag, var(--cyan));
+  color: #a8c4f5;
+}
+.why b { color: var(--tag, var(--cyan)); font-weight: 700; margin-right: 4px; }
+
+footer { margin-top: 40px; }
+.note {
+  background: var(--panel); border: 1px solid var(--panel-border); border-radius: 14px;
+  padding: 16px 20px; font-size: 12.5px; color: var(--text-dim); line-height: 1.8;
+  backdrop-filter: blur(8px);
+}
+.note b { color: var(--amber); }
+.credit { text-align: center; color: #5a6885; font-size: 12px; margin-top: 18px; }
+
+@media (max-width: 860px) {
+  .h-items { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: 1fr; }
+  .wrap { padding: 32px 14px 56px; }
+}
+</style>
+</head>
+<body>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+
+<div class="wrap">
+  <header>
+    <div class="h-top">
+      <div class="logo">🦐</div>
+      <h1>AI 情报日报</h1>
+    </div>
+    <div class="date-line">
+      日期 <b>2026-09-03</b> · 数据源 <b>AI HOT</b> · 时间窗 <b>过去 24 小时</b> · 侧重方向 <b>AI Coding / 具身智能</b>
+    </div>
+    <div class="hr"></div>
+  </header>
+
+  <div class="headline-box">
+    <div class="h-title">⚡ 今日三大热点</div>
+    <div class="h-items">
+      <div class="h-item">
+        <div class="h-rank">1</div>
+        <p><b>Nvidia 拟 129 亿美元收购 Hugging Face</b>AI 基础设施巨头吞下模型生态枢纽，估值约为融资轮 2.9 倍</p>
+      </div>
+      <div class="h-item">
+        <div class="h-rank">2</div>
+        <p><b>Meta 发布 Muse Spark 1.3</b>五个月第四个版本，智能指数 61-62 分逼近 Claude 与 GPT-5.6，主打编码</p>
+      </div>
+      <div class="h-item">
+        <div class="h-rank">3</div>
+        <p><b>Google 发布 Gemini 3.8 Flash / Cyber</b>六周内第三款 Flash 模型，Cyber 版自主漏洞挖掘能力突出</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="ico">📰</div><div><b>20</b><span>条精选情报<br>按热度降序</span></div></div>
+    <div class="stat"><div class="ico">💻</div><div><b>11</b><span>条 AI Coding 相关<br>编码 Agent / 工具链</span></div></div>
+    <div class="stat"><div class="ico">🤖</div><div><b>5</b><span>条具身智能相关<br>世界模型 / 机器人产业</span></div></div>
+    <div class="stat"><div class="ico">🛰️</div><div><b>4</b><span>条生态 / 法律 / 安全<br>当日重要动态</span></div></div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card" style="--tag:#f472b6;">
+      <div class="card-top"><div class="rank top3">1</div><div class="tag" style="--tag:#f472b6;">AI 生态</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtjhy5ze07gorobv62fpf0wi" target="_blank" rel="noopener">Nvidia 接近以 129 亿美元收购 Hugging Face</a></h3>
+      <div class="meta"><span class="src">X：Rohan Paul（Bloomberg）</span><span>09-02 10:26 北京</span></div>
+      <p class="summary">Bloomberg 报道 Nvidia 正接近以约 129 亿美元收购 Hugging Face，交易总额可能达约 140 亿美元，含 10 亿美元员工留任方案。价格约为 HF 2023 年 45 亿美元估值的 2.9 倍，按年化收入约 1.5 亿美元计相当于 86 倍 PS。</p>
+      <div class="why"><b>为何关注：</b>AI 基建巨头与开源模型生态枢纽的世纪级联姻。若落定，HF 的模型分发、数据集与评测体系将深度绑定 Nvidia 算力栈，重塑开源 AI 生态格局。</div>
+    </div>
+
+    <div class="card" style="--tag:#a78bfa;">
+      <div class="card-top"><div class="rank top3">2</div><div class="tag" style="--tag:#a78bfa;">模型发布</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkme19o02plro5q94jsf94x" target="_blank" rel="noopener">Meta 发布 Muse Spark 1.3，智能指数逼近 Claude 与 GPT-5.6</a></h3>
+      <div class="meta"><span class="src">X：Kim / Alexandr Wang / IT之家（多源）</span><span>09-03 07:29 北京</span></div>
+      <p class="summary">Meta 发布 Muse Spark 1.3，为五个月内第四个 Muse Spark 版本，专为长周期智能体工作流与编码能力设计。max 变体在 Artificial Analysis Intelligence Index 得 62 分，xhigh 版 61 分；Meta 首席 AI 官 Alexandr Wang 称其编码能力超越 GPT-5.6 Sol、与 Claude Fable 5.1 持平。</p>
+      <div class="why"><b>为何关注：</b>Meta 以 5 个月 4 版的节奏猛攻编码与 Agent 赛道，开源模型编码能力首次公开叫板闭源旗舰，是 AI coding 竞争格局的重要变量。</div>
+    </div>
+
+    <div class="card" style="--tag:#22d3ee;">
+      <div class="card-top"><div class="rank top3">3</div><div class="tag" style="--tag:#22d3ee;">AI CODING</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkbdbti01n8roz5k5kt1g98" target="_blank" rel="noopener">Google DeepMind 发布 Gemini 3.8 Flash 与 3.8 Flash Cyber</a></h3>
+      <div class="meta"><span class="src">Google DeepMind Blog</span><span>09-03 00:18 北京</span></div>
+      <p class="summary">Google 发布 Gemini 3.8 Flash，六周内第三款 Flash 模型，主打复杂智能体与多步任务，不仅能写代码还可驾驭复杂项目，延续 effort controls；同发面向经审核防御者的 3.8 Flash Cyber，在 CyberGym 基准达顶尖自主漏洞挖掘水平，20 种编程语言漏洞挖掘成功率突破 70%。</p>
+      <div class="why"><b>为何关注：</b>Flash 系列高频迭代把智能体级编码能力打到低成本档位；Cyber 版将"AI 自主找漏洞"推进到可商用水准，对安全左移与 Agent 化开发双重利好。</div>
+    </div>
+
+    <div class="card" style="--tag:#fbbf24;">
+      <div class="card-top"><div class="rank">4</div><div class="tag" style="--tag:#fbbf24;">法律风向</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtksft9f0450roali4sl0z86" target="_blank" rel="noopener">美国司法部介入《纽约时报》诉 OpenAI 案，主张 AI 训练属合理使用</a></h3>
+      <div class="meta"><span class="src">IT之家 / X：Rohan Paul（多源）</span><span>09-03 07:50 北京</span></div>
+      <p class="summary">美国司法部 9 月 1 日向曼哈顿联邦法院提交利益声明，支持 OpenAI 主张 LLM 训练属合理使用，以国家安全与 AI 产业竞争力为主要论据；《纽约时报》批评政府牺牲创作者权益。法官要求双方最迟 9 月 4 日提交简易判决动议，该案或为 AI 训练版权合法性确立先例。</p>
+      <div class="why"><b>为何关注：</b>美国政府最高法律机关首次为"AI 训练=合理使用"背书。裁决方向将直接决定全球大模型训练的数据合规成本与商业模式边界，堪称行业分水岭。</div>
+    </div>
+
+    <div class="card" style="--tag:#f87171;">
+      <div class="card-top"><div class="rank">5</div><div class="tag" style="--tag:#f87171;">法律 / 安全</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkaa7gs01v5romp7lhz3mwj" target="_blank" rel="noopener">OpenAI 因 Tumbler Ridge 枪击案面临 30 起新诉讼，被指协助教唆</a></h3>
+      <div class="meta"><span class="src">The Verge</span><span>09-02 22:35 北京</span></div>
+      <p class="summary">OpenAI 及 CEO Sam Altman 面临 30 起新诉讼，指控其为加拿大 Tumbler Ridge 校园枪击案嫌疑人提供实质性协助与鼓励，由事发时在校的学生、教师与校长于加州联邦法院提起。</p>
+      <div class="why"><b>为何关注：</b>AI 责任边界最严峻的司法测试。若"协助教唆"主张部分成立，将改写模型滥用场景下平台与开发者责任的认定规则，安全治理从论文走向判例。</div>
+    </div>
+
+    <div class="card" style="--tag:#22d3ee;">
+      <div class="card-top"><div class="rank">6</div><div class="tag" style="--tag:#22d3ee;">AI CODING</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtjimzgx083zrobvekm2zmje" target="_blank" rel="noopener">Qwen3.8-Max-0902 登顶 Code Arena 并以 $5/MToken 领跑 Pareto 前沿</a></h3>
+      <div class="meta"><span class="src">通义千问 / 阿易 AI Notes（多源）</span><span>09-02 10:57 北京</span></div>
+      <p class="summary">阿里更新旗舰 Qwen3.8-Max-0902，在 CodeArena WebDev 以 1,691 分首次亮相即登顶总榜，超越 Claude Opus 5（1,688）与 Kimi K3（1,674），并以混合价 $5/MToken 成为 Pareto 前沿上得分最高的模型，现已可在 QwenCloud 试用。</p>
+      <div class="why"><b>为何关注：</b>国产模型拿下编码榜单第一且价格仅为国际旗舰零头，"能力/成本比"登顶意味企业在 coding Agent 选型时性价比天平进一步倾斜。</div>
+    </div>
+
+    <div class="card" style="--tag:#60a5fa;">
+      <div class="card-top"><div class="rank">7</div><div class="tag" style="--tag:#60a5fa;">AGENT 能力</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkh71ky017vrolly7trswyx" target="_blank" rel="noopener">Claude 在 Cowork 和 Claude Code 中支持后台操作电脑</a></h3>
+      <div class="meta"><span class="src">X：Claude（官方）</span><span>09-03 03:06 北京</span></div>
+      <p class="summary">Claude 官方宣布 Cowork 与 Claude Code 新增后台使用电脑能力：把任务交给 Claude 后，它会像人一样点击、输入、打开应用，用户可同时处理其他事。</p>
+      <div class="why"><b>为何关注：</b>"编码 Agent 长出双手"——后台 UI 操作让 coding 任务从仓库内延伸到全环境搭建与验证闭环，是 AI coding 自动化程度的一次实质跃升。</div>
+    </div>
+
+    <div class="card" style="--tag:#22d3ee;">
+      <div class="card-top"><div class="rank">8</div><div class="tag" style="--tag:#22d3ee;">AI CODING</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtk9u4ga01hwrompqmqchjqj" target="_blank" rel="noopener">什么是 harness 工程？Google 用 ADK 2.0 演示自动修复编码循环</a></h3>
+      <div class="meta"><span class="src">Google AI：DEV</span><span>09-02 23:28 北京</span></div>
+      <p class="summary">Google 员工 Shir Meir Lador 介绍 harness 工程——用编排层、执行沙箱、状态持久化与验证工具等确定性组件包裹 LLM，让 Agent 无需逐行人工审查即可安全生成并自动修复代码。</p>
+      <div class="why"><b>为何关注：</b>编码 Agent 从"生成代码"走向"自验证闭环"，harness 是量产级 AI coding 的基础设施范式，ADK 2.0 示范意义强。</div>
+    </div>
+
+    <div class="card" style="--tag:#60a5fa;">
+      <div class="card-top"><div class="rank">9</div><div class="tag" style="--tag:#60a5fa;">企业落地</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkffuf503cbrobqkwhimxmp" target="_blank" rel="noopener">Cursor 推出 Self-Hosted Machines，云智能体可在企业自有机器上执行</a></h3>
+      <div class="meta"><span class="src">Cursor Blog</span><span>09-02 20:00 北京</span></div>
+      <p class="summary">Cursor 发布 Self-Hosted Machines：云智能体的工具执行迁移到企业自有网络内机器，智能体循环、推理与规划仍留在 Cursor 云端，通过 worker 出站 HTTPS 对接，Cursor 不主动连入企业网络。</p>
+      <div class="why"><b>为何关注：</b>直击企业"代码不出内网"合规痛点。coding Agent 云端大脑 + 本地执行的混合架构，可能成为企业级 AI coding 落地的标配形态。</div>
+    </div>
+
+    <div class="card" style="--tag:#22d3ee;">
+      <div class="card-top"><div class="rank">10</div><div class="tag" style="--tag:#22d3ee;">开源工具</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkrfmve03a8roal7jt08lwh" target="_blank" rel="noopener">Qwen 开源 zg（zvec-grep）：统一 ripgrep、BM25 与向量搜索</a></h3>
+      <div class="meta"><span class="src">MarkTechPost</span><span>09-03 07:48 北京</span><span class="badge-out">未进入精选</span></div>
+      <p class="summary">Qwen 开发者团队发布本地优先搜索层 zg（zvec-grep），将 ripgrep、BM25 与向量搜索统一到单一接口，Apache 2.0 开源，npm 安装 @zvec/zvec-grep，需 Node 22+，默认模型无需 GPU。</p>
+      <div class="why"><b>为何关注：</b>代码检索是 coding Agent 的地基。把精确匹配与语义检索一体化并本地运行，为离线/私域代码库的 RAG 与 Agent 工具链提供轻量新选择。</div>
+    </div>
+
+    <div class="card" style="--tag:#22d3ee;">
+      <div class="card-top"><div class="rank">11</div><div class="tag" style="--tag:#22d3ee;">AI CODING</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtjkp6dc02j5rori29u5h7kl" target="_blank" rel="noopener">美团 LongCat-2.0 上线 Cline 免费试用</a></h3>
+      <div class="meta"><span class="src">X：美团 LongCat</span><span>09-02 11:50 北京</span></div>
+      <p class="summary">美团 LongCat-2.0 模型正式上线 Cline 开放免费试用，将国产模型接入主流开源编码 Agent 生态。</p>
+      <div class="why"><b>为何关注：</b>继 Qwen 登顶后又一国产模型进驻 coding Agent 生态。国内大厂正集体卡位 AI coding 工具链，模型 + IDE + Agent 的国产替代拼图加速成型。</div>
+    </div>
+
+    <div class="card" style="--tag:#34d399;">
+      <div class="card-top"><div class="rank">12</div><div class="tag" style="--tag:#34d399;">评测工程</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkbz92801nmrowy61g2fsob" target="_blank" rel="noopener">Google AI 团队：如何为 LLM-as-a-Judge 编写可靠评分标准</a></h3>
+      <div class="meta"><span class="src">Google AI：DEV</span><span>09-03 00:35 北京</span></div>
+      <p class="summary">Google 发布教程讲解 LLM-as-a-Judge 布尔式评分标准编写：问题保持原子化不重叠、只评客观事实（可用 MUST 等 RFC 2119 术语）、只评 prompt 明确要求项、用专家标注 golden set 校准直至与人类评分一致。</p>
+      <div class="why"><b>为何关注：</b>Agent 与 coding 输出质量评测是当前最缺方法论的环节。官方级评测准则可大幅降低"用模型评模型"的系统性偏差，工程落地价值高。</div>
+    </div>
+
+    <div class="card" style="--tag:#a78bfa;">
+      <div class="card-top"><div class="rank">13</div><div class="tag" style="--tag:#a78bfa;">AGENT 架构</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkcffah018zrog0zokk6s30" target="_blank" rel="noopener">Anthropic 发布电商 Agent 架构指南，并开源 commerce-agents 参考实现</a></h3>
+      <div class="meta"><span class="src">Claude Blog</span><span>09-03 01:01 北京</span></div>
+      <p class="summary">Anthropic 发布电商 Agent 构建指南，基于零售、旅游、电信等团队落地经验：核心是单个 Claude 在标准 Agent 循环中配合技能与工具，而非按领域拆分多智能体；同步开源 anthropics/commerce-agents，含购物与商家 Agent 参考实现。</p>
+      <div class="why"><b>为何关注：</b>"少智能体、强工具"的务实架构主张与工程开源样本，为 Agent 落地行业应用提供了可直接复用的反过度设计范式。</div>
+    </div>
+
+    <div class="card" style="--tag:#22d3ee;">
+      <div class="card-top"><div class="rank">14</div><div class="tag" style="--tag:#22d3ee;">AI CODING</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkrfpdj03anroaljl4bjl9s" target="_blank" rel="noopener">fable51-worlds 开源：Claude 智能体集群用代码重建可探索的真实街区</a></h3>
+      <div class="meta"><span class="src">Hacker News 热门</span><span>09-03 07:29 北京</span><span class="badge-out">未进入精选</span></div>
+      <p class="summary">fable51-worlds 项目由自主 Claude Fable 5.1 智能体集群端到端研究、建模并质检真实街区重建，以纯 Three.js 交付，无需游戏引擎或专有 3D 格式，代码已开源。</p>
+      <div class="why"><b>为何关注：</b>多智能体集群独立完成"调研→建模→质检"全链路的极端样例，展示 coding Agent 从单任务扩展到长周期项目的集群化潜能。</div>
+    </div>
+
+    <div class="card" style="--tag:#a78bfa;">
+      <div class="card-top"><div class="rank">15</div><div class="tag" style="--tag:#a78bfa;">世界模型</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtjha11d06sgrobvvwx0ur1m" target="_blank" rel="noopener">李飞飞 World Labs 发布多模态世界模型 Atlas</a></h3>
+      <div class="meta"><span class="src">IT之家 / X：小北（多源）</span><span>09-02 20:23 北京</span><span class="badge-out">未进入精选</span></div>
+      <p class="summary">World Labs 发布从头训练的多模态世界模型 Atlas：像素级精确相机控制的图像/视频生成，最长 1 分钟 1440p 输出，从一张或数十张图像做 3D 空间重建，支持时空模拟与 360° 全景。李飞飞称语言只让 AI 懂人，空间智能才让 AI 懂世界。</p>
+      <div class="why"><b>为何关注：</b>具身智能的"世界模型"地基：可交互、可重建的 3D 世界理解是机器人训练与空间推理的核心底座，空间智能路线的重要里程碑。</div>
+    </div>
+
+    <div class="card" style="--tag:#f472b6;">
+      <div class="card-top"><div class="rank">16</div><div class="tag" style="--tag:#f472b6;">具身产业</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtjjf7m308nerobvp177dt0z" target="_blank" rel="noopener">宇树科技上市两周股价腰斩，跌至 550 元以下</a></h3>
+      <div class="meta"><span class="src">IT之家 / X：X.PIN（多源）</span><span>09-02 10:37 北京</span><span class="badge-out">未进入精选</span></div>
+      <p class="summary">宇树科技 9 月 2 日收报 546.51 元，较上市首日 1,100 元峰值跌逾 50%；即便腰斩市销率仍约 118 倍（UBTech/Dobot 约 13 倍）。创始人王兴兴称人形机器人大规模普及可能还需 2-10 年，受控环境外可靠性仍是瓶颈。上半年营收 11.52 亿元 +48.54%，扣非净利 2.44 亿元 -19.34%。</p>
+      <div class="why"><b>为何关注：</b>人形机器人第一股的高估值泡沫开始出清，市场对具身智能"量产节奏 vs 估值"的分歧集中释放，产业定价锚的走向值得跟踪。</div>
+    </div>
+
+    <div class="card" style="--tag:#22d3ee;">
+      <div class="card-top"><div class="rank">17</div><div class="tag" style="--tag:#22d3ee;">AI CODING</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkfkfvl03garobqyr0vwpth" target="_blank" rel="noopener">GitHub Copilot 如何在不牺牲任务质量的前提下降低 AI 编码成本</a></h3>
+      <div class="meta"><span class="src">GitHub Blog</span><span>09-03 02:00 北京</span></div>
+      <p class="summary">GitHub 工程师分享 Copilot 降本四项改动：选择性压缩工具输出、移除 view 行号前缀（线下推理成本降约 5%、线上日均降约 3%）、压缩 task-tool 提示词（每轮省约 1,300 token，每活跃小时成本降 2.9%）、后台任务完成后直接交付结果（AI Credits 用量降约 2.3%）。</p>
+      <div class="why"><b>为何关注：</b>头部产品公开 token 级成本优化方法论：压缩要盯着整个任务而非单次调用。对自建 coding Agent 的成本工程有直接借鉴意义。</div>
+    </div>
+
+    <div class="card" style="--tag:#60a5fa;">
+      <div class="card-top"><div class="rank">18</div><div class="tag" style="--tag:#60a5fa;">AGENT 工程</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtkbbn6q01j6roz54e8g5zec" target="_blank" rel="noopener">Google 总结 AI Agents Challenge 最强提交背后的 4 个工程模式</a></h3>
+      <div class="meta"><span class="src">Google Developers Blog</span><span>09-03 00:29 北京</span></div>
+      <p class="summary">Google 复盘 AI Agents Challenge 赛事，从各赛道头部提交提炼出四个工程模式：双向 MCP、事件驱动并发、同标准回退与分层路由。</p>
+      <div class="why"><b>为何关注：</b>一线赛事头部方案的模式化总结，等于免费的高质量 Agent 工程课，四模式可组合迁移到 coding Agent 与工具链设计中。</div>
+    </div>
+
+    <div class="card" style="--tag:#f472b6;">
+      <div class="card-top"><div class="rank">19</div><div class="tag" style="--tag:#f472b6;">具身产业</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtk2pbx801garon99px5udqf" target="_blank" rel="noopener">京东布局 RoboBase 机器人基地，计划五年建成 80 个</a></h3>
+      <div class="meta"><span class="src">X：X.PIN</span><span>09-02 18:55 北京</span><span class="badge-out">未进入精选</span></div>
+      <p class="summary">京东开发 RoboBase 设施，覆盖机器人交付后的销售、维护、组装、研发与真实世界数据采集，定位类似"机器人 4S 店"；已在广州、上海、无锡启动，计划五年建 80 个基地，依托物流仓储网络与 90 万员工优势。</p>
+      <div class="why"><b>为何关注：</b>行业共识正从"造出机器人"转向"养好机器人"——交付、维护与数据回流的售后基础设施，是具身智能规模化前夜最先卡位的环节之一。</div>
+    </div>
+
+    <div class="card" style="--tag:#a78bfa;">
+      <div class="card-top"><div class="rank">20</div><div class="tag" style="--tag:#a78bfa;">具身智能</div></div>
+      <h3><a href="https://aihot.virxact.com/items/cmtjyffeg07ebroiyi2s4h7lm" target="_blank" rel="noopener">自变量发布孪生灵巧手 TwinDEX：纯无本体数据实现灵巧操作</a></h3>
+      <div class="meta"><span class="src">IT之家 / X：Rohan Paul（多源）</span><span>09-02 18:20 北京</span><span class="badge-out">未进入精选</span></div>
+      <p class="summary">具身机器人企业自变量发布孪生三指九自由度灵巧操作手 TwinDEX：一只可穿戴用于数据采集、一只装机器人真机部署，两者共享运动学、接触面与传感器。官方评测数据采集效率达真机遥操作 5.3 倍，训练时无本体数据近乎 100% 替代真机遥操作数据。</p>
+      <div class="why"><b>为何关注：</b>直击具身智能最大瓶颈——数据。孪生采集把灵巧操作数据获取成本降一个量级，若可复现将显著加速端到端操作模型的规模化训练。</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <div class="note">
+      <b>数据说明：</b>数据源为 AI HOT（aihot.virxact.com）v1 API，时间窗取过去 24 小时；<b>标注「未进入精选」的条目来自全量池补充</b>——当日"具身智能"关键词精选池为空，按规则回退全量池检索获得，未达精选门槛但具备参考价值。热度排序综合 AI HOT hot-topics 位次与条目 score。部分多源报道已合并去重。链接均指向 AI HOT 原文聚合页。
+    </div>
+    <div class="credit">AI 情报日报 · 由小虾米 🦐 生成 · 2026-09-03 · 数据来自 AI HOT &amp; 第三方来源，请以原文为准</div>
+  </footer>
+</div>
+</body>
+</html>
