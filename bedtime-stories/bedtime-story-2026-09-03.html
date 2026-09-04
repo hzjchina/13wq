@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="lJRSxpcKRETYdOglB6fzdO">
+<head data-page-node-id="WZhQUIQdRNsoXWdgv1JUVz">
+<meta charset="UTF-8" data-page-node-id="8YegJeSTrXdiGC7zSukhhm">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="TjDaW8DpBN3ETo9AwJqniY">
+<title>小雁的月光航线 — 儿童睡前故事</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,"Helvetica Neue",Arial,sans-serif;
+    background:linear-gradient(180deg,#070d1f 0%,#0c1733 34%,#14264d 62%,#1d3a63 100%);
+    min-height:100vh;color:#e8ecf7;line-height:2;overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  /* 星空画布 */
+  .sky{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .star{position:absolute;border-radius:50%;background:#fff;opacity:.8;animation:twinkle var(--d,3s) ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.95;transform:scale(1.15)}}
+  /* 流星 */
+  .meteor{position:absolute;width:130px;height:1.6px;border-radius:2px;
+    background:linear-gradient(90deg,#fff,rgba(255,255,255,0));
+    transform:rotate(-24deg);opacity:0;filter:drop-shadow(0 0 4px rgba(255,255,255,.7))}
+  .m1{top:16%;left:-160px;animation:shoot 7.5s ease-in 1.5s infinite}
+  .m2{top:7%;left:-200px;animation:shoot 10s ease-in 5s infinite}
+  @keyframes shoot{
+    0%{transform:translateX(0) rotate(-24deg);opacity:0}
+    3%{opacity:1}
+    12%{transform:translateX(min(52vw,620px)) translateY(24vh) rotate(-24deg);opacity:0}
+    100%{transform:translateX(min(52vw,620px)) translateY(24vh) rotate(-24deg);opacity:0}
+  }
+  /* 月亮 */
+  .moon-wrap{position:absolute;top:9%;right:12%;width:min(120px,22vw);aspect-ratio:1;animation:mfloat 7s ease-in-out infinite}
+  @keyframes mfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .moon{position:absolute;inset:0;border-radius:50%;
+    background:radial-gradient(circle at 36% 34%,#fffbe8 0%,#fdf3c9 55%,#e8d48e 100%);
+    box-shadow:0 0 30px rgba(253,243,201,.5),0 0 90px rgba(253,243,201,.25);
+    animation:mglow 5s ease-in-out infinite}
+  .moon::before{content:"";position:absolute;top:52%;left:22%;width:16%;height:16%;border-radius:50%;background:rgba(210,190,120,.4)}
+  .moon::after{content:"";position:absolute;top:20%;left:58%;width:11%;height:11%;border-radius:50%;background:rgba(210,190,120,.35)}
+  @keyframes mglow{0%,100%{box-shadow:0 0 30px rgba(253,243,201,.45),0 0 90px rgba(253,243,201,.2)}50%{box-shadow:0 0 44px rgba(253,243,201,.65),0 0 130px rgba(253,243,201,.3)}}
+  /* 内容 */
+  .wrap{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:70px 22px 60px}
+  .halo{position:relative;text-align:center}
+  .halo .title{
+    font-size:clamp(30px,6.4vw,44px);font-weight:800;letter-spacing:.14em;padding-left:.14em;
+    color:#ffe9b0;text-shadow:0 0 18px rgba(255,214,130,.55),0 0 46px rgba(255,214,130,.3);
+    animation:tglow 4s ease-in-out infinite;
+  }
+  @keyframes tglow{0%,100%{text-shadow:0 0 16px rgba(255,214,130,.5),0 0 40px rgba(255,214,130,.25)}50%{text-shadow:0 0 26px rgba(255,214,130,.75),0 0 70px rgba(255,214,130,.4)}}
+  .subtitle{margin-top:10px;font-size:13.5px;letter-spacing:.5em;padding-left:.5em;color:#9db2dd}
+  .orn{display:flex;align-items:center;justify-content:center;gap:14px;margin:18px 0 8px}
+  .orn::before,.orn::after{content:"";width:min(90px,18vw);height:1px;background:linear-gradient(90deg,transparent,rgba(255,224,150,.55));}
+  .orn::after{background:linear-gradient(90deg,rgba(255,224,150,.55),transparent)}
+  .orn svg{filter:drop-shadow(0 0 6px rgba(255,220,150,.8))}
+  /* 雁群插图区 */
+  .scene{position:relative;height:clamp(150px,30vw,240px);margin:26px 0 10px;overflow:hidden}
+  .flock{position:absolute;left:-14%;top:38%;width:104%;animation:fly 26s linear infinite}
+  @keyframes fly{
+    0%{transform:translateX(0)}
+    50%{transform:translateX(-3%)}
+    100%{transform:translateX(0)}
+  }
+  .goose{transform-origin:center;animation:wing 1.15s ease-in-out infinite}
+  .goose:nth-child(odd){animation-delay:.32s}
+  @keyframes wing{0%,100%{transform:rotate(0)}50%{transform:rotate(-9deg)}}
+  .glowbird{animation:gbpulse 3s ease-in-out infinite}
+  @keyframes gbpulse{0%,100%{opacity:1}50%{opacity:.55}}
+  /* 山与湖 */
+  .ridge{position:absolute;left:0;right:0;bottom:0;z-index:1}
+  .sparkle{position:absolute;border-radius:50%;background:rgba(255,240,190,.85);animation:lpulse 3.2s ease-in-out infinite}
+  @keyframes lpulse{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:.9;transform:scale(1)}}
+  /* 文本 */
+  .story{
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.028));
+    border:1px solid rgba(180,205,255,.16);border-radius:22px;
+    padding:30px clamp(20px,5vw,40px);margin-top:16px;
+    backdrop-filter:blur(3px);
+    box-shadow:0 14px 44px rgba(0,0,0,.32);
+  }
+  .story p{font-size:clamp(16.5px,2.05vw,18px);color:#e6ebf8;text-align:justify;margin:16px 0;letter-spacing:.02em}
+  .story p:first-child{margin-top:0}
+  .story p:last-child{margin-bottom:0}
+  .story .soft{color:#c2cde6}
+  .story em{font-style:normal;color:#ffe6a8}
+  .stars-sep{display:flex;justify-content:center;gap:16px;margin:24px 0 4px}
+  .stars-sep i{width:7px;height:7px;border-radius:50%;background:#ffe9b0;display:block;animation:ssep 2.8s ease-in-out infinite}
+  .stars-sep i:nth-child(2){animation-delay:.4s}.stars-sep i:nth-child(3){animation-delay:.8s}
+  .stars-sep i:nth-child(4){animation-delay:1.2s}.stars-sep i:nth-child(5){animation-delay:1.6s}
+  @keyframes ssep{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.7);opacity:1}}
+  /* 晚安 */
+  .goodnight{
+    margin-top:26px;text-align:center;
+    background:radial-gradient(circle at 50% 0%,rgba(255,215,140,.12),transparent 72%);
+    border-top:1px solid rgba(255,224,150,.2);
+    padding:26px 18px 8px;
+  }
+  .goodnight p{font-size:clamp(16px,2vw,17.5px);color:#f3e7c8;line-height:2.05;max-width:600px;margin:0 auto}
+  .goodnight .gn-halo{color:#ffd98e;text-shadow:0 0 12px rgba(255,214,130,.7);animation:tglow2 5s ease-in-out infinite}
+  @keyframes tglow2{0%,100%{text-shadow:0 0 10px rgba(255,214,130,.5)}50%{text-shadow:0 0 22px rgba(255,214,130,.9)}}
+  .moon-ico{display:inline-block;margin-top:18px;animation:mfloat 5s ease-in-out infinite}
+  .foot{margin-top:14px;text-align:center;color:#6d7fa6;font-size:12px;letter-spacing:.3em}
+  @media(max-width:560px){
+    .moon-wrap{top:5%;right:7%;width:82px}
+    .wrap{padding-top:56px}
+  }
+</style>
+</head>
+<body data-page-node-id="6eDUyxwgCLUhUVvlcWiKmA">
+
+<div class="sky" id="sky" data-page-node-id="GFwWeeNEPKw0wBbB6jnnD5">
+  <div class="moon-wrap" data-page-node-id="lE28KKaJzis9qZibDPy8qo"><div class="moon" data-page-node-id="pKfdIU9IJtMottmaGCoJRV"></div></div>
+  <div class="meteor m1" data-page-node-id="rSTZPLQAzmm187XWGK9hIr"></div>
+  <div class="meteor m2" data-page-node-id="YxC1b142q2l8kDYcuEFllx"></div>
+</div>
+
+<div class="wrap" data-page-node-id="lrYX9bupFo7LCom6wUdahw">
+  <div class="halo" data-page-node-id="BFvuVtBlammvg9suEGJh9v">
+    <div class="title" data-page-node-id="AA5MujGriS5uUAoCWvJ66J">小雁的月光航线</div>
+    <div class="subtitle" data-page-node-id="IsF4s64GFCGbOQEormfbIK">一个关于「一起飞」的夜晚故事</div>
+    <div class="orn" data-page-node-id="3hQ6wH2LWX18EtyqOv475R">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="#ffe9b0" data-page-node-id="3t8H03mFcojyDS70FFHVcr"><path d="M12 2l2.4 7.6L22 12l-7.6 2.4L12 22l-2.4-7.6L2 12l7.6-2.4z" data-page-node-id="xLooE6zcmjm54h0FGbwNXq"/></svg>
+    </div>
+  </div>
+
+  <!-- 月下雁群场景 -->
+  <div class="scene" data-page-node-id="MN8irP5yeswwQNENDA7zfG">
+    <svg class="flock" viewBox="0 0 900 150" fill="none" data-page-node-id="BoA32nILBvgkzoBtZG6wGt">
+      <!-- 队列后翼（最远） -->
+      <g class="glowbird" data-page-node-id="VK0aBmLegftGfgGaZA1mK4">
+        <g class="goose" opacity=".5" data-page-node-id="dI0pJZXAEhEkgQ1G3gV2B3">
+          <path d="M80 96l-14-8 6 14-20 4 22 8-6 15 12-12z" fill="#24365e" data-page-node-id="OZOTW8g2PE2EE6FTkrTMre"/>
+        </g>
+      </g>
+      <g opacity=".68" data-page-node-id="f4aEQR3EYPJE1X1JJ3HDpY">
+        <g class="goose" data-page-node-id="c5Ql4v41voBbLWowNCt4NL">
+          <path d="M170 88l-14-8 6 14-20 4 22 8-6 15 12-12z" fill="#2c406e" data-page-node-id="MXTp5xbnIdRVm4zXNy57E9"/>
+        </g>
+      </g>
+      <g opacity=".78" data-page-node-id="qqaVCRs2y0FsE37hSbvWi8">
+        <g class="goose" data-page-node-id="arLjKWgV8FNekfvGkUxaj5">
+          <path d="M258 80l-15-9 7 15-22 5 24 8-7 16 13-13z" fill="#3a5190" data-page-node-id="7uwBD0P69qaXSjb8xsv8aR"/>
+        </g>
+      </g>
+      <g opacity=".88" data-page-node-id="nbOcYWDAWThRu8rsZ3tFuP">
+        <g class="goose" data-page-node-id="bRR82LQy7a5RujpgPhriFd">
+          <path d="M346 72l-16-10 8 16-24 5 25 9-8 17 15-13z" fill="#4d67b0" data-page-node-id="m9pOBoIY9auIT7eHRLDqBT"/>
+        </g>
+      </g>
+      <!-- 右翼 -->
+      <g opacity=".88" data-page-node-id="bqHRnzo4i9czbf3TiHwXDG">
+        <g class="goose" data-page-node-id="ycE7SVw1Cb4aBtgiczmstH">
+          <path d="M470 72l16-10-8 16 24 5-25 9 8 17-15-13z" fill="#4d67b0" data-page-node-id="u4rGMbXtV3dMQBXwg9BOOW"/>
+        </g>
+      </g>
+      <g opacity=".78" data-page-node-id="y9OkCxS7D1cgYGgCy3kEWu">
+        <g class="goose" data-page-node-id="S1GvRuKAbxcMUgRKm83Wl9">
+          <path d="M556 80l15-9-7 15 22 5-24 8 7 16-13-13z" fill="#3a5190" data-page-node-id="oqTUPEMeEXBREDkujBl7xq"/>
+        </g>
+      </g>
+      <g opacity=".68" data-page-node-id="eHd6pJlAKqPmHQkyQXwtAH">
+        <g class="goose" data-page-node-id="hqaYgFZK6a7q0OGD6OeOd4">
+          <path d="M644 88l14-8-6 14 20 4-22 8 6 15-12-12z" fill="#2c406e" data-page-node-id="zj9T4DUmaoheO4s5PNrTJk"/>
+        </g>
+      </g>
+      <g class="glowbird" data-page-node-id="cf272QSNxQD3EhNcCyUa9L">
+        <g class="goose" opacity=".5" data-page-node-id="fP3rVvzRbgqxrMSG9nEbuO">
+          <path d="M736 96l14-8-6 14 20 4-22 8 6 15-12-12z" fill="#24365e" data-page-node-id="oHCCflY8qgPZEANjVOgNz4"/>
+        </g>
+      </g>
+      <!-- 领头雁（左翼前端） -->
+      <g class="goose" style="animation-delay:.16s" data-page-node-id="NlyzP3G01n7RON1wSvBnSN">
+        <path d="M412 50l-20-13 10 20-30 7 32 11-10 21 18-17 4 3 6-30z" fill="#5d79c9" stroke="#8fa6e6" stroke-width="1.4" stroke-linejoin="round" data-page-node-id="JVlqmMxcQNZTZRVZn4THvT"/>
+      </g>
+      <!-- 小雁阿南（中央，带星光） -->
+      <circle cx="412" cy="96" r="17" fill="rgba(255,224,160,.12)" class="glowbird" data-page-node-id="bA1FQCRc3j7rpzcHrCMHk2"/>
+      <circle cx="412" cy="96" r="10" fill="rgba(255,224,160,.18)" class="glowbird" style="animation-delay:1s" data-page-node-id="AbCnLFVjY8zFvvDbWuCdVP"/>
+      <g class="goose" data-page-node-id="V94tCHo37pTMnWXT8HxF7H">
+        <path d="M412 86l-9-7 4 10-14 3 15 5-4 10 9-8 3 2 5-15z" fill="#ffd98e" stroke="#ffe9b0" stroke-width="1.2" stroke-linejoin="round" data-page-node-id="TjcxSiQQvIakYiiL30a6Wu"/>
+      </g>
+    </svg>
+
+    <svg class="ridge" viewBox="0 0 900 140" preserveAspectRatio="none" style="height:52%" data-page-node-id="VqFvCYfZMNTq3gI7RIvFmG">
+      <path d="M0 140 L0 96 Q60 70 130 92 Q210 118 300 84 Q380 56 470 90 Q560 122 660 86 Q750 56 830 92 Q875 110 900 96 L900 140 Z"
+        fill="#0d1c3f" data-page-node-id="WWNfB102TWhENjzFKgYvCX"/>
+      <path d="M0 140 L0 118 Q120 96 240 116 Q360 134 500 108 Q640 84 760 112 Q840 128 900 118 L900 140 Z"
+        fill="#0a1632" data-page-node-id="qfMfHUbD4ufTwAbASk1BhD"/>
+    </svg>
+  </div>
+
+  <!-- 正文 -->
+  <div class="story" data-page-node-id="PFspe1qPvB8m59dQXichjX">
+    <p data-page-node-id="Z2wPUEt11ThsmnXk55LDXe">秋天的一个傍晚，天边烧起了橘红色的晚霞。雁群的家门口传来「嘎——嘎——」的叫声，那是出发的号角：南方温暖的水面，正在远方等着它们呢。</p>
+    <p data-page-node-id="1TY61T9SgSGUKuUGJhyt5R">小雁阿南是雁群里年纪最小的一个。这是他第一次出远门，心扑通扑通地跳：<em data-page-node-id="7ZBKr4AvPFJOfkAU7Sx9h3">「飞那么远……我能行吗？」</em></p>
+    <p data-page-node-id="1Q5E8WMfAL2oCg9Yr9cwDf">「能行的。」雁妈妈用翅膀轻轻碰了碰他的头，<em data-page-node-id="hwcBBsoJyRu1LsOYLq0Guw">「跟着队形，一翅一翅地飞，别着急。」</em></p>
+    <p data-page-node-id="rHeJT8C8Usm2wI3m8ojOou">队伍排成了一个大大的「人」字，像一把温柔的剪刀，剪开了秋天的天空。阿南飞在妈妈身旁，飞过金色的田野，稻草人朝他们挥挥手；飞过亮晶晶的小河，河水里映出一整队大雁的影子，晃晃悠悠，真好看。</p>
+    <p data-page-node-id="lb2enh5QeCkhkHZFVml3vX">天渐渐黑了，月亮升了起来，像一盏不会熄灭的灯。可阿南的翅膀越来越酸，越来越重。他轻轻喘着气，一点一点，落到了队伍的后面。</p>
+    <p data-page-node-id="oY86HPZjRZ6xUJVHOnGME4">「我……我好像飞不动了。」他的声音小得像一粒沙子。</p>
+    <p class="soft" data-page-node-id="gO0m8ISLMZ1VXL7hOYpQBQ">就在这时，神奇的事情发生了——队伍中间几只大雁悄悄换了位置，把阿南轻轻护到了最中间。</p>
+    <p data-page-node-id="2THRetEBHftSRMknnF0CKO">原来，大雁们都知道一个秘密：<em data-page-node-id="elzzzE9fRmLdQYIlJ60jVy">飞在最前面的伙伴最辛苦，要替大家顶开所有的风；而飞在中间的大雁，扇起的风会轻轻托着后面的伙伴，让大家省下好多力气。</em>所以雁群总是轮流领队——谁累了，就退到中间歇一歇；歇好了，再回到前面，为大家开路。</p>
+    <p data-page-node-id="DhNUCHwuMt45oDBGf55BtX">阿南被护在队伍中间，忽然觉得，风变温柔了，像妈妈的手一样托着他的翅膀。他抬头看看圆圆的月亮，又看看前后左右那些稳稳的影子——<em data-page-node-id="kv6siHQvx8Uo5LD9h8Xg4X">原来，他从来都不是一个人。</em></p>
+    <p data-page-node-id="0XFK9iAt5HsgbqTUFhOsye">他们飞过熟睡的城市，飞过梦乡一样的群山。山的那一边，南方的湖面亮晶晶的，正张开怀抱，等着拥抱每一个赶路的人。</p>
+    <p data-page-node-id="R5dlbnnnVYbQrxmCpItaXK">阿南在心里悄悄说：<em data-page-node-id="BQSsjG3XtgPWuNkX7IGwv5">等我长大了，也要飞到最前面，为别人挡住风。</em></p>
+    <p class="soft" data-page-node-id="BHGWiY7G72kcOxqNYkVzK6">月亮听见了，笑得又圆、又亮。</p>
+    <div class="stars-sep" data-page-node-id="OlzCHiRUMDSgsMdWqaFMZ2"><i data-page-node-id="0DxwBWA76xRb4IHpxjFWeF"></i><i data-page-node-id="8gRaX8khWjj0NicjyGbcSZ"></i><i data-page-node-id="4FBzHvwuF8q2ykECXRjbvD"></i><i data-page-node-id="lyXix89hdWdVgfi0fIAgaA"></i><i data-page-node-id="pS0RrWCBNYCKTDtulqiuVT"></i></div>
+  </div>
+
+  <!-- 晚安语 -->
+  <div class="goodnight" data-page-node-id="82WsIMja9D04QFdB2RuuXI">
+    <p data-page-node-id="wSmEbnB4qgTt3Hpna05t2a"><span class="gn-halo" data-page-node-id="3lrhTIM3AAKZEsq0nx8cUS">晚安，小宝贝。</span>小雁说，飞累的时候别害怕，看一看身边——总有人愿意为你扇起温柔的风；而你呀，也是许多人心里，想要好好守护的小宝贝。</p>
+    <p style="margin-top:8px" data-page-node-id="8biLWdcW5byqZxAcRWcbgC">你今天也是个好孩子，该做一个甜甜的梦了。</p>
+    <div class="moon-ico" data-page-node-id="UBXfEHHrfOdTozYCDWLPKo">
+      <svg width="34" height="34" viewBox="0 0 48 48" fill="none" data-page-node-id="0OC5v1dmiazgamtjDWAM3M">
+        <circle cx="24" cy="24" r="21" fill="#ffe9b0" data-page-node-id="kWpi8CAVqX0q9pWjk6S61N"/>
+        <circle cx="17" cy="17" r="4.5" fill="#ecd48e" data-page-node-id="INkQ5uc63u95hDfG8gjwDF"/>
+        <circle cx="29" cy="30" r="3" fill="#ecd48e" data-page-node-id="OAChEWrJ2X3JEAZ4CsBczt"/>
+        <circle cx="31" cy="15" r="2.2" fill="#ecd48e" data-page-node-id="PJ7jTyeFFqjWwNDjsEDUEN"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="foot" data-page-node-id="fdKS8k4mRSyNUwoUI9hLLD">晚安故事 · 月亮航线 1/2 号</div>
+</div>
+
+<script>
+  // 随机星点
+  (function(){
+    var sky=document.getElementById('sky');
+    var frag=document.createDocumentFragment();
+    var n=110;
+    for(var i=0;i<n;i++){
+      var s=document.createElement('span');
+      s.className='star';
+      var size=(Math.random()*2+1).toFixed(1);
+      s.style.width=size+'px';s.style.height=size+'px';
+      s.style.left=(Math.random()*100).toFixed(2)+'%';
+      s.style.top=(Math.random()*62).toFixed(2)+'%';
+      s.style.setProperty('--d',(Math.random()*3+2).toFixed(1)+'s');
+      s.style.animationDelay=(Math.random()*4).toFixed(1)+'s';
+      frag.appendChild(s);
+    }
+    sky.appendChild(frag);
+  })();
+</script>
+</body>
+</html>

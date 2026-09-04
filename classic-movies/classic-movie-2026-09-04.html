@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="q50qA9Z2r8L4Z2WsM3ZkZk">
+<head data-page-node-id="mVc2gKtUbyilkokGQq0GNl">
+<meta charset="UTF-8" data-page-node-id="gBV5S9EZObU8XfdkK0oZEu">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="TnXHOAdXQvdOZqF0rz0DRD">
+<title>乱世佳人</title>
+<style>
+  :root{
+    --bg0:#160a08;
+    --bg1:#24100b;
+    --bg2:#3a1710;
+    --ink:#f5e9dc;
+    --ink-dim:#d9c4ae;
+    --ink-faint:#a78b72;
+    --scarlet:#e05a3a;
+    --scarlet-deep:#b03a1e;
+    --gold:#e8b45a;
+    --rose:#e8a08a;
+    --card:rgba(255,242,228,.045);
+    --line:rgba(224,90,58,.24);
+    --glow:rgba(224,90,58,.32);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",-apple-system,"Helvetica Neue",Arial,sans-serif;
+    background:
+      radial-gradient(1000px 520px at 88% -8%, rgba(224,90,58,.14), transparent 60%),
+      radial-gradient(760px 420px at -12% 34%, rgba(232,180,90,.07), transparent 60%),
+      linear-gradient(160deg, var(--bg0) 0%, var(--bg1) 48%, var(--bg2) 100%);
+    background-attachment:fixed;
+    color:var(--ink);min-height:100vh;line-height:1.85;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  /* 顶部幕帘装饰线 */
+  .velvet{
+    position:fixed;top:0;left:0;right:0;height:5px;z-index:50;
+    background:linear-gradient(90deg,var(--scarlet-deep),var(--scarlet),var(--gold),var(--scarlet),var(--scarlet-deep));
+    opacity:.75;
+  }
+  .wrap{position:relative;z-index:1;max-width:820px;margin:0 auto;padding:64px 22px 74px}
+  .kicker{text-align:center;letter-spacing:.42em;font-size:12.5px;color:var(--ink-faint);text-transform:uppercase;margin-top:14px;padding-left:.42em}
+  h1.title{
+    text-align:center;font-size:clamp(46px,10vw,76px);font-weight:900;
+    letter-spacing:.2em;padding-left:.2em;margin:8px 0 0;
+    background:linear-gradient(180deg,#fff3e2 8%,var(--scarlet) 55%,#8e2a12 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 4px 26px rgba(224,90,58,.35));
+  }
+  .en-title{
+    text-align:center;font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(17px,3vw,21px);letter-spacing:.34em;padding-left:.34em;
+    color:var(--gold);margin-top:2px;font-style:italic;
+  }
+  .meta{text-align:center;color:var(--ink-faint);font-size:13.5px;letter-spacing:.22em;margin-top:10px}
+  .meta b{color:var(--gold);font-weight:600}
+  /* 玫瑰分隔 */
+  .rose-div{display:flex;align-items:center;justify-content:center;gap:12px;margin:26px 0 6px}
+  .rose-div::before,.rose-div::after{content:"";height:1px;flex:0 0 min(120px,20vw);
+    background:linear-gradient(90deg,transparent,var(--scarlet));}
+  .rose-div::after{background:linear-gradient(90deg,var(--scarlet),transparent)}
+  .rose-div svg{filter:drop-shadow(0 0 8px rgba(224,90,58,.55))}
+  /* 卡片 */
+  .card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:28px 28px;margin:24px 0;
+    backdrop-filter:blur(6px);box-shadow:0 12px 38px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,236,214,.05)}
+  .sec-title{display:flex;align-items:center;gap:12px;margin-bottom:16px;font-size:18px;font-weight:800;letter-spacing:.08em;color:var(--scarlet)}
+  .sec-title::before{content:"";width:6px;height:20px;border-radius:3px;background:linear-gradient(180deg,var(--scarlet),var(--scarlet-deep));flex:none}
+  .sec-title .no{font-size:11.5px;color:var(--ink-faint);letter-spacing:.24em;font-weight:500;margin-left:auto}
+  /* 评分 */
+  .scores{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:28px 0 4px}
+  .score{background:var(--card);border:1px solid var(--line);border-radius:14px;text-align:center;padding:16px 8px 13px;position:relative;overflow:hidden}
+  .score::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,transparent,var(--scarlet),transparent)}
+  .score .val{font-size:30px;font-weight:900;color:var(--scarlet);line-height:1.15;font-variant-numeric:tabular-nums}
+  .score .val small{font-size:14px;font-weight:700;color:var(--ink-dim)}
+  .score .lbl{margin-top:3px;font-size:11.5px;letter-spacing:.22em;color:var(--ink-faint);padding-left:.22em}
+  .score .src{font-size:10.5px;color:var(--ink-faint);opacity:.72;margin-top:1px}
+  /* 荣誉 */
+  .awards{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin:20px 0 2px}
+  .award{border:1px dashed rgba(224,90,58,.4);border-radius:999px;padding:5px 15px;font-size:12.5px;color:var(--rose);background:rgba(224,90,58,.07);letter-spacing:.03em}
+  /* 正文 */
+  p.body{color:var(--ink-dim);font-size:16px;text-align:justify;margin:10px 0}
+  p.body b{color:var(--ink)}
+  p.body em{color:var(--gold);font-style:normal}
+  .tip{
+    margin-top:14px;padding:14px 18px;border-radius:12px;
+    background:rgba(232,180,90,.07);border-left:3px solid var(--gold);
+    font-size:14px;color:var(--ink-faint);line-height:1.8;
+  }
+  .tip b{color:var(--gold)}
+  /* 亮点 */
+  .highlights{display:grid;gap:14px}
+  .hl{display:flex;gap:14px;background:rgba(255,242,228,.03);border:1px solid rgba(224,90,58,.14);border-radius:14px;padding:16px 16px 14px}
+  .hl .ic{flex:none;width:46px;height:46px;border-radius:12px;background:rgba(224,90,58,.11);display:flex;align-items:center;justify-content:center;font-size:23px}
+  .hl h4{font-size:15.5px;color:var(--ink);margin-bottom:3px;letter-spacing:.03em}
+  .hl p{font-size:13.8px;color:var(--ink-dim);line-height:1.75}
+  .hl p i{color:var(--scarlet);font-style:normal}
+  /* 名言 */
+  .quote{
+    text-align:center;font-size:clamp(16.5px,3vw,20px);color:var(--ink);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    padding:26px 8px;margin:26px 0 6px;line-height:1.95;
+    background:linear-gradient(90deg,transparent,rgba(224,90,58,.06),transparent);
+  }
+  .quote .q{color:var(--scarlet);font-weight:800}
+  .quote .en{display:block;margin-top:6px;font-family:Georgia,serif;font-style:italic;font-size:15px;color:var(--ink-faint);letter-spacing:.06em}
+  .foot{text-align:center;color:var(--ink-faint);font-size:12.5px;letter-spacing:.18em;margin-top:36px;line-height:2.2}
+  .foot .f{margin-top:6px;opacity:.8}
+  @media(max-width:560px){
+    .wrap{padding:50px 16px 62px}
+    .scores{grid-template-columns:repeat(2,1fr);gap:9px}
+    .score .val{font-size:27px}
+    .card{padding:22px 17px}
+    .hl .ic{width:40px;height:40px;font-size:20px}
+  }
+</style>
+</head>
+<body data-page-node-id="uWoEHh2wFMaW96C4DskCMP">
+<div class="velvet" data-page-node-id="Dirnom3moyH1LBRymEyOC1"></div>
+
+<div class="wrap" data-page-node-id="AXBBNzT9h3WVSnsxuXCOzu">
+  <div class="kicker" data-page-node-id="ncYnFeavHaFGl2xBXZGbdD">今日经典 · 第 66 期</div>
+  <h1 class="title" data-page-node-id="Cf0LBehHvwOI81TXXAtBYM">乱世佳人</h1>
+  <div class="en-title" data-page-node-id="1F8gg9f2bsv3B4U4lEKS0F">Gone with the Wind</div>
+  <div class="meta" data-page-node-id="CWootHcVQDlpOM3Kqn2F1I">A Selznick International Picture · <b data-page-node-id="DDq0so1D0gJ2SEbMoyZe1e">1939</b> · 彩色 · 约 233 min</div>
+
+  <div class="rose-div" data-page-node-id="ZJqx1x2IKm7YMwab0tsINf">
+    <svg width="26" height="26" viewBox="0 0 32 32" fill="none" data-page-node-id="0ZAllMPs9NGgrdWwOBcegg">
+      <path d="M16 29C16 29 4 22 4 12.5C4 8 7.5 5 11 5c2.2 0 4.2 1 5 3.5C17 6.5 19 5 21.5 5 25.5 5 28 8.5 28 12.5c0 9.5-12 16.5-12 16.5z" fill="#e05a3a" data-page-node-id="ZHu37KtIhoDKAVFJxpHHqS"/>
+      <path d="M8 12c3-2 7 0 8 4-3 1-6-.5-8-4z" fill="#8e2a12" data-page-node-id="cnGd4O5JRCoNWKOVFwhpxT"/>
+    </svg>
+  </div>
+
+  <!-- 评分 -->
+  <div class="scores" data-page-node-id="mJo52botcvSiK8TDjUApmu">
+    <div class="score" data-page-node-id="BLt6iKxvbjidlnsm8MNQPg"><div class="val" data-page-node-id="XP5aAatK2GOA1vsHmVORP2">9.3</div><div class="lbl" data-page-node-id="VpYwyKljvUsg9rkCAIADX9">豆瓣</div><div class="src" data-page-node-id="yomI2DG4Qv0hBxGU754rpt">80万+ 人评价</div></div>
+    <div class="score" data-page-node-id="AcPU3AVQRLcVkIwZL8fmiO"><div class="val" data-page-node-id="2QsYZnGTXKezSOEeLd506w">8.2<small data-page-node-id="iyWlydmNzbKAE31O9o95LL">/10</small></div><div class="lbl" data-page-node-id="Cjg159a7uLhrk5zR21RlyM">IMDb</div><div class="src" data-page-node-id="97kYldcfGdrFBa8MNsexEd">33万+ 人评价</div></div>
+    <div class="score" data-page-node-id="BLWEShOHgDYOHDiuljyRvN"><div class="val" data-page-node-id="Zx3jKOcd9IEDM48AWXIEVn">90<small data-page-node-id="QjIqAf9YV4DaQ51ZiztOoH">%</small></div><div class="lbl" data-page-node-id="xkFRHxYqEgv7cuG7TEXx5B">烂番茄</div><div class="src" data-page-node-id="bRAv5GrKZAvLrFl2CiIk2r">观众新鲜度 92%</div></div>
+    <div class="score" data-page-node-id="SD0QnRS75OGM27OAwWMIUo"><div class="val" data-page-node-id="SwfHfA7RzxdB3XTvezfUGc">97</div><div class="lbl" data-page-node-id="UdNGExciw3kznYM23xhIjD">Metacritic</div><div class="src" data-page-node-id="tNEXlpO3a8ly9vbYYvBEyI">权威媒体均分</div></div>
+  </div>
+
+  <div class="awards" data-page-node-id="oCEyw9DTJq9PrS14wfl19d">
+    <span class="award" data-page-node-id="7rOueIsUqm6UeA6jgD4Rsv">🏆 奥斯卡 10 项大奖（1940）</span>
+    <span class="award" data-page-node-id="jmyNZNIYUuPCVeATtbXUMH">🎖 AFI 百年百大电影第 4 位</span>
+    <span class="award" data-page-node-id="EZyGWoFuVDf7HkPtusfWXE">💰 影史票房冠军（计入通胀）</span>
+    <span class="award" data-page-node-id="UeTFBdFbkZ2aG0ojVPkwOr">📜 美国国家影片登记部首批典藏</span>
+    <span class="award" data-page-node-id="QAkMr3EBGukhKeA6XiCLcl">📖 改编自普利策奖小说《飘》</span>
+  </div>
+
+  <!-- 梗概 -->
+  <div class="card" data-page-node-id="gDAAZolBIXjCQkwKdclLlj">
+    <div class="sec-title" data-page-node-id="YpSDi2AA0oz9eSGmwjQxBs">剧情梗概 <span class="no" data-page-node-id="RCChwxSe3qes0q6AvIOBe5">SYNOPSIS</span></div>
+    <p class="body" data-page-node-id="4bjdqvIivj4xzFV4iHwmqM">
+      1861 年，美国南北战争爆发前夕。塔拉庄园的千金小姐<b data-page-node-id="e4BcCAT0GN7opLSAzUVbv7">斯嘉丽·奥哈拉</b>漂亮、骄傲、任性，
+      习惯了世界围着她转。她爱上一个不该爱的人，赌气嫁给了自己不爱的人——紧接着，战争碾碎了她熟悉的一切：
+      家园被焚毁，亲人离散，昔日的贵族小姐一夜之间赤手空拳，面对一片废墟。
+    </p>
+    <p class="body" data-page-node-id="rMquIprEOCEVLzqIGr9DrG">
+      为了守住脚下的红土地，斯嘉丽咬着牙做了许多旁人看来离经叛道的事；她也在两段感情里兜兜转转许多年，
+      始终没能看清近在身边的那个男人。直到一切随风而逝，她才在迷雾里明白自己真正想要的是什么——
+      <em data-page-node-id="PKmEb3L6TfUplFtdUwcsda">而那份迟来的明白，究竟能不能留住想留的人，结局留给爷亲自去看。</em>
+    </p>
+    <div class="tip" data-page-node-id="Io5PIfFExMKVqyvDwPhhmT">
+      💡 <b data-page-node-id="TOaftiTP8tPewQGYKwFDSK">观影提示：</b>作为 1939 年的作品，片中黑人角色的塑造带着那个年代的时代局限，
+      今日观赏不妨以历史视角看待——但这无损它作为「电影工业奇迹」的观赏价值。
+    </div>
+  </div>
+
+  <!-- 亮点 -->
+  <div class="card" data-page-node-id="4KpZ5ES9FqQHq1B15FRzCs">
+    <div class="sec-title" data-page-node-id="Vy4CHlbeuGt2XttUJ3zIKu">它凭什么封神 <span class="no" data-page-node-id="qmP8iON2rpvjpvGRzd8NgW">WHY IT'S GREAT</span></div>
+    <div class="highlights" data-page-node-id="nKZyvon2Uxzag20hY5bztu">
+      <div class="hl" data-page-node-id="LmCoifQKRusG3Zg18nSrvI">
+        <div class="ic" data-page-node-id="6uH3xwJUAbUwJ0r59oB8Fm">🔥</div>
+        <div data-page-node-id="FGhaKh4Q5KGLOnSz0DTUrN">
+          <h4 data-page-node-id="fB4dvDRa6QBN06OfLvbJo4">影史最著名的女性角色之一</h4>
+          <p data-page-node-id="eVLX95pixCHzsa7BAgjHqU">1400 名女演员试镜，最终花落初到好莱坞的英国新人费雯·丽。
+          她把斯嘉丽的虚荣、倔强与生命力演到骨子里，<i data-page-node-id="ePXK4e9K4ng1feDsxq6fie">一举捧回奥斯卡最佳女主角。</i></p>
+        </div>
+      </div>
+      <div class="hl" data-page-node-id="OEPWtJRkeMBIF2A7G5vSPK">
+        <div class="ic" data-page-node-id="bw83nqartEzKmBkFHUyl85">🎨</div>
+        <div data-page-node-id="m7SCSjZfzFAzMYbYykPyPH">
+          <h4 data-page-node-id="QNAQSZiO7zcpjjBnx1o8nW">特艺彩色的视觉里程碑</h4>
+          <p data-page-node-id="TcBU0fY2F8mvUyYm4R5EZb">当年造价最贵的彩色电影：塔拉庄园的红土地、亚特兰大的冲天大火、
+          斯嘉丽的绿色天鹅绒裙——<i data-page-node-id="1FzdIo8H5nvPjvHePHj4fH">每一帧都是那个年代电影工业的天花板。</i></p>
+        </div>
+      </div>
+      <div class="hl" data-page-node-id="lUn17OUF2UIgkPJtRTiPrE">
+        <div class="ic" data-page-node-id="K8KX3Xl9izBul3m7Uj4eoy">🏆</div>
+        <div data-page-node-id="HqqNJnhdie2nCXSjbRcsDc">
+          <h4 data-page-node-id="BDoAZv9BdWDRgL8ifSv2qQ">奥斯卡纪录与历史性时刻</h4>
+          <p data-page-node-id="LWH5IQGASgTSuyBBjV5ug4">一举拿下最佳影片、导演、女主角等 10 项大奖；哈蒂·麦克丹尼尔凭「奶妈」一角获奖，
+          <i data-page-node-id="Nmi1QPVGIIBAmaHW99WZ5l">成为史上第一位捧起小金人的黑人演员。</i></p>
+        </div>
+      </div>
+      <div class="hl" data-page-node-id="SUKERtng8YoLNHSyOOCHAv">
+        <div class="ic" data-page-node-id="1f4CxeVBCIrow6xUmfMcFN">🌾</div>
+        <div data-page-node-id="HBkoHWPaHgcp8HXGD8arm3">
+          <h4 data-page-node-id="rIpgnEugZrDbRWspISWrZu">「明天又是新的一天」</h4>
+          <p data-page-node-id="zJk4pDI2F1QEIhqzDuESDm">一场战争、一个女人的半生、一片土地的兴衰。它讲爱情，更讲一个人如何在废墟中一次次站起来——
+          <i data-page-node-id="Oaq9eMGVfIGzqpaLXtDgi3">那股不肯认输的生命力，让四个小时丝毫不觉漫长。</i></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 值得一看 -->
+  <div class="card" data-page-node-id="ptAigiTDJXvavrh1AI0gwQ">
+    <div class="sec-title" data-page-node-id="3BeElhuodBfQ36vcrO5KeU">为什么值得一看 <span class="no" data-page-node-id="bHxeqAIXhNEeCwfs8B0Mi1">WORTH YOUR TIME</span></div>
+    <p class="body" data-page-node-id="bDHytETo9neHKeG164riHV">
+      它是<b data-page-node-id="j5dDixGi1buygpEZwYBLKq">吉尼斯认证的影史票房冠军</b>（计入通胀后约 34.4 亿美元），八十多年无人能撼动；
+      它是奥斯卡获奖纪录的保持者之一；更重要的是——它塑造了电影史上最令人难忘的女性群像之一。
+      斯嘉丽不完美：自私、虚荣、固执，可当她站在焦土上说「我永远不会再挨饿」的那一刻，
+      没有人能不爱上这个不肯向命运低头的姑娘。
+    </p>
+    <p class="body" data-page-node-id="YcOsqRgH0GSa3thDqhCNkr">
+      想看懂好莱坞黄金时代的辉煌，这一部是最好的入门课；
+      想看到「一个人可以多有生命力」，这一部是最好的答案。
+    </p>
+    <div class="quote" data-page-node-id="IGSTQBCGFELj2NH7wKSZvS">
+      <span class="q" data-page-node-id="LHq9T6EbgtHWi4H3qHg5Dg">「Tomorrow is another day.」</span>
+      <span class="en" data-page-node-id="ahZ4xca80hfEETCpW9tQGw">明天，又是新的一天。</span>
+    </div>
+  </div>
+
+  <div class="foot" data-page-node-id="RqbQqL2DhFQYhLVaSsNmHO">
+    🎬 每日一部公认经典 · 第 66 期<br data-page-node-id="K46osFd138cUZk3Bovk058">
+    <span class="f" data-page-node-id="f5UlhysQXBUSpxWlN4bBzM">全程无剧透 · 放心食用</span>
+  </div>
+</div>
+</body>
+</html>
