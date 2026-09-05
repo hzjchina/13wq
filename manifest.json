@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "2001太空漫游",
+          "date": "2026-09-05",
+          "summary": "2001太空漫游 HAL · 9000 2001太空漫游 2001: A SPACE ODYSSEY · 1968 \"关于电影本身未来的电影\" —— 斯皮尔伯格 导演 斯坦利·库布里克 | 编剧 库布里克 & 阿瑟·克拉克 | 片长 149...",
+          "path": "classic-movies/classic-movie-2026-09-05.html"
+        },
+        {
           "title": "乱世佳人",
           "date": "2026-09-04",
           "summary": "乱世佳人 今日经典 · 第 66 期 乱世佳人 Gone with the Wind A Selznick International Picture · 1939 · 彩色 · 约 233 min 9.3 豆瓣 80万+ 人评价 8.2 ...",
@@ -413,6 +419,12 @@
       "name": "睡前故事",
       "icon": "🌙",
       "items": [
+        {
+          "title": "小兔子的月光萝卜",
+          "date": "2026-09-04",
+          "summary": "小兔子的月光萝卜 — 儿童睡前故事 月 光 童 话 小兔子的月光萝卜 山坡下有一间小木屋，屋里住着小兔子米米。春天的时候，米米在屋后翻了一块软软的田，小心地埋下一排胡萝卜种子。 第一天，米米跑去看——土里静悄悄的。第二天，米米又跑去看——还...",
+          "path": "bedtime-stories/bedtime-story-2026-09-04.html"
+        },
         {
           "title": "小雁的月光航线",
           "date": "2026-09-03",
@@ -1031,6 +1043,12 @@
       "name": "AI情报",
       "icon": "🤖",
       "items": [
+        {
+          "title": "AI 情报简报 · 2026-09-05",
+          "date": "2026-09-05",
+          "summary": "AI 情报简报 · 2026-09-05 AIHOT · DAILY INTELLIGENCE AI 情报简报 2026 年 9 月 5 日 · 周六 · 过去 24 小时 AI 圈要闻 · 侧重 AI coding 与 具身智能 精选池 ...",
+          "path": "ai-info/ai-info-2026-09-05.html"
+        },
         {
           "title": "AI 情报简报 · 2026-09-04",
           "date": "2026-09-04",

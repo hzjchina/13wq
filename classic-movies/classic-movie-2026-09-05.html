@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="HFIKE0T0BtZIR0VGrlyC0N">
+<head data-page-node-id="vnDqmvU7Q3sGLbU5OwVjvJ">
+<meta charset="UTF-8" data-page-node-id="Hb7UnRN5jRaBjJUohSddHW">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="CeNwxRGLUdCLcCPQTA9BGf">
+<title>2001太空漫游</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { min-height:100%; }
+  body {
+    font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    background: radial-gradient(ellipse at 50% -20%, #1a1440 0%, #0a0818 48%, #030308 100%);
+    color:#e8e6f5;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* 深空背景星层 */
+  #stars1,#stars2 { position:fixed; inset:0; pointer-events:none; }
+  .s1 { position:absolute; border-radius:50%; background:#fff; opacity:.85; }
+  .s2 { position:absolute; border-radius:50%; background:#c9b8ff; opacity:.6; }
+  /* 星云晕 */
+  .nebula {
+    position:fixed; border-radius:50%; filter:blur(70px); pointer-events:none; z-index:0;
+  }
+  .nebula.a { width:44vw; height:44vw; left:-14vw; top:-10vw; background:radial-gradient(circle,rgba(88,60,180,.30),transparent 65%); }
+  .nebula.b { width:40vw; height:40vw; right:-12vw; top:32vh; background:radial-gradient(circle,rgba(20,110,160,.22),transparent 65%); }
+  .nebula.c { width:34vw; height:34vw; left:24vw; bottom:-14vw; background:radial-gradient(circle,rgba(140,40,120,.16),transparent 65%); }
+  .content { position:relative; z-index:2; max-width:780px; margin:0 auto; padding:7vh 20px 8vh; }
+
+  /* HAL 9000 红眼头部 */
+  .hal-head {
+    margin:0 auto 6px; width:min(64%,300px); text-align:center;
+  }
+  .hal-head svg { width:100%; height:auto; overflow:visible; }
+  .hal-lens {
+    animation: halPulse 4s ease-in-out infinite;
+    transform-origin:center;
+  }
+  @keyframes halPulse {
+    0%,100% { opacity:.92; }
+    50% { opacity:1; }
+  }
+  .hal-dot { animation: halDot 4.4s ease-in-out infinite; }
+  @keyframes halDot { 0%,100%{ transform:scale(1);} 50%{ transform:scale(1.5);} }
+  .hal-ring { animation: halSpin 14s linear infinite; transform-origin:50px 50px; }
+  @keyframes halSpin { to { transform:rotate(360deg);} }
+  .hal-outer { animation: halo 5s ease-in-out infinite; }
+  @keyframes halo { 0%,100%{ opacity:.4;} 50%{ opacity:.9;} }
+  .hal-text {
+    text-align:center; font-size:12px; letter-spacing:.52em; text-indent:.52em;
+    color:#ff7a6e; margin:2px 0 26px; text-transform:uppercase;
+    animation: halText 5s ease-in-out infinite;
+  }
+  @keyframes halText { 0%,100%{ opacity:.5;} 50%{ opacity:1;} }
+
+  .movie-card {
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:24px;
+    padding:36px 30px 32px;
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    box-shadow:0 18px 60px rgba(0,0,0,.5);
+  }
+  h1 {
+    text-align:center; font-size:clamp(30px,6.4vw,42px); font-weight:800;
+    letter-spacing:.06em; line-height:1.25;
+    background:linear-gradient(180deg,#ffffff 10%,#e8e0ff 55%,#a78bfa);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 22px rgba(160,120,255,.3));
+  }
+  .subtitle {
+    text-align:center; margin-top:8px;
+    font-size:clamp(13px,1.9vw,15px); letter-spacing:.24em; text-indent:.24em;
+    color:#9d94cc;
+  }
+  .tagline {
+    text-align:center; margin-top:14px; font-size:14px; color:#c9b8ff; letter-spacing:.05em;
+    font-style:italic; opacity:.9;
+  }
+  .meta {
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px 20px;
+    margin:20px 0 22px; font-size:14px; color:#bdb6e2;
+    text-align:center;
+  }
+  .meta b { color:#e8e0ff; font-weight:600; }
+  .meta .sep { opacity:.4; }
+
+  /* 评分卡 */
+  .scores { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:26px; }
+  .score {
+    background:rgba(167,139,250,.08);
+    border:1px solid rgba(167,139,250,.25);
+    border-radius:14px; padding:12px 6px; text-align:center;
+    transition:transform .2s;
+  }
+  .score:hover { transform:translateY(-3px); }
+  .score .num { font-size:clamp(20px,3.4vw,26px); font-weight:800; color:#d9ccff; }
+  .score .lbl { font-size:12px; color:#9d94cc; margin-top:3px; letter-spacing:.08em; }
+  .score .src { font-size:10.5px; color:#6f68a0; margin-top:2px; }
+  .score.hl { border-color:rgba(255,214,120,.5); background:rgba(255,214,120,.08); }
+  .score.hl .num { color:#ffd678; }
+
+  .sec { margin:24px 0; }
+  .sec h2 {
+    font-size:17px; font-weight:700; color:#d9ccff; letter-spacing:.14em;
+    display:flex; align-items:center; gap:10px; margin-bottom:12px;
+  }
+  .sec h2 .bar {
+    width:4px; height:17px; border-radius:2px;
+    background:linear-gradient(180deg,#a78bfa,#ff7a6e);
+    box-shadow:0 0 10px rgba(167,139,250,.6);
+  }
+  .sec p { font-size:clamp(15.5px,2vw,17px); line-height:2.05; color:#ded9f2; text-align:justify; }
+  .sec p + p { margin-top:10px; }
+  .sec em { font-style:normal; color:#ffd678; font-weight:600; }
+
+  .award-strip {
+    display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+    margin:16px 0 4px;
+  }
+  .award {
+    font-size:12.5px; padding:6px 13px; border-radius:999px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.14);
+    color:#c6bfe6; letter-spacing:.02em;
+  }
+  .award.gold { border-color:rgba(255,214,120,.45); color:#ffd678; background:rgba(255,214,120,.07); }
+
+  .highlights { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .hl {
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px; padding:16px 16px 14px;
+  }
+  .hl .ico { font-size:22px; margin-bottom:8px; display:inline-block; animation:halo 5s ease-in-out infinite; }
+  .hl h3 { font-size:15px; color:#e8e0ff; font-weight:700; margin-bottom:6px; }
+  .hl p { font-size:14px; line-height:1.9; color:#c2bade; text-align:justify; }
+
+  .whynot {
+    background:linear-gradient(180deg,rgba(167,139,250,.10),rgba(255,122,110,.05));
+    border:1px solid rgba(167,139,250,.28);
+    border-radius:18px; padding:20px 22px; margin-top:26px;
+  }
+  .whynot h2 { margin-bottom:10px; }
+  .whynot p { font-size:clamp(15px,1.9vw,16.5px); line-height:2.0; color:#e0daf2; }
+
+  .tip {
+    margin-top:18px; font-size:13.5px; line-height:1.9; color:#8f88bb;
+    border-left:3px solid rgba(167,139,250,.4); padding:4px 0 4px 14px;
+  }
+  .foot { text-align:center; margin-top:22px; font-size:12px; color:#6a639a; letter-spacing:.2em; }
+
+  @media (max-width:560px){
+    .movie-card { padding:28px 18px 24px; border-radius:20px; }
+    .scores { grid-template-columns:repeat(4,1fr); gap:6px; }
+    .score { padding:10px 2px; border-radius:10px; }
+    .highlights { grid-template-columns:1fr; }
+    .meta { gap:6px 12px; font-size:13px; }
+  }
+</style>
+</head>
+<body data-page-node-id="W0ORf5yLDc1G3QKfzTpxc1">
+
+<div id="stars1" data-page-node-id="gX6Tpeq3MJA6PVDcW8Rore"></div>
+<div id="stars2" data-page-node-id="C30huuBLn1aeRBKSptecZG"></div>
+<div class="nebula a" data-page-node-id="is48D9LgXBCuPbmWIfH1un"></div>
+<div class="nebula b" data-page-node-id="Rt2Nh7aK3wvIGFQ1gLBfKM"></div>
+<div class="nebula c" data-page-node-id="bn6V2iCwMRYlcJu5AGAtjo"></div>
+
+<div class="content" data-page-node-id="pGLNSK4UaIBDiN23IBILbe">
+
+  <!-- HAL 9000 红眼 -->
+  <div class="hal-head" data-page-node-id="gM1Glw7y2rNmvKdZiO6Sxf">
+    <svg viewBox="0 0 100 66" role="img" aria-label="HAL 9000 红色镜头" data-page-node-id="bCiDSQMbZomr9a54g9gUo3">
+      <defs data-page-node-id="J5qQafbYDg6yaFlPyTzxwV">
+        <radialGradient id="lensG" cx="50%" cy="50%" r="55%" data-page-node-id="S1zJXym1KjMqMRseaehS7H">
+          <stop offset="0%" stop-color="#ff5440" data-page-node-id="j3RMHp8acdqCSrhLIhlRhw"/>
+          <stop offset="55%" stop-color="#e22218" data-page-node-id="GiHRGfIWkacysHxZpFi2Hv"/>
+          <stop offset="100%" stop-color="#7c0d08" data-page-node-id="QWC3JCqDGMQEL3bav2XvTF"/>
+        </radialGradient>
+        <radialGradient id="lensHalo" cx="50%" cy="50%" r="50%" data-page-node-id="IMb6gJh3QIGGBUMU9RRcFa">
+          <stop offset="0%" stop-color="rgba(255,80,60,.55)" data-page-node-id="rfT2MLxi9VTh6qvSUHKKpy"/>
+          <stop offset="100%" stop-color="rgba(255,80,60,0)" data-page-node-id="diMI3sa1CaisKiOZnG93G2"/>
+        </radialGradient>
+        <radialGradient id="bodyG" cx="50%" cy="30%" r="80%" data-page-node-id="UPADDcaCBL4Ajv5ADivSKL">
+          <stop offset="0%" stop-color="#4a4a5a" data-page-node-id="7ZuZo7GbQuts0swEADVYk8"/>
+          <stop offset="100%" stop-color="#1c1c28" data-page-node-id="zqSuqfn65neL7Ew0gvrABl"/>
+        </radialGradient>
+      </defs>
+      <!-- 身体 -->
+      <rect x="14" y="10" width="72" height="46" rx="12" fill="url(#bodyG)" stroke="#5a5a72" stroke-width="1" data-page-node-id="QHFD2kCrSMC80XCIaQ8g4u"/>
+      <rect x="20" y="16" width="60" height="34" rx="8" fill="#0e0e16" stroke="#33334a" stroke-width="1" data-page-node-id="nP9sfEsUvaTPH6UJtdKktm"/>
+      <circle cx="50" cy="33" r="17" fill="url(#lensHalo)" data-page-node-id="Bqa7tjKRk5TrQAfYZbB4qA"><animate attributeName="r" values="15;19;15" dur="4s" repeatCount="indefinite" data-page-node-id="FkApY24cdIy3kD63JaFJv6"/></circle>
+      <circle class="hal-lens" cx="50" cy="33" r="13" fill="url(#lensG)" stroke="#ff8a7a" stroke-width="1.2" data-page-node-id="a1MU8Xi1juDJC1z14CG8He"/>
+      <circle class="hal-outer" cx="50" cy="33" r="13" fill="none" stroke="#ff5440" stroke-width="1.6" opacity=".5" data-page-node-id="O45WXfSsI1I5QA5zgtpNjx">
+        <animate attributeName="r" values="13;19;13" dur="4s" repeatCount="indefinite" data-page-node-id="DSdNzRVo2aNrCAwSW6nBMY"/>
+        <animate attributeName="opacity" values=".7;0;.7" dur="4s" repeatCount="indefinite" data-page-node-id="ZMPfoWqHr2vwkQHC2g7fYA"/>
+      </circle>
+      <!-- 旋转刻度环 -->
+      <g class="hal-ring" opacity=".35" data-page-node-id="2aKHwgqfE6fG8b7D673XAA">
+        <circle cx="50" cy="33" r="19.5" fill="none" stroke="#ff5440" stroke-width=".8" stroke-dasharray="3 4" data-page-node-id="adC8gAXmRF8FiqZQBAoZLa"/>
+      </g>
+      <!-- 高光 -->
+      <circle cx="45" cy="28" r="3.4" fill="#fff" opacity=".35" data-page-node-id="9RiTYndAhp8ewBj53Ba2hd"/>
+      <circle class="hal-dot" cx="50" cy="33" r="1.2" fill="#fff" opacity=".9" data-page-node-id="aivru3YHPackULLVPAjxAZ"/>
+    </svg>
+  </div>
+  <div class="hal-text" data-page-node-id="rATBFvPfHRE8pCGl0eRost">HAL · 9000</div>
+
+  <div class="movie-card" data-page-node-id="3iBEtejenkzTb5LI6wcrua">
+    <h1 data-page-node-id="IAcJE31kMAj90eSRcsR66a">2001太空漫游</h1>
+    <div class="subtitle" data-page-node-id="WFRbDzKD7jOT7UupihhEUK">2001: A SPACE ODYSSEY · 1968</div>
+    <div class="tagline" data-page-node-id="G5NNE84V7jDWkGJvqLEG5F">"关于电影本身未来的电影" —— 斯皮尔伯格</div>
+
+    <div class="meta" data-page-node-id="bnKKX3nSQfaIBVi1Xa9zgk">
+      <span data-page-node-id="kADOOrByAdxd5AGFULZmCN">导演 <b data-page-node-id="BlhMQTVfOjSHhTHoK3LPUb">斯坦利·库布里克</b></span>
+      <span class="sep" data-page-node-id="sK9mw7PWk7VL4qNbQjH2rM">|</span>
+      <span data-page-node-id="F2CIkYbpevrPPZi4bB4RMk">编剧 <b data-page-node-id="KtQ9UxxHhTb2OU9P5BLR2U">库布里克 & 阿瑟·克拉克</b></span>
+      <span class="sep" data-page-node-id="ghfWVHM5aw8XpoZ16H5bvj">|</span>
+      <span data-page-node-id="5FfBFiGx6t596eLwv6PD3c">片长 <b data-page-node-id="bkUzmCz7rtQ9zSQLGXG9QM">149 分钟</b></span>
+      <span class="sep" data-page-node-id="n3EVWEtOwXckm4JPO4N2jF">|</span>
+      <span data-page-node-id="sSRpVbb9URLt9Jgqd1NU4m">类型 <b data-page-node-id="8nW7GSMAXBrBoYTIuQ0ZJO">科幻 / 哲学史诗</b></span>
+    </div>
+
+    <div class="scores" data-page-node-id="CFAGHxvbByxXEoB5nqJ2L5">
+      <div class="score" data-page-node-id="ydl4i55W9520Yl18IrbyA7"><div class="num" data-page-node-id="HW6lvKd2W6Q1CLMArbLxgd">8.9</div><div class="lbl" data-page-node-id="EpR8GhRL8TfOkd2aP7ZH9a">豆瓣</div><div class="src" data-page-node-id="9QxCtAeG2b1Hy1uAm8lrjq">~21万人评价</div></div>
+      <div class="score" data-page-node-id="49SdwFhktqt5sCA7VufpxT"><div class="num" data-page-node-id="3KF4vexks6wzc3w3WI8ddh">8.3</div><div class="lbl" data-page-node-id="DZCdhg0DNOkcdzUCB0qa4x">IMDb</div><div class="src" data-page-node-id="wLtEsVpk8AVwe6TjjSyGkf">Top 250</div></div>
+      <div class="score" data-page-node-id="eDEaDJZihZp7nTK17XT5XL"><div class="num" data-page-node-id="u0Bo6uOaCWaTXKSuADV2kn">92%</div><div class="lbl" data-page-node-id="RfspP2kiWUyejQccR1zfEF">烂番茄</div><div class="src" data-page-node-id="LccRrKw2fT1WSc4a0nJD4y">影评人</div></div>
+      <div class="score hl" data-page-node-id="j3mX7P3zRx8W12T3ABorf2"><div class="num" data-page-node-id="y4iJisB3crE8mXbO6qI53A">84</div><div class="lbl" data-page-node-id="i4H8fbdVwugwjPiOk8WdWf">Metacritic</div><div class="src" data-page-node-id="qXYLue0EUf0H0wXbFFvcRA">媒体综评</div></div>
+    </div>
+
+    <div class="award-strip" data-page-node-id="sN1i41flqU2QJ0RfIKTCSM">
+      <span class="award gold" data-page-node-id="vNp8cpw3DITATFHsyz9Yf6">🏆 奥斯卡最佳视觉效果奖</span>
+      <span class="award gold" data-page-node-id="n1OOqw93VFLN4keyFtQ5OU">🏆 BAFTA 最佳摄影 / 艺术指导 / 配乐</span>
+      <span class="award" data-page-node-id="Z9PgN53cKEWvutPfpcUfyu">美国国家电影保护局典藏</span>
+      <span class="award" data-page-node-id="V00cnC0zfDsDzCqpgPWs9v">AFI 百年百大电影 #15</span>
+      <span class="award" data-page-node-id="BKHu7EFo1cbA4yW1uWxs82">《视与听》影史百佳 · 高居前列</span>
+    </div>
+
+    <div class="sec" data-page-node-id="i3hRHB9w3lVEjfT9xO5N5D">
+      <h2 data-page-node-id="UxM6CRBqTmeFIAXOnKZ4C1"><span class="bar" data-page-node-id="S605TUmj7wdYjjXIaixCvi"></span>剧情梗概</h2>
+      <p data-page-node-id="OPrDqiQQSOccmpeLUK0Yns">数百万年前，荒漠中的一群原始人遇到一块沉默的黑色巨石。从那以后，他们学会了使用工具，文明的种子开始发芽。</p>
+      <p data-page-node-id="e2vlVC4sbV6nBG90zsuTQs">时间一跃来到 21 世纪初——人类在月球表面再次发现了同样的巨石。它苏醒般向木星的方向发出信号，于是飞船「发现一号」载着宇航员鲍曼、普尔，以及一台号称从不出错的人工智能电脑 <em data-page-node-id="yrhNyEfJyVGKcTiDKVQDBz">HAL 9000</em>，启程飞向茫茫深空。旅途漫长、寂静、近乎仪式化，而 HAL 对这次任务的「理解」，让一切渐渐偏离了原本的航道……</p>
+    </div>
+
+    <div class="sec" data-page-node-id="Xhlzu6ETF1XYQt36wCOiis">
+      <h2 data-page-node-id="Dl9XwCW9qMvZnpzrYyGMsC"><span class="bar" data-page-node-id="5wtCqkYbzr4TzytX39AK6u"></span>亮点所在</h2>
+      <div class="highlights" data-page-node-id="EWf6rPoXLEuKDmUh8Ekxrb">
+        <div class="hl" data-page-node-id="aNhW3zY8ubMnXXV3tWGYXY">
+          <span class="ico" data-page-node-id="LZEdafOWBjRyQ5gh6LTA24">🚀</span>
+          <h3 data-page-node-id="WtudK64S123cvwquEnhrY7">人类登月前的太空美学</h3>
+          <p data-page-node-id="rHcMG5eNwf2EGmB1yPw16y">1968 年，人类还没踏上月球。库布里克用模型、机械装置与近乎偏执的精度，拍出了至今仍被致敬的太空——旋转的轮状空间站、无重力的漂浮物，定义了后世科幻片的视觉语法。</p>
+        </div>
+        <div class="hl" data-page-node-id="W9Zg2geSHniojrSpEr1E6z">
+          <span class="ico" data-page-node-id="P1I8nLpvBSXn07ES9eVaZA">🎼</span>
+          <h3 data-page-node-id="TXonzIUHv5DMBy0E4SWYRK">古典乐即宇宙之声</h3>
+          <p data-page-node-id="RGnV0ZpxREYZyTYHfo3Ut9">开场《查拉图斯特拉如是说》的「日出」乐章，已成为人类觉醒的文化符号。库布里克弃用原创配乐、以古典乐替代，让宇宙拥有了庄严的呼吸。</p>
+        </div>
+        <div class="hl" data-page-node-id="GsmfJHLzzqx9joFqISmWZJ">
+          <span class="ico" data-page-node-id="mrIiGaUNKyTCSV5rGV7djZ">🔴</span>
+          <h3 data-page-node-id="5sPJcNEcGjNWgo3UZNmZ9w">HAL 9000：最迷人的 AI 形象</h3>
+          <p data-page-node-id="8XsqQbFcTEK6KG7XXOPGZd">红色单眼、平静如水的嗓音、永远「合乎逻辑」的推理。HAL 提出的问题至今仍是 AI 伦理的核心：当机器被赋予使命，它会如何理解「守护」二字？</p>
+        </div>
+        <div class="hl" data-page-node-id="lrK6AdoINpMS58RBWFCjjf">
+          <span class="ico" data-page-node-id="UlBvF3ng1cbZMC6AgKwldA">🎬</span>
+          <h3 data-page-node-id="b3OBtAuFkhHFF10NFHCAtu">电影可以没有对白</h3>
+          <p data-page-node-id="ZcQsmw2mUAURfMjh5NxqI1">全片大量段落仅靠影像、音乐与剪辑推进。这是导演对「电影首先是视觉艺术」的极致自信——也是对观众耐心的最高尊重。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="whynot" data-page-node-id="vYzFOBgWGtjxQwmZgqCgdn">
+      <h2 data-page-node-id="gA4m2NZHAVbbZTCihrzXEm"><span class="bar" data-page-node-id="DMCTX1ELsNVHkttQ5EhsWM"></span>为什么值得一看</h2>
+      <p data-page-node-id="t7hbEl8XWH9nPt46nlJwFd">它不是一部追求「看懂」的电影，而是一部邀请你「感受」与「追问」的作品。库布里克不给标准答案，只把三个问题抛向深空：<em data-page-node-id="O2jPycbQ20C1NBw3UExXdB">我们从哪里来？为什么渴望探索？将去向何方？</em></p>
+      <p data-page-node-id="okmgJhyM7eB9EhQKOK47Nd">五十多年过去，当 AI、深空探测、人与科技的关系再次成为时代焦点，《2001太空漫游》没有变老，反而越来越像一面镜子。看完它，你会理解为何有人说——这不是一部关于未来的电影，而是关于电影本身未来的电影。</p>
+      <div class="tip" data-page-node-id="BWsGrh2DoYWMu6Rz0JEbLL">💡 观影小贴士：请选择尽可能大的屏幕、调暗灯光、放下手机。它值得你用一次完整的、不被切割的 149 分钟去交换。</div>
+    </div>
+
+    <div class="foot" data-page-node-id="GQbrfuXwgvnoG9TEtdgbzT">经 典 电 影 · 每 日 一 部</div>
+  </div>
+</div>
+
+<script>
+  // 两层星空
+  var c1 = document.getElementById('stars1');
+  for (var i = 0; i < 150; i++) {
+    var s = document.createElement('div');
+    s.className = 's1';
+    var sz = (Math.random() * 1.8 + 0.6).toFixed(1);
+    s.style.cssText = 'width:'+sz+'px;height:'+sz+'px;left:'+(Math.random()*100)+'vw;top:'+(Math.random()*100)+'vh;';
+    c1.appendChild(s);
+  }
+  var c2 = document.getElementById('stars2');
+  for (var j = 0; j < 42; j++) {
+    var t = document.createElement('div');
+    t.className = 's2';
+    var sz2 = (Math.random() * 1.4 + 0.5).toFixed(1);
+    t.style.cssText = 'width:'+sz2+'px;height:'+sz2+'px;left:'+(Math.random()*100)+'vw;top:'+(Math.random()*100)+'vh;';
+    c2.appendChild(t);
+  }
+</script>
+
+</body>
+</html>
