@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="NMS0pqiG1JcfgDBCPKqiaX">
+<head data-page-node-id="AFb5zTr7M7PCwIQZ1Lz0eH">
+<meta charset="UTF-8" data-page-node-id="J7Oi6bUyI48oj3tK5emxt9">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="5F9Swjpceztewfl9IeIrnv">
+<title>拯救大兵瑞恩</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { min-height:100%; }
+  body {
+    font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    background:
+      radial-gradient(ellipse at 50% 118%, #2c3a26 0%, #141c12 52%, #070b06 100%);
+    color:#eef0e6;
+    overflow-x:hidden;
+    position:relative;
+    min-height:100vh;
+  }
+  /* 尘雾微粒 */
+  .dust {
+    position:fixed; bottom:-3vh; z-index:1; border-radius:50%;
+    background:radial-gradient(circle,#e8e0c0,rgba(230,220,180,.15));
+    opacity:0; pointer-events:none;
+    animation:drift linear infinite;
+  }
+  @keyframes drift {
+    0% { transform:translateY(0) translateX(0); opacity:0; }
+    15% { opacity:.5; }
+    70% { opacity:.3; }
+    100% { transform:translateY(-92vh) translateX(6vw); opacity:0; }
+  }
+  /* 远星 */
+  .fstar {
+    position:fixed; border-radius:50%; background:#fff; pointer-events:none;
+    animation:tw var(--d,4s) ease-in-out infinite; opacity:0;
+  }
+  @keyframes tw { 0%,100%{ opacity:.05; } 50%{ opacity:.5; } }
+
+  .content { position:relative; z-index:2; max-width:780px; margin:0 auto; padding:7vh 20px 8vh; }
+
+  /* 顶部插画：公墓剪影 */
+  .art-top { text-align:center; margin-bottom:4px; }
+  .art-top svg { width:min(96%,560px); height:auto; overflow:visible; }
+  .dogtag {
+    text-align:center; margin:0 0 18px;
+    font-family: "Courier New", monospace;
+    font-size:13px; letter-spacing:.3em; color:#cfd8b8; opacity:.85;
+  }
+  .dogtag::before, .dogtag::after { content:"·"; margin:0 .6em; color:#8a9668; }
+
+  .movie-card {
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(230,225,190,.12);
+    border-radius:24px;
+    padding:36px 32px 32px;
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    box-shadow:0 18px 60px rgba(0,0,0,.5);
+  }
+  h1 {
+    text-align:center; font-size:clamp(30px,6.4vw,42px); font-weight:800;
+    letter-spacing:.06em; line-height:1.25;
+    background:linear-gradient(180deg,#fff8e0 10%,#f2dd9e 55%,#d9b45c);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 20px rgba(230,200,120,.22));
+  }
+  .subtitle {
+    text-align:center; margin-top:8px;
+    font-size:clamp(13px,1.9vw,15px); letter-spacing:.22em; text-indent:.22em;
+    color:#a8b28a;
+  }
+  .tagline {
+    text-align:center; margin-top:14px; font-size:14px; color:#cfd8b8;
+    letter-spacing:.05em; opacity:.9;
+  }
+  .meta {
+    display:flex; flex-wrap:wrap; justify-content:center; gap:8px 20px;
+    margin:20px 0 22px; font-size:14px; color:#c2cbb0; text-align:center;
+  }
+  .meta b { color:#eef0d8; font-weight:600; }
+  .meta .sep { opacity:.4; }
+
+  .scores { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:24px; }
+  .score {
+    background:rgba(210,220,170,.07);
+    border:1px solid rgba(210,220,170,.22);
+    border-radius:14px; padding:12px 6px; text-align:center;
+    transition:transform .2s;
+  }
+  .score:hover { transform:translateY(-3px); }
+  .score .num { font-size:clamp(20px,3.4vw,26px); font-weight:800; color:#e8ecc8; }
+  .score .lbl { font-size:12px; color:#a8b28a; margin-top:3px; letter-spacing:.08em; }
+  .score .src { font-size:10.5px; color:#7a845f; margin-top:2px; }
+  .score.hl { border-color:rgba(240,210,120,.5); background:rgba(240,210,120,.07); }
+  .score.hl .num { color:#f2dd9e; }
+
+  .sec { margin:24px 0; }
+  .sec h2 {
+    font-size:17px; font-weight:700; color:#e2e8c4; letter-spacing:.14em;
+    display:flex; align-items:center; gap:10px; margin-bottom:12px;
+  }
+  .sec h2 .bar {
+    width:4px; height:17px; border-radius:2px;
+    background:linear-gradient(180deg,#d9b45c,#8a9668);
+    box-shadow:0 0 10px rgba(217,180,92,.5);
+  }
+  .sec p { font-size:clamp(15.5px,2vw,17px); line-height:2.05; color:#e0e3cf; text-align:justify; }
+  .sec p + p { margin-top:10px; }
+  .sec em { font-style:normal; color:#f2dd9e; font-weight:600; }
+
+  .award-strip { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin:16px 0 4px; }
+  .award {
+    font-size:12.5px; padding:6px 13px; border-radius:999px;
+    background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.14);
+    color:#c6ccb0; letter-spacing:.02em;
+  }
+  .award.gold { border-color:rgba(240,210,120,.45); color:#f2dd9e; background:rgba(240,210,120,.07); }
+
+  .highlights { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .hl {
+    background:rgba(255,255,255,.035);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px; padding:16px 16px 14px;
+  }
+  .hl .ico { font-size:22px; margin-bottom:8px; display:inline-block; }
+  .hl h3 { font-size:15px; color:#eef0d8; font-weight:700; margin-bottom:6px; }
+  .hl p { font-size:14px; line-height:1.9; color:#c2cbb0; text-align:justify; }
+
+  .whynot {
+    background:linear-gradient(180deg,rgba(217,180,92,.09),rgba(150,160,110,.04));
+    border:1px solid rgba(217,180,92,.3);
+    border-radius:18px; padding:20px 22px; margin-top:26px;
+  }
+  .whynot h2 { margin-bottom:10px; }
+  .whynot p { font-size:clamp(15px,1.9vw,16.5px); line-height:2.0; color:#e6e8d2; }
+  .tip {
+    margin-top:18px; font-size:13.5px; line-height:1.9; color:#9aa380;
+    border-left:3px solid rgba(217,180,92,.4); padding:4px 0 4px 14px;
+  }
+  .foot { text-align:center; margin-top:22px; font-size:12px; color:#6a7450; letter-spacing:.2em; }
+
+  @media (max-width:560px){
+    .movie-card { padding:28px 18px 24px; border-radius:20px; }
+    .scores { grid-template-columns:repeat(4,1fr); gap:6px; }
+    .score { padding:10px 2px; border-radius:10px; }
+    .highlights { grid-template-columns:1fr; }
+    .meta { gap:6px 12px; font-size:13px; }
+  }
+</style>
+</head>
+<body data-page-node-id="l1KDXus9dpZujV33ZPGxgX">
+
+<div class="content" data-page-node-id="zaDHZtkzsjkUKrj4smCWD8">
+
+  <!-- 顶部插画：纪念公墓 + 老兵剪影（呼应影片开场的墓园场景） -->
+  <div class="art-top" data-page-node-id="HNAK83sUwMegrcG8d400yu">
+    <svg viewBox="0 0 560 190" role="img" aria-label="黄昏的诺曼底美军公墓，白色十字墓碑群前站着一位老兵" data-page-node-id="wrDs0tK4DoqXmkE4YBfz3S">
+      <defs data-page-node-id="5GhzheLdFlikQqrjTT8ECD">
+        <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1" data-page-node-id="gUCgFDawxswL9abz1umb2F">
+          <stop offset="0%" stop-color="#0e1a24" data-page-node-id="9VbYrCChY7FRHKuQBZnvBH"/>
+          <stop offset="45%" stop-color="#1d2a1c" data-page-node-id="DlymCGPF1Ay9CLkoWLHwGU"/>
+          <stop offset="72%" stop-color="#4a4a2e" data-page-node-id="BGVCXLpVMrrMtisfKXEDjd"/>
+          <stop offset="100%" stop-color="#6e5c34" data-page-node-id="eLUAP7YFaiqC14a8IxdXHM"/>
+        </linearGradient>
+        <radialGradient id="sunG" cx="50%" cy="50%" r="50%" data-page-node-id="RSWlVvWufPsoR6GEpKzTZM">
+          <stop offset="0%" stop-color="#f2dd9e" stop-opacity=".85" data-page-node-id="hBn8h3ckQu2rPI3bfQozqB"/>
+          <stop offset="60%" stop-color="#d9b45c" stop-opacity=".3" data-page-node-id="WAfIrphm7ttpCmcbeDGPSg"/>
+          <stop offset="100%" stop-color="#d9b45c" stop-opacity="0" data-page-node-id="bVJ0tiyQMfquGmEBiYSOJJ"/>
+        </radialGradient>
+      </defs>
+      <!-- 暮色天空 -->
+      <rect x="0" y="0" width="560" height="190" rx="14" fill="url(#skyG)" data-page-node-id="ljXaDYoEjMYmgAFIvYstZA"/>
+      <!-- 远星 -->
+      <circle cx="70" cy="24" r="1.1" fill="#fff" opacity=".7" data-page-node-id="GdBKplQmgAkJqcDq4RL7k9"/>
+      <circle cx="490" cy="18" r="1" fill="#fff" opacity=".6" data-page-node-id="qoBk6mcOlQA9a78DRzwdAa"/>
+      <circle cx="300" cy="12" r="1.2" fill="#fff" opacity=".5" data-page-node-id="tVAejCqdPEVjwyNpxi9mLe"/>
+      <circle cx="150" cy="40" r=".9" fill="#fff" opacity=".5" data-page-node-id="E8UXsltrBHu4WqtbgG1UkA"/>
+      <!-- 云隙微光 -->
+      <circle cx="430" cy="92" r="70" fill="url(#sunG)" data-page-node-id="mG3fDimMf4o1GGpuTG149z"/>
+      <!-- 缓坡草地 -->
+      <path d="M0 118 Q100 96 210 108 T560 100 L560 190 L0 190 Z" fill="#23301c" data-page-node-id="HobIqhoojHVEU8kIAoksVx"/>
+      <path d="M0 132 Q130 118 260 126 T560 120 L560 190 L0 190 Z" fill="#18241a" data-page-node-id="CPBE0503CqUvoGWYDGIhXE"/>
+      <path d="M0 150 Q150 138 300 148 T560 142 L560 190 L0 190 Z" fill="#0f1812" data-page-node-id="EIw3pFp8YqCECPjaCiwMxz"/>
+      <!-- 白色十字墓碑群（远景小排） -->
+      <g fill="#cfd8b8" opacity=".5" data-page-node-id="yyHxYgGtalsaVIBQcwRKPD">
+        <rect x="120" y="118" width="5" height="18" rx="2" data-page-node-id="HhnXJ5LiwolzIunH4H7Ao9"/><rect x="119" y="120" width="7" height="3" rx="1" data-page-node-id="dFEiOZ8754RBtIo90OxuW0"/>
+        <rect x="136" y="114" width="5" height="18" rx="2" data-page-node-id="1FYCoL8LlxtmAO13dGpvCl"/><rect x="135" y="116" width="7" height="3" rx="1" data-page-node-id="8TDgjHAcEHx0SZCcbYsi89"/>
+        <rect x="152" y="110" width="5" height="18" rx="2" data-page-node-id="8TxLS2oPlI5hezmrwf3GYo"/><rect x="151" y="112" width="7" height="3" rx="1" data-page-node-id="XJFlAuWCpTqq5ituz6GgOD"/>
+        <rect x="168" y="115" width="5" height="18" rx="2" data-page-node-id="AmyYpDGKgsYZLssMU0ayqM"/><rect x="167" y="117" width="7" height="3" rx="1" data-page-node-id="fDhmEareSRLykbFGSiTFpd"/>
+        <rect x="184" y="109" width="5" height="18" rx="2" data-page-node-id="GDjHBSqVj9Eawr1qH71rxS"/><rect x="183" y="111" width="7" height="3" rx="1" data-page-node-id="6235BaasJ7tRlrVEPMuBoT"/>
+      </g>
+      <g fill="#e0e4c8" opacity=".7" data-page-node-id="Wsk4ivHPhJ4P8xi86OsWdW">
+        <rect x="252" y="120" width="6" height="22" rx="2" data-page-node-id="uXUe96d2E8ru7iRkmd3BI4"/><rect x="250" y="122" width="10" height="4" rx="1.5" data-page-node-id="FHjt1Xz3u3axpuAiMC32wx"/>
+        <rect x="272" y="114" width="6" height="22" rx="2" data-page-node-id="hn5xDjNLyC5egGDEqZSj4G"/><rect x="270" y="116" width="10" height="4" rx="1.5" data-page-node-id="rrFKOkpHAAVJFZP1xxyLXk"/>
+        <rect x="292" y="117" width="6" height="22" rx="2" data-page-node-id="qmhgfXI0xnBHWgSlC8UWzd"/><rect x="290" y="119" width="10" height="4" rx="1.5" data-page-node-id="tBYnvlXiTFkb3BdFnUiShy"/>
+        <rect x="312" y="110" width="6" height="22" rx="2" data-page-node-id="XU4A9L8ofT9R5QO4iMq4SM"/><rect x="310" y="112" width="10" height="4" rx="1.5" data-page-node-id="lE4DRA3lYeeNuYD4PoxnBo"/>
+        <rect x="332" y="119" width="6" height="22" rx="2" data-page-node-id="65rWdzFMJD16jzhi6JIhAd"/><rect x="330" y="121" width="10" height="4" rx="1.5" data-page-node-id="h5L3lDjs0zL5jGU9i4oQ2D"/>
+      </g>
+      <!-- 近景十字架 -->
+      <g fill="#f0f2dc" data-page-node-id="O2TOjO1k7ZZK1p6d6DKSa7">
+        <rect x="390" y="128" width="9" height="38" rx="3" data-page-node-id="CarehX7xG6wFIBovhFW9JS"/>
+        <rect x="385" y="131" width="19" height="7" rx="3" data-page-node-id="wvHSOVVMmi8sgLHUZfhFp2"/>
+      </g>
+      <!-- 老兵背影剪影 -->
+      <g fill="#0c1510" data-page-node-id="hk3bjkR4IibwugvCzzaZNl">
+        <!-- 头（钢盔轮廓） -->
+        <path d="M462 96 Q462 86 470 84 Q479 82 483 87 Q486 91 484 96 Q480 94 473 94 Q466 94 462 96 Z" data-page-node-id="MHrNDpUSQysS3Ken5RHObg"/>
+        <!-- 上身 -->
+        <path d="M458 96 Q460 104 462 116 Q463 128 462 142 L486 142 Q487 130 488 120 Q490 108 491 100 Q485 102 478 101 Q468 100 458 96 Z" data-page-node-id="Luwk3urD0P9Tj5aPkQMVuS"/>
+        <!-- 下垂的双手 -->
+        <path d="M462 128 Q458 134 457 142 L463 142 Q463 136 464 131 Z" data-page-node-id="mVhzDglsAy0UuuPcxC6I05"/>
+        <path d="M487 124 Q491 130 492 140 L486 140 Q485 134 485 129 Z" data-page-node-id="XVgfqeFkBWN6XcleCmxGDA"/>
+        <!-- 双腿 -->
+        <path d="M463 142 Q462 154 460 164 L471 164 Q472 154 473 142 Z" data-page-node-id="sRmV8nTIZtFhfhA6nr3iob"/>
+        <path d="M480 142 Q482 154 484 164 L494 164 Q492 154 489 142 Z" data-page-node-id="Dxp7xD9BJ3qrtTmREtAbGB"/>
+      </g>
+      <!-- 暮色微光粒子 -->
+      <circle cx="400" cy="150" r="1" fill="#f2dd9e" opacity=".4" data-page-node-id="lRBnbMBh9CgAJVL1uAkGu4"><animate attributeName="opacity" values=".1;.6;.1" dur="3s" repeatCount="indefinite" data-page-node-id="e4D8ieY6qcjESFKnSAHMDR"/></circle>
+      <circle cx="445" cy="140" r=".8" fill="#f2dd9e" opacity=".3" data-page-node-id="Md2b2KZcJhJpvIMXyE6rcF"><animate attributeName="opacity" values=".1;.5;.1" dur="3.6s" repeatCount="indefinite" begin=".8s" data-page-node-id="Qn14GUOy05FWcTBlb52vNh"/></circle>
+    </svg>
+  </div>
+
+  <!-- 狗牌意象文字 -->
+  <div class="dogtag" data-page-node-id="DDZpSZVqP9PkPiFbE91CYf">H. RYAN · J. MILLER · 1944</div>
+
+  <div class="movie-card" data-page-node-id="HEJ4SLQ6iPqaBYs5HqtgSo">
+    <h1 data-page-node-id="bTcZEM34yK1LNJIqKaghCA">拯救大兵瑞恩</h1>
+    <div class="subtitle" data-page-node-id="fsqaxhl4keWt3fmkLx3ztS">SAVING PRIVATE RYAN · 1998</div>
+    <div class="tagline" data-page-node-id="OIm5AEcTmXC5O5f03yvdn7">"斯皮尔伯格最伟大的战争片，也是他最好的电影之一。" ——《好莱坞报道者》</div>
+
+    <div class="meta" data-page-node-id="9aIOYLtEjx0KK6hC1E6aSI">
+      <span data-page-node-id="GWT1Gkj1qOB2JjFNZFngEV">导演 <b data-page-node-id="IJZhOJMRxx9sBeVH55FJY3">史蒂文·斯皮尔伯格</b></span>
+      <span class="sep" data-page-node-id="fUPamB1BLVK26zfAshIAhW">|</span>
+      <span data-page-node-id="t2JBdZsHeos9FHFvZtkkCY">编剧 <b data-page-node-id="JTY9QWoGrZTgnQ9FVMksoM">罗伯特·罗达特</b></span>
+      <span class="sep" data-page-node-id="ejLmaehvupDwNvzVHHhXpg">|</span>
+      <span data-page-node-id="dRGCFwxqN1uUWlWjGuN5je">配乐 <b data-page-node-id="bTu4VlTj2u8VBq16dJefF2">约翰·威廉姆斯</b></span>
+      <span class="sep" data-page-node-id="I0AOWlevQb4wCjUKF28yBl">|</span>
+      <span data-page-node-id="GxqpzNz0Hj4OHKwvii3V5q">片长 <b data-page-node-id="ZNBUtYfz6o0nJeO7jSpK6O">169 分钟</b></span>
+    </div>
+
+    <div class="scores" data-page-node-id="kWmqLr2afi8gptXeDyA5Ay">
+      <div class="score" data-page-node-id="h3OoEnnxnwsDYAn1IWBzJE"><div class="num" data-page-node-id="7lqCWcEkTYpTOCiZvCO5n6">9.1</div><div class="lbl" data-page-node-id="SnooB0z7sAVEvDA0l4ftxt">豆瓣</div><div class="src" data-page-node-id="5EBvo2XZuZhySINUFbGYGz">~55万人评价</div></div>
+      <div class="score" data-page-node-id="f6HL7HbFRoJ0n0WyrXtCm9"><div class="num" data-page-node-id="IKhfAGXVad5nvHM4pGVCxv">8.6</div><div class="lbl" data-page-node-id="Zi8a9mj3RAl3uZx9bd9vVA">IMDb</div><div class="src" data-page-node-id="XgtJGf2bHQ1ighct4bGA4V">Top 250 · 160万+</div></div>
+      <div class="score hl" data-page-node-id="e01Dw60zNNaAZXnWD4nvUT"><div class="num" data-page-node-id="C7YyGocjj7XcS4DteCCv4m">93%</div><div class="lbl" data-page-node-id="qevaJzXhsMBXhZTUqB5KAT">烂番茄</div><div class="src" data-page-node-id="iJQy3JB2LHAEtzl93iQRgh">影评人认证新鲜</div></div>
+      <div class="score" data-page-node-id="zk2RSvqMVO3HCHBF5BZ4eI"><div class="num" data-page-node-id="rzQYi2eTH4grclwgR6wW2y">91</div><div class="lbl" data-page-node-id="bsim4KVIwEepyYmpNHv5Uz">Metacritic</div><div class="src" data-page-node-id="iFGqe86dKae4aVGVna5IGM">媒体综评</div></div>
+    </div>
+
+    <div class="award-strip" data-page-node-id="2H0ueCJ4BDt8Dadc4JuGDr">
+      <span class="award gold" data-page-node-id="jDcxMYsQl2IiQJzn04x0mj">🏆 奥斯卡 11 项提名 · 5 项大奖</span>
+      <span class="award gold" data-page-node-id="OC2nDo8rsGim7VO3qIBOr8">🏆 最佳导演（斯皮尔伯格第二座）</span>
+      <span class="award gold" data-page-node-id="oiiRIZu3Vx7XldHBzOcFLr">🏆 金球奖剧情类最佳影片</span>
+      <span class="award" data-page-node-id="pXsIS6kPCNd2EcbVj4OOYt">美国国家电影保护局典藏</span>
+      <span class="award" data-page-node-id="LGXMqGTINytoB1hr6zoW9A">1998 北美年度票房冠军</span>
+    </div>
+
+    <div class="sec" data-page-node-id="BXty8Oq2XzJXpesqtGixmz">
+      <h2 data-page-node-id="9sQwFxY1SHgWyOVtC15gSL"><span class="bar" data-page-node-id="YcZuW5POmMbn664otMCLMJ"></span>剧情梗概</h2>
+      <p data-page-node-id="pjAi9jDdA5WauGOLfPdqdC">1944 年 6 月 6 日，诺曼底登陆。奥马哈海滩上，年轻的士兵们在枪林弹雨中前赴后继，海滩被鲜血染红。</p>
+      <p data-page-node-id="jICWWlELAXw0fXQCsaSPWV">此时美军获悉：空降兵詹姆斯·瑞恩的三个哥哥已在战场上相继阵亡——四兄弟若只剩他一个，那位母亲将失去全部儿子。于是，马歇尔将军下达了一道几乎不可能的命令：派一支八人小队深入敌后，<em data-page-node-id="ue5tMwKEEhZw9gNuEdbcDp">把瑞恩找回来，带他回家</em>。</p>
+      <p data-page-node-id="eIRwd4b31WBI8UDPovjjJE">米勒上尉带领小队穿越层层战火。可每走一步，队员们都在问同一个问题：<em data-page-node-id="rOobOVg5nZSHAtz2Dv3aPX">为了救一个人，值得搭上我们八条命吗？</em>——而答案，要等他们找到瑞恩、亲眼看见他之后，才会真正浮现。</p>
+    </div>
+
+    <div class="sec" data-page-node-id="lePdmHiGefAEhDGSwklZSz">
+      <h2 data-page-node-id="i9e8FWo6vh0q4cbmOgR4F5"><span class="bar" data-page-node-id="WDHiw94kinzbheojZLWxnI"></span>亮点所在</h2>
+      <div class="highlights" data-page-node-id="vI85R9vvQtnNSaZAUUOdim">
+        <div class="hl" data-page-node-id="YbPwh4LDcoObqzJc3G2XFd">
+          <span class="ico" data-page-node-id="DWKR5y9LB7pwNPKiwHgHa4">🎥</span>
+          <h3 data-page-node-id="zz7BayIN46i1N2aHxFN1C2">影史最伟大的战争开场</h3>
+          <p data-page-node-id="NkGfdysGWjFwoSszYJtkqU">开篇 24 分钟诺曼底登陆：手持镜头 + 褪色胶片质感 + 纪实化声效，让你像战地记者一样身临其境。这段耗资 1200 万美元的段落，重新定义了战争片如何"拍摄真实"。</p>
+        </div>
+        <div class="hl" data-page-node-id="EUdvItfe4zgDRwLyYb5It7">
+          <span class="ico" data-page-node-id="sYIGvMhX3DLGrh0v4ZHKl3">⚖️</span>
+          <h3 data-page-node-id="l5xGGxdbrPpQq8CYPFY706">"八换一"的道德悖论</h3>
+          <p data-page-node-id="hZTllAxeHvRJlQbPHNGX8F">八个人去换一个人，值得吗？全片没有给出廉价答案，而是让每个士兵用生命去讨论它——战争的意义、个人的责任、牺牲的重量，都在枪声里层层剥开。</p>
+        </div>
+        <div class="hl" data-page-node-id="vtLDeW1gPEU4LPCjYVhqpo">
+          <span class="ico" data-page-node-id="OUokjmZtyG6qqMZ23FgvGm">🎭</span>
+          <h3 data-page-node-id="LqbeKdgNmI21uoQyI68Avm">汤姆·汉克斯的教科书表演</h3>
+          <p data-page-node-id="NrRPTmTXGZUmyhTHOFqi5G">战前他是中学教师，战后他是谜一样的上尉。汉克斯把一个"只想带弟兄们回家"的普通人的坚忍与脆弱，演得不动声色又摧枯拉朽。</p>
+        </div>
+        <div class="hl" data-page-node-id="f6ZZNZ6hAWyn9RICxc9X8p">
+          <span class="ico" data-page-node-id="gxl1yPGA6RJSfaqkXdl1iD">🎼</span>
+          <h3 data-page-node-id="lSZjgHzpLC9dpAC7WN0Sq0">威廉姆斯的挽歌</h3>
+          <p data-page-node-id="D3Ae1OzyW0KY2y4ExRQqlh">配乐大师约翰·威廉姆斯以《Hymn to the Fallen》（献给阵亡者的赞歌）为全片定调——管风琴与合唱升起时，那是整部电影最庄严的一刻。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="whynot" data-page-node-id="ZVNYQxPOn5Hh8ptpSsnJ2G">
+      <h2 data-page-node-id="9Pq8OaCwjVoZhs3wLdudsE"><span class="bar" data-page-node-id="Dyam7lrGYgyAGBQMnZuath"></span>为什么值得一看</h2>
+      <p data-page-node-id="22v0yBqB2Wb2gsIjP64ETz">这是一部"反战"的战争片：它不美化英雄主义，不回避恐惧与怯懦，把战争的残酷原原本本推到观众面前——<em data-page-node-id="qETmfZQp2XcO1Yiy6FTevf">因为只有先看见真实的战争，才能真正理解和平的重量</em>。</p>
+      <p data-page-node-id="IkEl0aVmV8wFxytf2Cfb0z">昆汀·塔伦蒂诺、克里斯托弗·诺兰等一代导演都公开承认受它影响；《兄弟连》《血战钢锯岭》之后每一部战争巨制，几乎都能看到它的影子。它是战争片类型的分水岭——<em data-page-node-id="L295xs73EYqyvC3DhN2Uxv">此前的战争片拍"战争"，《拯救大兵瑞恩》拍的是"人"</em>。</p>
+      <div class="tip" data-page-node-id="KJEU2ETBZzAJVDsMv8wbBv">💡 观影提示：本片战争场面高度写实、非常残酷（北美分级 R 级），请勿在用餐时观看，也不建议太小的孩子观看。挑一个安静的夜晚，郑重地看完它。</div>
+    </div>
+
+    <div class="foot" data-page-node-id="gPo7II8KFskFiWoDuBMedw">经 典 电 影 · 每 日 一 部</div>
+  </div>
+</div>
+
+<script>
+  // 远星
+  for (var i = 0; i < 30; i++) {
+    var s = document.createElement('div');
+    s.className = 'fstar';
+    var sz = (Math.random() * 1.6 + 0.5).toFixed(1);
+    s.style.width = sz + 'px';
+    s.style.height = sz + 'px';
+    s.style.left = (Math.random() * 100) + 'vw';
+    s.style.top = (Math.random() * 40) + 'vh';
+    s.style.setProperty('--d', (Math.random() * 4 + 2).toFixed(1) + 's');
+    s.style.animationDelay = (Math.random() * 5).toFixed(1) + 's';
+    document.body.appendChild(s);
+  }
+  // 尘雾微粒
+  for (var j = 0; j < 14; j++) {
+    var d = document.createElement('div');
+    d.className = 'dust';
+    var ds = (Math.random() * 4 + 1.5).toFixed(1);
+    d.style.width = ds + 'px';
+    d.style.height = ds + 'px';
+    d.style.left = (Math.random() * 100) + 'vw';
+    d.style.animationDuration = (Math.random() * 10 + 12).toFixed(1) + 's';
+    d.style.animationDelay = (Math.random() * 14).toFixed(1) + 's';
+    document.body.appendChild(d);
+  }
+</script>
+
+</body>
+</html>

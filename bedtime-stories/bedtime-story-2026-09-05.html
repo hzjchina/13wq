@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="IX2nYrHe6bVZAovfFD0Oq8">
+<head data-page-node-id="SuvJts5vVq3O7KhniahupO">
+<meta charset="UTF-8" data-page-node-id="MdkpggbZDMPihFArNCA3Nq">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="IF56HcekLjk7qi5BTdGXA5">
+<title>小狐狸的大尾巴 — 儿童睡前故事</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { min-height:100%; }
+  body {
+    font-family: "PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    background: radial-gradient(ellipse at 50% 120%, #12315e 0%, #0a1a45 45%, #050b26 100%);
+    color:#e8ecff;
+    overflow-x:hidden;
+    position:relative;
+    min-height:100vh;
+  }
+  #sky { position:fixed; inset:0; z-index:0; pointer-events:none; }
+  .star {
+    position:absolute; border-radius:50%; background:#fff;
+    animation: twinkle var(--d,3s) ease-in-out infinite;
+    opacity:0;
+  }
+  @keyframes twinkle { 0%,100%{ opacity:0; transform:scale(.6);} 50%{ opacity:1; transform:scale(1.15);} }
+  .moon-wrap {
+    position:fixed; top:6vh; right:8vw; width:min(16vw,120px); aspect-ratio:1;
+    z-index:1; pointer-events:none; animation:moonFloat 7s ease-in-out infinite;
+  }
+  .moon { width:100%; height:100%; border-radius:50%; }
+  .moon-body { fill:#fdf3cf; filter:url(#mglow); animation:moonBreathe 5s ease-in-out infinite; }
+  .moon-crater { fill:#e8d9a8; opacity:.5; }
+  .moon-halo {
+    position:absolute; inset:-22%; border-radius:50%;
+    background:radial-gradient(circle, rgba(253,243,207,.28) 0%, rgba(253,243,207,.08) 45%, transparent 70%);
+    animation:haloBreathe 5s ease-in-out infinite;
+  }
+  @keyframes moonFloat { 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-10px);} }
+  @keyframes moonBreathe { 0%,100%{ opacity:.9;} 50%{ opacity:1;} }
+  @keyframes haloBreathe { 0%,100%{ transform:scale(1); opacity:.8;} 50%{ transform:scale(1.08); opacity:1;} }
+  .meteor {
+    position:fixed; width:110px; height:1.6px; z-index:1;
+    background:linear-gradient(90deg,#fff,transparent); border-radius:2px; opacity:0;
+    transform:rotate(-28deg); animation:shoot 7s ease-in infinite; pointer-events:none;
+  }
+  .meteor::before {
+    content:""; position:absolute; right:0; top:50%; transform:translateY(-50%);
+    width:3px; height:3px; border-radius:50%; background:#fff;
+    box-shadow:0 0 8px 2px rgba(255,255,255,.8);
+  }
+  @keyframes shoot {
+    0% { opacity:0; transform:translate(0,0) rotate(-28deg); }
+    3% { opacity:1; }
+    12% { opacity:0; transform:translate(-46vw,18vh) rotate(-28deg); }
+    100% { opacity:0; transform:translate(-46vw,18vh) rotate(-28deg); }
+  }
+  .meteor.m2 { top:18vh; left:62vw; animation-delay:3.2s; }
+  .meteor.m1 { top:6vh; left:86vw; }
+  .particle {
+    position:fixed; bottom:-4vh; z-index:1; border-radius:50%;
+    background:radial-gradient(circle,#ffd9a0,rgba(255,190,120,.25));
+    opacity:0; pointer-events:none; animation:rise linear infinite;
+  }
+  @keyframes rise {
+    0% { transform:translateY(0); opacity:0; }
+    12% { opacity:.8; }
+    85% { opacity:.55; }
+    100% { transform:translateY(-105vh); opacity:0; }
+  }
+  .content { position:relative; z-index:2; max-width:760px; margin:0 auto; padding:8vh 22px 9vh; }
+  .story-card {
+    background:rgba(255,255,255,.045);
+    border:1px solid rgba(255,255,255,.09);
+    border-radius:26px; padding:38px 30px 34px;
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+    box-shadow:0 18px 60px rgba(0,0,0,.45);
+  }
+  .kicker { text-align:center; font-size:13px; letter-spacing:.5em; color:#9fb4e8; margin-bottom:14px; text-indent:.5em; }
+  h1 {
+    text-align:center; font-size:clamp(26px,5.4vw,36px); font-weight:800; line-height:1.35; margin-bottom:22px;
+    background:linear-gradient(180deg,#ffe9c4 15%,#ffc37d 60%,#ff9e5e);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 0 18px rgba(255,190,120,.25));
+    animation:titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow { 0%,100%{ filter:drop-shadow(0 0 12px rgba(255,190,120,.2));} 50%{ filter:drop-shadow(0 0 24px rgba(255,190,120,.45));} }
+  .divider { display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:24px; }
+  .divider .line { width:54px; height:1px; background:linear-gradient(90deg,transparent,#8fa5d8); }
+  .divider .line.r { background:linear-gradient(90deg,#8fa5d8,transparent); }
+  .divider .dot {
+    width:7px; height:7px; border-radius:50%; background:#ffd9a0;
+    box-shadow:0 0 10px rgba(255,217,160,.9);
+    animation:dotBreathe 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreathe { 0%,100%{ opacity:.5; transform:scale(.8);} 50%{ opacity:1; transform:scale(1.15);} }
+  .art { text-align:center; margin:0 0 26px; }
+  .art svg { width:min(90%,380px); height:auto; overflow:visible; }
+  .art svg .sway { transform-origin:50% 85%; animation:sway 5s ease-in-out infinite; }
+  @keyframes sway { 0%,100%{ transform:rotate(0deg);} 50%{ transform:rotate(1.2deg);} }
+  .story p {
+    font-size:clamp(17px,2.2vw,19.5px); line-height:2.0; letter-spacing:.02em;
+    color:#e6ebff; margin-bottom:20px; text-align:justify;
+  }
+  .story p:first-child::first-letter {
+    font-size:2.1em; font-weight:800; float:left; line-height:1.15; padding-right:7px; color:#ffd9a0;
+  }
+  .story em { font-style:normal; color:#ffd9a0; }
+  .goodnight {
+    margin-top:30px; padding:24px 24px 20px; text-align:center;
+    background:linear-gradient(180deg,rgba(255,217,160,.10),rgba(255,180,110,.05));
+    border:1px solid rgba(255,217,160,.22); border-radius:20px;
+    animation:gnGlow 5s ease-in-out infinite;
+  }
+  @keyframes gnGlow { 0%,100%{ box-shadow:0 0 16px rgba(255,200,130,.12);} 50%{ box-shadow:0 0 30px rgba(255,200,130,.3);} }
+  .goodnight .moon-ico { font-size:26px; animation:moonFloat 4.5s ease-in-out infinite; display:inline-block; }
+  .goodnight p { font-size:clamp(15.5px,2vw,17.5px); line-height:1.9; color:#fff3dd; margin-top:8px; }
+  .foot { text-align:center; margin-top:26px; font-size:12px; color:#6d7fb3; letter-spacing:.2em; }
+  .bottom-glow {
+    position:fixed; left:0; right:0; bottom:0; height:90px; z-index:0; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 130%, rgba(255,170,100,.18) 0%, transparent 62%);
+    animation:bottomBreathe 5.5s ease-in-out infinite;
+  }
+  @keyframes bottomBreathe { 0%,100%{ opacity:.7;} 50%{ opacity:1;} }
+  @media (max-width:480px){
+    .story-card { padding:30px 20px 26px; border-radius:20px; }
+    .moon-wrap { width:80px; top:4vh; right:6vw; }
+  }
+</style>
+</head>
+<body data-page-node-id="kN9UYC7Y6tXB1XiMGkHqjE">
+
+<svg width="0" height="0" style="position:absolute" data-page-node-id="kmipMCAC4qthKNDGdtoHkM">
+  <defs data-page-node-id="osfHMAxBqBpOVE5vKUPXNn">
+    <filter id="mglow" x="-60%" y="-60%" width="220%" height="220%" data-page-node-id="6NTZObLAPyhORqRP288OXi">
+      <feGaussianBlur stdDeviation="6" result="b" data-page-node-id="VwTt3JOsZOkoDksKdXSziv"/>
+      <feMerge data-page-node-id="PDVkrPpCG90KSfpEuzHz7N"><feMergeNode in="b" data-page-node-id="ZvBktj0Zk8O3BHxW5ufBYG"/><feMergeNode in="SourceGraphic" data-page-node-id="OzznEoNhfbIJe5Fh5Iqgxg"/></feMerge>
+    </filter>
+    <radialGradient id="foxBody" cx="45%" cy="35%" r="80%" data-page-node-id="S82rbG3pjFOiODSEbkGFZ5">
+      <stop offset="0%" stop-color="#ff9a55" data-page-node-id="LfcSClDPzSb7z9etTLQlHP"/>
+      <stop offset="60%" stop-color="#f27a35" data-page-node-id="lVdFqHCs32XTZR63XPt6Ho"/>
+      <stop offset="100%" stop-color="#d95f22" data-page-node-id="Y0gKwqvAzIZHrjknBGTbTE"/>
+    </radialGradient>
+    <radialGradient id="foxTail" cx="40%" cy="30%" r="85%" data-page-node-id="iteCls9ITKbkicguutHPUZ">
+      <stop offset="0%" stop-color="#ff9a55" data-page-node-id="TkLKlfuh0gILaqlf5yaobR"/>
+      <stop offset="100%" stop-color="#e8672a" data-page-node-id="PwIXzM283HxBGQtnS4yZw1"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<div id="sky" data-page-node-id="KAgGusCOgXgolWZy7EUCcW"></div>
+<div class="bottom-glow" data-page-node-id="9yL54rw497SgTse4MTLrVZ"></div>
+
+<div class="moon-wrap" data-page-node-id="B2Cv0NFvpFaDWAPtqQXKK4">
+  <div class="moon-halo" data-page-node-id="kv8ZWhdVisS6Jqq3NjdATP"></div>
+  <svg viewBox="0 0 100 100" class="moon" data-page-node-id="OKYBuQChIcxXSXaGSiBACB">
+    <circle class="moon-body" cx="50" cy="50" r="44" data-page-node-id="ojtOKHA3mUwNBfmQwDarDG"/>
+    <circle class="moon-crater" cx="36" cy="36" r="9" data-page-node-id="suyBxEPjOdDdSxi0Y5YRvr"/>
+    <circle class="moon-crater" cx="62" cy="58" r="7" data-page-node-id="PhA7ypQOHttHE05zROZ3Fy"/>
+    <circle class="moon-crater" cx="56" cy="28" r="4.5" data-page-node-id="xcBIYZK3GiIa5GWjz5hn8g"/>
+    <circle class="moon-crater" cx="32" cy="60" r="5" data-page-node-id="P8ytEEVHUTagw0UXTDMFcY"/>
+  </svg>
+</div>
+
+<div class="meteor m1" data-page-node-id="o72H8zVynG9vU2gP2Tt1Df"></div>
+<div class="meteor m2" data-page-node-id="GSNz6DLEDvJJ3euXBv10wE"></div>
+
+<div class="content" data-page-node-id="g1hIsxbYJoLr62o3zVGrUA">
+  <div class="story-card" data-page-node-id="HhutvCko0F5tZx3QTtv8qW">
+    <div class="kicker" data-page-node-id="Dra2uRMsjlhCYEVMLZq7N5">月 光 童 话</div>
+    <h1 data-page-node-id="TwdnD561n9CT8jBSNHp92o">小狐狸的大尾巴</h1>
+    <div class="divider" data-page-node-id="XKrADB1oDk2ykFPiij1GDt">
+      <span class="line" data-page-node-id="QxJR5SXduhBOCPlXKGHXBN"></span><span class="dot" data-page-node-id="FbYXABFQe2DqtYas1K7BzR"></span><span class="dot" style="animation-delay:.4s" data-page-node-id="Gpsb6IfxcgOQHLjNHitkOY"></span><span class="dot" style="animation-delay:.8s" data-page-node-id="T0AqA3Fw3Bl8wpbclMRX8G"></span><span class="line r" data-page-node-id="pXi6EheeBV8XDlocdYhY6k"></span>
+    </div>
+
+    <!-- SVG 插画：秋夜小狐狸 -->
+    <div class="art" data-page-node-id="KNEfGNJSlPlQKazchc7iFu">
+      <svg viewBox="0 0 340 235" role="img" aria-label="秋夜月光下，小狐狸坐在落叶上，大尾巴蓬松翘起" data-page-node-id="YxN3iBEfgfv2hUlnyWdBSi">
+        <defs data-page-node-id="KQ3CXSK9rAuNUsP6UDuABJ">
+          <radialGradient id="nightG2" cx="50%" cy="18%" r="95%" data-page-node-id="jkLx5jSh4piURkatLkX3gc">
+            <stop offset="0%" stop-color="#16336e" data-page-node-id="skklMNFSgJkLml4RihdzTt"/>
+            <stop offset="100%" stop-color="#0a1330" data-page-node-id="jDSnOfrJeASjVjkdiRDvQ9"/>
+          </radialGradient>
+          <linearGradient id="groundG2" x1="0" y1="0" x2="0" y2="1" data-page-node-id="RUjSKPl9DqIIiTZzlkgVMw">
+            <stop offset="0%" stop-color="#1c3a28" data-page-node-id="SiC7kg4yvZdIT4YOL1N1Lf"/>
+            <stop offset="100%" stop-color="#0a1d14" data-page-node-id="zrascJ09JULBWc8IC5u4DP"/>
+          </linearGradient>
+        </defs>
+        <rect x="0" y="0" width="340" height="235" rx="20" fill="url(#nightG2)" data-page-node-id="lKeFhUqNmpnepU9IY7sWx8"/>
+        <!-- 背景小星 -->
+        <circle cx="46" cy="38" r="1.4" fill="#fff" opacity=".8" data-page-node-id="Usd3GJPxdfEvT0V9tyAz66"><animate attributeName="opacity" values=".3;1;.3" dur="2.6s" repeatCount="indefinite" data-page-node-id="uxbZXgH07hx90lrP1DE3Du"/></circle>
+        <circle cx="292" cy="30" r="1.2" fill="#fff" opacity=".7" data-page-node-id="4i7utlhJOab4qatKjHzddz"><animate attributeName="opacity" values=".4;1;.4" dur="3.1s" repeatCount="indefinite" data-page-node-id="CBYxdR6AJVkSSvmgPELSF9"/></circle>
+        <circle cx="248" cy="66" r="1" fill="#fff" opacity=".6" data-page-node-id="larxBFbFZyvK6z80cqjyGS"><animate attributeName="opacity" values=".2;.9;.2" dur="2.2s" repeatCount="indefinite" data-page-node-id="721A6XCBgwCsEzMrj2atAY"/></circle>
+        <circle cx="152" cy="22" r="1.1" fill="#fff" opacity=".7" data-page-node-id="QKAuYPplH00CjivqPdm53y"><animate attributeName="opacity" values=".3;1;.3" dur="2.8s" repeatCount="indefinite" data-page-node-id="IDAhxuyFEIrlNJpgZIEZPF"/></circle>
+        <!-- 地面 -->
+        <path d="M0 172 Q85 152 170 166 T340 160 L340 235 L0 235 Z" fill="url(#groundG2)" data-page-node-id="hyEhbasFGWdiiwcOwB44Bm"/>
+        <path d="M0 188 Q90 174 180 184 T340 180 L340 235 L0 235 Z" fill="#0c2418" opacity=".75" data-page-node-id="cIyB5noqtPThgbLRGXKVrM"/>
+        <!-- 飘落秋叶 -->
+        <g data-page-node-id="hDgDAl9fBKNeKE0db3TLWk">
+          <path d="M72 62 Q76 54 84 56 Q90 58 86 66 Q82 72 74 70 Z" fill="#e8a33d" opacity=".9" data-page-node-id="rACe1TPUuEGwZEOUio8vAm">
+            <animateTransform attributeName="transform" type="translate" values="0 0;-18 30;-36 66" dur="7s" repeatCount="indefinite" data-page-node-id="SsOxjrq50UAA5IclTBjUtM"/>
+            <animate attributeName="opacity" values="0;.9;.9;0" dur="7s" repeatCount="indefinite" data-page-node-id="dXG9tVsMtEpoWeNJoFwAOC"/>
+          </path>
+          <path d="M266 84 Q270 76 278 78 Q284 80 280 88 Q276 94 268 92 Z" fill="#d96a3a" opacity=".85" data-page-node-id="9GbcfRCgAZag6llneGfE2S">
+            <animateTransform attributeName="transform" type="translate" values="0 0;14 26;28 58" dur="8s" repeatCount="indefinite" begin="1.2s" data-page-node-id="ZMQkWG309Gs53MD6SXMaep"/>
+            <animate attributeName="opacity" values="0;.85;.85;0" dur="8s" repeatCount="indefinite" begin="1.2s" data-page-node-id="bupEX4QYdnp9PgodkQGmGK"/>
+          </path>
+          <path d="M204 40 Q208 32 216 34 Q222 36 218 44 Q214 50 206 48 Z" fill="#c94f2e" opacity=".8" data-page-node-id="OitcJUNdjyRreEZYDAQT5c">
+            <animateTransform attributeName="transform" type="translate" values="0 0;-12 22;-26 50" dur="7.5s" repeatCount="indefinite" begin="2.1s" data-page-node-id="DQWCwo42Y3D4kFDychfCnG"/>
+            <animate attributeName="opacity" values="0;.8;.8;0" dur="7.5s" repeatCount="indefinite" begin="2.1s" data-page-node-id="4Kw6YDrbacbaASiSFekcY6"/>
+          </path>
+          <path d="M128 96 Q132 88 140 90 Q146 92 142 100 Q138 106 130 104 Z" fill="#e8a33d" opacity=".75" data-page-node-id="Sn07WlEU8S4mIVEdp7V9C3">
+            <animateTransform attributeName="transform" type="translate" values="0 0;10 20;22 44" dur="9s" repeatCount="indefinite" begin="3.4s" data-page-node-id="hVznfKwcfSm5zleHvFwCW6"/>
+            <animate attributeName="opacity" values="0;.75;.75;0" dur="9s" repeatCount="indefinite" begin="3.4s" data-page-node-id="tBr2fErsEGLKYg1zUUla90"/>
+          </path>
+        </g>
+        <!-- 蒲公英种子（小伞） -->
+        <g opacity=".9" data-page-node-id="NDCWLqMSBvDDHW9QuFzAjY">
+          <circle cx="298" cy="70" r="2.4" fill="#fff8e0" data-page-node-id="3zimAWplnutvdpez6pD77g"/>
+          <path d="M298 72 L298 82" stroke="#fff8e0" stroke-width="1" opacity=".8" data-page-node-id="SNRWF8t4KKqXo34JtM0FUQ"/>
+          <g stroke="#fff8e0" stroke-width=".7" opacity=".7" data-page-node-id="fINc8TE6PvuuaKjpeUkloi">
+            <path d="M298 72 L294 66 M298 72 L298 64 M298 72 L302 66 M298 72 L305 69 M298 72 L291 69" data-page-node-id="2vAZiQZZmVPSrFrypGCaz9"/>
+          </g>
+          <animateTransform attributeName="transform" type="translate" values="0 0;-8 20;-16 44" dur="9s" repeatCount="indefinite" begin=".8s" data-page-node-id="2mPYjDtxD45t4USOdr97Ts"/>
+        </g>
+        <!-- 小狐狸（蹲坐，大尾巴） -->
+        <g transform="translate(170,108)" class="sway" data-page-node-id="SayoVZSsZdjfoA9HjHpM0y">
+          <!-- 大尾巴（后侧） -->
+          <g data-page-node-id="g6f5X3ltDrjTEGoiEbRVTH">
+            <animateTransform attributeName="transform" type="rotate" values="-2 0 40;3 0 40;-2 0 40" dur="4.6s" repeatCount="indefinite" data-page-node-id="UcaDJrm6EnLCV8BxhnNBSy"/>
+            <path d="M-6 34 Q-52 22 -74 6 Q-88 -6 -86 -16 Q-84 -28 -70 -30 Q-54 -32 -44 -20 Q-30 -2 -8 8 Z"
+                  fill="url(#foxTail)" data-page-node-id="5GGJutab1dcOWK2i5yfKTr"/>
+            <path d="M-70 -30 Q-82 -28 -84 -20 Q-86 -10 -76 -4 Q-64 2 -56 10 Q-52 14 -50 12 Q-46 -16 -52 -24 Q-58 -30 -70 -30 Z" fill="#fff4e0" data-page-node-id="64ek0pSMnztBEOX8zQwEum"/>
+            <!-- 尾巴绒毛纹理 -->
+            <path d="M-52 6 Q-40 -2 -30 2" stroke="#d95f22" stroke-width="1.4" fill="none" opacity=".5" stroke-linecap="round" data-page-node-id="pMf5RMkZBJqw5e6gMXnsNJ"/>
+            <path d="M-60 -8 Q-46 -14 -36 -10" stroke="#d95f22" stroke-width="1.4" fill="none" opacity=".45" stroke-linecap="round" data-page-node-id="YNOuI1jHcHrQW4PdDd5ulR"/>
+            <path d="M-66 -20 Q-52 -24 -44 -20" stroke="#d95f22" stroke-width="1.4" fill="none" opacity=".4" stroke-linecap="round" data-page-node-id="SYJDotS8rDRgV7p3Cmb6Uf"/>
+          </g>
+          <!-- 后腿与身体 -->
+          <ellipse cx="6" cy="40" rx="30" ry="26" fill="url(#foxBody)" data-page-node-id="AKd2ExWgQEngTcOCycatzS"/>
+          <ellipse cx="-6" cy="58" rx="17" ry="8" fill="#f27a35" data-page-node-id="gtcZXKXFJ95x3zER4MA6Ht"/>
+          <ellipse cx="18" cy="58" rx="15" ry="8" fill="#d95f22" data-page-node-id="UQYXD54cbCL8HUWcYX2uIm"/>
+          <!-- 白肚皮 -->
+          <ellipse cx="12" cy="46" rx="15" ry="15" fill="#fff4e0" data-page-node-id="s5KndbgNJgbKPvYjWHUF4g"/>
+          <!-- 前爪 -->
+          <ellipse cx="22" cy="52" rx="7" ry="9" fill="url(#foxBody)" transform="rotate(-6 22 52)" data-page-node-id="OETlFtev3UsBBOzof9BDWT"/>
+          <ellipse cx="30" cy="46" rx="6" ry="8" fill="#e8672a" transform="rotate(-12 30 46)" data-page-node-id="vZMkdfPUDYp68GHXFJ6DVC"/>
+          <!-- 头 -->
+          <g data-page-node-id="E0oGRkK9ICIHs7UcMrnAaD">
+            <!-- 双耳 -->
+            <path d="M16 -30 L6 -46 L26 -40 Z" fill="url(#foxBody)" data-page-node-id="spe0TiHCIrQORGC5ZveHCZ"/>
+            <path d="M16 -33 L12 -41 L21 -38 Z" fill="#d95f22" opacity=".85" data-page-node-id="qpAAHBzm5QNZb9Y6glDpVV"/>
+            <path d="M40 -32 L44 -50 L52 -36 Z" fill="url(#foxBody)" data-page-node-id="9U2HbXUUDFX7z9UVHThL5Y"/>
+            <path d="M44 -36 L46 -44 L49 -37 Z" fill="#d95f22" opacity=".85" data-page-node-id="RxvvmMyrSM3OzdD7UDhimh"/>
+            <!-- 面部 -->
+            <ellipse cx="30" cy="-18" rx="22" ry="17" fill="url(#foxBody)" data-page-node-id="tF80ke6Hh9bvPsTLHW4MD2"/>
+            <!-- 白色脸侧与吻部 -->
+            <path d="M18 -12 Q22 -2 34 -4 Q42 -5 44 -12 Q42 -16 40 -18 Q34 -10 24 -12 Z" fill="#fff4e0" data-page-node-id="xSBFdHyogzpjh8CodlVZ2n"/>
+            <ellipse cx="30" cy="-4" rx="9" ry="5.5" fill="#fff4e0" data-page-node-id="zVIMXumuTi9niLUYXkd76o"/>
+            <!-- 黑鼻头 -->
+            <circle cx="33" cy="-5" r="2.4" fill="#3a2f2a" data-page-node-id="EL07OpZ0WNDTleE2ccCgnk"/>
+            <!-- 嘴 -->
+            <path d="M33 -2.6 Q31 1 28 1.4" stroke="#8a6a50" stroke-width="1.3" fill="none" stroke-linecap="round" data-page-node-id="CWCqPBRJUHgrAFcJADBISE"/>
+            <!-- 眼 -->
+            <ellipse cx="23" cy="-17" rx="2.8" ry="3" fill="#2a1f18" data-page-node-id="HSHNHjXZFX64nZYjliMzFR"/>
+            <circle cx="24" cy="-18.5" r="1" fill="#fff" opacity=".9" data-page-node-id="VN0u1nFoK8AOzH7ACJVfuH"/>
+            <ellipse cx="37" cy="-18" rx="2.6" ry="2.8" fill="#2a1f18" data-page-node-id="d3KzhhIg3TBpsL20XJJQu0"/>
+            <circle cx="38" cy="-19.5" r=".95" fill="#fff" opacity=".9" data-page-node-id="QLmYJOKPtCe7AWY4L869mj"/>
+            <!-- 面颊高光 -->
+            <circle cx="20" cy="-14" r="1.4" fill="#ffb37a" opacity=".8" data-page-node-id="z8X8bIzB98KQF4TnpUDJBN"/>
+          </g>
+          <!-- 头顶月光高光 -->
+          <ellipse cx="34" cy="-32" rx="7" ry="3" fill="#fff" opacity=".25" data-page-node-id="KBaInsqLPjz1tLEU3P2Kd9"/>
+        </g>
+        <!-- 狐狸身侧光点 -->
+        <circle cx="118" cy="128" r="2" fill="#ffd9a0" opacity=".8" data-page-node-id="QwXbo4HdyzCYJ6VACI8d60"><animate attributeName="opacity" values=".3;1;.3" dur="2.1s" repeatCount="indefinite" data-page-node-id="7X1cHluTsWVjFWHCmtUam5"/></circle>
+        <!-- 地面落叶点缀 -->
+        <path d="M96 176 Q100 170 108 172 Q114 174 110 180 Q106 186 98 184 Z" fill="#d98a3d" opacity=".8" data-page-node-id="uFk1tWm036CB2DkUJWlD5q"/>
+        <path d="M240 182 Q244 176 252 178 Q258 180 254 186 Q250 192 242 190 Z" fill="#c94f2e" opacity=".7" data-page-node-id="NwEupAqv6SpcDSXCXVEcUR"/>
+        <path d="M158 192 Q162 186 170 188 Q176 190 172 196 Q168 202 160 200 Z" fill="#e8a33d" opacity=".75" data-page-node-id="kdPp6jn2R62slXsPMPFktA"/>
+        <path d="M54 186 Q60 178 68 180 Q74 182 70 188 Q66 194 58 192 Z" fill="#d96a3a" opacity=".6" data-page-node-id="hMTjyLmbtfDAFiWMbpi9os"/>
+      </svg>
+    </div>
+
+    <div class="story" data-page-node-id="FZpdz2hnWKCHcZzSbm0Gkq">
+      <p data-page-node-id="eB2K9P78se5tZns5fFt4RZ">森林里住着一只小狐狸，名字叫阿橘。阿橘有一蓬又大又软的红尾巴，像一团烧得正旺的火。</p>
+      <p data-page-node-id="5iO3Opa4C06TOlrnauBGLH">可是，大尾巴也给阿橘添了不少麻烦。跑步的时候，它沉甸甸地拖在身后，怎么也跑不快；想钻树洞躲雨，尾巴却卡在洞口，进也进不去。</p>
+      <p data-page-node-id="Y7OZLhCUUqutkNpa8NIBUb">小动物们看见了，都笑着说："阿橘，你的尾巴太大啦！"阿橘听了，心里有点难过。从那以后，它走路总是把大尾巴悄悄夹得紧紧的。</p>
+      <p data-page-node-id="gxoFsC3vB0iCMfqJyFP6lt">秋天来了，风一天比一天凉。</p>
+      <p data-page-node-id="ljRsqBSsFfY9dt9L4H3VLL">有一天，蒲公英妈妈拜托阿橘照看她的种子宝宝，说等风来了，就送它们去远方安家。风真的来了，种子们"呼啦"一下飞上天。可有一粒最小的种子慌了神，摇摇晃晃地直往下掉。</p>
+      <p data-page-node-id="earainWqMhw7NVkqR0bGIt">阿橘想也没想，张开大尾巴轻轻一兜——种子稳稳地落在软软的绒毛里，像跌进一朵云做的被窝。种子舒了口气，说："阿橘，你的尾巴是世界上最软的降落伞！"</p>
+      <p data-page-node-id="2VS6mNqze0FsJ2JGkTf0bU">又一天傍晚，一只迷路的小鸭子冻得直发抖。阿橘把大尾巴围成一个圈，暖暖地裹住小鸭子。小鸭子缩在里面，暖和极了，说："阿橘，你的尾巴是世界上最暖和的围巾！"</p>
+      <p data-page-node-id="UYfTotH4n37Kzlv6D3hCd0">夜里，阿橘还把大尾巴轻轻盖在一朵打瞌睡的小花上。小花在梦里，梦见自己开出了红艳艳的花瓣。</p>
+      <p data-page-node-id="OJvrylvTyLO5vYGRA4wkVS">阿橘忽然懂了：<em data-page-node-id="AGdcbkCd8g40lGt8ioexva">原来每一件"特别"，都是藏起来的礼物。</em>它不再把尾巴夹起来，而是大大方方地甩着走。</p>
+      <p data-page-node-id="lLHykHQD8H7RINPJkBTlu6">小动物们远远看见了，都忍不住说："快看呀——阿橘的红尾巴，是秋天森林里最漂亮的一抹颜色！"</p>
+    </div>
+
+    <div class="goodnight" data-page-node-id="6Oy9vRV31ubsb79H5wKbXo">
+      <span class="moon-ico" data-page-node-id="FSqI9rzfSNBWxIhyYWnwhI">🌙</span>
+      <p data-page-node-id="RxHIszKbR13lvBB5j50wuY">晚安，小宝贝。小狐狸阿橘说，你今天也是个特别的好孩子，该做一个甜甜的梦了。</p>
+    </div>
+
+    <div class="foot" data-page-node-id="xLMyQ6ea4HCcKklxzFU01E">小 狐 狸 的 大 尾 巴 · 儿 童 睡 前 故 事</div>
+
+  </div>
+</div>
+
+<script>
+  var sky = document.getElementById('sky');
+  for (var i = 0; i < 110; i++) {
+    var s = document.createElement('div');
+    s.className = 'star';
+    var size = (Math.random() * 2 + 1).toFixed(1);
+    s.style.width = size + 'px';
+    s.style.height = size + 'px';
+    s.style.left = (Math.random() * 100) + 'vw';
+    s.style.top = (Math.random() * 100) + 'vh';
+    s.style.setProperty('--d', (Math.random() * 3 + 1.6).toFixed(1) + 's');
+    s.style.animationDelay = (Math.random() * 4).toFixed(1) + 's';
+    sky.appendChild(s);
+  }
+  for (var j = 0; j < 9; j++) {
+    var p = document.createElement('div');
+    p.className = 'particle';
+    var ps = (Math.random() * 5 + 3).toFixed(1);
+    p.style.width = ps + 'px';
+    p.style.height = ps + 'px';
+    p.style.left = (Math.random() * 100) + 'vw';
+    p.style.animationDuration = (Math.random() * 9 + 11).toFixed(1) + 's';
+    p.style.animationDelay = (Math.random() * 12).toFixed(1) + 's';
+    document.body.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
