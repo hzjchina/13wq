@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="0f1BQEEHWd46kZBGqUOS2e">
+<head data-page-node-id="WATYZa1lsobsPZcuuScIOx">
+<meta charset="UTF-8" data-page-node-id="znFxFJgRO0W3BGEtHuC0JF">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="9tDrl8MyOA4smC3nBticMs">
+<title>公民凯恩</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{min-height:100%;}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC","Songti SC",serif;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, rgba(255,255,255,.06), transparent 60%),
+      radial-gradient(ellipse 90% 50% at 50% 110%, rgba(200,170,110,.05), transparent 60%),
+      #0c0c0e;
+    color:#ece8dd;
+    overflow-x:hidden; position:relative; min-height:100vh; padding-bottom:70px;
+  }
+  /* 噪点颗粒质感 */
+  body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+    background-image:radial-gradient(rgba(255,255,255,.35) .5px, transparent .5px);
+    background-size:3px 3px; mix-blend-mode:overlay;}
+
+  /* 顶栏：底片/铅字 */
+  .film-top{position:fixed;top:0;left:0;right:0;height:26px;z-index:5;
+    background:repeating-linear-gradient(90deg,#16161a 0 16px,#0d0d10 16px 20px);
+    border-bottom:1px solid rgba(255,255,255,.14); display:flex; align-items:center;
+    padding:0 14px; gap:18px; overflow:hidden;}
+  .film-top .perf{position:absolute;height:9px;width:2px;background:rgba(255,255,255,.25);top:8px;}
+  .film-top .tk{font-size:10px;letter-spacing:4px;color:rgba(235,230,215,.5);white-space:nowrap;}
+  @keyframes filmMove{to{transform:translateX(-50%);}}
+  .film-top .strip{display:flex;gap:18px;animation:filmMove 30s linear infinite;}
+
+  .stage{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:110px 20px 0;}
+
+  /* 场景插画区 */
+  .hero{text-align:center;margin-bottom:26px;}
+  .hero svg{width:min(560px,94vw);height:auto;filter:drop-shadow(0 14px 40px rgba(0,0,0,.6));}
+  .kane-title{position:relative;text-align:center;margin:-6px 0 0;}
+  .kane-title .en{
+    font-family:Georgia,"Times New Roman",serif; font-weight:900; letter-spacing:14px;
+    font-size:clamp(2rem,8vw,3.4rem); color:#f2ede1;
+    text-shadow:0 0 30px rgba(255,255,255,.18),0 4px 0 rgba(0,0,0,.8);
+  }
+  .kane-title .year{margin-top:8px;font-size:12px;letter-spacing:10px;color:rgba(200,195,185,.55);}
+  .kane-title .zh{margin-top:6px;font-size:clamp(1.15rem,4.4vw,1.5rem);letter-spacing:6px;color:#d9cfb8;}
+
+  .card{
+    position:relative;background:rgba(18,18,21,.72);
+    border:1px solid rgba(230,225,210,.16); border-radius:6px;
+    padding:32px 34px 36px; margin-top:6px;
+    box-shadow:0 22px 70px rgba(0,0,0,.55), inset 0 0 80px rgba(255,255,255,.015);
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;
+    background:linear-gradient(180deg,#f0e9d8,#8a8270 40%,#2e2a22 100%);opacity:.8;}
+
+  h2.sec{
+    font-size:1.02rem; font-weight:700; letter-spacing:5px; color:#f0e9d8;
+    margin:26px 0 12px; display:flex; align-items:center; gap:12px;
+  }
+  h2.sec:first-child{margin-top:0;}
+  h2.sec .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(240,233,216,.4),transparent);}
+  h2.sec::before{content:"";width:8px;height:8px;background:#f0e9d8;transform:rotate(45deg);opacity:.9;}
+
+  .meta-line{font-size:1.06rem;line-height:2;color:#e4ded0;letter-spacing:.5px;}
+  .meta-line b{color:#fffdf5;font-weight:700;}
+  .meta-line .tag{
+    display:inline-block;border:1px solid rgba(240,233,216,.35);border-radius:2px;
+    padding:1px 10px;font-size:.86rem;letter-spacing:2px;margin:0 4px 4px 0;color:#cfc6ae;}
+  .meta-line .spoiler-tag{border-color:rgba(200,180,130,.45);color:#e6d3a0;}
+
+  .plot{font-size:1.08rem;line-height:2.05;color:#e2dccd;text-align:justify;}
+  .plot p{margin:12px 0;text-indent:2em;}
+  .plot p.no-indent{text-indent:0;}
+  .plot .quote{
+    margin:18px 0; padding:16px 22px; border-left:3px solid rgba(240,233,216,.55);
+    background:rgba(255,255,255,.028); color:#cfc6ae; font-style:normal;
+    text-indent:0; font-size:1rem; letter-spacing:.5px;}
+  .plot .quote .who{display:block;margin-top:8px;font-size:.88rem;color:rgba(207,198,174,.7);}
+
+  /* 评分卡 */
+  .scores{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px;}
+  .score{background:rgba(255,255,255,.035);border:1px solid rgba(230,225,210,.14);
+    border-radius:4px;padding:14px 8px;text-align:center;transition:transform .3s;}
+  .score:hover{transform:translateY(-3px);}
+  .score .num{font-family:Georgia,serif;font-size:1.75rem;font-weight:800;color:#f6f0e0;}
+  .score .src{margin-top:5px;font-size:.78rem;letter-spacing:2px;color:rgba(200,195,185,.62);}
+  .score.gold{border-color:rgba(216,190,130,.5);background:rgba(216,190,130,.06);}
+  .score.gold .num{color:#e8d5a0;}
+  .score.gold .src{color:rgba(232,213,160,.85);}
+
+  /* 亮点 */
+  ul.points{list-style:none;margin-top:4px;}
+  ul.points li{
+    position:relative;padding:12px 0 12px 44px;border-bottom:1px dashed rgba(230,225,210,.12);
+    font-size:1.03rem;line-height:1.9;color:#e0dacb;
+  }
+  ul.points li:last-child{border-bottom:none;}
+  ul.points li .no{
+    position:absolute;left:0;top:12px;width:30px;height:30px;border:1px solid rgba(240,233,216,.5);
+    color:#f6f0e0;font-family:Georgia,serif;font-size:.92rem;display:flex;align-items:center;justify-content:center;
+    background:rgba(255,255,255,.03);
+  }
+  ul.points li b{color:#fdf8ea;}
+
+  .note{
+    margin-top:28px;padding:16px 20px;font-size:.95rem;line-height:1.9;color:#b9b2a2;
+    background:rgba(240,233,216,.035);border:1px dashed rgba(230,225,210,.22);border-radius:4px;
+  }
+  .note b{color:#e6d3a0;}
+
+  .footer-note{text-align:center;margin-top:38px;font-size:12px;letter-spacing:4px;color:rgba(200,195,185,.45);
+    font-family:Georgia,serif;}
+  .footer-note .cn{font-family:"PingFang SC",sans-serif;letter-spacing:3px;}
+
+  @media(max-width:520px){
+    .stage{padding:96px 14px 0;}
+    .card{padding:26px 20px 30px;}
+    .scores{grid-template-columns:repeat(2,1fr);}
+    .film-top .tk{font-size:9px;}
+  }
+</style>
+</head>
+<body data-page-node-id="rgKP9NkEho6W49Fd2u9hFT">
+
+<!-- 胶片顶条 -->
+<div class="film-top" data-page-node-id="yvQ75p8CBL499ahfcsS2iZ">
+  <div class="strip" data-page-node-id="11h1f2u5EQmGxXAw3CkDqN">
+    <span class="tk" data-page-node-id="3r7CImls34dr7F0vfbXPnl">CITIZEN KANE · 1941 · RKO RADIO PICTURES · ORSON WELLES</span>
+    <span class="tk" data-page-node-id="6Y5XK8jfPqjiFc2urDnwyj">CITIZEN KANE · 1941 · RKO RADIO PICTURES · ORSON WELLES</span>
+  </div>
+</div>
+
+<div class="stage" data-page-node-id="m3lRAnKU3Qg0uoSpVEu0aH">
+
+  <!-- 主视觉：庄园巨门剪影 + 聚光 + 水晶球 -->
+  <div class="hero" data-page-node-id="rDwjGEDZzuXMmbP5O4j9JV">
+    <svg viewBox="0 0 560 250" role="img" aria-label="仙那度庄园大门剪影与聚光灯下的人影，右下水晶球飘雪" data-page-node-id="xLr4V6HFjR9KvL1YG1f1MM">
+      <defs data-page-node-id="fIfcjKCmFul2B7BPXX1g1W">
+        <radialGradient id="spot" cx="50%" cy="30%" r="75%" data-page-node-id="OPcRpCj5NNYrRstLrlOeu4">
+          <stop offset="0" stop-color="rgba(255,250,230,.20)" data-page-node-id="A4qMKHNH5olV9UhH2ziIeu"/>
+          <stop offset=".55" stop-color="rgba(255,250,230,.05)" data-page-node-id="dQIsVXgj3ESpbDgYByYboC"/>
+          <stop offset="1" stop-color="transparent" data-page-node-id="irpFHF5uDrIgPX8GetoVCC"/>
+        </radialGradient>
+        <radialGradient id="globe" cx="35%" cy="30%" r="70%" data-page-node-id="HdBEayunJNTswUumgqKSJR">
+          <stop offset="0" stop-color="rgba(255,255,255,.75)" data-page-node-id="DCAcvhUOEODdldFWBb60I8"/>
+          <stop offset=".5" stop-color="rgba(230,240,250,.35)" data-page-node-id="EnYl0AfFCYyhF2pduc5EBD"/>
+          <stop offset="1" stop-color="rgba(200,215,235,.12)" data-page-node-id="9yI6x2iZ0mlDcL4nHAgoSw"/>
+        </radialGradient>
+        <clipPath id="globeClip" data-page-node-id="z34NAiziVHCIlx3JBQFWxn"><circle cx="474" cy="112" r="46" data-page-node-id="KYu5EspQRD1c4W1VABIwvQ"/></clipPath>
+      </defs>
+      <!-- 天空聚光 -->
+      <rect width="560" height="250" fill="url(#spot)" data-page-node-id="G1UU0zRAUYJqhzTJiEeqfs"/>
+      <!-- 庄园大门 -->
+      <g fill="#0a0a0d" data-page-node-id="zb7j7lwXmXBueAaauWGzCF">
+        <rect x="86" y="150" width="420" height="100" data-page-node-id="BD9vEDcdFPlkpllCJuKlZz"/>
+        <path d="M118 150 L118 96 L182 96 L182 150 Z M206 150 L206 68 L282 68 L282 150 Z M210 68 L278 68 L244 30 Z" opacity="0" data-page-node-id="FyG8XyqeXju1684QkKRXK6"/>
+        <path d="M120 150 L120 100 L184 100 L184 150 Z" data-page-node-id="MSm1Lba9qc84nKfuu3MKbA"/>
+        <path d="M204 150 L204 62 L286 62 L286 150 Z" data-page-node-id="THD4DVjJ2F5phqAPVDV0B2"/>
+        <rect x="96" y="176" width="396" height="10" data-page-node-id="KpMlsKRWrusneaB3KGutBL"/>
+      </g>
+      <g stroke="#1c1c22" stroke-width="2" fill="none" opacity=".8" data-page-node-id="z2RAahRjYv0QOmOxG0sV1T">
+        <line x1="130" y1="124" x2="174" y2="124" data-page-node-id="vECcU909aQPdam5r8nImTI"/><line x1="130" y1="134" x2="174" y2="134" data-page-node-id="fFxC3TAxqyE5iopgaTicSy"/>
+        <line x1="214" y1="124" x2="276" y2="124" data-page-node-id="Wxan2HeRTqKwS9X5NsFcgZ"/><line x1="214" y1="136" x2="276" y2="136" data-page-node-id="rKoff6w8Vnpa9GO0YFI1RK"/>
+      </g>
+      <!-- 门楣 K 大写 -->
+      <text x="245" y="42" font-family="Georgia,serif" font-weight="900" font-size="46" fill="#f2ede1" opacity=".92" text-anchor="middle" letter-spacing="2" data-page-node-id="SoD6J9OckVHFTrZZRSs054">K</text>
+      <!-- 人物剪影（低角度仰视） -->
+      <g fill="#050507" data-page-node-id="M4GsZz51jleiNOGHS5fLfk">
+        <path d="M318 250 Q318 224 330 212 Q322 204 322 192 Q322 174 336 168 Q336 150 352 150 Q368 150 368 168 Q382 174 382 192 Q382 204 374 212 Q386 224 386 250 Z" data-page-node-id="LiwyOgeqIgxgt1o88FNe7x"/>
+        <path d="M318 250 L318 232 Q340 240 386 234 L386 250 Z" data-page-node-id="mW0kcc05PHa6P4vsLviF1J"/>
+      </g>
+      <!-- 巨型剪影阴影延伸 -->
+      <ellipse cx="352" cy="250" rx="90" ry="14" fill="#000" opacity=".55" data-page-node-id="yMC8DQOKXick0PoTdjPSgW"/>
+      <!-- 水晶球 -->
+      <g data-page-node-id="wd2G46tSuBNTJwj8nFGHzL">
+        <ellipse cx="474" cy="160" rx="26" ry="7" fill="rgba(255,255,255,.08)" data-page-node-id="0hFCPPqo91og3EKhSgcPuP"/>
+        <circle cx="474" cy="112" r="46" fill="#0b0d14" opacity=".35" data-page-node-id="1clHXNSP4uMeZIZNSIReKu"/>
+        <circle cx="474" cy="112" r="46" fill="url(#globe)" opacity=".5" data-page-node-id="HoqTyHDH1JcMup344sSl8c"/>
+        <!-- 球内雪花 -->
+        <g clip-path="url(#globeClip)" data-page-node-id="28vzh0HAZaHt94M4jfcoyd">
+          <g fill="#fff" opacity=".9" data-page-node-id="FA2YvV5dTUOCRTKplO8uRU">
+            <circle cx="458" cy="86" r="1.6" data-page-node-id="FEEuGwB1AWOqgcMk0bq587"><animate attributeName="cy" values="70;140" dur="3.4s" repeatCount="indefinite" data-page-node-id="pSvBmAqr251fHU4C3q0olE"/></circle>
+            <circle cx="486" cy="96" r="1.3" data-page-node-id="yaMf8Cgyr1xJJHgbYLFi1P"><animate attributeName="cy" values="76;150" dur="4s" begin=".6s" repeatCount="indefinite" data-page-node-id="6f2qKMg11EzyVMSoXItGBC"/></circle>
+            <circle cx="466" cy="112" r="1.4" data-page-node-id="hqhBHIfhTRlKKiYEeEAhUP"><animate attributeName="cy" values="84;158" dur="4.6s" begin="1.2s" repeatCount="indefinite" data-page-node-id="w6QQH48ALXaaNzTWmdujyC"/></circle>
+            <circle cx="492" cy="80" r="1.2" data-page-node-id="Xv9jJVsV9yM5GkWYJRllUD"><animate attributeName="cy" values="66;146" dur="3.8s" begin="1.8s" repeatCount="indefinite" data-page-node-id="cqyMHv54aRhKkXb9vSVLcd"/></circle>
+            <circle cx="470" cy="130" r="1.1" data-page-node-id="shRjZeB4TGQlywqGSfAfYy"><animate attributeName="cy" values="100;164" dur="5.2s" begin=".9s" repeatCount="indefinite" data-page-node-id="FJZNeu0GiGPn2GDHPSIYrP"/></circle>
+          </g>
+          <!-- 球内小木屋（不剧透，仅氛围） -->
+          <g stroke="#fff" stroke-width="1.1" opacity=".5" fill="none" data-page-node-id="xy1hh4EuPzT1ZxmRf5kYrI">
+            <path d="M470 146 l-7 -8 h14 Z" data-page-node-id="2SjsYdQvdrcHpY1zomaqYm"/><rect x="466" y="138" width="8" height="8" opacity="0" data-page-node-id="mAuCWRVDqGtHdXVCql8et2"/>
+          </g>
+        </g>
+        <circle cx="474" cy="112" r="46" fill="none" stroke="rgba(255,255,255,.55)" stroke-width="1.2" data-page-node-id="52jDAMj8Df3W1yopt60w2K"/>
+        <circle cx="458" cy="90" r="5" fill="rgba(255,255,255,.85)" data-page-node-id="xDn5yEuzjHzuZ3xZ05FQYt"/>
+      </g>
+      <!-- 光尘 -->
+      <g fill="#fff" data-page-node-id="2SU6xt2ELnrDIlhyXp8Soo">
+        <circle cx="300" cy="150" r="1.1" opacity=".8" data-page-node-id="aWAwijVCV2cqq0XfgoEKk9"><animate attributeName="opacity" values="0;.9;0" dur="3s" repeatCount="indefinite" data-page-node-id="8OH2xTGgfRPH52EtA6mpdF"/></circle>
+        <circle cx="330" cy="120" r=".9" opacity=".6" data-page-node-id="3dBNgjqBYsVqBTGNsriFrk"><animate attributeName="opacity" values="0;.8;0" dur="4s" begin="1s" repeatCount="indefinite" data-page-node-id="d9bpkl4tWfZ9zhO5HliBaC"/></circle>
+        <circle cx="370" cy="140" r="1.2" opacity=".7" data-page-node-id="NHcZMmoKZNTlQwFATuTbCu"><animate attributeName="opacity" values="0;.9;0" dur="3.6s" begin="2s" repeatCount="indefinite" data-page-node-id="aKk5Y0uAYgBGH3EChjivZ1"/></circle>
+        <circle cx="256" cy="120" r=".9" opacity=".5" data-page-node-id="HDGeG7wltiEPAaeIS4WB4g"><animate attributeName="opacity" values="0;.7;0" dur="4.4s" begin=".5s" repeatCount="indefinite" data-page-node-id="y1tgF4Nr3gtodamRtdyJLM"/></circle>
+      </g>
+    </svg>
+  </div>
+
+  <div class="kane-title" data-page-node-id="DKggh91vRLc29Bbmphhw1n">
+    <div class="en" data-page-node-id="yHnfONQ9ibd612ksS62Bys">CITIZEN KANE</div>
+    <div class="year" data-page-node-id="cstMK7N0anJxmxt3fYFbxH">· M C M X L I ·</div>
+    <div class="zh" data-page-node-id="AukHXc2oAwhvjvNn4FyqvW">公 民 凯 恩</div>
+  </div>
+
+  <div class="card" data-page-node-id="HKK9BtG6A4fuajTgkO2YXT">
+    <h2 class="sec" data-page-node-id="9SFi8Of8JCIVBlOj03uX4P">基本信息<span class="line" data-page-node-id="RNFxRqPDd3voaclRAWIZR2"></span></h2>
+    <div class="meta-line" data-page-node-id="EHGosinbAihwg8GMQVU5Te">
+      <b data-page-node-id="mgZVGDvr5qWcswT8MIYEOV">奥逊·威尔斯</b> 自编自导自演（25 岁天才处女作）　|　约瑟夫·科顿、多萝西·康明戈尔 主演
+      <br data-page-node-id="YsJ6HYBSV1OaTWhh55XFhM">
+      <span class="tag" data-page-node-id="IcWwNDhh9ligCTpGuY50Dt">1941</span><span class="tag" data-page-node-id="d3Cmip3K8gTSvyvDbKceA5">黑白</span><span class="tag" data-page-node-id="2jaMdTEz7YbwYwmSRY68wT">传记 · 悬疑 · 剧情</span><span class="tag" data-page-node-id="b8HIW9dClaCLZrdtForDzn">119 分钟</span><span class="tag" data-page-node-id="bKWfEwswQupKpXxumv313x">RKO</span>
+    </div>
+
+    <h2 class="sec" data-page-node-id="7AR1Rjc9vj4ZoCFOyy77AT">剧情梗概<span class="line" data-page-node-id="Mimg5co4zuJRdqnUrvZ4rs"></span></h2>
+    <div class="plot" data-page-node-id="T52okpAVEZaQswjG34fD9v">
+      <p data-page-node-id="YQawo0YZ8Q6jEQQ0Q6Nxcs">报业与金融巨子查尔斯·福斯特·凯恩，在佛罗里达州那座堆满欧洲古董的私人庄园「仙那度」中孤独离世。他临终前紧紧捏着一只水晶球，雪花在球中缓缓飘落——只留下一句无人能解的遗言：<b data-page-node-id="4GJuxageOeO3qfbAPwEbiI">「玫瑰花蕾」</b>。</p>
+      <p data-page-node-id="AKh8snZWFmIAMcRFomVFlX">这句话到底是什么意思？新闻社记者汤普森奉命追查这个谜，于是逐一走访凯恩生命中最重要的人——他的监护人、生意伙伴、最老的挚友，以及两任妻子。从雪地里被带走的童年清晨，到白手创办报业帝国；从意气风发的竞选之夜，到歌剧厅里无人喝彩的掌声——五个见证者讲述了五个不同版本的凯恩，而观众像拼图一样，拼出的是一个关于权力、爱与孤独的悲剧。</p>
+      <p class="no-indent" data-page-node-id="dIMUWBrN8obedegDzN0tnY">汤普森最后也没有找到答案，他只能感慨：<i data-page-node-id="E0pICPNeAlO6FUlXABodNb">「一个得到了一切的人……却可能什么都没得到。」</i>而镜头，缓缓推过仙那度堆积如山的遗物，停在最后一件被遗忘的东西上。谜底，只在最后一帧揭晓。</p>
+      <blockquote class="quote" data-page-node-id="glee40XjAjAd9P99atjvnG">
+        「玫瑰花蕾。」——凯恩的临终遗言，影史最著名的谜
+        <span class="who" data-page-node-id="IQeTHKE2EV4ky0TGWFolAW">—— 别急着找答案，答案会自己来找你</span>
+      </blockquote>
+    </div>
+
+    <h2 class="sec" data-page-node-id="qdvKHGSkYGUhl6PNKCbzyn">评分口碑<span class="line" data-page-node-id="Kg98xEJwHgc1ZCY8EFAi8K"></span></h2>
+    <div class="scores" data-page-node-id="KOd6sOtYrUlQUoj8413t4n">
+      <div class="score" data-page-node-id="9z8LTF3Kk2cfBNy6h8fN76"><div class="num" data-page-node-id="ILr5nEzvs0wTElAuaMWOb7">9.3</div><div class="src" data-page-node-id="vtT2SxfIGT5jABmsZTvCeQ">豆瓣</div></div>
+      <div class="score" data-page-node-id="kDLUbpwQT8JczDZ1CGnJSN"><div class="num" data-page-node-id="wFUCQ6yCDHi6hRdSderRQb">8.2</div><div class="src" data-page-node-id="CAHad0tC3WUO22tNdX0mjZ">IMDb</div></div>
+      <div class="score" data-page-node-id="QMuZlGAx273REf2UJoCeMM"><div class="num" data-page-node-id="14Q8cXtsbFGd9HYPN4D1y6">99%</div><div class="src" data-page-node-id="92cEhiuujTZCDgfvH8gBjD">烂番茄</div></div>
+      <div class="score gold" data-page-node-id="NtgZc6oBR0y05iAJXkm5LP"><div class="num" data-page-node-id="v8bDnriek4Ua5rsSWJgjfi">100</div><div class="src" data-page-node-id="HwrgIkBKQxJHomj6nqvZSf">Metacritic</div></div>
+    </div>
+
+    <h2 class="sec" data-page-node-id="0nrQNpgOIgCupVvDO0P5Yz">亮点所在<span class="line" data-page-node-id="gktgCB4Gh6kUf7LSs8e1UX"></span></h2>
+    <ul class="points" data-page-node-id="gUEi6uLHxc88avdUucEY60">
+      <li data-page-node-id="BACRY00pvzGDa7QHuSyEE6"><span class="no" data-page-node-id="lASXS0EIXzw1aFBSDDy2g1">1</span><b data-page-node-id="4D4cjsL7kfZW5Q4Oc7tzC9">「深焦摄影」的革命</b>——摄影师格雷格·托兰让前景与后景<b data-page-node-id="mBuOrAvpRXvd5Q4U44AX62">同时清晰</b>：前景的人影、中景的窗棂、远景的门，同处一个画面。空间第一次成为人物心理的延伸，这项技术改变了此后所有电影的面貌。</li>
+      <li data-page-node-id="HDF3OGk9Hb60i7V68QXxn4"><span class="no" data-page-node-id="laL7sI2X6etJNNDLe9Ux9I">2</span><b data-page-node-id="4rRIGCwF6GcE5zJL3Z967x">非线性叙事的教科书</b>——五位见证者、五个版本的回忆被交叉剪辑拼贴，每个人都在讲"自己眼中的真相"。这种多视角结构，后来被无数电影沿用至今。</li>
+      <li data-page-node-id="AkaggoC7kSJLFWNv8mUUBF"><span class="no" data-page-node-id="vfkcN6ax00RJz2IjAbzdjG">3</span><b data-page-node-id="e1DawIMrqeaxuoRadDuj6w">25 岁天才的自我证明</b>——奥逊·威尔斯自编自导自演，从青年演到垂暮，第一次拍电影就交出影史最伟大的处女作之一，还差点被整个好莱坞封杀。</li>
+      <li data-page-node-id="UfkKl3sjxsbo9Kny7Qoy9V"><span class="no" data-page-node-id="ApTOrTreRct4QgDpY8GyVr">4</span><b data-page-node-id="C8d48RGBzgzVGaYkyprJKS">「玫瑰花蕾」的永恒谜题</b>——一个简单的词，牵动记者跑遍半生、观众牵挂 80 年。它是影史最著名的麦高芬：你以为在追查谜底，其实是在拼凑一个人的人生。</li>
+    </ul>
+
+    <h2 class="sec" data-page-node-id="Fel1hMSE30obM7KzWRYkZp">为什么值得一看<span class="line" data-page-node-id="Y7aGpeUEr934DRbsoZtonl"></span></h2>
+    <div class="plot" data-page-node-id="qhiYon39ADfWp4Gmn4fv9O">
+      <p data-page-node-id="tMLpzLmU6D5XldKM5AuKWs">如果你想了解什么是"电影的语言"，《公民凯恩》是最好的第一课。低角度机位拍出天花板、蒙太奇浓缩一段婚姻、声音剪辑跨越二十年——这些如今习以为常的手法，80 年前全是第一次。它是 <b data-page-node-id="kak2o9PZHOMZIjbSietih9">AFI 百年百大电影榜的榜首</b>，是《视与听》杂志数次票选的影史第一，烂番茄与 Metacritic 双双满分。</p>
+      <p data-page-node-id="lpoNLQCoQs1onBkhG3t9Ec">但它并不只是影史课本。它讲的是一个拼命想被爱、却把所有人推开的人——每一个在权力、财富与声名里追逐"更多"的现代人，都能在凯恩身上看到自己。它值得反复观看，因为每一次重看，你都会在不同的年纪，读懂新的「玫瑰花蕾」。</p>
+    </div>
+
+    <div class="note" data-page-node-id="665AyYsl0pVmvlMw3Hd7P8">
+      🎬 <b data-page-node-id="2sVM9WCe9fZGOxDCP6E2Zo">观影小贴士：</b>本片叙事先锋、节奏沉稳，建议挑一个安静的夜晚、放低期待地看——它不是爆米花，而是一杯需要慢慢品的黑咖啡。若看完意犹未尽，2020 年的《曼克》讲述了本片剧本诞生的幕后故事，可作延伸。
+    </div>
+  </div>
+
+  <div class="footer-note" data-page-node-id="RcJxdTEgZC3TGKzkWxDQ0B">
+    CITIZEN KANE · 1941<br data-page-node-id="89s4O7bGnQMnpe3So3Vizu">
+    <span class="cn" data-page-node-id="sYtHrR4IkBXsQLqiVCBWhi">ROSEBUD · 谜底留给你</span>
+  </div>
+</div>
+
+</body>
+</html>
