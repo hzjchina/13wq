@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "绿野仙踪",
+          "date": "2026-09-08",
+          "summary": "绿野仙踪 THE WIZARD OF OZ 绿 野 仙 踪 — 1939 · MGM · THERE'S NO PLACE LIKE HOME — 基本信息 维克多·弗莱明 导演 | 朱迪·加兰 主演（饰演多萝西，年仅 17 岁） | 改编...",
+          "path": "classic-movies/classic-movie-2026-09-08.html"
+        },
+        {
           "title": "公民凯恩",
           "date": "2026-09-07",
           "summary": "公民凯恩 CITIZEN KANE · 1941 · RKO RADIO PICTURES · ORSON WELLES CITIZEN KANE · 1941 · RKO RADIO PICTURES · ORSON WELLES K C...",
@@ -431,6 +437,12 @@
       "name": "睡前故事",
       "icon": "🌙",
       "items": [
+        {
+          "title": "企鹅爸爸的脚背",
+          "date": "2026-09-07",
+          "summary": "企鹅爸爸的脚背 — 儿童睡前故事 企鹅爸爸的脚背 ❄ ✦ ❄ ✦ ❄ 南极的夏天结束得很快。一夜之间，冰原上空就亮起长长的、绿莹莹的光带——那是极夜来了，太阳要整整两个月不肯露面。 企鹅爸爸们排成密密的圆圈，谁也没有回家。因为在每个人的脚背...",
+          "path": "bedtime-stories/bedtime-story-2026-09-07.html"
+        },
         {
           "title": "小鹿的流星角",
           "date": "2026-09-06",
@@ -1067,6 +1079,12 @@
       "name": "AI情报",
       "icon": "🤖",
       "items": [
+        {
+          "title": "AI 情报日报 · 2026-09-08",
+          "date": "2026-09-08",
+          "summary": "AI 情报日报 · 2026-09-08 AI · DAILY INTELLIGENCE AI 情报日报 · 2026-09-08 AI 圈当日要闻精选 ｜ 侧重 AI Coding 与具身智能 ｜ 按热度降序 · 共 20 条 2026-...",
+          "path": "ai-info/ai-info-2026-09-08.html"
+        },
         {
           "title": "AI 情报日报 · 2026-09-07",
           "date": "2026-09-07",

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>绿野仙踪</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{min-height:100%;}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    background:
+      radial-gradient(ellipse 80% 45% at 50% -8%, rgba(120,255,190,.10), transparent 62%),
+      radial-gradient(ellipse 90% 55% at 50% 112%, rgba(255,215,130,.06), transparent 62%),
+      linear-gradient(180deg,#071312 0%,#0a1f1a 45%,#0d2b20 70%,#081a16 100%);
+    color:#e6f4e8; overflow-x:hidden; position:relative; min-height:100vh; padding-bottom:70px;
+  }
+  /* 顶部飘光 */
+  .top-glow{position:fixed;left:0;right:0;top:0;height:4px;z-index:6;
+    background:linear-gradient(90deg,transparent,#ffe27a,#7dffb2,#ffe27a,transparent);
+    background-size:200% 100%;animation:goldSlide 8s linear infinite;opacity:.8;}
+  @keyframes goldSlide{to{background-position:-200% 0;}}
+
+  .stage{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:80px 20px 0;}
+
+  .hero{text-align:center;}
+  .hero svg{width:min(600px,96vw);height:auto;filter:drop-shadow(0 16px 44px rgba(0,0,0,.55));}
+
+  .title-block{text-align:center;margin:-4px 0 26px;position:relative;}
+  .title-block .en{
+    font-family:Georgia,"Times New Roman",serif;font-weight:900;letter-spacing:5px;
+    font-size:clamp(1.9rem,7.6vw,3.2rem);
+    background:linear-gradient(180deg,#fff6d8 20%,#ffd76a 55%,#e8a93c 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 4px 14px rgba(255,190,80,.25));
+  }
+  .title-block .zh{margin-top:6px;font-size:clamp(1.2rem,4.6vw,1.6rem);letter-spacing:8px;color:#bff2d2;text-shadow:0 0 16px rgba(120,255,180,.25);}
+  .title-block .sub{margin-top:8px;font-size:11.5px;letter-spacing:6px;color:rgba(190,240,205,.55);}
+
+  .card{
+    position:relative;background:rgba(10,28,22,.66);
+    border:1px solid rgba(150,240,190,.16);border-radius:18px;
+    padding:32px 34px 36px;
+    box-shadow:0 22px 70px rgba(0,0,0,.5), inset 0 0 70px rgba(120,255,180,.03);
+  }
+  .card::after{content:"";position:absolute;inset:8px;border:1px dashed rgba(255,215,130,.22);border-radius:12px;pointer-events:none;}
+
+  h2.sec{font-size:1.02rem;font-weight:700;letter-spacing:5px;color:#ffe9ad;margin:26px 0 12px;display:flex;align-items:center;gap:12px;}
+  h2.sec:first-child{margin-top:0;}
+  h2.sec .line{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,225,150,.45),transparent);}
+  h2.sec::before{content:"◆";font-size:.8rem;color:#ffe27a;}
+
+  .meta-line{font-size:1.06rem;line-height:2;color:#e2f0e4;}
+  .meta-line b{color:#fffdf2;font-weight:700;}
+  .meta-line .tag{display:inline-block;border:1px solid rgba(200,255,220,.3);border-radius:20px;padding:1px 12px;font-size:.85rem;letter-spacing:1px;margin:0 4px 4px 0;color:#c9f2d6;}
+
+  .plot{font-size:1.08rem;line-height:2.05;color:#dfece1;text-align:justify;}
+  .plot p{margin:12px 0;text-indent:2em;}
+  .plot .quote{
+    margin:18px 0;padding:16px 22px;border-left:3px solid #ffe27a;
+    background:rgba(255,215,130,.05);text-indent:0;font-size:1rem;line-height:1.9;color:#f3e3b5;
+  }
+  .plot .quote .who{display:block;margin-top:8px;font-size:.86rem;color:rgba(243,227,181,.65);}
+
+  .scores{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:6px;}
+  .score{background:rgba(255,255,255,.03);border:1px solid rgba(180,240,205,.14);border-radius:10px;padding:14px 8px;text-align:center;transition:transform .3s;}
+  .score:hover{transform:translateY(-3px);}
+  .score .num{font-family:Georgia,serif;font-size:1.7rem;font-weight:800;color:#fff6d8;}
+  .score .src{margin-top:5px;font-size:.78rem;letter-spacing:2px;color:rgba(190,235,205,.6);}
+  .score.gold{border-color:rgba(255,210,110,.4);background:rgba(255,215,130,.05);}
+  .score.gold .num{color:#ffdf8a;}
+
+  ul.points{list-style:none;margin-top:4px;}
+  ul.points li{position:relative;padding:13px 0 13px 46px;border-bottom:1px dashed rgba(200,240,210,.12);font-size:1.03rem;line-height:1.9;color:#dceadf;}
+  ul.points li:last-child{border-bottom:none;}
+  ul.points li .no{
+    position:absolute;left:0;top:12px;width:32px;height:32px;border-radius:50%;
+    background:linear-gradient(135deg,#ffe27a,#e8a93c);color:#173528;
+    font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 2px 10px rgba(255,200,90,.35);
+  }
+  ul.points li b{color:#fff8e0;}
+  ul.points li .movie-quote{display:block;margin-top:6px;font-size:.92rem;color:#9fd8ae;font-style:normal;padding-left:2px;}
+
+  .note{margin-top:28px;padding:16px 20px;font-size:.95rem;line-height:1.9;color:#c9dfce;
+    background:rgba(255,226,122,.04);border:1px dashed rgba(255,226,122,.3);border-radius:10px;}
+  .note b{color:#ffe9ad;}
+
+  .footer-note{text-align:center;margin-top:40px;font-size:12px;letter-spacing:4px;color:rgba(190,235,205,.42);}
+  .footer-note .rainbow{display:block;font-size:13px;margin-bottom:6px;}
+
+  @media(max-width:520px){
+    .stage{padding:64px 14px 0;}
+    .card{padding:26px 20px 30px;}
+    .scores{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+<div class="top-glow"></div>
+
+<div class="stage">
+
+  <!-- 主视觉：翡翠城 + 黄砖路 + 彩虹 -->
+  <div class="hero">
+    <svg viewBox="0 0 560 270" role="img" aria-label="彩虹之下，蜿蜒的黄砖路通向翡翠城">
+      <defs>
+        <linearGradient id="emeraldSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0a1a16"/><stop offset="1" stop-color="#123a2a"/>
+        </linearGradient>
+        <linearGradient id="rainbowG" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#ff6b8a"/><stop offset=".2" stop-color="#ffab5e"/><stop offset=".4" stop-color="#ffe27a"/>
+          <stop offset=".6" stop-color="#7dffb2"/><stop offset=".8" stop-color="#7ad7ff"/><stop offset="1" stop-color="#b49bff"/>
+        </linearGradient>
+        <linearGradient id="brickG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffdf8a"/><stop offset="1" stop-color="#d99a3d"/>
+        </linearGradient>
+        <linearGradient id="cityG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#2fd98a"/><stop offset="1" stop-color="#0e5c3a"/>
+        </linearGradient>
+        <radialGradient id="cityGlow" cx="50%" cy="40%" r="60%">
+          <stop offset="0" stop-color="rgba(110,255,180,.5)"/><stop offset="1" stop-color="rgba(110,255,180,0)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 天空 -->
+      <rect width="560" height="270" fill="url(#emeraldSky)"/>
+      <!-- 星 -->
+      <circle cx="46" cy="28" r="1.2" fill="#d9fff0" opacity=".9"><animate attributeName="opacity" values=".3;1;.3" dur="2.6s" repeatCount="indefinite"/></circle>
+      <circle cx="150" cy="40" r="1" fill="#d9fff0" opacity=".7"><animate attributeName="opacity" values=".3;1;.3" dur="3.2s" begin=".6s" repeatCount="indefinite"/></circle>
+      <circle cx="500" cy="26" r="1.3" fill="#d9fff0" opacity=".85"><animate attributeName="opacity" values=".3;1;.3" dur="2.9s" begin="1.1s" repeatCount="indefinite"/></circle>
+      <circle cx="420" cy="44" r="1" fill="#d9fff0" opacity=".6"><animate attributeName="opacity" values=".3;1;.3" dur="3.5s" begin="1.7s" repeatCount="indefinite"/></circle>
+
+      <!-- 彩虹 -->
+      <path d="M60 236 A 260 260 0 0 1 500 236" fill="none" stroke="url(#rainbowG)" stroke-width="13" opacity=".95"/>
+      <path d="M88 244 A 232 232 0 0 1 472 244" fill="none" stroke="rgba(255,255,255,.16)" stroke-width="3"/>
+
+      <!-- 翡翠城远景辉光 -->
+      <ellipse cx="360" cy="172" rx="150" ry="90" fill="url(#cityGlow)"/>
+
+      <!-- 翡翠城 -->
+      <g fill="url(#cityG)" opacity=".96">
+        <!-- 主塔（圆顶） -->
+        <rect x="330" y="118" width="30" height="74"/>
+        <circle cx="345" cy="112" r="18"/>
+        <line x1="345" y1="90" x2="345" y2="96" stroke="#0e5c3a" stroke-width="3"/>
+        <circle cx="345" cy="86" r="3.5" fill="#ffe27a"><animate attributeName="opacity" values=".4;1;.4" dur="2.4s" repeatCount="indefinite"/></circle>
+        <!-- 左塔 -->
+        <rect x="296" y="134" width="20" height="58"/>
+        <polygon points="306,120 294,136 318,136"/>
+        <!-- 右塔 -->
+        <rect x="376" y="128" width="22" height="64"/>
+        <polygon points="387,112 373,130 401,130"/>
+        <!-- 圆顶小亭 -->
+        <rect x="404" y="142" width="16" height="50"/>
+        <circle cx="412" cy="138" r="10"/>
+        <!-- 城墙 -->
+        <rect x="272" y="178" width="150" height="14"/>
+        <rect x="262" y="188" width="170" height="10"/>
+      </g>
+      <!-- 城门（金色拱） -->
+      <path d="M336 192 A 16 16 0 0 1 368 192 Z" fill="#ffe27a"/>
+      <rect x="330" y="192" width="44" height="8" fill="#d99a3d"/>
+
+      <!-- 黄砖路（蜿蜒） -->
+      <path d="M120 268 Q200 248 250 236 Q330 220 356 200 L366 200 Q340 224 258 240 Q210 250 150 268 Z" fill="url(#brickG)"/>
+      <path d="M120 268 Q200 248 250 236 Q330 220 356 200 L366 200 Q340 224 258 240 Q210 250 150 268 Z" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1.4"/>
+      <!-- 砖缝 -->
+      <g stroke="#b07f2c" stroke-width="1" opacity=".6">
+        <line x1="176" y1="260" x2="186" y2="257"/>
+        <line x1="210" y1="252" x2="220" y2="249"/>
+        <line x1="256" y1="243" x2="266" y2="240"/>
+        <line x1="300" y1="230" x2="310" y2="227"/>
+        <line x1="335" y1="216" x2="345" y2="212"/>
+      </g>
+      <!-- 黄砖路点点发光 -->
+      <g fill="#fff8d8">
+        <circle cx="180" cy="258" r="1.5" opacity=".9"><animate attributeName="opacity" values=".2;1;.2" dur="2.2s" repeatCount="indefinite"/></circle>
+        <circle cx="262" cy="241" r="1.4" opacity=".8"><animate attributeName="opacity" values=".2;1;.2" dur="2.8s" begin=".5s" repeatCount="indefinite"/></circle>
+        <circle cx="318" cy="224" r="1.4" opacity=".85"><animate attributeName="opacity" values=".2;1;.2" dur="2.5s" begin="1s" repeatCount="indefinite"/></circle>
+        <circle cx="348" cy="210" r="1.2" opacity=".8"><animate attributeName="opacity" values=".2;1;.2" dur="3s" begin="1.4s" repeatCount="indefinite"/></circle>
+      </g>
+
+      <!-- 小雏菊点缀路旁 -->
+      <g>
+        <circle cx="150" cy="262" r="3" fill="#ffe27a"/>
+        <circle cx="160" cy="265" r="2.4" fill="#ff9db8"/>
+        <circle cx="420" cy="240" r="3" fill="#ffe27a"/>
+        <circle cx="434" cy="242" r="2.4" fill="#7ad7ff"/>
+      </g>
+
+      <!-- 红宝石拖鞋（一角，电影标志） -->
+      <g transform="translate(178,252)">
+        <ellipse cx="0" cy="4" rx="8" ry="4.4" fill="#c1184b"/>
+        <path d="M-6 4 Q-4 -4 6 -3 Q10 -2 7 5 Q0 9 -6 4 Z" fill="#d61c55"/>
+        <path d="M-6 4 Q-4 -5 5 -4" fill="none" stroke="#a1103f" stroke-width="1"/>
+        <circle cx="-2" cy="-1" r="1.5" fill="#ff5f8d"/>
+        <circle cx="3" cy="0" r="1.2" fill="#ff5f8d" opacity=".9"/>
+        <circle cx="0" cy="4" r="8" fill="none" stroke="rgba(255,120,170,.55)" stroke-width="1"><animate attributeName="opacity" values=".2;.9;.2" dur="2.6s" repeatCount="indefinite"/></circle>
+      </g>
+
+      <!-- 飘落的彩色花瓣/火星 -->
+      <g>
+        <circle cx="120" cy="90" r="2" fill="#ff9db8"><animate attributeName="cy" values="60;200" dur="6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.9;0" dur="6s" repeatCount="indefinite"/></circle>
+        <circle cx="230" cy="70" r="1.8" fill="#ffe27a"><animate attributeName="cy" values="50;190" dur="7s" begin="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.9;0" dur="7s" begin="1s" repeatCount="indefinite"/></circle>
+        <circle cx="480" cy="100" r="1.8" fill="#7ad7ff"><animate attributeName="cy" values="70;210" dur="6.5s" begin="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.9;0" dur="6.5s" begin="2s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
+
+  <div class="title-block">
+    <div class="en">THE WIZARD OF OZ</div>
+    <div class="zh">绿 野 仙 踪</div>
+    <div class="sub">— 1939 · MGM · THERE'S NO PLACE LIKE HOME —</div>
+  </div>
+
+  <div class="card">
+    <h2 class="sec">基本信息<span class="line"></span></h2>
+    <div class="meta-line">
+      <b>维克多·弗莱明</b> 导演　|　<b>朱迪·加兰</b> 主演（饰演多萝西，年仅 17 岁）　|　改编自莱曼·弗兰克·鲍姆童话
+      <br>
+      <span class="tag">1939</span><span class="tag">童话 · 歌舞 · 奇幻</span><span class="tag">102 分钟</span><span class="tag">米高梅 MGM</span>
+    </div>
+
+    <h2 class="sec">剧情梗概<span class="line"></span></h2>
+    <div class="plot">
+      <p>堪萨斯州的农场少女多萝西，和叔叔婶婶住在一起，唯一的玩伴是小狗托托。一场遮天蔽日的龙卷风突然袭来，把多萝西的小木屋整个卷上了天——等她睁开眼，已经落在一片从没见过的地方：遍地矮小的芒奇金人、会说话的花朵、还有一座闪烁着绿光的远方城池。</p>
+      <p>这里叫奥兹国。好心女巫告诉她，城里住着一位法力无边的巫师，也许能帮她回家。于是多萝西抱紧托托，踏上了那条传说中通往翡翠城的<b>黄砖路</b>。</p>
+      <p>一路上，她遇见了三个同样"想要点什么"的伙伴：想要一副头脑的稻草人、想要一颗心的铁皮人，和想要一点胆量的胆小狮子。他们结伴同行，穿过苹果树扔苹果的森林、香气袭人的罂粟花田，一路朝着翡翠城的方向走去——据说，奥兹大巫师能满足他们每个人的愿望。</p>
+      <p>可越走近那座闪闪发光的城，他们越开始怀疑：这个传说，真的可靠吗？而回家的路，又到底在哪里？</p>
+      <blockquote class="quote">
+        「托托，我感觉我们已经不在堪萨斯了。」
+        <span class="who">—— 影史最著名的台词之一（AFI 百年金句第 4 位）</span>
+      </blockquote>
+    </div>
+
+    <h2 class="sec">评分口碑<span class="line"></span></h2>
+    <div class="scores">
+      <div class="score"><div class="num">8.2</div><div class="src">豆瓣</div></div>
+      <div class="score"><div class="num">8.1</div><div class="src">IMDb</div></div>
+      <div class="score"><div class="num">98%</div><div class="src">烂番茄</div></div>
+      <div class="score gold"><div class="num">92</div><div class="src">Metacritic</div></div>
+    </div>
+
+    <h2 class="sec">亮点所在<span class="line"></span></h2>
+    <ul class="points">
+      <li><span class="no">1</span><b>「黑白 → 彩色」的影史一瞬</b>——堪萨斯的现实是黑白画面，多萝西推开木屋的门踏进奥兹国的那一刻，银幕瞬间变为彩色。1939 年，这个转换让全球观众第一次在大银幕上"哇"出声来，是电影技术史上的名场面。
+        <span class="movie-quote">（如今看也许平常，当年可是要屏住呼吸的魔法时刻）</span></li>
+      <li><span class="no">2</span><b>影史第一金曲《Over the Rainbow》</b>——AFI 百年百大歌曲第 1 名。"在彩虹之上的某处……"朱迪·加兰清澈的嗓音，唱出了一代又一代人对远方与梦想的全部想象。</li>
+      <li><span class="no">3</span><b>一群"找自己"的伙伴</b>——缺头脑的稻草人、缺心的铁皮人、缺胆量的狮子，一路都在寻找自己没有的东西，却总在关键时刻，用行动证明那些品质早已住在自己心里。这是给每个孩子（和大人）的温柔提醒。</li>
+      <li><span class="no">4</span><b>「家」的永恒答案</b>——多萝西走遍奇幻仙境，最终领悟的那句话，被 AFI 列为影史金句第 23 位。它安慰过无数离家的游子：最好的一切，也许从出发那天起，就一直在你身边。</li>
+    </ul>
+
+    <h2 class="sec">为什么值得一看<span class="line"></span></h2>
+    <div class="plot">
+      <p>它和《乱世佳人》同年诞生（同为 1939 年），是 AFI 百年百大电影第 6 位、美国国家电影登记部首批典藏；2018 年一项对 4.7 万部影片的研究，更把它评为"影史最具影响力的电影"第一名——排在《星球大战》和《惊魂记》之前。</p>
+      <p>但《绿野仙踪》的伟大不在榜单里，而在每个孩子的眼睛里。它是无数人人生中看过的第一部"彩色奇幻片"：有坏女巫、有魔法师、有会唱歌的小伙伴，也有一个简单到让人落泪的道理——<b>你想找的东西，也许早已在你身上；你想去的地方，也许就是家。</b></p>
+    </div>
+
+    <div class="note">
+      🎬 <b>观影小贴士：</b>适合全家人一起看，尤其适合给孩子当"人生第一部奇幻歌舞片"。片头堪萨斯段落为黑白，约 10 分钟后进入彩色奥兹国——可以提前告诉小朋友"马上要变魔法啦"，让他们自己感受那一瞬间的惊喜。
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <span class="rainbow">🌈</span>
+    SOMEHWERE OVER THE RAINBOW · THE WIZARD OF OZ · 1939
+  </div>
+</div>
+
+</body>
+</html>

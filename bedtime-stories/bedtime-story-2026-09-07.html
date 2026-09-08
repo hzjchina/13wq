@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>企鹅爸爸的脚背 — 儿童睡前故事</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{min-height:100%;}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    background:linear-gradient(180deg,#04091c 0%,#081231 40%,#0c1c44 62%,#071026 100%);
+    color:#eaf2ff; overflow-x:hidden; position:relative; min-height:100vh; padding-bottom:60px;
+  }
+  /* 极光底层微光 */
+  .aurora-bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse 70% 35% at 70% 0%,rgba(90,255,210,.10),transparent 60%),
+               radial-gradient(ellipse 60% 30% at 30% 6%,rgba(140,220,255,.08),transparent 55%);}
+  #stars{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8);}50%{opacity:.95;transform:scale(1.15);}}
+
+  /* 月亮 */
+  .moon-wrap{position:absolute;top:6%;right:9%;z-index:1;animation:moonFloat 8s ease-in-out infinite;}
+  @keyframes moonFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  .moon-core{width:66px;height:66px;border-radius:50%;
+    background:radial-gradient(circle at 38% 32%,#fffdf0,#e8f6ff 55%,#bcd9f0 100%);
+    box-shadow:0 0 30px rgba(200,230,255,.5);}
+  .moon-halo{position:absolute;inset:-20px;border-radius:50%;
+    background:radial-gradient(circle,rgba(215,240,255,.45),transparent 70%);
+    animation:haloBreath 5s ease-in-out infinite;}
+  @keyframes haloBreath{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.12);}}
+
+  /* 雪花 */
+  .snow{position:fixed;top:-12px;border-radius:50%;background:#fff;z-index:1;pointer-events:none;
+    animation:fall linear infinite; opacity:.7;}
+  @keyframes fall{0%{transform:translateY(0) translateX(0);opacity:0;}8%{opacity:.75;}
+    100%{transform:translateY(112vh) translateX(34px);opacity:.15;}}
+
+  .stage{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:110px 20px 0;}
+
+  .story-card{
+    position:relative;z-index:2;background:rgba(8,16,42,.62);
+    border:1px solid rgba(150,200,255,.16); border-radius:22px;
+    padding:30px 28px 34px; margin-top:4px;
+    box-shadow:0 18px 60px rgba(0,0,0,.4), inset 0 0 60px rgba(110,200,255,.045);
+    backdrop-filter:blur(3px);
+  }
+
+  .title-wrap{text-align:center;margin-bottom:8px;}
+  .story-title{
+    font-size:clamp(1.6rem,5.6vw,2.35rem);font-weight:800;letter-spacing:2px;
+    color:#dff6ff; text-shadow:0 0 18px rgba(140,230,255,.8),0 0 46px rgba(90,220,255,.35);
+    animation:titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow{0%,100%{text-shadow:0 0 14px rgba(140,230,255,.55),0 0 34px rgba(90,220,255,.2);}
+    50%{text-shadow:0 0 24px rgba(170,240,255,.95),0 0 60px rgba(110,235,255,.5);}}
+  .sub-star{text-align:center;margin:12px 0 4px;}
+  .sub-star span{display:inline-block;font-size:13px;color:#aef0ff;margin:0 7px;animation:dotGlow 2.8s ease-in-out infinite;text-shadow:0 0 8px rgba(140,230,255,.8);}
+  .sub-star span:nth-child(2){animation-delay:.6s;} .sub-star span:nth-child(3){animation-delay:1.2s;}
+  @keyframes dotGlow{0%,100%{opacity:.45;}50%{opacity:1;}}
+
+  .story-body{font-size:clamp(1.06rem,3.8vw,1.2rem);line-height:2.05;color:#e8efff;text-align:justify;}
+  .story-body p{margin:14px 0;text-indent:2em;}
+  .story-body em{font-style:normal;color:#9fe8ff;}
+
+  .goodnight{
+    margin-top:26px;padding:22px 20px;text-align:center;border-radius:16px;
+    background:linear-gradient(135deg,rgba(130,230,255,.10),rgba(120,160,255,.08));
+    border:1px solid rgba(160,225,255,.26);
+    color:#e2f7ff;font-size:clamp(1rem,3.6vw,1.13rem);line-height:1.9;
+    box-shadow:0 0 34px rgba(120,220,255,.10);animation:gnGlow 5s ease-in-out infinite;
+  }
+  @keyframes gnGlow{0%,100%{box-shadow:0 0 22px rgba(120,220,255,.07);}50%{box-shadow:0 0 46px rgba(150,235,255,.24);}}
+
+  .footer-note{text-align:center;margin-top:34px;font-size:12.5px;color:rgba(180,220,255,.4);letter-spacing:3px;}
+
+  .particle{position:fixed;bottom:-12px;border-radius:50%;z-index:1;pointer-events:none;
+    background:radial-gradient(circle,rgba(160,240,255,.9),rgba(120,200,255,0));
+    animation:rise linear infinite;}
+  @keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0;}12%{opacity:.6;}
+    100%{transform:translateY(-105vh) translateX(22px);opacity:0;}}
+
+  .glow-band{position:fixed;left:0;right:0;bottom:0;height:120px;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(150,220,255,0) 0%,rgba(140,215,255,.07) 60%,rgba(130,210,255,.12) 100%);
+    animation:bandBreath 5.5s ease-in-out infinite;}
+  @keyframes bandBreath{0%,100%{opacity:.6;}50%{opacity:1;}}
+
+  @media(max-width:520px){
+    .stage{padding:90px 14px 0;}
+    .moon-wrap{transform:scale(.7);right:1%;top:4%;}
+    .story-card{padding:24px 18px 26px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="aurora-bg"></div>
+<div id="stars"></div>
+<div class="glow-band"></div>
+
+<div class="moon-wrap">
+  <div class="moon-halo"></div>
+  <div class="moon-core"></div>
+</div>
+
+<div class="stage">
+
+  <!-- 插画：极光冰原上的企鹅爸爸与小企鹅团团 -->
+  <div style="text-align:center;margin-bottom:6px;">
+    <svg viewBox="0 0 480 320" style="width:min(440px,94vw);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 10px 26px rgba(0,0,0,.4));" role="img" aria-label="极光下的冰原上，企鹅爸爸低头守护脚背上发光的蛋，旁边小企鹅仰望">
+      <defs>
+        <linearGradient id="auroraA" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#2be0b0" stop-opacity="0"/><stop offset=".35" stop-color="#3ef0c8" stop-opacity=".55"/>
+          <stop offset=".7" stop-color="#7ce9ff" stop-opacity=".5"/><stop offset="1" stop-color="#9fd8ff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="auroraB" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#8f6cff" stop-opacity="0"/><stop offset=".4" stop-color="#b59cff" stop-opacity=".4"/>
+          <stop offset="1" stop-color="#6cf2d8" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="glacier1" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#152a5e"/><stop offset="1" stop-color="#0a1638"/>
+        </linearGradient>
+        <linearGradient id="glacier2" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0e1f49"/><stop offset="1" stop-color="#060e26"/>
+        </linearGradient>
+        <linearGradient id="iceTop" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#dff4ff" stop-opacity=".8"/><stop offset="1" stop-color="#9ec9e8" stop-opacity=".15"/>
+        </linearGradient>
+        <radialGradient id="eggGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0" stop-color="#fff" stop-opacity=".85"/><stop offset=".4" stop-color="#c8f0ff" stop-opacity=".5"/>
+          <stop offset="1" stop-color="#c8f0ff" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="softBlur" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="7"/>
+        </filter>
+      </defs>
+
+      <!-- 背景星光 -->
+      <circle cx="60" cy="30" r="1" fill="#fff" opacity=".9"/>
+      <circle cx="120" cy="52" r="1.3" fill="#fff" opacity=".8"/>
+      <circle cx="200" cy="24" r="1" fill="#fff" opacity=".7"/>
+      <circle cx="330" cy="38" r="1.2" fill="#fff" opacity=".85"/>
+      <circle cx="420" cy="56" r="1" fill="#fff" opacity=".6"/>
+
+      <!-- 极光（流动） -->
+      <g filter="url(#softBlur)">
+        <path d="M-20 40 Q150 -30 480 60 L480 130 Q260 40 -20 100 Z" fill="url(#auroraA)" opacity=".6">
+          <animate attributeName="d" dur="14s" repeatCount="indefinite"
+            values="M-20 40 Q150 -30 480 60 L480 130 Q260 40 -20 100 Z;
+                    M-20 20 Q160 10 480 40 L480 120 Q260 70 -20 90 Z;
+                    M-20 40 Q150 -30 480 60 L480 130 Q260 40 -20 100 Z"/>
+        </path>
+        <path d="M80 90 Q240 20 500 110 L500 170 Q240 70 80 150 Z" fill="url(#auroraB)" opacity=".45">
+          <animate attributeName="d" dur="18s" repeatCount="indefinite"
+            values="M80 90 Q240 20 500 110 L500 170 Q240 70 80 150 Z;
+                    M80 70 Q240 45 500 90 L500 165 Q240 95 80 135 Z;
+                    M80 90 Q240 20 500 110 L500 170 Q240 70 80 150 Z"/>
+        </path>
+      </g>
+
+      <!-- 冰川远景 -->
+      <path d="M0 236 L70 190 L120 226 L180 196 L250 232 L330 204 L420 234 L480 214 L480 320 L0 320 Z" fill="url(#glacier1)" opacity=".75"/>
+      <path d="M0 270 L90 240 L160 262 L260 236 L360 264 L480 248 L480 320 L0 320 Z" fill="url(#glacier2)"/>
+      <!-- 冰面 -->
+      <ellipse cx="240" cy="300" rx="250" ry="34" fill="url(#iceTop)"/>
+      <ellipse cx="240" cy="306" rx="250" ry="26" fill="#0a1638"/>
+      <!-- 冰面反光 -->
+      <path d="M120 288 Q240 280 400 290" stroke="rgba(190,235,255,.35)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M150 300 Q260 294 380 302" stroke="rgba(190,235,255,.2)" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+      <!-- 地面细碎冰晶闪烁 -->
+      <circle cx="92" cy="274" r="1.6" fill="#cdf3ff" opacity=".8"><animate attributeName="opacity" values=".2;1;.2" dur="2.6s" repeatCount="indefinite"/></circle>
+      <circle cx="398" cy="270" r="1.4" fill="#cdf3ff" opacity=".7"><animate attributeName="opacity" values=".2;1;.2" dur="3.2s" begin=".8s" repeatCount="indefinite"/></circle>
+      <circle cx="330" cy="286" r="1.3" fill="#cdf3ff" opacity=".6"><animate attributeName="opacity" values=".15;.9;.15" dur="2.9s" begin="1.4s" repeatCount="indefinite"/></circle>
+
+      <!-- ===== 企鹅爸爸（低头守护脚背上的蛋） ===== -->
+      <g transform="translate(128,40)">
+        <animateTransform attributeName="transform" type="translate" values="128 40;130 42;128 40;126 42;128 40" dur="5s" repeatCount="indefinite"/>
+        <!-- 脚 -->
+        <ellipse cx="74" cy="214" rx="20" ry="8" fill="#e89a3c"/>
+        <ellipse cx="132" cy="214" rx="20" ry="8" fill="#e89a3c"/>
+        <!-- 身体（黑） -->
+        <path d="M48 96 Q40 150 52 196 Q70 224 103 224 Q136 224 154 196 Q166 150 158 96 Q150 66 128 58 Q112 52 103 52 Q86 54 78 66 Q58 78 48 96 Z" fill="#171b26"/>
+        <!-- 白肚皮 -->
+        <path d="M74 96 Q70 150 82 192 Q92 212 103 214 Q114 212 124 192 Q136 150 132 96 Q128 74 116 66 Q103 60 90 66 Q78 74 74 96 Z" fill="#f4f7fb"/>
+        <!-- 两侧鳍翅 -->
+        <path d="M44 100 Q30 130 34 168 Q40 180 52 168 Q48 138 56 108 Z" fill="#141824"/>
+        <path d="M162 100 Q176 130 172 168 Q166 180 154 168 Q158 138 150 108 Z" fill="#141824"/>
+        <!-- 颈部金斑 -->
+        <path d="M62 66 Q72 84 96 86 Q90 68 92 52 Q76 52 62 66 Z" fill="#ffd37a" opacity=".95"/>
+        <path d="M144 66 Q134 84 110 86 Q116 68 114 52 Q130 52 144 66 Z" fill="#ffd37a" opacity=".95"/>
+        <!-- 头（黑色，低头） -->
+        <ellipse cx="103" cy="48" rx="36" ry="34" fill="#161a25" transform="rotate(12 103 48)"/>
+        <!-- 低头看蛋的眼睛 -->
+        <circle cx="86" cy="52" r="4" fill="#0c0f16"/><circle cx="84" cy="50" r="1.4" fill="#fff"/>
+        <circle cx="118" cy="62" r="3.6" fill="#0c0f16"/><circle cx="116" cy="60" r="1.2" fill="#fff"/>
+        <!-- 喙（朝下方蛋） -->
+        <path d="M78 62 L64 78 L84 70 Z" fill="#f2a04c"/>
+        <path d="M128 72 L144 82 L126 82 Z" fill="#f2a04c"/>
+        <!-- 脚背上的蛋（发光小暖包） -->
+        <g>
+          <ellipse cx="132" cy="206" rx="40" ry="18" fill="url(#eggGlow)">
+            <animate attributeName="opacity" values=".35;.8;.35" dur="3s" repeatCount="indefinite"/>
+          </ellipse>
+          <ellipse cx="132" cy="208" rx="17" ry="10" fill="#dfefff">
+            <animate attributeName="ry" values="10;10.8;10" dur="2.6s" repeatCount="indefinite"/>
+          </ellipse>
+          <path d="M121 208 Q127 200 135 200 Q141 200 144 207" stroke="#bfe6ff" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+        </g>
+      </g>
+
+      <!-- ===== 小企鹅团团（灰绒宝宝，仰望爸爸） ===== -->
+      <g transform="translate(258,158)">
+        <animateTransform attributeName="transform" type="translate" values="258 158;259 160;258 158;257 160;258 158" dur="5s" repeatCount="indefinite"/>
+        <!-- 脚 -->
+        <ellipse cx="52" cy="66" rx="12" ry="5" fill="#d98a3c"/>
+        <ellipse cx="86" cy="66" rx="12" ry="5" fill="#d98a3c"/>
+        <!-- 身体（灰绒） -->
+        <path d="M36 26 Q32 48 40 60 Q52 70 69 70 Q86 70 98 60 Q106 48 102 26 Q98 10 88 8 Q76 4 69 6 Q56 8 50 12 Q40 16 36 26 Z" fill="#9aa4b5"/>
+        <!-- 白肚 -->
+        <path d="M54 26 Q52 44 58 56 Q64 63 69 64 Q74 63 80 56 Q86 44 84 26 Q82 14 76 11 Q69 8 62 11 Q56 14 54 26 Z" fill="#f0f3f8"/>
+        <!-- 头 -->
+        <ellipse cx="69" cy="8" rx="22" ry="20" fill="#a6b0c0"/>
+        <!-- 眼睛（仰望） -->
+        <circle cx="60" cy="6" r="3.2" fill="#0c0f16"/><circle cx="59" cy="4.6" r="1.1" fill="#fff"/>
+        <circle cx="79" cy="10" r="3" fill="#0c0f16"/><circle cx="78" cy="8.6" r="1" fill="#fff"/>
+        <!-- 喙（朝上张开，惊喜） -->
+        <path d="M56 20 Q60 30 66 32 Q62 26 64 20 Z" fill="#f2a04c"/>
+        <path d="M76 22 Q72 32 67 34 Q71 28 70 22 Z" fill="#f2a04c"/>
+        <!-- 小鳍翅张开 -->
+        <path d="M34 28 Q24 40 28 52 Q34 56 40 50 Q36 40 40 30 Z" fill="#8d97a8"/>
+        <path d="M104 28 Q114 40 110 52 Q104 56 98 50 Q102 40 98 30 Z" fill="#8d97a8"/>
+        <!-- 头顶一根小呆毛 -->
+        <path d="M69 -10 Q66 -20 71 -24 Q73 -18 72 -12 Z" fill="#8d97a8"/>
+      </g>
+
+      <!-- 飘雪 -->
+      <g fill="#fff">
+        <circle cx="60" cy="120" r="1.8" opacity=".8"><animate attributeName="cy" values="80;260" dur="7s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.8;0" dur="7s" repeatCount="indefinite"/></circle>
+        <circle cx="180" cy="80" r="1.4" opacity=".7"><animate attributeName="cy" values="60;250" dur="8s" begin="1s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.7;0" dur="8s" begin="1s" repeatCount="indefinite"/></circle>
+        <circle cx="320" cy="60" r="1.6" opacity=".75"><animate attributeName="cy" values="50;260" dur="7.5s" begin="2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.75;0" dur="7.5s" begin="2s" repeatCount="indefinite"/></circle>
+        <circle cx="430" cy="110" r="1.3" opacity=".7"><animate attributeName="cy" values="90;260" dur="9s" begin="3s" repeatCount="indefinite"/><animate attributeName="opacity" values="0;.7;0" dur="9s" begin="3s" repeatCount="indefinite"/></circle>
+      </g>
+    </svg>
+  </div>
+
+  <div class="story-card">
+    <div class="title-wrap"><h1 class="story-title">企鹅爸爸的脚背</h1></div>
+    <div class="sub-star"><span>❄</span><span>✦</span><span>❄</span><span>✦</span><span>❄</span></div>
+
+    <div class="story-body">
+      <p>南极的夏天结束得很快。一夜之间，冰原上空就亮起长长的、绿莹莹的光带——那是极夜来了，太阳要整整两个月不肯露面。</p>
+      <p>企鹅爸爸们排成密密的圆圈，谁也没有回家。因为在每个人的脚背上，都稳稳地托着一枚圆滚滚的蛋。</p>
+      <p>小企鹅团团，就是其中的一枚蛋。</p>
+      <p>他长大以后，总爱听爸爸讲那个冬天："风刮得像哨子一样响，雪粒打在羽毛上，啪嗒啪嗒。我们谁也不敢乱动，就这样紧紧挨在一起，把蛋护在脚背和肚皮中间的小暖包里。不吃不喝，一站就是两个月呢。"</p>
+      <p>"爸爸，那时候……你怕不怕冷呀？"团团问。</p>
+      <p>爸爸低下头，轻轻蹭蹭他毛茸茸的小脑袋："怕呀。可每当我低头，看见脚背上那枚圆滚滚的蛋——里面住着小小的你——我就忽然不怕了。我想：我要做这世界上最暖的一间小房子，把我家的小宝贝，好好护到春天来。"</p>
+      <p>团团眨眨眼睛。他好像真的想起了什么——那种毛茸茸的、稳稳的、被全世界轻轻护在中间的感觉。</p>
+      <p>春天来了，团团钻出蛋壳，在爸爸的脚背上，打了个小小的哈欠。</p>
+      <p>后来，他学会了走路，学会了在冰上滑行，也学会了在暴风雪里，把小伙伴护在自己身后。</p>
+      <p>有一回，一只冻得发抖的小海鸟落在冰面上。团团学着爸爸的样子，张开翅膀，把小海鸟轻轻拢进怀里："别怕，我来给你当小房子。"</p>
+      <p>那一刻，他忽然全懂了——</p>
+      <p>原来爸爸脚背上那个冬天，装的不只是一枚蛋，还有一份会一直传下去的爱。爱呀，就是心甘情愿，把自己变成别人的小房子。</p>
+    </div>
+
+    <div class="goodnight">
+      🌙<br>
+      晚安，小宝贝。企鹅爸爸说，你出生的时候，也一定被谁这样稳稳地护着——<br>爱会一直传下去，该做一个暖暖的、甜甜的梦了。
+    </div>
+  </div>
+
+  <div class="footer-note">❄ 愿你被这世界温柔守护，也学会温柔守护别人 ✦</div>
+</div>
+
+<script>
+  (function(){
+    var box=document.getElementById('stars');
+    for(var i=0;i<110;i++){
+      var s=document.createElement('div');
+      s.className='star';
+      var sz=(Math.random()*2.2+0.8).toFixed(1);
+      s.style.width=sz+'px';s.style.height=sz+'px';
+      s.style.left=(Math.random()*100).toFixed(2)+'%';
+      s.style.top=(Math.random()*100).toFixed(2)+'%';
+      s.style.animationDelay=(Math.random()*3).toFixed(2)+'s';
+      s.style.animationDuration=(2.2+Math.random()*3).toFixed(2)+'s';
+      box.appendChild(s);
+    }
+    for(var j=0;j<9;j++){
+      var p=document.createElement('div');
+      p.className='particle';
+      var size=(Math.random()*6+3).toFixed(1);
+      p.style.width=size+'px';p.style.height=size+'px';
+      p.style.left=(Math.random()*100).toFixed(2)+'%';
+      p.style.animationDuration=(9+Math.random()*10).toFixed(1)+'s';
+      p.style.animationDelay=(Math.random()*8).toFixed(1)+'s';
+      document.body.appendChild(p);
+    }
+    for(var k=0;k<16;k++){
+      var n=document.createElement('div');
+      n.className='snow';
+      var sz=(Math.random()*4+2).toFixed(1);
+      n.style.width=sz+'px';n.style.height=sz+'px';
+      n.style.left=(Math.random()*100).toFixed(2)+'%';
+      n.style.animationDuration=(7+Math.random()*9).toFixed(1)+'s';
+      n.style.animationDelay=(Math.random()*8).toFixed(1)+'s';
+      document.body.appendChild(n);
+    }
+  })();
+</script>
+</body>
+</html>
