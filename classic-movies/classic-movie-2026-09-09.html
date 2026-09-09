@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="bmegjBUVKiIWAL3EYHA5ub">
+<head data-page-node-id="0DMicaFSyIgnsX74EQu6db">
+<meta charset="UTF-8" data-page-node-id="pN7KiBo19QEmXXhYnVI8og">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="fLh0R96enCta6GOwfAwbQW">
+<title>黄金三镖客</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:linear-gradient(180deg,#1a0f0a 0%,#2a1508 18%,#4a2508 34%,#6b3206 48%,#8a4a10 60%,#5a3214 78%,#241510 100%);
+    color:#f5e6d0;min-height:100vh;line-height:1.9;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .star{position:absolute;border-radius:50%;background:#ffe9c4;animation:twinkle 3s infinite}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.9;transform:scale(1.15)}}
+  .wrapper{position:relative;z-index:1;max-width:760px;margin:0 auto;padding:48px 22px 60px}
+  /* 顶部装饰 */
+  .top-deco{text-align:center;margin-bottom:10px}
+  .tumbleweed{display:inline-block;width:34px;height:34px;opacity:.55;animation:roll 9s linear infinite}
+  @keyframes roll{0%{transform:translateX(-90px) rotate(0)}100%{transform:translateX(90px) rotate(360deg)}}
+  .film-strip{display:flex;justify-content:center;gap:22px;margin:8px 0 2px;opacity:.35}
+  .frame{width:14px;height:14px;border:2px solid #e8b96a;border-radius:3px;transform:rotate(45deg)}
+  /* 标题区 */
+  .title-wrap{text-align:center;margin:20px 0 6px}
+  h1{
+    font-size:clamp(2.3rem,6.5vw,3.4rem);letter-spacing:.14em;font-weight:800;
+    background:linear-gradient(180deg,#fff3d6 10%,#f0c46a 45%,#c47a1e 80%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    filter:drop-shadow(0 3px 18px rgba(240,160,60,.35));
+    animation:titleGlow 4s ease-in-out infinite;text-shadow:none;
+  }
+  @keyframes titleGlow{0%,100%{filter:drop-shadow(0 3px 10px rgba(240,160,60,.25))}50%{filter:drop-shadow(0 3px 26px rgba(255,190,90,.55))}}
+  .en-title{margin-top:6px;font-size:clamp(.86rem,2.6vw,1.05rem);letter-spacing:.32em;color:#e8b96a;opacity:.92}
+  .tagline{margin-top:14px;font-size:.95rem;color:#f0d5a8;font-style:italic;letter-spacing:.06em;opacity:.85}
+  .meta-line{margin-top:12px;font-size:.88rem;color:#d9b584;letter-spacing:.05em}
+  .meta-line b{color:#f5d9a0}
+  /* 场景插画 */
+  .hero{margin:26px auto 8px;max-width:660px;text-align:center}
+  .hero svg{width:100%;height:auto;display:block}
+  /* 评分卡 */
+  .score-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:26px 0 8px}
+  .score-card{
+    background:rgba(20,10,4,.55);border:1px solid rgba(232,185,106,.28);border-radius:14px;
+    padding:12px 6px;text-align:center;backdrop-filter:blur(4px);
+    transition:transform .25s ease,border-color .25s ease;
+  }
+  .score-card:hover{transform:translateY(-3px);border-color:rgba(240,196,106,.6)}
+  .score-num{font-size:1.5rem;font-weight:800;color:#f7d48e;font-variant-numeric:tabular-nums}
+  .score-src{font-size:.72rem;color:#c9a26a;margin-top:2px;letter-spacing:.08em}
+  /* 荣誉条 */
+  .honors{margin:18px 0 8px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .honor{
+    background:rgba(232,185,106,.12);border:1px solid rgba(232,185,106,.35);border-radius:999px;
+    padding:5px 14px;font-size:.78rem;color:#f0d5a8;letter-spacing:.04em;
+  }
+  /* 章节 */
+  .divider{display:flex;align-items:center;gap:14px;margin:34px 0 16px}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(232,185,106,.5),transparent)}
+  .divider span{font-size:.82rem;letter-spacing:.28em;color:#d9a85e}
+  .section{background:rgba(18,8,3,.5);border:1px solid rgba(232,185,106,.18);border-radius:18px;padding:24px 26px;margin-bottom:18px;backdrop-filter:blur(4px)}
+  .section h3{font-size:1.18rem;color:#f7d48e;margin-bottom:12px;letter-spacing:.06em;display:flex;align-items:center;gap:10px}
+  .section p{font-size:1.02rem;color:#f0e0c4;text-align:justify;margin-bottom:12px}
+  .section p:last-child{margin-bottom:0}
+  .section ul{list-style:none;margin-top:4px}
+  .section li{position:relative;padding-left:22px;margin-bottom:12px;font-size:1rem;color:#f0e0c4}
+  .section li::before{content:"";position:absolute;left:2px;top:.55em;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle,#f7d48e,#a05a10);box-shadow:0 0 6px rgba(240,180,90,.5);animation:dotPulse 2.8s infinite}
+  .section li b{color:#ffd98c}
+  .section li:last-child{margin-bottom:0}
+  @keyframes dotPulse{0%,100%{opacity:.55}50%{opacity:1}}
+  .rev{font-style:italic;color:#e8c890;border-left:3px solid rgba(232,185,106,.45);padding-left:16px;margin:14px 0 0;font-size:.95rem}
+  /* 温馨提示 */
+  .tip{
+    margin:20px 0 0;background:rgba(120,60,10,.28);border:1px dashed rgba(240,196,106,.5);
+    border-radius:14px;padding:16px 20px;font-size:.9rem;color:#f2d9a8;
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .tip .icon{font-size:1.2rem;line-height:1.6;filter:drop-shadow(0 0 6px rgba(240,180,90,.6));animation:glint 5.5s infinite}
+  @keyframes glint{0%,100%{opacity:.7}50%{opacity:1;filter:drop-shadow(0 0 12px rgba(255,200,110,.9))}}
+  /* 页脚 */
+  .footer{text-align:center;margin-top:30px;font-size:.8rem;color:#b98a52;letter-spacing:.1em}
+  .footer .moon{display:inline-block;animation:moonFloat 5s ease-in-out infinite}
+  @keyframes moonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  @media(max-width:560px){
+    .wrapper{padding:34px 14px 50px}
+    .score-row{grid-template-columns:repeat(2,1fr)}
+    .section{padding:18px 16px}
+    .tumbleweed{display:none}
+  }
+</style>
+</head>
+<body data-page-node-id="Adg0DZZZ6vXz8oLs6JHXcQ">
+
+<!-- 夜空星点 -->
+<div class="stars" id="stars" data-page-node-id="d9nvz4FQ5esbFteJiDpFGs"></div>
+
+<div class="wrapper" data-page-node-id="w3voKFWObGk4ddecWipQng">
+
+  <!-- 顶饰：风滚草 -->
+  <div class="top-deco" data-page-node-id="RpDpDFmoPAkjTnHxGg1DOR">
+    <svg class="tumbleweed" viewBox="0 0 40 40" fill="none" stroke="#c9a26a" stroke-width="1.6" data-page-node-id="oMNaLmqvvGOe0sTIrhHQFd">
+      <circle cx="20" cy="20" r="8" data-page-node-id="hL1wapbps37NSaJeMDeGio"/><circle cx="20" cy="20" r="13" opacity=".6" data-page-node-id="m6lHiutIsVcLAtG3xG3qfJ"/>
+      <path d="M8 20 Q14 10 20 20 Q26 30 32 20" opacity=".7" data-page-node-id="ut0NvihsX3L670z6hXyihm"/>
+      <path d="M8 20 Q14 30 20 20 Q26 10 32 20" opacity=".5" data-page-node-id="laGXHKCxBFwBUfDlTqoE32"/>
+    </svg>
+  </div>
+  <div class="film-strip" data-page-node-id="c0blCONGgfdQWrHHqZAXp0">
+    <div class="frame" style="animation:dotPulse 2.6s infinite" data-page-node-id="2J387cteuVuJM8uI0V5ce5"></div>
+    <div class="frame" style="animation:dotPulse 2.6s infinite .4s" data-page-node-id="ROKoVO3JtBTLGTPYnh7eM2"></div>
+    <div class="frame" style="animation:dotPulse 2.6s infinite .8s" data-page-node-id="aqTUKcF6uhpPdwcYIKBWLL"></div>
+    <div class="frame" style="animation:dotPulse 2.6s infinite 1.2s" data-page-node-id="8kHIWNT7dJED150GexWzC3"></div>
+    <div class="frame" style="animation:dotPulse 2.6s infinite 1.6s" data-page-node-id="LuE1BQ5qIzyYx3hMFu2E99"></div>
+  </div>
+
+  <!-- 标题 -->
+  <div class="title-wrap" data-page-node-id="V2XBeNMGFYUSJk7xIxDBHU">
+    <h1 data-page-node-id="YIeGq9Q7KgNNLt325sSZbd">黄金三镖客</h1>
+    <div class="en-title" data-page-node-id="GLbCejSJHcJ8eheIExW9S5">THE GOOD, THE BAD AND THE UGLY</div>
+    <div class="tagline" data-page-node-id="Ml24AsRGn6prfMjFnLA5Sd">「为了三个男人，内战不算地狱——那只是练习。」</div>
+    <div class="meta-line" data-page-node-id="ED3573CLzLpG5aV7xrIY19">塞尔吉奥·莱昂内 执导 · 克林特·伊斯特伍德 / 埃里·瓦拉赫 / 李·范·克里夫 主演 · 1966</div>
+  </div>
+
+  <!-- 黄昏场景插画 -->
+  <div class="hero" data-page-node-id="u8Fk5P9U0dESKsdcqHDVGH">
+    <svg viewBox="0 0 660 240" xmlns="http://www.w3.org/2000/svg" data-page-node-id="ESIp1EuGIZ0WH0WFUIcFd1">
+      <defs data-page-node-id="lM786nFMZzDobjjq0ANtaZ">
+        <radialGradient id="sun" cx="50%" cy="50%" r="50%" data-page-node-id="omfBOeHYObah4dB4OVrPOr">
+          <stop offset="0%" stop-color="#fff7dd" data-page-node-id="nssFP4mxTOeR3SzfZKfaJz"/>
+          <stop offset="45%" stop-color="#ffd98c" data-page-node-id="6svWNdM3vZ3vH5LaC3HboH"/>
+          <stop offset="100%" stop-color="#e08a2a" stop-opacity="0" data-page-node-id="JG3oIERaHj6rCPt7guuCOW"/>
+        </radialGradient>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1" data-page-node-id="7v49hIU7ENAKS5AlB1uqks">
+          <stop offset="0%" stop-color="#7a4310" data-page-node-id="33ZI529FL9zxnTJFD0GKzm"/>
+          <stop offset="100%" stop-color="#2a1508" data-page-node-id="gIFRNTZ0N6scMQPn0i3kz8"/>
+        </linearGradient>
+      </defs>
+      <!-- 落日与光晕 -->
+      <circle cx="330" cy="132" r="150" fill="url(#sun)" opacity=".5" data-page-node-id="wrALaNK8tgrUtFU0Hw5VZz">
+        <animate attributeName="opacity" values=".4;.6;.4" dur="5.5s" repeatCount="indefinite" data-page-node-id="VgObbMtrjqPTniFbWBkIkj"/>
+      </circle>
+      <circle cx="330" cy="132" r="58" fill="#ffdc96" data-page-node-id="86eJlujld5mXIn7jtO4i7C"/>
+      <circle cx="330" cy="132" r="58" fill="#fff3cf" opacity=".5" data-page-node-id="0KubVdHCFhvblXlIVe8wb9">
+        <animate attributeName="opacity" values=".3;.7;.3" dur="5s" repeatCount="indefinite" data-page-node-id="Lh9Cdo8ylLfVE2cVDZORbU"/>
+      </circle>
+      <!-- 远山 -->
+      <path d="M0 150 L80 96 L150 138 L230 84 L320 142 L400 90 L480 140 L560 98 L660 148 L660 240 L0 240 Z" fill="#3d2008" opacity=".8" data-page-node-id="Vmo0wQBq45WWpGdAafqiiB"/>
+      <path d="M0 176 L120 132 L210 168 L330 122 L450 170 L560 128 L660 172 L660 240 L0 240 Z" fill="url(#ground)" data-page-node-id="lrpQawXMw8UfqYLc9lagcE"/>
+      <!-- 仙人掌 -->
+      <g fill="#4a2a10" opacity=".9" data-page-node-id="BxahmS12lyy2GpY5GzOvFa">
+        <rect x="86" y="96" width="10" height="80" rx="5" data-page-node-id="qJ2uW3TGsHpoOwCONuIJNZ"/>
+        <rect x="76" y="112" width="10" height="26" rx="5" data-page-node-id="egWHrkiDTnixIF3tBVjLBs"/><rect x="66" y="126" width="12" height="16" rx="5" data-page-node-id="ly3TU4CMPZZJ272k3LFcfG"/>
+        <rect x="96" y="104" width="10" height="22" rx="5" data-page-node-id="fZ4rxvlrG9PlNf6FcjA8lg"/><rect x="104" y="100" width="12" height="14" rx="5" data-page-node-id="IhFJXZzI8tR2spF0fn9HYi"/>
+      </g>
+      <g fill="#3d2008" opacity=".85" transform="translate(520,0) scale(1.15)" data-page-node-id="THGIfAcAVlbCn0FVqbbYAS">
+        <rect x="86" y="96" width="10" height="80" rx="5" data-page-node-id="IoxJFdeDiqvGS1Kucz1CjE"/>
+        <rect x="74" y="110" width="10" height="24" rx="5" data-page-node-id="x4nwg01UDIspwtEgSeqF4A"/><rect x="96" y="102" width="10" height="20" rx="5" data-page-node-id="AgFAFTnZcuBXrTSMEmGp6F"/>
+      </g>
+      <!-- 三个枪手剪影 -->
+      <g fill="#120803" data-page-node-id="dCCb8HrRuH4kZX69VDGJKP">
+        <!-- 好人(金发仔) 持枪左臂下垂 -->
+        <g transform="translate(240,138)" data-page-node-id="ehAcUeUDLURvB5UZrIvHNa">
+          <circle cx="0" cy="-34" r="11" data-page-node-id="oYepWo8ozZTGnbzZrBPmXV"/><rect x="-9" y="-24" width="18" height="3" rx="1.5" data-page-node-id="XjJD0XsitBUSSv0KfCQ1HL"/>
+          <rect x="-4" y="-24" width="10" height="26" rx="2" transform="rotate(-8)" data-page-node-id="AiTRqXoHEU2WFjjShfkBDe"/>
+          <rect x="-4" y="0" width="15" height="42" rx="4" data-page-node-id="ahlkkjlIqbUJohM2SNuAsT"/>
+          <rect x="-26" y="10" width="9" height="30" rx="4" transform="rotate(14)" data-page-node-id="gfhAzJpk1bkWNIGnbN5hdl"/>
+          <rect x="12" y="6" width="10" height="34" rx="4" transform="rotate(-10)" data-page-node-id="PALphB6bwtzUPbQJTCvO2y"/>
+          <rect x="-25" y="42" width="8" height="30" rx="4" data-page-node-id="yb6AmRpwQBYvONRP0P9zdh"/>
+          <rect x="8" y="42" width="8" height="30" rx="4" data-page-node-id="E4H5qYofIAF9damz3DPMcp"/>
+        </g>
+        <!-- 坏人(天使眼) 黑帽高个，双臂前持 -->
+        <g transform="translate(330,130)" data-page-node-id="GEe2C3Pc5imwKYJpIMarlD">
+          <circle cx="0" cy="-36" r="10" data-page-node-id="jFpeCc3Smu9kwOlbS9FvOC"/><path d="M-16 -38 L16 -38 L12 -50 Q0 -56 -12 -50 Z" data-page-node-id="zkuh1uNVRlYsVm4CGpSmEV"/>
+          <rect x="-4" y="-26" width="9" height="28" rx="2" data-page-node-id="7w4dolm2ybUnZpaZj2ADFI"/>
+          <rect x="-3" y="0" width="14" height="48" rx="4" data-page-node-id="bh250s3FnF1ouHcOnlgzzJ"/>
+          <rect x="-27" y="8" width="10" height="32" rx="4" transform="rotate(8)" data-page-node-id="K7D0WsGQXTMC2cVVOpPMup"/>
+          <rect x="18" y="6" width="10" height="34" rx="4" transform="rotate(-6)" data-page-node-id="CNbC8ZGrh3wiBFdwmAkcZc"/>
+          <rect x="-24" y="48" width="8" height="30" rx="4" data-page-node-id="Y6mOCbDcH6P40IdJvF76UF"/>
+          <rect x="9" y="48" width="8" height="30" rx="4" data-page-node-id="UG0zSrM2i2NszthX4z9Ue1"/>
+        </g>
+        <!-- 丑人(图科) 圆脸矮壮 -->
+        <g transform="translate(424,146)" data-page-node-id="BaLJRnnKmdFuoU8ei9OZRe">
+          <circle cx="0" cy="-30" r="12" data-page-node-id="KVdgcHEC6JtCW6SwBZUdn4"/><path d="M-14 -34 L14 -34 L10 -44 Q0 -48 -10 -44 Z" data-page-node-id="SmVcKnALdpe5HWydLBLu05"/>
+          <rect x="-7" y="-19" width="14" height="22" rx="3" data-page-node-id="hPJBAqPguAiPqMWiASpCfg"/>
+          <rect x="-6" y="0" width="20" height="40" rx="5" data-page-node-id="z5mFiyk5cHsluKSivFDZry"/>
+          <rect x="-24" y="14" width="11" height="26" rx="5" transform="rotate(10)" data-page-node-id="fvAIEvZJk5S3dybxIOq7t4"/>
+          <rect x="-22" y="40" width="9" height="26" rx="4" data-page-node-id="b09dWHtirFZGzTkA6w8ayK"/>
+          <rect x="10" y="40" width="9" height="26" rx="4" data-page-node-id="EA3l8HqISHHsyC0ZWgbqfz"/>
+        </g>
+      </g>
+      <!-- 地面微光 -->
+      <g fill="#f0c46a" data-page-node-id="wQEucIxt7fRo9FAfnvvFXM">
+        <circle cx="180" cy="200" r="1.6" opacity=".8" data-page-node-id="00oLxrCpcuGNbRCOjIpeUG"><animate attributeName="opacity" values=".2;1;.2" dur="2.4s" repeatCount="indefinite" data-page-node-id="06DCDrxfGW8Iztfamo3zac"/></circle>
+        <circle cx="300" cy="210" r="1.3" opacity=".7" data-page-node-id="Y2qXHQGBbCgy8XWJaqTTud"><animate attributeName="opacity" values=".2;.9;.2" dur="3s" repeatCount="indefinite" begin=".5s" data-page-node-id="QSooXMwtF5jGwQAOi4rrIu"/></circle>
+        <circle cx="470" cy="196" r="1.5" opacity=".8" data-page-node-id="jQ3v60zCxQy5C4iyNarnMO"><animate attributeName="opacity" values=".2;1;.2" dur="2.7s" repeatCount="indefinite" begin="1s" data-page-node-id="N05nnBMcRJmcydB7ecWFMI"/></circle>
+        <circle cx="545" cy="208" r="1.2" opacity=".7" data-page-node-id="0sygQccds0tjnTYNXzZGwz"><animate attributeName="opacity" values=".2;.9;.2" dur="3.2s" repeatCount="indefinite" begin="1.4s" data-page-node-id="XgXFHMpyeX7BepwZARZAEd"/></circle>
+      </g>
+    </svg>
+  </div>
+
+  <!-- 评分卡 -->
+  <div class="score-row" data-page-node-id="QjYorxyO7unLjKFMGFCROq">
+    <div class="score-card" data-page-node-id="qF1yR9ek2XyCr0mVzlN3Ox"><div class="score-num" data-page-node-id="9Zrd23xWpCyk8iYoWWSKHh">9.3</div><div class="score-src" data-page-node-id="oCDplzsMEPHlF5Y4kn6m4O">豆瓣</div></div>
+    <div class="score-card" data-page-node-id="8FCuSRC0PkgDIG3yqgJLcz"><div class="score-num" data-page-node-id="JAKqXgqKpcf6OCRhZLb4k1">8.8</div><div class="score-src" data-page-node-id="y0DuwGu0mrhHN3KzfoUFBs">IMDb · 90万人</div></div>
+    <div class="score-card" data-page-node-id="c9Cckatb4xvtSCBuzsB6L6"><div class="score-num" data-page-node-id="RaQNzBnzxepA2ar4g7ATGJ">97%</div><div class="score-src" data-page-node-id="7vGW1EEzIXiShGS8GLOZFf">烂番茄</div></div>
+    <div class="score-card" data-page-node-id="ifXpiTDsjatgASJabfUJni"><div class="score-num" data-page-node-id="8qhUoYCmcuXxTc6FTGYp1R">90</div><div class="score-src" data-page-node-id="j7mhPmrZLHlbG8lGiif7gu">Metacritic</div></div>
+  </div>
+
+  <!-- 荣誉 -->
+  <div class="honors" data-page-node-id="NUlASUHtcU9alqjwOYdmAb">
+    <span class="honor" data-page-node-id="fLFc5M81ADkb7ZKEzGCFKD">🏜️ 影史西部片金字塔尖</span>
+    <span class="honor" data-page-node-id="4G3oeNt4zXFtn4t9BgzDk4">🎵 莫里康内传世配乐</span>
+    <span class="honor" data-page-node-id="zk1l5fWWS6wBqTDHIc8YkO">🤠 「镖客三部曲」终章</span>
+    <span class="honor" data-page-node-id="kvIeuWMhLXs62wXbFY1BO9">🗽 2009 美国国家电影保护局典藏</span>
+    <span class="honor" data-page-node-id="0PFHy6wquCrBX8E2XlLNVX">⭐ IMDb 历史 Top 10 常客</span>
+  </div>
+
+  <!-- 剧情梗概 -->
+  <div class="divider" data-page-node-id="FyHimKGpIHFJsxvqaLIYzH"><span data-page-node-id="AkwZ33JWp7LiThZ4GDMUM7">剧 情 梗 概</span></div>
+  <div class="section" data-page-node-id="vFZZXmBdEOuEppucnreNzu">
+    <p data-page-node-id="nWC2c5HeQ0IENCK6hZpPs8">十九世纪六十年代，美国南北战争正打得天昏地暗。就在这片被炮火碾过的土地上，一笔 <b data-page-node-id="VgEBP1KXDgGDBrRWKC2FDA">二十万美元的南方金币</b> 被埋在了只有死人知道的地方。</p>
+    <p data-page-node-id="FfTCYi2Dcbtk1w1M6vdgQd">消息像野火一样传开，引来了三个绝不搭伙的男人——<b data-page-node-id="kIxDG67mJZ3w8ykyXujWdJ">「金发仔」</b>：寡言、潇洒、只认钱也讲自己那套规矩的赏金猎人；<b data-page-node-id="GFyVVWJCCvxNwjXeSXu3od">「天使眼」</b>：冷血残暴、为达目的能笑着把任何人卖掉的职业杀手；<b data-page-node-id="SrhiO0B0LGv7hoydjDKmws">「图科」</b>：满嘴谎话、邋遢狡猾却意外命大的墨西哥土匪。三个人各握着一半线索，在战场上、军营里、废墟间反复结盟、背叛、再结盟，一路互相算计着朝那笔宝藏逼近。</p>
+    <p data-page-node-id="FO8YyCfJMkiCxR8DadK052">当战争的残酷一点点渗进三个人的旅途，这趟寻宝之旅，渐渐变成了关于贪婪、关于时势、也关于「人到底能有多坏」的一场漫长赌局。</p>
+  </div>
+
+  <!-- 亮点所在 -->
+  <div class="divider" data-page-node-id="0vI4Tuo7jmHhDPEMLzOJh4"><span data-page-node-id="uADzYaGiVc1gHyh009MDrz">亮 点 所 在</span></div>
+  <div class="section" data-page-node-id="CVc8OHdMKYELvjOJ1VibOx">
+    <h3 data-page-node-id="RYsf9hUTnYPUhWIqaTeqFM">✨ 为什么它被反复膜拜</h3>
+    <ul data-page-node-id="FPFtgFSzHcdm5nB0Z49cji">
+      <li data-page-node-id="MJhClpMPZuKTarYNu7w14S"><b data-page-node-id="aBlXqrWDirwtdmrcbAlA7P">莫里康内的神来之笔</b>——口哨声、人声吟唱、电吉他、鞭响与枪声采样交织成的主题曲，前奏一响就能让人立刻回到那片焦黄的荒原。这段音乐被后世电影、广告、游戏致敬了半个多世纪，堪称「用耳朵就能辨认」的影史名曲。</li>
+      <li data-page-node-id="LGU3lZI3a6qdVSrqR9bDQt"><b data-page-node-id="6vyVBXPzSZwY7LqSKDbzE8">莱昂内的镜头美学</b>——大特写堆叠到令人窒息：眼睛、扳机、缓缓滴落的汗珠……配乐与剪辑如同节拍器，把张力一节一节拧到顶点。后来的昆汀、吴宇森都坦言深受其影响。</li>
+      <li data-page-node-id="GsGoWvsA4hGbDvwQF7IJXc"><b data-page-node-id="BmBc0PJrRuie411wZ4KHSn">颠覆西部片的「好人」定义</b>——片名就是三个标签，但看完全片你会发现「好」与「坏」之间的界线早已模糊。它终结了传统西部片黑白分明的英雄叙事，开创了属于「通心粉西部片」的冷酷浪漫。</li>
+      <li data-page-node-id="woCT0ZE6ZVaTws7NfWl8RK"><b data-page-node-id="aYIELBvcui1fSPXCuByxsF">三位主演的化学反应</b>——伊斯特伍德的「无名客」从此成为流行文化符号，瓦拉赫把贪生怕死又命大的图科演得又可笑又心酸，范·克里夫只需一个眼神就能让人后背发凉。</li>
+    </ul>
+  </div>
+
+  <!-- 为什么值得一看 -->
+  <div class="divider" data-page-node-id="lBQXyfCPK5KokkoYS11yXP"><span data-page-node-id="YB5pBC7I8HxlZKaLDyr6CX">为什么值得一看</span></div>
+  <div class="section" data-page-node-id="SGsB2OSB3EqkYSBqsAMpCO">
+    <p data-page-node-id="mVsf56N0hIlBZBfGOUm5x3">它被公认为 <b data-page-node-id="wjmgxnxkFtApgRMryaClht">影史最伟大的西部片、甚至是最伟大的电影之一</b>——IMDb 近九十万观众打出 8.8，常年稳居历史前十；烂番茄 97% 新鲜度；2009 年入选美国国家电影保护局典藏。</p>
+    <p data-page-node-id="tSphW5DbZxwCEjkKZFAb94">但这串数字远不如它真正的遗产重要：<b data-page-node-id="hQzs8xwtTyMqFgHF8r2CDo">它重新教会了全世界「西部片可以这样拍」</b>。在此之后，几乎所有关于荒原、决斗与配乐的影像想象，都绕不开这部片子。三个多小时的片长毫无冗余——当你知道结局，你会想立刻从头再看一遍，去寻找那些藏在眼神里的伏笔。</p>
+    <div class="rev" data-page-node-id="sSdQ6c5CjYlaf0DXJTUZGr">——「公认的意大利通心粉西部片巅峰，一曲关于贪婪的荒原史诗。」（烂番茄媒体共识）</div>
+  </div>
+
+  <!-- 温馨提示 -->
+  <div class="tip" data-page-node-id="6H2z6O3soECgInYeNHCJsK">
+    <div class="icon" data-page-node-id="JqL8YBn6FnOxCHNtjgIicR">🌵</div>
+    <div data-page-node-id="NIxOBfXv6tOchTJ1AHFwjd">观影提示：本片片长较长（公映版约 161 分钟，导演完整版约 178 分钟），建议挑一个安静的夜晚完整观看。片中枪战与拷问场面较写实，北美分级为 R 级，适合与家人中的大朋友一同欣赏。</div>
+  </div>
+
+  <div class="footer" data-page-node-id="XD68v5rmisbathBTcihJEF">
+    <span class="moon" data-page-node-id="dhCs3ElWSdzknEkktpw9lO">🌵</span> &nbsp;第 71 期 · 经典电影推荐 · 祝爷观影愉快&nbsp; <span class="moon" data-page-node-id="k9aEz2La0UVB3dcJDIpAbG">🌅</span>
+  </div>
+
+</div>
+
+<script>
+  // 生成星光
+  (function(){
+    var box=document.getElementById('stars'),frag=document.createDocumentFragment();
+    var colors=['#ffe9c4','#fff2d8','#ffd98c'];
+    for(var i=0;i<70;i++){
+      var s=document.createElement('div');
+      s.className='star';
+      var sz=(Math.random()*2.2+0.8).toFixed(1);
+      s.style.width=sz+'px';s.style.height=sz+'px';
+      s.style.left=(Math.random()*100).toFixed(2)+'%';
+      s.style.top=(Math.random()*60).toFixed(2)+'%';
+      s.style.background=colors[Math.floor(Math.random()*colors.length)];
+      s.style.animationDelay=(Math.random()*3).toFixed(2)+'s';
+      s.style.animationDuration=(2+Math.random()*2.5).toFixed(2)+'s';
+      s.style.opacity=.3+Math.random()*.5;
+      frag.appendChild(s);
+    }
+    box.appendChild(frag);
+  })();
+</script>
+</body>
+</html>

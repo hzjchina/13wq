@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="5sRshA3RD3KIA9Ks0kyBU8">
+<head data-page-node-id="rrg2m7zoKQpgSeAq6Um6Ix">
+<meta charset="UTF-8" data-page-node-id="FMVz8G1yint6rxqCUhOHtC">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="2rc13rJzCnWBCSzfsrOhby">
+<title>小海豚的月亮跳 — 儿童睡前故事</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html,body{min-height:100%;}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;
+    background:linear-gradient(180deg,#030d24 0%,#071b40 30%,#0a2c55 55%,#062046 78%,#03142e 100%);
+    color:#dfe9ff; overflow-x:hidden; position:relative; min-height:100vh; padding-bottom:60px;
+  }
+  #stars{position:fixed;inset:0;z-index:0;pointer-events:none;}
+  .star{position:absolute;background:#fff;border-radius:50%;animation:twinkle 3s ease-in-out infinite;}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8);}50%{opacity:.95;transform:scale(1.15);}}
+
+  /* 海面月光碎银 */
+  .sea-glint{position:fixed;left:0;right:0;bottom:0;height:34vh;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(ellipse 55% 12% at 50% 0%, rgba(220,240,255,.18), transparent 70%),
+      radial-gradient(ellipse 40% 8% at 42% 6%, rgba(255,250,220,.12), transparent 70%),
+      radial-gradient(ellipse 45% 9% at 58% 4%, rgba(255,250,220,.10), transparent 70%);
+    animation:glint 6s ease-in-out infinite;}
+  @keyframes glint{0%,100%{opacity:.6;}50%{opacity:1;}}
+
+  .stage{position:relative;z-index:2;max-width:720px;margin:0 auto;padding:96px 20px 0;}
+
+  .story-card{
+    position:relative;z-index:2;background:rgba(6,16,40,.6);
+    border:1px solid rgba(140,190,255,.16);border-radius:22px;
+    padding:30px 28px 34px;margin-top:2px;
+    box-shadow:0 18px 60px rgba(0,0,0,.4), inset 0 0 60px rgba(110,170,255,.05);
+    backdrop-filter:blur(3px);
+  }
+
+  .title-wrap{text-align:center;margin-bottom:8px;}
+  .story-title{
+    font-size:clamp(1.6rem,5.6vw,2.35rem);font-weight:800;letter-spacing:2px;
+    color:#e8f3ff;text-shadow:0 0 18px rgba(160,215,255,.8),0 0 46px rgba(120,195,255,.35);
+    animation:titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow{0%,100%{text-shadow:0 0 14px rgba(160,215,255,.55),0 0 34px rgba(120,195,255,.2);}
+    50%{text-shadow:0 0 24px rgba(190,235,255,.95),0 0 60px rgba(150,215,255,.5);}}
+  .sub-star{text-align:center;margin:12px 0 4px;}
+  .sub-star span{display:inline-block;font-size:13px;color:#bcdcff;margin:0 7px;animation:dotGlow 2.8s ease-in-out infinite;text-shadow:0 0 8px rgba(150,200,255,.8);}
+  .sub-star span:nth-child(2){animation-delay:.6s;} .sub-star span:nth-child(3){animation-delay:1.2s;}
+  @keyframes dotGlow{0%,100%{opacity:.45;}50%{opacity:1;}}
+
+  .story-body{font-size:clamp(1.06rem,3.8vw,1.2rem);line-height:2.05;color:#e2eaff;text-align:justify;}
+  .story-body p{margin:14px 0;text-indent:2em;}
+  .story-body em{font-style:normal;color:#bcdcff;}
+
+  .goodnight{
+    margin-top:26px;padding:22px 20px;text-align:center;border-radius:16px;
+    background:linear-gradient(135deg,rgba(140,200,255,.10),rgba(110,140,255,.08));
+    border:1px solid rgba(170,215,255,.26);
+    color:#e4f3ff;font-size:clamp(1rem,3.6vw,1.13rem);line-height:1.9;
+    box-shadow:0 0 34px rgba(130,200,255,.10);animation:gnGlow 5s ease-in-out infinite;
+  }
+  @keyframes gnGlow{0%,100%{box-shadow:0 0 22px rgba(130,200,255,.07);}50%{box-shadow:0 0 46px rgba(160,220,255,.24);}}
+
+  .footer-note{text-align:center;margin-top:34px;font-size:12.5px;color:rgba(180,210,255,.42);letter-spacing:3px;}
+
+  .particle{position:fixed;bottom:-12px;border-radius:50%;z-index:1;pointer-events:none;
+    background:radial-gradient(circle,rgba(190,235,255,.9),rgba(140,200,255,0));
+    animation:rise linear infinite;}
+  @keyframes rise{0%{transform:translateY(0) translateX(0);opacity:0;}12%{opacity:.6;}
+    100%{transform:translateY(-100vh) translateX(24px);opacity:0;}}
+
+  @media(max-width:520px){
+    .stage{padding:84px 14px 0;}
+    .story-card{padding:24px 18px 26px;}
+  }
+</style>
+</head>
+<body data-page-node-id="l5bDfGAv0hjFsgLWXDjAHw">
+
+<div id="stars" data-page-node-id="GELjRAv0ajGbvrliGb6Ssi"></div>
+<div class="sea-glint" data-page-node-id="wSBDg8kQiR4oiUKn82OY5P"></div>
+
+<div class="stage" data-page-node-id="usUWaejzZIwbddqJRtfgAv">
+
+  <!-- 插画：月光下的海，小海豚跃出水面，海鸥相伴 -->
+  <div style="text-align:center;margin-bottom:4px;" data-page-node-id="Z5NnYFdmCsY9OhGwLN3Ahd">
+    <svg viewBox="0 0 480 320" style="width:min(460px,96vw);height:auto;display:block;margin:0 auto;filter:drop-shadow(0 10px 26px rgba(0,0,0,.45));" role="img" aria-label="月亮从海面升起，小海豚跃出洒满月光碎银的海面，海鸥在旁飞翔" data-page-node-id="N1R23G2VJspUvpLE3quEul">
+      <defs data-page-node-id="K4aBmoTsA7lGCdtwnYke92">
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1" data-page-node-id="fy9868wIJtGEBACW0CCDxg">
+          <stop offset="0" stop-color="#06102e" data-page-node-id="7ieFUDz9pindG2Ro1da48u"/><stop offset="1" stop-color="#0a2350" data-page-node-id="r5P8Tfp5n1ch29nm0pmHGP"/>
+        </linearGradient>
+        <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1" data-page-node-id="8fJMh0GATSBSIWwwDSVoLv">
+          <stop offset="0" stop-color="#0d3560" data-page-node-id="2Rh6gTbndCB32hFJ3JMHbf"/><stop offset="1" stop-color="#041a38" data-page-node-id="MQAN1ECvXkHeMx8g3sK6VE"/>
+        </linearGradient>
+        <linearGradient id="moonGlow" cx="50%" cy="50%" r="50%" data-page-node-id="lTTIrPO2uFZFNrmWYG41Ka">
+          <stop offset="0" stop-color="rgba(255,248,215,.5)" data-page-node-id="LBh9lQWHxGNXoxYfUA3AHo"/><stop offset="1" stop-color="rgba(255,248,215,0)" data-page-node-id="54IAlvzxkbboA6zswUWm0B"/>
+        </linearGradient>
+        <linearGradient id="dolphinBody" x1="0" y1="0" x2="0" y2="1" data-page-node-id="MPGHfh4hQNTVjRvCd4MQSx">
+          <stop offset="0" stop-color="#9db6cf" data-page-node-id="0b99ST9zb170F5SxpQf3lq"/><stop offset="1" stop-color="#5d7a9c" data-page-node-id="BWbyCEa36SqiML8iXihF4q"/>
+        </linearGradient>
+        <radialGradient id="moonCore" cx="40%" cy="35%" r="65%" data-page-node-id="ZszArLPSfuVm1H1pEMzeOX">
+          <stop offset="0" stop-color="#fffdf0" data-page-node-id="QbzS9hg1RPH2s8GVehGIyo"/><stop offset=".6" stop-color="#f7ecc8" data-page-node-id="6Wevz4ITuEX7ypUXsESYEi"/><stop offset="1" stop-color="#e4d29a" data-page-node-id="6k3bCHCG9eeGWEq15y7HRC"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 天空 -->
+      <rect width="480" height="320" fill="url(#sky)" data-page-node-id="l9jcd16cbFWxTS8qSSiNyo"/>
+      <!-- 星星 -->
+      <circle cx="50" cy="30" r="1.2" fill="#fff" opacity=".9" data-page-node-id="ugpiXE1y5hayJSPIVqWVX3"><animate attributeName="opacity" values=".2;1;.2" dur="2.6s" repeatCount="indefinite" data-page-node-id="cMZeyxbvNWC7FWc4E90aCv"/></circle>
+      <circle cx="140" cy="58" r="1" fill="#fff" opacity=".7" data-page-node-id="FvQQEpTE4pZHJQt6czDb3k"><animate attributeName="opacity" values=".2;1;.2" dur="3.1s" begin=".5s" repeatCount="indefinite" data-page-node-id="nJl6oWhitE7F9J6bepniSV"/></circle>
+      <circle cx="430" cy="36" r="1.3" fill="#fff" opacity=".85" data-page-node-id="73ZVldPPRxfYsp77eQFyA4"><animate attributeName="opacity" values=".2;1;.2" dur="2.8s" begin="1s" repeatCount="indefinite" data-page-node-id="FgZtr0HVppBUJKTiDwgBeH"/></circle>
+      <circle cx="330" cy="70" r="1" fill="#fff" opacity=".6" data-page-node-id="m0fxI2ZLIDOgQT3ZOACnHZ"><animate attributeName="opacity" values=".2;1;.2" dur="3.4s" begin="1.5s" repeatCount="indefinite" data-page-node-id="Y01C9D5OONJVvctUZ9sAiW"/></circle>
+      <circle cx="210" cy="28" r=".9" fill="#fff" opacity=".7" data-page-node-id="wIs0m2HCG9lqrPgrhdPR7M"><animate attributeName="opacity" values=".2;1;.2" dur="3s" begin="2s" repeatCount="indefinite" data-page-node-id="3tFcPqLNILFkxcD4SRpMKA"/></circle>
+
+      <!-- 月亮（低悬海面，大光晕） -->
+      <circle cx="240" cy="196" r="66" fill="url(#moonGlow)" data-page-node-id="PENSQBWcw6qP0ZAzAN9jHQ">
+        <animate attributeName="opacity" values=".35;.8;.35" dur="5s" repeatCount="indefinite" data-page-node-id="dhz79dBBB8pJJi37TrvRsW"/>
+      </circle>
+      <circle cx="240" cy="196" r="30" fill="url(#moonCore)" data-page-node-id="sy1TvAZCgC8CHLm7EvxDw1"/>
+      <circle cx="232" cy="188" r="3.4" fill="#d8c088" opacity=".7" data-page-node-id="S8ZIyuCyZ5dAAtvIKf54tM"/>
+      <circle cx="250" cy="204" r="2.4" fill="#d8c088" opacity=".5" data-page-node-id="zBw5RH2B9KevZhbStQcu3u"/>
+      <circle cx="236" cy="206" r="1.8" fill="#d8c088" opacity=".6" data-page-node-id="RKGHk8IneTZNcUyD587Cn4"/>
+
+      <!-- 海面 -->
+      <rect x="0" y="224" width="480" height="96" fill="url(#sea)" data-page-node-id="EXrDHDjmApV6GPgsyK7hsk"/>
+      <!-- 月光倒影柱 -->
+      <rect x="228" y="224" width="24" height="96" fill="rgba(255,248,215,.16)" data-page-node-id="epalOmSco1tnKAx0JZOgup"/>
+      <g fill="rgba(255,250,225,.6)" data-page-node-id="j0bPcdApl2GcpQLOGpLDwv">
+        <ellipse cx="240" cy="232" rx="34" ry="2.6" data-page-node-id="QFBLehBOmPwwT6ZoQtDOcF"/>
+        <ellipse cx="240" cy="246" rx="26" ry="2" data-page-node-id="AQDziWr2bDnOz0XB5pNyEM"/>
+        <ellipse cx="240" cy="262" rx="20" ry="1.8" data-page-node-id="f7T1STM1qAlIDDVHpnH0EA"/>
+        <ellipse cx="240" cy="282" rx="15" ry="1.5" data-page-node-id="hfOcnrpY1N88NeI7UuPI5W"/>
+      </g>
+      <!-- 波浪 -->
+      <g stroke="rgba(150,210,255,.3)" stroke-width="1.4" fill="none" stroke-linecap="round" data-page-node-id="bAwkb2P3NpAgrffFFxq2XL">
+        <path d="M0 242 q20 -5 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" data-page-node-id="X5auSp2LO9HZI3PBMcNcG6"/>
+        <path d="M0 266 q20 -4 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" stroke="rgba(150,210,255,.2)" data-page-node-id="NJlCAuHpvad6jAibaukkaB"/>
+      </g>
+
+      <!-- ===== 小海豚（跃出水面） ===== -->
+      <g transform="translate(160,150)" data-page-node-id="W9YCVuAlsB1hmbIS0S1O7q">
+        <g data-page-node-id="ht12JPUH4ZThZO2HMejtco">
+          <animateTransform attributeName="transform" type="translate" values="0 0;-3 -10;0 0;-3 -10;0 0" dur="4.4s" repeatCount="indefinite" data-page-node-id="XRs8qBDF0vlsMDzGlyd3Pv"/>
+          <!-- 尾鳍 -->
+          <path d="M60 52 Q74 60 76 74 Q72 64 62 60 Z" fill="#4d6a8c" data-page-node-id="C3mF9UxyKXIluhd4rbjljQ"/>
+          <path d="M60 52 Q72 66 76 74 Q64 66 60 60 Z" fill="#5d7a9c" opacity=".5" data-page-node-id="y580rh6pmLoQI9RE8lknqB"/>
+          <!-- 身体 -->
+          <path d="M-56 26 Q-30 -14 8 -12 Q40 -10 62 26 Q40 40 8 42 Q-30 44 -56 26 Z" fill="url(#dolphinBody)" data-page-node-id="xdLUs0BnIitv3QoEWHrNN4"/>
+          <!-- 白肚皮 -->
+          <path d="M-40 32 Q-10 44 22 40 Q38 37 52 29 Q40 40 10 44 Q-22 45 -40 32 Z" fill="#e8eef6" opacity=".85" data-page-node-id="W7oNODIcX6LkuV8xrfoGcs"/>
+          <!-- 背鳍 -->
+          <path d="M-12 -14 Q-6 -34 8 -32 Q2 -18 -6 -12 Z" fill="#4d6a8c" data-page-node-id="gvW6sGeL2svFTU1tbqyG3h"/>
+          <!-- 胸鳍 -->
+          <path d="M-26 18 Q-34 30 -24 36 Q-16 28 -18 18 Z" fill="#5d7a9c" data-page-node-id="fzY3ByehEvqn9pRKIXsZzG"/>
+          <!-- 头部 -->
+          <path d="M-56 26 Q-66 18 -64 10 Q-62 2 -52 6 Q-48 14 -44 24 Z" fill="#8fa9c4" data-page-node-id="zgDExO9Egs9y9VpBO80FPw"/>
+          <!-- 吻 -->
+          <ellipse cx="-62" cy="12" rx="9" ry="5" fill="#8fa9c4" data-page-node-id="70ldz1boC1u3XcYB6ztWbC"/>
+          <!-- 眼睛 -->
+          <circle cx="-50" cy="14" r="3.4" fill="#0e1830" data-page-node-id="mfWu88YHk0qu8jfA43vAHw"/><circle cx="-51.5" cy="12.6" r="1.2" fill="#fff" data-page-node-id="DdDip3fqUUEDr0pB7NbCaf"/>
+          <!-- 微笑嘴线 -->
+          <path d="M-60 20 Q-54 24 -46 22" stroke="#2c3e58" stroke-width="1.2" fill="none" stroke-linecap="round" data-page-node-id="HjExCcT3s2QrjKRVeu5EG7"/>
+          <!-- 背上海鸥白白（歇脚） -->
+          <g transform="translate(-4,-10) rotate(-8)" data-page-node-id="QCGIyl6D38GRQkBkd6QyLl">
+            <path d="M-10 2 Q-16 -10 -8 -14 Q-4 -10 0 -4 Q4 -10 8 -14 Q16 -10 10 2 Z" fill="#f4f8fc" data-page-node-id="mFJ047mo4MOi4wFHQtrWbY"/>
+            <path d="M-2 -6 Q0 -12 2 -6" stroke="#c9d6e4" stroke-width="1" fill="none" data-page-node-id="W3KBk9J2rdwMFXVYK1GmHA"/>
+            <circle cx="-3.4" cy="-7.6" r="1.5" fill="#fff" data-page-node-id="c1r0fBs06HttHtAybj1Y2E"/>
+            <circle cx="-3.8" cy="-8.1" r=".6" fill="#0e1830" data-page-node-id="FynFDZHm63oh6QLAkK0NMJ"/>
+            <path d="M-5 -7 Q-9 -6 -11 -4" stroke="#e8a33c" stroke-width="1.4" fill="none" stroke-linecap="round" data-page-node-id="sMsUFlfUTqcEYo7DBoky7i"/>
+          </g>
+        </g>
+        <!-- 水花 -->
+        <g fill="rgba(210,240,255,.75)" data-page-node-id="RARQ3EYXdGS5s2ay2rMbtT">
+          <circle cx="-70" cy="64" r="2.4" data-page-node-id="KFV0mIsdTYhz1MpoxDhBPK"><animate attributeName="cy" values="60;42" dur="1.6s" repeatCount="indefinite" data-page-node-id="T3jW0NLtCMZ6WFgQ1HwCiG"/><animate attributeName="opacity" values=".8;0" dur="1.6s" repeatCount="indefinite" data-page-node-id="sLYpzVSW5eBAd9PofHHqAp"/></circle>
+          <circle cx="-56" cy="66" r="3" data-page-node-id="hTYnVrUdssTSgSM5RLrsoQ"><animate attributeName="cy" values="64;38" dur="1.9s" begin=".3s" repeatCount="indefinite" data-page-node-id="4xoBIumpIv4awx0nYvCL1E"/><animate attributeName="opacity" values=".8;0" dur="1.9s" begin=".3s" repeatCount="indefinite" data-page-node-id="C2s4vNYzOdmuOXrrDfhsFP"/></circle>
+          <circle cx="84" cy="70" r="2.2" data-page-node-id="5KJSzeJ8tUEfLHDR3EQuVW"><animate attributeName="cy" values="68;46" dur="1.7s" begin=".6s" repeatCount="indefinite" data-page-node-id="2k6G13QFEDhC32mWQwL138"/><animate attributeName="opacity" values=".8;0" dur="1.7s" begin=".6s" repeatCount="indefinite" data-page-node-id="b0OUoD1s7TCk3bWOmHKCiD"/></circle>
+          <circle cx="40" cy="72" r="2.8" data-page-node-id="Bsdaf2UXIuvFEM4ZTR7ESC"><animate attributeName="cy" values="70;44" dur="2s" begin=".9s" repeatCount="indefinite" data-page-node-id="Ck9e41fG1ApRygaarttfAk"/><animate attributeName="opacity" values=".8;0" dur="2s" begin=".9s" repeatCount="indefinite" data-page-node-id="ec4vlbj1EJ5oTBDfDk3kI4"/></circle>
+        </g>
+        <!-- 海豚星光点缀 -->
+        <circle cx="-40" cy="-18" r="1.5" fill="#fff" data-page-node-id="TcbUBedxuY1ktdNIYxoeOw"><animate attributeName="opacity" values=".2;1;.2" dur="2.4s" repeatCount="indefinite" data-page-node-id="ZZjYoFzMjv6HeE2tgcLEIS"/></circle>
+        <circle cx="30" cy="-24" r="1.2" fill="#fff" data-page-node-id="QHPxVBgC14f9uyNAVC2A6D"><animate attributeName="opacity" values=".2;1;.2" dur="3s" begin=".8s" repeatCount="indefinite" data-page-node-id="yOMP7MSgQvavxQeJEEeBKQ"/></circle>
+      </g>
+
+      <!-- 远处另一只海鸥（天上飞） -->
+      <g transform="translate(392,120)" data-page-node-id="NGEcge4NIlDefykLnYUobx">
+        <animateTransform attributeName="transform" type="translate" values="392 120;398 116;392 120;386 116;392 120" dur="5s" repeatCount="indefinite" data-page-node-id="2Sw54lK9CxNvCRb6MyOdF8"/>
+        <path d="M-16 2 Q-24 -8 -15 -12 Q-10 -8 -5 -2 Q0 -8 5 -12 Q14 -8 6 2 Z" fill="#dfe9f4" data-page-node-id="VMRRjZVZpHAOeF2NfppdWM"/>
+      </g>
+
+      <!-- 远方灯塔 -->
+      <g transform="translate(60,196)" data-page-node-id="nQz6eR1ThwpkL5F7iOUxTg">
+        <rect x="-5" y="-22" width="10" height="28" rx="2" fill="#3d4a5e" data-page-node-id="JMGatQlViwmmlkhMgK7eQN"/>
+        <rect x="-8" y="-26" width="16" height="7" rx="2" fill="#4a5870" data-page-node-id="6UO0B1N0H3dzuCL54QGJpZ"/>
+        <circle cx="0" cy="-23" r="2.6" fill="#ffd98a" data-page-node-id="aJCGtAhsBugFMxUrKTCXCV"><animate attributeName="opacity" values=".3;1;.3" dur="3.2s" repeatCount="indefinite" data-page-node-id="M1RbQRdFmhUOoOFkYAE3FA"/></circle>
+        <circle cx="0" cy="-23" r="6" fill="rgba(255,217,138,.2)" data-page-node-id="cXri8uEIbhqsfTVNHwbF7S"><animate attributeName="opacity" values=".2;.7;.2" dur="3.2s" repeatCount="indefinite" data-page-node-id="iVkovtDaxZgkQ4PlKPlwW1"/></circle>
+      </g>
+    </svg>
+  </div>
+
+  <div class="story-card" data-page-node-id="vLq4CKeFdDlbvptVGIMbjM">
+    <div class="title-wrap" data-page-node-id="hPeMJ4q1XOfMfuLlHIxPjA"><h1 class="story-title" data-page-node-id="IJEwq4oxlGu1fPRHfvcp2i">小海豚的月亮跳</h1></div>
+    <div class="sub-star" data-page-node-id="h9aHyrJCHxWquuONU3DPNi"><span data-page-node-id="Eib8XYsWx1MNwGsiKt4d3y">✦</span><span data-page-node-id="jgtUgObPoumm1ChSXTXw8S">✧</span><span data-page-node-id="sOcEiZ2UFjRAUfhjSZSY6H">✦</span><span data-page-node-id="4CzgSLBIrYoldfsUXkl9eR">✧</span><span data-page-node-id="LkJDsNWaNVaJUhEmu58wTS">✦</span></div>
+
+    <div class="story-body" data-page-node-id="19mPdTSymmZI9IKEYVXS5H">
+      <p data-page-node-id="j1MjDf3q1BIjmfFFsg1Fxd">小海豚蓝蓝有个了不起的梦想——跳得高高的，高到能碰到月亮。</p>
+      <p data-page-node-id="LqMBJX2grFS69P1fDDKj2v">每天傍晚，它都在海面上练习："嘿！"一个猛子跃起来，在空中画一道弯弯的弧线，又哗啦落进水里。</p>
+      <p data-page-node-id="wqTAk4ROxpjDlalA058nfZ">别的海豚都笑它："月亮在天上那么远，我们海豚的家在海里，你怎么可能跳得到呀？"</p>
+      <p data-page-node-id="Hnd6tEoPkWmzyTBRWHYwf3">蓝蓝甩甩尾巴上的水珠，不服气："那我也要试试！万一就差一点点呢？"</p>
+      <p data-page-node-id="OKY5YbeiW2I34KgqQZU9m4">海鸥白白天天在海上飞来飞去，它看见蓝蓝跳了一次又一次，忍不住落在它背上："喂，你跳来跳去，是想看什么呀？"</p>
+      <p data-page-node-id="mKypymV9Z2fzRw9NqO1of4">"我想看月亮！"蓝蓝喘着气，"它圆圆的、亮亮的，住在天上。你呢，你整天低着头看海面，又是想看什么呀？"</p>
+      <p data-page-node-id="XCCLATmXybgTbDQFWzFsSr">白白不好意思地扇扇翅膀："我想看看海底……听说下面有会开花的石头，还有五颜六色的小鱼。可我一下水，羽毛就湿透啦。"</p>
+      <p data-page-node-id="aiiwnllaV72p7Sr0Qrm75K">蓝蓝眼睛一亮："我带你去看！"</p>
+      <p data-page-node-id="WvovMi8N38whIYcHVqyoew">它让白白稳稳站在背上，深吸一口气，一头扎进海里。白白瞪圆了眼睛——珊瑚像一片小小的彩色森林，小丑鱼躲在海葵里探头探脑，银光闪闪的鱼群像一阵会发光的雨。白白看得连翅膀都忘了收："原来海底……是这个样子的呀！"</p>
+      <p data-page-node-id="4TBABziAocEl0PKSiN4msV">游累了，它们浮回海面。白白说："现在换我带你看月亮！"它领着蓝蓝绕过礁石，穿过发光的水母群，来到一片没有浪的海湾。这里的海面又平又亮，像一面大大的镜子。</p>
+      <p data-page-node-id="blu3MvgoCeu9PZ7KgdKJo6">月亮正从海的那一边慢慢升起来，把整片海面铺成了一条碎银做的路。</p>
+      <p data-page-node-id="AVCEf1Fi5EuPV8Vdu4qLrH">"看，"白白轻轻说，"你摸不到天上的月亮——可月亮已经跑到海里来啦。这一整条闪闪发光的路，都是它给你的。"</p>
+      <p data-page-node-id="UQDl6TcUXadXi0Z6lPUQSW">蓝蓝看着脚下的银光，忽然觉得心里满满的。它这才明白：它跳了那么多次，想够一个够不着的东西；可真正的朋友，会带它看一个比月亮更大的世界——<em data-page-node-id="s2zBSBkCMLYqgsVI2Dmpx3">一个住着它的天空，和一个装着它的海洋。</em></p>
+      <p data-page-node-id="AAC9uQeShMaFpzLXG84KMB">那天晚上，蓝蓝在银光闪闪的海面上，做了个甜甜的梦。梦里它跳得特别高，白白跟在它身边，一起飞过了月亮。</p>
+    </div>
+
+    <div class="goodnight" data-page-node-id="pzeSucqu81woIMxcCt5G8M">
+      🌙<br data-page-node-id="pTh6UvJ4cG7yV9maAtxHit">
+      晚安，小宝贝。小海豚蓝蓝说，能遇见带你看见更大世界的朋友，是件很幸运的事——<br data-page-node-id="w16OoG7Domr6dctBHIgsGw">愿你的梦里，也有一整片会发光的海。
+    </div>
+  </div>
+
+  <div class="footer-note" data-page-node-id="O67V9BFtxG1VQpTABjR66v">✦ 好朋友，就是一起看更大的世界 ✦</div>
+</div>
+
+<script>
+  (function(){
+    var box=document.getElementById('stars');
+    for(var i=0;i<110;i++){
+      var s=document.createElement('div');
+      s.className='star';
+      var sz=(Math.random()*2.2+0.8).toFixed(1);
+      s.style.width=sz+'px';s.style.height=sz+'px';
+      s.style.left=(Math.random()*100).toFixed(2)+'%';
+      s.style.top=(Math.random()*100).toFixed(2)+'%';
+      s.style.animationDelay=(Math.random()*3).toFixed(2)+'s';
+      s.style.animationDuration=(2.2+Math.random()*3).toFixed(2)+'s';
+      box.appendChild(s);
+    }
+    for(var j=0;j<9;j++){
+      var p=document.createElement('div');
+      p.className='particle';
+      var size=(Math.random()*6+3).toFixed(1);
+      p.style.width=size+'px';p.style.height=size+'px';
+      p.style.left=(Math.random()*100).toFixed(2)+'%';
+      p.style.animationDuration=(9+Math.random()*10).toFixed(1)+'s';
+      p.style.animationDelay=(Math.random()*8).toFixed(1)+'s';
+      document.body.appendChild(p);
+    }
+  })();
+</script>
+</body>
+</html>
