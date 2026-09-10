@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小猫头鹰的夜班 — 儿童睡前故事</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:linear-gradient(180deg,#0a1230 0%,#0f1b42 30%,#16264f 55%,#1d2f4a 75%,#253846 100%);
+    color:#f0e8d8;min-height:100vh;line-height:2.05;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  }
+  .stars{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none}
+  .star{position:absolute;border-radius:50%;background:#fff8e0;animation:twinkle 3s infinite}
+  @keyframes twinkle{0%,100%{opacity:.15;transform:scale(.8)}50%{opacity:.95;transform:scale(1.2)}}
+  .moon-dot{position:absolute;border-radius:50%;box-shadow:0 0 8px 2px rgba(255,244,200,.55)}
+  .wrapper{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:44px 22px 60px}
+  .header{text-align:center;margin-bottom:8px}
+  .story-badge{
+    display:inline-block;font-size:.8rem;letter-spacing:.35em;color:#c9b98a;
+    border:1px solid rgba(220,195,130,.35);border-radius:999px;padding:4px 18px 4px 22px;margin-bottom:18px;
+  }
+  h1{
+    font-size:clamp(1.9rem,6vw,2.7rem);letter-spacing:.08em;font-weight:800;color:#fdf3d7;
+    text-shadow:0 0 24px rgba(255,235,170,.35);
+    animation:titleGlow 4s ease-in-out infinite;
+  }
+  @keyframes titleGlow{0%,100%{text-shadow:0 0 16px rgba(255,235,170,.22)}50%{text-shadow:0 0 34px rgba(255,235,170,.5)}}
+  .date-line{margin-top:10px;font-size:.82rem;color:#b3a988;letter-spacing:.2em}
+  /* 场景插画 */
+  .hero{margin:26px auto 6px;max-width:640px;text-align:center}
+  .hero svg{width:100%;height:auto;display:block}
+  .story{
+    background:rgba(12,18,38,.55);border:1px solid rgba(220,195,130,.18);border-radius:20px;
+    padding:32px 30px;margin-top:26px;backdrop-filter:blur(5px);
+  }
+  .story p{font-size:1.12rem;color:#efe6cf;text-align:justify;margin-bottom:20px;text-indent:2em}
+  .story p:last-child{margin-bottom:0}
+  .story .em{color:#ffe9a8;font-weight:600}
+  .divider{display:flex;align-items:center;gap:14px;margin:30px 0}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(220,195,130,.5),transparent)}
+  .divider span{font-size:1.1rem;color:#e8d49a;letter-spacing:.5em;animation:dotBreath 2.8s ease-in-out infinite}
+  @keyframes dotBreath{0%,100%{opacity:.5}50%{opacity:1}}
+  .goodnight{
+    text-align:center;font-size:1.15rem;color:#ffe9b0;letter-spacing:.06em;line-height:2;
+    padding:26px 18px;
+    animation:gnGlow 5s ease-in-out infinite;
+  }
+  @keyframes gnGlow{0%,100%{text-shadow:0 0 10px rgba(255,230,160,.2)}50%{text-shadow:0 0 26px rgba(255,230,160,.55)}}
+  .footer{text-align:center;margin-top:34px;font-size:.78rem;color:#8a8268;letter-spacing:.15em}
+  .footer .moon{display:inline-block;animation:moonFloat 5s ease-in-out infinite}
+  @keyframes moonFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+  .bottom-glow{
+    position:fixed;bottom:0;left:0;width:100%;height:130px;z-index:0;pointer-events:none;
+    background:radial-gradient(ellipse at 50% 120%,rgba(255,214,140,.16),transparent 70%);
+    animation:bgBreath 5.5s ease-in-out infinite;
+  }
+  @keyframes bgBreath{0%,100%{opacity:.55}50%{opacity:1}}
+  @media(max-width:560px){
+    .wrapper{padding:32px 14px 48px}
+    .story{padding:24px 18px}
+    .story p{font-size:1.05rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="bottom-glow"></div>
+
+<div class="wrapper">
+
+  <div class="header">
+    <div class="story-badge">🌙 儿童睡前故事</div>
+    <h1>小猫头鹰的夜班</h1>
+    <div class="date-line">二〇二六年九月九日 · 夜</div>
+  </div>
+
+  <!-- 场景插画：树枝上的小猫头鹰 -->
+  <div class="hero">
+    <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff8dd" stop-opacity=".9"/>
+          <stop offset="100%" stop-color="#ffedb0" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="branch2" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#54402a"/>
+          <stop offset="100%" stop-color="#3a2c1c"/>
+        </linearGradient>
+        <linearGradient id="owlBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#b79a6e"/>
+          <stop offset="60%" stop-color="#9a7d54"/>
+          <stop offset="100%" stop-color="#7d6440"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 月亮 -->
+      <circle cx="508" cy="72" r="64" fill="url(#moonGlow)" opacity=".8">
+        <animate attributeName="opacity" values=".65;.95;.65" dur="5s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="508" cy="72" r="30" fill="#fdf2c8"/>
+      <circle cx="498" cy="66" r="4.5" fill="#f3e2a4" opacity=".8"/>
+      <circle cx="514" cy="80" r="3" fill="#f3e2a4" opacity=".7"/>
+      <circle cx="516" cy="62" r="2.2" fill="#f3e2a4" opacity=".6"/>
+
+      <!-- 远处树影 -->
+      <path d="M0 300 L0 210 Q60 180 130 214 Q200 246 270 208 Q340 172 420 216 Q500 254 560 218 Q610 190 640 214 L640 300 Z" fill="#0c1428" opacity=".75"/>
+
+      <!-- 大树枝 -->
+      <path d="M20 246 Q170 236 330 242 Q480 248 628 232 L628 254 Q480 270 330 262 Q170 256 20 268 Z" fill="url(#branch2)"/>
+      <!-- 小枝杈 -->
+      <path d="M300 248 Q312 218 338 206" stroke="#4a3826" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <path d="M326 226 Q344 214 356 216" stroke="#4a3826" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- 树叶 -->
+      <g fill="#1e3428" opacity=".9">
+        <ellipse cx="346" cy="198" rx="26" ry="11" transform="rotate(-24 346 198)"/>
+        <ellipse cx="368" cy="208" rx="22" ry="9" transform="rotate(-8 368 208)"/>
+        <ellipse cx="330" cy="188" rx="18" ry="8" transform="rotate(-38 330 188)"/>
+      </g>
+
+      <!-- 小猫头鹰咕咕 -->
+      <g>
+        <animateTransform attributeName="transform" type="rotate" values="-1.2 240 200;1.2 240 200;-1.2 240 200" dur="5s" repeatCount="indefinite"/>
+        <!-- 身体 -->
+        <ellipse cx="240" cy="198" rx="46" ry="54" fill="url(#owlBody)"/>
+        <!-- 肚皮羽毛 -->
+        <ellipse cx="240" cy="216" rx="28" ry="32" fill="#e8d9b8"/>
+        <path d="M226 208 q7 7 14 0 q7 7 14 0" stroke="#d4c096" stroke-width="2" fill="none"/>
+        <path d="M228 224 q6 6 12 0 q6 6 12 0" stroke="#d4c096" stroke-width="2" fill="none"/>
+        <!-- 耳羽 -->
+        <path d="M204 158 L198 128 L222 146 Z" fill="#8a6f48"/>
+        <path d="M276 158 L282 128 L258 146 Z" fill="#8a6f48"/>
+        <!-- 眼睛外圈 -->
+        <circle cx="222" cy="180" r="15" fill="#f5ecd4"/>
+        <circle cx="258" cy="180" r="15" fill="#f5ecd4"/>
+        <!-- 大眼睛（会眨） -->
+        <g>
+          <circle cx="222" cy="181" r="8.5" fill="#3a2c1a"/>
+          <circle cx="258" cy="181" r="8.5" fill="#3a2c1a"/>
+          <circle cx="225" cy="178" r="3" fill="#fff"/>
+          <circle cx="261" cy="178" r="3" fill="#fff"/>
+          <animate attributeName="opacity" values="1;1;0;1;1" keyTimes="0;0.44;0.5;0.56;1" dur="4.2s" repeatCount="indefinite"/>
+        </g>
+        <!-- 眨眼眼皮 -->
+        <g>
+          <circle cx="222" cy="180" r="15" fill="#a5885c" opacity="0">
+            <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.44;0.5;0.56;1" dur="4.2s" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="258" cy="180" r="15" fill="#a5885c" opacity="0">
+            <animate attributeName="opacity" values="0;0;1;0;0" keyTimes="0;0.44;0.5;0.56;1" dur="4.2s" repeatCount="indefinite"/>
+          </circle>
+        </g>
+        <!-- 小嘴 -->
+        <path d="M236 196 L240 206 L244 196 Z" fill="#e8a15c"/>
+        <!-- 翅膀 -->
+        <path d="M198 190 Q184 214 200 238 Q210 224 212 200 Z" fill="#8a6f48"/>
+        <path d="M282 190 Q296 214 280 238 Q270 224 268 200 Z" fill="#8a6f48"/>
+        <!-- 小爪子 -->
+        <path d="M228 250 L228 258 M240 250 L240 260 M252 250 L252 258" stroke="#c99a4e" stroke-width="3.5" stroke-linecap="round"/>
+      </g>
+
+      <!-- 脚下树枝光斑 -->
+      <circle cx="180" cy="262" r="2" fill="#ffe9a8" opacity=".8">
+        <animate attributeName="opacity" values=".2;1;.2" dur="2.4s" repeatCount="indefinite"/>
+      </circle>
+      <circle cx="310" cy="258" r="1.6" fill="#ffe9a8" opacity=".7">
+        <animate attributeName="opacity" values=".2;.9;.2" dur="3s" repeatCount="indefinite" begin=".6s"/>
+      </circle>
+      <circle cx="420" cy="264" r="1.8" fill="#ffe9a8" opacity=".8">
+        <animate attributeName="opacity" values=".2;1;.2" dur="2.7s" repeatCount="indefinite" begin="1.1s"/>
+      </circle>
+
+      <!-- 流星 -->
+      <g opacity="0">
+        <line x1="120" y1="30" x2="160" y2="52" stroke="#fff8e0" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="160" cy="52" r="2.4" fill="#fff8e0"/>
+        <animate attributeName="opacity" values="0;1;0" dur="7s" repeatCount="indefinite" begin="1s"/>
+      </g>
+      <g opacity="0">
+        <line x1="360" y1="18" x2="392" y2="36" stroke="#fff8e0" stroke-width="1.6" stroke-linecap="round"/>
+        <circle cx="392" cy="36" r="2" fill="#fff8e0"/>
+        <animate attributeName="opacity" values="0;1;0" dur="9s" repeatCount="indefinite" begin="4.5s"/>
+      </g>
+    </svg>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <div class="story">
+    <p>森林里有一只小猫头鹰，名字叫咕咕。每天太阳升得老高，小麻雀们叽叽喳喳地做操，咕咕却在树洞里打着小呼噜；等到太阳落山，伙伴们都回巢睡觉了，咕咕的大眼睛却亮得像两颗小星星。</p>
+    <p>小麻雀笑话它："咕咕真是个小懒虫，太阳晒屁股还不起床！"咕咕委屈极了，跑去问妈妈："妈妈，为什么我和大家不一样呀？"</p>
+    <p>妈妈用翅膀轻轻搂住它："傻孩子，我们猫头鹰啊，上的是<span class="em">夜班</span>。夜晚的森林，正等着我们去照顾呢。"</p>
+    <p>"夜晚的森林？"咕咕歪着小脑袋。它一直以为，天黑了森林就睡着了，什么都没有呢。</p>
+    <p>这天夜里，咕咕跟着妈妈第一次认真值了一回夜班。哇——原来夜晚的森林这么热闹：夜来香悄悄打开了小喇叭，把甜甜的香气送给路过的小飞蛾；草尖上的露珠一颗一颗排好队，把月光装进自己圆圆的肚子里，亮晶晶的，像一排小灯笼；风儿轻轻翻着树叶，哼着沙沙的摇篮曲。</p>
+    <p>一只小刺猬迷了路，在草丛里急得团团转。咕咕睁着大大的眼睛，从高高的树枝上一眼就看见了，轻手轻脚飞过去，把小刺猬一直送到了家门口。小刺猬说："谢谢你，你的眼睛真亮呀！"咕咕的脸红红的，心里却甜甜的。</p>
+    <p>天边泛起鱼肚白的时候，咕咕和妈妈下班了。小麻雀们伸着懒腰醒来，咕咕打着小哈欠钻回树洞。它忽然明白了：<span class="em">这个世界呀，从来没有真正睡着——白天有白天的朋友守着，夜晚有夜晚的朋友守着，大家换着班，把森林照顾得好好的。</span></p>
+    <p>咕咕枕着一小片暖乎乎的晨光，甜甜地睡着了。它梦见自己亮晶晶的大眼睛，变成了夜空里两颗小小的星星。</p>
+  </div>
+
+  <div class="divider"><span>✦</span></div>
+
+  <div class="goodnight">
+    晚安，小宝贝。小猫头鹰咕咕说，你今天也是个好孩子，<br>该做一个甜甜的梦了。🌙
+  </div>
+
+  <div class="footer">
+    <span class="moon">🌙</span> &nbsp;每晚 19:30 · 温暖相伴&nbsp; <span class="moon">⭐</span>
+  </div>
+
+</div>
+
+<script>
+  (function(){
+    var box=document.getElementById('stars'),frag=document.createDocumentFragment();
+    for(var i=0;i<110;i++){
+      var s=document.createElement('div');
+      s.className='star';
+      var sz=(Math.random()*2.2+0.7).toFixed(1);
+      s.style.width=sz+'px';s.style.height=sz+'px';
+      s.style.left=(Math.random()*100).toFixed(2)+'%';
+      s.style.top=(Math.random()*62).toFixed(2)+'%';
+      s.style.animationDelay=(Math.random()*3).toFixed(2)+'s';
+      s.style.animationDuration=(2+Math.random()*2.6).toFixed(2)+'s';
+      s.style.opacity=.25+Math.random()*.5;
+      frag.appendChild(s);
+    }
+    box.appendChild(frag);
+  })();
+</script>
+</body>
+</html>
