@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="mv8gTZAWEeb5mHfGagTQFf">
+<head data-page-node-id="4vgy4rGIZFUroawK4xCpJm">
+<meta charset="UTF-8" data-page-node-id="5N2ZpJ2ilQipScg8aVsb62">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="L99UDCYQNeTX78ETA64PQK">
+<title>飞屋环游记</title>
+<style>
+  :root {
+    --bg: #0d0f14; --panel: #141820; --line: rgba(200,170,100,.12);
+    --txt: #e8e0d0; --dim: #9a8f7a; --gold: #e8c96a; --amber: #d4a040;
+    --orange: #e07a30; --sky: #7ab8d4; --red: #c45040; --green: #5a9a60;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--txt);
+    font: 16px/1.75 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+  }
+  /* 顶条 */
+  .topbar { height:5px; background: linear-gradient(90deg, var(--red), var(--orange), var(--gold), var(--sky), var(--green)); }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 36px 22px 48px; }
+
+  /* 气球装饰 */
+  .balloons { text-align:center; margin-bottom: 22px; position:relative; height: 110px; overflow:hidden; }
+  .balloons svg { width: 320px; height: 110px; }
+
+  header { text-align:center; margin-bottom: 28px; }
+  .meta-line { font-size: 12.5px; color: var(--dim); letter-spacing: .18em; text-transform: uppercase; margin-bottom: 10px; }
+  h1 {
+    font-size: clamp(30px, 6vw, 44px); font-weight: 800; letter-spacing: .04em;
+    background: linear-gradient(92deg, var(--gold) 0%, var(--amber) 40%, var(--orange) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    filter: drop-shadow(0 0 22px rgba(212,168,83,.25));
+  }
+  .subtitle { color: var(--dim); font-size: 15px; margin-top: 8px; }
+  .subtitle em { color: var(--gold); font-style: normal; font-weight: 500; }
+
+  /* 评分卡 */
+  .ratings { display:flex; flex-wrap:wrap; gap: 10px; justify-content:center; margin: 22px 0 6px; }
+  .r {
+    background: linear-gradient(160deg, var(--panel), rgba(20,24,32,.9));
+    border: 1px solid var(--line); border-radius: 12px; padding: 10px 18px;
+    text-align:center; min-width: 96px;
+  }
+  .r b { display:block; font-size: 22px; color: var(--gold); font-weight: 700; }
+  .r span { font-size: 11.5px; color: var(--dim); }
+
+  /* 荣誉条 */
+  .honors { display:flex; flex-wrap:wrap; gap: 8px; justify-content:center; margin: 14px 0 4px; }
+  .honor {
+    font-size: 12px; color: var(--amber); background: rgba(212,168,83,.08);
+    border: 1px solid rgba(212,168,83,.25); border-radius: 999px;
+    padding: 5px 14px; letter-spacing: .04em;
+  }
+
+  /* 正文区块 */
+  .section {
+    background: linear-gradient(165deg, rgba(24,28,40,.85), rgba(14,18,28,.92));
+    border: 1px solid var(--line); border-radius: 16px;
+    padding: 22px 22px 18px; margin-top: 18px;
+    box-shadow: 0 8px 28px rgba(0,0,0,.35);
+  }
+  .section h2 { font-size: 17px; color: var(--gold); margin-bottom: 12px; display:flex; align-items:center; gap: 10px; }
+  .section h2::before { content:""; width:4px; height:18px; background: linear-gradient(180deg, var(--gold), var(--orange)); border-radius: 2px; }
+  .section p { color: #c8bfb0; margin-bottom: 10px; }
+  .section p:last-child { margin-bottom: 0; }
+  .section ul { margin: 8px 0 0 18px; color: #c8bfb0; }
+  .section li { margin-bottom: 7px; }
+  .section li::marker { color: var(--amber); }
+
+  /* 分隔 */
+  .sep { display:flex; align-items:center; gap: 14px; margin: 20px 0; color: var(--dim); font-size: 12px; }
+  .sep::before, .sep::after { content:""; flex:1; height:1px; background: linear-gradient(90deg, transparent, rgba(212,168,83,.2), transparent); }
+
+  /* 观影提示 */
+  .tip {
+    background: rgba(90,154,96,.08); border: 1px solid rgba(90,154,96,.25);
+    border-radius: 12px; padding: 14px 18px; margin-top: 18px;
+    color: #8ab890; font-size: 13.5px; line-height: 1.7;
+  }
+  .tip strong { color: #a0d0a8; }
+
+  footer { text-align:center; margin-top: 32px; color: var(--dim); font-size: 12px; }
+  footer .dot { color: var(--gold); }
+
+  @media (max-width: 520px) {
+    .wrap { padding: 24px 14px 36px; }
+    .r { padding: 8px 12px; min-width: 78px; }
+    .r b { font-size: 18px; }
+    .balloons svg { width: 260px; }
+  }
+</style>
+</head>
+<body data-page-node-id="MX52FVdJ420XLC3hdf8IfP">
+<div class="topbar" data-page-node-id="yYhuoSyadP8tfjGEVd56Ip"></div>
+<div class="wrap" data-page-node-id="2CiM8faitBw0AzUpKGfizV">
+
+  <div class="balloons" data-page-node-id="sbkEpGvhXN24k1XRhVGVgS">
+    <svg viewBox="0 0 320 110" xmlns="http://www.w3.org/2000/svg" data-page-node-id="6BiYJLDBPEvlhdiDLRaHNE">
+      <!-- 气球群 -->
+      <g transform="translate(160, 55)" data-page-node-id="muzljraPKkawaatAL8EdwP">
+        <!-- 房子轮廓 -->
+        <rect x="-18" y="18" width="36" height="28" rx="2" fill="#8a6a40" opacity=".8" data-page-node-id="heGOrgEJyeDblsKUdqPbKo"/>
+        <polygon points="-22,18 0,-2 22,18" fill="#6a4a28" opacity=".8" data-page-node-id="TkEMFbjpfEIWsQ8xuxdqAl"/>
+        <rect x="-6" y="28" width="12" height="12" rx="1" fill="#d4c8a0" opacity=".6" data-page-node-id="DHS1HrLVe7Hxl35uONGuVq"/>
+        <!-- 气球线 -->
+        <line x1="0" y1="18" x2="0" y2="-35" stroke="#b8a070" stroke-width="1.2" opacity=".6" data-page-node-id="0Ro61L4SCEwJ9q0JHH1Fh6"/>
+        <!-- 彩色气球 -->
+        <circle cx="-22" cy="-22" r="10" fill="#c45040" opacity=".85" data-page-node-id="jK30r4h8Anm5xPhpPPCg4T"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-3; 0,0" dur="4s" repeatCount="indefinite" data-page-node-id="xkEUznPLl8mczgEGKpLJIi"/></circle>
+        <circle cx="-8" cy="-30" r="11" fill="#d4a040" opacity=".85" data-page-node-id="bpvehxx43G9ksI0SHDElXW"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="3.5s" repeatCount="indefinite" data-page-node-id="90WYyugxroP10tcbdB1SEB"/></circle>
+        <circle cx="8" cy="-28" r="10" fill="#5a9a60" opacity=".85" data-page-node-id="DnOY2L96YdQ0G8pT5cJ2pX"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-3.5; 0,0" dur="4.2s" repeatCount="indefinite" data-page-node-id="pXZ2TPdIptWekPi8ktblmi"/></circle>
+        <circle cx="22" cy="-20" r="9" fill="#7ab8d4" opacity=".85" data-page-node-id="Ob1woOZrrSN0FNXz4liZAq"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-2.5; 0,0" dur="3.8s" repeatCount="indefinite" data-page-node-id="2yHWYiliUGy5x3KMal5Up6"/></circle>
+        <circle cx="-14" cy="-8" r="8" fill="#e07a30" opacity=".85" data-page-node-id="Zf8TAORrMJeR94ifDOp5ek"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="3.3s" repeatCount="indefinite" data-page-node-id="TBTLZgsGAZ9WIeVjABjury"/></circle>
+        <circle cx="14" cy="-10" r="9" fill="#b05070" opacity=".85" data-page-node-id="l28yeNlrIqU4x63Cz5r4YB"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-3; 0,0" dur="4.5s" repeatCount="indefinite" data-page-node-id="3QJV1tGFPZ4E0tS4HxUgYH"/></circle>
+        <circle cx="0" cy="-40" r="12" fill="#e8c96a" opacity=".85" data-page-node-id="mcw51TX1Qvf706wEMGJvbc"><animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="3.6s" repeatCount="indefinite" data-page-node-id="vQhDTU2o2MmclqvfSlr2JH"/></circle>
+        <!-- 高光 -->
+        <circle cx="-24" cy="-24" r="3" fill="#fff" opacity=".3" data-page-node-id="jhwuF443wYoxdQ3fT9XNf9"/>
+        <circle cx="-10" cy="-32" r="3.5" fill="#fff" opacity=".3" data-page-node-id="K9wxO20xPc8EKSuzgFXBJB"/>
+        <circle cx="6" cy="-30" r="3" fill="#fff" opacity=".3" data-page-node-id="8aqrtpG8QGecf45FUkrKcm"/>
+        <circle cx="20" cy="-22" r="2.5" fill="#fff" opacity=".3" data-page-node-id="7yM4xXtJrelYKn9LrygIAz"/>
+        <circle cx="-2" cy="-42" r="3.5" fill="#fff" opacity=".3" data-page-node-id="e5jNZ77LH4zgo46XOGDvfi"/>
+      </g>
+      <!-- 飘远的小气球 -->
+      <circle cx="40" cy="30" r="5" fill="#c45040" opacity=".4" data-page-node-id="AwsKMawi174L8NXz7qUpls"><animateTransform attributeName="transform" type="translate" values="0,0; 3,-15; 6,-30" dur="8s" repeatCount="indefinite" data-page-node-id="2CIPGMcjUhN0esZAnIYhMF"/></circle>
+      <circle cx="280" cy="25" r="4" fill="#7ab8d4" opacity=".35" data-page-node-id="wMntkGf2Kwm98C4D2tInd1"><animateTransform attributeName="transform" type="translate" values="0,0; -2,-12; -4,-24" dur="9s" repeatCount="indefinite" data-page-node-id="opDDXypVSqEx8OfBHFOwSA"/></circle>
+    </svg>
+  </div>
+
+  <header data-page-node-id="qSxNXcA3P1hryDjWcTmoIx">
+    <p class="meta-line" data-page-node-id="9yXflurog5iVLf0b0BfXGM">Pixar Animation Studios · 2009</p>
+    <h1 data-page-node-id="P5K9RsyRYDezi0DVomYEzo">飞屋环游记</h1>
+    <p class="subtitle" data-page-node-id="mlrHDvZ8FNsEeOuAKt3snq"><em data-page-node-id="3AbrkhnmaYW6SgbD3aLNDa">Up</em> · 彼特·道格特 / 鲍勃·彼德森 · 爱德华·阿斯纳配音</p>
+    <div class="ratings" data-page-node-id="a4JbCQZB8XcGr9hL5QYA8g">
+      <div class="r" data-page-node-id="vbexk81mJ3cKCgKPs9LSCe"><b data-page-node-id="0oBb6zmNgFs23FhpkY6wHp">9.1</b><span data-page-node-id="WVGOXkqKiAeu6yPR13KSyj">豆瓣</span></div>
+      <div class="r" data-page-node-id="0uOtl393Zu34DciQunSTRt"><b data-page-node-id="1XrSiZ8A6U39LoGEnXVVB0">8.3</b><span data-page-node-id="UzQrUWzATJfAPHYCHUgPzy">IMDb</span></div>
+      <div class="r" data-page-node-id="GjW3NyQdzbKEen0duVX2E2"><b data-page-node-id="aWJxZS1luStmGSQUEV3q6W">98%</b><span data-page-node-id="ZVIH2ZXsg20yrrFt6lo82I">烂番茄</span></div>
+      <div class="r" data-page-node-id="IOD0ihtEJVENypPPTf3s7l"><b data-page-node-id="hyxfMBErPcsp7tJSaTolJC">88</b><span data-page-node-id="ftvubA55gyHMsDZILicEpY">Metacritic</span></div>
+    </div>
+    <div class="honors" data-page-node-id="ufFXWNmFCNMpWi2U6KLYvM">
+      <span class="honor" data-page-node-id="RR2bSnfyUD9emwN7SACTFZ">🏆 奥斯卡最佳动画长片</span>
+      <span class="honor" data-page-node-id="oVvOk9o1x7xoW3z6asy4mU">🎵 奥斯卡最佳原创配乐</span>
+      <span class="honor" data-page-node-id="6Z9CBXDGUJIAhxLrHM7Vk6">🎬 奥斯卡 5 项提名</span>
+      <span class="honor" data-page-node-id="KE1eurAfGFLytpYsUpOp0t">🏅 金球奖最佳动画</span>
+    </div>
+  </header>
+
+  <div class="section" data-page-node-id="rNXAgAMgkqaMRghtdTqUIH">
+    <h2 data-page-node-id="p57l7djX4XIMi0tegRWsvg">剧情梗概</h2>
+    <p data-page-node-id="7pd8az3J9ksB1r9sHuzY2F">78 岁的卡尔·弗雷德里克森老先生是个卖气球的小贩，他用一辈子和挚爱的妻子艾莉经营着一个小小的家。妻子去世后，这栋老房子成了卡尔唯一的念想。当开发商要把这里变成工地时，卡尔做出了一个疯狂的决定——把成千上万只气球系在屋顶上，让整栋房子飞起来，飞往他和艾莉年轻时约定好的"仙境瀑布"。</p>
+    <p data-page-node-id="m7QLF9Y9fHO1rOT1jlpBdu">起飞后他才发现，一个名叫罗素的八岁亚裔小探险家不知怎么搭上了这趟"航班"。一老一少、一栋飞屋、一条会说话的狗、一只彩色大鸟，在南美洲的荒野上空，开启了一段谁也没预料到的冒险。</p>
+  </div>
+
+  <div class="sep" data-page-node-id="YcKYtK7giQJHUF7QM1ICN3">✦ 亮点所在 ✦</div>
+
+  <div class="section" data-page-node-id="NFT1naQNwufyWAyGqtf9Vs">
+    <h2 data-page-node-id="LHwhgcaQZCsGiZM9VXOqXc">为什么它是一部杰作</h2>
+    <ul data-page-node-id="hFqkKnbvTXjkogMWzIpOu3">
+      <li data-page-node-id="GEkddqLNMK6AhOs7zQk7LV"><b data-page-node-id="IQrIEtrzKtUhJalhaHKtK3">影史最动人的四分钟开场</b>：没有一句台词，只用蒙太奇讲完卡尔与艾莉从相识、相爱到相守一生再到天人永隔的完整故事。这段被电影学院反复拆解，被誉为"如何用画面代替台词"的教科书级示范。</li>
+      <li data-page-node-id="hi7Qktm5qXHbeyl7NiM3sb"><b data-page-node-id="90I7uXxQrd8kmwQ8HaqsO6">皮克斯的野心与温柔</b>：导演彼特·道格特用一栋飞天的老房子，把"放下"和"继续走"这两个矛盾的命题缝在了一起。房子越飞越轻，观众的眼泪越流越多——不是悲伤，是被理解的释然。</li>
+      <li data-page-node-id="yKT1lG17KVph5wuCGS8M0Y"><b data-page-node-id="xOEUp8KyyQ07KHX15nO02G">老少咸宜的双层叙事</b>：孩子看冒险（飞屋、大鸟、会说话的狗），成年人看人生（承诺、遗憾、和过去和解）。每个年龄层都能带走属于自己的东西。</li>
+      <li data-page-node-id="1OMZEXKhPWK4A3gTJ6VgYo"><b data-page-node-id="skLPOHzcvbnFCBEGI6m5BI">道格特对"执念"的温柔解构</b>：卡尔一心要把房子搬到瀑布旁，却在旅途中发现，真正重要的不是到达那个坐标，而是路上遇到的人和重新打开的心。</li>
+    </ul>
+  </div>
+
+  <div class="section" data-page-node-id="NIrTACTaiNoLDQJlHImzyh">
+    <h2 data-page-node-id="cW8bR5LWkimCBVvekmXm9O">值得一看的理由</h2>
+    <p data-page-node-id="YpguNnaZDuHt5O4ocFY29k">《飞屋环游记》是那种你以为"动画是给小孩看的"、看完后发现自己才是被治愈的大人的电影。</p>
+    <p data-page-node-id="Z3DacYDONDHEtSkvEQjh6u">它花四分钟让你爱上两个人，然后用剩下的时间告诉你：<b data-page-node-id="YnFHO3CNpOzW0aX8Hny39P">爱一个人不是把她锁在回忆里，而是带着她教给你的勇气，继续走向新的风景。</b></p>
+    <p data-page-node-id="SSrty8GHAbaMDgZIkuc9Cg">皮克斯的这部作品证明了一件事：动画片可以比真人电影更深刻地谈论衰老、死亡和失去，同时还能让你笑出声来。那只叫"逗逗"的金毛犬（"我捡到一根棍子！"）后来成了皮克斯最受欢迎的角色之一。</p>
+    <p data-page-node-id="077cpHYcLStSTXKqiaHLOa">如果你曾经有过一个没完成的约定、一座搬不走的"老房子"，这部电影会轻轻告诉你：飞起来吧，带着它一起。</p>
+  </div>
+
+  <div class="tip" data-page-node-id="OZNJN9b9dYQBdtbkTBdD16">
+    <strong data-page-node-id="hpE0UgVaowUYKC7gkLb3Hv">🎈 观影小贴士</strong><br data-page-node-id="kSONsCCus6dWPFc8EuwC43">
+    全片 96 分钟，节奏轻快。建议从第一秒就开始认真看——前面四分钟的分量，抵得上很多电影一整部的情感浓度。皮克斯首部 3D 动画长片（同步发行 3D 版），色彩温暖，适合全家一起观看。准备好纸巾。
+  </div>
+
+  <footer data-page-node-id="5As79fk4evXGVfoSfnglDB"><span class="dot" data-page-node-id="xdRuRlOCNGppZiARui32oc">●</span> 数据来源：豆瓣 / IMDb / Rotten Tomatoes / Metacritic · 第 73 期</footer>
+</div>
+</body>
+</html>

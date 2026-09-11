@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="zsacckifShFQ58czeg3CLY">
+<head data-page-node-id="ChB7WuHtybjmwYIUp11UIE">
+<meta charset="UTF-8" data-page-node-id="cdu9Sw3xb3Mna8NQ2vSO1C">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="zeEU9jzCGAoEY0QD7VNLln">
+<title>小田鼠的藏宝库 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #0a0e1a; --star: #e8d5b7; --moon: #fff5d6; --glow: rgba(232,213,183,.25);
+    --text: #f3e9d8; --sub: #a99b82; --accent: #d4a853; --gold: #e8c96a;
+    --card: rgba(16,22,40,.55); --panel: rgba(12,18,34,.6);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font: 18px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh; overflow-x: hidden;
+  }
+  /* 星空 */
+  .stars { position:fixed; inset:0; z-index:0; pointer-events:none; }
+  .star { position:absolute; background:var(--star); border-radius:50%; opacity:0; animation: twinkle var(--d) ease-in-out infinite; }
+  @keyframes twinkle { 0%,100%{opacity:0} 50%{opacity:var(--m,.6)} }
+  /* 月亮 */
+  .moon-wrap { position:fixed; top:28px; right:28px; z-index:1; pointer-events:none; }
+  .moon { width:72px; height:72px; border-radius:50%; background: radial-gradient(circle at 35% 35%, #fff8e7, #f5e6b8 55%, #d4b86a 100%); box-shadow: 0 0 60px rgba(245,230,184,.35), 0 0 120px rgba(245,230,184,.12), inset -6px -6px 14px rgba(180,150,80,.25); animation: moonGlow 5s ease-in-out infinite; }
+  @keyframes moonGlow { 0%,100%{box-shadow:0 0 60px rgba(245,230,184,.35),0 0 120px rgba(245,230,184,.12)} 50%{box-shadow:0 0 80px rgba(245,230,184,.5),0 0 160px rgba(245,230,184,.2)} }
+  /* 流星 */
+  .meteor { position:fixed; width:2px; height:2px; background:#fff; border-radius:50%; box-shadow:0 0 6px 2px rgba(255,255,255,.6); z-index:1; pointer-events:none; opacity:0; }
+  .m1 { top:18%; left:75%; animation: fall1 7s linear infinite 3s; }
+  .m2 { top:8%; left:45%; animation: fall2 9s linear infinite 6s; }
+  @keyframes fall1 { 0%{opacity:0; transform:translate(0,0) scale(1)} 8%{opacity:1} 60%{opacity:0; transform:translate(-220px,180px) scale(.3)} 100%{opacity:0} }
+  @keyframes fall2 { 0%{opacity:0; transform:translate(0,0) scale(1)} 6%{opacity:1} 55%{opacity:0; transform:translate(-160px,140px) scale(.3)} 100%{opacity:0} }
+
+  .wrap { position:relative; z-index:2; max-width: 680px; margin: 0 auto; padding: 28px 20px 50px; }
+
+  /* 标题 */
+  .hero { text-align:center; margin-bottom: 26px; }
+  .hero h1 { font-size: clamp(26px, 5.2vw, 36px); font-weight: 700; color: var(--gold); letter-spacing: .06em; text-shadow: 0 0 30px rgba(212,168,83,.35); animation: titleBreath 4s ease-in-out infinite; }
+  @keyframes titleBreath { 0%,100%{text-shadow:0 0 30px rgba(212,168,83,.35)} 50%{text-shadow:0 0 50px rgba(212,168,83,.55)} }
+  .subtitle { color: var(--sub); font-size: 14px; margin-top: 8px; letter-spacing: .12em; }
+
+  /* 田鼠插画 */
+  .illust { text-align:center; margin: 18px 0 24px; }
+  .illust svg { width: min(320px, 82vw); height: auto; filter: drop-shadow(0 8px 24px rgba(0,0,0,.45)); }
+
+  /* 正文 */
+  .story { background: var(--card); border: 1px solid rgba(212,168,83,.12); border-radius: 18px; padding: 24px 22px; backdrop-filter: blur(6px); box-shadow: 0 10px 40px rgba(0,0,0,.35); }
+  .story p { margin-bottom: 16px; text-indent: 2em; }
+  .story p:last-child { margin-bottom: 0; }
+
+  /* 分隔 */
+  .divider { display:flex; align-items:center; justify-content:center; gap: 12px; margin: 22px 0; color: var(--sub); font-size: 13px; }
+  .divider::before, .divider::after { content:""; flex:1; height:1px; background: linear-gradient(90deg, transparent, rgba(212,168,83,.25), transparent); }
+  .dot { width:5px; height:5px; background: var(--accent); border-radius:50%; box-shadow: 0 0 8px rgba(212,168,83,.5); animation: dotBreath 2.8s ease-in-out infinite; }
+  @keyframes dotBreath { 0%,100%{opacity:.4} 50%{opacity:1} }
+
+  /* 晚安语 */
+  .goodnight { text-align:center; margin-top: 22px; padding: 18px; background: var(--panel); border: 1px solid rgba(212,168,83,.14); border-radius: 14px; }
+  .goodnight p { color: var(--gold); font-size: 17px; font-weight: 500; line-height: 1.8; text-shadow: 0 0 16px rgba(212,168,83,.2); animation: gnBreath 5s ease-in-out infinite; }
+  @keyframes gnBreath { 0%,100%{text-shadow:0 0 16px rgba(212,168,83,.2)} 50%{text-shadow:0 0 28px rgba(212,168,83,.4)} }
+
+  /* 粒子 */
+  .particle { position:fixed; border-radius:50%; pointer-events:none; z-index:1; opacity:.6; }
+
+  /* 底部 */
+  footer { text-align:center; margin-top: 28px; color: var(--sub); font-size: 12px; opacity:.7; }
+  footer .moon-icon { display:inline-block; width:18px; height:18px; border-radius:50%; background: linear-gradient(135deg, #f5e6b8, #d4b86a); box-shadow: 0 0 10px rgba(245,230,184,.3); vertical-align: middle; margin: 0 6px; animation: moonFloat 4s ease-in-out infinite; }
+  @keyframes moonFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 20px 14px 36px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+  }
+</style>
+</head>
+<body data-page-node-id="TdpBHDbDeSOZI4IHcD8LQB">
+<div class="stars" id="stars" data-page-node-id="RsnMd9UeFwNTSwUYDL480f"></div>
+<div class="moon-wrap" data-page-node-id="Tby6JuJlhfToAtJGxGq3yJ"><div class="moon" data-page-node-id="hKhm2WFUgvOfBzCB8BUNd3"></div></div>
+<div class="meteor m1" data-page-node-id="0AtRjs55qiA5QKeUeRlv4h"></div>
+<div class="meteor m2" data-page-node-id="TJ0w0s6xlyChC7DAZCUPU2"></div>
+
+<div class="wrap" data-page-node-id="TH1TzErfzRMUxJcbg4Vdbc">
+  <header class="hero" data-page-node-id="6Z3FE8WqgBDqC1cc3WTdTC">
+    <h1 data-page-node-id="HEyx9wGnAaeH4uG7WYyfZD">🌾 小田鼠的藏宝库</h1>
+    <p class="subtitle" data-page-node-id="KtQJYuCA8HJEU1mCCEQWTU">儿童睡前故事 · 2026-09-10</p>
+  </header>
+
+  <div class="illust" data-page-node-id="R5C3doRwZdo3Pv75oAzX3h">
+    <svg viewBox="0 0 360 220" xmlns="http://www.w3.org/2000/svg" data-page-node-id="HfqFiviOuMUP6mNgmEYzhw">
+      <defs data-page-node-id="lLgM0Ozg48vAtG07v3jBwS">
+        <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1" data-page-node-id="nu6qWuA0s403A4fBS8dKSu"><stop offset="0%" stop-color="#1a2338" data-page-node-id="AGsWqZIzgDFL4XEBEEjY5v"/><stop offset="100%" stop-color="#0f1525" data-page-node-id="Eu0Dl0iFhcFkGs0T4weu7S"/></linearGradient>
+        <linearGradient id="body" x1="0" y1="0" x2="0" y2="1" data-page-node-id="jubfjbpLrjOLlBYfuHpCDM"><stop offset="0%" stop-color="#c4965a" data-page-node-id="Zoz2CMeVNGO4GFJyYtJDZV"/><stop offset="100%" stop-color="#8a632e" data-page-node-id="Pt6uAIdNwRijp5zhaamBjx"/></linearGradient>
+        <linearGradient id="belly" x1="0" y1="0" x2="0" y2="1" data-page-node-id="x9ady2VQUF9YBNTn05ieKs"><stop offset="0%" stop-color="#f5e6c8" data-page-node-id="CipZNVA8naETWau2jYE2ab"/><stop offset="100%" stop-color="#dcc298" data-page-node-id="FeqQncjSEaGVcpbhhpZAoe"/></linearGradient>
+      </defs>
+      <!-- 远山 -->
+      <path d="M0,180 Q60,150 120,175 Q180,140 240,170 Q300,145 360,165 L360,220 L0,220Z" fill="#121a2e" opacity=".6" data-page-node-id="qpvXct2ickTROjlXopgHyZ"/>
+      <!-- 近坡 -->
+      <path d="M0,200 Q80,175 160,195 Q240,180 360,200 L360,220 L0,220Z" fill="url(#hill)" data-page-node-id="gMVYksCLPWEhfg0K42oPGi"/>
+      <!-- 树洞/藏宝库入口 -->
+      <ellipse cx="260" cy="188" rx="28" ry="16" fill="#0a0f1a" data-page-node-id="A46bw5rG7MvfnKpYaEdrnW"/>
+      <ellipse cx="260" cy="186" rx="24" ry="12" fill="#1a0f05" data-page-node-id="hRaDWaUgCYD6jWcW8kOGKx"/>
+      <!-- 小坚果堆在洞口 -->
+      <ellipse cx="245" cy="192" rx="6" ry="4" fill="#a07030" data-page-node-id="HzRJ5Wzq1d8PIYYgbUWKND"/>
+      <ellipse cx="255" cy="194" rx="5" ry="3.5" fill="#b88038" data-page-node-id="htE601DGSfGU3P0YCtSdAA"/>
+      <ellipse cx="265" cy="193" rx="6" ry="4" fill="#906828" data-page-node-id="PhTybUzIfyfmKTAmj2wwg4"/>
+      <ellipse cx="275" cy="191" rx="5" ry="3.5" fill="#a07030" data-page-node-id="cbAtFfa0LdWJa1cS6iilyG"/>
+      <!-- 小田鼠 -->
+      <g transform="translate(130, 145)" data-page-node-id="P5RxRHAlP17OWvPNAAlO07">
+        <!-- 尾巴 -->
+        <path d="M55,55 Q75,48 82,38 Q88,28 82,22" fill="none" stroke="#c4965a" stroke-width="4" stroke-linecap="round" data-page-node-id="FVx9FIPNlFdqQuICYa1vdp"/>
+        <!-- 身体 -->
+        <ellipse cx="35" cy="48" rx="28" ry="22" fill="url(#body)" data-page-node-id="U4dd9eZ7INQCN1dhi69BcD"/>
+        <!-- 肚皮 -->
+        <ellipse cx="35" cy="52" rx="18" ry="14" fill="url(#belly)" data-page-node-id="F7H4h5DU7BfRBHVt0JhEUX"/>
+        <!-- 头 -->
+        <circle cx="22" cy="28" r="20" fill="url(#body)" data-page-node-id="9k8zf2boWmMZzJF0BmEKMF"/>
+        <!-- 耳朵 -->
+        <circle cx="10" cy="14" r="8" fill="#b8884a" data-page-node-id="XcGEMZDgqCaXSWo9By9xQk"/>
+        <circle cx="10" cy="14" r="5" fill="#e8c8a0" data-page-node-id="caCOcyUfnbrNJR7lSLzqt0"/>
+        <circle cx="34" cy="14" r="8" fill="#b8884a" data-page-node-id="ictHrKCoPtz8vMUP4O0CGr"/>
+        <circle cx="34" cy="14" r="5" fill="#e8c8a0" data-page-node-id="3G0yiahyrgINwqpbWJoWNa"/>
+        <!-- 眼睛 -->
+        <circle cx="16" cy="26" r="5" fill="#1a0f05" data-page-node-id="LZj9gosMGB75DIXz9aayK3"/>
+        <circle cx="16" cy="24" r="2" fill="#fff" opacity=".9" data-page-node-id="PdNWM8FaywKOnAkXhdzjYO"/>
+        <circle cx="28" cy="26" r="5" fill="#1a0f05" data-page-node-id="RBpkSm7fE83a1AfKktOsAC"/>
+        <circle cx="28" cy="24" r="2" fill="#fff" opacity=".9" data-page-node-id="6LSOmlzIOasQ8wtNO7oHTn"/>
+        <!-- 眨眼动画 -->
+        <ellipse cx="16" cy="26" rx="5" ry="0.5" fill="#c4965a" opacity="0" data-page-node-id="Lh4l0Tho54tYGHVQeBzbqj">
+          <animate attributeName="opacity" values="0;0;1;0;0" dur="4.2s" repeatCount="indefinite" data-page-node-id="Fac89UrOdNXFzz81JMHiHa"/>
+        </ellipse>
+        <ellipse cx="28" cy="26" rx="5" ry="0.5" fill="#c4965a" opacity="0" data-page-node-id="vlSw4n3jB50ioOBPgR2Vje">
+          <animate attributeName="opacity" values="0;0;1;0;0" dur="4.2s" repeatCount="indefinite" data-page-node-id="zSP5F5Mpn6W9UCdjMeS3Pd"/>
+        </ellipse>
+        <!-- 鼻子 -->
+        <ellipse cx="22" cy="34" rx="4" ry="3" fill="#e09080" data-page-node-id="BOv9AJMfeM5jsiEvsCADeK"/>
+        <!-- 胡须 -->
+        <line x1="8" y1="32" x2="-2" y2="30" stroke="#b8884a" stroke-width="1" opacity=".7" data-page-node-id="ZltjnfeKFaA2V6eB7VSsGl"/>
+        <line x1="8" y1="35" x2="-2" y2="36" stroke="#b8884a" stroke-width="1" opacity=".7" data-page-node-id="tPVXbezFbh8Mjcfbp6bHEw"/>
+        <line x1="36" y1="32" x2="46" y2="30" stroke="#b8884a" stroke-width="1" opacity=".7" data-page-node-id="bONOVEoXhp2ULIAs6L3FJ0"/>
+        <line x1="36" y1="35" x2="46" y2="36" stroke="#b8884a" stroke-width="1" opacity=".7" data-page-node-id="ao051dIw5PjDWmeCkZwEdV"/>
+        <!-- 前爪捧着坚果 -->
+        <ellipse cx="28" cy="54" rx="6" ry="4" fill="#c4965a" data-page-node-id="V9LIvC1Ul2VLgj9E8INJ7y"/>
+        <ellipse cx="18" cy="54" rx="6" ry="4" fill="#c4965a" data-page-node-id="ofISCQOLfnuooRsVl21keN"/>
+        <ellipse cx="23" cy="50" rx="5" ry="3.5" fill="#a07030" data-page-node-id="gtteeMhOITz7EkAzi3Ruxc"/>
+        <!-- 后脚 -->
+        <ellipse cx="48" cy="58" rx="7" ry="4" fill="#c4965a" data-page-node-id="tTjWIpAWIe2LXx7BZ7umtI"/>
+        <!-- 身体轻摆 -->
+        <animateTransform attributeName="transform" type="translate" values="130,145; 130,143; 130,145" dur="5s" repeatCount="indefinite" data-page-node-id="ZZzVcFSSy4AkdSIf8N9lRW"/>
+      </g>
+      <!-- 飘落的秋叶 -->
+      <g opacity=".7" data-page-node-id="9jElWV36sogaCVvFnrXJCe">
+        <path d="M50,60 Q55,55 60,60 Q55,68 50,60Z" fill="#c47630" data-page-node-id="UuKrVZHuhwlSKa4BWnv42Q">
+          <animateTransform attributeName="transform" type="translate" values="0,0; 5,80; 10,160" dur="7.5s" repeatCount="indefinite" data-page-node-id="tpMdn5ypmnYExilkoZnTWg"/>
+          <animateTransform attributeName="transform" type="rotate" values="0; 15; -10; 5" dur="7.5s" repeatCount="indefinite" additive="sum" data-page-node-id="yPJ9bQTCATiv6JdnA1jNAy"/>
+          <animate attributeName="opacity" values=".7; .4; 0" dur="7.5s" repeatCount="indefinite" data-page-node-id="7mqcxVdc5WdWpMwkwunmHu"/>
+        </path>
+        <path d="M280,40 Q285,35 290,40 Q285,48 280,40Z" fill="#a04030" transform="scale(.8)" data-page-node-id="coFM8sXhixiBdMeRqsDG5P">
+          <animateTransform attributeName="transform" type="translate" values="0,0; -8,70; -4,140" dur="9s" repeatCount="indefinite" data-page-node-id="Xmv07rkqmOp8ykYVMl0gil"/>
+          <animate attributeName="opacity" values=".6; .3; 0" dur="9s" repeatCount="indefinite" data-page-node-id="a9by4PgKCOIjEFNZsMczjS"/>
+        </path>
+        <path d="M180,30 Q185,25 190,30 Q185,38 180,30Z" fill="#d4a040" transform="scale(.7)" data-page-node-id="MU3H5DRNp5VjNtIm2c8XY7">
+          <animateTransform attributeName="transform" type="translate" values="0,0; 6,60; 12,120" dur="8s" repeatCount="indefinite" data-page-node-id="RegfR7paDYrxEOk3o6XkAI"/>
+          <animate attributeName="opacity" values=".5; .2; 0" dur="8s" repeatCount="indefinite" data-page-node-id="07KMlNPSVGSSjeph8DdZWk"/>
+        </path>
+      </g>
+      <!-- 草 -->
+      <path d="M40,200 Q42,190 44,200 M55,202 Q58,188 61,202 M120,198 Q123,188 126,198 M300,200 Q303,188 306,200 M330,198 Q332,190 334,198" stroke="#2a3a1a" stroke-width="2" fill="none" opacity=".5" data-page-node-id="x4qK04rfBXvrJGXcT1X3gg"/>
+      <!-- 地面光点 -->
+      <circle cx="160" cy="205" r="2" fill="#d4a853" opacity=".4" data-page-node-id="p6nEEIpn92dbqNT47PoBpF"><animate attributeName="opacity" values=".4; .8; .4" dur="2.5s" repeatCount="indefinite" data-page-node-id="23QH2zth8hdDQSyVvwZuqV"/></circle>
+      <circle cx="200" cy="208" r="1.5" fill="#e8c96a" opacity=".3" data-page-node-id="acfuoPKmpC6xGexiYJWJ5z"><animate attributeName="opacity" values=".3; .7; .3" dur="3s" repeatCount="indefinite" data-page-node-id="EiVdIo1dNVd0j5wp8vcMpn"/></circle>
+      <circle cx="90" cy="206" r="2" fill="#d4a853" opacity=".35" data-page-node-id="EeGg4hw96eHL3rdAHmlAis"><animate attributeName="opacity" values=".35; .65; .35" dur="2.8s" repeatCount="indefinite" data-page-node-id="ci6F4nF7iiHsnCDR2u1VTY"/></circle>
+    </svg>
+  </div>
+
+  <div class="story" data-page-node-id="O239mue3k3940ROfIr2CCp">
+    <p data-page-node-id="jvrFahgksVqxGCiYVpWsWL">秋天来了，田野里的麦子变得金黄金黄的。小田鼠豆豆最爱这个季节，因为这时候可以到处收集好吃的坚果和种子，藏进自己温暖的小树洞里。</p>
+    <p data-page-node-id="QzjnGuNXLKnq4hhbKZO1cC">豆豆每天从早忙到晚，小爪子捧着一颗又一颗坚果，把它们整整齐齐地码在树洞深处。松果、橡子、向日葵籽……很快，它的藏宝库就堆得像一座小山。</p>
+    <p data-page-node-id="2wKykUossCYiT8bvPT7pan">"豆豆，出来玩呀！"小刺猬球球在洞口喊。</p>
+    <p data-page-node-id="uQQvEEPp8RKBBiBgE0wPfz">"等一下，我还要再存三颗！"豆豆头也不抬地回答。</p>
+    <p data-page-node-id="7lqLge4OVzzjhTf76wV1cA">"豆豆，一起来看晚霞吧！"小麻雀喳喳落在树枝上。</p>
+    <p data-page-node-id="p2vFG79BAd3FYQGVRtojsI">"马上来，我把这颗核桃放好！"豆豆还是忙个不停。</p>
+    <p data-page-node-id="OghEmhBdDT8N69g2D6OvA3">日子一天天过去，天气越来越冷。有一天，豆豆终于把最后一颗栗子放进藏宝库，满意地拍了拍小爪子。可当它走出洞口时，发现田野静悄悄的，朋友们都不见了。</p>
+    <p data-page-node-id="p2UuFjNe8rXu7WqQdpBtrp">豆豆有点难过。它回到藏宝库，看着满洞的坚果，忽然想起朋友们——球球会不会饿肚子？喳喳的粮仓够不够？</p>
+    <p data-page-node-id="TE753REXoIeCTSaDt8Tghb">第二天一早，豆豆抱着一小袋坚果，咚咚咚敲开了球球家的门。</p>
+    <p data-page-node-id="3RcJ9qhqUOJzsJLu6SPYjL">"球球，这是我存的好吃的，分你一半！"</p>
+    <p data-page-node-id="gK1dFKbwS3afGivVwpc1sk">球球惊喜地睁大眼睛："真的吗？豆豆，你太好了！"</p>
+    <p data-page-node-id="XFen4DG8LkJFcuEMRaa0oM">接着，豆豆又给喳喳送去一小袋种子，还给正在冬眠的小青蛙家门口放了几颗饱满的橡子。</p>
+    <p data-page-node-id="Fa0jZxNuwZ8PAQXCSLfsr3">藏宝库里的坚果变少了，可豆豆的心里却变得满满的。因为每天都有朋友来敲门，带着笑声和感谢，还有它们从别处找来的小故事和小礼物。</p>
+    <p data-page-node-id="3oyQPmmdDGrOCIKkXchTAo">冬天的第一场雪落下来时，豆豆躺在温暖的树洞里，身旁是朋友们送来的干花和羽毛。它明白了：<b data-page-node-id="XAgSIt19IrcJNYXFv6piIm">最好的宝藏，从来不是藏得最多的那个，而是愿意分享的那一颗心。</b></p>
+  </div>
+
+  <div class="divider" data-page-node-id="Ep1aKDGj3HIy06mUWCYNKJ"><span class="dot" data-page-node-id="HYJHzbOeQTyjathq4Dd9P3"></span> ✦ <span class="dot" data-page-node-id="By1hhNkWqyM5uB2nQLGIMe"></span></div>
+
+  <div class="goodnight" data-page-node-id="KvjAHFytiPm3dJo1kMFFj0">
+    <p data-page-node-id="OHRIxNxLdbqe1gQceVKmlw">晚安，小宝贝。<br data-page-node-id="mzEmDD9tLyx4ELjgh1TF65">小田鼠豆豆说，你今天也是个愿意分享的好孩子，<br data-page-node-id="kPbqpcIoCINq8tlWLciKYz">该做一个甜甜的梦了。</p>
+  </div>
+
+  <footer data-page-node-id="SX0ngu7yM1u13plAXnEnau"><span class="moon-icon" data-page-node-id="PRkZKkTU1MKFlrjYptmx5Q"></span> 愿宝贝带着分享的心，温暖入眠</footer>
+</div>
+
+<script>
+(function(){
+  const container = document.getElementById('stars');
+  for (let i = 0; i < 110; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.4 + 0.8;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*65}%;--d:${(Math.random()*4+2).toFixed(1)}s;--m:${(Math.random()*.5+.3).toFixed(2)};animation-delay:${(Math.random()*5).toFixed(1)}s;`;
+    container.appendChild(s);
+  }
+  // 暖色粒子
+  for(let i=0;i<9;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const sz=Math.random()*3+2;
+    p.style.cssText=`width:${sz}px;height:${sz}px;left:${10+Math.random()*80}%;bottom:-10px;background:rgba(212,168,83,${Math.random()*.4+.15});box-shadow:0 0 ${Math.random()*8+4}px rgba(212,168,83,.3);animation:up${i} ${Math.random()*5+7}s linear infinite ${Math.random()*6}s;`;
+    const kf=`@keyframes up${i}{0%{transform:translateY(0) scale(1);opacity:0}10%{opacity:.6}90%{opacity:.3}100%{transform:translateY(-${Math.random()*120+280}px) scale(.4);opacity:0}}`;
+    const st=document.createElement('style');st.textContent=kf;document.head.appendChild(st);
+    document.body.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
