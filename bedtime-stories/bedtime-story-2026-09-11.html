@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小刺猬的星星愿望 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #0a1020;
+    --bg2: #141b30;
+    --star: #fff4d6;
+    --moon: #fff8e0;
+    --text: #f3ead8;
+    --sub: #a89b82;
+    --accent: #d4a85a;
+    --card: rgba(20, 26, 48, 0.72);
+    --moral: rgba(16, 22, 40, 0.78);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #1c253d 100%);
+    color: var(--text);
+    font: 18px/1.92 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空 */
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: var(--star);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 244, 214, 0.45);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    50% { opacity: var(--m, 0.75); transform: scale(1.1); }
+  }
+
+  /* 月亮 */
+  .moon-wrap {
+    position: fixed;
+    top: 32px;
+    right: 36px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, #fffbe8 0%, #f5e6b8 52%, #d4b86a 100%);
+    box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14);
+    animation: moonGlow 5.5s ease-in-out infinite;
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14); }
+    50% { box-shadow: 0 0 78px rgba(245, 230, 184, 0.52), 0 0 150px rgba(245, 230, 184, 0.22); }
+  }
+
+  /* 流星 */
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(255, 255, 255, 0.65);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .m1 { top: 12%; left: 78%; animation: fall1 8s linear infinite 4s; }
+  .m2 { top: 6%; left: 42%; animation: fall2 10s linear infinite 7s; }
+  @keyframes fall1 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    8% { opacity: 1; }
+    55% { opacity: 0; transform: translate(-240px, 190px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+  @keyframes fall2 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    6% { opacity: 1; }
+    50% { opacity: 0; transform: translate(-170px, 150px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 52px;
+  }
+
+  /* 标题区 */
+  .hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5.4vw, 36px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 30px rgba(212, 168, 90, 0.32);
+    animation: titleBreath 4.2s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%, 100% { text-shadow: 0 0 30px rgba(212, 168, 90, 0.32); }
+    50% { text-shadow: 0 0 52px rgba(212, 168, 90, 0.5); }
+  }
+  .subtitle {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  /* 插画 */
+  .illust {
+    text-align: center;
+    margin: 16px 0 24px;
+  }
+  .illust svg {
+    width: min(300px, 78vw);
+    height: auto;
+    filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  /* 正文卡片 */
+  .story {
+    background: var(--card);
+    border: 1px solid rgba(212, 168, 90, 0.11);
+    border-radius: 20px;
+    padding: 26px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.32);
+  }
+  .story p {
+    margin-bottom: 17px;
+    text-indent: 2em;
+  }
+  .story p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 分隔 */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 168, 90, 0.25), transparent);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(212, 168, 90, 0.5);
+    animation: dotBreath 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  /* 寓意 */
+  .moral-section {
+    margin: 26px 0 20px;
+    padding: 20px 22px;
+    background: var(--moral);
+    border-left: 3px solid rgba(212, 168, 90, 0.45);
+    border-radius: 0 14px 14px 0;
+  }
+  .moral-title {
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .moral-text {
+    color: rgba(243, 234, 216, 0.78);
+    line-height: 1.8;
+    text-indent: 0;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 22px;
+    padding: 22px 18px;
+    background: rgba(16, 22, 40, 0.65);
+    border: 1px solid rgba(212, 168, 90, 0.13);
+    border-radius: 16px;
+  }
+  .goodnight p {
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.85;
+    text-shadow: 0 0 18px rgba(212, 168, 90, 0.2);
+    animation: gnBreath 5s ease-in-out infinite;
+  }
+  @keyframes gnBreath {
+    0%, 100% { text-shadow: 0 0 18px rgba(212, 168, 90, 0.2); }
+    50% { text-shadow: 0 0 30px rgba(212, 168, 90, 0.38); }
+  }
+
+  /* 萤火虫装饰 */
+  .firefly {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: #ffeaa7;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 234, 167, 0.55);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+    animation: fly var(--t, 12s) ease-in-out infinite;
+  }
+  @keyframes fly {
+    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+    25% { transform: translate(var(--x1, 40px), var(--y1, -30px)); opacity: 0.9; }
+    50% { transform: translate(var(--x2, -30px), var(--y2, 40px)); opacity: 0.5; }
+    75% { transform: translate(var(--x3, 50px), var(--y3, 20px)); opacity: 0.85; }
+  }
+
+  /* 底部 */
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 38px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+    .moon-wrap { top: 18px; right: 18px; }
+    .moon { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-wrap"><div class="moon"></div></div>
+<div class="meteor m1"></div>
+<div class="meteor m2"></div>
+
+<div class="firefly" style="top: 18%; left: 12%; --t: 14s; --x1: 50px; --y1: -40px; --x2: -40px; --y2: 60px; --x3: 70px; --y3: 30px;"></div>
+<div class="firefly" style="top: 58%; left: 84%; --t: 16s; --x1: -60px; --y1: 30px; --x2: 40px; --y2: -50px; --x3: -50px; --y3: -20px;"></div>
+<div class="firefly" style="top: 78%; left: 22%; --t: 18s; --x1: 30px; --y1: 50px; --x2: -60px; --y2: -30px; --x3: 40px; --y3: -40px;"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>小刺猬的星星愿望</h1>
+    <p class="subtitle">儿童睡前故事 · 2026年9月11日</p>
+  </header>
+
+  <div class="illust">
+    <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1c253d"/>
+          <stop offset="100%" stop-color="#0f1525"/>
+        </linearGradient>
+        <linearGradient id="hedgehog" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#8b7355"/>
+          <stop offset="100%" stop-color="#5d4b35"/>
+        </linearGradient>
+        <linearGradient id="belly" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f5e6c8"/>
+          <stop offset="100%" stop-color="#dcc298"/>
+        </linearGradient>
+        <radialGradient id="starGlow">
+          <stop offset="0%" stop-color="#fffbe8" stop-opacity="1"/>
+          <stop offset="60%" stop-color="#ffe082" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#ffe082" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 地面 -->
+      <path d="M0,190 Q90,165 180,185 Q270,170 360,190 L360,230 L0,230Z" fill="url(#ground)"/>
+
+      <!-- 小灌木丛 -->
+      <ellipse cx="52" cy="188" rx="34" ry="18" fill="#111a2e"/>
+      <ellipse cx="310" cy="192" rx="40" ry="22" fill="#111a2e"/>
+
+      <!-- 刺猬身体 -->
+      <ellipse cx="178" cy="178" rx="58" ry="38" fill="url(#hedgehog)"/>
+      <ellipse cx="196" cy="184" rx="32" ry="24" fill="url(#belly)"/>
+
+      <!-- 尖刺纹理 -->
+      <path d="M128,170 L134,152 L140,170 M142,165 L148,146 L154,165 M156,162 L162,142 L168,162 M170,160 L176,140 L182,160" stroke="#4a3b2a" stroke-width="2" stroke-linecap="round" fill="none"/>
+      <path d="M184,158 L190,138 L196,158 M198,156 L204,136 L210,156 M212,158 L218,140 L224,158" stroke="#4a3b2a" stroke-width="2" stroke-linecap="round" fill="none"/>
+
+      <!-- 小脑袋 -->
+      <circle cx="140" cy="172" r="24" fill="url(#hedgehog)"/>
+      <ellipse cx="136" cy="182" rx="10" ry="7" fill="#f5dcc0"/>
+
+      <!-- 耳朵 -->
+      <circle cx="124" cy="156" r="6" fill="#6b5540"/>
+      <circle cx="152" cy="158" r="6" fill="#6b5540"/>
+
+      <!-- 眼睛 -->
+      <circle cx="134" cy="170" r="3" fill="#2a1f15"/>
+      <circle cx="146" cy="170" r="3" fill="#2a1f15"/>
+      <circle cx="135" cy="169" r="1" fill="#fff"/>
+      <circle cx="147" cy="169" r="1" fill="#fff"/>
+
+      <!-- 鼻子 -->
+      <ellipse cx="120" cy="176" rx="4" ry="3" fill="#3d2e20"/>
+
+      <!-- 小短腿 -->
+      <ellipse cx="150" cy="208" rx="7" ry="5" fill="#6b5540"/>
+      <ellipse cx="232" cy="206" rx="7" ry="5" fill="#6b5540"/>
+
+      <!-- 捧着的小星星 -->
+      <g transform="translate(188, 156)">
+        <circle cx="0" cy="0" r="18" fill="url(#starGlow)"/>
+        <path d="M0,-14 L3,-4 L14,-4 L6,3 L9,14 L0,8 L-9,14 L-6,3 L-14,-4 L-3,-4Z" fill="#fffbe8"/>
+      </g>
+
+      <!-- 远处小星星 -->
+      <circle cx="280" cy="58" r="2.5" fill="#fff4d6" opacity="0.9"/>
+      <circle cx="304" cy="84" r="2" fill="#fff4d6" opacity="0.7"/>
+      <circle cx="70" cy="70" r="2" fill="#fff4d6" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <article class="story">
+    <p>在森林边上，有一个小小的刺猬洞。洞里住着一只小小的刺猬，名字叫尖尖。</p>
+
+    <p>尖尖和其他小刺猬有一点不一样——他不太喜欢打滚，也不太喜欢玩捉迷藏。每天晚上，他都会爬到洞口最高的那块石头上，仰着头看星星。</p>
+
+    <p>"要是我也能摘到一颗星星就好了。"尖尖常常这样想，"我要把它放在我的床头，这样夜里就不会黑了。"</p>
+
+    <p>可是刺猬这么小，天那么高，星星那么远。这个愿望，怎么看都不可能实现。</p>
+
+    <p>有一天晚上，尖尖正在石头上看星星，忽然听见身后传来"扑通"一声。</p>
+
+    <p>他赶紧转过身，发现草丛里有一颗小小的东西，正发出微弱的光。</p>
+
+    <p>"你是谁呀？"尖尖小心地走过去，轻声问。</p>
+
+    <p>那团小光动了动，发出细细的声音："我是一颗小星星。刚才我在天上打了个喷嚏，就从天上掉下来了。"</p>
+
+    <p>尖尖惊讶得瞪圆了眼睛。他真的捡到一颗星星了！</p>
+
+    <p>"可是，"小星星抹了抹眼泪，"我想回家。天上有我的爸爸妈妈，还有我的兄弟姐妹。我掉下来了，就再也飞不上去了。"</p>
+
+    <p>尖尖的心一下子疼了起来。他本来想把小星星留下来的。但是现在他知道了，小星星也有自己想回去的地方。</p>
+
+    <p>"别担心，"尖尖挺起小小的胸膛说，"我一定会帮你回家的。"</p>
+
+    <p>可是，刺猬不会飞呀。尖尖想了又想，忽然想起森林尽头有一棵很高很高的老橡树，树顶上的树枝都快碰到云了。</p>
+
+    <p>"也许，站到最高的地方，就能把星星送回去！"尖尖说。</p>
+
+    <p>他轻轻地、轻轻地把小星星捧在手心里。小星星的光透过他的小爪子，把他的肚皮都照得暖暖的。</p>
+
+    <p>尖尖爬呀爬，爬过软软的苔藓，绕过小小的溪流，穿过高高的草丛。他的小脚丫酸了，小脑袋也冒汗了，可是他一刻也没有停下来。</p>
+
+    <p>终于，他们来到了老橡树下。</p>
+
+    <p>老橡树真的很高很高，树干粗得三个小刺猬都抱不过来。尖尖开始往上爬。树皮很粗糙，把他的小爪子磨得有点疼，但是他咬着牙，一步一步往上爬。</p>
+
+    <p>爬啊爬，爬啊爬。尖尖觉得自己爬了很久很久。月亮也悄悄地跟着他，从树梢的一边移到了另一边。</p>
+
+    <p>终于，尖尖爬到了最高的那根树枝上。从这里看出去，整个森林都在脚下，天上的星星仿佛伸手就能摸到。</p>
+
+    <p>"小星星，"尖尖轻轻地说，"你准备好了吗？"</p>
+
+    <p>小星星在他的手心里闪了闪，好像在说"谢谢你"。</p>
+
+    <p>尖尖踮起小脚丫，用尽全身力气，把小星星高高地举了起来。</p>
+
+    <p>就在这时，一阵温柔的夜风吹过，轻轻托住了小星星。小星星像一片小小的羽毛，慢慢地、慢慢地升了起来，越升越高，最后回到了天上。</p>
+
+    <p>天上的星星们都亮了起来，好像在开一个欢迎派对。那颗小星星也一闪一闪的，特别明亮。</p>
+
+    <p>尖尖趴在树枝上，看着天上的小星星，心里装满了甜甜的快乐。</p>
+
+    <p>虽然他没有把星星留下来，但是他知道，自己做了一件比拥有星星更美好的事情。</p>
+  </article>
+
+  <div class="moral-section">
+    <div class="moral-title">晚安寓意</div>
+    <div class="moral-text">
+      真正的快乐，不是把喜欢的东西藏起来独自占有，而是帮助别人回到他们心里最想念的地方。当你温柔地对待这个世界，世界也会用星光回应你。
+    </div>
+  </div>
+
+  <div class="goodnight">
+    <p>
+      晚安，小宝贝。<br>
+      小刺猬尖尖说，<br>
+      你今天也是个勇敢又善良的好孩子，<br>
+      该做一个星星闪闪的甜甜的梦了。
+    </p>
+  </div>
+
+  <footer>
+    <em>本文由小虾米为爷自动生成 · 祝你今夜好梦</em>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 95;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var top = (Math.random() * 100).toFixed(1);
+    var left = (Math.random() * 100).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 4).toFixed(1);
+    var m = (Math.random() * 0.4 + 0.5).toFixed(2);
+    frag += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--d:' + dur + 's;--delay:' + delay + 's;--m:' + m + ';"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>
