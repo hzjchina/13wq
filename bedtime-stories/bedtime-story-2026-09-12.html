@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蜗牛的彩虹桥 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #0a1020;
+    --bg2: #151b30;
+    --star: #fff4d6;
+    --moon: #fff8e0;
+    --text: #f3ead8;
+    --sub: #a99b82;
+    --accent: #d4a85a;
+    --card: rgba(20, 26, 48, 0.72);
+    --moral: rgba(16, 22, 40, 0.78);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #1c253d 100%);
+    color: var(--text);
+    font: 18px/1.92 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* 星空 */
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: var(--star);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 244, 214, 0.45);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    50% { opacity: var(--m, 0.75); transform: scale(1.1); }
+  }
+
+  /* 月亮 */
+  .moon-wrap {
+    position: fixed;
+    top: 32px;
+    right: 36px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, #fffbe8 0%, #f5e6b8 52%, #d4b86a 100%);
+    box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14);
+    animation: moonGlow 5.5s ease-in-out infinite;
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14); }
+    50% { box-shadow: 0 0 78px rgba(245, 230, 184, 0.52), 0 0 150px rgba(245, 230, 184, 0.22); }
+  }
+
+  /* 流星 */
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(255, 255, 255, 0.65);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .m1 { top: 12%; left: 78%; animation: fall1 8s linear infinite 4s; }
+  .m2 { top: 6%; left: 42%; animation: fall2 10s linear infinite 7s; }
+  @keyframes fall1 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    8% { opacity: 1; }
+    55% { opacity: 0; transform: translate(-240px, 190px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+  @keyframes fall2 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    6% { opacity: 1; }
+    50% { opacity: 0; transform: translate(-170px, 150px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 52px;
+  }
+
+  /* 标题区 */
+  .hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5.4vw, 36px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 30px rgba(212, 168, 90, 0.32);
+    animation: titleBreath 4.2s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%, 100% { text-shadow: 0 0 30px rgba(212, 168, 90, 0.32); }
+    50% { text-shadow: 0 0 52px rgba(212, 168, 90, 0.5); }
+  }
+  .subtitle {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  /* 插画 */
+  .illust {
+    text-align: center;
+    margin: 16px 0 24px;
+  }
+  .illust svg {
+    width: min(320px, 82vw);
+    height: auto;
+    filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  /* 正文卡片 */
+  .story {
+    background: var(--card);
+    border: 1px solid rgba(212, 168, 90, 0.11);
+    border-radius: 20px;
+    padding: 26px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.32);
+  }
+  .story p {
+    margin-bottom: 17px;
+    text-indent: 2em;
+  }
+  .story p:last-child { margin-bottom: 0; }
+
+  /* 分隔 */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 168, 90, 0.25), transparent);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(212, 168, 90, 0.5);
+    animation: dotBreath 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  /* 寓意 */
+  .moral-section {
+    margin: 26px 0 20px;
+    padding: 20px 22px;
+    background: var(--moral);
+    border-left: 3px solid rgba(212, 168, 90, 0.45);
+    border-radius: 0 14px 14px 0;
+  }
+  .moral-title {
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .moral-text {
+    color: rgba(243, 234, 216, 0.78);
+    line-height: 1.8;
+    text-indent: 0;
+  }
+
+  /* 晚安语 */
+  .goodnight {
+    text-align: center;
+    margin-top: 22px;
+    padding: 22px 18px;
+    background: rgba(16, 22, 40, 0.65);
+    border: 1px solid rgba(212, 168, 90, 0.13);
+    border-radius: 16px;
+  }
+  .goodnight p {
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.85;
+    text-shadow: 0 0 18px rgba(212, 168, 90, 0.2);
+    animation: gnBreath 5s ease-in-out infinite;
+  }
+  @keyframes gnBreath {
+    0%, 100% { text-shadow: 0 0 18px rgba(212, 168, 90, 0.2); }
+    50% { text-shadow: 0 0 30px rgba(212, 168, 90, 0.38); }
+  }
+
+  /* 萤火虫装饰 */
+  .firefly {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: #ffeaa7;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 234, 167, 0.55);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+    animation: fly var(--t, 12s) ease-in-out infinite;
+  }
+  @keyframes fly {
+    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+    25% { transform: translate(var(--x1, 40px), var(--y1, -30px)); opacity: 0.9; }
+    50% { transform: translate(var(--x2, -30px), var(--y2, 40px)); opacity: 0.5; }
+    75% { transform: translate(var(--x3, 50px), var(--y3, 20px)); opacity: 0.85; }
+  }
+
+  /* 底部 */
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 38px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+    .moon-wrap { top: 18px; right: 18px; }
+    .moon { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-wrap"><div class="moon"></div></div>
+<div class="meteor m1"></div>
+<div class="meteor m2"></div>
+
+<div class="firefly" style="top: 18%; left: 12%; --t: 14s; --x1: 50px; --y1: -40px; --x2: -40px; --y2: 60px; --x3: 70px; --y3: 30px;"></div>
+<div class="firefly" style="top: 58%; left: 84%; --t: 16s; --x1: -60px; --y1: 30px; --x2: 40px; --y2: -50px; --x3: -50px; --y3: -20px;"></div>
+<div class="firefly" style="top: 78%; left: 22%; --t: 18s; --x1: 30px; --y1: 50px; --x2: -60px; --y2: -30px; --x3: 40px; --y3: -40px;"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>小蜗牛的彩虹桥</h1>
+    <p class="subtitle">儿童睡前故事 · 2026年9月12日</p>
+  </header>
+
+  <div class="illust">
+    <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1c253d"/>
+          <stop offset="100%" stop-color="#0f1525"/>
+        </linearGradient>
+        <linearGradient id="rainbow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#ff9aa2"/>
+          <stop offset="20%" stop-color="#ffb7b2"/>
+          <stop offset="40%" stop-color="#fff9c4"/>
+          <stop offset="60%" stop-color="#b5ead7"/>
+          <stop offset="80%" stop-color="#c7ceea"/>
+          <stop offset="100%" stop-color="#e2f0cb"/>
+        </linearGradient>
+        <linearGradient id="snailShell" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d4a85a"/>
+          <stop offset="100%" stop-color="#a67c3b"/>
+        </linearGradient>
+        <linearGradient id="snailBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c8e6c9"/>
+          <stop offset="100%" stop-color="#a5d6a7"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 地面 -->
+      <path d="M0,180 Q60,165 120,178 Q180,160 240,176 Q300,162 360,180 L360,230 L0,230Z" fill="url(#ground)"/>
+
+      <!-- 彩虹桥 -->
+      <path d="M40,180 Q180,60 320,180" fill="none" stroke="url(#rainbow)" stroke-width="14" stroke-linecap="round" opacity="0.85"/>
+      <path d="M60,180 Q180,85 300,180" fill="none" stroke="url(#rainbow)" stroke-width="10" stroke-linecap="round" opacity="0.55"/>
+
+      <!-- 小蜗牛 -->
+      <g transform="translate(180, 188)">
+        <!-- 身体 -->
+        <path d="M-35,6 Q-25,-8 0,-10 Q25,-8 35,6 Q25,10 0,10 Q-25,10 -35,6Z" fill="url(#snailBody)"/>
+        <!-- 壳 -->
+        <circle cx="-5" cy="-12" r="22" fill="url(#snailShell)"/>
+        <path d="M-5,-12 m-14,0 a14,14 0 1,0 28,0 a14,14 0 1,0 -28,0" fill="none" stroke="#7a5a2b" stroke-width="2"/>
+        <path d="M-5,-12 m-8,0 a8,8 0 1,0 16,0 a8,8 0 1,0 -16,0" fill="none" stroke="#7a5a2b" stroke-width="2"/>
+        <!-- 眼睛 -->
+        <line x1="28" y1="2" x2="36" y2="-6" stroke="#a5d6a7" stroke-width="2"/>
+        <line x1="32" y1="2" x2="40" y2="-6" stroke="#a5d6a7" stroke-width="2"/>
+        <circle cx="36" cy="-6" r="2.5" fill="#2a1f15"/>
+        <circle cx="40" cy="-6" r="2.5" fill="#2a1f15"/>
+        <!-- 微笑 -->
+        <path d="M30,4 Q34,7 38,4" fill="none" stroke="#2a6a35" stroke-width="1.5" stroke-linecap="round"/>
+      </g>
+
+      <!-- 小蚂蚁 -->
+      <g transform="translate(260, 192)">
+        <ellipse cx="0" cy="0" rx="8" ry="5" fill="#5d4037"/>
+        <circle cx="-10" cy="-2" r="4" fill="#5d4037"/>
+        <line x1="-6" y1="0" x2="-2" y2="-8" stroke="#4a332a" stroke-width="1.5"/>
+        <line x1="2" y1="0" x2="6" y2="-8" stroke="#4a332a" stroke-width="1.5"/>
+        <circle cx="-12" cy="-3" r="1" fill="#fff"/>
+      </g>
+
+      <!-- 小水滴装饰 -->
+      <circle cx="80" cy="170" r="3" fill="#b5ead7" opacity="0.7"/>
+      <circle cx="300" cy="165" r="2.5" fill="#b5ead7" opacity="0.6"/>
+      <circle cx="150" cy="155" r="2" fill="#b5ead7" opacity="0.5"/>
+
+      <!-- 小星星 -->
+      <circle cx="45" cy="50" r="2" fill="#fff4d6" opacity="0.9"/>
+      <circle cx="315" cy="40" r="2" fill="#fff4d6" opacity="0.8"/>
+      <circle cx="280" cy="90" r="1.5" fill="#fff4d6" opacity="0.7"/>
+    </svg>
+  </div>
+
+  <article class="story">
+    <p>在一片长满三叶草的小山坡上，住着一只小蜗牛，名字叫慢慢。</p>
+
+    <p>慢慢做什么都不快。小蚂蚁们跑过一片叶子，只要眨眨眼的功夫；小瓢虫们绕着小草飞一圈，只要拍拍翅膀。可是慢慢，他只能一点一点地往前挪。</p>
+
+    <p>"你好慢呀！"小蚱蜢有时候会说。</p>
+
+    <p>慢慢听了，就把小脑袋缩进壳里，不好意思地躲一会儿。</p>
+
+    <p>可是慢慢有一个本领，是别的小动物都没有的——他爬过的地方，会留下一条亮晶晶的小路。阳光照在上面，就像撒了一把碎银子。</p>
+
+    <p>"那是什么呀？"小蚂蚁们围过来，惊奇地问。</p>
+
+    <p>"那是我的蜗牛黏液。"慢慢小声说，"它让我不会摔疼，也让我的壳保持亮亮的。"</p>
+
+    <p>小动物们都觉得很神奇，可是他们还是更喜欢跑得快的游戏。慢慢常常一个人待在叶子下面，看着大家你追我赶。</p>
+
+    <p>有一天下午，天空突然下起了大雨。雨点像小豆子一样噼里啪啦地落下来，小动物们都急忙跑回自己的家。</p>
+
+    <p>慢慢也努力地往自己的小草屋爬。爬到一半，他听见身后传来一个小小的哭声。</p>
+
+    <p>"呜呜呜……我回不了家了。"</p>
+
+    <p>慢慢转过头，看见小蚂蚁豆豆站在一片低洼的地上。大雨把那里变成了一个水坑，豆豆太小了，不敢游过去。</p>
+
+    <p>"豆豆，别着急！"慢慢说，"我来帮你。"</p>
+
+    <p>可是慢慢能做什么呢？他连一片叶子都搬不动，也不会游泳。</p>
+
+    <p>慢慢想了又想，忽然想起自己亮晶晶的小路。他灵机一动，开始在水坑边慢慢地爬。一圈、两圈、三圈……他绕着小水坑爬出了一条弯弯的、闪闪发光的线。</p>
+
+    <p>雨渐渐停了，太阳从云层后面探出头来。阳光照在慢慢的小路上，忽然——奇迹发生了！那条亮晶晶的线变成了一座小小的彩虹桥，弯弯地搭在水坑的两边。</p>
+
+    <p>"哇！"豆豆惊讶地叫起来，"好漂亮的彩虹桥！"</p>
+
+    <p>慢慢也看呆了。他从来没有想过，自己普普通通的黏液小路，在雨后阳光下会变成这么美的彩虹。</p>
+
+    <p>"豆豆，快上来！"慢慢站在彩虹桥的一头说，"我陪你一起走。"</p>
+
+    <p>豆豆小心翼翼地踏上彩虹桥。桥面软软的、滑滑的，还有一点凉凉的。慢慢就走在豆豆身边，一步一步，稳稳地陪着他走过水坑。</p>
+
+    <p>到了对岸，豆豆开心得跳起来："谢谢你，慢慢！你是最棒的蜗牛！"</p>
+
+    <p>慢慢的心里暖暖的。这是他第一次觉得，自己慢一点也没关系，因为他有属于自己的魔法。</p>
+
+    <p>从那以后，每当雨后，小动物们都会来找慢慢。慢慢地在水洼边爬上一圈，阳光一出，就会出现一座美丽的彩虹桥。大家排着队走过彩虹桥，开心地回家。</p>
+
+    <p>而慢慢，终于不再害羞了。他知道，每一种小动物都有自己的光芒，哪怕只是一只慢慢爬的小蜗牛。</p>
+  </article>
+
+  <div class="moral-section">
+    <div class="moral-title">晚安寓意</div>
+    <div class="moral-text">
+      你不需要和别人一样快、一样强。每个人都有自己的特点和魔法，只要你愿意做自己，温柔地帮助别人，你也会成为别人眼里闪亮的小英雄。
+    </div>
+  </div>
+
+  <div class="goodnight">
+    <p>
+      晚安，小宝贝。<br>
+      小蜗牛慢慢说，<br>
+      你今天也是个温柔又有耐心的小英雄，<br>
+      该做一个彩虹闪闪的甜甜的梦了。
+    </p>
+  </div>
+
+  <footer>
+    <em>本文由小虾米为爷自动生成 · 祝你今夜好梦</em>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 95;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var top = (Math.random() * 100).toFixed(1);
+    var left = (Math.random() * 100).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 4).toFixed(1);
+    var m = (Math.random() * 0.4 + 0.5).toFixed(2);
+    frag += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--d:' + dur + 's;--delay:' + delay + 's;--m:' + m + ';"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

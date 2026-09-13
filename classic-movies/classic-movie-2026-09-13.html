@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E.T. 外星人</title>
+<style>
+  :root {
+    --bg: #0a1020;
+    --bg2: #151b2a;
+    --card: rgba(22, 26, 42, 0.78);
+    --text: #f2eadd;
+    --sub: #a39988;
+    --accent: #7fb88f;
+    --gold: #e8c37a;
+    --blue: #6a9bd6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #1e2438 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(232, 195, 122, 0.28);
+  }
+  .meta {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .poster {
+    text-align: center;
+    margin: 22px 0 28px;
+  }
+  .poster svg {
+    width: min(300px, 78vw);
+    height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.45));
+    border-radius: 14px;
+  }
+
+  .info-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .info-label {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid rgba(232, 195, 122, 0.1);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.3);
+  }
+  .section h2 {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .section p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    background: rgba(106, 155, 214, 0.14);
+    border: 1px solid rgba(106, 155, 214, 0.3);
+    color: #9fc2e8;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin: 18px 0;
+    background: rgba(232, 195, 122, 0.07);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #e8d5b0;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list {
+    list-style: none;
+    padding: 0;
+  }
+  .reason-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="header">
+    <h1>E.T. 外星人</h1>
+    <p class="meta">E.T. the Extra-Terrestrial · 1982 · 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0f1624"/>
+          <stop offset="50%" stop-color="#1a2338"/>
+          <stop offset="100%" stop-color="#0c101c"/>
+        </linearGradient>
+        <radialGradient id="moonGlow" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#fffbe8" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#fffbe8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="fingerGlow" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#7fb88f" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#7fb88f" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 星空装饰 -->
+      <circle cx="40" cy="60" r="2" fill="#fff" opacity="0.7"/>
+      <circle cx="260" cy="90" r="2.5" fill="#fff" opacity="0.6"/>
+      <circle cx="220" cy="40" r="1.5" fill="#fff" opacity="0.8"/>
+      <circle cx="70" cy="120" r="1.5" fill="#fff" opacity="0.5"/>
+      <circle cx="270" cy="340" r="2" fill="#fff" opacity="0.6"/>
+      <circle cx="45" cy="380" r="1.5" fill="#fff" opacity="0.5"/>
+
+      <!-- 月亮 -->
+      <circle cx="150" cy="120" r="55" fill="url(#moonGlow)"/>
+      <circle cx="150" cy="120" r="38" fill="#f5e6b8" opacity="0.9"/>
+
+      <!-- 剪影：男孩和 E.T. 手指相触 -->
+      <g transform="translate(150, 310)">
+        <!-- E.T. 手 -->
+        <path d="M-55,25 Q-65,10 -55,-5 Q-45,5 -40,-2 Q-35,8 -28,0 Q-22,10 -15,2 Q-10,12 -5,5 Q0,15 8,5" fill="none" stroke="#7fb88f" stroke-width="6" stroke-linecap="round"/>
+        <ellipse cx="-30" cy="15" rx="35" ry="20" fill="url(#fingerGlow)" opacity="0.7"/>
+
+        <!-- 男孩手 -->
+        <path d="M55,25 Q65,10 55,-5 Q45,5 40,-2 Q35,8 28,0 Q22,10 15,2 Q10,12 5,5 Q0,15 -8,5" fill="none" stroke="#e8c37a" stroke-width="6" stroke-linecap="round"/>
+
+        <!-- 连接光芒 -->
+        <ellipse cx="0" cy="12" rx="12" ry="8" fill="#fff" opacity="0.8"/>
+        <line x1="-15" y1="12" x2="15" y2="12" stroke="#fff" stroke-width="2" opacity="0.9"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="380" text-anchor="middle" fill="#e8c37a" font-size="22" font-weight="700" letter-spacing="0.05em">E.T. 外星人</text>
+      <text x="150" y="404" text-anchor="middle" fill="#a39988" font-size="11" letter-spacing="0.1em">THE EXTRA-TERRESTRIAL</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">史蒂文·斯皮尔伯格</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">亨利·托马斯</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">115 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>加利福尼亚州的一个普通郊区小镇，小男孩埃利奥特偶然在自家后院的工具棚里发现了一位迷路的外星生物。它有着皱巴巴的皮肤、大大的眼睛和一颗温柔的心。埃利奥特给它取名叫"E.T."。</p>
+    <p>两个孩子——一个来自地球，一个来自遥远的星球——在彼此身上找到了最纯粹的友谊。E.T. 学会了说人类的语言，喜欢上了地球上的糖果；埃利奥特则学会了用心去理解一个与自己完全不同的生命。</p>
+    <p>然而，E.T. 的身体开始因为不适应地球环境而变得虚弱。它想念自己的家人，想念远方的星球。埃利奥特知道，他必须帮助这位朋友回家。一场由孩子们主导的冒险就此展开，他们要躲避成人的世界，把 E.T. 送到它该去的地方。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>影史最动人的友谊：</strong>没有宏大的战争场面，也没有拯救世界的使命，只有两个孤独灵魂相遇、相知的简单故事。</li>
+      <li><strong>儿童视角的纯粹：</strong>斯皮尔伯格用孩子的眼睛看世界，大人成了遥远而笨拙的背景，真正理解 E.T. 的只有孩子们。</li>
+      <li><strong>E.T. 的经典形象：</strong>皱巴巴的皮肤、发光的胸口、伸长的脖子，还有那一句"E.T. phone home"，成为了几代人的共同记忆。</li>
+      <li><strong>约翰·威廉姆斯的配乐：</strong>从轻柔的钢琴到自行车飞越月亮的壮丽主题，音乐与画面融为一体，感染力极强。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《E.T. 外星人》是一部关于"相信"的电影。它相信孩子能理解成人无法理解的东西，相信友谊可以跨越语言和星球，相信告别是爱的另一种形式。</p>
+    <p>在 CGI 泛滥的今天，这部电影里笨拙而真实的木偶 E.T. 反而更加珍贵。它提醒我们：最打动人心的从来不是技术的完美，而是故事本身的温度。</p>
+    <div class="quote">
+      <p>"我会在这里。" —— E.T. 用最简单的语言表达了一种最深刻的情感：真正的朋友，即使分开了，也会一直住在彼此心里。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">科幻经典</span>
+      <span class="tag">家庭电影</span>
+      <span class="tag">温情治愈</span>
+      <span class="tag">成长故事</span>
+      <span class="tag">斯皮尔伯格</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月13日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
