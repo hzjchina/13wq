@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "饮食男女",
+          "date": "2026-09-14",
+          "summary": "饮食男女 饮食男女 Eat Drink Man Woman · 1994 · 中国台湾 / 美国 饮食男女 EAT DRINK MAN WOMAN 导演 李安 主演 郎雄、杨贵媚、吴倩莲 片长 124 分钟 剧情梗概 老朱是台北一位退了休的...",
+          "path": "classic-movies/classic-movie-2026-09-14.html"
+        },
+        {
           "title": "E.T. 外星人",
           "date": "2026-09-13",
           "summary": "E.T. 外星人 E.T. 外星人 E.T. the Extra-Terrestrial · 1982 · 美国 E.T. 外星人 THE EXTRA-TERRESTRIAL 导演 史蒂文·斯皮尔伯格 主演 亨利·托马斯 片长 115 分钟...",
@@ -467,6 +473,12 @@
       "name": "睡前故事",
       "icon": "🌙",
       "items": [
+        {
+          "title": "小松鼠的秋日礼物",
+          "date": "2026-09-13",
+          "summary": "小松鼠的秋日礼物 — 儿童睡前故事 小松鼠的秋日礼物 儿童睡前故事 · 2026年9月13日 秋天来了，森林里的橡树结满了橡果。小松鼠跳跳站在树枝上，尾巴翘得高高的，他最喜欢秋天了。 \"秋天是最棒的季节！\"跳跳对好朋友小刺猬球球说，\"因为秋...",
+          "path": "bedtime-stories/bedtime-story-2026-09-13.html"
+        },
         {
           "title": "小蜗牛的彩虹桥",
           "date": "2026-09-12",
@@ -1139,6 +1151,12 @@
       "name": "AI情报",
       "icon": "🤖",
       "items": [
+        {
+          "title": "AI 情报日报 · 2026-09-14",
+          "date": "2026-09-14",
+          "summary": "AI 情报日报 · 2026-09-14 AI Daily Briefing AI 情报日报 2026-09-14 · 过去 24 小时 · 侧重 AI coding 与具身智能 · 数据来源 AI HOT 20 精选条目 3 精选池来源 ...",
+          "path": "ai-info/ai-info-2026-09-14.html"
+        },
         {
           "title": "AI 情报日报 · 2026-09-13",
           "date": "2026-09-13",

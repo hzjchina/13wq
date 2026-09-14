@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小松鼠的秋日礼物 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #0a1020;
+    --bg2: #151b30;
+    --star: #fff4d6;
+    --moon: #fff8e0;
+    --text: #f3ead8;
+    --sub: #a99b82;
+    --accent: #d4a85a;
+    --card: rgba(20, 26, 48, 0.72);
+    --moral: rgba(16, 22, 40, 0.78);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #1c253d 100%);
+    color: var(--text);
+    font: 18px/1.92 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: var(--star);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 244, 214, 0.45);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    50% { opacity: var(--m, 0.75); transform: scale(1.1); }
+  }
+
+  .moon-wrap {
+    position: fixed;
+    top: 32px;
+    right: 36px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, #fffbe8 0%, #f5e6b8 52%, #d4b86a 100%);
+    box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14);
+    animation: moonGlow 5.5s ease-in-out infinite;
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14); }
+    50% { box-shadow: 0 0 78px rgba(245, 230, 184, 0.52), 0 0 150px rgba(245, 230, 184, 0.22); }
+  }
+
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(255, 255, 255, 0.65);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .m1 { top: 12%; left: 78%; animation: fall1 8s linear infinite 4s; }
+  .m2 { top: 6%; left: 42%; animation: fall2 10s linear infinite 7s; }
+  @keyframes fall1 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    8% { opacity: 1; }
+    55% { opacity: 0; transform: translate(-240px, 190px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+  @keyframes fall2 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    6% { opacity: 1; }
+    50% { opacity: 0; transform: translate(-170px, 150px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 52px;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5.4vw, 36px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 30px rgba(212, 168, 90, 0.32);
+    animation: titleBreath 4.2s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%, 100% { text-shadow: 0 0 30px rgba(212, 168, 90, 0.32); }
+    50% { text-shadow: 0 0 52px rgba(212, 168, 90, 0.5); }
+  }
+  .subtitle {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  .illust {
+    text-align: center;
+    margin: 16px 0 24px;
+  }
+  .illust svg {
+    width: min(320px, 82vw);
+    height: auto;
+    filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  .story {
+    background: var(--card);
+    border: 1px solid rgba(212, 168, 90, 0.11);
+    border-radius: 20px;
+    padding: 26px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.32);
+  }
+  .story p {
+    margin-bottom: 17px;
+    text-indent: 2em;
+  }
+  .story p:last-child { margin-bottom: 0; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 168, 90, 0.25), transparent);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(212, 168, 90, 0.5);
+    animation: dotBreath 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  .moral-section {
+    margin: 26px 0 20px;
+    padding: 20px 22px;
+    background: var(--moral);
+    border-left: 3px solid rgba(212, 168, 90, 0.45);
+    border-radius: 0 14px 14px 0;
+  }
+  .moral-title {
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .moral-text {
+    color: rgba(243, 234, 216, 0.78);
+    line-height: 1.8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 22px;
+    padding: 22px 18px;
+    background: rgba(16, 22, 40, 0.65);
+    border: 1px solid rgba(212, 168, 90, 0.13);
+    border-radius: 16px;
+  }
+  .goodnight p {
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.85;
+    text-shadow: 0 0 18px rgba(212, 168, 90, 0.2);
+    animation: gnBreath 5s ease-in-out infinite;
+  }
+  @keyframes gnBreath {
+    0%, 100% { text-shadow: 0 0 18px rgba(212, 168, 90, 0.2); }
+    50% { text-shadow: 0 0 30px rgba(212, 168, 90, 0.38); }
+  }
+
+  .firefly {
+    position: fixed;
+    width: 4px;
+    height: 4px;
+    background: #ffeaa7;
+    border-radius: 50%;
+    box-shadow: 0 0 10px 2px rgba(255, 234, 167, 0.55);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.8;
+    animation: fly var(--t, 12s) ease-in-out infinite;
+  }
+  @keyframes fly {
+    0%, 100% { transform: translate(0, 0); opacity: 0.3; }
+    25% { transform: translate(var(--x1, 40px), var(--y1, -30px)); opacity: 0.9; }
+    50% { transform: translate(var(--x2, -30px), var(--y2, 40px)); opacity: 0.5; }
+    75% { transform: translate(var(--x3, 50px), var(--y3, 20px)); opacity: 0.85; }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 38px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+    .moon-wrap { top: 18px; right: 18px; }
+    .moon { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-wrap"><div class="moon"></div></div>
+<div class="meteor m1"></div>
+<div class="meteor m2"></div>
+
+<div class="firefly" style="top: 18%; left: 12%; --t: 14s; --x1: 50px; --y1: -40px; --x2: -40px; --y2: 60px; --x3: 70px; --y3: 30px;"></div>
+<div class="firefly" style="top: 58%; left: 84%; --t: 16s; --x1: -60px; --y1: 30px; --x2: 40px; --y2: -50px; --x3: -50px; --y3: -20px;"></div>
+<div class="firefly" style="top: 78%; left: 22%; --t: 18s; --x1: 30px; --y1: 50px; --x2: -60px; --y2: -30px; --x3: 40px; --y3: -40px;"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>小松鼠的秋日礼物</h1>
+    <p class="subtitle">儿童睡前故事 · 2026年9月13日</p>
+  </header>
+
+  <div class="illust">
+    <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a1f1a"/>
+          <stop offset="100%" stop-color="#15100d"/>
+        </linearGradient>
+        <linearGradient id="tree" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3d2b1f"/>
+          <stop offset="100%" stop-color="#251a12"/>
+        </linearGradient>
+        <linearGradient id="squirrel" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c47d3f"/>
+          <stop offset="100%" stop-color="#8a5425"/>
+        </linearGradient>
+        <linearGradient id="tail" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d98e45"/>
+          <stop offset="100%" stop-color="#a06030"/>
+        </linearGradient>
+        <linearGradient id="leaf1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#e8833a"/>
+          <stop offset="100%" stop-color="#b85c1f"/>
+        </linearGradient>
+        <linearGradient id="acorn" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6b4c2b"/>
+          <stop offset="100%" stop-color="#4a3320"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 地面 -->
+      <path d="M0,190 Q60,175 120,188 Q180,172 240,186 Q300,170 360,188 L360,230 L0,230Z" fill="url(#ground)"/>
+
+      <!-- 大树 -->
+      <rect x="52" y="60" width="28" height="130" rx="6" fill="url(#tree)"/>
+      <circle cx="66" cy="65" r="55" fill="#1f2a18" opacity="0.9"/>
+      <circle cx="45" cy="80" r="35" fill="#1f2a18" opacity="0.7"/>
+      <circle cx="95" cy="75" r="38" fill="#1f2a18" opacity="0.75"/>
+
+      <!-- 橡果 -->
+      <g transform="translate(110, 175)">
+        <ellipse cx="0" cy="4" rx="9" ry="11" fill="url(#acorn)"/>
+        <path d="M-8,-4 Q0,-10 8,-4 L0,-4Z" fill="#5d4037"/>
+        <path d="M0,-7 L0,-11" stroke="#5d4037" stroke-width="2"/>
+      </g>
+      <g transform="translate(140, 180)">
+        <ellipse cx="0" cy="4" rx="8" ry="10" fill="url(#acorn)"/>
+        <path d="M-7,-3 Q0,-9 7,-3 L0,-3Z" fill="#5d4037"/>
+      </g>
+
+      <!-- 秋叶 -->
+      <path d="M250,80 Q260,60 270,80 Q285,75 270,90 Q260,105 250,90 Q235,85 250,80Z" fill="url(#leaf1)" opacity="0.85"/>
+      <path d="M280,110 Q288,95 296,110 Q306,107 296,118 Q288,130 280,118 Q270,115 280,110Z" fill="#c9753a" opacity="0.8"/>
+      <path d="M220,120 Q228,105 236,120 Q246,117 236,128 Q228,140 220,128 Q210,125 220,120Z" fill="#d98e45" opacity="0.75"/>
+
+      <!-- 小松鼠 -->
+      <g transform="translate(200, 158)">
+        <!-- 大尾巴 -->
+        <path d="M-20,-5 Q-50,-25 -45,-60 Q-35,-85 -5,-75 Q15,-65 10,-35 Q8,-15 -5,-5" fill="url(#tail)"/>
+        <!-- 身体 -->
+        <ellipse cx="0" cy="15" rx="22" ry="26" fill="url(#squirrel)"/>
+        <!-- 肚子 -->
+        <ellipse cx="5" cy="18" rx="12" ry="16" fill="#f5d8b8"/>
+        <!-- 脑袋 -->
+        <circle cx="8" cy="-8" r="18" fill="url(#squirrel)"/>
+        <!-- 耳朵 -->
+        <ellipse cx="-2" cy="-22" rx="6" ry="10" fill="#8a5425"/>
+        <ellipse cx="18" cy="-20" rx="6" ry="10" fill="#8a5425"/>
+        <!-- 眼睛 -->
+        <circle cx="4" cy="-10" r="3" fill="#2a1f15"/>
+        <circle cx="16" cy="-10" r="3" fill="#2a1f15"/>
+        <circle cx="5" cy="-11" r="1" fill="#fff"/>
+        <circle cx="17" cy="-11" r="1" fill="#fff"/>
+        <!-- 鼻子 -->
+        <circle cx="14" cy="-2" r="2.5" fill="#2a1f15"/>
+        <!-- 小手捧着礼物 -->
+        <path d="M-8,10 Q-15,5 -18,12 Q-12,18 -6,15" fill="#c47d3f"/>
+        <path d="M18,10 Q25,5 28,12 Q22,18 16,15" fill="#c47d3f"/>
+        <!-- 礼物叶子 -->
+        <path d="M-10,8 Q0,0 10,8 Q0,18 -10,8Z" fill="#7fb88f"/>
+        <line x1="0" y1="0" x2="0" y2="16" stroke="#5c9b6b" stroke-width="1"/>
+      </g>
+
+      <!-- 远处小星星 -->
+      <circle cx="300" cy="45" r="2" fill="#fff4d6" opacity="0.9"/>
+      <circle cx="330" cy="70" r="1.5" fill="#fff4d6" opacity="0.7"/>
+      <circle cx="40" cy="40" r="2" fill="#fff4d6" opacity="0.8"/>
+    </svg>
+  </div>
+
+  <article class="story">
+    <p>秋天来了，森林里的橡树结满了橡果。小松鼠跳跳站在树枝上，尾巴翘得高高的，他最喜欢秋天了。</p>
+
+    <p>"秋天是最棒的季节！"跳跳对好朋友小刺猬球球说，"因为秋天有最好的礼物。"</p>
+
+    <p>球球好奇地问："什么礼物呀？"</p>
+
+    <p>跳跳神秘地眨眨眼睛："你跟着我，就知道啦。"</p>
+
+    <p>于是，两个小伙伴一起出发去寻找秋天的礼物。</p>
+
+    <p>跳跳带着球球来到一片金色的银杏树下。地上铺满了像小扇子一样的黄叶，风一吹，叶子就哗啦啦地跳起舞来。</p>
+
+    <p>"这是秋天的第一件礼物。"跳跳捡起一片最漂亮的叶子，递给球球，"你可以用它当书签，也可以用它当小被子。"</p>
+
+    <p>球球开心地把叶子卷起来，插在自己的小刺上："好漂亮的颜色呀，像阳光一样。"</p>
+
+    <p>接着，他们来到一棵大橡树下。跳跳熟练地爬上树干，从树洞里掏出两颗圆滚滚的橡果。</p>
+
+    <p>"这是秋天的第二件礼物。"跳跳把一颗橡果放在球球的手心里，"冬天很冷的时候，吃一颗橡果，肚子会暖洋洋的。"</p>
+
+    <p>球球捧着橡果，闻了闻："好香呀，有森林的味道。"</p>
+
+    <p>他们又走到小溪边。溪水清清的，水面上漂着几片红叶，像一艘艘小船。</p>
+
+    <p>跳跳蹲下来，从石头上捞起一块亮晶晶的小石头："这是秋天的第三件礼物。石头被溪水洗了一个夏天，现在最光滑。"</p>
+
+    <p>球球把小石头举到阳光下，它反射出一道小小的彩虹："哇，里面有彩虹！"</p>
+
+    <p>太阳慢慢往西走，两个小伙伴的口袋里装满了秋天的礼物——金色的叶子、香香的橡果、亮亮的石头，还有几根漂亮的羽毛。</p>
+
+    <p>"跳跳，"球球忽然说，"你把最好的礼物都送给我了，你自己怎么办呢？"</p>
+
+    <p>跳跳笑了，眼睛弯成了月牙："我有这么多好朋友，我可以把礼物分给大家呀。而且——"他摇了摇自己的大尾巴，"秋天每天都送礼物，我明天还可以再来找。"</p>
+
+    <p>球球感动地抱了抱跳跳："你才是最好的礼物。"</p>
+
+    <p>那天晚上，森林里的小动物们都收到了跳跳的秋天礼物。小兔子得到了一片枫叶书签，小青蛙得到了一颗光滑的石头，小鸟得到了一根漂亮的羽毛。</p>
+
+    <p>大家围坐在月光下，看着各自的礼物，心里都暖洋洋的。</p>
+
+    <p>跳跳看着朋友们开心的笑脸，忽然明白了：秋天的礼物不是藏在森林里，而是藏在分享里。当你把美好的东西送给别人，那份快乐就会变成很多很多份。</p>
+
+    <p>夜深了，跳跳抱着剩下的最后一片叶子，舒舒服服地睡着了。他做了一个梦，梦见森林里下起了金色的叶子雨，每一片叶子都写着"友谊"两个字。</p>
+  </article>
+
+  <div class="moral-section">
+    <div class="moral-title">晚安寓意</div>
+    <div class="moral-text">
+      美好的东西越分享就越多。当你愿意把喜欢的东西送给朋友，你收获的会比送出去的更多——因为真正的快乐，是看到喜欢的人因为你而微笑。
+    </div>
+  </div>
+
+  <div class="goodnight">
+    <p>
+      晚安，小宝贝。<br>
+      小松鼠跳跳说，<br>
+      你今天也是个爱分享的好孩子，<br>
+      该做一个金叶子飞舞的甜甜的梦了。
+    </p>
+  </div>
+
+  <footer>
+    <em>本文由小虾米为爷自动生成 · 祝你今夜好梦</em>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 95;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var top = (Math.random() * 100).toFixed(1);
+    var left = (Math.random() * 100).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 4).toFixed(1);
+    var m = (Math.random() * 0.4 + 0.5).toFixed(2);
+    frag += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--d:' + dur + 's;--delay:' + delay + 's;--m:' + m + ';"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

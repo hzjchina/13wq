@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>饮食男女</title>
+<style>
+  :root {
+    --bg: #10121a;
+    --bg2: #1a1c2a;
+    --card: rgba(26, 28, 42, 0.78);
+    --text: #f2eadd;
+    --sub: #a39988;
+    --accent: #c94f4f;
+    --gold: #e8c37a;
+    --green: #7fb88f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #232536 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(232, 195, 122, 0.28);
+  }
+  .meta {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .poster {
+    text-align: center;
+    margin: 22px 0 28px;
+  }
+  .poster svg {
+    width: min(300px, 78vw);
+    height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.45));
+    border-radius: 14px;
+  }
+
+  .info-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .info-label {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid rgba(232, 195, 122, 0.1);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.3);
+  }
+  .section h2 {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .section p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    background: rgba(201, 79, 79, 0.14);
+    border: 1px solid rgba(201, 79, 79, 0.3);
+    color: #e69999;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin: 18px 0;
+    background: rgba(232, 195, 122, 0.07);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #e8d5b0;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list {
+    list-style: none;
+    padding: 0;
+  }
+  .reason-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="header">
+    <h1>饮食男女</h1>
+    <p class="meta">Eat Drink Man Woman · 1994 · 中国台湾 / 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1010"/>
+          <stop offset="50%" stop-color="#2a1a18"/>
+          <stop offset="100%" stop-color="#0f0c0c"/>
+        </linearGradient>
+        <radialGradient id="steam" cx="50%" cy="80%">
+          <stop offset="0%" stop-color="#fff" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#fff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 装饰圆点 -->
+      <circle cx="35" cy="50" r="2" fill="#e8c37a" opacity="0.5"/>
+      <circle cx="265" cy="80" r="3" fill="#c94f4f" opacity="0.4"/>
+      <circle cx="45" cy="380" r="2" fill="#7fb88f" opacity="0.4"/>
+
+      <!-- 餐桌 -->
+      <ellipse cx="150" cy="340" rx="110" ry="28" fill="#2a1a15" stroke="#3d2620" stroke-width="2"/>
+      <rect x="70" y="335" width="160" height="14" rx="3" fill="#3d2620" opacity="0.8"/>
+
+      <!-- 菜肴 -->
+      <g transform="translate(150, 320)">
+        <!-- 大盘子 -->
+        <ellipse cx="0" cy="0" rx="45" ry="14" fill="#f5e6c8" opacity="0.9"/>
+        <ellipse cx="0" cy="-2" rx="35" ry="10" fill="#c94f4f" opacity="0.85"/>
+        <circle cx="-12" cy="-2" r="5" fill="#7fb88f"/>
+        <circle cx="0" cy="-1" r="4" fill="#e8c37a"/>
+        <circle cx="12" cy="-2" r="5" fill="#c94f4f"/>
+        <!-- 热气 -->
+        <ellipse cx="-20" cy="-35" rx="8" ry="18" fill="url(#steam)"/>
+        <ellipse cx="0" cy="-42" rx="7" ry="22" fill="url(#steam)" opacity="0.7"/>
+        <ellipse cx="20" cy="-38" rx="6" ry="16" fill="url(#steam)" opacity="0.8"/>
+      </g>
+
+      <!-- 筷子 -->
+      <line x1="95" y1="325" x2="135" y2="300" stroke="#8b5a2b" stroke-width="2" stroke-linecap="round"/>
+      <line x1="100" y1="330" x2="140" y2="305" stroke="#8b5a2b" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- 碗筷 -->
+      <g transform="translate(210, 300)">
+        <ellipse cx="0" cy="12" rx="16" ry="7" fill="#f5e6c8" opacity="0.9"/>
+        <rect x="-8" y="-6" width="16" height="20" rx="2" fill="#f5e6c8" opacity="0.85"/>
+      </g>
+
+      <!-- 家庭成员剪影 -->
+      <g transform="translate(75, 255)" opacity="0.35">
+        <circle cx="0" cy="0" r="12" fill="#e8c37a"/>
+        <path d="M-15,40 Q-15,12 0,12 Q15,12 15,40 L15,60 L-15,60Z" fill="#c94f4f"/>
+      </g>
+      <g transform="translate(225, 255)" opacity="0.35">
+        <circle cx="0" cy="0" r="12" fill="#e8c37a"/>
+        <path d="M-15,40 Q-15,12 0,12 Q15,12 15,40 L15,60 L-15,60Z" fill="#7fb88f"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="390" text-anchor="middle" fill="#e8c37a" font-size="26" font-weight="700" letter-spacing="0.06em">饮食男女</text>
+      <text x="150" y="416" text-anchor="middle" fill="#a39988" font-size="11" letter-spacing="0.12em">EAT DRINK MAN WOMAN</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">李安</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">郎雄、杨贵媚、吴倩莲</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">124 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>老朱是台北一位退了休的大厨，也是三个女儿的父亲。每个星期天，他都会精心准备一桌丰盛无比的晚餐，要求三个女儿回家团聚。这个仪式他已经坚持了很多年，但饭桌上却总是话不投机。</p>
+    <p>大女儿家珍，是中学老师，性格严肃，把青春献给了家庭和宗教；二女儿家倩，是航空公司高管，独立干练，却有着自己的情感纠葛；三女儿家宁，还在读书，看似最是无忧无虑，却最先带回了男朋友。</p>
+    <p>三代人同坐在一张餐桌前，表面上是吃饭，实际上每个人都在藏着心事、憋着话。老朱尽心尽力地扮演着父亲的角色，却不知道如何用言语表达爱；女儿们各有各的烦恼，也在用各自的方式寻找出口。</p>
+    <p>直到有一天，饭桌上的某个宣布打破了多年的平衡，这个家庭才开始重新理解什么是"家"，什么是"爱"，以及什么是每个人真正想要的生活。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>李安式的家庭细腻：</strong>没有激烈的冲突，只有餐桌上沉默的张力、眼神的躲闪、欲言又止的关心，把中国式家庭的爱与压抑刻画得入骨三分。</li>
+      <li><strong>美食即人生：</strong>片头老朱做菜的十几分钟，是中国电影史上最令人垂涎的段落之一。厨艺的精致与生活的混乱形成绝妙对照。</li>
+      <li><strong>角色的真实感：</strong>三个女儿都不是完美的样板人物，她们有自私、有委屈、有渴望，但都真实得让人心疼。</li>
+      <li><strong>结尾的反转与温柔：</strong>影片最后会有一个意想不到的家庭变化，李安用最生活化的方式，让一切尘埃落定，余味悠长。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《饮食男女》是李安"父亲三部曲"中最成熟、最耐看的一部。它讲的不是某个家庭的故事，而是几乎所有中国家庭都会面对的命题：父母与子女如何表达爱、如何在代际之间寻找理解、如何在传统与现代之间安放自己。</p>
+    <p>这部电影的伟大之处在于，它没有给出一个简单的答案，而是让观众在饭桌的烟火气里，慢慢品出亲情的复杂与温暖。看完你会想回家吃顿饭，或者给家人打个电话。</p>
+    <div class="quote">
+      <p>"人生不能像做菜，把所有的料都准备好了才下锅。" —— 李安借这部电影告诉我们：家庭的滋味，往往是在将就、错过和重逢中，才慢慢熬出来的。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">家庭伦理</span>
+      <span class="tag">李安经典</span>
+      <span class="tag">华语电影</span>
+      <span class="tag">美食文化</span>
+      <span class="tag">温情治愈</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月14日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
