@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>狮子王</title>
+<style>
+  :root {
+    --bg: #101216;
+    --bg2: #1a1a12;
+    --card: rgba(26, 26, 24, 0.78);
+    --text: #f2eadd;
+    --sub: #a39988;
+    --accent: #e8963a;
+    --gold: #e8c37a;
+    --green: #7fb88f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #101216 0%, #1a1a12 50%, #241a10 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(232, 195, 122, 0.28);
+  }
+  .meta {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .poster {
+    text-align: center;
+    margin: 22px 0 28px;
+  }
+  .poster svg {
+    width: min(300px, 78vw);
+    height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.45));
+    border-radius: 14px;
+  }
+
+  .info-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .info-label {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid rgba(232, 195, 122, 0.1);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.3);
+  }
+  .section h2 {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .section p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    background: rgba(232, 150, 58, 0.14);
+    border: 1px solid rgba(232, 150, 58, 0.3);
+    color: #f0b87a;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin: 18px 0;
+    background: rgba(232, 195, 122, 0.07);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #e8d5b0;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list {
+    list-style: none;
+    padding: 0;
+  }
+  .reason-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="header">
+    <h1>狮子王</h1>
+    <p class="meta">The Lion King · 1994 · 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a1a10"/>
+          <stop offset="45%" stop-color="#3d2414"/>
+          <stop offset="100%" stop-color="#150c06"/>
+        </linearGradient>
+        <radialGradient id="sun" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#ffb84d" stop-opacity="0.85"/>
+          <stop offset="70%" stop-color="#e8833a" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#e8833a" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="lionMane" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d4763a"/>
+          <stop offset="100%" stop-color="#a0522d"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 落日 -->
+      <circle cx="150" cy="180" r="100" fill="url(#sun)"/>
+      <circle cx="150" cy="180" r="45" fill="#ffc46b" opacity="0.9"/>
+
+      <!-- 草原剪影地面 -->
+      <path d="M0,340 Q50,330 100,340 Q150,335 200,345 Q250,335 300,342 L300,440 L0,440Z" fill="#0f0a06"/>
+
+      <!-- 狮子剪影 -->
+      <g transform="translate(150, 300)" fill="#0f0a06">
+        <!-- 身体 -->
+        <path d="M-45,25 Q-42,-8 -10,-12 Q20,-15 32,5 Q38,18 30,26 L-40,28Z"/>
+        <!-- 头部与鬃毛 -->
+        <circle cx="35" cy="-5" r="22" fill="url(#lionMane)"/>
+        <circle cx="40" cy="-2" r="14" fill="#1a0f08"/>
+        <!-- 耳朵 -->
+        <circle cx="28" cy="-22" r="5"/>
+        <circle cx="48" cy="-20" r="5"/>
+        <!-- 尾巴 -->
+        <path d="M-45,20 Q-60,10 -62,-5" fill="none" stroke="#0f0a06" stroke-width="5" stroke-linecap="round"/>
+        <circle cx="-62" cy="-8" r="4" fill="#0f0a06"/>
+        <!-- 腿 -->
+        <rect x="-38" y="24" width="8" height="12" rx="3"/>
+        <rect x="12" y="24" width="8" height="12" rx="3"/>
+        <rect x="24" y="24" width="8" height="12" rx="3"/>
+      </g>
+
+      <!-- 远处小山 -->
+      <path d="M0,345 Q60,315 130,340 Q180,355 240,335 Q280,325 300,340 L300,360 L0,360Z" fill="#1a1208" opacity="0.6"/>
+
+      <!-- 飞鸟 -->
+      <path d="M70,100 Q75,95 80,100 Q85,95 90,100" fill="none" stroke="#0f0a06" stroke-width="2" stroke-linecap="round"/>
+      <path d="M100,85 Q104,81 108,85 Q112,81 116,85" fill="none" stroke="#0f0a06" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- 标题 -->
+      <text x="150" y="390" text-anchor="middle" fill="#e8c37a" font-size="26" font-weight="700" letter-spacing="0.08em">狮子王</text>
+      <text x="150" y="416" text-anchor="middle" fill="#a39988" font-size="11" letter-spacing="0.14em">THE LION KING</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">罗杰·阿勒斯 等</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">配音</div>
+      <div class="info-value">马修·布罗德里克 等</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">89 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>非洲大草原上，狮子王木法沙统治着荣耀大地。他的儿子小辛巴出生了，整个草原的动物都来朝拜这个小生命。在父亲的教育下，辛巴渐渐明白"生命循环"的道理——万物相连，国王的责任是守护这片土地的平衡。</p>
+    <p>然而，一场精心策划的阴谋夺走了木法沙的生命，也让年幼的辛巴背负上沉重的自责。他仓皇逃离家园，在丛林中遇到了乐天派丁满和彭彭，学会了"Hakuna Matata"——无忧无虑地生活。</p>
+    <p>多年过去，辛巴长大了，但荣耀大地却在叔叔刀疤的统治下满目疮痍。当过去的真相与责任再次出现在面前，辛巴必须做出选择：是继续逃避，还是回到属于他的地方，承担起命运交给他的重量。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>动画史上的巅峰之作：</strong>手绘动画的黄金时代代表作，开头"生命循环"的日出场面至今仍是影史最震撼的动画段落之一。</li>
+      <li><strong>莎士比亚式的史诗：</strong>故事脱胎于《哈姆雷特》，关于成长、责任、背叛与救赎，内核深刻却不失童趣。</li>
+      <li><strong>传世的音乐：</strong>《Can You Feel the Love Tonight》夺得奥斯卡最佳原创歌曲，汉斯·季默的配乐气势磅礴又深情。</li>
+      <li><strong>鲜活的配角：</strong>丁满和彭彭的插科打诨、沙祖的严谨、拉飞奇的智慧，每个角色都有血有肉。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《狮子王》是迪士尼文艺复兴时期的最高峰，也是一代人的成长记忆。它用最简单的动物故事，讲述了最深刻的命题：如何面对失去，如何与过去和解，如何在跌倒后重新站起来。</p>
+    <p>无论大人还是孩子，都能在这部电影里找到属于自己的那份感动。孩子看到的是勇气与冒险，大人看到的是责任与和解。</p>
+    <div class="quote">
+      <p>"过去是痛楚的，但你要么逃避它，要么向它学习。" —— 猴子拉飞奇的这句话，是整部电影的灵魂：真正的成长，是敢于回头看。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">迪士尼经典</span>
+      <span class="tag">动画史诗</span>
+      <span class="tag">成长故事</span>
+      <span class="tag">合家欢</span>
+      <span class="tag">奥斯卡配乐</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月15日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

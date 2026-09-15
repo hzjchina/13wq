@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小鲸鱼的晚安歌 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #081420;
+    --bg2: #0f1e2e;
+    --star: #fff4d6;
+    --moon: #fff8e0;
+    --text: #f0ebe0;
+    --sub: #9a9585;
+    --accent: #7fb8c9;
+    --card: rgba(18, 28, 42, 0.75);
+    --moral: rgba(14, 24, 38, 0.8);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #081420 0%, #0f1e2e 50%, #16324a 100%);
+    color: var(--text);
+    font: 18px/1.92 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: var(--star);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 244, 214, 0.45);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    50% { opacity: var(--m, 0.75); transform: scale(1.1); }
+  }
+
+  .moon-wrap {
+    position: fixed;
+    top: 32px;
+    right: 36px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, #fffbe8 0%, #f5e6b8 52%, #d4b86a 100%);
+    box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14);
+    animation: moonGlow 5.5s ease-in-out infinite;
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14); }
+    50% { box-shadow: 0 0 78px rgba(245, 230, 184, 0.52), 0 0 150px rgba(245, 230, 184, 0.22); }
+  }
+
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(255, 255, 255, 0.65);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .m1 { top: 12%; left: 78%; animation: fall1 8s linear infinite 4s; }
+  .m2 { top: 6%; left: 42%; animation: fall2 10s linear infinite 7s; }
+  @keyframes fall1 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    8% { opacity: 1; }
+    55% { opacity: 0; transform: translate(-240px, 190px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+  @keyframes fall2 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    6% { opacity: 1; }
+    50% { opacity: 0; transform: translate(-170px, 150px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+
+  /* 气泡 */
+  .bubble {
+    position: fixed;
+    border-radius: 50%;
+    border: 1px solid rgba(127, 184, 201, 0.35);
+    background: rgba(127, 184, 201, 0.08);
+    pointer-events: none;
+    z-index: 1;
+    animation: rise var(--t, 14s) ease-in-out infinite;
+  }
+  @keyframes rise {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.35; }
+    50% { transform: translateY(var(--y, -60px)) translateX(var(--x, 30px)); opacity: 0.7; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 52px;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5.4vw, 36px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 30px rgba(127, 184, 201, 0.3);
+    animation: titleBreath 4.2s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%, 100% { text-shadow: 0 0 30px rgba(127, 184, 201, 0.3); }
+    50% { text-shadow: 0 0 52px rgba(127, 184, 201, 0.5); }
+  }
+  .subtitle {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  .illust {
+    text-align: center;
+    margin: 16px 0 24px;
+  }
+  .illust svg {
+    width: min(320px, 82vw);
+    height: auto;
+    filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  .story {
+    background: var(--card);
+    border: 1px solid rgba(127, 184, 201, 0.12);
+    border-radius: 20px;
+    padding: 26px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.32);
+  }
+  .story p {
+    margin-bottom: 17px;
+    text-indent: 2em;
+  }
+  .story p:last-child { margin-bottom: 0; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(127, 184, 201, 0.28), transparent);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(127, 184, 201, 0.5);
+    animation: dotBreath 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  .moral-section {
+    margin: 26px 0 20px;
+    padding: 20px 22px;
+    background: var(--moral);
+    border-left: 3px solid rgba(127, 184, 201, 0.5);
+    border-radius: 0 14px 14px 0;
+  }
+  .moral-title {
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .moral-text {
+    color: rgba(240, 235, 224, 0.78);
+    line-height: 1.8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 22px;
+    padding: 22px 18px;
+    background: rgba(14, 24, 38, 0.7);
+    border: 1px solid rgba(127, 184, 201, 0.15);
+    border-radius: 16px;
+  }
+  .goodnight p {
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.85;
+    text-shadow: 0 0 18px rgba(127, 184, 201, 0.25);
+    animation: gnBreath 5s ease-in-out infinite;
+  }
+  @keyframes gnBreath {
+    0%, 100% { text-shadow: 0 0 18px rgba(127, 184, 201, 0.25); }
+    50% { text-shadow: 0 0 30px rgba(127, 184, 201, 0.45); }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 38px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+    .moon-wrap { top: 18px; right: 18px; }
+    .moon { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-wrap"><div class="moon"></div></div>
+<div class="meteor m1"></div>
+<div class="meteor m2"></div>
+
+<div class="bubble" style="top: 30%; left: 8%; width: 14px; height: 14px; --t: 16s; --y: -80px; --x: 40px;"></div>
+<div class="bubble" style="top: 55%; left: 88%; width: 10px; height: 10px; --t: 14s; --y: -60px; --x: -30px;"></div>
+<div class="bubble" style="top: 75%; left: 15%; width: 8px; height: 8px; --t: 18s; --y: -50px; --x: 50px;"></div>
+<div class="bubble" style="top: 20%; left: 75%; width: 6px; height: 6px; --t: 20s; --y: -70px; --x: -40px;"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>小鲸鱼的晚安歌</h1>
+    <p class="subtitle">儿童睡前故事 · 2026年9月14日</p>
+  </header>
+
+  <div class="illust">
+    <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#16324a"/>
+          <stop offset="100%" stop-color="#0a1a28"/>
+        </linearGradient>
+        <linearGradient id="whaleBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a8fa8"/>
+          <stop offset="100%" stop-color="#3a6580"/>
+        </linearGradient>
+        <radialGradient id="noteGlow">
+          <stop offset="0%" stop-color="#ffe082" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#ffe082" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 海面 -->
+      <path d="M0,70 Q30,60 60,70 Q90,80 120,70 Q150,60 180,70 Q210,80 240,70 Q270,60 300,70 Q330,80 360,70 L360,230 L0,230Z" fill="url(#sea)"/>
+
+      <!-- 月亮倒影 -->
+      <ellipse cx="280" cy="95" rx="28" ry="6" fill="#f5e6b8" opacity="0.3"/>
+      <ellipse cx="280" cy="110" rx="20" ry="4" fill="#f5e6b8" opacity="0.2"/>
+
+      <!-- 小鲸鱼 -->
+      <g transform="translate(160, 150)">
+        <!-- 身体 -->
+        <path d="M-50,0 Q-50,-28 0,-28 Q45,-28 55,-8 Q50,12 10,15 Q-30,18 -50,0Z" fill="url(#whaleBody)"/>
+        <!-- 尾巴 -->
+        <path d="M-48,-2 Q-65,-15 -72,-25 Q-62,-18 -58,-8 Q-58,-18 -60,-28 Q-52,-20 -45,-8" fill="url(#whaleBody)"/>
+        <!-- 肚皮 -->
+        <path d="M-45,5 Q-30,18 5,17 Q30,15 48,2 Q30,12 0,12 Q-25,12 -45,5Z" fill="#c9dff0" opacity="0.7"/>
+        <!-- 眼睛 -->
+        <circle cx="35" cy="-8" r="3.5" fill="#1a2a35"/>
+        <circle cx="36" cy="-9" r="1" fill="#fff"/>
+        <!-- 微笑 -->
+        <path d="M30,4 Q35,8 42,4" fill="none" stroke="#2a4a5a" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 头顶喷水柱 -->
+        <path d="M20,-28 Q18,-38 12,-44" fill="none" stroke="#c9dff0" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+        <path d="M22,-28 Q24,-40 30,-46" fill="none" stroke="#c9dff0" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+        <circle cx="30" cy="-48" r="2" fill="#c9dff0" opacity="0.6"/>
+        <circle cx="12" cy="-46" r="1.8" fill="#c9dff0" opacity="0.5"/>
+      </g>
+
+      <!-- 音符 -->
+      <g transform="translate(240, 130)">
+        <circle cx="0" cy="0" r="10" fill="url(#noteGlow)"/>
+        <path d="M-2,3 L-2,-8 L6,-10 L6,0" fill="none" stroke="#ffe082" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="-3.5" cy="3" r="2.5" fill="#ffe082"/>
+        <circle cx="4.5" cy="0" r="2.5" fill="#ffe082"/>
+      </g>
+      <g transform="translate(270, 105)">
+        <circle cx="0" cy="0" r="8" fill="url(#noteGlow)" opacity="0.8"/>
+        <path d="M-2,2 L-2,-6 L4,-8 L4,-1" fill="none" stroke="#ffe082" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="-3" cy="2" r="2" fill="#ffe082"/>
+      </g>
+      <g transform="translate(205, 115)">
+        <circle cx="0" cy="0" r="7" fill="url(#noteGlow)" opacity="0.7"/>
+        <path d="M-1.5,2 L-1.5,-5 L3,-6.5 L3,-1" fill="none" stroke="#ffe082" stroke-width="1.2" stroke-linecap="round"/>
+        <circle cx="-2.5" cy="2" r="1.8" fill="#ffe082"/>
+      </g>
+
+      <!-- 小鱼 -->
+      <g transform="translate(80, 165)">
+        <ellipse cx="0" cy="0" rx="8" ry="5" fill="#f4a860" opacity="0.9"/>
+        <path d="M-8,0 L-13,-4 L-13,4Z" fill="#f4a860" opacity="0.8"/>
+        <circle cx="4" cy="-1" r="1" fill="#2a3a45"/>
+      </g>
+      <g transform="translate(300, 170)">
+        <ellipse cx="0" cy="0" rx="7" ry="4" fill="#87c9a0" opacity="0.9"/>
+        <path d="M-7,0 L-11,-3 L-11,3Z" fill="#87c9a0" opacity="0.8"/>
+        <circle cx="3" cy="-1" r="1" fill="#2a3a45"/>
+      </g>
+
+      <!-- 气泡 -->
+      <circle cx="130" cy="120" r="3" fill="#c9dff0" opacity="0.4"/>
+      <circle cx="110" cy="100" r="2" fill="#c9dff0" opacity="0.35"/>
+      <circle cx="55" cy="140" r="2.5" fill="#c9dff0" opacity="0.4"/>
+      <circle cx="320" cy="140" r="2" fill="#c9dff0" opacity="0.35"/>
+    </svg>
+  </div>
+
+  <article class="story">
+    <p>在深深的蓝色大海里，住着一头小鲸鱼，名字叫蓝蓝。</p>
+
+    <p>蓝蓝的嗓音特别特别好听。他一开口，声音就像温温的水流，一圈一圈地荡开，传到很远很远的地方。</p>
+
+    <p>可是蓝蓝自己不知道。他唱歌，只是因为他心里高兴，或者心里想着妈妈。</p>
+
+    <p>每天晚上，当月亮爬上海面，蓝蓝就会浮到浅一点的地方，轻轻地唱起一首歌。那是妈妈教他的歌，只有几个简单的音，慢慢地、慢慢地，像摇篮摇啊摇。</p>
+
+    <p>奇怪的是，每当蓝蓝开始唱歌，海底就会发生一些温柔的变化。</p>
+
+    <p>忙着收拾海草床的小螃蟹，会停下手里的活儿，靠着一块圆石头，听着听着就睡着了。</p>
+
+    <p>追了一天小鱼的小海豚，会放慢游动的速度，慢慢闭上眼睛，嘴角还带着笑。</p>
+
+    <p>躲在珊瑚丛里的小丑鱼，会从海葵软软的触手里探出小脑袋，听完最后一个音符，才安心地缩回去。</p>
+
+    <p>就连总是很凶的大鲨鱼，听到蓝蓝的歌声，也会不自觉地摆着尾巴，慢慢游到深海里，安安静静地睡觉去了。</p>
+
+    <p>大家都说，蓝蓝的歌是海洋里最温柔的晚安歌。</p>
+
+    <p>有一天晚上，一只小海龟迷路了。他游啊游，游累了，找不到回家的路，急得快哭出来。</p>
+
+    <p>就在这时，蓝蓝的歌声从远处传来。</p>
+
+    <p>小海龟擦擦眼泪，忽然觉得不那么害怕了。他跟着歌声的方向，慢慢地游。歌声越来越近，像一只温暖的大手，轻轻牵着他。</p>
+
+    <p>终于，小海龟看到了蓝蓝大大的、温柔的影子，也看到了不远处灯塔的亮光——那里就是他的家。</p>
+
+    <p>"谢谢你，"小海龟说，"你的歌像月光一样，把海面都照亮了。"</p>
+
+    <p>蓝蓝有点不好意思："我只是随便唱唱而已。"</p>
+
+    <p>"才不是随便唱唱呢，"小海龟认真地摇摇头，"你的歌让迷路的我不害怕，让累了的伙伴睡得香。你的歌，是海洋里最了不起的宝贝。"</p>
+
+    <p>蓝蓝愣住了。原来，他随口哼的歌，一直在悄悄地温暖着整片大海。</p>
+
+    <p>从那天起，蓝蓝更加用心地唱他的晚安歌。他知道，在每个安静的夜晚，他的声音会像月光一样，轻轻洒在海面上，陪每一个小伙伴进入甜甜的梦乡。</p>
+
+    <p>而海洋深处，正响着一片软软的、幸福的鼾声呢。</p>
+  </article>
+
+  <div class="moral-section">
+    <div class="moral-title">晚安寓意</div>
+    <div class="moral-text">
+      你以为普普通通的自己，也许正在悄悄温暖着别人。就像小鲸鱼的歌声，最平凡的声音，也能成为照亮别人的月光。
+    </div>
+  </div>
+
+  <div class="goodnight">
+    <p>
+      晚安，小宝贝。<br>
+      小鲸鱼蓝蓝说，<br>
+      你今天也是个温柔的好孩子，<br>
+      该做一个海浪轻轻摇的甜甜的梦了。
+    </p>
+  </div>
+
+  <footer>
+    <em>本文由小虾米为爷自动生成 · 祝你今夜好梦</em>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 90;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var top = (Math.random() * 60).toFixed(1);
+    var left = (Math.random() * 100).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 4).toFixed(1);
+    var m = (Math.random() * 0.4 + 0.5).toFixed(2);
+    frag += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--d:' + dur + 's;--delay:' + delay + 's;--m:' + m + ';"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>
