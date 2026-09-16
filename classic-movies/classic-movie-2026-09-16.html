@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>怦然心动</title>
+<style>
+  :root {
+    --bg: #10131a;
+    --bg2: #1a2028;
+    --card: rgba(24, 30, 38, 0.78);
+    --text: #f2eadd;
+    --sub: #a39988;
+    --accent: #7fb88f;
+    --gold: #e8c37a;
+    --blue: #6a9bd6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #10131a 0%, #1a2028 55%, #233028 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(232, 195, 122, 0.28);
+  }
+  .meta {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .poster {
+    text-align: center;
+    margin: 22px 0 28px;
+  }
+  .poster svg {
+    width: min(300px, 78vw);
+    height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.45));
+    border-radius: 14px;
+  }
+
+  .info-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .info-label {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid rgba(232, 195, 122, 0.1);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.3);
+  }
+  .section h2 {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .section p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    background: rgba(127, 184, 143, 0.14);
+    border: 1px solid rgba(127, 184, 143, 0.3);
+    color: #a8d4b4;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin: 18px 0;
+    background: rgba(232, 195, 122, 0.07);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #e8d5b0;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list {
+    list-style: none;
+    padding: 0;
+  }
+  .reason-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="header">
+    <h1>怦然心动</h1>
+    <p class="meta">Flipped · 2010 · 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e88a5a" stop-opacity="0.25"/>
+          <stop offset="40%" stop-color="#8a5a3a" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#1a1410"/>
+        </linearGradient>
+        <linearGradient id="tree" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#6a9b5a"/>
+          <stop offset="100%" stop-color="#3a5a30"/>
+        </linearGradient>
+        <radialGradient id="sunset" cx="50%" cy="50%">
+          <stop offset="0%" stop-color="#ffb84d" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#ffb84d" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 落日余晖 -->
+      <circle cx="150" cy="160" r="95" fill="url(#sunset)"/>
+
+      <!-- 大梧桐树 -->
+      <g transform="translate(150, 260)">
+        <!-- 树干 -->
+        <path d="M-8,90 L-5,10 L5,10 L8,90Z" fill="#4a3020"/>
+        <!-- 树枝 -->
+        <path d="M0,30 L-35,5 M0,25 L35,8 M0,45 L-22,30 M0,40 L22,32" fill="none" stroke="#4a3020" stroke-width="5" stroke-linecap="round"/>
+        <!-- 树冠 -->
+        <ellipse cx="0" cy="-15" rx="75" ry="42" fill="url(#tree)"/>
+        <ellipse cx="-45" cy="5" rx="38" ry="25" fill="url(#tree)" opacity="0.9"/>
+        <ellipse cx="45" cy="0" rx="40" ry="28" fill="url(#tree)" opacity="0.9"/>
+        <ellipse cx="0" cy="-35" rx="50" ry="28" fill="url(#tree)" opacity="0.85"/>
+      </g>
+
+      <!-- 树上的两个小身影 -->
+      <g transform="translate(128, 235)">
+        <circle cx="0" cy="0" r="6" fill="#f5d8c0"/>
+        <path d="M-6,6 Q-6,16 0,16 Q6,16 6,6Z" fill="#3a5a8a"/>
+      </g>
+      <g transform="translate(172, 242)">
+        <circle cx="0" cy="0" r="6" fill="#f5d8c0"/>
+        <path d="M-6,6 Q-6,16 0,16 Q6,16 6,6Z" fill="#c94f4f"/>
+      </g>
+
+      <!-- 地平线 -->
+      <path d="M0,360 Q75,348 150,356 Q225,348 300,358 L300,440 L0,440Z" fill="#12100a"/>
+
+      <!-- 远处小房子剪影 -->
+      <g transform="translate(255, 335)" opacity="0.5">
+        <rect x="-10" y="0" width="20" height="14" fill="#0f0d08"/>
+        <path d="M-13,0 L0,-10 L13,0Z" fill="#0f0d08"/>
+      </g>
+
+      <!-- 飞鸟 -->
+      <path d="M55,90 Q60,85 65,90 Q70,85 75,90" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+      <path d="M90,70 Q94,66 98,70 Q102,66 106,70" fill="none" stroke="#1a1410" stroke-width="2" stroke-linecap="round"/>
+
+      <!-- 标题 -->
+      <text x="150" y="392" text-anchor="middle" fill="#e8c37a" font-size="26" font-weight="700" letter-spacing="0.08em">怦然心动</text>
+      <text x="150" y="418" text-anchor="middle" fill="#a39988" font-size="11" letter-spacing="0.16em">FLIPPED</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">罗伯·莱纳</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">玛德琳·卡罗尔、卡兰·麦克奥利菲</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">90 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>小镇上，朱莉·贝克第一次见到布莱斯，是在搬家的那天。她看到他那双闪闪发光的眼睛，从此认定这个男孩就是自己的初恋。而布莱斯却觉得，这个整天围着自家院子转的女孩有点奇怪，一心只想躲开她。</p>
+    <p>朱莉喜欢爬上社区里那棵高大的梧桐树看风景，在树上她能看到整个小镇最美的日落；她养的鸡下的蛋，她总是热情地送给布莱斯家；她相信整体大于部分之和，相信有些人平凡却闪闪发光。</p>
+    <p>布莱斯一家却嫌她家院子凌乱、家境寒酸，甚至偷偷扔掉她送的鸡蛋。朱莉第一次感到，原来自己一直仰慕的男孩，可能并没有她想象的那么美好。</p>
+    <p>而布莱斯在外公的引导下，开始重新审视这个被他忽视多年的女孩——她身上那种独特的光芒，恰恰是他和身边的人所缺少的。当他终于想要靠近时，朱莉的心却已经开始犹豫了。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>双视角叙事：</strong>同一件事，分别从男孩和女孩的角度各讲一遍，你会惊讶地发现，两个人眼中的世界可以如此不同。</li>
+      <li><strong>教科书级的青春刻画：</strong>没有狗血剧情，只有青涩的误会、笨拙的试探和真实的成长，每个细节都像发生在自己身上。</li>
+      <li><strong>超越爱情的主题：</strong>树上的风景、鸡蛋的风波、外公的那番话——它讲的其实是"如何看一个人"：看他的全部，而非表面。</li>
+      <li><strong>温暖的家庭对照：</strong>两家父母的教育方式形成微妙的对照，让人思考什么样的家庭能养出内心有光的孩子。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《怦然心动》是近十年最动人的青春片之一，也是很多人心中"初恋教科书"。它干净得像一杯柠檬水，酸酸甜甜，喝完回味很久。</p>
+    <p>它值得一看，是因为它讲了一个我们都懂却常常忘记的道理：真正值得喜欢的，是一个人由内而外的整体——他的眼神、他的坚持、他看世界的方式。而学会欣赏这样的人，也是一种成长。</p>
+    <div class="quote">
+      <p>"有人住高楼，有人在深沟，有人光万丈，有人一身锈。世人万千种，浮云莫去求，斯人若彩虹，遇上方知有。" —— 这句广为流传的台词，就是这部电影的全部温柔。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">青春初恋</span>
+      <span class="tag">成长治愈</span>
+      <span class="tag">双视角叙事</span>
+      <span class="tag">家庭教育</span>
+      <span class="tag">温暖清新</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月16日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

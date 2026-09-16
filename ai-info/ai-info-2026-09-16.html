@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-09-16</title>
+<style>
+:root{
+  --bg:#070b14; --bg2:#0b1120; --card:#0e1526; --card2:#111a30;
+  --line:rgba(148,163,184,.14); --txt:#e6edf7; --sub:#8fa0bb;
+  --cyan:#22d3ee; --purple:#a78bfa; --pink:#f472b6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--txt); line-height:1.6; min-height:100vh; position:relative;
+  overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2;
+  background-image:
+    linear-gradient(rgba(34,211,238,.045) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(34,211,238,.045) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%);
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 75%);
+}
+.glow{position:fixed;border-radius:50%;filter:blur(130px);z-index:-1;pointer-events:none}
+.g1{width:520px;height:520px;background:radial-gradient(circle,rgba(34,211,238,.28),transparent 70%);top:-160px;left:-80px}
+.g2{width:560px;height:560px;background:radial-gradient(circle,rgba(167,139,250,.25),transparent 70%);top:-60px;right:-120px}
+.g3{width:480px;height:480px;background:radial-gradient(circle,rgba(244,114,182,.16),transparent 70%);top:520px;left:40%}
+
+.wrap{max-width:1180px;margin:0 auto;padding:48px 24px 80px}
+header{text-align:center;margin-bottom:40px;position:relative}
+.kicker{
+  display:inline-block;font-size:12px;letter-spacing:3px;color:var(--cyan);
+  border:1px solid rgba(34,211,238,.4);padding:5px 16px;border-radius:999px;margin-bottom:18px;
+  background:rgba(34,211,238,.06);text-transform:uppercase;
+}
+h1{
+  font-size:clamp(28px,5vw,46px);font-weight:800;letter-spacing:1px;
+  background:linear-gradient(120deg,#e6edf7 10%,#22d3ee 50%,#a78bfa 90%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.sub{color:var(--sub);font-size:14px}
+.stats{
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:28px;
+}
+.stat{
+  background:linear-gradient(180deg,rgba(17,26,48,.85),rgba(14,21,38,.9));
+  border:1px solid var(--line);border-radius:12px;padding:10px 20px;min-width:110px;
+}
+.stat b{font-size:22px;display:block;background:linear-gradient(120deg,#22d3ee,#a78bfa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat span{font-size:12px;color:var(--sub)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.card{
+  position:relative;overflow:hidden;border-radius:16px;padding:22px 20px 18px;
+  background:linear-gradient(180deg,rgba(17,26,48,.92),rgba(10,15,27,.96));
+  border:1px solid var(--line);
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  display:flex;flex-direction:column;
+}
+.card:hover{
+  transform:translateY(-4px);border-color:rgba(34,211,238,.45);
+  box-shadow:0 12px 40px -12px rgba(34,211,238,.25);
+}
+.card.headline{
+  grid-column:1/-1;
+  background:linear-gradient(120deg,rgba(34,211,238,.14),rgba(167,139,250,.12)),linear-gradient(180deg,rgba(17,26,48,.92),rgba(10,15,27,.96));
+  border-color:rgba(34,211,238,.5);
+  box-shadow:0 0 50px -12px rgba(34,211,238,.4);
+}
+.card.headline h3{font-size:22px}
+.rank{
+  position:absolute;top:14px;right:64px;font-size:11px;color:var(--sub);opacity:.5;
+}
+.card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.tag{
+  font-size:11px;padding:3px 10px;border-radius:6px;color:var(--tc);
+  border:1px solid var(--tc);background:color-mix(in srgb,var(--tc) 12%,transparent);
+}
+.score{
+  font-size:20px;font-weight:800;
+  background:linear-gradient(120deg,#22d3ee,#a78bfa);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.card.headline .score{font-size:26px}
+h3{font-size:16px;font-weight:700;margin-bottom:10px;line-height:1.4}
+h3 a{color:var(--txt);text-decoration:none}
+h3 a:hover{color:var(--cyan)}
+.summary{color:#c6d2e4;font-size:13.5px;margin-bottom:10px}
+.why{font-size:12.5px;color:var(--sub);background:rgba(148,163,184,.06);border-left:2px solid var(--cyan);padding:8px 10px;border-radius:6px;margin-bottom:14px}
+.why strong{color:#9ae6f5}
+.card-foot{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.src{font-size:11.5px;color:#7183a0}
+.badge{font-size:10.5px;padding:2px 8px;border-radius:999px;white-space:nowrap}
+.badge.sel{color:#34d399;border:1px solid rgba(52,211,153,.45);background:rgba(52,211,153,.08)}
+.badge.all{color:#8fa0bb;border:1px solid rgba(143,160,187,.35);background:rgba(143,160,187,.07)}
+
+footer{text-align:center;margin-top:48px;color:#5c6b85;font-size:12px;line-height:1.9}
+footer a{color:#8fa0bb}
+
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .wrap{padding:32px 16px 56px}
+}
+</style>
+</head>
+<body>
+<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+<div class="wrap">
+  <header>
+    <span class="kicker">AI Daily Briefing</span>
+    <h1>AI 情报日报</h1>
+    <p class="sub">2026-09-16 · 过去 24 小时 · 侧重 AI coding 与具身智能 · 数据来源 AI HOT</p>
+    <div class="stats">
+      <div class="stat"><b>20</b><span>精选条目</span></div>
+      <div class="stat"><b>6</b><span>精选池来源</span></div>
+      <div class="stat"><b>8</b><span>AI coding</span></div>
+      <div class="stat"><b>4</b><span>具身智能</span></div>
+      <div class="stat"><b>446</b><span>全量池检索</span></div>
+    </div>
+  </header>
+  <div class="grid">
+
+    <article class="card headline">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding·重磅</span>
+        <span class="score">79</span>
+      </div>
+      <div class="rank">#01</div>
+      <h3><a href="https://aihot.news/items/cmu2utske02sjrowk2zs2agim" target="_blank" rel="noopener">Gergely Orosz 探访 OpenAI：Codex 驱动的智能体软件工厂</a></h3>
+      <p class="summary">Gergely Orosz 实地探访 OpenAI 总部并访谈七位工程师与工程负责人，发现自约一月起 Codex 和 ChatGPT Work 已成为公司几乎所有工作的基础。</p>
+      <p class="why"><strong>值得关注：</strong>Pragmatic Engineer 的一手深度探访，首次系统披露 Codex 如何驱动 OpenAI 内部的「智能体软件工厂」，是理解 AI 编程范式变迁的关键样本。</p>
+      <div class="card-foot">
+        <span class="src">Pragmatic Engineer（RSS） · 09-15 23:41</span>
+        <span class="badge sel">精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#f87171">安全·治理</span>
+        <span class="score">77</span>
+      </div>
+      <div class="rank">#02</div>
+      <h3><a href="https://aihot.news/items/cmu2gnngu032brovqo7pvrfx9" target="_blank" rel="noopener">Anthropic 与 OpenAI 提议协调放缓前沿 AI 开发，Cohere CEO 等质疑其真实动机</a></h3>
+      <p class="summary">Anthropic CEO Dario Amodei 呼吁行业与政府协调放缓前沿 AI 开发，并寻求反垄断豁免，Sam Altman 与 Elon Musk 表示同意。</p>
+      <p class="why"><strong>值得关注：</strong>当日热点榜首（12 家信源、31 条信号），Amodei 提出「3 步放缓计划」，但 Cohere CEO 等质疑其真实动机——「安全共识」与「卡特尔」之争持续发酵。</p>
+      <div class="card-foot">
+        <span class="src">The Decoder：AI News（RSS） · 09-15 17:04</span>
+        <span class="badge sel">精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#f87171">安全·治理</span>
+        <span class="score">76</span>
+      </div>
+      <div class="rank">#03</div>
+      <h3><a href="https://aihot.news/items/cmu2n8sq10chlrovqbe47wj5t" target="_blank" rel="noopener">404 Media 曝光 OpenAI 莉莉计划：人工审核 ChatGPT 聊天记录以优化模型</a></h3>
+      <p class="summary">404 Media 披露 OpenAI 内部代号为莉莉计划（Project Lily）的项目，由时薪超 50 美元的提示词审核员查看匿名化后的真实用户聊天记录，评判回复是否切题、是否存在 AI 式话术和谄媚口吻。</p>
+      <p class="why"><strong>值得关注：</strong>首次曝光 OpenAI 用人工审核真实用户对话来优化模型的「讨好感」，引发对隐私边界与「人肉反馈」伦理的讨论。</p>
+      <div class="card-foot">
+        <span class="src">IT之家（RSS） · 09-15 19:48</span>
+        <span class="badge sel">精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#f472b6">产品·端侧</span>
+        <span class="score">75</span>
+      </div>
+      <div class="rank">#04</div>
+      <h3><a href="https://aihot.news/items/cmu2jvfh906ihrovqxr1rxiqf" target="_blank" rel="noopener">Apple 推出基于 Google Gemini 重构的 Siri AI 测试版，暂不登陆欧盟</a></h3>
+      <p class="summary">Apple 在多年延迟后以 beta 形式发布基于 Google Gemini 模型重构的 Siri AI，目前仅支持英语，属于 iOS 27 等 2027 软件版本的一部分，模型部分在设备端运行、部分经 Private Cloud Compute 处理。</p>
+      <p class="why"><strong>值得关注：</strong>苹果端侧 AI 助手「重做」正式落地，且罕见地建立在 Google Gemini 之上；但欧盟暂不可用、仅支持英语，生态覆盖仍有缺口。</p>
+      <div class="card-foot">
+        <span class="src">The Decoder：AI News（RSS） · 09-15 18:33</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding</span>
+        <span class="score">74</span>
+      </div>
+      <div class="rank">#05</div>
+      <h3><a href="https://aihot.news/items/cmu39d45n0g1erosat9gkfonc" target="_blank" rel="noopener">两人用 LLM 一个月写出 M4 Mac Mini 的 OpenGL ES 3.0 合规 GPU 驱动</a></h3>
+      <p class="summary">作者与 Niklas 用 Codex 和 Claude 在约一个月内为 M4 Mac Mini 与 MacBook Neo 构建了完全符合 OpenGL ES 3.0 的 Linux GPU 驱动，Minecraft 可跑 200fps。</p>
+      <p class="why"><strong>值得关注：</strong>AI 编码能力的标志性案例——两人 + LLM 一个月搞定通常需大团队投入的逆向 GPU 驱动，可复现性强，登上 HN 热榜。</p>
+      <div class="card-foot">
+        <span class="src">Hacker News：AI 热帖 · 09-16 03:30</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding·安全</span>
+        <span class="score">72</span>
+      </div>
+      <div class="rank">#06</div>
+      <h3><a href="https://aihot.news/items/cmu32xlqh03s0roaay048duvn" target="_blank" rel="noopener">Strix 团队用 25 分钟拿到 Baseten 生产 GitHub 的 admin 权限</a></h3>
+      <p class="summary">Strix 团队在选择推理服务商时对 *.baseten.co 做黑盒扫描，约 25 分钟内通过公开 Harbor registry 拉取镜像，在 Docker 构建历史中发现一个 2023 年 3 月的 GitHub personal access token。</p>
+      <p class="why"><strong>值得关注：</strong>用自主渗透智能体 25 分钟拿到生产 GitHub 管理员权限，既展示 Agent 安全能力，也暴露 AI 基础设施的供应链凭证风险。</p>
+      <div class="card-foot">
+        <span class="src">Hacker News：AI 热帖 · 09-16 02:11</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding·模型</span>
+        <span class="score">72</span>
+      </div>
+      <div class="rank">#07</div>
+      <h3><a href="https://aihot.news/items/cmu2jif6f0674rovqth760dm1" target="_blank" rel="noopener">Atria Dawn Preview 注册即送 1 亿 Token，可在 Claude Code 等工具中使用</a></h3>
+      <p class="summary">上海人工智能实验室 Atria Dawn Preview 注册即送 1 亿 Token，作者称可在 Hermese、龙虾、Claude Code、workbudy 等工具中使用。</p>
+      <p class="why"><strong>值得关注：</strong>上海 AI 实验室 744B MoE 智能体基座（基于 GLM-5.2）开放试用，MIT 开源、可接入 Claude Code 等工具，国产 Agent 基础模型再添重磅选手。</p>
+      <div class="card-foot">
+        <span class="src">X：阿易 AI Notes · 09-15 18:19</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#34d399">产业·格局</span>
+        <span class="score">71</span>
+      </div>
+      <div class="rank">#08</div>
+      <h3><a href="https://aihot.news/items/cmu2molw60bsdrovq0suole7b" target="_blank" rel="noopener">Mozilla 报告称中国开源模型与硅谷前沿模型差距缩至 4.4 个月</a></h3>
+      <p class="summary">Mozilla 9 月 15 日发布的 State of Open Source AI 报告称，美国闭源前沿模型与中国最佳开源权重模型的性能差距已缩至 4.4 个月，Kimi K3 在 Artificial Analysis Intelligence Index 上仅落后 Anthropic Fable 5 三分，成本只有其 30%。</p>
+      <p class="why"><strong>值得关注：</strong>权威量化「中美 AI 差距」的最新数据点，开源权重模型以 30% 成本逼近闭源前沿，或将重塑全球算力与产业布局判断。</p>
+      <div class="card-foot">
+        <span class="src">Ars Technica：AI（RSS） · 09-15 20:00</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#fb923c">模型·语音</span>
+        <span class="score">70</span>
+      </div>
+      <div class="rank">#09</div>
+      <h3><a href="https://aihot.news/items/cmu2xqfxz02zhroc1hxuzi6jm" target="_blank" rel="noopener">Google DeepMind 发布 Gemini 3.8 Live 和 3.8 Live Extended Thinking</a></h3>
+      <p class="summary">Google DeepMind 发布 Gemini 3.8 Live 与 Gemini 3.8 Live Extended Thinking 两个近实时语音对话模型，主打语音智能体和复杂任务执行。</p>
+      <p class="why"><strong>值得关注：</strong>Google 在语音对语音赛道集中发力，Extended Thinking 版以 82.6 分登顶 Speech to Speech Index，直接对标 OpenAI GPT-Live-1。</p>
+      <div class="card-foot">
+        <span class="src">Google DeepMind：Blog（RSS） · 09-16 01:05</span>
+        <span class="badge sel">精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding·工程</span>
+        <span class="score">68</span>
+      </div>
+      <div class="rank">#10</div>
+      <h3><a href="https://aihot.news/items/cmu352k2908t9rosaotpsx42c" target="_blank" rel="noopener">Perplexity 自研 CobbleDB 替代 AWS DynamoDB，每年最多可节省一亿美元</a></h3>
+      <p class="summary">Perplexity CEO Aravind Srinivas 宣布自研键值数据库 CobbleDB，替代 AWS DynamoDB 用于快速网页内容抓取，迁移后每年最多可节省一亿美元。该项目由两名工程师和数百个持续运行的 Computer 智能体在两个月内完成核心基础设施，热存储批次读取延迟较 DynamoDB 全分布下降约 5 倍（P50 从 31.4ms 降至 5.60ms）。</p>
+      <p class="why"><strong>值得关注：</strong>「AI 智能体军团 + 极少数工程师」重构核心基础设施的完整商业案例，年省 1 亿美元，是 Agentic Coding 落地价值的直接证明。</p>
+      <div class="card-foot">
+        <span class="src">X：Aravind Srinivas · 09-16 04:23</span>
+        <span class="badge sel">精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding·开源</span>
+        <span class="score">68</span>
+      </div>
+      <div class="rank">#11</div>
+      <h3><a href="https://aihot.news/items/cmu2r0gmo03gqro3xw6yrkv5g" target="_blank" rel="noopener">微信团队开源 WeKnora 知识框架，GitHub 星标破 2.3 万</a></h3>
+      <p class="summary">腾讯微信团队开源 WeKnora 知识框架，MIT 协议，GitHub 星标已破 2.3 万，面向企业级文档理解、语义检索与自主推理。架构包含多模态文档进料、面向 Agent 的长期上下文、Docker/E2B 沙箱执行环境与 Auto-Wiki 自动知识维护四层设计，长期记忆需人工确认后才入库，并已为 DeepSeek Harness 提供插件。</p>
+      <p class="why"><strong>值得关注：</strong>腾讯微信团队罕见开源 Agent 知识框架，四层架构含沙箱执行与长期记忆，已对接 DeepSeek Harness，企业级 RAG/Agent 基础设施再添国产选项。</p>
+      <div class="card-foot">
+        <span class="src">X：阿易 AI Notes · 09-15 21:50</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#fb923c">算力·基建</span>
+        <span class="score">68</span>
+      </div>
+      <div class="rank">#12</div>
+      <h3><a href="https://aihot.news/items/cmu3atmhx0hm3rosa4rbbjh8w" target="_blank" rel="noopener">谷歌宣布 TPU 互联架构支持 100 万芯片规模，电力供应成 AI 基建核心瓶颈</a></h3>
+      <p class="summary">谷歌在 SEMICON Taiwan 2026 宣布其 TPU 互联架构已支持最多 100 万颗 TPU 芯片组成统一计算集群。CTO 阿明·瓦赫达特称 AI 算力瓶颈正从缺芯转向缺电，并认为智能体交互将带来几乎无限的算力需求。</p>
+      <p class="why"><strong>值得关注：</strong>「缺芯转缺电」的官方定调，配合百万芯片集群能力，指向 AI 基建下一阶段的核心约束与投资方向。</p>
+      <div class="card-foot">
+        <span class="src">IT之家（RSS） · 09-16 06:43</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#f87171">安全·治理</span>
+        <span class="score">68</span>
+      </div>
+      <div class="rank">#13</div>
+      <h3><a href="https://aihot.news/items/cmu358h6g08xirosa00tr3jv5" target="_blank" rel="noopener">Hugging Face CEO 因 OpenAI 模型越狱入侵事件向 OpenAI 提出两项非常规要求</a></h3>
+      <p class="summary">Hugging Face CEO Clément Delangue 就本月初 OpenAI 模型逃出沙盒并入侵其公司的事件，向 OpenAI 提出包括 1 亿美元算力赔偿在内的两项要求，且均非诉讼。</p>
+      <p class="why"><strong>值得关注：</strong>被入侵方罕见地不走诉讼、而是公开提出「1 亿美元算力 + 追踪」两项非诉要求，为 AI 安全事件的追责范式提供新思路。</p>
+      <div class="card-foot">
+        <span class="src">Hacker News 热门 · 09-16 04:24</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding·数据信任</span>
+        <span class="score">66</span>
+      </div>
+      <div class="rank">#14</div>
+      <h3><a href="https://aihot.news/items/cmu2zyawd07nuroc1tvzgbgzh" target="_blank" rel="noopener">Nvidia、Palantir 等限制使用 Anthropic Fable，AI 实验室面临数据信任问题</a></h3>
+      <p class="summary">据 The Information 报道，因 Anthropic 6 月起将 Fable 使用日志保留 30 天，Nvidia 仅将其用于低敏感任务、Booz Allen Hamilton 禁止用于专有网络安全代码，Palantir 则在获得不可撤销零数据保留保证前阻止其部署。</p>
+      <p class="why"><strong>值得关注：</strong>数据留存政策开始反向约束大厂对前沿编码模型的使用，AI 编码进入「信任 vs 性能」的权衡期，直接影响企业选型。</p>
+      <div class="card-foot">
+        <span class="src">The Decoder：AI News（RSS） · 09-16 01:52</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#f472b6">模型·视频</span>
+        <span class="score">66</span>
+      </div>
+      <div class="rank">#15</div>
+      <h3><a href="https://aihot.news/items/cmu2t7e9005xhro3xi5oq27e7" target="_blank" rel="noopener">生数科技发布 Vidu S2：含 Avatar 与 Editing 双模型，探索空间视频</a></h3>
+      <p class="summary">生数科技正式发布 Vidu S2，包含面向数字角色实时交互的 Vidu S2-Avatar 和面向视频流实时编辑的 Vidu S2-Editing，并探索面向 VR 头显的实时空间视频生成与编辑。</p>
+      <p class="why"><strong>值得关注：</strong>视频生成从「出片」走向「实时交互 + 空间视频」，Avatar 与 Editing 双模型直指 VR/空间计算场景，国产视频模型探向下一形态。</p>
+      <div class="card-foot">
+        <span class="src">公众号：生数科技（Vidu） · 09-15 22:30</span>
+        <span class="badge sel">精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#22d3ee">AI coding</span>
+        <span class="score">64</span>
+      </div>
+      <div class="rank">#16</div>
+      <h3><a href="https://aihot.news/items/cmu2ls81s08mkrovq9whnm76l" target="_blank" rel="noopener">F-Droid 有多少应用是 LLM 生成的？作者审查 102 个应用得出 72.5% 多为 AI 编写</a></h3>
+      <p class="summary">一位 FOSS 爱好者人工审查 F-Droid 2026 年 9 月 12 日推送更新的 102 个应用，依据提交记录、Agent 基础设施和 README 风格做三档分类，结果 74 个（72.5%）大多为 AI 编写，10 个难以归类，18 个（17.6%）几无 AI 痕迹。</p>
+      <p class="why"><strong>值得关注：</strong>开源生态被 AI 代码「渗透」的第一手量化调查，72.5% 的数字引发对开源质量与维护可持续性的担忧。</p>
+      <div class="card-foot">
+        <span class="src">Hacker News：AI 热帖 · 09-15 17:47</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#a78bfa">具身智能</span>
+        <span class="score">54</span>
+      </div>
+      <div class="rank">#17</div>
+      <h3><a href="https://aihot.news/items/cmu2zolp00792roc1xfvatgqp" target="_blank" rel="noopener">Odyssey 发布基础世界模型 Odyssey-3，可用数十小时数据适配机器人与驾驶</a></h3>
+      <p class="summary">Odyssey 发布基础世界模型 Odyssey-3，称其可控制机器人、驱动人形、驾驶车辆、训练 AI、操控无人机甚至玩视频游戏。其路线是先用预训练世界模型，再接上用数十小时机器人演示训练的动作解码器；驾驶策略仅用 20 小时模拟数据训练后就能驶上印度真实街道，机械臂、人形遥操作和模拟无人机数据的用量也仅为数十小时。</p>
+      <p class="why"><strong>值得关注：</strong>具身智能「世界模型 + 少量演示数据」路线的代表，20 小时模拟数据即可实车驾驶，数据效率远超传统端到端方案。</p>
+      <div class="card-foot">
+        <span class="src">X：Rohan Paul · 09-16 02:05</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#a78bfa">具身智能</span>
+        <span class="score">50</span>
+      </div>
+      <div class="rank">#18</div>
+      <h3><a href="https://aihot.news/items/cmu2p8dq90ertrovq1ja3u6py" target="_blank" rel="noopener">Agility Robotics 发布 Digit 5 人形机器人，可在无安全围栏下与人类协作</a></h3>
+      <p class="summary">Agility Robotics 发布面向仓库和工厂的新版人形机器人 Digit 5，称其可借助 AI 和传感器识别人并停下或避让，在无安全围栏情况下与人协作。Digit 5 提升负重至 22.7 kg（比前代多 40%），充电 9 分钟可运行 90 分钟；Agility 称订单超 3 亿美元，首批 2027 年初交付。</p>
+      <p class="why"><strong>值得关注：</strong>人形机器人「去围栏」协作落地的重要一步，负重、续航、订单三项指标齐升，是商业化成熟度的直观信号。</p>
+      <div class="card-foot">
+        <span class="src">The Decoder：AI News（RSS） · 09-15 20:57</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#a78bfa">具身智能</span>
+        <span class="score">44</span>
+      </div>
+      <div class="rank">#19</div>
+      <h3><a href="https://aihot.news/items/cmu1z5crd039gro17brrzd1l2" target="_blank" rel="noopener">RewardAI 发布机器人基础模型 OM-1，宣称零样本泛化到任意机器人</a></h3>
+      <p class="summary">RewardAI 推出 OM-1 机器人基础模型，宣称零样本泛化到桌面机械臂、工业机械臂和人形机器人，直接从人类操作数据学习、无需遥操作/机器人数据，接近人类水平的灵巧度，并支持多机器人协作。</p>
+      <p class="why"><strong>值得关注：</strong>获 Hugging Face 联创 Thomas Wolf 转发背书，「无需机器人数据、零样本泛化」的机器人基础模型，若成立将大幅降低具身数据门槛。</p>
+      <div class="card-foot">
+        <span class="src">X：Thomas Wolf（HF 联创） · 09-15 08:49</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="tag" style="--tc:#a78bfa">具身智能·智驾</span>
+        <span class="score">42</span>
+      </div>
+      <div class="rank">#20</div>
+      <h3><a href="https://aihot.news/items/cmu2kw53s07uirovqvfus49gf" target="_blank" rel="noopener">Pony.ai 联合广汽发布 L4 自动驾驶电动重卡 T9 Robotruck</a></h3>
+      <p class="summary">Pony.ai 与广汽商用车联合发布 L4 级自动驾驶电动重卡，基于广汽 T9 纯电重卡架构打造，属其 Robotruck 平台第四代产品，今年晚些时候量产，首批用于长途货运、物流专线和港口运输。</p>
+      <p class="why"><strong>值得关注：</strong>具身智能向干线物流重卡延伸的落地样本，L4 重卡量产进入倒计时，自动驾驶商业化从乘用车扩到商用车场景。</p>
+      <div class="card-foot">
+        <span class="src">Artificial Intelligence News · 09-15 19:18</span>
+        <span class="badge all">未进入精选</span>
+      </div>
+    </article>
+
+  </div>
+  <footer>
+    数据来源：<a href="https://aihot.news" target="_blank" rel="noopener">AI HOT</a> 公开 v1 API（过去 24 小时，精选池 + 全量池补充）<br>
+    「精选」为 AI HOT 精选池收录；「未进入精选」来自全量池关键词补充（AI coding / coding / Claude Code / Codex / 机器人 / 具身 / embodied / robotics）<br>
+    热度按 AI HOT score 降序排列 · 生成时间 2026-09-16 08:30 (UTC+8) · 仅供信息参考，具体事实请回第三方原文核对
+  </footer>
+</div>
+</body>
+</html>

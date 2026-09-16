@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蜜蜂的星星蜜 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #0d1220;
+    --bg2: #161c2e;
+    --star: #fff4d6;
+    --moon: #fff8e0;
+    --text: #f3ead8;
+    --sub: #a99b82;
+    --accent: #e8c37a;
+    --card: rgba(22, 26, 44, 0.72);
+    --moral: rgba(18, 22, 40, 0.78);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #1e2440 100%);
+    color: var(--text);
+    font: 18px/1.92 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: var(--star);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 244, 214, 0.45);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    50% { opacity: var(--m, 0.75); transform: scale(1.1); }
+  }
+
+  .moon-wrap {
+    position: fixed;
+    top: 32px;
+    right: 36px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, #fffbe8 0%, #f5e6b8 52%, #d4b86a 100%);
+    box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14);
+    animation: moonGlow 5.5s ease-in-out infinite;
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14); }
+    50% { box-shadow: 0 0 78px rgba(245, 230, 184, 0.52), 0 0 150px rgba(245, 230, 184, 0.22); }
+  }
+
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(255, 255, 255, 0.65);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .m1 { top: 12%; left: 78%; animation: fall1 8s linear infinite 4s; }
+  .m2 { top: 6%; left: 42%; animation: fall2 10s linear infinite 7s; }
+  @keyframes fall1 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    8% { opacity: 1; }
+    55% { opacity: 0; transform: translate(-240px, 190px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+  @keyframes fall2 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    6% { opacity: 1; }
+    50% { opacity: 0; transform: translate(-170px, 150px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+
+  /* 飘落的萤光花瓣 */
+  .petal {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background: rgba(232, 195, 122, 0.6);
+    border-radius: 60% 0 60% 0;
+    pointer-events: none;
+    z-index: 1;
+    animation: petalFall var(--t, 14s) linear infinite;
+  }
+  @keyframes petalFall {
+    0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.8; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(90vh) rotate(320deg); opacity: 0; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 52px;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5.4vw, 36px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 30px rgba(232, 195, 122, 0.32);
+    animation: titleBreath 4.2s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%, 100% { text-shadow: 0 0 30px rgba(232, 195, 122, 0.32); }
+    50% { text-shadow: 0 0 52px rgba(232, 195, 122, 0.5); }
+  }
+  .subtitle {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  .illust {
+    text-align: center;
+    margin: 16px 0 24px;
+  }
+  .illust svg {
+    width: min(320px, 82vw);
+    height: auto;
+    filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  .story {
+    background: var(--card);
+    border: 1px solid rgba(232, 195, 122, 0.11);
+    border-radius: 20px;
+    padding: 26px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.32);
+  }
+  .story p {
+    margin-bottom: 17px;
+    text-indent: 2em;
+  }
+  .story p:last-child { margin-bottom: 0; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 195, 122, 0.25), transparent);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(232, 195, 122, 0.5);
+    animation: dotBreath 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  .moral-section {
+    margin: 26px 0 20px;
+    padding: 20px 22px;
+    background: var(--moral);
+    border-left: 3px solid rgba(232, 195, 122, 0.45);
+    border-radius: 0 14px 14px 0;
+  }
+  .moral-title {
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .moral-text {
+    color: rgba(243, 234, 216, 0.78);
+    line-height: 1.8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 22px;
+    padding: 22px 18px;
+    background: rgba(18, 22, 40, 0.65);
+    border: 1px solid rgba(232, 195, 122, 0.13);
+    border-radius: 16px;
+  }
+  .goodnight p {
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.85;
+    text-shadow: 0 0 18px rgba(232, 195, 122, 0.2);
+    animation: gnBreath 5s ease-in-out infinite;
+  }
+  @keyframes gnBreath {
+    0%, 100% { text-shadow: 0 0 18px rgba(232, 195, 122, 0.2); }
+    50% { text-shadow: 0 0 30px rgba(232, 195, 122, 0.38); }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 38px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+    .moon-wrap { top: 18px; right: 18px; }
+    .moon { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-wrap"><div class="moon"></div></div>
+<div class="meteor m1"></div>
+<div class="meteor m2"></div>
+
+<div class="petal" style="left: 15%; --t: 15s;"></div>
+<div class="petal" style="left: 45%; --t: 18s; animation-delay: 5s;"></div>
+<div class="petal" style="left: 78%; --t: 13s; animation-delay: 2s;"></div>
+<div class="petal" style="left: 62%; --t: 17s; animation-delay: 8s;"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>小蜜蜂的星星蜜</h1>
+    <p class="subtitle">儿童睡前故事 · 2026年9月15日</p>
+  </header>
+
+  <div class="illust">
+    <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1e2440"/>
+          <stop offset="100%" stop-color="#101420"/>
+        </linearGradient>
+        <linearGradient id="beeBody" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd66b"/>
+          <stop offset="100%" stop-color="#d4a030"/>
+        </linearGradient>
+        <radialGradient id="flowerGlow">
+          <stop offset="0%" stop-color="#fffbe8" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#fffbe8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 地面 -->
+      <path d="M0,185 Q60,170 120,182 Q180,168 240,180 Q300,166 360,182 L360,230 L0,230Z" fill="url(#ground)"/>
+
+      <!-- 夜晚花朵 -->
+      <g transform="translate(70, 168)">
+        <!-- 花茎 -->
+        <path d="M0,20 Q2,0 0,-15" fill="none" stroke="#3a5a3a" stroke-width="2.5"/>
+        <!-- 叶子 -->
+        <path d="M1,5 Q10,0 12,-6 Q4,-6 1,5Z" fill="#3a5a3a"/>
+        <!-- 发光 -->
+        <circle cx="0" cy="-22" r="24" fill="url(#flowerGlow)"/>
+        <!-- 花瓣 -->
+        <ellipse cx="0" cy="-30" rx="5" ry="8" fill="#c9b8e8" opacity="0.9"/>
+        <ellipse cx="8" cy="-24" rx="8" ry="5" fill="#c9b8e8" opacity="0.9"/>
+        <ellipse cx="-8" cy="-24" rx="8" ry="5" fill="#c9b8e8" opacity="0.9"/>
+        <ellipse cx="5" cy="-14" rx="6" ry="4" fill="#c9b8e8" opacity="0.9"/>
+        <ellipse cx="-5" cy="-14" rx="6" ry="4" fill="#c9b8e8" opacity="0.9"/>
+        <!-- 花芯 -->
+        <circle cx="0" cy="-22" r="5" fill="#ffe082"/>
+      </g>
+
+      <g transform="translate(300, 160)">
+        <path d="M0,25 Q-2,5 0,-12" fill="none" stroke="#3a5a3a" stroke-width="2.5"/>
+        <path d="M-1,8 Q-10,3 -12,-3 Q-4,-3 -1,8Z" fill="#3a5a3a"/>
+        <circle cx="0" cy="-20" r="22" fill="url(#flowerGlow)" opacity="0.9"/>
+        <ellipse cx="0" cy="-28" rx="5" ry="8" fill="#b8d4e8" opacity="0.9"/>
+        <ellipse cx="8" cy="-22" rx="8" ry="5" fill="#b8d4e8" opacity="0.9"/>
+        <ellipse cx="-8" cy="-22" rx="8" ry="5" fill="#b8d4e8" opacity="0.9"/>
+        <ellipse cx="5" cy="-12" rx="6" ry="4" fill="#b8d4e8" opacity="0.9"/>
+        <ellipse cx="-5" cy="-12" rx="6" ry="4" fill="#b8d4e8" opacity="0.9"/>
+        <circle cx="0" cy="-20" r="5" fill="#ffe082"/>
+      </g>
+
+      <!-- 小蜜蜂 -->
+      <g transform="translate(180, 110)">
+        <!-- 翅膀 -->
+        <ellipse cx="-6" cy="-14" rx="12" ry="8" fill="#cfe8f5" opacity="0.55" transform="rotate(-25)"/>
+        <ellipse cx="8" cy="-14" rx="12" ry="8" fill="#cfe8f5" opacity="0.55" transform="rotate(25)"/>
+        <!-- 身体 -->
+        <ellipse cx="0" cy="0" rx="16" ry="11" fill="url(#beeBody)"/>
+        <!-- 条纹 -->
+        <path d="M-4,-10 Q-6,0 -4,10" fill="none" stroke="#3d2e10" stroke-width="3"/>
+        <path d="M5,-10 Q3,0 5,10" fill="none" stroke="#3d2e10" stroke-width="3"/>
+        <!-- 头 -->
+        <circle cx="-14" cy="-2" r="8" fill="url(#beeBody)"/>
+        <!-- 眼睛 -->
+        <circle cx="-16" cy="-3" r="2" fill="#2a1f10"/>
+        <circle cx="-11" cy="-3" r="2" fill="#2a1f10"/>
+        <circle cx="-15.3" cy="-3.7" r="0.7" fill="#fff"/>
+        <circle cx="-10.3" cy="-3.7" r="0.7" fill="#fff"/>
+        <!-- 触角 -->
+        <path d="M-17,-9 Q-20,-16 -24,-17" fill="none" stroke="#3d2e10" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M-12,-10 Q-12,-18 -16,-20" fill="none" stroke="#3d2e10" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- 小蜜桶 -->
+        <ellipse cx="18" cy="4" rx="6" ry="4" fill="#d4a030"/>
+      </g>
+
+      <!-- 星星蜜滴 -->
+      <g transform="translate(195, 82)">
+        <circle cx="0" cy="0" r="8" fill="url(#flowerGlow)" opacity="0.8"/>
+        <path d="M0,-6 L1.5,-1.5 L6,0 L1.5,1.5 L0,6 L-1.5,1.5 L-6,0 L-1.5,-1.5Z" fill="#ffe082"/>
+      </g>
+
+      <!-- 远处小星星 -->
+      <circle cx="45" cy="45" r="2" fill="#fff4d6" opacity="0.9"/>
+      <circle cx="250" cy="38" r="1.5" fill="#fff4d6" opacity="0.7"/>
+      <circle cx="325" cy="60" r="2" fill="#fff4d6" opacity="0.8"/>
+      <circle cx="120" cy="30" r="1.5" fill="#fff4d6" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <article class="story">
+    <p>在一片开满鲜花的山谷里，住着一只小蜜蜂，名字叫嗡嗡。</p>
+
+    <p>嗡嗡和别的小蜜蜂不太一样。白天，当大家都在花丛里忙着采蜜的时候，嗡嗡总是有点慢吞吞的。可是到了晚上，别的蜜蜂都回蜂巢睡觉了，嗡嗡却还睁着圆圆的大眼睛。</p>
+
+    <p>"嗡嗡，你怎么不睡觉呀？"蜂王奶奶问。</p>
+
+    <p>"奶奶，我总觉得，"嗡嗡小声说，"夜晚的花丛里，藏着白天看不到的秘密。"</p>
+
+    <p>一天夜里，嗡嗡实在睡不着，就悄悄飞出了蜂巢。</p>
+
+    <p>哇——夜晚的花丛和白天完全不一样！月光洒下来，每一朵花都好像轻轻发着光。夜来香开了，金银花开了，还有一种嗡嗡从来没见过的小花，花瓣是淡淡的紫色，在风里一闪一闪的，像小星星落在了枝头上。</p>
+
+    <p>嗡嗡飞过去，轻轻闻了闻。</p>
+
+    <p>"好香呀！"这种香味甜甜的、凉凉的，还带着一点点月光的味道。</p>
+
+    <p>嗡嗡小心地采了一点点花蜜。神奇的事情发生了——花蜜在他的小蜜桶里闪闪发光，像装了一颗小星星！</p>
+
+    <p>"这就是夜晚的秘密！"嗡嗡高兴极了。</p>
+
+    <p>从那以后，嗡嗡每晚都出门，把星光花蜜一滴一滴采集回来。他给蜂巢起了个好听的名字，叫"星星蜜"。</p>
+
+    <p>冬天来的时候，山谷里下了好大好大的雪，花儿都睡了，蜂巢里的蜂蜜也快吃完了。小蜜蜂们又冷又饿，挤在一起直发抖。</p>
+
+    <p>这时候，嗡嗡捧出了他攒了一整个秋天的星星蜜。</p>
+
+    <p>"大家尝尝吧，这是月光做的蜜。"</p>
+
+    <p>小蜜蜂们你一口我一口，星星蜜又甜又暖，吃下去，肚子里好像真的亮起了一颗小星星。大家不再发抖了，还开心地哼起了歌。</p>
+
+    <p>蜂王奶奶摸摸嗡嗡的头："孩子，谢谢你。原来你晚上不睡觉，是在为大家储存月光呀。"</p>
+
+    <p>嗡嗡不好意思地笑了："我只是喜欢夜晚的花丛而已。"</p>
+
+    <p>那天夜里，蜂巢里安安静静的，每只小蜜蜂都做了同一个梦——梦见满山的花都变成了小星星，一闪一闪，甜甜地香。</p>
+  </article>
+
+  <div class="moral-section">
+    <div class="moral-title">晚安寓意</div>
+    <div class="moral-text">
+      每个人都有自己的节奏。你眼中"与众不同"的习惯，也许正是你独一无二的天赋。用心去做自己喜欢的事，时间会让它变成照亮大家的礼物。
+    </div>
+  </div>
+
+  <div class="goodnight">
+    <p>
+      晚安，小宝贝。<br>
+      小蜜蜂嗡嗡说，<br>
+      你今天也是个特别的好孩子，<br>
+      该做一个星光甜甜的梦了。
+    </p>
+  </div>
+
+  <footer>
+    <em>本文由小虾米为爷自动生成 · 祝你今夜好梦</em>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 100;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var top = (Math.random() * 100).toFixed(1);
+    var left = (Math.random() * 100).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 4).toFixed(1);
+    var m = (Math.random() * 0.4 + 0.5).toFixed(2);
+    frag += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--d:' + dur + 's;--delay:' + delay + 's;--m:' + m + ';"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>
