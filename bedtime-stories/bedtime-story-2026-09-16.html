@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小台灯的守夜 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #0d1120;
+    --bg2: #151a2c;
+    --star: #fff4d6;
+    --moon: #fff8e0;
+    --text: #f3ead8;
+    --sub: #a99b82;
+    --accent: #f0c46a;
+    --card: rgba(21, 26, 44, 0.72);
+    --moral: rgba(17, 22, 40, 0.78);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #1e2440 100%);
+    color: var(--text);
+    font: 18px/1.92 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: var(--star);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 244, 214, 0.45);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    50% { opacity: var(--m, 0.75); transform: scale(1.1); }
+  }
+
+  .moon-wrap {
+    position: fixed;
+    top: 32px;
+    right: 36px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, #fffbe8 0%, #f5e6b8 52%, #d4b86a 100%);
+    box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14);
+    animation: moonGlow 5.5s ease-in-out infinite;
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14); }
+    50% { box-shadow: 0 0 78px rgba(245, 230, 184, 0.52), 0 0 150px rgba(245, 230, 184, 0.22); }
+  }
+
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(255, 255, 255, 0.65);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .m1 { top: 12%; left: 78%; animation: fall1 8s linear infinite 4s; }
+  .m2 { top: 6%; left: 42%; animation: fall2 10s linear infinite 7s; }
+  @keyframes fall1 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    8% { opacity: 1; }
+    55% { opacity: 0; transform: translate(-240px, 190px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+  @keyframes fall2 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    6% { opacity: 1; }
+    50% { opacity: 0; transform: translate(-170px, 150px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+
+  /* 光尘 */
+  .dust {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background: rgba(240, 196, 106, 0.7);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 1;
+    animation: floatDust var(--t, 12s) ease-in-out infinite;
+  }
+  @keyframes floatDust {
+    0%, 100% { transform: translate(0, 0); opacity: 0.2; }
+    25% { transform: translate(var(--x1, 30px), var(--y1, -40px)); opacity: 0.8; }
+    50% { transform: translate(var(--x2, -20px), var(--y2, -70px)); opacity: 0.4; }
+    75% { transform: translate(var(--x3, 40px), var(--y3, -30px)); opacity: 0.7; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 52px;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5.4vw, 36px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 30px rgba(240, 196, 106, 0.32);
+    animation: titleBreath 4.2s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%, 100% { text-shadow: 0 0 30px rgba(240, 196, 106, 0.32); }
+    50% { text-shadow: 0 0 52px rgba(240, 196, 106, 0.5); }
+  }
+  .subtitle {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  .illust {
+    text-align: center;
+    margin: 16px 0 24px;
+  }
+  .illust svg {
+    width: min(320px, 82vw);
+    height: auto;
+    filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  .story {
+    background: var(--card);
+    border: 1px solid rgba(240, 196, 106, 0.11);
+    border-radius: 20px;
+    padding: 26px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.32);
+  }
+  .story p {
+    margin-bottom: 17px;
+    text-indent: 2em;
+  }
+  .story p:last-child { margin-bottom: 0; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(240, 196, 106, 0.25), transparent);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(240, 196, 106, 0.5);
+    animation: dotBreath 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  .moral-section {
+    margin: 26px 0 20px;
+    padding: 20px 22px;
+    background: var(--moral);
+    border-left: 3px solid rgba(240, 196, 106, 0.45);
+    border-radius: 0 14px 14px 0;
+  }
+  .moral-title {
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .moral-text {
+    color: rgba(243, 234, 216, 0.78);
+    line-height: 1.8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 22px;
+    padding: 22px 18px;
+    background: rgba(17, 22, 40, 0.65);
+    border: 1px solid rgba(240, 196, 106, 0.13);
+    border-radius: 16px;
+  }
+  .goodnight p {
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.85;
+    text-shadow: 0 0 18px rgba(240, 196, 106, 0.2);
+    animation: gnBreath 5s ease-in-out infinite;
+  }
+  @keyframes gnBreath {
+    0%, 100% { text-shadow: 0 0 18px rgba(240, 196, 106, 0.2); }
+    50% { text-shadow: 0 0 30px rgba(240, 196, 106, 0.38); }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 38px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+    .moon-wrap { top: 18px; right: 18px; }
+    .moon { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-wrap"><div class="moon"></div></div>
+<div class="meteor m1"></div>
+<div class="meteor m2"></div>
+
+<div class="dust" style="top: 35%; left: 20%; --t: 14s; --x1: 30px; --y1: -30px; --x2: -20px; --y2: -60px; --x3: 40px; --y3: -20px;"></div>
+<div class="dust" style="top: 55%; left: 75%; --t: 16s; --x1: -30px; --y1: -40px; --x2: 20px; --y2: -60px; --x3: -40px; --y3: -20px;"></div>
+<div class="dust" style="top: 70%; left: 45%; --t: 18s; --x1: 20px; --y1: -50px; --x2: -30px; --y2: -40px; --x3: 30px; --y3: -60px;"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>小台灯的守夜</h1>
+    <p class="subtitle">儿童睡前故事 · 2026年9月16日</p>
+  </header>
+
+  <div class="illust">
+    <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a2038"/>
+          <stop offset="100%" stop-color="#181226"/>
+        </linearGradient>
+        <linearGradient id="lampShade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f0c46a"/>
+          <stop offset="100%" stop-color="#d49a3a"/>
+        </linearGradient>
+        <radialGradient id="lampGlow">
+          <stop offset="0%" stop-color="#ffe9b0" stop-opacity="0.75"/>
+          <stop offset="60%" stop-color="#ffe9b0" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#ffe9b0" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="blanket" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a7ab8"/>
+          <stop offset="100%" stop-color="#3a5488"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 床和桌面背景 -->
+      <rect x="0" y="150" width="360" height="80" fill="url(#desk)"/>
+
+      <!-- 光晕 -->
+      <circle cx="115" cy="105" r="75" fill="url(#lampGlow)"/>
+
+      <!-- 床 -->
+      <g transform="translate(230, 130)">
+        <!-- 床垫 -->
+        <rect x="-60" y="25" width="130" height="22" rx="8" fill="#3a3450"/>
+        <!-- 枕头 -->
+        <ellipse cx="-40" cy="22" rx="18" ry="8" fill="#f0e8d8" opacity="0.9"/>
+        <!-- 被子 -->
+        <path d="M-30,18 Q0,10 40,18 L70,18 L70,45 L-30,45Z" fill="url(#blanket)"/>
+        <!-- 睡觉的小脑袋 -->
+        <circle cx="-35" cy="14" r="9" fill="#f5dcc0"/>
+        <path d="M-42,10 Q-35,4 -28,10" fill="none" stroke="#5a4030" stroke-width="2" stroke-linecap="round"/>
+        <!-- 闭眼 -->
+        <path d="M-39,15 Q-37.5,16.5 -36,15 M-34,15 Q-32.5,16.5 -31,15" fill="none" stroke="#8a6a50" stroke-width="1" stroke-linecap="round"/>
+      </g>
+
+      <!-- 小台灯 -->
+      <g transform="translate(115, 60)">
+        <!-- 灯罩 -->
+        <path d="M-30,25 L-18,-12 L18,-12 L30,25Z" fill="url(#lampShade)"/>
+        <!-- 灯罩底边 -->
+        <line x1="-30" y1="25" x2="30" y2="25" stroke="#b8802a" stroke-width="3" stroke-linecap="round"/>
+        <!-- 灯光 -->
+        <ellipse cx="0" cy="30" rx="10" ry="4" fill="#fff8dc" opacity="0.95"/>
+        <!-- 灯杆 -->
+        <rect x="-2.5" y="25" width="5" height="40" rx="2" fill="#8a6a3a"/>
+        <!-- 底座 -->
+        <ellipse cx="0" cy="68" rx="20" ry="6" fill="#8a6a3a"/>
+        <!-- 灯罩上的星星装饰 -->
+        <circle cx="-10" cy="8" r="1.5" fill="#fff8dc" opacity="0.8"/>
+        <circle cx="8" cy="3" r="1.2" fill="#fff8dc" opacity="0.7"/>
+        <circle cx="0" cy="15" r="1" fill="#fff8dc" opacity="0.6"/>
+      </g>
+
+      <!-- 窗外星星 -->
+      <g transform="translate(50, 40)">
+        <circle cx="0" cy="0" r="2" fill="#fff4d6" opacity="0.9"/>
+        <circle cx="18" cy="14" r="1.5" fill="#fff4d6" opacity="0.7"/>
+        <circle cx="-12" cy="20" r="1.5" fill="#fff4d6" opacity="0.8"/>
+      </g>
+
+      <!-- 月亮（窗） -->
+      <g transform="translate(320, 35)">
+        <path d="M8,-12 A14,14 0 1,0 8,12 A11,11 0 1,1 8,-12Z" fill="#f5e6b8" opacity="0.85"/>
+      </g>
+
+      <!-- 小星星飘落 -->
+      <path d="M185,52 L186.5,56 L191,56 L187.5,58.5 L189,63 L185,60.5 L181,63 L182.5,58.5 L179,56 L183.5,56Z" fill="#ffe082" opacity="0.7"/>
+      <path d="M150,38 L151,41 L154,41 L151.5,42.5 L152.5,45 L150,43.5 L147.5,45 L148.5,42.5 L146,41 L149,41Z" fill="#ffe082" opacity="0.5"/>
+    </svg>
+  </div>
+
+  <article class="story">
+    <p>小豆的床头，有一盏小小的黄色台灯。它有着圆圆的灯罩、直直的灯杆，还有一个稳稳的底座。</p>
+
+    <p>白天，小台灯安安静静的，谁也不注意它。可是一到晚上，它就会亮起来，发出一团软软的、暖暖的光。</p>
+
+    <p>小台灯有一份很重要的工作，叫做"守夜"。</p>
+
+    <p>每天晚上，妈妈亲亲小豆的额头，说"晚安"，然后关上大灯。屋子里一下子变得黑黑的。这时候，小台灯就会轻轻亮起，像是在说："别怕，我在这儿呢。"</p>
+
+    <p>黑暗里会有奇怪的影子吗？小台灯的光会温柔地告诉它们："嘘——这里有一个正在长个儿的小朋友，请轻一点。"</p>
+
+    <p>衣柜会不会发出咯吱咯吱的声音？小台灯的光会轻轻抱住柜门："辛苦啦，现在轮到你休息了。"</p>
+
+    <p>窗外呼呼的风声会不会吓到小豆？小台灯会把自己的光调得再暖一点点："那是风在给大树唱摇篮曲呢。"</p>
+
+    <p>小豆不知道这些，他只知道，只要床头有一点暖暖的光，他就不害怕黑夜。他翻个身，抱着小熊，很快就睡着了。</p>
+
+    <p>夜更深了，月亮升到了天空的正中央。</p>
+
+    <p>小台灯还在守着。它看着小豆的睫毛轻轻颤动，看着他的嘴角露出小小的微笑——"呀，他做到好梦了。"小台灯开心地想。</p>
+
+    <p>不过，守夜的小台灯也有犯困的时候。它的光会一闪一闪的，像在打小小的哈欠。</p>
+
+    <p>"再坚持一会儿，"它对自己说，"等月亮再往西走一点点。"</p>
+
+    <p>终于，天边泛起了淡淡的鱼肚白。第一缕晨光从窗帘缝里溜进来，轻轻落在小豆的枕头上。</p>
+
+    <p>小台灯长长地舒了一口气，满足地眨了眨眼："早上好呀，太阳，接下来就交给你啦。"</p>
+
+    <p>然后，它悄悄地熄灭了自己，安安心心地睡去了。</p>
+
+    <p>晚上，当夜幕再次降临，它又会准时醒来，继续它的守夜工作——因为它知道，有一份温柔的光，正在被一个小小的、甜甜的梦需要着。</p>
+  </article>
+
+  <div class="moral-section">
+    <div class="moral-title">晚安寓意</div>
+    <div class="moral-text">
+      世界上有一种爱，是不声不响的陪伴。就像小台灯，安安静静地守着你，让你一觉睡到天亮。那些守护我们的人，也总是这样，把最温暖的光，留给我们睡着的时候。
+    </div>
+  </div>
+
+  <div class="goodnight">
+    <p>
+      晚安，小宝贝。<br>
+      小台灯说，<br>
+      我会一直亮着，守着你的梦，<br>
+      你就放心做一个香香甜甜的好梦吧。
+    </p>
+  </div>
+
+  <footer>
+    <em>本文由小虾米为爷自动生成 · 祝你今夜好梦</em>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 90;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var top = (Math.random() * 55).toFixed(1);
+    var left = (Math.random() * 100).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 4).toFixed(1);
+    var m = (Math.random() * 0.4 + 0.5).toFixed(2);
+    frag += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--d:' + dur + 's;--delay:' + delay + 's;--m:' + m + ';"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>

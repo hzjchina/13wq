@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>寻梦环游记</title>
+<style>
+  :root {
+    --bg: #120e1e;
+    --bg2: #1d1430;
+    --card: rgba(28, 20, 46, 0.78);
+    --text: #f2eadd;
+    --sub: #a39988;
+    --accent: #f0955a;
+    --gold: #e8c37a;
+    --purple: #b08ae0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #120e1e 0%, #1d1430 55%, #2a1a3a 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-shadow: 0 0 30px rgba(232, 195, 122, 0.28);
+  }
+  .meta {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .poster {
+    text-align: center;
+    margin: 22px 0 28px;
+  }
+  .poster svg {
+    width: min(300px, 78vw);
+    height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.45));
+    border-radius: 14px;
+  }
+
+  .info-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .info-label {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid rgba(232, 195, 122, 0.1);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.3);
+  }
+  .section h2 {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .section p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    background: rgba(176, 138, 224, 0.14);
+    border: 1px solid rgba(176, 138, 224, 0.3);
+    color: #cbb0e8;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin: 18px 0;
+    background: rgba(232, 195, 122, 0.07);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #e8d5b0;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list {
+    list-style: none;
+    padding: 0;
+  }
+  .reason-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="header">
+    <h1>寻梦环游记</h1>
+    <p class="meta">Coco · 2017 · 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a1a4a"/>
+          <stop offset="50%" stop-color="#3a2060"/>
+          <stop offset="100%" stop-color="#150c22"/>
+        </linearGradient>
+        <radialGradient id="marigoldGlow">
+          <stop offset="0%" stop-color="#ffb84d" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#ffb84d" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 星空 -->
+      <circle cx="40" cy="50" r="2" fill="#fff" opacity="0.8"/>
+      <circle cx="255" cy="70" r="2.5" fill="#fff" opacity="0.7"/>
+      <circle cx="220" cy="35" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="70" cy="100" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="270" cy="140" r="2" fill="#b08ae0" opacity="0.8"/>
+
+      <!-- 万寿菊花瓣桥 -->
+      <g>
+        <circle cx="150" cy="330" r="90" fill="url(#marigoldGlow)"/>
+        <path d="M30,410 Q150,310 270,410" fill="none" stroke="#ffa733" stroke-width="14" stroke-linecap="round" opacity="0.85"/>
+        <path d="M45,410 Q150,325 255,410" fill="none" stroke="#ffc46b" stroke-width="9" stroke-linecap="round" opacity="0.75"/>
+        <!-- 花瓣点缀 -->
+        <ellipse cx="80" cy="390" rx="5" ry="3" fill="#ffc46b" transform="rotate(20 80 390)"/>
+        <ellipse cx="120" cy="372" rx="5" ry="3" fill="#ffa733" transform="rotate(-15 120 372)"/>
+        <ellipse cx="180" cy="372" rx="5" ry="3" fill="#ffc46b" transform="rotate(15 180 372)"/>
+        <ellipse cx="220" cy="390" rx="5" ry="3" fill="#ffa733" transform="rotate(-20 220 390)"/>
+      </g>
+
+      <!-- 小男孩剪影（米格） -->
+      <g transform="translate(150, 300)">
+        <circle cx="0" cy="-12" r="9" fill="#1a1026"/>
+        <path d="M-8,-4 Q0,0 8,-4 L10,20 L-10,20Z" fill="#1a1026"/>
+        <!-- 吉他轮廓 -->
+        <ellipse cx="14" cy="12" rx="9" ry="12" fill="#1a1026" transform="rotate(-20 14 12)"/>
+        <rect x="16" y="-8" width="3.5" height="18" rx="1.5" fill="#1a1026" transform="rotate(-20 16 -8)"/>
+      </g>
+
+      <!-- 糖骷髅装饰花纹 -->
+      <g transform="translate(55, 160)" opacity="0.35">
+        <circle cx="0" cy="0" r="12" fill="none" stroke="#b08ae0" stroke-width="2"/>
+        <circle cx="-4" cy="-2" r="2" fill="#b08ae0"/>
+        <circle cx="4" cy="-2" r="2" fill="#b08ae0"/>
+        <path d="M-4,5 Q0,8 4,5" fill="none" stroke="#b08ae0" stroke-width="1.5"/>
+      </g>
+      <g transform="translate(248, 200)" opacity="0.3">
+        <circle cx="0" cy="0" r="10" fill="none" stroke="#f0955a" stroke-width="2"/>
+        <circle cx="-3.5" cy="-2" r="1.8" fill="#f0955a"/>
+        <circle cx="3.5" cy="-2" r="1.8" fill="#f0955a"/>
+        <path d="M-3.5,4 Q0,6.5 3.5,4" fill="none" stroke="#f0955a" stroke-width="1.2"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="390" text-anchor="middle" fill="#e8c37a" font-size="24" font-weight="700" letter-spacing="0.06em">寻梦环游记</text>
+      <text x="150" y="416" text-anchor="middle" fill="#a39988" font-size="11" letter-spacing="0.2em">COCO</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">李·昂克里奇</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">配音</div>
+      <div class="info-value">安东尼·冈萨雷斯 等</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">105 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>墨西哥小镇上，12岁的男孩米格生活在一个鞋匠世家。他家有一个奇怪的祖训：全家人都禁止接触音乐。因为很多年前，米格的曾曾祖父为了追逐音乐梦想，抛妻弃女，一去不返。</p>
+    <p>可米格天生爱音乐，他偷偷崇拜着已故的传奇歌神德拉库斯，梦想成为像他一样的音乐家。亡灵节那天，因为一把神奇的吉他，米格意外闯入了五彩斑斓的亡灵世界。</p>
+    <p>在那个世界里，他见到了已经逝去的家人们，也得知了一个残酷的规则：如果没有人记得你，你就会彻底消失。要想回到活人的世界，米格必须在日出之前得到一位亲人的祝福。于是，他和落魄乐手埃克托一起，踏上了一场揭开家族秘密的旅程。</p>
+    <p>关于梦想与家庭、记忆与遗忘的真相，正等待着他。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>惊艳的亡灵世界：</strong>万寿菊花瓣桥、灯火辉煌的亡灵之城、色彩斑斓的糖骷髅文化——皮克斯用想象力构建了一个前所未有的绚烂世界。</li>
+      <li><strong>深刻而不沉重的主题：</strong>它用最温柔的方式讨论死亡：真正的死亡不是生命的终点，而是被遗忘。这个观念击中了全世界观众的心。</li>
+      <li><strong>音乐与情感的双重高潮：</strong>《Remember Me》这首歌贯穿全片，从舞台上的华丽演唱到最后一段朴素的哼唱，催泪效果层层递进。</li>
+      <li><strong>反转的剧情设计：</strong>关于"谁才是真正的家人"的真相揭晓，是皮克斯剧本功力的最佳示范。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《寻梦环游记》拿下奥斯卡最佳动画长片，豆瓣 Top25 常客，更在墨西哥成为影史票房冠军。它是一部能让孩子看懂、让大人泪崩的电影。</p>
+    <p>它值得一看，是因为它把最难以开口的话题——死亡与告别——拍成了一首温暖的歌。看完你会想抱抱家里人，也会明白：只要有人记得，爱就不会消失。</p>
+    <div class="quote">
+      <p>"在爱的记忆消失以前，请记住我。" —— 这部电影教会我们：记住，就是最深情的怀念。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">皮克斯</span>
+      <span class="tag">奥斯卡动画</span>
+      <span class="tag">家庭亲情</span>
+      <span class="tag">音乐梦想</span>
+      <span class="tag">催泪治愈</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月17日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
