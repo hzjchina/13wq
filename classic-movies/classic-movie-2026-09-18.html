@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美国往事</title>
+<style>
+  :root {
+    --bg: #100d0a;
+    --bg2: #1c1610;
+    --card: rgba(30, 24, 16, 0.78);
+    --text: #f0e8d8;
+    --sub: #9c9284;
+    --accent: #d99a4e;
+    --gold: #e3c285;
+    --red: #c05a4e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #100d0a 0%, #1c1610 55%, #241a10 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 48px;
+  }
+
+  .header {
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px);
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-shadow: 0 0 30px rgba(227, 194, 133, 0.25);
+  }
+  .meta {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.1em;
+  }
+
+  .poster {
+    text-align: center;
+    margin: 22px 0 28px;
+  }
+  .poster svg {
+    width: min(300px, 78vw);
+    height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0, 0, 0, 0.5));
+    border-radius: 14px;
+  }
+
+  .info-bar {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .info-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 14px 8px;
+    text-align: center;
+  }
+  .info-label {
+    font-size: 12px;
+    color: var(--sub);
+    margin-bottom: 6px;
+    letter-spacing: 0.08em;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .section {
+    background: var(--card);
+    border: 1px solid rgba(227, 194, 133, 0.1);
+    border-radius: 18px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(6px);
+    box-shadow: 0 10px 36px rgba(0, 0, 0, 0.35);
+  }
+  .section h2 {
+    font-size: 18px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 0.08em;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .section p {
+    margin-bottom: 12px;
+    text-indent: 2em;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 8px;
+  }
+  .tag {
+    background: rgba(192, 90, 78, 0.14);
+    border: 1px solid rgba(192, 90, 78, 0.32);
+    color: #dda89e;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold);
+    padding: 12px 18px;
+    margin: 18px 0;
+    background: rgba(227, 194, 133, 0.07);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #e6d3ae;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list {
+    list-style: none;
+    padding: 0;
+  }
+  .reason-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 32px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="header">
+    <h1>美国往事</h1>
+    <p class="meta">Once Upon a Time in America · 1984 · 意大利 / 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1208"/>
+          <stop offset="55%" stop-color="#33220f"/>
+          <stop offset="100%" stop-color="#0e0a05"/>
+        </linearGradient>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4a3417" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#0e0a05" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="moonGlow">
+          <stop offset="0%" stop-color="#e8cf9a" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#e8cf9a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 星空 -->
+      <circle cx="42" cy="46" r="1.8" fill="#fff" opacity="0.75"/>
+      <circle cx="252" cy="58" r="2.2" fill="#fff" opacity="0.65"/>
+      <circle cx="210" cy="30" r="1.4" fill="#fff" opacity="0.85"/>
+      <circle cx="86" cy="88" r="1.4" fill="#fff" opacity="0.55"/>
+      <circle cx="272" cy="120" r="1.6" fill="#e3c285" opacity="0.7"/>
+
+      <!-- 月亮 -->
+      <circle cx="228" cy="84" r="44" fill="url(#moonGlow)"/>
+      <circle cx="228" cy="84" r="20" fill="#e8cf9a"/>
+
+      <!-- 曼哈顿大桥剪影 -->
+      <g>
+        <!-- 桥塔 -->
+        <path d="M55,300 L55,210 L70,192 L85,210 L85,300" fill="#241708"/>
+        <path d="M215,300 L215,210 L230,192 L245,210 L245,300" fill="#241708"/>
+        <!-- 双拱 -->
+        <path d="M62,300 Q70,240 78,300" fill="none" stroke="#0e0a05" stroke-width="5"/>
+        <path d="M222,300 Q230,240 238,300" fill="none" stroke="#0e0a05" stroke-width="5"/>
+        <!-- 悬索 -->
+        <path d="M0,252 Q70,208 150,246 Q230,208 300,252" fill="none" stroke="#3a2a12" stroke-width="2.5"/>
+        <path d="M20,262 L55,224 M95,252 L85,224 M150,246 L150,224 M205,252 L215,224 M280,262 L245,224" stroke="#3a2a12" stroke-width="1.6"/>
+        <!-- 桥面 -->
+        <rect x="0" y="296" width="300" height="8" fill="#241708"/>
+      </g>
+
+      <!-- 水面倒影 -->
+      <rect x="0" y="304" width="300" height="136" fill="url(#water)"/>
+      <g opacity="0.5">
+        <ellipse cx="228" cy="322" rx="16" ry="2.5" fill="#e8cf9a" opacity="0.5"/>
+        <ellipse cx="224" cy="338" rx="11" ry="2" fill="#e8cf9a" opacity="0.35"/>
+        <ellipse cx="232" cy="352" rx="14" ry="2.2" fill="#e8cf9a" opacity="0.28"/>
+        <path d="M70,320 L70,356 M85,318 L85,362 M230,316 L230,360" stroke="#4a3417" stroke-width="2.5" opacity="0.6"/>
+      </g>
+
+      <!-- 怀表（时间主题） -->
+      <g transform="translate(150, 388)">
+        <circle cx="0" cy="0" r="17" fill="none" stroke="#e3c285" stroke-width="2.5"/>
+        <circle cx="0" cy="0" r="13" fill="rgba(227,194,133,0.08)"/>
+        <line x1="0" y1="0" x2="0" y2="-8" stroke="#e3c285" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="0" y1="0" x2="5.5" y2="3" stroke="#e3c285" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="0" cy="0" r="1.4" fill="#e3c285"/>
+        <path d="M-3,-19 Q0,-23 3,-19" fill="none" stroke="#e3c285" stroke-width="2"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="356" text-anchor="middle" fill="#e3c285" font-size="24" font-weight="700" letter-spacing="0.12em">美国往事</text>
+      <text x="150" y="376" text-anchor="middle" fill="#9c9284" font-size="10" letter-spacing="0.24em">ONCE UPON A TIME IN AMERICA</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">塞尔吉奥·莱昂内</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">罗伯特·德尼罗</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">229 分钟（完整版）</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>1968年的纽约，阔别故地三十余年的"面条"重新踏上了这片街区。一笔尘封的旧账、一把来历不明的钥匙，把他拉回了记忆深处。</p>
+    <p>时光倒回1920年代：纽约东区的犹太移民街区里，五个少年合伙闯荡，分赃、挨打、做着发大财的梦。少年"面条"暗恋着美丽孤傲的舞者黛博拉，兄弟麦克斯则野心勃勃，眼睛始终盯着更大的世界。</p>
+    <p>禁酒令时代到来，当年的街头少年成了呼风唤雨的人物。然而一次本该顺利的行动突然演变成惨剧，兄弟永诀，"面条"背上了无法言说的重负，远走他乡。三十年后归来的他，必须亲手揭开当年事件的真相——而答案，藏在谎言、岁月与一场精心编织的骗局之中。</p>
+    <p>直到片尾那个意味深长的微笑，你会明白这部电影讲的从来不只是黑帮。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>交响乐般的叙事结构：</strong>少年、鼎盛、暮年三段时空来回穿插，像一块块记忆碎片，观众与主角一起在时间里拼图，越到最后越震撼。</li>
+      <li><strong>莫里康内的传世配乐：</strong>排箫与弦乐交织的《Deborah's Theme》被誉为影史最美的旋律之一，音乐直接参与叙事，看完旋律会跟着你很多天。</li>
+      <li><strong>德尼罗的收放表演：</strong>台词极少，全靠眼神与沉默演戏；一个回头、一次凝视，就是半生的重量。</li>
+      <li><strong>影史著名的"最后一笑"：</strong>电影以一个微笑收尾，影史留白艺术的巅峰——不同的人能看出完全不同的答案，值得反复回味。</li>
+      <li><strong>一部"被拯救"的传奇：</strong>当年片方把4小时剪成2小时公映惨败，完整版重见天日后才被公认为不朽杰作——电影史上的著名公案。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《美国往事》与《教父》并称黑帮电影的两大巅峰，豆瓣 9.2 分稳居 Top250 前列。但它真正的主题不是黑帮，而是时间——友谊如何在岁月里变质，梦想如何长出代价，以及一个人要如何与自己的过去和解。</p>
+    <p>它值得一看，是因为几乎没有第二部电影能把"怀念"拍得如此浩瀚：烟馆的雾气、月光下的桥、电影院、怀表与旧信，每一样道具都承载着回不去的青春。四个小时的片长不是门槛，而是一场完整的人生沉浸。</p>
+    <p>小虾米建议：留一个无人打扰的完整夜晚，关灯，戴耳机，慢慢看完。片尾那个微笑，你会想二刷。</p>
+    <div class="quote">
+      <p>"当我对所有的事情都厌倦的时候，我就会想起你，想到你在世界的某个地方生活着、存在着，我就愿意忍受一切。" —— 时间会带走一切，也会留下一切。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">影史巅峰</span>
+      <span class="tag">黑帮史诗</span>
+      <span class="tag">友谊与背叛</span>
+      <span class="tag">时空叙事</span>
+      <span class="tag">莫里康内配乐</span>
+      <span class="tag">值得留一整晚</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月18日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

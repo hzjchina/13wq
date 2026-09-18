@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小蚂蚁的月亮船 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg: #0a1020;
+    --bg2: #131b30;
+    --star: #fff4d6;
+    --moon: #fff8e0;
+    --text: #f3ead8;
+    --sub: #a99b82;
+    --accent: #9bc4e0;
+    --card: rgba(19, 27, 48, 0.72);
+    --moral: rgba(15, 23, 42, 0.78);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #1c2a45 100%);
+    color: var(--text);
+    font: 18px/1.92 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+  .star {
+    position: absolute;
+    background: var(--star);
+    border-radius: 50%;
+    opacity: 0;
+    animation: twinkle var(--d, 3s) ease-in-out infinite;
+    box-shadow: 0 0 6px rgba(255, 244, 214, 0.45);
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.7); }
+    50% { opacity: var(--m, 0.75); transform: scale(1.1); }
+  }
+
+  .moon-wrap {
+    position: fixed;
+    top: 32px;
+    right: 36px;
+    z-index: 1;
+    pointer-events: none;
+  }
+  .moon {
+    width: 68px;
+    height: 68px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 34% 34%, #fffbe8 0%, #f5e6b8 52%, #d4b86a 100%);
+    box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14);
+    animation: moonGlow 5.5s ease-in-out infinite;
+  }
+  @keyframes moonGlow {
+    0%, 100% { box-shadow: 0 0 52px rgba(245, 230, 184, 0.35), 0 0 110px rgba(245, 230, 184, 0.14); }
+    50% { box-shadow: 0 0 78px rgba(245, 230, 184, 0.52), 0 0 150px rgba(245, 230, 184, 0.22); }
+  }
+
+  .meteor {
+    position: fixed;
+    width: 2px;
+    height: 2px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 7px 2px rgba(255, 255, 255, 0.65);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+  }
+  .m1 { top: 12%; left: 78%; animation: fall1 8s linear infinite 4s; }
+  .m2 { top: 6%; left: 42%; animation: fall2 10s linear infinite 7s; }
+  @keyframes fall1 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    8% { opacity: 1; }
+    55% { opacity: 0; transform: translate(-240px, 190px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+  @keyframes fall2 {
+    0% { opacity: 0; transform: translate(0, 0) scale(1); }
+    6% { opacity: 1; }
+    50% { opacity: 0; transform: translate(-170px, 150px) scale(0.25); }
+    100% { opacity: 0; }
+  }
+
+  /* 波光 */
+  .ripple {
+    position: fixed;
+    width: 40px;
+    height: 12px;
+    border-radius: 50%;
+    border-top: 2px solid rgba(155, 196, 224, 0.35);
+    pointer-events: none;
+    z-index: 1;
+    animation: rippleMove var(--t, 10s) ease-in-out infinite;
+  }
+  @keyframes rippleMove {
+    0%, 100% { transform: translateX(0); opacity: 0.25; }
+    50% { transform: translateX(var(--x, 60px)); opacity: 0.6; }
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 30px 20px 52px;
+  }
+
+  .hero {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 5.4vw, 36px);
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.06em;
+    text-shadow: 0 0 30px rgba(155, 196, 224, 0.3);
+    animation: titleBreath 4.2s ease-in-out infinite;
+  }
+  @keyframes titleBreath {
+    0%, 100% { text-shadow: 0 0 30px rgba(155, 196, 224, 0.3); }
+    50% { text-shadow: 0 0 52px rgba(155, 196, 224, 0.5); }
+  }
+  .subtitle {
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 10px;
+    letter-spacing: 0.14em;
+  }
+
+  .illust {
+    text-align: center;
+    margin: 16px 0 24px;
+  }
+  .illust svg {
+    width: min(320px, 82vw);
+    height: auto;
+    filter: drop-shadow(0 8px 26px rgba(0, 0, 0, 0.45));
+  }
+
+  .story {
+    background: var(--card);
+    border: 1px solid rgba(155, 196, 224, 0.12);
+    border-radius: 20px;
+    padding: 26px 24px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 12px 44px rgba(0, 0, 0, 0.32);
+  }
+  .story p {
+    margin-bottom: 17px;
+    text-indent: 2em;
+  }
+  .story p:last-child { margin-bottom: 0; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+    color: var(--sub);
+    font-size: 13px;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(155, 196, 224, 0.28), transparent);
+  }
+  .dot {
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(155, 196, 224, 0.5);
+    animation: dotBreath 2.8s ease-in-out infinite;
+  }
+  @keyframes dotBreath { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
+
+  .moral-section {
+    margin: 26px 0 20px;
+    padding: 20px 22px;
+    background: var(--moral);
+    border-left: 3px solid rgba(155, 196, 224, 0.5);
+    border-radius: 0 14px 14px 0;
+  }
+  .moral-title {
+    color: var(--accent);
+    font-size: 15px;
+    letter-spacing: 0.12em;
+    margin-bottom: 10px;
+  }
+  .moral-text {
+    color: rgba(243, 234, 216, 0.78);
+    line-height: 1.8;
+    text-indent: 0;
+  }
+
+  .goodnight {
+    text-align: center;
+    margin-top: 22px;
+    padding: 22px 18px;
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(155, 196, 224, 0.15);
+    border-radius: 16px;
+  }
+  .goodnight p {
+    color: var(--accent);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.85;
+    text-shadow: 0 0 18px rgba(155, 196, 224, 0.25);
+    animation: gnBreath 5s ease-in-out infinite;
+  }
+  @keyframes gnBreath {
+    0%, 100% { text-shadow: 0 0 18px rgba(155, 196, 224, 0.25); }
+    50% { text-shadow: 0 0 30px rgba(155, 196, 224, 0.45); }
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    color: var(--sub);
+    font-size: 12px;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 22px 14px 38px; }
+    .story { padding: 18px 16px; }
+    body { font-size: 16.5px; }
+    .moon-wrap { top: 18px; right: 18px; }
+    .moon { width: 52px; height: 52px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-wrap"><div class="moon"></div></div>
+<div class="meteor m1"></div>
+<div class="meteor m2"></div>
+
+<div class="ripple" style="top: 70%; left: 15%; --t: 9s; --x: 70px;"></div>
+<div class="ripple" style="top: 80%; left: 60%; --t: 11s; --x: -60px;"></div>
+<div class="ripple" style="top: 88%; left: 35%; --t: 13s; --x: 50px;"></div>
+
+<div class="wrap">
+  <header class="hero">
+    <h1>小蚂蚁的月亮船</h1>
+    <p class="subtitle">儿童睡前故事 · 2026年9月17日</p>
+  </header>
+
+  <div class="illust">
+    <svg viewBox="0 0 360 230" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1c2a45"/>
+          <stop offset="100%" stop-color="#0e1830"/>
+        </linearGradient>
+        <linearGradient id="leafBoat" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#7fb88f"/>
+          <stop offset="100%" stop-color="#4a7a5a"/>
+        </linearGradient>
+        <radialGradient id="moonRefGlow">
+          <stop offset="0%" stop-color="#f5e6b8" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f5e6b8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 夜空渐变水域 -->
+      <rect x="0" y="0" width="360" height="230" fill="url(#water)"/>
+
+      <!-- 月亮倒影 -->
+      <circle cx="280" cy="150" r="45" fill="url(#moonRefGlow)"/>
+      <ellipse cx="280" cy="150" rx="22" ry="8" fill="#f5e6b8" opacity="0.45"/>
+      <ellipse cx="280" cy="168" rx="16" ry="5" fill="#f5e6b8" opacity="0.3"/>
+      <ellipse cx="278" cy="184" rx="12" ry="4" fill="#f5e6b8" opacity="0.2"/>
+
+      <!-- 波纹线 -->
+      <path d="M20,140 Q45,135 70,140 Q95,145 120,140" fill="none" stroke="#9bc4e0" stroke-width="1" opacity="0.25"/>
+      <path d="M240,200 Q265,195 290,200 Q315,205 340,200" fill="none" stroke="#9bc4e0" stroke-width="1" opacity="0.2"/>
+      <path d="M40,185 Q65,180 90,185" fill="none" stroke="#9bc4e0" stroke-width="1" opacity="0.15"/>
+
+      <!-- 叶子小船 -->
+      <g transform="translate(130, 140)">
+        <!-- 叶身 -->
+        <path d="M-55,0 Q0,-22 55,0 Q30,12 0,13 Q-30,12 -55,0Z" fill="url(#leafBoat)"/>
+        <!-- 叶脉 -->
+        <path d="M-45,2 Q0,-10 45,2" fill="none" stroke="#3a6a4a" stroke-width="1.2" opacity="0.6"/>
+        <path d="M-35,5 Q0,-4 35,5" fill="none" stroke="#3a6a4a" stroke-width="1" opacity="0.5"/>
+        <!-- 细枝桅杆 -->
+        <line x1="0" y1="-8" x2="0" y2="-38" stroke="#5a4030" stroke-width="2"/>
+        <!-- 露珠小灯 -->
+        <circle cx="0" cy="-42" r="5" fill="#fff8dc" opacity="0.9"/>
+        <circle cx="0" cy="-42" r="9" fill="#fff8dc" opacity="0.25"/>
+      </g>
+
+      <!-- 三只小蚂蚁 -->
+      <g transform="translate(105, 132)">
+        <ellipse cx="0" cy="0" rx="5" ry="3.2" fill="#3d2e20"/>
+        <circle cx="-6.5" cy="-1.5" r="2.5" fill="#3d2e20"/>
+        <line x1="-2" y1="-1" x2="-5" y2="-6" stroke="#2a1f15" stroke-width="1"/>
+        <line x1="1" y1="-1" x2="-1" y2="-6" stroke="#2a1f15" stroke-width="1"/>
+        <circle cx="-5.5" cy="-7" r="1" fill="#2a1f15"/>
+        <circle cx="-1.5" cy="-7" r="1" fill="#2a1f15"/>
+      </g>
+      <g transform="translate(135, 128)">
+        <ellipse cx="0" cy="0" rx="5" ry="3.2" fill="#4a3828"/>
+        <circle cx="-6.5" cy="-1.5" r="2.5" fill="#4a3828"/>
+        <line x1="-2" y1="-1" x2="-5" y2="-6" stroke="#33261a" stroke-width="1"/>
+        <line x1="1" y1="-1" x2="-1" y2="-6" stroke="#33261a" stroke-width="1"/>
+        <circle cx="-5.5" cy="-7" r="1" fill="#33261a"/>
+        <circle cx="-1.5" cy="-7" r="1" fill="#33261a"/>
+      </g>
+      <g transform="translate(162, 133)">
+        <ellipse cx="0" cy="0" rx="5" ry="3.2" fill="#3d2e20"/>
+        <circle cx="-6.5" cy="-1.5" r="2.5" fill="#3d2e20"/>
+        <line x1="-2" y1="-1" x2="-5" y2="-6" stroke="#2a1f15" stroke-width="1"/>
+        <line x1="1" y1="-1" x2="-1" y2="-6" stroke="#2a1f15" stroke-width="1"/>
+        <circle cx="-5.5" cy="-7" r="1" fill="#2a1f15"/>
+        <circle cx="-1.5" cy="-7" r="1" fill="#2a1f15"/>
+      </g>
+
+      <!-- 萤火虫引路 -->
+      <g transform="translate(230, 100)">
+        <circle cx="0" cy="0" r="8" fill="#ffe082" opacity="0.2"/>
+        <circle cx="0" cy="0" r="2.5" fill="#ffe082"/>
+      </g>
+      <g transform="translate(200, 70)">
+        <circle cx="0" cy="0" r="6" fill="#ffe082" opacity="0.15"/>
+        <circle cx="0" cy="0" r="2" fill="#ffe082" opacity="0.85"/>
+      </g>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="35" r="2" fill="#fff4d6" opacity="0.9"/>
+      <circle cx="90" cy="25" r="1.5" fill="#fff4d6" opacity="0.7"/>
+      <circle cx="150" cy="30" r="1.8" fill="#fff4d6" opacity="0.8"/>
+      <circle cx="330" cy="45" r="2" fill="#fff4d6" opacity="0.85"/>
+      <circle cx="310" cy="25" r="1.5" fill="#fff4d6" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <article class="story">
+    <p>在小溪边的蚂蚁洞里，住着三只小蚂蚁：大力、圆圆和小不点。</p>
+
+    <p>溪水的对面，长着一片甜甜的浆果丛。可是溪水哗啦啦地流着，蚂蚁这么小，怎么才能过去呢？三只小蚂蚁每天蹲在岸边发愁。</p>
+
+    <p>这天晚上，月亮又大又圆，月光洒在小溪上，整个水面都变成了银色。</p>
+
+    <p>小不点忽然指着岸边喊："快看！那片大大的叶子！"</p>
+
+    <p>原来，一片宽宽的绿叶被风吹落，正稳稳地停在水边，弯弯的，两头翘翘的，像一艘小船。</p>
+
+    <p>"我们可以坐叶子船过溪！"大力兴奋地挥着触角。</p>
+
+    <p>圆圆找来一根细细的草茎，插在叶子中间当桅杆；小不点采了一颗圆圆的露珠，挂在桅杆顶上当小灯笼。月光一照，露珠亮晶晶的，真的像一盏小小的灯！</p>
+
+    <p>三只小蚂蚁小心地爬上叶子船。晚风轻轻一吹，叶子船晃晃悠悠地离开了岸边，朝着银色的溪水中央漂去。</p>
+
+    <p>"哇——"三只小蚂蚁都看呆了。月亮的倒影就在船边，一荡一荡的，好像伸手就能捞到。萤火虫飞过来给他们引路，一闪一闪的，像天上掉下来的小星星。</p>
+
+    <p>可是，漂到溪水中间的时候，一阵大风吹来，叶子船摇了一下，小不点脚下一滑——"扑通"一声，掉进了水里！</p>
+
+    <p>"救命呀！"小不点在水里扑腾着，他的身体那么小，一个水花就能把他冲走。</p>
+
+    <p>大力想都没想，立刻伸出长长的触角："小不点，抓住！"</p>
+
+    <p>可是够不着。圆圆眼珠一转，飞快地咬断了一根身边的草茎，和大力一起把草茎伸向水里的方向："抓紧草茎！"</p>
+
+    <p>小不点拼命游过去，一把抱住了草茎。两只小蚂蚁咬着牙，一寸一寸地把他往船上拉。叶子船晃得厉害，可是谁也没有松手。</p>
+
+    <p>"一、二、三——"随着一声齐喊，小不点终于被拉上了船，湿漉漉地躺在叶子上，大口大口地喘气。</p>
+
+    <p>"谢谢你们……"小不点的声音还有点抖，"我以为我回不了家了。"</p>
+
+    <p>大力拍拍他的背："我们是好朋友呀，在一起就不会害怕。"</p>
+
+    <p>叶子船稳稳地漂到了对岸。浆果丛就在眼前，红红的果子在月光下像一个个小灯笼。</p>
+
+    <p>三只小蚂蚁肩并肩坐在岸边，看着来时的溪水。银色的月光还在一荡一荡的，好像在为他们鼓掌。</p>
+
+    <p>"明天，"小不点忽然说，"我们把叶子船划回去，接其他小伙伴一起来摘浆果吧！"</p>
+
+    <p>"好！"三只触角碰在一起，像拉了一个钩。</p>
+
+    <p>回程的路上，月亮船载着三只心满意足的小蚂蚁，慢慢悠悠地漂回家。露珠灯笼在桅杆上一晃一晃，把回家的路照得亮亮的。</p>
+
+    <p>那一晚，蚂蚁洞里的梦，都是甜甜的浆果味儿的。</p>
+  </article>
+
+  <div class="moral-section">
+    <div class="moral-title">晚安寓意</div>
+    <div class="moral-text">
+      一个人的力量很小，但朋友在一起，就没有过不去的小溪。遇到困难的时候，别忘了身边还有愿意向你伸出触角的好朋友。
+    </div>
+  </div>
+
+  <div class="goodnight">
+    <p>
+      晚安，小宝贝。<br>
+      小蚂蚁大力、圆圆和小不点说，<br>
+      你今天也是个勇敢的好孩子，<br>
+      该做一个月亮船摇啊摇的甜甜的梦了。
+    </p>
+  </div>
+
+  <footer>
+    <em>本文由小虾米为爷自动生成 · 祝你今夜好梦</em>
+  </footer>
+</div>
+
+<script>
+(function() {
+  var container = document.getElementById('stars');
+  var count = 95;
+  var frag = '';
+  for (var i = 0; i < count; i++) {
+    var size = (Math.random() * 2.2 + 1).toFixed(1);
+    var top = (Math.random() * 55).toFixed(1);
+    var left = (Math.random() * 100).toFixed(1);
+    var dur = (Math.random() * 2.5 + 2).toFixed(1);
+    var delay = (Math.random() * 4).toFixed(1);
+    var m = (Math.random() * 0.4 + 0.5).toFixed(2);
+    frag += '<div class="star" style="width:' + size + 'px;height:' + size + 'px;top:' + top + '%;left:' + left + '%;--d:' + dur + 's;--delay:' + delay + 's;--m:' + m + ';"></div>';
+  }
+  container.innerHTML = frag;
+})();
+</script>
+
+</body>
+</html>
