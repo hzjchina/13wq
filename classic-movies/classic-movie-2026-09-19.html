@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生活多美好</title>
+<style>
+  :root {
+    --bg: #0d1526;
+    --bg2: #16223c;
+    --card: rgba(22, 32, 56, 0.8);
+    --text: #f3ecdc;
+    --sub: #9aa3b8;
+    --accent: #e8b04e;
+    --gold: #f0cf8f;
+    --blue: #7fa8d8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #0d1526 0%, #16223c 55%, #1d2a44 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .snow { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .flake {
+    position: absolute; top: -20px; color: #fff; opacity: 0.7;
+    animation: drop linear infinite;
+  }
+  @keyframes drop {
+    0% { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.5; }
+    100% { transform: translate(-30px, 105vh) rotate(300deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+
+  .header { text-align: center; margin-bottom: 26px; }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.08em;
+    text-shadow: 0 0 30px rgba(240, 207, 143, 0.28);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.1em; }
+
+  .poster { text-align: center; margin: 22px 0 28px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 14px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 14px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 6px; letter-spacing: 0.08em; }
+  .info-value { font-size: 15px; color: var(--text); font-weight: 500; }
+
+  .section {
+    background: var(--card); border: 1px solid rgba(240, 207, 143, 0.1);
+    border-radius: 18px; padding: 24px 22px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 10px 36px rgba(0,0,0,0.35);
+  }
+  .section h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 14px; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section h2::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+  .section p { margin-bottom: 12px; text-indent: 2em; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    background: rgba(127, 168, 216, 0.14); border: 1px solid rgba(127, 168, 216, 0.3);
+    color: #b3cbe8; padding: 5px 12px; border-radius: 20px; font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold); padding: 12px 18px; margin: 18px 0;
+    background: rgba(240, 207, 143, 0.07); border-radius: 0 12px 12px 0;
+    font-style: italic; color: #ecd9b0;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list { list-style: none; padding: 0; }
+  .reason-list li {
+    padding: 10px 0 10px 28px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before { content: "★"; position: absolute; left: 0; color: var(--gold); }
+
+  .footer { text-align: center; margin-top: 32px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="snow">
+  <span class="flake" style="left:6%;  font-size:14px; animation-duration:9s;">❄</span>
+  <span class="flake" style="left:18%; font-size:10px; animation-duration:12s; animation-delay:2s;">❄</span>
+  <span class="flake" style="left:33%; font-size:16px; animation-duration:10s; animation-delay:5s;">❄</span>
+  <span class="flake" style="left:47%; font-size:12px; animation-duration:13s; animation-delay:1s;">❄</span>
+  <span class="flake" style="left:61%; font-size:15px; animation-duration:9.5s; animation-delay:3.5s;">❄</span>
+  <span class="flake" style="left:74%; font-size:11px; animation-duration:12.5s; animation-delay:6s;">❄</span>
+  <span class="flake" style="left:88%; font-size:14px; animation-duration:10.5s; animation-delay:4s;">❄</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>生活多美好</h1>
+    <p class="meta">It's a Wonderful Life · 1946 · 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#101c36"/>
+          <stop offset="55%" stop-color="#1d3054"/>
+          <stop offset="100%" stop-color="#0e1526"/>
+        </linearGradient>
+        <radialGradient id="moonGlow">
+          <stop offset="0%" stop-color="#f0cf8f" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f0cf8f" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="windowGlow">
+          <stop offset="0%" stop-color="#ffd98a" stop-opacity="0.85"/>
+          <stop offset="100%" stop-color="#ffd98a" stop-opacity="0.25"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 星空 -->
+      <circle cx="38" cy="40" r="1.8" fill="#fff" opacity="0.8"/>
+      <circle cx="252" cy="52" r="2.2" fill="#fff" opacity="0.7"/>
+      <circle cx="200" cy="28" r="1.4" fill="#fff" opacity="0.9"/>
+      <circle cx="82" cy="80" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="272" cy="120" r="1.6" fill="#7fa8d8" opacity="0.8"/>
+
+      <!-- 月亮 -->
+      <circle cx="232" cy="74" r="42" fill="url(#moonGlow)"/>
+      <circle cx="232" cy="74" r="19" fill="#f0cf8f"/>
+
+      <!-- 雪地小镇 -->
+      <path d="M0,320 Q150,306 300,320 L300,440 L0,440 Z" fill="#2a3a5e"/>
+      <!-- 房屋剪影 -->
+      <g>
+        <rect x="36" y="284" width="44" height="38" fill="#131e33"/>
+        <path d="M32,284 L58,264 L84,284 Z" fill="#131e33"/>
+        <rect x="52" y="298" width="12" height="12" fill="url(#windowGlow)"/>
+      </g>
+      <g>
+        <rect x="118" y="272" width="54" height="50" fill="#101a2e"/>
+        <path d="M114,272 L145,250 L176,272 Z" fill="#101a2e"/>
+        <rect x="130" y="288" width="12" height="13" fill="url(#windowGlow)"/>
+        <rect x="150" y="288" width="12" height="13" fill="url(#windowGlow)"/>
+        <rect x="139" y="306" width="12" height="16" fill="#0d1524"/>
+      </g>
+      <g>
+        <rect x="212" y="290" width="46" height="32" fill="#131e33"/>
+        <path d="M208,290 L235,272 L262,290 Z" fill="#131e33"/>
+        <rect x="228" y="300" width="12" height="11" fill="url(#windowGlow)"/>
+      </g>
+
+      <!-- 小桥 -->
+      <g>
+        <rect x="0" y="342" width="300" height="6" fill="#0d1524"/>
+        <rect x="34" y="330" width="5" height="12" fill="#0d1524"/>
+        <rect x="120" y="330" width="5" height="12" fill="#0d1524"/>
+        <rect x="206" y="330" width="5" height="12" fill="#0d1524"/>
+        <rect x="284" y="330" width="5" height="12" fill="#0d1524"/>
+      </g>
+
+      <!-- 铃铛（天使的翅膀） -->
+      <g transform="translate(150, 398)">
+        <path d="M-11,4 Q-11,-12 0,-12 Q11,-12 11,4 L13,8 L-13,8 Z" fill="#f0cf8f"/>
+        <circle cx="0" cy="-13.5" r="2" fill="#f0cf8f"/>
+        <circle cx="0" cy="11" r="2.4" fill="#f0cf8f"/>
+        <ellipse cx="0" cy="4" rx="2.6" ry="3" fill="#131e33"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="434" text-anchor="middle" fill="#f0cf8f" font-size="23" font-weight="700" letter-spacing="0.1em">生活多美好</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">弗兰克·卡普拉</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">詹姆斯·斯图尔特</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">130 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>平安夜的小镇贝德福德福尔斯，雪花安静地落着。乔治·贝利站在桥边，绝望到了极点：一笔巨款离奇失踪，家族的公司眼看要倒闭，而他可能背上牢狱之灾。他觉得自己这一生，好像从来没有真正为自己活过。</p>
+    <p>就在这时，天上掉下来一位笨手笨脚的"天使二等生"克拉伦斯。他带来了一个奇特的提议：让乔治看看——如果这个世界上从来没有过你，会变成什么样子。</p>
+    <p>于是，乔治走进了一个没有自己的小镇：熟悉的家变成了冰冷的空房，熟悉的面孔写满潦倒与怨怼，连街角的酒吧都换了冷酷的主人。原来他一次次放弃的"出走"，早就悄悄托住了身边每一个人的生活。</p>
+    <p>当雪花再次落在肩头，乔治终于懂得了什么才是真正的富有。至于那枚铃铛为什么会响——看到最后，你会和全世界的观众一起笑着流泪。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>影史最伟大的"平行世界"：</strong>不用特效，仅凭一个设定就让人脊背发麻——"如果你从未存在过"。每个观众都会在里面算一笔自己人生的账。</li>
+      <li><strong>斯图尔特的教科书表演：</strong>从少年的炽热、中年的隐忍，到崩溃与重生，情绪层次纤毫毕现，被他自己称为毕生最爱的一部戏。</li>
+      <li><strong>卡普拉式的温暖魔法：</strong>没有说教，全靠生活细节堆出深情——欠条、旧电影票、地板缝里藏着的梦想，琐碎处全是泪点。</li>
+      <li><strong>一笔传奇的"影史公案"：</strong>上映时票房失利几乎被遗忘，版权意外到期后电视年年免费播放，反而让它封神为圣诞必修课——被时间拯救的经典。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《生活多美好》豆瓣 9.2、IMDb 8.6，位列 AFI 影史百年百大第 11 名，常年霸榜 IMDb Top250，是美国国会图书馆首批收藏的国宝电影。它讲的是一个最朴素的问题：一个普通人的一生，到底有多重要？</p>
+    <p>它值得一看，是因为看完你会获得一种久违的踏实：原来平凡的日子里，你已经悄悄照亮了很多人。焦虑的夜晚看它，像喝一碗热汤。片尾那句台词值得抄在案头——</p>
+    <div class="quote">
+      <p>"有朋友的人，就不是失败者。" —— 记得哦：每当铃铛响起，就有一位天使获得了翅膀。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">影史百大</span>
+      <span class="tag">治愈经典</span>
+      <span class="tag">圣诞必看</span>
+      <span class="tag">普通人的赞歌</span>
+      <span class="tag">笑着流泪</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月19日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

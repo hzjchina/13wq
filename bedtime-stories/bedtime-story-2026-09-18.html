@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小枫叶的旅行 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e1428;
+    --bg2: #1a2440;
+    --bg3: #241d38;
+    --card: rgba(24, 32, 56, 0.78);
+    --text: #f5ecdd;
+    --sub: #a49bb5;
+    --accent: #e8964f;
+    --leaf: #e0653f;
+    --gold: #f0cf8f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 3.5s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 7s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  .fall-leaf { position: absolute; font-size: 22px; opacity: 0.85; animation: fall 11s linear infinite; }
+  @keyframes fall {
+    0%   { transform: translate(0,-40px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.85; }
+    50%  { transform: translate(-60px, 45vh) rotate(200deg); }
+    90%  { opacity: 0.7; }
+    100% { transform: translate(-120px, 95vh) rotate(380deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(240, 207, 143, 0.3);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(240, 207, 143, 0.12);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(224, 101, 63, 0.1); border: 1px dashed rgba(232, 150, 79, 0.4);
+    border-radius: 14px; color: #f4d9b8; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:6%; left:12%; width:3px; height:3px;"></span>
+  <span class="star" style="top:12%; left:78%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:20%; left:55%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:38%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:26%; left:88%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:30%; left:22%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:8%; left:60%;"></div>
+  <span class="fall-leaf" style="left:82%; animation-delay:0s;">🍁</span>
+  <span class="fall-leaf" style="left:68%; animation-delay:4s; font-size:17px;">🍂</span>
+  <span class="fall-leaf" style="left:90%; animation-delay:7.5s; font-size:15px;">🍁</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小枫叶的旅行</h1>
+    <p class="meta">🌙 秋夜的温柔告别 · 3-8 岁睡前故事</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#141d38"/>
+          <stop offset="55%" stop-color="#2a2a4e"/>
+          <stop offset="100%" stop-color="#1c1430"/>
+        </linearGradient>
+        <radialGradient id="moonGlow">
+          <stop offset="0%" stop-color="#f0cf8f" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f0cf8f" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="leafG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ef8a4c"/>
+          <stop offset="100%" stop-color="#d9543f"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="42" r="2" fill="#fff" opacity="0.85"/>
+      <circle cx="255" cy="55" r="2.4" fill="#fff" opacity="0.7"/>
+      <circle cx="215" cy="30" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="75" cy="90" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="270" cy="130" r="1.8" fill="#f0cf8f" opacity="0.75"/>
+
+      <!-- 月亮 -->
+      <circle cx="232" cy="80" r="42" fill="url(#moonGlow)"/>
+      <circle cx="232" cy="80" r="19" fill="#f0cf8f"/>
+
+      <!-- 远山 -->
+      <path d="M0,300 Q70,250 140,300 T300,296 L300,440 L0,440 Z" fill="#201a33" opacity="0.8"/>
+
+      <!-- 老枫树剪影 -->
+      <g>
+        <rect x="52" y="250" width="13" height="62" rx="4" fill="#191225"/>
+        <circle cx="58" cy="238" r="34" fill="#3a1f2e"/>
+        <circle cx="38" cy="252" r="22" fill="#33202c"/>
+        <circle cx="80" cy="252" r="20" fill="#33202c"/>
+        <circle cx="58" cy="224" r="18" fill="#4a2632" opacity="0.9"/>
+      </g>
+
+      <!-- 小溪 -->
+      <path d="M0,352 Q150,344 300,352 L300,380 Q150,388 0,380 Z" fill="#2a3556"/>
+      <path d="M30,362 Q60,359 90,362" fill="none" stroke="#8fa8d8" stroke-width="1.6" opacity="0.5" stroke-linecap="round"/>
+      <path d="M170,372 Q205,369 240,372" fill="none" stroke="#8fa8d8" stroke-width="1.6" opacity="0.45" stroke-linecap="round"/>
+
+      <!-- 小瓢虫坐在枫叶小船上 -->
+      <g transform="translate(150,352)">
+        <ellipse cx="0" cy="0" rx="26" ry="7" fill="url(#leafG)"/>
+        <ellipse cx="0" cy="1.5" rx="20" ry="3.5" fill="#c4492f" opacity="0.55"/>
+        <circle cx="0" cy="-9" r="7.5" fill="#e0574e"/>
+        <path d="M0,-16.5 L0,-1.5" stroke="#7a231f" stroke-width="1.4"/>
+        <circle cx="-3" cy="-11" r="1.3" fill="#26141a"/>
+        <circle cx="3" cy="-11" r="1.3" fill="#26141a"/>
+      </g>
+
+      <!-- 飘落的枫叶 -->
+      <g transform="translate(205,180) rotate(24)">
+        <path d="M0,-22 L5,-8 L20,-12 L10,0 L22,8 L6,10 L8,24 L0,12 L-8,24 L-6,10 L-22,8 L-10,0 L-20,-12 L-5,-8 Z" fill="url(#leafG)" opacity="0.95"/>
+        <line x1="0" y1="22" x2="0" y2="-14" stroke="#8f2f22" stroke-width="1.4" opacity="0.7"/>
+      </g>
+      <g transform="translate(90,150) rotate(-18)" opacity="0.8">
+        <path d="M0,-14 L3.5,-5 L13,-8 L7,0 L14,5 L4,6.5 L5,15 L0,8 L-5,15 L-4,6.5 L-14,5 L-7,0 L-13,-8 L-3.5,-5 Z" fill="#ef8a4c"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="412" text-anchor="middle" fill="#f0cf8f" font-size="23" font-weight="700" letter-spacing="0.1em">小枫叶的旅行</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">温柔告别 · 新生</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>在高高的山坡上，住着一棵老枫树。树上有一片小枫叶，名字叫红红，她是全树最红最亮的一片，像一个小小的火苗。</p>
+    <p>秋天来了，风婆婆轻轻吹过树梢，柔柔地说："小家伙，想不想去看看外面的世界呀？"红红的心里痒痒的。她松开了树枝的手，像一只红蝴蝶，轻轻地、轻轻地飘了起来。</p>
+    <p>风婆婆带着红红飘呀飘。她先落在了一条小溪上。咦，溪水边有一只小瓢虫，急得团团转——溪水太宽了，回不了家。红红笑着说："别怕别怕，坐到我背上来吧！"小瓢虫坐上这片红色的小船，稳稳地、稳稳地漂到了对岸。"谢谢你，小红船！"</p>
+    <p>红红又飘呀飘，落在一个篱笆旁边。一只小蟋蟀缩在草叶底下，凉得直发抖。红红轻轻盖在他身上，变成一条软软的小毯子。小蟋蟀暖暖的，开心地为红红唱了一支最温柔的秋夜曲。</p>
+    <p>天越来越黑了，月亮悄悄爬上了山顶。红红有点累了，风婆婆便把她轻轻放在了老枫树的树脚下。原来呀，哥哥姐姐们也都回来了，大家手拉着手，给大树妈妈的根盖上了一条厚厚的红被子。"树妈妈，晚安。"红红闭上眼睛，小声说。</p>
+    <p>大树妈妈在梦里笑了。她知道，等到明年春天，这些红色的梦，会变成甜甜的养分，让她长出满树新的、绿绿的小叶子。</p>
+    <p>原来，告别不是再见不见，而是换一种温柔的方式，继续爱着大家。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>叶子落下来，不是离开，是大树妈妈在说：谢谢你陪我一年，明年春天，我们再见面。💗</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小枫叶红红说，你今天也是个温暖的好孩子，该做一个香香的、甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月18日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
