@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大熊的晚安罐 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e1830;
+    --bg2: #1a2a48;
+    --bg3: #22304e;
+    --card: rgba(24, 36, 64, 0.78);
+    --text: #f5ecdd;
+    --sub: #a3a9c2;
+    --accent: #e8b04e;
+    --gold: #f0cf8f;
+    --honey: #e8964f;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 3.8s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 8s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  .rise { position: absolute; font-size: 16px; opacity: 0; animation: rise 9s ease-in infinite; }
+  @keyframes rise {
+    0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+    20% { opacity: 0.9; }
+    70% { opacity: 0.6; }
+    100% { transform: translate(14px, -46vh) scale(1.15); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(240, 207, 143, 0.3);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(240, 207, 143, 0.12);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(232, 150, 79, 0.1); border: 1px dashed rgba(232, 176, 78, 0.4);
+    border-radius: 14px; color: #f4d9b8; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:6%; left:12%; width:3px; height:3px;"></span>
+  <span class="star" style="top:12%; left:78%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:20%; left:55%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:38%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:26%; left:88%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:30%; left:22%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:8%; left:55%;"></div>
+  <span class="rise" style="left:47%; bottom:30%; animation-delay:0s;">✨</span>
+  <span class="rise" style="left:52%; bottom:32%; animation-delay:3s; font-size:13px;">✨</span>
+  <span class="rise" style="left:44%; bottom:34%; animation-delay:6s; font-size:14px;">⭐</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>大熊的晚安罐</h1>
+    <p class="meta">🌙 秋夜的暖暖收藏 · 3-8 岁睡前故事</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#16234a"/>
+          <stop offset="55%" stop-color="#243a6e"/>
+          <stop offset="100%" stop-color="#141d38"/>
+        </linearGradient>
+        <radialGradient id="moonGlow">
+          <stop offset="0%" stop-color="#f0cf8f" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f0cf8f" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="jarG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f5c877"/>
+          <stop offset="100%" stop-color="#d98a3e"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="38" cy="44" r="2" fill="#fff" opacity="0.85"/>
+      <circle cx="258" cy="56" r="2.4" fill="#fff" opacity="0.7"/>
+      <circle cx="212" cy="30" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="76" cy="86" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="272" cy="126" r="1.8" fill="#f0cf8f" opacity="0.75"/>
+
+      <!-- 月亮 -->
+      <circle cx="234" cy="78" r="42" fill="url(#moonGlow)"/>
+      <circle cx="234" cy="78" r="19" fill="#f0cf8f"/>
+
+      <!-- 远山与地面 -->
+      <path d="M0,318 Q80,272 160,318 T300,312 L300,440 L0,440 Z" fill="#1a2440"/>
+
+      <!-- 大树 -->
+      <path d="M60,440 L66,300 Q50,290 54,270 Q44,268 48,250 Q58,240 66,252 Q60,232 74,228 Q84,224 88,240 Q94,226 104,232 Q112,238 108,254 Q118,250 122,264 Q124,282 110,292 L116,440 Z" fill="#131b30"/>
+
+      <!-- 树洞 -->
+      <ellipse cx="88" cy="360" rx="34" ry="44" fill="#0b1120"/>
+
+      <!-- 大熊（树洞里，抱罐子） -->
+      <g>
+        <!-- 身体 -->
+        <ellipse cx="88" cy="382" rx="27" ry="24" fill="#5a3d2b"/>
+        <!-- 头 -->
+        <circle cx="88" cy="348" r="17" fill="#6b4a32"/>
+        <!-- 耳朵 -->
+        <circle cx="76" cy="336" r="6" fill="#6b4a32"/>
+        <circle cx="100" cy="336" r="6" fill="#6b4a32"/>
+        <circle cx="76" cy="336" r="2.6" fill="#3d2a1d"/>
+        <circle cx="100" cy="336" r="2.6" fill="#3d2a1d"/>
+        <!-- 眼睛（安睡的弧线） -->
+        <path d="M80,347 Q83,344.5 86,347" fill="none" stroke="#2b1c12" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M92,347 Q95,344.5 98,347" fill="none" stroke="#2b1c12" stroke-width="1.6" stroke-linecap="round"/>
+        <!-- 口鼻 -->
+        <ellipse cx="89" cy="355" rx="7" ry="5" fill="#8a6244"/>
+        <ellipse cx="89" cy="352.5" rx="2.6" ry="1.8" fill="#2b1c12"/>
+        <!-- 抱着的蜂蜜罐 -->
+        <g transform="translate(88, 392)">
+          <path d="M-13,-8 Q-15,10 0,10 Q15,10 13,-8 Z" fill="url(#jarG)"/>
+          <rect x="-14" y="-12" width="28" height="5" rx="2.5" fill="#b06a2a"/>
+          <circle cx="-5" cy="0" r="1.6" fill="#fff5dd" opacity="0.7"/>
+          <circle cx="4" cy="4" r="1.2" fill="#fff5dd" opacity="0.6"/>
+        </g>
+        <!-- 手臂 -->
+        <path d="M64,376 Q72,390 80,394" fill="none" stroke="#5a3d2b" stroke-width="9" stroke-linecap="round"/>
+        <path d="M112,376 Q104,390 96,394" fill="none" stroke="#5a3d2b" stroke-width="9" stroke-linecap="round"/>
+      </g>
+
+      <!-- 罐口飘出的晚安星星 -->
+      <g opacity="0.9">
+        <circle cx="96" cy="322" r="2.2" fill="#f0cf8f"/>
+        <circle cx="108" cy="308" r="1.6" fill="#f0cf8f" opacity="0.8"/>
+        <circle cx="88" cy="300" r="1.4" fill="#f0cf8f" opacity="0.65"/>
+        <path d="M116,290 l2,4.5 4.9,0.4 -3.7,3.2 1.1,4.8 -4.3,-2.5 -4.3,2.5 1.1,-4.8 -3.7,-3.2 4.9,-0.4 Z" fill="#f0cf8f" opacity="0.85"/>
+      </g>
+
+      <!-- 枫叶点缀 -->
+      <g transform="translate(210,190) rotate(20)" opacity="0.85">
+        <path d="M0,-14 L3.5,-5 L13,-8 L7,0 L14,5 L4,6.5 L5,15 L0,8 L-5,15 L-4,6.5 L-14,5 L-7,0 L-13,-8 L-3.5,-5 Z" fill="#e07a4a"/>
+      </g>
+      <g transform="translate(52,170) rotate(-16)" opacity="0.7">
+        <path d="M0,-11 L3,-4 L10,-6 L5.5,0 L11,4 L3,5 L4,12 L0,6 L-4,12 L-3,5 L-11,4 L-5.5,0 L-10,-6 L-3,-4 Z" fill="#e8964f"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="424" text-anchor="middle" fill="#f0cf8f" font-size="23" font-weight="700" letter-spacing="0.1em">大熊的晚安罐</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">道晚安 · 温暖收藏</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>秋天的最后一个晚上，风里已经有凉凉的味道了。大熊打了一个大大的哈欠——他马上要冬眠啦，要一觉睡到春天才醒。</p>
+    <p>可是大熊有点舍不得。舍不得小溪的歌，舍不得松果的香，最舍不得的，是朋友们每天说的那句"晚安"。</p>
+    <p>"有了！"大熊找出了一个大大的蜂蜜罐，把里面舔得干干净净，"我要把晚安装进罐子里，这样冬天就不怕冷啦。"</p>
+    <p>他先去找小松鼠。小松鼠正抱着最后一颗松果，听完大熊的心愿，脆脆地说了一句："晚安，大熊！"咦，那句话亮晶晶的，像一颗小星星，叮的一声，落进了罐子里。</p>
+    <p>小兔子躲在草丛里，送了一句软软的晚安；啄木鸟在树上，敲出一句咚咚咚的晚安；小溪最热情，哗啦啦送来了一大捧晚安；风婆婆路过，轻轻放下两声"呼——呼——"，那是打着哈欠的晚安。</p>
+    <p>罐子慢慢满了，暖暖的，像装了一罐子小太阳。大熊抱着罐子回到树洞，盖好被子，把罐子放在枕头边。</p>
+    <p>冬天的夜里，大熊做梦的时候，罐子里的晚安会悄悄飘出来，满树洞都是亮亮的、软软的光。整个冬天，他睡得又香又甜。</p>
+    <p>春天来的那个早晨，大熊醒来，发现罐子里还剩最后一句晚安——那是他自己说的。他笑眯眯地走出树洞，把这句话送给了刚睡醒的小松鼠："晚安变成早安啦——早安，我的朋友！"</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>晚安不是一天的结束，是把今天的温暖轻轻收好，留给明天的自己和朋友。🧸</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。大熊说，你今天也是个暖暖的好孩子，该抱着甜甜的梦睡啦。🍯</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月19日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

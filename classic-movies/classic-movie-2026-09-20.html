@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>莫扎特传</title>
+<style>
+  :root {
+    --bg: #140d12;
+    --bg2: #201019;
+    --card: rgba(38, 20, 28, 0.8);
+    --text: #f3e9d8;
+    --sub: #a8908c;
+    --accent: #d9a24e;
+    --gold: #e8c98a;
+    --red: #8c2f3e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #140d12 0%, #201019 55%, #2a1620 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .notes { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .note {
+    position: absolute; top: -30px; color: rgba(232, 201, 138, 0.5);
+    font-size: 18px; animation: drift linear infinite;
+  }
+  @keyframes drift {
+    0% { transform: translate(0, -30px) rotate(0deg); opacity: 0; }
+    12% { opacity: 0.7; }
+    85% { opacity: 0.4; }
+    100% { transform: translate(-40px, 100vh) rotate(240deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+
+  .header { text-align: center; margin-bottom: 26px; }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.1em;
+    text-shadow: 0 0 30px rgba(232, 201, 138, 0.28);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.1em; }
+
+  .poster { text-align: center; margin: 22px 0 28px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.55));
+    border-radius: 14px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 14px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 6px; letter-spacing: 0.08em; }
+  .info-value { font-size: 15px; color: var(--text); font-weight: 500; }
+
+  .section {
+    background: var(--card); border: 1px solid rgba(232, 201, 138, 0.12);
+    border-radius: 18px; padding: 24px 22px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 10px 36px rgba(0,0,0,0.4);
+  }
+  .section h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 14px; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section h2::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+  .section p { margin-bottom: 12px; text-indent: 2em; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    background: rgba(140, 47, 62, 0.2); border: 1px solid rgba(140, 47, 62, 0.42);
+    color: #e0a8a8; padding: 5px 12px; border-radius: 20px; font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold); padding: 12px 18px; margin: 18px 0;
+    background: rgba(232, 201, 138, 0.07); border-radius: 0 12px 12px 0;
+    font-style: italic; color: #e8d3ae;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list { list-style: none; padding: 0; }
+  .reason-list li {
+    padding: 10px 0 10px 28px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before { content: "★"; position: absolute; left: 0; color: var(--gold); }
+
+  .footer { text-align: center; margin-top: 32px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="notes">
+  <span class="note" style="left:8%;  animation-duration:11s;">♪</span>
+  <span class="note" style="left:22%; animation-duration:14s; animation-delay:3s; font-size:14px;">♫</span>
+  <span class="note" style="left:38%; animation-duration:12s; animation-delay:6s;">♪</span>
+  <span class="note" style="left:56%; animation-duration:15s; animation-delay:1.5s; font-size:15px;">♬</span>
+  <span class="note" style="left:72%; animation-duration:12.5s; animation-delay:4.5s;">♪</span>
+  <span class="note" style="left:88%; animation-duration:13.5s; animation-delay:7.5s; font-size:14px;">♫</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>莫扎特传</h1>
+    <p class="meta">Amadeus · 1984 · 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a1018"/>
+          <stop offset="55%" stop-color="#48202c"/>
+          <stop offset="100%" stop-color="#160a10"/>
+        </linearGradient>
+        <radialGradient id="stageGlow">
+          <stop offset="0%" stop-color="#f0c070" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#f0c070" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="curtain" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#8c2f3e"/>
+          <stop offset="100%" stop-color="#4a1520"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 金色包厢装饰 -->
+      <g opacity="0.5">
+        <path d="M0,30 Q75,14 150,30 Q225,46 300,30" fill="none" stroke="#e8c98a" stroke-width="2"/>
+        <path d="M0,44 Q75,28 150,44 Q225,60 300,44" fill="none" stroke="#a87840" stroke-width="1.5"/>
+      </g>
+
+      <!-- 红天鹅绒幕布 -->
+      <g>
+        <path d="M0,0 Q14,140 0,300 L46,300 Q34,150 46,0 Z" fill="url(#curtain)"/>
+        <path d="M300,0 Q286,140 300,300 L254,300 Q266,150 254,0 Z" fill="url(#curtain)"/>
+        <path d="M46,0 Q54,120 46,260 L60,260 Q52,130 60,0 Z" fill="#6a1e2a" opacity="0.55"/>
+        <path d="M254,0 Q246,120 254,260 L240,260 Q248,130 240,0 Z" fill="#6a1e2a" opacity="0.55"/>
+        <circle cx="23" cy="10" r="4" fill="#e8c98a"/>
+        <circle cx="277" cy="10" r="4" fill="#e8c98a"/>
+      </g>
+
+      <!-- 舞台光 -->
+      <ellipse cx="150" cy="300" rx="120" ry="60" fill="url(#stageGlow)"/>
+
+      <!-- 三角钢琴剪影 -->
+      <g transform="translate(150, 296)">
+        <path d="M-42,0 Q-42,-26 -16,-26 L38,-26 Q42,-26 42,-22 L42,0 Z" fill="#1a0a10"/>
+        <path d="M-16,-26 L42,-26 L42,-22 L-16,-22 Z" fill="#2e1218"/>
+        <rect x="-6" y="-30" width="3" height="6" fill="#1a0a10"/>
+        <rect x="-46" y="-10" width="6" height="14" rx="2" fill="#1a0a10"/>
+        <!-- 键盘 -->
+        <rect x="-38" y="-2" width="76" height="4" fill="#f0e8d8"/>
+      </g>
+
+      <!-- 飞出的音符 -->
+      <g fill="#e8c98a">
+        <text x="120" y="238" font-size="17" opacity="0.9">♪</text>
+        <text x="152" y="220" font-size="14" opacity="0.75">♫</text>
+        <text x="182" y="240" font-size="15" opacity="0.85">♪</text>
+        <circle cx="140" cy="250" r="1.8" opacity="0.7"/>
+        <circle cx="170" cy="205" r="1.5" opacity="0.6"/>
+      </g>
+
+      <!-- 羽毛笔与乐谱 -->
+      <g transform="translate(74, 372)">
+        <rect x="-26" y="0" width="52" height="34" rx="3" fill="#f0e8d8" opacity="0.92"/>
+        <line x1="-18" y1="8" x2="18" y2="8" stroke="#8a7a68" stroke-width="1.2"/>
+        <line x1="-18" y1="14" x2="18" y2="14" stroke="#8a7a68" stroke-width="1.2"/>
+        <line x1="-18" y1="20" x2="18" y2="20" stroke="#8a7a68" stroke-width="1.2"/>
+        <text x="-10" y="26" font-size="8" fill="#8c2f3e">♪ ♫</text>
+        <path d="M26,-6 Q40,-34 34,-46 Q30,-38 22,-12 Z" fill="#f0e8d8" opacity="0.9"/>
+        <line x1="24" y1="-10" x2="34" y2="-46" stroke="#b8a890" stroke-width="1"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="416" text-anchor="middle" fill="#e8c98a" font-size="24" font-weight="700" letter-spacing="0.12em">莫扎特传</text>
+      <text x="150" y="434" text-anchor="middle" fill="#a8908c" font-size="10" letter-spacing="0.3em">AMADEUS</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">米洛斯·福尔曼</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">F·默里·亚伯拉罕</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">161 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>1823 年的维也纳，一个风雪夜，年迈的宫廷乐师萨列里用剃刀结束了自己的生命未遂。疯人院里，他向年轻的神父忏悔了一件藏了三十年的罪——"是我，杀了莫扎特。"</p>
+    <p>故事回到四十年前：萨列里是皇帝御用的宫廷作曲家，勤勉、体面、笃信上帝把自己选为音乐的代言人。直到一个满口荤段子、举止轻浮的年轻人闯进宫廷——沃尔夫冈·莫扎特。萨列里惊骇地发现：自己苦练一生的"高山"，不过是那个天才信手拈来的平地。</p>
+    <p>敬慕、震惊、怨恨在萨列里心里疯狂生长。他一边嘴上捧着莫扎特，一边在暗处步步紧逼。而莫扎特浑然不觉，依旧在穷困与欢乐中，写下一部又一部闪闪发光的杰作。这场天才与凡人的暗中较量，将一路走向歌剧舞台的巅峰与生命最后的安魂曲。</p>
+    <p>上帝究竟偏爱谁？答案藏在萨列里每一句独白里。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>影史罕见的"反派视角传记"：</strong>电影主角其实不是莫扎特，而是嫉妒他的萨列里——写给每一个"努力却平凡的人"的镜子，代入感彻骨。</li>
+      <li><strong>奥斯卡八项大奖横扫：</strong>第 57 届奥斯卡拿下最佳影片、导演、男主角、剧本等 8 项，是传记片历史上最辉煌的战绩之一。</li>
+      <li><strong>绝妙的音乐反讽：</strong>全片配乐全部采用莫扎特的真实作品——用"被嫉妒者"的音乐，讲"嫉妒者"的故事，每一首曲子都在替剧情说话。</li>
+      <li><strong>F·默里·亚伯拉罕的忏悔式独白：</strong>从敬畏到毒意再到崩溃的眼神层次，拿下奥斯卡影帝；那场对着十字架焚烧乐谱的戏，让人不寒而栗。</li>
+      <li><strong>歌剧段落如临现场：</strong>《费加罗的婚礼》《魔笛》在片中重新排演，宫廷戏服华美至极，堪称一部"能听的美术展"。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《莫扎特传》豆瓣 9.1、IMDb 8.4，改编自彼得·谢弗的同名传奇话剧。它表面上是莫扎特的传记，内核却是一封写给所有平庸者的情书与判决书：当天赋随意挥霍时，努力该往哪里安放？</p>
+    <p>它值得一看，是因为看完你会对"嫉妒"这件小事彻底改观——它不是恶，而是人类面对光芒时最诚实的痛。两百多年过去，每个在工作中仰望过"天才同事"的人，都会在萨列里的独白里听到自己的心跳。</p>
+    <p>小虾米建议：戴耳机看，让莫扎特的《第 20 钢琴协奏曲》从头陪你到尾。</p>
+    <div class="quote">
+      <p>"庸才的天使，天才的恶魔。" —— 萨列里一生敬仰上帝，却发现上帝选中的声音，借着一个顽童的嗓门在笑。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">奥斯卡8项</span>
+      <span class="tag">传记巅峰</span>
+      <span class="tag">古典音乐</span>
+      <span class="tag">天才与嫉妒</span>
+      <span class="tag">宫廷歌剧</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月20日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
