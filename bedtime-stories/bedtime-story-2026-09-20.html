@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开往梦乡的晚安火车 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #101431;
+    --bg2: #1c2350;
+    --bg3: #242a56;
+    --card: rgba(28, 34, 70, 0.78);
+    --text: #f2eddf;
+    --sub: #a2a8c8;
+    --accent: #e8a04e;
+    --gold: #f0cf8f;
+    --steam: #cfd8f0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 3.6s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 8s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  .steam { position: absolute; border-radius: 50%; background: rgba(207, 216, 240, 0.35); animation: puff 10s ease-out infinite; }
+  @keyframes puff {
+    0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+    15% { opacity: 0.8; }
+    100% { transform: translate(60px, -55vh) scale(2.2); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.05em;
+    text-shadow: 0 0 32px rgba(240, 207, 143, 0.3);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(240, 207, 143, 0.12);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(232, 160, 78, 0.1); border: 1px dashed rgba(232, 160, 78, 0.4);
+    border-radius: 14px; color: #f4d9b8; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:6%; left:12%; width:3px; height:3px;"></span>
+  <span class="star" style="top:12%; left:78%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:20%; left:55%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:38%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:26%; left:88%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:30%; left:22%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:8%; left:58%;"></div>
+  <span class="steam" style="left:14%; bottom:22%; width:20px; height:20px; animation-delay:0s;"></span>
+  <span class="steam" style="left:24%; bottom:18%; width:14px; height:14px; animation-delay:3.4s;"></span>
+  <span class="steam" style="left:9%;  bottom:26%; width:16px; height:16px; animation-delay:6.8s;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>开往梦乡的晚安火车</h1>
+    <p class="meta">🚂 月夜站台发车 · 3-8 岁睡前故事</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#182052"/>
+          <stop offset="55%" stop-color="#2a3470"/>
+          <stop offset="100%" stop-color="#141a3c"/>
+        </linearGradient>
+        <radialGradient id="moonGlow">
+          <stop offset="0%" stop-color="#f0cf8f" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f0cf8f" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="lampG" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffd98a" stop-opacity="0.95"/>
+          <stop offset="100%" stop-color="#ffd98a" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="38" cy="42" r="2" fill="#fff" opacity="0.85"/>
+      <circle cx="256" cy="52" r="2.4" fill="#fff" opacity="0.7"/>
+      <circle cx="208" cy="28" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="76" cy="84" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="272" cy="124" r="1.8" fill="#f0cf8f" opacity="0.75"/>
+
+      <!-- 月亮 -->
+      <circle cx="234" cy="76" r="42" fill="url(#moonGlow)"/>
+      <circle cx="234" cy="76" r="19" fill="#f0cf8f"/>
+
+      <!-- 远山 -->
+      <path d="M0,308 Q70,262 150,308 T300,302 L300,440 L0,440 Z" fill="#1a2150"/>
+
+      <!-- 蒸汽云 -->
+      <g opacity="0.7">
+        <circle cx="112" cy="250" r="10" fill="#cfd8f0" opacity="0.35"/>
+        <circle cx="128" cy="238" r="13" fill="#cfd8f0" opacity="0.3"/>
+        <circle cx="146" cy="228" r="15" fill="#cfd8f0" opacity="0.25"/>
+        <circle cx="166" cy="222" r="12" fill="#cfd8f0" opacity="0.18"/>
+      </g>
+
+      <!-- 铁轨路基 -->
+      <rect x="0" y="352" width="300" height="26" fill="#141a3c"/>
+      <line x1="0" y1="356" x2="300" y2="356" stroke="#3a4478" stroke-width="2"/>
+      <line x1="0" y1="368" x2="300" y2="368" stroke="#3a4478" stroke-width="2"/>
+      <g stroke="#2a3260" stroke-width="3">
+        <line x1="20" y1="352" x2="14" y2="374"/><line x1="60" y1="352" x2="54" y2="374"/>
+        <line x1="100" y1="352" x2="94" y2="374"/><line x1="140" y1="352" x2="134" y2="374"/>
+        <line x1="180" y1="352" x2="174" y2="374"/><line x1="220" y1="352" x2="214" y2="374"/>
+        <line x1="260" y1="352" x2="254" y2="374"/>
+      </g>
+
+      <!-- 小火车 -->
+      <g>
+        <!-- 车头 -->
+        <g transform="translate(72, 330)">
+          <rect x="0" y="-24" width="52" height="26" rx="6" fill="#e07a4a"/>
+          <rect x="6" y="-40" width="26" height="18" rx="5" fill="#c4653a"/>
+          <rect x="12" y="-35" width="13" height="9" rx="2" fill="#ffd98a" opacity="0.9"/>
+          <rect x="30" y="-46" width="12" height="24" rx="3" fill="#8a4a30"/>
+          <!-- 车灯与光束 -->
+          <circle cx="52" cy="-10" r="4" fill="#ffd98a"/>
+          <path d="M56,-13 L96,-22 L96,2 L56,-7 Z" fill="url(#lampG)" opacity="0.6"/>
+          <!-- 轮子 -->
+          <circle cx="14" cy="4" r="7" fill="#2a1c14"/>
+          <circle cx="38" cy="4" r="7" fill="#2a1c14"/>
+          <circle cx="14" cy="4" r="2.5" fill="#5a4636"/>
+          <circle cx="38" cy="4" r="2.5" fill="#5a4636"/>
+        </g>
+        <!-- 车厢1：白云棉被 -->
+        <g transform="translate(140, 330)">
+          <rect x="0" y="-20" width="44" height="22" rx="4" fill="#4a6ab8"/>
+          <ellipse cx="14" cy="-20" rx="9" ry="6" fill="#e8eeff" opacity="0.9"/>
+          <ellipse cx="28" cy="-20" rx="9" ry="6" fill="#e8eeff" opacity="0.9"/>
+          <circle cx="12" cy="4" r="5.5" fill="#2a1c14"/>
+          <circle cx="32" cy="4" r="5.5" fill="#2a1c14"/>
+        </g>
+        <!-- 车厢2：星星糖 -->
+        <g transform="translate(196, 330)">
+          <rect x="0" y="-20" width="44" height="22" rx="4" fill="#4a6ab8"/>
+          <path d="M14,-21 l2,4.5 4.9,0.4 -3.7,3.2 1.1,4.8 -4.3,-2.5 -4.3,2.5 1.1,-4.8 -3.7,-3.2 4.9,-0.4 Z" fill="#f0cf8f"/>
+          <circle cx="30" cy="-14" r="2" fill="#f0cf8f" opacity="0.85"/>
+          <circle cx="12" cy="4" r="5.5" fill="#2a1c14"/>
+          <circle cx="32" cy="4" r="5.5" fill="#2a1c14"/>
+        </g>
+      </g>
+
+      <!-- 站牌 -->
+      <g transform="translate(258, 300)">
+        <rect x="-1.5" y="10" width="3" height="42" fill="#2a3260"/>
+        <rect x="-20" y="-6" width="40" height="18" rx="4" fill="#3a4478" stroke="#f0cf8f" stroke-width="1.5"/>
+        <text x="0" y="7" text-anchor="middle" font-size="8" fill="#f0cf8f">梦乡站</text>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="414" text-anchor="middle" fill="#f0cf8f" font-size="21" font-weight="700" letter-spacing="0.06em">开往梦乡的晚安火车</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">晚安仪式 · 温柔守护</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>夜很深了，小镇上的灯一盏一盏地睡着了。可是月光火车站，才刚刚亮起温柔的小灯。</p>
+    <p>"呜——"一声轻轻的汽笛，小火车嘟嘟探出了圆圆的车头。它今晚有一个特别的任务：把甜甜的梦，送到每一个小朋友的窗前。</p>
+    <p>乘客们排着队上车啦。第一节车厢装着软软的白云，那是小朋友们的被子；第二节车厢装着亮晶晶的星星糖，梦见它们的人，会笑出声来；第三节车厢坐着梦精灵，它们抱着小枕头，排排队，要去上夜班。</p>
+    <p>"呜——出发喽！"小火车慢慢地开动，一点儿也不吵。</p>
+    <p>它经过果园，苹果树们点点头："晚安火车，一路顺风。"它跨过小木桥，小河翻了个身，咕嘟咕嘟说着梦话。它爬上山坡，坡上的小绵羊一边数着火车的车厢，一边呼噜呼噜睡着了——咦，平时不是人数绵羊的嘛！</p>
+    <p>"梦乡站到啦！"梦精灵们提起小枕头，轻手轻脚地下了车。它们飞到一扇扇窗前，把甜甜的梦轻轻挂上去：有的梦是棉花糖做的城堡，有的梦是会飞的小木马，还有一个梦，是明天早上香香的煎蛋。</p>
+    <p>送完了梦，小火车慢慢往回开。它的车灯亮亮的，像一颗温柔的星星，滑过安静的夜晚。</p>
+    <p>听——如果有很轻很轻的"呜——"从窗外飘过，别害怕，那是晚安火车路过。快闭上眼睛吧，它在最后一排，给你留了一个软软的座位。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>夜晚不是黑黑的，是有一列小火车，悄悄替你守着甜甜的梦。🚂</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。晚安火车说，你今天也是乖乖的好孩子，车票已经买好啦，该上车做甜甜的梦了。⭐</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月20日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

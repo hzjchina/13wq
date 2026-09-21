@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>生之欲</title>
+<style>
+  :root {
+    --bg: #0f1620;
+    --bg2: #162334;
+    --card: rgba(22, 34, 50, 0.8);
+    --text: #f0ead9;
+    --sub: #93a0b0;
+    --accent: #e07a4a;
+    --gold: #e8c98a;
+    --snow: #dfe8f2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #0f1620 0%, #162334 55%, #1c2c40 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .snow { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .flake {
+    position: absolute; top: -20px; color: #fff; opacity: 0.7;
+    animation: drop linear infinite;
+  }
+  @keyframes drop {
+    0% { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.5; }
+    100% { transform: translate(-30px, 105vh) rotate(300deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+
+  .header { text-align: center; margin-bottom: 26px; }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.14em;
+    text-shadow: 0 0 30px rgba(232, 201, 138, 0.25);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.1em; }
+
+  .poster { text-align: center; margin: 22px 0 28px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 14px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 14px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 6px; letter-spacing: 0.08em; }
+  .info-value { font-size: 15px; color: var(--text); font-weight: 500; }
+
+  .section {
+    background: var(--card); border: 1px solid rgba(232, 201, 138, 0.1);
+    border-radius: 18px; padding: 24px 22px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 10px 36px rgba(0,0,0,0.35);
+  }
+  .section h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 14px; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section h2::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+  .section p { margin-bottom: 12px; text-indent: 2em; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    background: rgba(224, 122, 74, 0.14); border: 1px solid rgba(224, 122, 74, 0.32);
+    color: #e8b094; padding: 5px 12px; border-radius: 20px; font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold); padding: 12px 18px; margin: 18px 0;
+    background: rgba(232, 201, 138, 0.07); border-radius: 0 12px 12px 0;
+    font-style: italic; color: #e6d3ae;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list { list-style: none; padding: 0; }
+  .reason-list li {
+    padding: 10px 0 10px 28px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before { content: "★"; position: absolute; left: 0; color: var(--gold); }
+
+  .footer { text-align: center; margin-top: 32px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="snow">
+  <span class="flake" style="left:6%;  font-size:14px; animation-duration:9s;">❄</span>
+  <span class="flake" style="left:18%; font-size:10px; animation-duration:12s; animation-delay:2s;">❄</span>
+  <span class="flake" style="left:33%; font-size:16px; animation-duration:10s; animation-delay:5s;">❄</span>
+  <span class="flake" style="left:47%; font-size:12px; animation-duration:13s; animation-delay:1s;">❄</span>
+  <span class="flake" style="left:61%; font-size:15px; animation-duration:9.5s; animation-delay:3.5s;">❄</span>
+  <span class="flake" style="left:74%; font-size:11px; animation-duration:12.5s; animation-delay:6s;">❄</span>
+  <span class="flake" style="left:88%; font-size:14px; animation-duration:10.5s; animation-delay:4s;">❄</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>生之欲</h1>
+    <p class="meta">生きる / Ikiru · 1952 · 日本</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#152238"/>
+          <stop offset="55%" stop-color="#243a58"/>
+          <stop offset="100%" stop-color="#101a28"/>
+        </linearGradient>
+        <radialGradient id="moonGlow">
+          <stop offset="0%" stop-color="#e8c98a" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#e8c98a" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="ground" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2c4262" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#101a28" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 星空 -->
+      <circle cx="40" cy="42" r="1.8" fill="#fff" opacity="0.8"/>
+      <circle cx="254" cy="54" r="2.2" fill="#fff" opacity="0.7"/>
+      <circle cx="204" cy="28" r="1.4" fill="#fff" opacity="0.9"/>
+      <circle cx="80" cy="82" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="272" cy="122" r="1.6" fill="#e8c98a" opacity="0.75"/>
+
+      <!-- 月亮 -->
+      <circle cx="230" cy="76" r="42" fill="url(#moonGlow)"/>
+      <circle cx="230" cy="76" r="19" fill="#e8c98a"/>
+
+      <!-- 雪地 -->
+      <path d="M0,318 Q75,306 150,318 T300,314 L300,440 L0,440 Z" fill="#243650"/>
+      <path d="M0,330 Q75,318 150,330 T300,326 L300,440 L0,440 Z" fill="url(#ground)" opacity="0.6"/>
+
+      <!-- 树剪影 -->
+      <g>
+        <rect x="40" y="270" width="8" height="62" rx="3" fill="#0d1420"/>
+        <path d="M44,268 Q28,262 26,248 Q40,246 44,258 Q42,240 54,238 Q62,246 54,260 Q68,252 72,262 Q68,276 48,272 Z" fill="#0d1420"/>
+      </g>
+
+      <!-- 荡秋千的老人剪影 -->
+      <g>
+        <!-- 秋千架 -->
+        <path d="M150,240 L200,240" stroke="#0d1420" stroke-width="5" stroke-linecap="round"/>
+        <line x1="156" y1="242" x2="162" y2="300" stroke="#0d1420" stroke-width="4"/>
+        <line x1="194" y1="242" x2="188" y2="300" stroke="#0d1420" stroke-width="4"/>
+        <!-- 秋千绳 -->
+        <line x1="166" y1="242" x2="172" y2="292" stroke="#0d1420" stroke-width="2"/>
+        <line x1="184" y1="242" x2="178" y2="292" stroke="#0d1420" stroke-width="2"/>
+        <!-- 坐板 -->
+        <rect x="169" y="291" width="12" height="3.5" rx="1.5" fill="#0d1420"/>
+        <!-- 老人剪影（低着头坐在秋千上） -->
+        <circle cx="175" cy="272" r="7" fill="#0d1420"/>
+        <path d="M170,280 Q175,277 180,280 L182,291 L168,291 Z" fill="#0d1420"/>
+      </g>
+
+      <!-- 长椅 -->
+      <g fill="#0d1420">
+        <rect x="228" y="322" width="42" height="4" rx="2"/>
+        <rect x="228" y="310" width="42" height="3.5" rx="1.5"/>
+        <rect x="230" y="326" width="4" height="16"/>
+        <rect x="264" y="326" width="4" height="16"/>
+      </g>
+
+      <!-- 落雪 -->
+      <g fill="#dfe8f2">
+        <circle cx="70" cy="150" r="2" opacity="0.8"/>
+        <circle cx="130" cy="120" r="1.6" opacity="0.65"/>
+        <circle cx="200" cy="160" r="2.2" opacity="0.75"/>
+        <circle cx="250" cy="200" r="1.5" opacity="0.6"/>
+        <circle cx="100" cy="200" r="1.8" opacity="0.7"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="404" text-anchor="middle" fill="#e8c98a" font-size="26" font-weight="700" letter-spacing="0.2em">生之欲</text>
+      <text x="150" y="426" text-anchor="middle" fill="#93a0b0" font-size="10" letter-spacing="0.34em">IKIRU · AKIRA KUROSAWA</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">黑泽明</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">志村乔</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">143 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>东京市政府里，有一位盖了三十年印章的市民科科长，姓渡边。文件从他左手进来，右手出去，三十年没出过一件错事，也没办成过一件事。同事背后叫他"木乃伊"——因为他就和死人差不多。</p>
+    <p>直到有一天，一纸诊断书告诉他：胃癌晚期，还剩几个月。渡边慌了。他从没想过"死"这件事会落在自己头上，更惊恐地发现：自己好像早就死了二十年。</p>
+    <p>他试着去夜店纵乐，试着向年轻的姑娘学习"怎么活"，钱花了不少，心里却越来越空。直到某个雪夜，他从抽屉里翻出一封市民请愿书，忽然找到了一件自己真正想做、也只有他能做的事。最后五个月，他像换了一个人，安静地、拼命地跑着。</p>
+    <p>葬礼上，同事们喝着酒回忆：那个木乃伊一样的老头，最后到底去了哪里？答案让所有人沉默。</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>影史最伟大的"生命课"：</strong>黑泽明不喊一句口号，用一个盖印章的小官僚的最后五个月，把"人为什么活着"讲到了极致，被无数影迷列为"人生必看第一部"。</li>
+      <li><strong>雪夜秋千的封神一幕：</strong>志村乔坐在雪夜的秋千上，轻轻唱着"人生短促，恋爱吧少女"，笑着，眼里全是泪——这一幕被誉为电影史上最动人的镜头之一。</li>
+      <li><strong>志村乔的生涯巅峰：</strong>他没有一句夸张的表演，全凭佝偻的背、迟缓的步子和逐渐亮起来的眼睛，演活了一个人从"死灰"到"燃烧"的全过程。</li>
+      <li><strong>大胆的叙事实验：</strong>主角在影片过半处"缺席"，后半段全部用葬礼上同事的追忆与闪回拼出他最后的样子——反而在观众心里立起一座丰碑。</li>
+      <li><strong>对官僚机器的温柔讽刺：</strong>三十年批不下的公文，一个将死之人用五个月办成了——笑着笑着就沉默了。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《生之欲》豆瓣 9.3，稳居 Top250 前列，是黑泽明自认最私人的一部作品，也是无数导演心中的影史第一梯队。它拍于 1952 年，却像是拍给每一个"重复着今天、盼着退休"的现代人。</p>
+    <p>它值得一看，是因为它能在你被闹钟按着脑袋爬起来的周一早晨，轻轻问一句：如果只剩下五个月，你今天会做什么？然后你会发现，认真活过一天的滋味，和混过一天，完全不同。</p>
+    <p>看完不要急着起身，让片尾那首《冈多拉之歌》多放一会儿。</p>
+    <div class="quote">
+      <p>"人生短促，恋爱吧少女，趁红唇尚未褪色；人生短促，行动吧，趁热血尚未冷却。" —— 今天，就是一生中最年轻的一天。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">黑泽明</span>
+      <span class="tag">影史丰碑</span>
+      <span class="tag">向死而生</span>
+      <span class="tag">东方哲学</span>
+      <span class="tag">周一醒神药</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月21日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
