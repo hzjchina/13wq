@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>死亡诗社</title>
+<style>
+  :root {
+    --bg: #10161c;
+    --bg2: #18242c;
+    --card: rgba(24, 34, 42, 0.8);
+    --text: #f0e9d8;
+    --sub: #94a0a6;
+    --accent: #e0a04e;
+    --gold: #e8c98a;
+    --candle: #f5c96a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, #10161c 0%, #18242c 55%, #1e2c34 100%);
+    color: var(--text);
+    font: 17px/1.85 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .firefly { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .dot {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #f5c96a; box-shadow: 0 0 10px 2px rgba(245, 201, 106, 0.5);
+    animation: floaty 9s ease-in-out infinite;
+  }
+  @keyframes floaty {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    25% { transform: translate(18px,-32px); opacity: 0.35; }
+    50% { transform: translate(-10px,-58px); opacity: 0.8; }
+    75% { transform: translate(-24px,-26px); opacity: 0.4; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; padding: 32px 20px 48px; }
+
+  .header { text-align: center; margin-bottom: 26px; }
+  .header h1 {
+    font-size: clamp(30px, 6vw, 44px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.1em;
+    text-shadow: 0 0 30px rgba(232, 201, 138, 0.28);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.1em; }
+
+  .poster { text-align: center; margin: 22px 0 28px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.55));
+    border-radius: 14px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 28px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 14px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 6px; letter-spacing: 0.08em; }
+  .info-value { font-size: 15px; color: var(--text); font-weight: 500; }
+
+  .section {
+    background: var(--card); border: 1px solid rgba(232, 201, 138, 0.1);
+    border-radius: 18px; padding: 24px 22px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 10px 36px rgba(0,0,0,0.4);
+  }
+  .section h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 14px; letter-spacing: 0.08em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section h2::before { content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px; }
+  .section p { margin-bottom: 12px; text-indent: 2em; }
+  .section p:last-child { margin-bottom: 0; }
+
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    background: rgba(224, 160, 78, 0.14); border: 1px solid rgba(224, 160, 78, 0.32);
+    color: #e8c9a0; padding: 5px 12px; border-radius: 20px; font-size: 13px;
+  }
+
+  .quote {
+    border-left: 3px solid var(--gold); padding: 12px 18px; margin: 18px 0;
+    background: rgba(232, 201, 138, 0.07); border-radius: 0 12px 12px 0;
+    font-style: italic; color: #e6d3ae;
+  }
+  .quote p { text-indent: 0; margin: 0; }
+
+  .reason-list { list-style: none; padding: 0; }
+  .reason-list li {
+    padding: 10px 0 10px 28px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .reason-list li:last-child { border-bottom: none; }
+  .reason-list li::before { content: "★"; position: absolute; left: 0; color: var(--gold); }
+
+  .footer { text-align: center; margin-top: 32px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 36px; }
+    .section { padding: 18px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="firefly">
+  <span class="dot" style="left:18%; top:20%;"></span>
+  <span class="dot" style="left:72%; top:28%; animation-delay:2.5s;"></span>
+  <span class="dot" style="left:45%; top:12%; animation-delay:5s;"></span>
+  <span class="dot" style="left:88%; top:40%; animation-delay:1.2s;"></span>
+  <span class="dot" style="left:30%; top:48%; animation-delay:6.5s;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>死亡诗社</h1>
+    <p class="meta">Dead Poets Society · 1989 · 美国</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a2430"/>
+          <stop offset="55%" stop-color="#24343e"/>
+          <stop offset="100%" stop-color="#12181e"/>
+        </linearGradient>
+        <radialGradient id="candleGlow">
+          <stop offset="0%" stop-color="#f5c96a" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#f5c96a" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="book" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3a2a1c"/>
+          <stop offset="100%" stop-color="#20150d"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="14"/>
+
+      <!-- 烛光光晕 -->
+      <circle cx="150" cy="196" r="120" fill="url(#candleGlow)"/>
+
+      <!-- 洞穴石壁氛围 -->
+      <g fill="#0d1216">
+        <path d="M0,0 Q150,60 300,0 L300,440 L0,440 Z" opacity="0.25"/>
+        <path d="M0,80 Q80,120 160,80 Q240,40 300,90 L300,200 L0,200 Z" opacity="0.2"/>
+      </g>
+
+      <!-- 蜡烛（中央） -->
+      <g transform="translate(150, 210)">
+        <rect x="-4" y="0" width="8" height="46" rx="3" fill="#f0e8d8"/>
+        <rect x="-4" y="0" width="8" height="6" rx="2" fill="#d8c8b0"/>
+        <!-- 火焰 -->
+        <ellipse cx="0" cy="-8" rx="5" ry="10" fill="#f5c96a"/>
+        <ellipse cx="0" cy="-6" rx="2.6" ry="6" fill="#fff3d6"/>
+        <!-- 蜡泪 -->
+        <path d="M-3,6 L-4,16 Q-4,20 -2,20 L-2,8 Z" fill="#e8dcc8" opacity="0.8"/>
+      </g>
+
+      <!-- 翻开的书（讲台） -->
+      <g transform="translate(150, 292)">
+        <path d="M-46,0 Q-24,12 0,14 Q24,12 46,0 L42,26 Q0,36 -42,26 Z" fill="url(#book)"/>
+        <line x1="0" y1="14" x2="0" y2="32" stroke="#f0e8d8" stroke-width="1.5" opacity="0.4"/>
+        <path d="M-34,5 Q-16,13 0,14" fill="none" stroke="#f0e8d8" stroke-width="1.2" opacity="0.5"/>
+        <path d="M34,5 Q16,13 0,14" fill="none" stroke="#f0e8d8" stroke-width="1.2" opacity="0.5"/>
+      </g>
+
+      <!-- 几个学生剪影围坐 -->
+      <g fill="#0d1216">
+        <circle cx="74" cy="330" r="12"/>
+        <path d="M60,340 Q74,336 88,340 L90,372 L58,372 Z"/>
+        <circle cx="226" cy="330" r="12"/>
+        <path d="M212,340 Q226,336 240,340 L242,372 L210,372 Z"/>
+        <circle cx="44" cy="360" r="10"/>
+        <path d="M32,368 Q44,365 56,368 L58,394 L30,394 Z"/>
+        <circle cx="256" cy="360" r="10"/>
+        <path d="M244,368 Q256,365 268,368 L270,394 L242,394 Z"/>
+      </g>
+
+      <!-- 萤火虫点点 -->
+      <g fill="#f5c96a">
+        <circle cx="98" cy="150" r="2.4" opacity="0.9"/>
+        <circle cx="205" cy="132" r="2" opacity="0.75"/>
+        <circle cx="120" cy="118" r="1.6" opacity="0.65"/>
+        <circle cx="190" cy="166" r="2.2" opacity="0.8"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="414" text-anchor="middle" fill="#e8c98a" font-size="25" font-weight="700" letter-spacing="0.14em">死亡诗社</text>
+      <text x="150" y="432" text-anchor="middle" fill="#94a0a6" font-size="10" letter-spacing="0.3em">DEAD POETS SOCIETY</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">彼得·威尔</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">罗宾·威廉姆斯</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">片长</div>
+      <div class="info-value">128 分钟</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2>剧情梗概</h2>
+    <p>1959 年，美国最负盛名的威尔顿预备学院迎来了一位不同寻常的新文学教师——基廷先生。这所"传统、荣誉、纪律、卓越"的贵族男校里，学生们早已习惯了规训与沉默，而基廷的第一堂课，就带着他们撕掉了课本。</p>
+    <p>他让学生们站上课桌，用一种从未有过的视角看世界；他告诉他们"及时采撷生命之花"，引领他们发现了洞穴里那个被遗忘的秘密社团——"死亡诗社"，一群少年夜里溜出校门，在印第安人洞穴里念诗、做梦、燃烧自己。</p>
+    <p>一个沉默怯懦的男孩，在诗歌里第一次喊出了自己的声音；一个被父亲死死攥在手里的优等生，第一次尝到了自由的滋味。然而，当少年的热烈撞上学校的铁幕，一场风暴正在酝酿。</p>
+    <p>这不是一部关于"反抗成功"的电影。它关于的是：当现实扑面而来，那句"做自己"的勇气，还剩下多少？</p>
+  </section>
+
+  <section class="section">
+    <h2>亮点所在</h2>
+    <ul class="reason-list">
+      <li><strong>罗宾·威廉姆斯的传世演出：</strong>他把基廷演成了一个会发光的人——戏谑、深情、炽热，那场"站上课桌"的戏，成为电影史上最令人振奋的镜头之一。</li>
+      <li><strong>"哦船长，我的船长"：</strong>这句贯穿全片的称呼，连同片尾那个登上桌子的告别，几十年来一直是全世界学生对理想主义老师最深情的致敬。</li>
+      <li><strong>诗与青春的完美共振：</strong>惠特曼、丁尼生、梭罗的诗句第一次在大银幕上如此滚烫，让无数年轻人从此爱上了诗。</li>
+      <li><strong>不回避的残酷：</strong>它不给你廉价的圆满，而是诚实呈现自由与秩序的碰撞——正是这份"不甜"，让它从普通校园片里脱颖而出。</li>
+      <li><strong>奥斯卡最佳原创剧本：</strong>1990 年捧回小金人，主题曲与台词至今被一代代人引用。</li>
+    </ul>
+  </section>
+
+  <section class="section">
+    <h2>为什么值得一看</h2>
+    <p>《死亡诗社》豆瓣 9.2、IMDb 8.1，是无数人青春里"看哭过"的电影，也是教育题材的天花板之一。它没有一句说教，却回答了那个所有年轻人都会问的问题：我该循规蹈矩，还是忠于内心？</p>
+    <p>它值得一看，是因为无论你正处在青春，还是已经毕业多年，那句"抓住今天"（Carpe Diem）都会在心里轻轻回响。它提醒我们：教育的本质不是装满一桶水，而是点燃一团火。</p>
+    <div class="quote">
+      <p>"我们读诗、写诗，并不是因为它们好玩，而是因为我们是人类的一份子，而人类是充满激情的。" —— 医学、法律、商业、工程，都是崇高的追求，足以支撑人的一生；但诗歌、美、浪漫与爱，才是我们活着的理由。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>适合标签</h2>
+    <div class="tag-list">
+      <span class="tag">青春启蒙</span>
+      <span class="tag">教育天花板</span>
+      <span class="tag">罗宾·威廉姆斯</span>
+      <span class="tag">抓住今天</span>
+      <span class="tag">奥斯卡剧本</span>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <em>2026年9月22日 · 经典电影推荐 · 由小虾米自动生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小桂花的晚安香 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #131131;
+    --bg2: #231a52;
+    --bg3: #2b2158;
+    --card: rgba(34, 26, 68, 0.78);
+    --text: #f5eede;
+    --sub: #a79ec6;
+    --accent: #e8a04e;
+    --gold: #f0cf8f;
+    --blossom: #f5c96a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 3.7s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 8s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 飘落的桂花 */
+  .fall-flower {
+    position: absolute; width: 7px; height: 7px; border-radius: 50% 50% 45% 45%;
+    background: radial-gradient(circle at 35% 35%, #ffe9a8, #f0b953);
+    box-shadow: 0 0 6px rgba(245, 201, 106, 0.55);
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translate(0,-20px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.95; }
+    50%  { transform: translate(-40px, 45vh) rotate(190deg); }
+    90%  { opacity: 0.65; }
+    100% { transform: translate(-85px, 96vh) rotate(380deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--gold); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(240, 207, 143, 0.3);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(240, 207, 143, 0.12);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(232, 160, 78, 0.1); border: 1px dashed rgba(232, 160, 78, 0.4);
+    border-radius: 14px; color: #f4d9b8; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:6%; left:12%; width:3px; height:3px;"></span>
+  <span class="star" style="top:12%; left:78%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:20%; left:55%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:38%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:26%; left:88%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:30%; left:22%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:8%; left:56%;"></div>
+  <span class="fall-flower" style="left:80%; animation-delay:0s;"></span>
+  <span class="fall-flower" style="left:66%; animation-delay:3.5s; width:5px; height:5px;"></span>
+  <span class="fall-flower" style="left:90%; animation-delay:7s; width:6px; height:6px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小桂花的晚安香</h1>
+    <p class="meta">🌼 金秋月夜的隐形礼物 · 3-8 岁睡前故事</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1c1450"/>
+          <stop offset="55%" stop-color="#32236e"/>
+          <stop offset="100%" stop-color="#181238"/>
+        </linearGradient>
+        <radialGradient id="moonGlow">
+          <stop offset="0%" stop-color="#f0cf8f" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f0cf8f" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="windowGlow">
+          <stop offset="0%" stop-color="#ffd98a" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#ffd98a" stop-opacity="0.25"/>
+        </radialGradient>
+        <radialGradient id="scentWave">
+          <stop offset="0%" stop-color="#f5c96a" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#f5c96a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="16"/>
+
+      <!-- 星空 -->
+      <circle cx="38" cy="44" r="2" fill="#fff" opacity="0.85"/>
+      <circle cx="258" cy="54" r="2.4" fill="#fff" opacity="0.7"/>
+      <circle cx="210" cy="30" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="76" cy="88" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="272" cy="128" r="1.8" fill="#f5c96a" opacity="0.75"/>
+
+      <!-- 月亮 -->
+      <circle cx="232" cy="78" r="42" fill="url(#moonGlow)"/>
+      <circle cx="232" cy="78" r="19" fill="#f0cf8f"/>
+
+      <!-- 香气波浪 -->
+      <g fill="none" stroke="#f5c96a" opacity="0.55">
+        <path d="M92,238 Q112,228 132,238 Q152,248 172,238" stroke-width="2" stroke-linecap="round"/>
+        <path d="M100,258 Q120,248 140,258 Q160,268 180,258" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+        <path d="M108,278 Q128,268 148,278 Q168,288 188,278" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+      </g>
+      <ellipse cx="140" cy="258" rx="70" ry="42" fill="url(#scentWave)" opacity="0.35"/>
+
+      <!-- 桂花树枝（从左上伸入） -->
+      <g>
+        <path d="M0,120 Q60,140 110,190 Q140,220 158,252" fill="none" stroke="#2e2213" stroke-width="7" stroke-linecap="round"/>
+        <path d="M78,158 Q104,150 126,158" fill="none" stroke="#2e2213" stroke-width="4" stroke-linecap="round"/>
+        <path d="M116,196 Q138,192 154,202" fill="none" stroke="#2e2213" stroke-width="3.5" stroke-linecap="round"/>
+        <!-- 叶子 -->
+        <ellipse cx="70" cy="170" rx="17" ry="7" fill="#1d3320" transform="rotate(28 70 170)"/>
+        <ellipse cx="118" cy="176" rx="16" ry="6.5" fill="#24402a" transform="rotate(-18 118 176)"/>
+        <ellipse cx="142" cy="222" rx="15" ry="6" fill="#1d3320" transform="rotate(22 142 222)"/>
+        <!-- 米粒小黄花簇 -->
+        <g fill="#f5c96a">
+          <circle cx="128" cy="208" r="3.4"/><circle cx="137" cy="203" r="2.8"/>
+          <circle cx="133" cy="214" r="2.6"/><circle cx="142" cy="211" r="3"/>
+          <circle cx="150" cy="240" r="3.2"/><circle cx="158" cy="235" r="2.6"/>
+          <circle cx="154" cy="246" r="2.4"/><circle cx="163" cy="243" r="2.8"/>
+          <circle cx="108" cy="188" r="2.8"/><circle cx="115" cy="184" r="2.4"/>
+        </g>
+        <!-- 小桂花朵朵（最亮的一朵，有小表情） -->
+        <g transform="translate(147,252)">
+          <circle cx="0" cy="0" r="6.5" fill="#ffe08a"/>
+          <circle cx="-2" cy="-1" r="1" fill="#7a5a1a"/>
+          <circle cx="2" cy="-1" r="1" fill="#7a5a1a"/>
+          <path d="M-1.6,1.8 Q0,3.2 1.6,1.8" fill="none" stroke="#7a5a1a" stroke-width="0.9" stroke-linecap="round"/>
+        </g>
+      </g>
+
+      <!-- 地面与窗台小屋 -->
+      <path d="M0,392 Q150,380 300,392 L300,440 L0,440 Z" fill="#241a44"/>
+      <!-- 窗台与小灯 -->
+      <g>
+        <rect x="196" y="330" width="72" height="62" rx="6" fill="#191238"/>
+        <rect x="212" y="346" width="40" height="34" rx="4" fill="url(#windowGlow)"/>
+        <line x1="232" y1="346" x2="232" y2="380" stroke="#191238" stroke-width="3"/>
+        <line x1="212" y1="363" x2="252" y2="363" stroke="#191238" stroke-width="3"/>
+        <!-- 窗台上的一朵小桂花 -->
+        <circle cx="286" cy="338" r="3.4" fill="#f5c96a"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="418" text-anchor="middle" fill="#f0cf8f" font-size="23" font-weight="700" letter-spacing="0.1em">小桂花的晚安香</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">看不见的礼物 · 自我价值</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>院子里有一棵老桂花树。树上住着一朵小桂花，名字叫朵朵。她呀，只有米粒那么小，黄黄的，总是躲在叶子后面。</p>
+    <p>朵朵有点难过。她看见墙外的玫瑰穿着红裙子，池塘里的百合举着白喇叭，连蒲公英都会撑着小伞去旅行。"我这么小，颜色这么浅，谁能看见我呢？"</p>
+    <p>秋天的晚上，朵朵鼓起勇气，轻轻问天上的月亮："月亮婆婆，小小的我，也能送出礼物吗？"月亮眨了眨眼，把一层柔柔的银光洒在她身上，好像在说：试试看呀。</p>
+    <p>于是，朵朵深深地吸了一口气，把自己攒了一整个秋天的甜甜香味，慢慢地、慢慢地放了出来。</p>
+    <p>香味飘过小巷，晚归的叔叔抬起头，深深地吸了一口，脚步一下子变轻了——他想起小时候，妈妈院子里的那棵桂花树。</p>
+    <p>香味溜进窗户，趴在作业本上睡着的小女孩做了一个梦，梦见外婆端出热乎乎的桂花糕，笑得眼睛弯弯。</p>
+    <p>香味还翻过了墙头，围着睡不着的小猫转了两圈。小猫打了个小小的哈欠，蜷成一个毛茸茸的圈，呼噜呼噜睡着了。</p>
+    <p>第二天早上，小女孩在窗台上捡起一朵小小的桂花，轻轻别在辫子上，对着院子说："谢谢你，香香的晚安。"</p>
+    <p>朵朵躲在叶子后面，脸红红的。她终于知道啦：她的礼物小小的、看不见，可是整条街，都收到了。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>最温柔的礼物，眼睛看不见，要用鼻子闻、用心收。小小的你，也在悄悄照亮别人哦。🌼</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小桂花朵朵说，你今天也是香香的好孩子，该做一罐甜甜的桂花梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月21日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
