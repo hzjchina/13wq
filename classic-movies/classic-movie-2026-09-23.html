@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐之声</title>
+<style>
+  :root {
+    --bg1: #0d1f16;
+    --bg2: #16352a;
+    --bg3: #1d4436;
+    --card: rgba(24, 50, 40, 0.8);
+    --text: #f2f0e4;
+    --sub: #a8c4b2;
+    --accent: #e9c46a;
+    --green: #7fc8a9;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4.2s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.8; transform: scale(1);} 50% { opacity: 0.25; transform: scale(0.8);} }
+
+  .note {
+    position: absolute; font-size: 18px; color: var(--accent);
+    opacity: 0; animation: floatNote 8s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(233, 196, 106, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.8; }
+    60%  { transform: translate(30px, -100px) rotate(8deg); opacity: 0.5; }
+    100% { transform: translate(50px, -170px) rotate(-4deg); opacity: 0; }
+  }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 8px; }
+  .header .kicker { color: var(--green); font-size: 14px; letter-spacing: 0.3em; margin-bottom: 10px; }
+  .header h1 {
+    font-size: clamp(30px, 6.5vw, 46px); font-weight: 700;
+    color: var(--accent); letter-spacing: 0.08em;
+    text-shadow: 0 0 36px rgba(233, 196, 106, 0.3);
+  }
+  .header .en { color: var(--sub); font-size: 14px; margin-top: 8px; letter-spacing: 0.1em; }
+
+  .poster { text-align: center; margin: 22px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .card {
+    background: var(--card); border: 1px solid rgba(127, 200, 169, 0.15);
+    border-radius: 20px; padding: 26px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .card h2 {
+    font-size: 18px; color: var(--green); margin-bottom: 14px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card h2::before { content: ""; width: 4px; height: 18px; background: var(--green); border-radius: 2px; }
+  .card p { margin-bottom: 12px; }
+  .card p:last-child { margin-bottom: 0; }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag {
+    font-size: 13px; color: var(--accent); background: rgba(233, 196, 106, 0.1);
+    border: 1px solid rgba(233, 196, 106, 0.35); border-radius: 999px; padding: 5px 14px;
+  }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: 1fr 1fr; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:8%; left:16%; width:3px; height:3px;"></span>
+  <span class="star" style="top:14%; left:74%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:23%; left:54%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:10%; left:42%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:29%; left:84%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="note" style="top:44%; left:10%; animation-delay:0s;">♪</span>
+  <span class="note" style="top:50%; left:84%; animation-delay:2.5s;">♫</span>
+  <span class="note" style="top:58%; left:20%; animation-delay:5s;">♩</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <div class="kicker">每日经典 · 周三片单</div>
+    <h1>音乐之声</h1>
+    <p class="en">The Sound of Music (1965) · 豆瓣 9.1 / IMDb 8.1</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#12281e"/>
+          <stop offset="55%" stop-color="#1d4436"/>
+          <stop offset="100%" stop-color="#0f2a20"/>
+        </linearGradient>
+        <linearGradient id="mountain" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a8f78"/>
+          <stop offset="100%" stop-color="#275545"/>
+        </linearGradient>
+        <linearGradient id="meadow" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3f7a5f"/>
+          <stop offset="100%" stop-color="#22503e"/>
+        </linearGradient>
+        <radialGradient id="sunGlow">
+          <stop offset="0%" stop-color="#e9c46a" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#e9c46a" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg)" rx="16"/>
+
+      <!-- 晨星 -->
+      <circle cx="48" cy="42" r="2" fill="#fff" opacity="0.8"/>
+      <circle cx="250" cy="34" r="2.2" fill="#fff" opacity="0.7"/>
+      <circle cx="200" cy="24" r="1.5" fill="#fff" opacity="0.9"/>
+
+      <!-- 晨光 -->
+      <circle cx="236" cy="86" r="52" fill="url(#sunGlow)"/>
+      <circle cx="236" cy="86" r="17" fill="#e9c46a"/>
+
+      <!-- 阿尔卑斯群山 -->
+      <path d="M0,190 L70,102 L118,158 L166,96 L232,182 L300,130 L300,300 L0,300 Z" fill="url(#mountain)" opacity="0.9"/>
+      <path d="M166,96 L146,122 L156,126 L170,116 L184,128 L194,120 Z" fill="#e8efe9" opacity="0.85"/>
+      <path d="M70,102 L56,122 L64,124 L76,114 L88,126 L96,118 Z" fill="#e8efe9" opacity="0.7"/>
+
+      <!-- 草地 -->
+      <path d="M0,262 Q150,240 300,262 L300,340 L0,340 Z" fill="url(#meadow)"/>
+
+      <!-- 飘上山顶的音符 -->
+      <g fill="#e9c46a">
+        <text x="60" y="196" font-size="16">♪</text>
+        <text x="84" y="176" font-size="13" opacity="0.8">♫</text>
+        <text x="102" y="206" font-size="12" opacity="0.6">♩</text>
+      </g>
+
+      <!-- 草地上的玛丽亚剪影（张开双臂旋转） -->
+      <g transform="translate(150,296)" fill="#12281e">
+        <ellipse cx="0" cy="30" rx="34" ry="8" opacity="0.25"/>
+        <circle cx="0" cy="-24" r="8"/>
+        <path d="M-6,-17 L-30,-2 M6,-17 L30,-2" stroke="#12281e" stroke-width="4.5" stroke-linecap="round"/>
+        <path d="M-4,-15 L0,6 L4,-15 Z" fill="#12281e"/>
+        <path d="M-4,6 L-7,28 M4,6 L7,28" stroke="#12281e" stroke-width="5" stroke-linecap="round"/>
+      </g>
+
+      <!-- 小音符灯串（草地右侧） -->
+      <g fill="#f2f0e4" opacity="0.85">
+        <circle cx="228" cy="306" r="2.5"/>
+        <circle cx="240" cy="298" r="2.5"/>
+        <circle cx="252" cy="308" r="2.5"/>
+      </g>
+
+      <text x="150" y="378" text-anchor="middle" fill="#e9c46a" font-size="22" font-weight="700" letter-spacing="0.12em">音乐之声</text>
+      <text x="150" y="402" text-anchor="middle" fill="#a8c4b2" font-size="11" letter-spacing="0.2em">THE SOUND OF MUSIC · 1965</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">导演</div>
+      <div class="info-value">罗伯特·怀斯</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主演</div>
+      <div class="info-value">茱莉·安德鲁斯</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">荣誉</div>
+      <div class="info-value">奥斯卡最佳影片等 5 项</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概（无剧透）</h2>
+    <p>奥地利萨尔茨堡，活泼得"管不住"的见习修女玛丽亚，被院长嬷嬷派往冯·特拉普上校家，照顾七个失去了妈妈的孩子。</p>
+    <p>上军用军规管理家庭，孩子们用恶作剧迎接每一位新家庭教师。而玛丽亚带去了房子里最缺的东西——歌声与笑声。但当音乐重新填满这个家时，1938 年的阴影正悄悄罩向奥地利，这个家将不得不做出一个比唱歌难得多的重要选择。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <p>🎵 <strong>影史最著名的插曲群</strong>：《Do-Re-Mi》《雪绒花》《孤独的牧羊人》……几乎每一首都会跟着哼；它可能是"看电影学唱歌"的最佳入门。</p>
+    <p>🏔️ <strong>真实故事 + 实景拍摄</strong>：改编自冯·特拉普一家的真实经历，阿尔卑斯的湖泊与草甸全部实拍，每一帧都是明信片。</p>
+    <p>🎭 <strong>类型的高级转换</strong>：前半是明亮的家庭音乐喜剧，后半悄然滑入时代的洪流——笑着笑着，你会突然意识到它讲的是勇气与告别。</p>
+    <p>🏆 <strong>横扫奥斯卡</strong>：第 38 届奥斯卡最佳影片、最佳导演、最佳配乐等 5 项大奖，影史票房最成功的音乐片之一。</p>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>因为它证明了"治愈"和"力量"可以是同一件事：玛丽亚没有超能力，她只是拒绝让恐惧替这个家做决定。</p>
+    <p>最适合的打开方式：一个不赶时间的下午或晚上，全家一起，音量调大。当《Do-Re-Mi》响起时，你会明白为什么六十年来全世界的孩子都在跟着唱。</p>
+    <p>至于《雪绒花》那一场戏为什么被公认为影史最动人的告别之一——留给爷自己去看。🏔️</p>
+  </div>
+
+  <div class="card">
+    <h2>观影标签</h2>
+    <div class="tags">
+      <span class="tag">音乐片巅峰</span>
+      <span class="tag">真实故事改编</span>
+      <span class="tag">家庭与勇气</span>
+      <span class="tag">阿尔卑斯实景</span>
+      <span class="tag">合家欢</span>
+      <span class="tag">奥斯卡最佳影片</span>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月23日 · 经典电影推荐 · 由小虾米整理</em>
+  </footer>
+</div>
+
+</body>
+</html>

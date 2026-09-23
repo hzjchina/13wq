@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "音乐之声",
+          "date": "2026-09-23",
+          "summary": "音乐之声 ♪ ♫ ♩ 每日经典 · 周三片单 音乐之声 The Sound of Music (1965) · 豆瓣 9.1 / IMDb 8.1 ♪ ♫ ♩ 音乐之声 THE SOUND OF MUSIC · 1965 导演 罗伯特·怀斯...",
+          "path": "classic-movies/classic-movie-2026-09-23.html"
+        },
+        {
           "title": "死亡诗社",
           "date": "2026-09-22",
           "summary": "死亡诗社 死亡诗社 Dead Poets Society · 1989 · 美国 死亡诗社 DEAD POETS SOCIETY 导演 彼得·威尔 主演 罗宾·威廉姆斯 片长 128 分钟 剧情梗概 1959 年，美国最负盛名的威尔顿预备学...",
@@ -522,6 +528,12 @@
       "name": "睡前故事",
       "icon": "🌙",
       "items": [
+        {
+          "title": "小口琴的晚安曲",
+          "date": "2026-09-22",
+          "summary": "小口琴的晚安曲 — 儿童睡前故事 ♪ ♫ ♩ 小口琴的晚安曲 🎵 月光下的第一支曲子 · 3-8 岁睡前故事 ♪ ♫ ♩ 小口琴的晚安曲 主题 勇敢开始 · 慢慢来 适合年龄 3 - 8 岁 阅读时长 约 5 分钟 故事正文 玩具柜的抽屉里...",
+          "path": "bedtime-stories/bedtime-story-2026-09-22.html"
+        },
         {
           "title": "小桂花的晚安香",
           "date": "2026-09-21",
@@ -1248,6 +1260,12 @@
       "name": "AI情报",
       "icon": "🤖",
       "items": [
+        {
+          "title": "AI 情报日报 · 2026-09-23",
+          "date": "2026-09-23",
+          "summary": "AI 情报日报 · 2026-09-23 AI INTELLIGENCE DAILY AI 情报日报 2026-09-23 · 过去 24 小时 AI 圈大事件 · 侧重 AI coding 与 具身智能 方向 共 20 条 精选池 8 条...",
+          "path": "ai-info/ai-info-2026-09-23.html"
+        },
         {
           "title": "AI 情报日报 · 2026-09-22",
           "date": "2026-09-22",

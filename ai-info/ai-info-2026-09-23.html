@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-09-23</title>
+<style>
+  :root{
+    --bg:#070a14;
+    --bg-soft:#0b1020;
+    --card:#0e1428;
+    --card-border:rgba(120,140,255,.14);
+    --text:#e6ecff;
+    --text-dim:#8b96b8;
+    --cyan:#22d3ee;
+    --magenta:#f472b6;
+    --violet:#a78bfa;
+    --amber:#fbbf24;
+    --green:#34d399;
+    --line:rgba(120,140,255,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(var(--line) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:48px 48px;
+    pointer-events:none;
+    z-index:0;
+    mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 0%,transparent 78%);
+  }
+  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.5;z-index:0;pointer-events:none}
+  .glow.g1{width:520px;height:520px;background:radial-gradient(circle,#1e3a8a 0%,transparent 70%);top:-180px;left:-120px}
+  .glow.g2{width:460px;height:460px;background:radial-gradient(circle,#7c3aed 0%,transparent 70%);top:20%;right:-140px}
+  .glow.g3{width:420px;height:420px;background:radial-gradient(circle,#0891b2 0%,transparent 70%);bottom:-160px;left:30%}
+
+  .wrap{position:relative;z-index:1;max-width:1060px;margin:0 auto;padding:0 20px 80px}
+
+  header{padding:64px 0 28px;text-align:center}
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:13px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--cyan);border:1px solid rgba(34,211,238,.35);
+    padding:6px 16px;border-radius:999px;margin-bottom:22px;
+    background:rgba(34,211,238,.06);
+  }
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  h1{
+    font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-.02em;
+    background:linear-gradient(120deg,#fff 0%,#7dd3fc 40%,#a78bfa 75%,#f472b6 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    margin-bottom:12px;
+  }
+  .subtitle{color:var(--text-dim);font-size:15px;max-width:640px;margin:0 auto}
+  .subtitle b{color:var(--cyan);font-weight:600}
+
+  .stats{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:26px}
+  .stat{
+    font-size:13px;color:var(--text-dim);border:1px solid var(--card-border);
+    padding:7px 15px;border-radius:10px;background:rgba(14,20,40,.6);backdrop-filter:blur(6px);
+  }
+  .stat b{color:var(--text);font-weight:700}
+  .stat .n{color:var(--cyan);font-weight:700}
+
+  .legend{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:22px 0 6px}
+  .lg{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--text-dim)}
+  .lg .sw{width:10px;height:10px;border-radius:3px}
+
+  .cards{display:grid;gap:16px;margin-top:26px}
+  .card{
+    position:relative;background:linear-gradient(180deg,rgba(16,22,42,.9),rgba(10,14,28,.92));
+    border:1px solid var(--card-border);border-radius:16px;padding:22px 22px 18px;
+    overflow:hidden;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+  }
+  .card:hover{transform:translateY(-3px);border-color:rgba(120,140,255,.32);box-shadow:0 14px 44px rgba(10,16,40,.7)}
+  .card::before{
+    content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+    background:linear-gradient(90deg,transparent,var(--accent,#22d3ee),transparent);
+    opacity:.75;
+  }
+  .card-top{display:flex;align-items:flex-start;gap:14px}
+  .rank{
+    flex:none;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;color:var(--accent,#22d3ee);
+    background:color-mix(in srgb,var(--accent,#22d3ee) 12%,transparent);
+    border:1px solid color-mix(in srgb,var(--accent,#22d3ee) 35%,transparent);
+  }
+  .card-main{flex:1;min-width:0}
+  .title-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:8px}
+  .score{
+    flex:none;font-weight:800;font-size:13px;color:#0b1020;border-radius:7px;
+    padding:2px 8px;background:linear-gradient(135deg,var(--accent,#22d3ee),#a78bfa);
+    box-shadow:0 0 14px color-mix(in srgb,var(--accent,#22d3ee) 45%,transparent);
+  }
+  .badge{
+    font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;letter-spacing:.02em;
+  }
+  .badge.pick{color:var(--amber);border:1px solid rgba(251,191,36,.45);background:rgba(251,191,36,.10)}
+  .badge.full{color:var(--text-dim);border:1px solid rgba(139,150,184,.35);background:rgba(139,150,184,.08)}
+  .badge.dir{color:var(--accent,#22d3ee);border:1px solid color-mix(in srgb,var(--accent,#22d3ee) 45%,transparent);background:color-mix(in srgb,var(--accent,#22d3ee) 10%,transparent)}
+
+  h2.title{font-size:17px;font-weight:700;line-height:1.4;letter-spacing:-.01em}
+  h2.title a{color:var(--text);text-decoration:none;transition:color .2s}
+  h2.title a:hover{color:var(--cyan)}
+  .summary{color:#b9c3df;font-size:14px;margin:8px 0 10px}
+  .why{
+    font-size:13.5px;color:#9fb0d0;border-left:3px solid var(--accent,#22d3ee);
+    padding:4px 0 4px 12px;margin-top:4px;background:linear-gradient(90deg,color-mix(in srgb,var(--accent,#22d3ee) 6%,transparent),transparent);
+    border-radius:0 6px 6px 0;
+  }
+  .why b{color:var(--accent,#22d3ee);font-weight:600}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:12px;font-size:12px;color:var(--text-dim);
+    border-top:1px dashed rgba(120,140,255,.14);padding-top:11px;
+  }
+  .meta .src{color:#a5b1d0}
+  .meta a{color:var(--cyan);text-decoration:none}
+  .meta a:hover{text-decoration:underline}
+
+  footer{
+    text-align:center;margin-top:46px;font-size:12.5px;color:var(--text-dim);
+    border-top:1px solid var(--line);padding-top:22px;
+  }
+  footer a{color:var(--violet);text-decoration:none}
+
+  @media (max-width:640px){
+    header{padding:44px 0 20px}
+    .card{padding:18px 16px 16px}
+    .rank{width:30px;height:30px;font-size:14px}
+    h2.title{font-size:15.5px}
+  }
+</style>
+</head>
+<body>
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+  <div class="glow g3"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="kicker"><span class="dot"></span>AI INTELLIGENCE DAILY</div>
+      <h1>AI 情报日报</h1>
+      <p class="subtitle">2026-09-23 · 过去 24 小时 AI 圈大事件 · 侧重 <b>AI coding</b> 与 <b>具身智能</b> 方向</p>
+
+      <div class="stats">
+        <div class="stat">共 <span class="n">20</span> 条</div>
+        <div class="stat">精选池 <span class="n">8</span> 条</div>
+        <div class="stat">全量补充 <span class="n">12</span> 条</div>
+        <div class="stat">AI coding / Agent <span class="n">12</span> 条</div>
+        <div class="stat">具身智能 <span class="n">6</span> 条</div>
+      </div>
+
+      <div class="legend">
+        <span class="lg"><span class="sw" style="background:var(--cyan)"></span>AI coding / Agent</span>
+        <span class="lg"><span class="sw" style="background:var(--magenta)"></span>具身智能</span>
+        <span class="lg"><span class="sw" style="background:var(--violet)"></span>行业 / 模型 / 安全</span>
+        <span class="lg"><span class="sw" style="background:var(--amber)"></span>进入精选</span>
+        <span class="lg"><span class="sw" style="background:var(--text-dim)"></span>未进入精选（全量池补充）</span>
+      </div>
+    </header>
+
+    <div class="cards">
+
+      <!-- 1 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">1</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">88</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">模型 / AI coding</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmud2dm9s03w3ro5yar53tpf3" target="_blank" rel="noopener">OpenAI 发布 GPT-6 Sol 与 GPT-6 Luna：API 价格较 GPT-5.6 促销价降 50%</a></h2>
+            <p class="summary">GPT-6 系列新成员 Sol 与 Luna 正式发布，沿用 GPT-6 Astra 的训练方法，主打更快更经济，API 价格较 GPT-5.6 促销价再降 50%，已同步推送 ChatGPT Work、Codex 并上线 OpenRouter。Artificial Analysis 评测称成本减半、智能指数与 GPT-5.6 基本持平。</p>
+            <p class="why"><b>值得关注：</b>Astra 之后的首款"降本走量"款，把前沿推理价格直接砍半，与 Claude Opus 5.5 同日对轰，AI coding 的大规模推理成本门槛被进一步拉低。</p>
+            <div class="meta">
+              <span class="src">IT之家（RSS）等多源合并</span>
+              <span>收录 09-23 03:25</span>
+              <a href="https://aihot.news/items/cmud2dm9s03w3ro5yar53tpf3" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">2</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">87</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">模型 / AI coding</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucxy8iq04f0roniymw9tfvq" target="_blank" rel="noopener">Anthropic 发布 Claude Opus 5.5：成本较 Opus 5 降 40%，智能指数登顶</a></h2>
+            <p class="summary">Claude 5.5 系列首款模型，典型负载成本较 Opus 5 降 40%（输入 $4 / 输出 $20 每 Mtok、缓存读取 $0.20），输出提速 30% 以上，登顶 Artificial Analysis 智能指数（58 分），智能体编码与 computer use 能力领先 Opus 5。</p>
+            <p class="why"><b>值得关注：</b>与 GPT-6 Sol/Luna 同日发布，新一轮编码模型价格战白热化；Opus 5.5 被社区指疑似 Fable 5.1 的"蒸馏/改名"款，成为本周 AI 圈最大争议点。</p>
+            <div class="meta">
+              <span class="src">Hacker News 热门等多源合并</span>
+              <span>收录 09-23 01:21</span>
+              <a href="https://aihot.news/items/cmucxy8iq04f0roniymw9tfvq" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card" style="--accent:#a78bfa">
+        <div class="card-top">
+          <div class="rank">3</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">86</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">安全 / AI 军事化</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmud57mjw02snrora28mvi2h0" target="_blank" rel="noopener">五角大楼调查：过度依赖 Maven AI 是美军误击伊朗学校、123 名儿童死亡的原因之一</a></h2>
+            <p class="summary">五角大楼内部调查认定，2026-02-28 两枚 Tomahawk 导弹击中伊朗米纳布 Shajarah Tayyebeh 小学、致 150 余人死亡（含至少 123 名儿童），原因是情报过时、卫星图像七年未更新，以及 Centcom 部分人员过度依赖 Palantir 的 Maven Smart System。</p>
+            <p class="why"><b>值得关注：</b>AI 辅助军事决策因"过度依赖"酿成重大平民伤亡，是把 AI 武器化与决策依赖风险推向政策与舆论最沉痛的一例，直接触动致命自主武器监管议程。</p>
+            <div class="meta">
+              <span class="src">Hacker News：AI 热帖</span>
+              <span>收录 09-23 04:44</span>
+              <a href="https://aihot.news/items/cmud57mjw02snrora28mvi2h0" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">4</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">72</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">AI coding / 开源生态</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmuckj3gv09kiroed6m91iyre" target="_blank" rel="noopener">transformers 支持直接加载 GGUF 量化模型，本地推理性能接近 llama.cpp</a></h2>
+            <p class="summary">Hugging Face 宣布 transformers 支持直接运行 GGUF 量化模型，通过 from_pretrained 传入 gguf_file 即可加载 Hub 上的 GGUF checkpoint，并复用 ggml 的 Metal 内核，本地推理性能接近 llama.cpp。</p>
+            <p class="why"><b>值得关注：</b>主流框架对 GGUF 的原生支持，端侧 / 本地推理与 coding 的门槛再降，与 llama.cpp 生态进一步打通，对本地 Ollama 部署路线是明确利好。</p>
+            <div class="meta">
+              <span class="src">Hugging Face：Blog</span>
+              <span>收录 09-22 19:05</span>
+              <a href="https://aihot.news/items/cmuckj3gv09kiroed6m91iyre" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">5</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">70</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">AI coding / 降本</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucobbcz0hj4roedra9qgdbh" target="_blank" rel="noopener">OpenRouter 推出 Batch API，批量推理可享半价</a></h2>
+            <p class="summary">OpenRouter 发布 Batch API，异步批量请求由供应商在 24 小时窗口内完成，通常按正常 per-token 价格的 50% 或更低收费，目前已支持 70 多个模型。</p>
+            <p class="why"><b>值得关注：</b>为 agent 批处理与离线评测提供半价通道，与模型降价叠加，进一步压低 coding agent 规模化推理的边际成本。</p>
+            <div class="meta">
+              <span class="src">OpenRouter：Announcements</span>
+              <span>收录 09-22 20:51</span>
+              <a href="https://aihot.news/items/cmucobbcz0hj4roedra9qgdbh" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">6</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">69</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">Agent / 浏览器自动化</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmuckjawr09ljroedz4yf3xqf" target="_blank" rel="noopener">Kimi 发布浏览器扩展（前身 WebBridge）：侧边栏对话 + 录制步骤存为 skill</a></h2>
+            <p class="summary">Kimi 发布 Kimi Browser Extension，前身为 Kimi WebBridge。用户可在浏览器侧边栏与 Kimi 对话，让它导航网页、填写表单并完成任务；对重复性任务，可录制一次操作步骤保存为 skill，下次由 Kimi 接手自动执行。已上线 kimi.com 与 Chrome Web Store。</p>
+            <p class="why"><b>值得关注：</b>浏览器 agent 的"录制 → 复现"范式，把浏览器自动化从写脚本变成口述 + 录屏，是个人 agent 落地最实用、最易上手的一种形态。</p>
+            <div class="meta">
+              <span class="src">Kimi.ai（X）</span>
+              <span>收录 09-22</span>
+              <a href="https://aihot.news/items/cmuckjawr09ljroedz4yf3xqf" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">7</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">68</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">AI coding / 工具</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucxceh40salroedruwhn0ee" target="_blank" rel="noopener">Claude Code v2.1.280 发布，新增 Claude Opus 5.5 为默认 Opus 模型</a></h2>
+            <p class="summary">Claude Code 发布 v2.1.280，新增 Claude Opus 5.5（claude-opus-5-5）为默认 Opus 模型，支持 1M 上下文，价格为 $4/$20 per Mtok、缓存读取 $0.20/Mtok；同时将 Pro 和 Team Standard 计划的默认模型从 Sonnet 改为 Opus。</p>
+            <p class="why"><b>值得关注：</b>编码 CLI 第一时间接入 Opus 5.5，并把订阅默认模型从 Sonnet 直接升级到 Opus，体现 Anthropic 用"低价 Opus"抢占日常编码心智的策略。</p>
+            <div class="meta">
+              <span class="src">Claude Code：GitHub Releases</span>
+              <span>收录 09-23 01:04</span>
+              <a href="https://aihot.news/items/cmucxceh40salroedruwhn0ee" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">8</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">68</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">AI coding / IDE</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmuco2atx0hahroed7sbs5swp" target="_blank" rel="noopener">JetBrains 发布 Air 产品体系：IDE 智能体开发、团队协作与组织治理</a></h2>
+            <p class="summary">JetBrains 发布 JetBrains Air，一个面向开发者、团队和组织的开放智能体开发产品体系，包含 Air in JetBrains IDEs、Air Teams、Air Governance（原 JetBrains Central）三个产品，编码智能体 Junie 将支持所有 Air 表面。</p>
+            <p class="why"><b>值得关注：</b>老牌 IDE 厂商正面押注智能体原生开发，把 AI coding 从"编辑器插件"推向"组织级平台"，是编码工具范式迁移的重要信号。</p>
+            <div class="meta">
+              <span class="src">Hacker News：AI 热帖</span>
+              <span>收录 09-22</span>
+              <a href="https://aihot.news/items/cmuco2atx0hahroed7sbs5swp" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="card" style="--accent:#f472b6">
+        <div class="card-top">
+          <div class="rank">9</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">67</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">具身智能 / 机器人实验</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmuchxuzx06p7roednms2mriu" target="_blank" rel="noopener">Anthropic 在旧金山湾区设生物学实验室，让 Claude 指导机器人做药物实验</a></h2>
+            <p class="summary">Anthropic 在旧金山湾区建设生物学实验室，计划让 Claude 以极少人工参与的方式指导机器人开展药物实验，已推出面向研究人员的 Claude Science 工作区和控制实验设备的 Model Hardware Standard。</p>
+            <p class="why"><b>值得关注：</b>把"编码智能体"延伸到"实验机器人控制"，是 AI 从写代码走向操纵物理世界的具身化落地样本，也把具身智能边界推向科研实验自动化。</p>
+            <div class="meta">
+              <span class="src">The Decoder：AI News</span>
+              <span>收录 09-22 17:53</span>
+              <a href="https://aihot.news/items/cmuchxuzx06p7roednms2mriu" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="card" style="--accent:#a78bfa">
+        <div class="card-top">
+          <div class="rank">10</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">66</span>
+              <span class="badge pick">进入精选</span>
+              <span class="badge dir">研究 / AI 经济学</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmud77i8r04yerorajpj343j2" target="_blank" rel="noopener">Epoch AI 研究报告：达到同等 AI 性能的成本每季度下降约 47%</a></h2>
+            <p class="summary">Epoch AI 估算，过去三年达到同等 AI 性能的成本平均每季度下降约 47%（每年约 13 倍），刚达到 SOTA 的性能成本每季降 66%、两年后放缓至 32%。分析覆盖数学、硬科学和技能游戏类五个基准，并指出基准针对性训练、数据不完整等局限；数据与代码开源。</p>
+            <p class="why"><b>值得关注：</b>为"推理成本坍缩"提供硬数据，直接解释了本轮模型降价潮的底层趋势，也为 AI coding 的持续降本提供了可量化的参照系。</p>
+            <div class="meta">
+              <span class="src">Epoch AI：研究、数据与评测</span>
+              <span>收录 09-23 05:40</span>
+              <a href="https://aihot.news/items/cmud77i8r04yerorajpj343j2" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">11</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">66</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">AI coding / Agent 基建</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmudbxcld04uqroggbf1b5xbn" target="_blank" rel="noopener">Unreal Labs 发布 Unreal Agent 异步工具调用 harness，实测最高省 40% 成本</a></h2>
+            <p class="summary">Unreal Labs 发布 Unreal Agent，用全异步 harness 管理工具调用，免去模型自己处理等待、轮询和心跳的开销，实测最高可省 40% 成本。</p>
+            <p class="why"><b>值得关注：</b>在 agent 工程层（而非模型层）抠成本，异步 harness 成为降本新抓手，代表 coding agent 基础设施正在从"能用"走向"精细化"。</p>
+            <div class="meta">
+              <span class="src">Hacker News 热门（buzzing.cc 中文翻译）</span>
+              <span>收录 09-23 07:52</span>
+              <a href="https://aihot.news/items/cmudbxcld04uqroggbf1b5xbn" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="card" style="--accent:#f472b6">
+        <div class="card-top">
+          <div class="rank">12</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">61</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">具身智能 / 政策治理</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmuctszn50o60roed9haifmfm" target="_blank" rel="noopener">联合国秘书长古特雷斯联大呼吁全球监管 AI，警示杀人机器人风险</a></h2>
+            <p class="summary">联合国秘书长古特雷斯在联大卸任前最后一次讲话中呼吁对 AI 实施国际监管、建立新的安全保障机制，并明确反对致命自主武器出现在未来。他警告前沿大模型发展可能削弱主权国家治理能力，权力正转向少数私营企业；同期 OpenAI 呼吁制定国际认可的 AI 安全标准，二十多个国家及欧盟领导人呼吁对先进模型实施强制性安全测试。</p>
+            <p class="why"><b>值得关注：</b>具身智能的"致命自主武器"风险上升为联合国级议程，与美军 Maven 误击事件形成共振，为机器人 / AI 治理定下强监管基调。</p>
+            <div class="meta">
+              <span class="src">IT之家（RSS）</span>
+              <span>收录 09-22 23:25</span>
+              <a href="https://aihot.news/items/cmuctszn50o60roed9haifmfm" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">13</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">58</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">Agent / 企业数据</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucwllhf0renroedj6on853h" target="_blank" rel="noopener">Databricks Genie One MCP 正式发布，让任意 Agent 访问受治理业务数据</a></h2>
+            <p class="summary">Databricks 宣布 Genie One MCP 服务器正式向所有用户开放，让任意 Agent 通过统一接口获取 Genie One 的结构化与非结构化数据、洞察和答案，并以 Genie Ontology 作为受治理的业务上下文基础。</p>
+            <p class="why"><b>值得关注：</b>企业数据治理 × MCP 标准化的结合，为 coding agent 注入可信业务上下文，是 agent 真正进入企业生产环境的关键基建。</p>
+            <div class="meta">
+              <span class="src">Databricks：Blog</span>
+              <span>收录 09-23 00:43</span>
+              <a href="https://aihot.news/items/cmucwllhf0renroedj6on853h" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 14 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">14</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">57</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">AI coding / 开源 CLI</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucwgd8m0r9broedmwg4wi6s" target="_blank" rel="noopener">阶跃星辰开源 Step Code v0.1.0：CLI 覆盖完整开发流程</a></h2>
+            <p class="summary">阶跃星辰发布 Step Code v0.1.0，一个覆盖从读写代码、跑测试到交付完整开发流程的 CLI，并以 MIT 许可证开源。评估中 Terminal-Bench 2.1 得分 80.9%，自家 150 任务的 Multi-Frame 长程基准得分 73.3%，还支持通过 StepPage 一条命令发布静态网站。</p>
+            <p class="why"><b>值得关注：</b>国产模型厂加入开源 coding CLI 混战，与 Claude Code / Codex 正面竞争，MIT 开源 + 长程基准成绩亮眼，生态再添一极。</p>
+            <div class="meta">
+              <span class="src">阶跃星辰 StepFun（X）</span>
+              <span>收录 09-22</span>
+              <a href="https://aihot.news/items/cmucwgd8m0r9broedmwg4wi6s" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 15 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">15</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">57</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">AI coding / 推理效率</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmuc88ajn0d4urots1tmds2qc" target="_blank" rel="noopener">NVIDIA 等发布 SoL-Pi，将 Pi 编码 Agent 的 token 流量降低 44.7%-49.0%</a></h2>
+            <p class="summary">NVIDIA、NTU 和 MIT 的研究团队发布 SoL-Pi，一套为开源 Pi 编码 Agent 提供的 4 项效率机制，由 AI 通过 harness 层的自动研究循环发现。</p>
+            <p class="why"><b>值得关注：</b>用 AI 自动发现 agent 效率优化机制，token 流量近乎减半直击推理成本，是 coding agent 优化的自动化路线，与"降本"主线高度契合。</p>
+            <div class="meta">
+              <span class="src">MarkTechPost（RSS）</span>
+              <span>收录 09-22 13:21</span>
+              <a href="https://aihot.news/items/cmuc88ajn0d4urots1tmds2qc" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 16 -->
+      <div class="card" style="--accent:#22d3ee">
+        <div class="card-top">
+          <div class="rank">16</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">56</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">AI coding / 云托管</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucvh8cb0pvuroed1vgk0zyo" target="_blank" rel="noopener">DigitalOcean Managed Agents 开启公开预览：空闲暂停、按活跃时间计费</a></h2>
+            <p class="summary">DigitalOcean 宣布 Managed Agents 进入公开预览，可运行 Claude Code、Codex 或自己的 LangGraph 智能体，空闲时暂停、仅按活跃时间计费。</p>
+            <p class="why"><b>值得关注：</b>云厂商托管 coding agent 运行时，按活跃时间计费解决了 agent 空闲烧钱的痛点，agent 正走向"即用即付"的云服务形态。</p>
+            <div class="meta">
+              <span class="src">X：Elvis Saravia（DAIR.AI）</span>
+              <span>收录 09-23 00:12</span>
+              <a href="https://aihot.news/items/cmucvh8cb0pvuroed1vgk0zyo" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 17 -->
+      <div class="card" style="--accent:#f472b6">
+        <div class="card-top">
+          <div class="rank">17</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">50</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">具身智能 / 端侧感知</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmuc4ilu908y5rots1eh5vshs" target="_blank" rel="noopener">面壁 MiniCPM-o 4.5 驱动机器人实时感知（Pi Zero 端侧）</a></h2>
+            <p class="summary">社区用 Raspberry Pi Zero W2（摄像头 + 环境麦克风）本地运行面壁 MiniCPM-o 4.5 开源模型，零云端 API、全双工实时双向音视频传输，给个人机器人装上"眼睛和耳朵"。</p>
+            <p class="why"><b>值得关注：</b>开源端侧多模态模型落地个人机器人，具身智能"去云端、上端侧"的轻量样板，与本地推理趋势同频。</p>
+            <div class="meta">
+              <span class="src">面壁智能 OpenBMB（X）</span>
+              <span>收录 09-22 11:37</span>
+              <a href="https://aihot.news/items/cmuc4ilu908y5rots1eh5vshs" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 18 -->
+      <div class="card" style="--accent:#f472b6">
+        <div class="card-top">
+          <div class="rank">18</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">48</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">具身智能 / 机器人中间件</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucmobdh0fiqroedneva5t18" target="_blank" rel="noopener">NVIDIA 发布 Isaac ROS 5.0，推进智能体与开源机器人开发</a></h2>
+            <p class="summary">NVIDIA 在 ROSCon 发布 Isaac ROS 5.0，新增智能体工作流与平台支持，支持 ROS Lyrical 和 Ubuntu 24.04。FoundationPose 推理库让物体位姿感知与跟踪最高提速 5.5 倍，服务近 130 万 ROS 用户。</p>
+            <p class="why"><b>值得关注：</b>把智能体工作流并入机器人中间件，具身智能与 agent 技术栈加速融合，是机器人开发走向"智能体原生"的信号。</p>
+            <div class="meta">
+              <span class="src">NVIDIA Blog</span>
+              <span>收录 09-22 20:05</span>
+              <a href="https://aihot.news/items/cmucmobdh0fiqroedneva5t18" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 19 -->
+      <div class="card" style="--accent:#f472b6">
+        <div class="card-top">
+          <div class="rank">19</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">47</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">具身智能 / 人形机器人</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmucesrlz038aroedc5kpjfk6" target="_blank" rel="noopener">消息称小鹏机器人完成供应链审厂及核心零部件定点，与特斯拉供应商重合度高</a></h2>
+            <p class="summary">消息人士透露，小鹏机器人已完成供应链审厂及核心零部件定点，量产进程进一步推进。9-22 小鹏集团举行首届机器人供应链合作伙伴大会，执行器、灵巧手、传感器、AI 芯片等领域头部企业出席，且与近期赴华审厂的特斯拉机器人团队在核心供应商层面存在较高重合度。</p>
+            <p class="why"><b>值得关注：</b>人形机器人供应链进入"定点量产"阶段，国产厂商与特斯拉共用供应链，预示人形机器人量产竞赛正在升温。</p>
+            <div class="meta">
+              <span class="src">IT之家（RSS）</span>
+              <span>收录 09-22 16:25</span>
+              <a href="https://aihot.news/items/cmucesrlz038aroedc5kpjfk6" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 20 -->
+      <div class="card" style="--accent:#f472b6">
+        <div class="card-top">
+          <div class="rank">20</div>
+          <div class="card-main">
+            <div class="title-row">
+              <span class="score">46</span>
+              <span class="badge full">未进入精选</span>
+              <span class="badge dir">具身智能 / VLA 世界模型</span>
+            </div>
+            <h2 class="title"><a href="https://aihot.news/items/cmubzsljm03mtrots18u5nike" target="_blank" rel="noopener">小鹏第二代 VLA XOS 6.3.0 推送：3D 空间识别跃迁至 4D 时空理解</a></h2>
+            <p class="summary">小鹏汽车第二代 VLA 全新版本 XOS 6.3.0 开启推送，官方称从 3D 空间识别跃迁至 4D 时空理解。首次上车 X-Foresight 预测世界模型（可预判未来 6 秒），并引入 Infini-VLA 长时序架构（可记忆前 30 秒世界），第二代 VLA Lite 同步推送、单图灵 Max 车型升级。</p>
+            <p class="why"><b>值得关注：</b>VLA（视觉-语言-动作）世界模型量产上车，具身智能范式在智驾场景落地，是"世界模型驱动"路线的重要量产样本。</p>
+            <div class="meta">
+              <span class="src">IT之家（RSS）</span>
+              <span>收录 09-22 09:25</span>
+              <a href="https://aihot.news/items/cmubzsljm03mtrots18u5nike" target="_blank" rel="noopener">AI HOT ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer>
+      数据来源：<a href="https://aihot.virxact.com" target="_blank" rel="noopener">AI HOT</a> · 精选池 24h + 全量池关键词补充（AI coding / 具身智能等 18 个关键词）<br>
+      生成时间 2026-09-23 08:30 · 单文件内联 CSS · 无外部资源依赖
+    </footer>
+  </div>
+</body>
+</html>
