@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大闹天宫</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(160deg, #14101f 0%, #241432 55%, #33182a 100%);
+    color: #f5edff; line-height: 1.9; min-height: 100vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 40px 22px 56px; }
+  .poster { text-align: center; margin-bottom: 26px; }
+  .poster svg { max-width: 100%; height: auto; filter: drop-shadow(0 12px 32px rgba(0,0,0,.45)); }
+  h1 { font-size: 32px; letter-spacing: 4px; text-align: center; color: #ffd76e; text-shadow: 0 0 24px rgba(255,180,80,.3); }
+  .en { text-align: center; font-size: 13px; color: #a88fc0; letter-spacing: 2px; margin-top: 6px; }
+  .info-bar {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin: 20px 0 8px;
+  }
+  .info-bar span {
+    font-size: 13px; color: #ffcf9e; background: rgba(255,180,110,.09);
+    border: 1px solid rgba(255,180,110,.25); border-radius: 999px; padding: 4px 14px;
+  }
+  .score { text-align: center; margin: 6px 0 26px; font-size: 15px; color: #ffdfb0; }
+  .score b { color: #ffd76e; font-size: 20px; }
+  .card {
+    background: rgba(30, 18, 46, .8); border: 1px solid rgba(255, 200, 120, .14);
+    border-radius: 20px; padding: 30px 28px; box-shadow: 0 10px 40px rgba(0,0,0,.35);
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 19px; color: #ff9e6e; margin-bottom: 14px; letter-spacing: 2px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .card h2::before { content: ""; width: 20px; height: 2.5px; background: linear-gradient(90deg,#ff9e6e,#ffd76e); border-radius: 2px; }
+  .card p { font-size: 16.5px; margin-bottom: 13px; color: #ece4f8; }
+  .card p:last-child { margin-bottom: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .tag {
+    font-size: 13.5px; color: #ffc9a0; padding: 5px 16px; border-radius: 999px;
+    border: 1px dashed rgba(255,180,110,.4); background: rgba(255,180,110,.06);
+  }
+  .tip {
+    text-align: center; font-size: 14px; color: #b9a3d6; margin-top: 30px;
+    padding: 16px; border-top: 1px solid rgba(255,200,120,.12);
+  }
+  .clouds { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+  .clouds i {
+    position: absolute; display: block; width: 140px; height: 26px; border-radius: 999px;
+    background: radial-gradient(closest-side, rgba(255,190,120,.14), transparent);
+    animation: drift 26s linear infinite;
+  }
+  .clouds i:nth-child(1) { top: 16%; left: -160px; }
+  .clouds i:nth-child(2) { top: 46%; left: -160px; animation-duration: 34s; animation-delay: 6s; width: 180px; }
+  .clouds i:nth-child(3) { top: 72%; left: -160px; animation-duration: 30s; animation-delay: 12s; }
+  @keyframes drift { from { transform: translateX(0); } to { transform: translateX(120vw); } }
+  .wrap { position: relative; z-index: 1; }
+  @media (max-width: 480px) {
+    .wrap { padding: 28px 14px 48px; }
+    h1 { font-size: 26px; }
+    .card { padding: 24px 18px; }
+    .card p { font-size: 15.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .clouds i { animation: none; } }
+</style>
+</head>
+<body>
+<div class="clouds"><i></i><i></i><i></i></div>
+<div class="wrap">
+  <div class="poster">
+    <svg viewBox="0 0 620 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="戏曲风格的孙悟空剪影，手举金箍棒，身后是祥云与天宫">
+      <defs>
+        <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1b1030"/><stop offset="1" stop-color="#3a1a2e"/>
+        </linearGradient>
+        <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#ffe9a8"/><stop offset="1" stop-color="#f2b13e"/>
+        </linearGradient>
+        <radialGradient id="halo" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#ff9e5e" stop-opacity=".5"/><stop offset="1" stop-color="#ff9e5e" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="620" height="320" rx="20" fill="url(#bg)"/>
+      <circle cx="310" cy="160" r="150" fill="url(#halo)"/>
+      <g fill="#ffe9a8" opacity=".9">
+        <circle cx="70" cy="52" r="2"/><circle cx="150" cy="34" r="1.5"/><circle cx="520" cy="46" r="2"/>
+        <circle cx="560" cy="120" r="1.5"/><circle cx="52" cy="150" r="1.6"/><circle cx="480" cy="280" r="1.4"/>
+      </g>
+      <g fill="#8a5aa8" opacity=".55">
+        <path d="M40 270 q 40 -26 90 -6 q 30 12 60 -2 q 50 -20 90 4 q 40 18 -10 26 q -80 12 -150 2 q -60 -8 -80 -24 Z"/>
+        <path d="M330 300 q 50 -22 100 -4 q 36 12 70 -6 q 46 -22 80 8 q -20 16 -70 20 q -90 8 -180 -18 Z"/>
+        <path d="M80 100 q 36 -20 70 -2 q -30 16 -70 2 Z" opacity=".6"/>
+        <path d="M470 88 q 40 -18 72 4 q -34 12 -72 -4 Z" opacity=".6"/>
+      </g>
+      <g>
+        <path d="M236 96 q 74 -46 148 0 l -12 16 q -62 -36 -124 0 Z" fill="url(#gold)"/>
+        <circle cx="238" cy="102" r="7" fill="#ffd76e"/>
+        <circle cx="382" cy="102" r="7" fill="#ffd76e"/>
+        <path d="M262 116 q 48 -26 96 0 q 6 30 -10 44 l -76 0 q -16 -14 -10 -44 Z" fill="#e86a3a"/>
+        <path d="M258 130 q 52 -18 104 0 l 0 6 q -52 -16 -104 0 Z" fill="#f5f0e0" opacity=".85"/>
+        <circle cx="286" cy="128" r="4.6" fill="#fff6da"/>
+        <circle cx="334" cy="128" r="4.6" fill="#fff6da"/>
+        <circle cx="288" cy="128" r="2" fill="#7a1a1a"/>
+        <circle cx="332" cy="128" r="2" fill="#7a1a1a"/>
+        <path d="M300 140 q 10 8 20 0" stroke="#7a1a1a" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <path d="M252 128 q -12 -4 -16 6 q 8 6 16 2 Z" fill="#ff9e6e"/>
+        <path d="M368 128 q 12 -4 16 6 q -8 6 -16 2 Z" fill="#ff9e6e"/>
+        <path d="M270 162 q -30 40 -18 74 l 24 -10 l 2 -64 Z" fill="#e86a3a"/>
+        <path d="M350 162 q 30 40 18 74 l -24 -10 l -2 -64 Z" fill="#e86a3a"/>
+        <rect x="284" y="158" width="52" height="76" rx="24" fill="#f2a13e"/>
+        <path d="M284 176 q 26 14 52 0 l 0 8 q -26 14 -52 0 Z" fill="#c22a3a"/>
+        <path d="M284 210 q 26 12 52 0 l 0 8 q -26 12 -52 0 Z" fill="#c22a3a"/>
+        <path d="M252 236 l -18 44 l 22 6 l 16 -44 Z" fill="#e8b06a"/>
+        <path d="M368 236 l 18 44 l -22 6 l -16 -44 Z" fill="#e8b06a"/>
+        <path d="M292 234 l -6 52 l 20 0 l 8 -52 Z" fill="#c22a3a"/>
+        <path d="M326 234 l 6 52 l -20 0 l -8 -52 Z" fill="#c22a3a"/>
+        <rect x="392" y="66" width="10" height="212" rx="5" fill="url(#gold)" transform="rotate(14 397 172)"/>
+        <rect x="386" y="60" width="22" height="26" rx="6" fill="url(#gold)" transform="rotate(14 397 73)"/>
+        <circle cx="446" cy="60" r="4" fill="#ffe9a8"/>
+        <circle cx="462" cy="66" r="3" fill="#ffe9a8"/>
+        <path d="M420 60 q 8 -8 16 0" stroke="#ffd76e" stroke-width="2" fill="none"/>
+      </g>
+      <text x="310" y="310" text-anchor="middle" font-size="13" fill="#c9a86e" letter-spacing="4">齐天大圣 · 1961 / 1964 上下集</text>
+    </svg>
+  </div>
+
+  <h1>大闹天宫</h1>
+  <div class="en">Havoc in Heaven · 1961 / 1964 · 上海美术电影制片厂</div>
+
+  <div class="info-bar">
+    <span>导演：万籁鸣</span>
+    <span>类型：动画 / 奇幻 / 冒险</span>
+    <span>片长：114 分钟（上下集）</span>
+    <span>彩色 · 手绘</span>
+  </div>
+  <div class="score">豆瓣 <b>9.4</b> ｜ IMDb 8.2 ｜ 中国动画百年第一座高峰</div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>花果山上的一只石猴，学得一身本领，自封"齐天大圣"。天庭嫌他野性难驯，先是招安封了个弼马温的小官，哄他看马；被识破轻慢后，又假意请他看管蟠桃园。当大圣发现蟠桃盛会压根没请自己，一场搅动天宫的大闹，就此拉开帷幕。</p>
+    <p>至于他一个猴子，怎么单挑十万天兵、怎么在炼丹炉里炼出一双火眼金睛、又怎么把"皇帝轮流做"喊到玉帝面前——这些名场面，留给屏幕前的你亲自揭晓。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <p><b>纯手绘的奇迹。</b> 没有电脑的年代，全片数万幅画稿一笔一笔画成，历时四年才完成。孙悟空的每一个腾挪、打斗中的每一根毫毛，都是动画师们手上的真功夫。</p>
+    <p><b>京剧的魂。</b> 配乐锣鼓点取自京戏，人物动作带戏曲身段，孙悟空的脸谱化设计（桃心脸、鹅黄衣、翠绿眉）至今仍是中国文化里最有辨识度的形象之一。</p>
+    <p><b>想象力不输今天的特效大片。</b> 七十二变、筋斗云、分身术、金箍棒随心大小——六十多年前的"视效"，全靠画笔实现，反而更有一种华丽而自由的生命力。</p>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>这是几乎所有中国动画人的"起点教科书"：宫崎骏访华时曾专程拜访上海美术电影制片厂，《铁臂阿童木》的手冢治虫更是直言受它影响才弃医从画。</p>
+    <p>但即使抛开所有光环，它依然是那种"看十分钟就忘了年代"的作品——节奏明快、色彩浓烈、动作行云流水，大人看的是影史地位，孩子看的是一只天不怕地不怕的猴子。</p>
+    <p>昨天《音乐之声》唱的是温柔，今天这只猴子，替所有人把心里的"不甘心"翻了个底朝天。一柔一刚，正好配成一对。</p>
+  </div>
+
+  <div class="card">
+    <h2>观影小建议</h2>
+    <p>上下集一起看更过瘾；家里有小朋友的话，这是绝佳的"全家共赏片"——它可能是最适合作为孩子"第一部老电影"的选择。看完别忘了指给他看：孙悟空的动画，全都是画出来的哦。</p>
+    <div class="tags">
+      <span>手绘动画巅峰</span>
+      <span>京剧美学</span>
+      <span>合家欢</span>
+      <span>国漫鼻祖</span>
+      <span>反抗与自由</span>
+    </div>
+  </div>
+
+  <div class="tip">每日一部经典 · 今天轮到齐天大圣出场 🐒</div>
+</div>
+</body>
+</html>

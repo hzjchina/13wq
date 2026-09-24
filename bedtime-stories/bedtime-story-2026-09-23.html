@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小狐狸的暖尾巴 — 儿童睡前故事</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, #1a1230 0%, #241a40 45%, #33224d 100%);
+    color: #f0e9ff;
+    min-height: 100vh;
+    overflow-x: hidden;
+    line-height: 1.9;
+  }
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+  .star { position: absolute; background: #fff8e1; border-radius: 50%; animation: twinkle 3s ease-in-out infinite; }
+  .star:nth-child(odd) { animation-delay: 1.2s; }
+  .star:nth-child(3n) { animation-delay: 2.1s; width: 3px; height: 3px; }
+  @keyframes twinkle { 0%,100% { opacity: .25; } 50% { opacity: 1; } }
+  .moon {
+    position: absolute; top: 42px; right: 8%; width: 64px; height: 64px;
+    border-radius: 50%; background: #ffe9b0;
+    box-shadow: 0 0 34px 10px rgba(255,230,160,.35), 0 0 90px 30px rgba(255,230,160,.12);
+  }
+  .meteor {
+    position: absolute; top: 12%; left: -10%; width: 120px; height: 2px;
+    background: linear-gradient(90deg, transparent, #fff3d6);
+    transform: rotate(12deg); opacity: 0; animation: meteor 9s linear infinite;
+  }
+  .meteor.m2 { top: 30%; animation-delay: 5s; width: 90px; }
+  @keyframes meteor { 0% { left: -12%; opacity: 0; } 6% { opacity: .9; } 22% { left: 110%; opacity: 0; } 100% { left: 110%; opacity: 0; } }
+  .wrap { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; padding: 34px 22px 50px; }
+  .title-box { text-align: center; margin-bottom: 26px; }
+  .title-box .kicker { font-size: 13px; letter-spacing: 6px; color: #b8a6e8; margin-bottom: 10px; }
+  .title-box h1 { font-size: 30px; letter-spacing: 3px; color: #ffe9b0; text-shadow: 0 0 20px rgba(255,220,140,.25); }
+  .title-box .sub { margin-top: 10px; font-size: 14px; color: #9d8fc7; }
+  .card {
+    background: rgba(38, 28, 66, .78);
+    border: 1px solid rgba(255, 225, 160, .14);
+    border-radius: 20px; padding: 30px 28px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.35);
+    backdrop-filter: blur(4px);
+  }
+  .card h2 {
+    font-size: 18px; color: #ffc9a0; margin: 26px 0 12px; letter-spacing: 2px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .card h2::before { content: ""; width: 18px; height: 2px; background: #ffc9a0; border-radius: 2px; }
+  .card h2:first-child { margin-top: 0; }
+  .card p { font-size: 17.5px; margin-bottom: 14px; color: #eee6ff; }
+  .moral {
+    margin-top: 24px; padding: 18px 20px; border-radius: 14px;
+    background: rgba(255, 201, 160, .08); border: 1px dashed rgba(255, 201, 160, .35);
+  }
+  .moral h2 { margin: 0 0 10px; }
+  .moral p { margin: 0; font-size: 16.5px; color: #ffd9b8; }
+  .goodnight {
+    margin-top: 26px; text-align: center; padding: 22px 18px;
+    background: linear-gradient(135deg, rgba(255,220,150,.12), rgba(180,140,255,.10));
+    border-radius: 16px; border: 1px solid rgba(255,225,160,.2);
+  }
+  .goodnight .icon { font-size: 26px; margin-bottom: 8px; }
+  .goodnight p { font-size: 16.5px; color: #ffe9c4; margin: 0; }
+  .art { text-align: center; margin: 6px 0 10px; }
+  .art svg { max-width: 100%; height: auto; }
+  .tail { position: fixed; bottom: 14px; left: 0; right: 0; text-align: center; font-size: 12px; color: #7a6da3; z-index: 1; }
+  @media (max-width: 480px) {
+    .wrap { padding: 26px 14px 44px; }
+    .title-box h1 { font-size: 25px; }
+    .card { padding: 24px 18px; }
+    .card p { font-size: 16.5px; }
+    .moon { width: 50px; height: 50px; right: 6%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .star, .meteor { animation: none; }
+  }
+</style>
+</head>
+<body>
+<div class="sky">
+  <div class="moon"></div>
+  <div class="star" style="top:8%;left:12%;width:2px;height:2px;"></div>
+  <div class="star" style="top:15%;left:30%;width:2.5px;height:2.5px;"></div>
+  <div class="star" style="top:6%;left:55%;width:2px;height:2px;"></div>
+  <div class="star" style="top:22%;left:70%;width:2.5px;height:2.5px;"></div>
+  <div class="star" style="top:10%;left:85%;width:2px;height:2px;"></div>
+  <div class="star" style="top:30%;left:8%;width:2px;height:2px;"></div>
+  <div class="star" style="top:38%;left:42%;width:2.5px;height:2.5px;"></div>
+  <div class="star" style="top:18%;left:90%;width:2px;height:2px;"></div>
+  <div class="star" style="top:44%;left:80%;width:2px;height:2px;"></div>
+  <div class="star" style="top:26%;left:20%;width:2px;height:2px;"></div>
+  <div class="meteor"></div>
+  <div class="meteor m2"></div>
+</div>
+
+<div class="wrap">
+  <div class="title-box">
+    <div class="kicker">睡 前 故 事</div>
+    <h1>小狐狸的暖尾巴</h1>
+    <div class="sub">一个关于分享温暖的秋夜故事 🍂</div>
+  </div>
+
+  <div class="card">
+    <div class="art">
+      <svg viewBox="0 0 560 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="月夜里，红尾巴小狐狸把大尾巴卷成圆圈，小田鼠和小甲虫睡在里面">
+        <defs>
+          <linearGradient id="skyg" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#2a1f4d"/><stop offset="1" stop-color="#3a2a5e"/>
+          </linearGradient>
+          <radialGradient id="moong" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#fff4cf"/><stop offset="1" stop-color="#ffe9b0"/>
+          </radialGradient>
+        </defs>
+        <rect width="560" height="300" rx="18" fill="url(#skyg)"/>
+        <circle cx="480" cy="58" r="30" fill="url(#moong)" opacity=".95"/>
+        <circle cx="480" cy="58" r="44" fill="none" stroke="#ffe9b0" stroke-opacity=".18" stroke-width="1.5"/>
+        <circle cx="60" cy="50" r="2" fill="#fff8e1"/><circle cx="150" cy="36" r="1.6" fill="#fff8e1"/>
+        <circle cx="240" cy="62" r="1.8" fill="#fff8e1"/><circle cx="330" cy="40" r="1.5" fill="#fff8e1"/>
+        <circle cx="400" cy="80" r="1.6" fill="#fff8e1"/><circle cx="90" cy="96" r="1.5" fill="#fff8e1"/>
+        <path d="M0 262 Q 140 232 280 252 T 560 248 V 300 H 0 Z" fill="#2e2350"/>
+        <path d="M0 276 Q 180 254 340 268 T 560 266 V 300 H 0 Z" fill="#241b42"/>
+        <g>
+          <ellipse cx="268" cy="246" rx="120" ry="17" fill="#1c1538" opacity=".8"/>
+          <path d="M300 238 C 336 210 380 214 396 244 C 402 258 384 266 360 262 C 330 268 306 260 300 238 Z" fill="#e86a3a"/>
+          <path d="M398 244 C 416 232 434 234 444 246 C 436 254 420 258 406 254 Z" fill="#e86a3a"/>
+          <circle cx="296" cy="230" r="20" fill="#f0854e"/>
+          <path d="M280 216 L 276 202 L 290 210 Z" fill="#f0854e"/>
+          <path d="M312 216 L 316 202 L 302 210 Z" fill="#f0854e"/>
+          <path d="M280 206 Q 284 198 292 200" stroke="#fff8e1" stroke-width="2" fill="none"/>
+          <path d="M312 206 Q 308 198 300 200" stroke="#fff8e1" stroke-width="2" fill="none"/>
+          <circle cx="290" cy="228" r="2.4" fill="#2a1230"/>
+          <circle cx="303" cy="228" r="2.4" fill="#2a1230"/>
+          <path d="M293 236 Q 297 240 301 236" stroke="#7a2a1a" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <path d="M322 232 C 344 226 362 230 372 240" stroke="#e86a3a" stroke-width="7" fill="none" stroke-linecap="round"/>
+        </g>
+        <g>
+          <ellipse cx="392" cy="252" rx="22" ry="14" fill="#a8a0c8"/>
+          <circle cx="408" cy="246" r="9" fill="#bcb4d8"/>
+          <circle cx="411" cy="244" r="1.8" fill="#2a1230"/>
+          <path d="M406 238 L 408 232 L 412 238 Z" fill="#f0b8d8"/>
+          <path d="M418 236 L 421 230 L 424 237 Z" fill="#f0b8d8"/>
+          <ellipse cx="386" cy="246" rx="16" ry="10" fill="#c8c0e0" opacity=".9"/>
+        </g>
+        <g transform="translate(446,250)">
+          <ellipse cx="0" cy="0" rx="13" ry="9" fill="#5a8a5a"/>
+          <circle cx="10" cy="-3" r="6.5" fill="#6aa06a"/>
+          <path d="M8 -8 L 10 -13 L 12 -8 Z" fill="#3a6a3a"/>
+          <path d="M13 -7 L 16 -12 L 15 -6 Z" fill="#3a6a3a"/>
+          <circle cx="12" cy="-4" r="1.4" fill="#123012"/>
+        </g>
+        <g fill="#ffd9b8" opacity=".85">
+          <circle cx="120" cy="200" r="2.2"/><circle cx="190" cy="170" r="1.8"/><circle cx="90" cy="150" r="1.6"/>
+          <circle cx="160" cy="120" r="1.8"/><circle cx="60" cy="186" r="1.5"/>
+        </g>
+        <text x="280" y="292" text-anchor="middle" font-size="11" fill="#8a7cb5">暖尾巴小被子 · 盖住怕冷的小伙伴</text>
+      </svg>
+    </div>
+
+    <h2>故事正文</h2>
+    <p>秋天的夜晚，风变得凉凉的。山坡上的草丛里，小狐狸绒绒竖起了耳朵——她听见小小声的"嘤嘤嘤"。</p>
+    <p>原来是小田鼠豆豆。他出门捡橡果，走着走着迷了路，风一吹，冷得直发抖。</p>
+    <p>绒绒走过去，轻轻蹲下来，把身后那条毛茸茸的大尾巴一卷，盖在豆豆身上，就像一床蓬蓬的小被子。</p>
+    <p>"别怕，"绒绒说，"我的尾巴可暖和啦，先借你盖一盖。"</p>
+    <p>豆豆从尾巴缝里探出小鼻子，笑了。暖烘烘的，像躲进了小棉袄里。</p>
+    <p>过了一会儿，树叶上传来"窸窸窣窣"的声音——小甲虫圆圆也冷得走不动了。她的翅膀被露水打湿，飞不起来。</p>
+    <p>绒绒想了想，把尾巴又挪了挪，卷成一个圆圆的圈："来来来，圈圈里面还有位置，一人一半。"</p>
+    <p>豆豆和圆圆挤在一起，尾巴被子刚好盖住两个小家伙。绒绒自己呢，就弓着背，把自己也缩进尾巴边上。</p>
+    <p>月亮把银色的光轻轻洒下来，给大尾巴镀上了一层亮亮的边。</p>
+    <p>狐狸妈妈找来的时候，看见绒绒蜷成一个小毛球，旁边还露出两个小脑袋，睡得香香的。</p>
+    <p>妈妈小声问："尾巴都借出去了，你自己不冷吗？"</p>
+    <p>绒绒迷迷糊糊地眨眨眼："妈妈，奇怪呀——分出去一半，心里反而更暖了。"</p>
+    <p>妈妈笑了，用自己的大尾巴，把绒绒一家三口……哦不，一家四口（还有豆豆和圆圆呢），统统圈进了怀里。</p>
+    <p>那一夜，山坡上的风还是凉凉的，可草丛里的小被窝，是整个秋天最暖的地方。</p>
+
+    <div class="moral">
+      <h2>藏在故事里的话</h2>
+      <p>温暖是很奇妙的东西——分出去一半，不会变少，反而会变多。就像绒绒的大尾巴，盖住的朋友越多，心里就越暖和。</p>
+    </div>
+
+    <div class="goodnight">
+      <div class="icon">🦊🌙</div>
+      <p>晚安，小宝贝。小狐狸绒绒说，你今天也是个好孩子，愿你也有一条暖暖的大尾巴，盖着做一个香香的梦。</p>
+    </div>
+  </div>
+</div>
+<div class="tail">每晚一个温暖的小故事 · 陪小朋友安心入睡</div>
+</body>
+</html>
