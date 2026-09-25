@@ -1,0 +1,9 @@
+# WorkBuddy 项目数据（记忆、会话等），不入库
+.workbuddy/
+
+# Python 编译缓存
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store

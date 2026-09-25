@@ -333,6 +333,12 @@ header {
   white-space: nowrap;
 }
 
+.audio-badge {
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.16);
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
 .card-date {
   font-size: 13px;
   color: var(--text-muted);
@@ -695,9 +701,10 @@ function renderList() {
     const card = document.createElement('div');
     card.className = 'card';
     const badge = item.rewatch ? `<span class="rewatch-badge">🔁 重温${item.rewatch}次</span>` : '';
+    const audioBadge = item.audio ? `<span class="rewatch-badge audio-badge">🔊 有声</span>` : '';
     card.innerHTML = `
       <div class="card-header">
-        <div class="card-title">${escapeHtml(item.title)}${badge}</div>
+        <div class="card-title">${escapeHtml(item.title)}${badge}${audioBadge}</div>
         <div class="card-date">${item.date}</div>
       </div>
       <div class="card-summary">${escapeHtml(item.summary)}</div>

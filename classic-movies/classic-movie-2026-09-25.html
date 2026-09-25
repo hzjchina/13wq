@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>情书</title>
+<style>
+  :root{
+    --bg:#f6f4f0;
+    --card:#ffffff;
+    --ink:#2b2a28;
+    --sub:#6b6a66;
+    --line:#e6e2da;
+    --accent:#b07a5a;
+    --soft:#eef0f4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.85;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:40px 20px 60px;}
+  .hero{
+    background:linear-gradient(160deg,#f7ede6 0%,#eef0f4 100%);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:40px 28px;
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .hero .kicker{
+    font-size:13px;letter-spacing:.2em;color:var(--accent);
+    text-transform:uppercase;margin-bottom:14px;
+  }
+  .hero h1{font-size:38px;font-weight:700;letter-spacing:.04em;}
+  .hero .en{font-size:15px;color:var(--sub);margin-top:8px;font-style:italic;}
+  .hero .meta{
+    margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  }
+  .hero .tag{
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:6px 16px;font-size:14px;color:var(--sub);
+  }
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:28px;margin-bottom:20px;
+  }
+  .card h2{
+    font-size:20px;margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .card h2::before{
+    content:"";width:4px;height:22px;background:var(--accent);border-radius:2px;
+    display:inline-block;
+  }
+  .card p{margin-bottom:12px;}
+  .card p:last-child{margin-bottom:0;}
+  .quote{
+    font-size:18px;color:#5a5750;font-style:italic;border-left:3px solid var(--accent);
+    padding-left:16px;margin:18px 0;
+  }
+  .score{
+    display:flex;gap:24px;justify-content:center;margin-top:18px;flex-wrap:wrap;
+  }
+  .score .s{text-align:center;}
+  .score .num{font-size:28px;font-weight:700;color:var(--accent);}
+  .score .lbl{font-size:13px;color:var(--sub);}
+  .foot{
+    text-align:center;color:var(--sub);font-size:13px;margin-top:30px;
+  }
+  @media(max-width:480px){
+    .hero h1{font-size:30px;}
+    .card{padding:22px;}
+    body{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Classic Recommendation</div>
+    <h1>情书</h1>
+    <div class="en">Love Letter · 1995</div>
+    <div class="meta">
+      <span class="tag">导演 · 岩井俊二</span>
+      <span class="tag">主演 · 中山美穗 / 丰川悦司 / 柏原崇</span>
+      <span class="tag">日本 · 爱情</span>
+    </div>
+    <div class="score">
+      <div class="s"><div class="num">8.9</div><div class="lbl">豆瓣评分</div></div>
+      <div class="s"><div class="num">8.5</div><div class="lbl">IMDb</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>渡边博子住在神户，她的未婚夫藤井树在登山时意外离世已经三年。博子始终无法释怀，在一次翻看旧物时，她找到了藤井树少年时代在小樽的住址。怀着对亡人的思念，她往那个地址寄去了一封本不该有回音的信——信上只写着简单的问候："你好吗？我很好。"</p>
+    <p>没想到，这封信竟真的收到了回信。回信的落款，同样写着"藤井树"。一个关于同名同姓的旧日记忆，就此被缓缓揭开。随着一封封信件往来，两个女孩的命运被一条细线牵引，一段尘封在青春里的、被雪覆盖的秘密，也逐渐浮出水面。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <p><strong>诗意的影像美学。</strong>岩井俊二将北海道小樽的雪景拍成了永恒的诗——逆光、白雪、图书馆的白色窗帘、自行车穿过的街道，每一帧都像能定格成明信片。</p>
+    <p><strong>"你好吗？我很好"的经典告白。</strong>电影里最著名的台词，简单六个字，却承载了跨越生死与时间的全部情感重量，成为无数人心中关于"告别"与"释怀"的注脚。</p>
+    <p><strong>书信体的温柔叙事。</strong>整部电影以书信为媒介缓缓铺陈，节奏如雪般安静，没有激烈的戏剧冲突，却能在无声处击中人心最柔软的地方。</p>
+    <p><strong>中山美穗一人分饰两角。</strong>她在片中同时演绎两个性格迥异的女性，细腻的表演让"渡边博子"与"藤井树"两个灵魂都真实可感。</p>
+    <div class="quote">"你好吗？我很好。"</div>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>这是一部关于"告别"的电影，却并不悲苦。它用一种近乎透明的纯净，讲述暗恋的无声、记忆的温柔，以及一个人如何与失去和解。当你合上眼睛，小樽的雪、那张借书卡背面的秘密、博子对着雪山呼喊的画面，会久久留在心里。</p>
+    <p>无论你是否经历过一场无疾而终的暗恋，它都会提醒你：有些感情，即使从未说出口，也真实地存在过，并温柔地照亮过某个人的青春。</p>
+  </div>
+
+  <div class="foot">经典电影推荐 · 每日一部 · 不剧透，只引路</div>
+
+</div>
+</body>
+</html>

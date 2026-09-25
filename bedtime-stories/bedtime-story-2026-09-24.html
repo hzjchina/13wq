@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小月亮的梳子 — 儿童睡前故事</title>
+<style>
+  :root{
+    --bg1:#0b1530;
+    --bg2:#131f45;
+    --text:#e8e6ff;
+    --text-soft:#b8b4d8;
+    --gold:#f7d98b;
+    --moon:#fff3c9;
+    --star:#ffe9a8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
+    color:var(--text);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* 星空 */
+  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+  .star{
+    position:absolute;background:var(--star);border-radius:50%;
+    animation:twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{opacity:.2;transform:scale(.8);}
+    50%{opacity:1;transform:scale(1.2);}
+  }
+  .moon{
+    position:absolute;top:48px;right:10%;
+    width:120px;height:120px;border-radius:50%;
+    background:radial-gradient(circle at 35% 35%,#fffbe0,var(--moon));
+    box-shadow:0 0 60px 20px rgba(255,240,190,.45);
+    animation:float 6s ease-in-out infinite;
+  }
+  .moon::after{
+    content:"";position:absolute;top:22px;left:30px;width:28px;height:28px;
+    border-radius:50%;background:rgba(210,195,140,.5);
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-14px);}
+  }
+  .wrap{
+    position:relative;z-index:1;
+    max-width:620px;margin:0 auto;
+    padding:120px 26px 70px;
+  }
+  header{text-align:center;margin-bottom:46px;}
+  .badge{
+    display:inline-block;font-size:14px;letter-spacing:4px;
+    color:var(--gold);opacity:.85;margin-bottom:16px;
+  }
+  h1{
+    font-size:34px;line-height:1.4;font-weight:600;
+    color:var(--moon);margin-bottom:10px;
+    text-shadow:0 2px 18px rgba(255,235,170,.35);
+  }
+  .date{
+    font-size:14px;color:var(--text-soft);letter-spacing:2px;
+  }
+  .story{
+    font-size:19px;line-height:2.05;letter-spacing:.5px;
+    color:var(--text);text-align:justify;
+  }
+  .story p{margin-bottom:26px;}
+  .story .first::first-letter{
+    font-size:40px;font-weight:600;color:var(--gold);
+    float:left;line-height:1;margin:6px 8px 0 0;
+  }
+  .divider{
+    text-align:center;margin:34px 0;color:var(--star);
+    font-size:18px;letter-spacing:8px;opacity:.7;
+  }
+  .goodnight{
+    margin-top:40px;padding:28px 24px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,235,170,.18);
+    border-radius:20px;text-align:center;
+    font-size:19px;line-height:1.9;color:var(--moon);
+  }
+  footer{
+    text-align:center;margin-top:52px;
+    font-size:13px;color:var(--text-soft);letter-spacing:2px;
+  }
+  @media(max-width:480px){
+    h1{font-size:28px;}
+    .story{font-size:18px;}
+    .moon{width:88px;height:88px;top:36px;right:6%;}
+    .wrap{padding:100px 20px 50px;}
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+
+  <div class="wrap">
+    <header>
+      <div class="badge">🌙 睡前故事</div>
+      <h1>小月亮的梳子</h1>
+      <div class="date">2026年9月24日 · 星期四</div>
+    </header>
+
+      <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-09-24.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="story">
+      <p class="first">月亮妈妈有一把亮晶晶的梳子，是用最软最软的一束星光做成的。每天天黑以后，月亮妈妈就坐在天上，一下一下，梳理着墨蓝色的夜空。</p>
+      <p>梳子梳过的地方，云朵就变得蓬蓬的、软软的，像刚晒过太阳的棉花糖。梳子梳呀梳，把星星们一颗颗梳得亮堂堂，排成一队，眨着眼睛跟大地上的小朋友打招呼。</p>
+      <p>这天晚上，月亮妈妈正梳着，忽然听见一阵很轻很轻的叹气声。她低头一看，是住在山坡下的小男孩果果，正抱着膝盖，坐在窗台上发呆。</p>
+      <p>"怎么啦，小果果？"月亮妈妈温柔地问，"你的眉毛，怎么皱得像个小问号？"</p>
+      <p>果果撅着嘴说："今天我和好朋友闹别扭了，心里乱糟糟的，像一团解不开的毛线球，睡不着。"</p>
+      <p>月亮妈妈笑了："没关系呀。你看，我把夜空梳得整整齐齐，你的心情，我也能帮你轻轻梳一梳。"</p>
+      <p>她抽出梳子上最软的一根星光，飘呀飘，落进果果的心里。那根星光，像妈妈的手指，一下一下，把乱糟糟的毛线球，轻轻梳顺了。</p>
+      <p>果果忽然觉得心里暖乎乎的。他想起来，明天早上，他愿意第一个笑着跟好朋友说"早安"。</p>
+      <p>月亮妈妈又梳了最后一下，整片夜空都变得安安静静、柔柔和和。她轻轻说："把烦恼交给夜色吧，明天又是崭新的一天。"</p>
+    </div>
+
+    <div class="divider">✦ ✧ ✦</div>
+
+    <div class="goodnight">
+      晚安，小宝贝。<br>
+      小月亮说，你今天也是个好孩子，<br>
+      把心里的小疙瘩轻轻放下，该做一个甜甜的梦啦。
+    </div>
+
+    <footer>— 每天一个好梦 · 陪伴你慢慢长大 —</footer>
+  </div>
+
+  <script>
+    (function(){
+      var box=document.getElementById('stars');
+      var n=window.innerWidth<480?40:70;
+      var f='';
+      for(var i=0;i<n;i++){
+        var s=Math.random()*2.4+1;
+        var x=Math.random()*100;
+        var y=Math.random()*100;
+        var d=Math.random()*5;
+        f+='<span class="star" style="left:'+x+'%;top:'+y+'%;width:'+s+'px;height:'+s+'px;animation-delay:'+d+'s;animation-duration:'+(2+Math.random()*3)+'s;"></span>';
+      }
+      box.innerHTML=f;
+    })();
+  </script>
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
