@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小橡果的春天约定 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg-top: #0d1b3e;
+    --bg-bottom: #1a2a52;
+    --text: #e8edf7;
+    --text-soft: #b9c4dc;
+    --accent: #f7d98c;
+    --accent-soft: #f5e6b8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.9;
+    overflow-x: hidden;
+    position: relative;
+  }
+  /* 星空 */
+  .stars {
+    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  }
+  .star {
+    position: absolute;
+    background: #fff;
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 0.9; transform: scale(1.1); }
+  }
+  /* 月亮 */
+  .moon {
+    position: fixed; top: 6%; right: 8%;
+    width: 90px; height: 90px; border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, #fff7e0, #f3e3a8 70%, #e6d18e);
+    box-shadow: 0 0 40px 12px rgba(247, 217, 140, 0.35);
+    z-index: 0;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .container {
+    position: relative; z-index: 1;
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 56px 28px 72px;
+  }
+  .title-wrap {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .kicker {
+    font-size: 14px; letter-spacing: 4px; color: var(--accent-soft);
+    opacity: 0.85; margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 30px; font-weight: 700; color: var(--accent);
+    letter-spacing: 2px; margin-bottom: 10px;
+  }
+  .subtitle {
+    font-size: 14px; color: var(--text-soft); letter-spacing: 2px;
+  }
+  .divider {
+    width: 64px; height: 2px; margin: 22px auto;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    border-radius: 2px;
+  }
+  .story {
+    font-size: 19px;
+    text-align: justify;
+  }
+  .story p { margin-bottom: 22px; text-indent: 2em; }
+  .story p.first { text-indent: 2em; }
+  .goodnight {
+    margin-top: 46px;
+    text-align: center;
+    padding: 30px 22px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 18px;
+    border: 1px solid rgba(247, 217, 140, 0.25);
+    font-size: 19px;
+    color: var(--accent-soft);
+  }
+  .goodnight .moon-emoji { font-size: 26px; display: block; margin-bottom: 10px; }
+  @media (max-width: 480px) {
+    h1 { font-size: 25px; }
+    .story { font-size: 17.5px; }
+    .container { padding: 40px 20px 60px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+  <div class="stars" id="stars"></div>
+  <div class="moon"></div>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-09-25.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="container">
+    <div class="title-wrap">
+      <div class="kicker">✦ 睡 前 小 故 事 ✦</div>
+      <h1>小橡果的春天约定</h1>
+      <div class="subtitle">—— 儿童睡前故事 ——</div>
+      <div class="divider"></div>
+    </div>
+
+    <div class="story">
+      <p class="first">秋天到了，森林里的大橡树妈妈摇摇身子，一颗圆滚滚的小橡果"啪嗒"一声，落进了软软的落叶里。</p>
+      <p>小橡果有点害怕。四周黑乎乎的，风从头顶呼呼吹过，它把小小的帽子往下压了压，小声说："我好想回到树枝上呀，那里又高又亮。"</p>
+      <p>这时候，一只小松鼠蹦蹦跳跳地过来，用鼻子拱了拱它："小橡果，你要不要跟我回家？我的树洞又暖和又舒服。"小橡果摇摇头："谢谢你，可我还想再等等。"</p>
+      <p>过了几天，天气更凉了，落叶一层一层盖在它身上，像一床厚厚的金被子。小蚂蚁爬过来问："小橡果，你怎么还不走呀？"小橡果轻声说："我在等一个春天。"</p>
+      <p>小蚂蚁听不懂，摇摇头走了。小橡果却安心地闭上眼睛。它想：雪花会来看我，春雨会来唱歌，等太阳变暖的时候，我就要做一件最棒的事。</p>
+      <p>整个冬天，小橡果都安安静静地睡着。它在梦里看见自己长出了嫩嫩的小芽，看见一只小鸟落在枝头唱歌，还看见好多好多小朋友在树下乘凉、做游戏。</p>
+      <p>终于，春天的第一场雨"淅淅沥沥"地下起来了。小橡果喝饱了甜甜的雨水，从泥土里伸出小小的手——那是一棵嫩绿的小芽。它越长越高，越长越壮，变成了一棵神气的小橡树。</p>
+      <p>小松鼠跑来了，惊喜地喊："原来你藏着这么大的秘密！"小橡树摇摇叶子，笑着说："耐心等待，就会开出最美好的结果呀。"</p>
+    </div>
+
+    <div class="goodnight">
+      <span class="moon-emoji">🌙</span>
+      晚安，小宝贝。小橡果说，你今天也是个有耐心的好孩子，该做一个甜甜的梦了。
+    </div>
+  </div>
+
+<script>
+  // 生成随机星星
+  (function () {
+    var box = document.getElementById('stars');
+    var count = 60;
+    for (var i = 0; i < count; i++) {
+      var s = document.createElement('span');
+      s.className = 'star';
+      var size = Math.random() * 3 + 1.5;
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      s.style.left = Math.random() * 100 + '%';
+      s.style.top = Math.random() * 100 + '%';
+      s.style.animationDelay = Math.random() * 4 + 's';
+      s.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      box.appendChild(s);
+    }
+  })();
+</script>
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
