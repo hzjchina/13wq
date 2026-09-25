@@ -111,29 +111,35 @@ def inject_audio_player(html: str, audio_src: str) -> str:
     # 1. 注入CSS（放在 </style> 前）
     html = html.replace("</style>", AUDIO_PLAYER_CSS + "</style>", 1)
     # 2. 注入播放器盒子：标题与正文之间
-    #    各期模板正文容器类名不统一，按三级锚点探测（已验证 123/123 页全覆盖）:
-    #    一级: 正文容器开标签前（card/poster/story/story-container/content/container/article）
-    #    二级: wrap 开标签后
-    #    三级: body 开标签后（老模板兜底，播放器置于页首）
+    #    一级 marker 都是【正文容器】（story/article/card 等），插到其"之前"
+    #    —— box 落在正文容器外、外层容器内，即标题区之后、正文之前 ✅
+    #    注意：<div class="container">/<div class="wrap"> 是【外层容器】，
+    #          若作为一级会因出现位置早而把 box 插到外层容器"之外"造成外溢，
+    #          故只作二级兜底（插到其内部首位）。
     box_html = AUDIO_PLAYER_HTML.replace("{src}", audio_src)
     pos = -1
     for marker in (
         '<div class="card">', '<div class="poster">', '<div class="story">',
         '<div class="story-container">', '<div class="content">',
-        '<div class="container">', '<article class="story">',
+        '<article class="story">',
     ):
         p = html.find(marker)
         if p != -1 and (pos == -1 or p < pos):
             pos = p
     if pos != -1:
         html = html[:pos] + box_html + html[pos:]
-    elif '<div class="wrap">' in html:
-        html = html.replace('<div class="wrap">', '<div class="wrap">' + box_html, 1)
     else:
-        m = re.search(r"<body[^>]*>", html)
-        if m:
-            end = m.end()
-            html = html[:end] + "\n" + box_html + html[end:]
+        injected = False
+        for outer in ('<div class="wrap">', '<div class="container">'):
+            if outer in html:
+                html = html.replace(outer, outer + box_html, 1)
+                injected = True
+                break
+        if not injected:
+            m = re.search(r"<body[^>]*>", html)
+            if m:
+                end = m.end()
+                html = html[:end] + "\n" + box_html + html[end:]
     # 3. 注入JS（放在 </body> 前）
     html = html.replace("</body>", AUDIO_PLAYER_JS + "</body>", 1)
     return html
