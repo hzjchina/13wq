@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>活着</title>
+<style>
+  :root{
+    --bg:#f6f4f0;
+    --card:#ffffff;
+    --ink:#2b2a28;
+    --sub:#6b6a66;
+    --line:#e6e2da;
+    --accent:#9c3b2e;
+    --soft:#eef0f4;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    line-height:1.85;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:680px;margin:0 auto;padding:40px 20px 60px;}
+  .hero{
+    background:linear-gradient(160deg,#f7e8e2 0%,#eef0f4 100%);
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:40px 28px;
+    text-align:center;
+    margin-bottom:28px;
+  }
+  .hero .kicker{
+    font-size:13px;letter-spacing:.2em;color:var(--accent);
+    text-transform:uppercase;margin-bottom:14px;
+  }
+  .hero h1{font-size:38px;font-weight:700;letter-spacing:.04em;}
+  .hero .en{font-size:15px;color:var(--sub);margin-top:8px;font-style:italic;}
+  .hero .meta{
+    margin-top:18px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+  }
+  .hero .tag{
+    background:#fff;border:1px solid var(--line);border-radius:999px;
+    padding:6px 16px;font-size:14px;color:var(--sub);
+  }
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:28px;margin-bottom:20px;
+  }
+  .card h2{
+    font-size:20px;margin-bottom:14px;display:flex;align-items:center;gap:10px;
+  }
+  .card h2::before{
+    content:"";width:4px;height:22px;background:var(--accent);border-radius:2px;
+    display:inline-block;
+  }
+  .card p{margin-bottom:12px;}
+  .card p:last-child{margin-bottom:0;}
+  .quote{
+    font-size:18px;color:#5a5750;font-style:italic;border-left:3px solid var(--accent);
+    padding-left:16px;margin:18px 0;
+  }
+  .score{
+    display:flex;gap:24px;justify-content:center;margin-top:18px;flex-wrap:wrap;
+  }
+  .score .s{text-align:center;}
+  .score .num{font-size:28px;font-weight:700;color:var(--accent);}
+  .score .lbl{font-size:13px;color:var(--sub);}
+  .foot{
+    text-align:center;color:var(--sub);font-size:13px;margin-top:30px;
+  }
+  @media(max-width:480px){
+    .hero h1{font-size:30px;}
+    .card{padding:22px;}
+    body{font-size:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Classic Recommendation</div>
+    <h1>活着</h1>
+    <div class="en">To Live · 1994</div>
+    <div class="meta">
+      <span class="tag">导演 · 张艺谋</span>
+      <span class="tag">主演 · 葛优 / 巩俐</span>
+      <span class="tag">中国 · 剧情</span>
+    </div>
+    <div class="score">
+      <div class="s"><div class="num">9.3</div><div class="lbl">豆瓣评分</div></div>
+      <div class="s"><div class="num">8.3</div><div class="lbl">IMDb</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>故事从民国末年讲到动荡的数十年。主人公福贵出身富裕，年轻时嗜赌成性，一夜之间输光了祖上留下的家业，从此从少爷沦为一无所有的普通人。命运并未就此放过他，此后几十年，时代的风浪一波接一波，福贵一家在贫苦与变故中起起伏伏。</p>
+    <p>但这部电影真正要讲的，不是苦难本身，而是一个再平凡不过的人在接二连三的打击面前，如何咬着牙、唱着皮影戏、牵着家人的手，一步一步走过来的姿态。活下去，成为贯穿一生的信念。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <p><strong>葛优封神级的表演。</strong>他把福贵从浪荡少爷到沧桑老人的一生演得入木三分，一个眼神、一声叹息都带着岁月的重量。凭借此片，葛优成为首位摘得戛纳影帝的华人演员。</p>
+    <p><strong>皮影戏的贯穿意象。</strong>皮影戏既是福贵的生计，也成了他人生的隐喻——人在时代的灯影里，被命运的手牵着走，却始终亮着属于自己的一束光。</p>
+    <p><strong>张艺谋的叙事功力。</strong>相比他更富视觉冲击的其他作品，本片叙事沉稳克制，将宏大的历史变迁浓缩进一个小家庭的命运里，以小见大，举重若轻。</p>
+    <p><strong>原著改编的典范。</strong>改编自余华同名小说，电影在保留原著精神内核的同时，赋予故事一份更为温暖的人间底色。</p>
+    <div class="quote">"人是为活着本身而活着，而不是为了活着之外的任何事物所活着。"</div>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>这是一部关于"韧性"的电影。它不煽情，不控诉，只是平静地讲述一个人如何被时代裹挟、被命运击倒，又如何一次次站起来。看的时候你或许会笑，或许会湿了眼眶，但看完之后，心里留下的不是悲凉，而是一种沉甸甸的敬意——对生命本身。</p>
+    <p>在快节奏的当下，它提醒我们：活着从来不是一件理所当然的事，而是一份需要被认真对待的礼物。当你觉得生活艰难时，看看福贵，也许能重新找回走下去的力量。</p>
+  </div>
+
+  <div class="foot">经典电影推荐 · 每日一部 · 不剧透，只引路</div>
+
+</div>
+</body>
+</html>

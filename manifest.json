@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "活着",
+          "date": "2026-09-26",
+          "summary": "活着 Classic Recommendation 活着 To Live · 1994 导演 · 张艺谋 主演 · 葛优 / 巩俐 中国 · 剧情 9.3 豆瓣评分 8.3 IMDb 剧情梗概 故事从民国末年讲到动荡的数十年。主人公福贵出身...",
+          "path": "classic-movies/classic-movie-2026-09-26.html"
+        },
+        {
           "title": "情书",
           "date": "2026-09-25",
           "summary": "情书 Classic Recommendation 情书 Love Letter · 1995 导演 · 岩井俊二 主演 · 中山美穗 / 丰川悦司 / 柏原崇 日本 · 爱情 8.9 豆瓣评分 8.5 IMDb 剧情梗概 渡边博子住在神户...",
@@ -1296,6 +1302,12 @@
       "name": "AI情报",
       "icon": "🤖",
       "items": [
+        {
+          "title": "AI 情报日报 · 2026-09-26 · 侧重 AI coding 与具身智能",
+          "date": "2026-09-26",
+          "summary": "AI 情报日报 · 2026-09-26 · 侧重 AI coding 与具身智能 AI INTELLIGENCE DAILY AI 情报日报 2026-09-26 · 过去 24 小时 AI 圈重点动态 侧重 AI coding 与 具身...",
+          "path": "ai-info/ai-info-2026-09-26.html"
+        },
         {
           "title": "AI 情报日报 · 2026-09-25",
           "date": "2026-09-25",
