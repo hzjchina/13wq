@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{故事标题}} — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子（音符/萤火虫等，按故事主题替换） */
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：调用 tools/bedtime-tts/moonphase.py 获取当日月相后绘制，两处月亮必须一致 -->
+  <div class="moon">
+    {{月相月亮SVG：按当日农历月相绘制}}
+    <!--
+      绘制规则（以右亮为盈、左亮为亏，北半球视角）：
+      · 满月 full_moon      → 完整圆月 #e8ecf5 + 月晕
+      · 盈凸 waxing_gibbous → 圆盘 + 左侧小暗弧
+      · 上弦 first_quarter  → 右半圆亮
+      · 蛾眉 waxing_crescent→ 右侧细细弯钩
+      · 朔 new_moon        → 不画月亮，改用月食图（暗盘+红边光晕）或虚线月亮轮廓
+      · 残月 waning_crescent→ 左侧细细弯钩
+      · 下弦 last_quarter   → 左半圆亮
+      · 亏凸 waning_gibbous → 圆盘 + 右侧小暗弧
+    -->
+  </div>
+  <!-- 主题装饰粒子：按故事主题选择音符/萤火虫/落叶/雪花等 -->
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">♪</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">♫</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s;">♩</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>{{故事标题}}</h1>
+    <p class="meta">{{主题emoji}} {{一句话副标题}} · 3-8 岁睡前故事</p>
+  </header>
+
+  <div class="poster">
+    <!-- 竖版故事海报插画（300×440），必须手绘主题场景 + 底部标题文字
+         海报里的月亮也必须按当日农历月相绘制，与背景 .moon 保持一致 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      {{SVG 插画内容：星空背景 + 按月相绘制的月亮 + 故事主角场景 + 底部标题}}
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">{{农历文本}} · {{月相名+emoji}}</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">{{故事主题关键词}}</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    {{故事正文：400-600 字，分段，每段一个 <p>，首行缩进}}
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>{{寓意总结，一句话，温暖点题}}</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。{{主角名}}说，你今天也是个好孩子，该做一个甜甜的梦了。{{emoji}}</p>
+  </div>
+
+  <footer class="footer">
+    <em>{{YYYY年MM月DD日}} · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

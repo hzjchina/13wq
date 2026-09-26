@@ -6,99 +6,107 @@
 <title>小橡果的春天约定 — 儿童睡前故事</title>
 <style>
   :root {
-    --bg-top: #0d1b3e;
-    --bg-bottom: #1a2a52;
-    --text: #e8edf7;
-    --text-soft: #b9c4dc;
-    --accent: #f7d98c;
-    --accent-soft: #f5e6b8;
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; }
   body {
-    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
-    background-attachment: fixed;
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
     color: var(--text);
-    line-height: 1.9;
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
   }
-  /* 星空 */
-  .stars {
-    position: fixed; inset: 0; pointer-events: none; z-index: 0;
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
   }
-  .star {
-    position: absolute;
-    background: #fff;
-    border-radius: 50%;
-    opacity: 0.7;
-    animation: twinkle 3s ease-in-out infinite;
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
   }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 0.9; transform: scale(1.1); }
-  }
-  /* 月亮 */
-  .moon {
-    position: fixed; top: 6%; right: 8%;
-    width: 90px; height: 90px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #fff7e0, #f3e3a8 70%, #e6d18e);
-    box-shadow: 0 0 40px 12px rgba(247, 217, 140, 0.35);
-    z-index: 0;
-    animation: float 6s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
+
+  /* 月亮：2026-09-25 农历八月十五（中秋）· 满月，完整圆盘 */
+  .moon { position: absolute; top: 5%; right: 9%; animation: floatMoon 6s ease-in-out infinite; }
+  @keyframes floatMoon {
+    0%,100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
   }
-  .container {
-    position: relative; z-index: 1;
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 56px 28px 72px;
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
   }
-  .title-wrap {
-    text-align: center;
-    margin-bottom: 40px;
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
   }
-  .kicker {
-    font-size: 14px; letter-spacing: 4px; color: var(--accent-soft);
-    opacity: 0.85; margin-bottom: 12px;
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
   }
-  h1 {
-    font-size: 30px; font-weight: 700; color: var(--accent);
-    letter-spacing: 2px; margin-bottom: 10px;
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
   }
-  .subtitle {
-    font-size: 14px; color: var(--text-soft); letter-spacing: 2px;
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
   }
-  .divider {
-    width: 64px; height: 2px; margin: 22px auto;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-    border-radius: 2px;
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
   }
-  .story {
-    font-size: 19px;
-    text-align: justify;
-  }
-  .story p { margin-bottom: 22px; text-indent: 2em; }
-  .story p.first { text-indent: 2em; }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
   .goodnight {
-    margin-top: 46px;
-    text-align: center;
-    padding: 30px 22px;
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 18px;
-    border: 1px solid rgba(247, 217, 140, 0.25);
-    font-size: 19px;
-    color: var(--accent-soft);
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
   }
-  .goodnight .moon-emoji { font-size: 26px; display: block; margin-bottom: 10px; }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
   @media (max-width: 480px) {
-    h1 { font-size: 25px; }
-    .story { font-size: 17.5px; }
-    .container { padding: 40px 20px 60px; }
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
   }
   /* === 音频播放器（generate.py 注入） === */
   .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
@@ -114,18 +122,45 @@
 </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
-  <div class="moon"></div>
 
-  <div class="container">
-    <div class="title-wrap">
-      <div class="kicker">✦ 睡 前 小 故 事 ✦</div>
-      <h1>小橡果的春天约定</h1>
-      <div class="subtitle">—— 儿童睡前故事 ——</div>
-      <div class="divider"></div>
-    </div>
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：农历八月十五（中秋）· 满月，完整圆盘 -->
+  <div class="moon">
+    <svg width="92" height="92" viewBox="0 0 92 92" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="中秋满月：八月十五，圆圆满满">
+      <defs>
+        <radialGradient id="moonGlow25" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="#f3e3a8" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f3e3a8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="moonBody25" cx="0.38" cy="0.35" r="0.85">
+          <stop offset="0%" stop-color="#fffbe8"/>
+          <stop offset="70%" stop-color="#f5e6b8"/>
+          <stop offset="100%" stop-color="#e6d18e"/>
+        </radialGradient>
+      </defs>
+      <circle cx="46" cy="46" r="45" fill="url(#moonGlow25)"/>
+      <circle cx="46" cy="46" r="28" fill="url(#moonBody25)"/>
+      <circle cx="36" cy="38" r="3.6" fill="#e6d18e" opacity="0.5"/>
+      <circle cx="52" cy="54" r="2.8" fill="#e6d18e" opacity="0.45"/>
+      <circle cx="44" cy="30" r="2" fill="#e6d18e" opacity="0.4"/>
+    </svg>
+  </div>
+</div>
 
-      <div class="audio-box" id="audioBox">
+<div class="wrap">
+  <header class="header">
+    <h1>小橡果的春天约定</h1>
+    <p class="meta">🌰 藏在冬天里的希望 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
     <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
     <div class="audio-meta">
       <div class="audio-title">🎧 听 · 今日故事</div>
@@ -135,42 +170,119 @@
     <audio id="storyAudio" src="audio/bedtime-story-2026-09-25.m4a" preload="metadata"></audio>
   </div>
 
-<div class="story">
-      <p class="first">秋天到了，森林里的大橡树妈妈摇摇身子，一颗圆滚滚的小橡果"啪嗒"一声，落进了软软的落叶里。</p>
-      <p>小橡果有点害怕。四周黑乎乎的，风从头顶呼呼吹过，它把小小的帽子往下压了压，小声说："我好想回到树枝上呀，那里又高又亮。"</p>
-      <p>这时候，一只小松鼠蹦蹦跳跳地过来，用鼻子拱了拱它："小橡果，你要不要跟我回家？我的树洞又暖和又舒服。"小橡果摇摇头："谢谢你，可我还想再等等。"</p>
-      <p>过了几天，天气更凉了，落叶一层一层盖在它身上，像一床厚厚的金被子。小蚂蚁爬过来问："小橡果，你怎么还不走呀？"小橡果轻声说："我在等一个春天。"</p>
-      <p>小蚂蚁听不懂，摇摇头走了。小橡果却安心地闭上眼睛。它想：雪花会来看我，春雨会来唱歌，等太阳变暖的时候，我就要做一件最棒的事。</p>
-      <p>整个冬天，小橡果都安安静静地睡着。它在梦里看见自己长出了嫩嫩的小芽，看见一只小鸟落在枝头唱歌，还看见好多好多小朋友在树下乘凉、做游戏。</p>
-      <p>终于，春天的第一场雨"淅淅沥沥"地下起来了。小橡果喝饱了甜甜的雨水，从泥土里伸出小小的手——那是一棵嫩绿的小芽。它越长越高，越长越壮，变成了一棵神气的小橡树。</p>
-      <p>小松鼠跑来了，惊喜地喊："原来你藏着这么大的秘密！"小橡树摇摇叶子，笑着说："耐心等待，就会开出最美好的结果呀。"</p>
-    </div>
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="中秋满月下，大橡树落下小橡果，落叶像金被子盖着它，旁边悄悄冒出一株小嫩芽">
+      <defs>
+        <linearGradient id="bg25" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#101228"/>
+          <stop offset="55%" stop-color="#1e2553"/>
+          <stop offset="100%" stop-color="#161a3c"/>
+        </linearGradient>
+        <radialGradient id="posterMoonGlow25">
+          <stop offset="0%" stop-color="#f5e6b8" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#f5e6b8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg25)" rx="16"/>
 
-    <div class="goodnight">
-      <span class="moon-emoji">🌙</span>
-      晚安，小宝贝。小橡果说，你今天也是个有耐心的好孩子，该做一个甜甜的梦了。
+      <!-- 星空 -->
+      <circle cx="42" cy="46" r="2" fill="#fff" opacity="0.85"/>
+      <circle cx="256" cy="38" r="2.4" fill="#fff" opacity="0.7"/>
+      <circle cx="206" cy="26" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="80" cy="86" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="268" cy="118" r="1.8" fill="#f5d76e" opacity="0.75"/>
+
+      <!-- 满月（八月十五中秋，完整圆盘，与背景月相同） -->
+      <circle cx="226" cy="96" r="56" fill="url(#posterMoonGlow25)"/>
+      <circle cx="226" cy="96" r="32" fill="#f5e6b8"/>
+      <circle cx="216" cy="88" r="3.5" fill="#e6d18e" opacity="0.5"/>
+      <circle cx="234" cy="104" r="2.6" fill="#e6d18e" opacity="0.45"/>
+
+      <!-- 大橡树妈妈 -->
+      <g>
+        <path d="M70,300 L70,190 Q60,175 68,160 L82,168 Q88,150 100,158 L104,142 Q116,150 114,166 L128,160 Q132,176 120,186 Q130,200 118,214 L110,300 Z" fill="#3a2e56"/>
+        <ellipse cx="96" cy="150" rx="52" ry="34" fill="#4a3a68"/>
+        <ellipse cx="70" cy="160" rx="30" ry="22" fill="#443463"/>
+        <ellipse cx="124" cy="162" rx="28" ry="20" fill="#443463"/>
+      </g>
+
+      <!-- 地面与落叶（金被子） -->
+      <path d="M0,330 Q150,318 300,330 L300,440 L0,440 Z" fill="#1a1636"/>
+      <g fill="#c9954a" opacity="0.85">
+        <ellipse cx="180" cy="344" rx="14" ry="6" transform="rotate(-18 180 344)"/>
+        <ellipse cx="210" cy="352" rx="12" ry="5" transform="rotate(12 210 352)"/>
+        <ellipse cx="160" cy="356" rx="13" ry="5" transform="rotate(24 160 356)"/>
+        <ellipse cx="232" cy="340" rx="11" ry="5" transform="rotate(-30 232 340)"/>
+        <ellipse cx="196" cy="338" rx="10" ry="4" transform="rotate(40 196 338)"/>
+      </g>
+
+      <!-- 小橡果（戴小帽子，睡在落叶被里） -->
+      <g transform="translate(196,326)">
+        <ellipse cx="0" cy="8" rx="15" ry="16" fill="#b5763a"/>
+        <path d="M-15,4 Q0,-8 15,4 Q0,10 -15,4 Z" fill="#6d4a26"/>
+        <line x1="0" y1="-8" x2="0" y2="-18" stroke="#6d4a26" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="-5" cy="6" r="1.8" fill="#4a2e14"/>
+        <circle cx="5" cy="6" r="1.8" fill="#4a2e14"/>
+        <path d="M-4,12 Q0,15 4,12" stroke="#4a2e14" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- 春天的约定：一株小嫩芽悄悄探头 -->
+      <g transform="translate(252,320)">
+        <path d="M0,0 Q-2,-10 -10,-12" stroke="#7dbb6a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <ellipse cx="-13" cy="-14" rx="6" ry="3.5" fill="#7dbb6a" transform="rotate(-30 -13 -14)"/>
+        <ellipse cx="-6" cy="-18" rx="5" ry="3" fill="#8fca7d" transform="rotate(20 -6 -18)"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="424" text-anchor="middle" fill="#cfd8e8" font-size="22" font-weight="700" letter-spacing="0.1em">小橡果的春天约定</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历八月十五 · 满月🌕</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">耐心等待 · 希望 · 成长</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
     </div>
   </div>
 
-<script>
-  // 生成随机星星
-  (function () {
-    var box = document.getElementById('stars');
-    var count = 60;
-    for (var i = 0; i < count; i++) {
-      var s = document.createElement('span');
-      s.className = 'star';
-      var size = Math.random() * 3 + 1.5;
-      s.style.width = size + 'px';
-      s.style.height = size + 'px';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.animationDelay = Math.random() * 4 + 's';
-      s.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      box.appendChild(s);
-    }
-  })();
-</script>
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>秋天到了，森林里的大橡树妈妈摇摇身子，一颗圆滚滚的小橡果"啪嗒"一声，落进了软软的落叶里。</p>
+    <p>小橡果有点害怕。四周黑乎乎的，风从头顶呼呼吹过，它把小小的帽子往下压了压，小声说："我好想回到树枝上呀，那里又高又亮。"</p>
+    <p>这时候，一只小松鼠蹦蹦跳跳地过来，用鼻子拱了拱它："小橡果，你要不要跟我回家？我的树洞又暖和又舒服。"小橡果摇摇头："谢谢你，可我还想再等等。"</p>
+    <p>过了几天，天气更凉了，落叶一层一层盖在它身上，像一床厚厚的金被子。小蚂蚁爬过来问："小橡果，你怎么还不走呀？"小橡果轻声说："我在等一个春天。"</p>
+    <p>小蚂蚁听不懂，摇摇头走了。小橡果却安心地闭上眼睛。它想：雪花会来看我，春雨会来唱歌，等太阳变暖的时候，我就要做一件最棒的事。</p>
+    <p>整个冬天，小橡果都安安静静地睡着。它在梦里看见自己长出了嫩嫩的小芽，看见一只小鸟落在枝头唱歌，还看见好多好多小朋友在树下乘凉、做游戏。</p>
+    <p>终于，春天的第一场雨"淅淅沥沥"地下起来了。小橡果喝饱了甜甜的雨水，从泥土里伸出小小的手——那是一棵嫩绿的小芽。它越长越高，越长越壮，变成了一棵神气的小橡树。</p>
+    <p>小松鼠跑来了，惊喜地喊："原来你藏着这么大的秘密！"小橡树摇摇叶子，笑着说："耐心等待，就会开出最美好的结果呀。"</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>慢慢等的种子，不是在偷懒，是在攒一个大惊喜。耐心等一等，春天会来敲门的。🌰</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小橡果说，你今天也是个有耐心的好孩子，该做一个甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月25日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
 <script>
 (function(){
   var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');

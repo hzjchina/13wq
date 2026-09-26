@@ -6,72 +6,107 @@
 <title>小河马的月亮浴 — 儿童睡前故事</title>
 <style>
   :root {
-    --bg-top: #0d1b3e;
-    --bg-bottom: #1a2a52;
-    --text: #e8edf7;
-    --text-soft: #b9c4dc;
-    --accent: #9fd4f0;
-    --accent-soft: #d8ecf9;
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html, body { height: 100%; }
   body {
-    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-    background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
-    background-attachment: fixed;
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
     color: var(--text);
-    line-height: 1.9;
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
   }
-  .stars { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
-  .star {
-    position: absolute; background: #fff; border-radius: 50%;
-    opacity: 0.7; animation: twinkle 3s ease-in-out infinite;
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
   }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 0.9; transform: scale(1.1); }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
   }
-  .moon {
-    position: fixed; top: 6%; right: 8%;
-    width: 90px; height: 90px; border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #fff7e0, #f3e3a8 70%, #e6d18e);
-    box-shadow: 0 0 40px 12px rgba(159, 212, 240, 0.35);
-    z-index: 0; animation: float 6s ease-in-out infinite;
-  }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
+
+  /* 月亮：2026-09-26 农历八月十六 · 满月（望），完整圆盘 */
+  .moon { position: absolute; top: 5%; right: 9%; animation: floatMoon 6s ease-in-out infinite; }
+  @keyframes floatMoon {
+    0%,100% { transform: translateY(0); }
     50% { transform: translateY(-8px); }
   }
-  .container {
-    position: relative; z-index: 1;
-    max-width: 640px; margin: 0 auto; padding: 56px 28px 72px;
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
   }
-  .title-wrap { text-align: center; margin-bottom: 40px; }
-  .kicker {
-    font-size: 14px; letter-spacing: 4px; color: var(--accent-soft);
-    opacity: 0.85; margin-bottom: 12px;
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
   }
-  h1 { font-size: 30px; font-weight: 700; color: var(--accent); letter-spacing: 2px; margin-bottom: 10px; }
-  .subtitle { font-size: 14px; color: var(--text-soft); letter-spacing: 2px; }
-  .divider {
-    width: 64px; height: 2px; margin: 22px auto;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent); border-radius: 2px;
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
   }
-  .story { font-size: 19px; text-align: justify; }
-  .story p { margin-bottom: 22px; text-indent: 2em; }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
   .goodnight {
-    margin-top: 46px; text-align: center; padding: 30px 22px;
-    background: rgba(255, 255, 255, 0.04); border-radius: 18px;
-    border: 1px solid rgba(159, 212, 240, 0.28);
-    font-size: 19px; color: var(--accent-soft);
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
   }
-  .goodnight .moon-emoji { font-size: 26px; display: block; margin-bottom: 10px; }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
   @media (max-width: 480px) {
-    h1 { font-size: 25px; }
-    .story { font-size: 17.5px; }
-    .container { padding: 40px 20px 60px; }
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
   }
   /* === 音频播放器（generate.py 注入） === */
   .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
@@ -87,18 +122,48 @@
 </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
-  <div class="moon"></div>
 
-  <div class="container">
-    <div class="title-wrap">
-      <div class="kicker">✦ 睡 前 小 故 事 ✦</div>
-      <h1>小河马的月亮浴</h1>
-      <div class="subtitle">—— 儿童睡前故事 ——</div>
-      <div class="divider"></div>
-    </div>
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 主题装饰：萤火虫（月亮浴故事的小灯笼观众） -->
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">✦</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">✦</span>
+  <!-- 月相月亮：农历八月十六 · 满月（望），完整圆盘 -->
+  <div class="moon">
+    <svg width="92" height="92" viewBox="0 0 92 92" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="满月：八月十六，圆月映在河面">
+      <defs>
+        <radialGradient id="moonGlow26" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="#f3e3a8" stop-opacity="0.5"/>
+          <stop offset="100%" stop-color="#f3e3a8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="moonBody26" cx="0.38" cy="0.35" r="0.85">
+          <stop offset="0%" stop-color="#fffbe8"/>
+          <stop offset="70%" stop-color="#f5e6b8"/>
+          <stop offset="100%" stop-color="#e6d18e"/>
+        </radialGradient>
+      </defs>
+      <circle cx="46" cy="46" r="45" fill="url(#moonGlow26)"/>
+      <circle cx="46" cy="46" r="28" fill="url(#moonBody26)"/>
+      <circle cx="37" cy="39" r="3.4" fill="#e6d18e" opacity="0.5"/>
+      <circle cx="52" cy="53" r="2.6" fill="#e6d18e" opacity="0.45"/>
+      <circle cx="45" cy="31" r="2" fill="#e6d18e" opacity="0.4"/>
+    </svg>
+  </div>
+</div>
 
-      <div class="audio-box" id="audioBox">
+<div class="wrap">
+  <header class="header">
+    <h1>小河马的月亮浴</h1>
+    <p class="meta">🛁 喜欢自己的小孩会发光 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
     <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
     <div class="audio-meta">
       <div class="audio-title">🎧 听 · 今日故事</div>
@@ -108,42 +173,144 @@
     <audio id="storyAudio" src="audio/bedtime-story-2026-09-26.m4a" preload="metadata"></audio>
   </div>
 
-<div class="story">
-      <p class="first">小河马胖胖最怕晚上洗澡了。它总是躲进芦苇丛里，把自己圆滚滚的身子藏起来，小声嘟囔："我太胖了，又黑乎乎的，一定很丑。"</p>
-      <p>月亮听见了，温柔地笑起来，把一束银白色的光轻轻洒进小河里。那光在水面上晃呀晃，像铺了一条亮晶晶的毯子。</p>
-      <p>"胖胖，来试试今晚的月亮浴吧。"月亮柔声说，"这可是我专门为你准备的呀。"</p>
-      <p>胖胖半信半疑地走到水边，先用脚尖碰了碰。水凉丝丝的，银光一下子裹住了它的小脚丫，暖洋洋的，好舒服。它"扑通"一声跳进河里，溅起一片亮闪闪的水花。</p>
-      <p>神奇的事情发生了。那些水花飞起来，变成了一颗颗小星星，围着胖胖转呀转。胖胖愣住了——水里那个影子，圆圆的、憨憨的，正被好多小星星抱着，像是在发光。</p>
-      <p>"原来我也可以这么好看呀！"胖胖开心地转了个圈，水里的星光也跟着转圈，美极了。</p>
-      <p>岸上的萤火虫听见了，都飞过来看，提着小灯笼一明一灭地喝彩。小青蛙也"呱呱"地唱起歌来。整条小河热闹极了。</p>
-      <p>洗得香喷喷的胖胖趴在岸边，抬头看着月亮，轻轻说："谢谢你，月亮。原来只要喜欢自己，照镜子就会发光呀。"</p>
-      <p>月亮眨眨眼，用最柔软的光，轻轻地、轻轻地盖在胖胖身上，像一床暖乎乎的月光被子。</p>
-    </div>
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="满月下的小河，小河马泡在银光闪闪的河水里，水花变成小星星，萤火虫提灯围观">
+      <defs>
+        <linearGradient id="bg26" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#101228"/>
+          <stop offset="55%" stop-color="#1e2553"/>
+          <stop offset="100%" stop-color="#161a3c"/>
+        </linearGradient>
+        <radialGradient id="posterMoonGlow26">
+          <stop offset="0%" stop-color="#f5e6b8" stop-opacity="0.6"/>
+          <stop offset="100%" stop-color="#f5e6b8" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="water26" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a3a6e"/>
+          <stop offset="100%" stop-color="#1a2448"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg26)" rx="16"/>
 
-    <div class="goodnight">
-      <span class="moon-emoji">🌙</span>
-      晚安，小宝贝。小河马说，你今天也是个懂得喜欢自己的好孩子，该做一个甜甜的梦了。
+      <!-- 星空 -->
+      <circle cx="42" cy="46" r="2" fill="#fff" opacity="0.85"/>
+      <circle cx="256" cy="38" r="2.4" fill="#fff" opacity="0.7"/>
+      <circle cx="206" cy="26" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="80" cy="86" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="268" cy="118" r="1.8" fill="#f5d76e" opacity="0.75"/>
+
+      <!-- 满月（八月十六，完整圆盘，与背景月相同） -->
+      <circle cx="226" cy="92" r="56" fill="url(#posterMoonGlow26)"/>
+      <circle cx="226" cy="92" r="32" fill="#f5e6b8"/>
+      <circle cx="216" cy="84" r="3.5" fill="#e6d18e" opacity="0.5"/>
+      <circle cx="234" cy="100" r="2.6" fill="#e6d18e" opacity="0.45"/>
+
+      <!-- 河面（月亮的光毯） -->
+      <rect x="0" y="300" width="300" height="140" fill="url(#water26)"/>
+      <g stroke="#9fd4f0" stroke-width="1.6" stroke-linecap="round" opacity="0.7">
+        <line x1="40" y1="318" x2="90" y2="318"/>
+        <line x1="180" y1="326" x2="240" y2="326"/>
+        <line x1="70" y1="342" x2="110" y2="342"/>
+        <line x1="200" y1="356" x2="260" y2="356"/>
+      </g>
+      <!-- 河面上的月光倒影 -->
+      <g fill="#f5e6b8" opacity="0.45">
+        <ellipse cx="226" cy="316" rx="26" ry="5"/>
+        <ellipse cx="226" cy="332" rx="18" ry="4"/>
+        <ellipse cx="226" cy="346" rx="12" ry="3"/>
+      </g>
+
+      <!-- 小河马胖胖（泡在河里，只露上半身，笑得开心） -->
+      <g transform="translate(120,286)">
+        <path d="M-46,60 Q-46,26 -14,26 L30,26 Q58,26 58,60 Z" fill="#9a7fb8"/>
+        <circle cx="-8" cy="18" r="26" fill="#a98cc6"/>
+        <!-- 耳朵 -->
+        <circle cx="-26" cy="-2" r="7" fill="#a98cc6"/>
+        <circle cx="10" cy="-2" r="7" fill="#a98cc6"/>
+        <!-- 眼睛（弯弯笑眼） -->
+        <path d="M-18,10 Q-14,6 -10,10" stroke="#3a2a4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M-2,10 Q2,6 6,10" stroke="#3a2a4a" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <!-- 鼻孔 -->
+        <circle cx="-12" cy="22" r="2.4" fill="#7a5f9a"/>
+        <circle cx="0" cy="22" r="2.4" fill="#7a5f9a"/>
+        <!-- 笑脸 -->
+        <path d="M-10,28 Q-6,32 -2,28" stroke="#7a5f9a" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- 水花变成的小星星（围着胖胖转） -->
+      <g fill="#ffe9a8">
+        <circle cx="70" cy="270" r="2.4"/>
+        <circle cx="200" cy="258" r="2"/>
+        <circle cx="90" cy="246" r="1.8"/>
+        <circle cx="185" cy="278" r="2.2"/>
+        <circle cx="130" cy="238" r="1.6"/>
+      </g>
+      <!-- 四角星形水花 -->
+      <g fill="#fff8e1" opacity="0.9">
+        <path d="M160,252 l2.5,6 6,2.5 -6,2.5 -2.5,6 -2.5,-6 -6,-2.5 6,-2.5 Z"/>
+        <path d="M76,300 l2,5 5,2 -5,2 -2,5 -2,-5 -5,-2 5,-2 Z"/>
+      </g>
+
+      <!-- 萤火虫提灯观众 -->
+      <g>
+        <circle cx="46" cy="216" r="3.2" fill="#d9f7a8"/>
+        <circle cx="46" cy="216" r="7" fill="#d9f7a8" opacity="0.25"/>
+        <circle cx="256" cy="238" r="2.8" fill="#d9f7a8" opacity="0.9"/>
+        <circle cx="256" cy="238" r="6" fill="#d9f7a8" opacity="0.2"/>
+        <circle cx="88" cy="190" r="2.4" fill="#d9f7a8" opacity="0.8"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="424" text-anchor="middle" fill="#cfd8e8" font-size="22" font-weight="700" letter-spacing="0.1em">小河马的月亮浴</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历八月十六 · 满月🌕</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">喜欢自己 · 自信</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
     </div>
   </div>
 
-<script>
-  (function () {
-    var box = document.getElementById('stars');
-    var count = 60;
-    for (var i = 0; i < count; i++) {
-      var s = document.createElement('span');
-      s.className = 'star';
-      var size = Math.random() * 3 + 1.5;
-      s.style.width = size + 'px';
-      s.style.height = size + 'px';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.animationDelay = Math.random() * 4 + 's';
-      s.style.animationDuration = (Math.random() * 3 + 2) + 's';
-      box.appendChild(s);
-    }
-  })();
-</script>
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>小河马胖胖最怕晚上洗澡了。它总是躲进芦苇丛里，把自己圆滚滚的身子藏起来，小声嘟囔："我太胖了，又黑乎乎的，一定很丑。"</p>
+    <p>月亮听见了，温柔地笑起来，把一束银白色的光轻轻洒进小河里。那光在水面上晃呀晃，像铺了一条亮晶晶的毯子。</p>
+    <p>"胖胖，来试试今晚的月亮浴吧。"月亮柔声说，"这可是我专门为你准备的呀。"</p>
+    <p>胖胖半信半疑地走到水边，先用脚尖碰了碰。水凉丝丝的，银光一下子裹住了它的小脚丫，暖洋洋的，好舒服。它"扑通"一声跳进河里，溅起一片亮闪闪的水花。</p>
+    <p>神奇的事情发生了。那些水花飞起来，变成了一颗颗小星星，围着胖胖转呀转。胖胖愣住了——水里那个影子，圆圆的、憨憨的，正被好多小星星抱着，像是在发光。</p>
+    <p>"原来我也可以这么好看呀！"胖胖开心地转了个圈，水里的星光也跟着转圈，美极了。</p>
+    <p>岸上的萤火虫听见了，都飞过来看，提着小灯笼一明一灭地喝彩。小青蛙也"呱呱"地唱起歌来。整条小河热闹极了。</p>
+    <p>洗得香喷喷的胖胖趴在岸边，抬头看着月亮，轻轻说："谢谢你，月亮。原来只要喜欢自己，照镜子就会发光呀。"</p>
+    <p>月亮眨眨眼，用最柔软的光，轻轻地、轻轻地盖在胖胖身上，像一床暖乎乎的月光被子。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>喜欢自己的孩子，照镜子都会发光。圆圆的、憨憨的，也是独一无二的可爱呀。🛁</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小河马说，你今天也是个懂得喜欢自己的好孩子，该做一个甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月26日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
 <script>
 (function(){
   var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');

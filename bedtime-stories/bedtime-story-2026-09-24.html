@@ -5,96 +5,108 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>小月亮的梳子 — 儿童睡前故事</title>
 <style>
-  :root{
-    --bg1:#0b1530;
-    --bg2:#131f45;
-    --text:#e8e6ff;
-    --text-soft:#b8b4d8;
-    --gold:#f7d98b;
-    --moon:#fff3c9;
-    --star:#ffe9a8;
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
   }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    background:linear-gradient(180deg,var(--bg1) 0%,var(--bg2) 100%);
-    color:var(--text);
-    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-    min-height:100vh;
-    overflow-x:hidden;
-    position:relative;
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
-  /* 星空 */
-  .stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
-  .star{
-    position:absolute;background:var(--star);border-radius:50%;
-    animation:twinkle 3s ease-in-out infinite;
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
   }
-  @keyframes twinkle{
-    0%,100%{opacity:.2;transform:scale(.8);}
-    50%{opacity:1;transform:scale(1.2);}
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
   }
-  .moon{
-    position:absolute;top:48px;right:10%;
-    width:120px;height:120px;border-radius:50%;
-    background:radial-gradient(circle at 35% 35%,#fffbe0,var(--moon));
-    box-shadow:0 0 60px 20px rgba(255,240,190,.45);
-    animation:float 6s ease-in-out infinite;
+
+  /* 月亮：2026-09-24 农历八月十四 · 盈凸月（右侧大部分亮，左侧一弯暗弧） */
+  .moon { position: absolute; top: 5%; right: 9%; animation: floatMoon 6s ease-in-out infinite; }
+  @keyframes floatMoon {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
   }
-  .moon::after{
-    content:"";position:absolute;top:22px;left:30px;width:28px;height:28px;
-    border-radius:50%;background:rgba(210,195,140,.5);
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
   }
-  @keyframes float{
-    0%,100%{transform:translateY(0);}
-    50%{transform:translateY(-14px);}
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
   }
-  .wrap{
-    position:relative;z-index:1;
-    max-width:620px;margin:0 auto;
-    padding:120px 26px 70px;
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
   }
-  header{text-align:center;margin-bottom:46px;}
-  .badge{
-    display:inline-block;font-size:14px;letter-spacing:4px;
-    color:var(--gold);opacity:.85;margin-bottom:16px;
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
   }
-  h1{
-    font-size:34px;line-height:1.4;font-weight:600;
-    color:var(--moon);margin-bottom:10px;
-    text-shadow:0 2px 18px rgba(255,235,170,.35);
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
   }
-  .date{
-    font-size:14px;color:var(--text-soft);letter-spacing:2px;
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
   }
-  .story{
-    font-size:19px;line-height:2.05;letter-spacing:.5px;
-    color:var(--text);text-align:justify;
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
   }
-  .story p{margin-bottom:26px;}
-  .story .first::first-letter{
-    font-size:40px;font-weight:600;color:var(--gold);
-    float:left;line-height:1;margin:6px 8px 0 0;
-  }
-  .divider{
-    text-align:center;margin:34px 0;color:var(--star);
-    font-size:18px;letter-spacing:8px;opacity:.7;
-  }
-  .goodnight{
-    margin-top:40px;padding:28px 24px;
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,235,170,.18);
-    border-radius:20px;text-align:center;
-    font-size:19px;line-height:1.9;color:var(--moon);
-  }
-  footer{
-    text-align:center;margin-top:52px;
-    font-size:13px;color:var(--text-soft);letter-spacing:2px;
-  }
-  @media(max-width:480px){
-    h1{font-size:28px;}
-    .story{font-size:18px;}
-    .moon{width:88px;height:88px;top:36px;right:6%;}
-    .wrap{padding:100px 20px 50px;}
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
   }
   /* === 音频播放器（generate.py 注入） === */
   .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
@@ -110,17 +122,47 @@
 </style>
 </head>
 <body>
-  <div class="stars" id="stars"></div>
-  <div class="moon"></div>
 
-  <div class="wrap">
-    <header>
-      <div class="badge">🌙 睡前故事</div>
-      <h1>小月亮的梳子</h1>
-      <div class="date">2026年9月24日 · 星期四</div>
-    </header>
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：农历八月十四 · 盈凸月（左侧一弯暗弧，右侧大部分亮） -->
+  <div class="moon">
+    <svg width="86" height="86" viewBox="0 0 86 86" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="盈凸月：八月十四，明天就是满月啦">
+      <defs>
+        <radialGradient id="moonGlow24" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="#f3e3a8" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#f3e3a8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="moonBody24" cx="0.38" cy="0.35" r="0.85">
+          <stop offset="0%" stop-color="#fffbe8"/>
+          <stop offset="70%" stop-color="#f3e3a8"/>
+          <stop offset="100%" stop-color="#e6d18e"/>
+        </radialGradient>
+      </defs>
+      <circle cx="43" cy="43" r="42" fill="url(#moonGlow24)"/>
+      <!-- 底盘：盈凸月整体轮廓 -->
+      <circle cx="43" cy="43" r="26" fill="url(#moonBody24)"/>
+      <!-- 左侧暗弧（八月十四：右侧亮，左侧微缺） -->
+      <path d="M 43 17 A 26 26 0 0 0 43 69 A 32 26 0 0 1 43 17 Z" fill="#141733" opacity="0.92"/>
+      <circle cx="34" cy="35" r="3.5" fill="#e6d18e" opacity="0.5"/>
+      <circle cx="48" cy="50" r="2.6" fill="#e6d18e" opacity="0.45"/>
+    </svg>
+  </div>
+</div>
 
-      <div class="audio-box" id="audioBox">
+<div class="wrap">
+  <header class="header">
+    <h1>小月亮的梳子</h1>
+    <p class="meta">🌙 把烦恼轻轻梳顺的夜 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
     <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
     <div class="audio-meta">
       <div class="audio-title">🎧 听 · 今日故事</div>
@@ -130,44 +172,134 @@
     <audio id="storyAudio" src="audio/bedtime-story-2026-09-24.m4a" preload="metadata"></audio>
   </div>
 
-<div class="story">
-      <p class="first">月亮妈妈有一把亮晶晶的梳子，是用最软最软的一束星光做成的。每天天黑以后，月亮妈妈就坐在天上，一下一下，梳理着墨蓝色的夜空。</p>
-      <p>梳子梳过的地方，云朵就变得蓬蓬的、软软的，像刚晒过太阳的棉花糖。梳子梳呀梳，把星星们一颗颗梳得亮堂堂，排成一队，眨着眼睛跟大地上的小朋友打招呼。</p>
-      <p>这天晚上，月亮妈妈正梳着，忽然听见一阵很轻很轻的叹气声。她低头一看，是住在山坡下的小男孩果果，正抱着膝盖，坐在窗台上发呆。</p>
-      <p>"怎么啦，小果果？"月亮妈妈温柔地问，"你的眉毛，怎么皱得像个小问号？"</p>
-      <p>果果撅着嘴说："今天我和好朋友闹别扭了，心里乱糟糟的，像一团解不开的毛线球，睡不着。"</p>
-      <p>月亮妈妈笑了："没关系呀。你看，我把夜空梳得整整齐齐，你的心情，我也能帮你轻轻梳一梳。"</p>
-      <p>她抽出梳子上最软的一根星光，飘呀飘，落进果果的心里。那根星光，像妈妈的手指，一下一下，把乱糟糟的毛线球，轻轻梳顺了。</p>
-      <p>果果忽然觉得心里暖乎乎的。他想起来，明天早上，他愿意第一个笑着跟好朋友说"早安"。</p>
-      <p>月亮妈妈又梳了最后一下，整片夜空都变得安安静静、柔柔和和。她轻轻说："把烦恼交给夜色吧，明天又是崭新的一天。"</p>
-    </div>
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="月亮妈妈坐在夜空里，用星光梳子梳理云朵，楼下小男孩果果趴在窗台望月亮">
+      <defs>
+        <linearGradient id="bg24" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#101228"/>
+          <stop offset="55%" stop-color="#1e2553"/>
+          <stop offset="100%" stop-color="#161a3c"/>
+        </linearGradient>
+        <radialGradient id="posterMoonGlow24">
+          <stop offset="0%" stop-color="#f5e6b8" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#f5e6b8" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="combGold24" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ffe9a8"/>
+          <stop offset="100%" stop-color="#d9b95e"/>
+        </linearGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#bg24)" rx="16"/>
 
-    <div class="divider">✦ ✧ ✦</div>
+      <!-- 星空 -->
+      <circle cx="42" cy="46" r="2" fill="#fff" opacity="0.85"/>
+      <circle cx="256" cy="38" r="2.4" fill="#fff" opacity="0.7"/>
+      <circle cx="206" cy="26" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="80" cy="86" r="1.5" fill="#fff" opacity="0.6"/>
+      <circle cx="268" cy="118" r="1.8" fill="#f5d76e" opacity="0.75"/>
+      <!-- 被梳得亮堂堂的星星队伍 -->
+      <g fill="#ffe9a8">
+        <circle cx="60" cy="140" r="2.2"/>
+        <circle cx="85" cy="128" r="1.8"/>
+        <circle cx="110" cy="136" r="2"/>
+        <circle cx="135" cy="124" r="1.7"/>
+      </g>
 
-    <div class="goodnight">
-      晚安，小宝贝。<br>
-      小月亮说，你今天也是个好孩子，<br>
-      把心里的小疙瘩轻轻放下，该做一个甜甜的梦啦。
-    </div>
+      <!-- 盈凸月（八月十四，与背景月相同形态：左侧暗弧） -->
+      <circle cx="150" cy="110" r="52" fill="url(#posterMoonGlow24)"/>
+      <circle cx="150" cy="110" r="30" fill="#f5e6b8"/>
+      <path d="M 150 80 A 30 30 0 0 0 150 140 A 37 30 0 0 1 150 80 Z" fill="#1a1f42" opacity="0.9"/>
+      <!-- 月亮妈妈的温柔笑脸 -->
+      <circle cx="160" cy="104" r="2" fill="#8a6d2f"/>
+      <circle cx="172" cy="104" r="2" fill="#8a6d2f"/>
+      <path d="M 160 116 Q 168 122 176 116" stroke="#8a6d2f" stroke-width="2" fill="none" stroke-linecap="round"/>
 
-    <footer>— 每天一个好梦 · 陪伴你慢慢长大 —</footer>
+      <!-- 星光梳子（在月亮下方，正梳理云朵） -->
+      <g transform="translate(105,175) rotate(18)">
+        <rect x="0" y="0" width="90" height="16" rx="8" fill="url(#combGold24)"/>
+        <g stroke="#ffe9a8" stroke-width="3" stroke-linecap="round">
+          <line x1="14" y1="16" x2="14" y2="34"/>
+          <line x1="30" y1="16" x2="30" y2="36"/>
+          <line x1="46" y1="16" x2="46" y2="34"/>
+          <line x1="62" y1="16" x2="62" y2="36"/>
+          <line x1="78" y1="16" x2="78" y2="32"/>
+        </g>
+      </g>
+
+      <!-- 被梳得蓬蓬的云朵 -->
+      <g fill="#c9d4ee" opacity="0.85">
+        <ellipse cx="200" cy="215" rx="34" ry="14"/>
+        <ellipse cx="222" cy="208" rx="20" ry="11"/>
+        <ellipse cx="182" cy="207" rx="16" ry="9"/>
+      </g>
+
+      <!-- 山坡 -->
+      <path d="M0,340 Q120,315 300,335 L300,440 L0,440 Z" fill="#1a1636"/>
+
+      <!-- 小屋与小窗（果果趴在窗台） -->
+      <g>
+        <rect x="52" y="288" width="88" height="62" rx="6" fill="#3a2e56"/>
+        <path d="M46,290 L96,258 L146,290 Z" fill="#4a3a68"/>
+        <rect x="76" y="304" width="40" height="34" rx="5" fill="#f5e6b8"/>
+        <!-- 果果的小脑袋趴在窗台 -->
+        <circle cx="96" cy="322" r="10" fill="#f0c8a0"/>
+        <path d="M86,318 Q96,306 106,318" stroke="#5a4232" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <circle cx="92" cy="322" r="1.6" fill="#3a2a1a"/>
+        <circle cx="100" cy="322" r="1.6" fill="#3a2a1a"/>
+        <path d="M92,328 Q96,331 100,328" stroke="#c07a5a" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- 标题 -->
+      <text x="150" y="424" text-anchor="middle" fill="#cfd8e8" font-size="22" font-weight="700" letter-spacing="0.1em">小月亮的梳子</text>
+    </svg>
   </div>
 
-  <script>
-    (function(){
-      var box=document.getElementById('stars');
-      var n=window.innerWidth<480?40:70;
-      var f='';
-      for(var i=0;i<n;i++){
-        var s=Math.random()*2.4+1;
-        var x=Math.random()*100;
-        var y=Math.random()*100;
-        var d=Math.random()*5;
-        f+='<span class="star" style="left:'+x+'%;top:'+y+'%;width:'+s+'px;height:'+s+'px;animation-delay:'+d+'s;animation-duration:'+(2+Math.random()*3)+'s;"></span>';
-      }
-      box.innerHTML=f;
-    })();
-  </script>
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历八月十四 · 盈凸月🌔</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">温柔安慰 · 放下烦恼</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>月亮妈妈有一把亮晶晶的梳子，是用最软最软的一束星光做成的。每天天黑以后，月亮妈妈就坐在天上，一下一下，梳理着墨蓝色的夜空。</p>
+    <p>梳子梳过的地方，云朵就变得蓬蓬的、软软的，像刚晒过太阳的棉花糖。梳子梳呀梳，把星星们一颗颗梳得亮堂堂，排成一队，眨着眼睛跟大地上的小朋友打招呼。</p>
+    <p>这天晚上，月亮妈妈正梳着，忽然听见一阵很轻很轻的叹气声。她低头一看，是住在山坡下的小男孩果果，正抱着膝盖，坐在窗台上发呆。</p>
+    <p>"怎么啦，小果果？"月亮妈妈温柔地问，"你的眉毛，怎么皱得像个小问号？"</p>
+    <p>果果撅着嘴说："今天我和好朋友闹别扭了，心里乱糟糟的，像一团解不开的毛线球，睡不着。"</p>
+    <p>月亮妈妈笑了："没关系呀。你看，我把夜空梳得整整齐齐，你的心情，我也能帮你轻轻梳一梳。"</p>
+    <p>她抽出梳子上最软的一根星光，飘呀飘，落进果果的心里。那根星光，像妈妈的手指，一下一下，把乱糟糟的毛线球，轻轻梳顺了。</p>
+    <p>果果忽然觉得心里暖乎乎的。他想起来，明天早上，他愿意第一个笑着跟好朋友说"早安"。</p>
+    <p>月亮妈妈又梳了最后一下，整片夜空都变得安安静静、柔柔和和。她轻轻说："把烦恼交给夜色吧，明天又是崭新的一天。"</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>乱糟糟的心情，就像乱糟糟的毛线球，轻轻梳一梳就顺了。烦恼交给夜色，明天笑着说早安。🌙</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小月亮说，你今天也是个好孩子，把心里的小疙瘩轻轻放下，该做一个甜甜的梦啦。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年9月24日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
 <script>
 (function(){
   var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
