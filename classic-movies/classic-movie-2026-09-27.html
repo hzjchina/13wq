@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>让子弹飞</title>
+<style>
+  :root{
+    --bg:#0f0e13; --bg2:#1a1824; --card:#201d2e; --card2:#28243a;
+    --text:#e8e4f0; --text2:#b8b2c8; --gold:#e0b45c; --gold2:#f2d08a;
+    --accent:#8b7bd8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:radial-gradient(1200px 700px at 50% -10%,#2a2440 0%,var(--bg) 55%);
+    color:var(--text); line-height:1.8; min-height:100vh;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:48px 22px 60px;}
+  header{text-align:center;margin-bottom:36px;}
+  .kicker{display:inline-block;font-size:13px;letter-spacing:3px;color:var(--gold);border:1px solid rgba(224,180,92,.35);padding:4px 16px;border-radius:30px;margin-bottom:18px;}
+  h1{font-size:40px;font-weight:800;letter-spacing:2px;margin-bottom:10px;
+     background:linear-gradient(120deg,var(--gold2),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .subtitle{color:var(--text2);font-size:15px;}
+  .poster{background:linear-gradient(160deg,#2a2440,#17141f);border:1px solid rgba(139,123,216,.25);border-radius:18px;padding:34px 26px;text-align:center;margin-bottom:28px;}
+  .poster .year{font-size:56px;font-weight:900;color:var(--gold);letter-spacing:4px;line-height:1;}
+  .poster .dir{color:var(--text2);margin-top:14px;font-size:15px;}
+  .poster .score{margin-top:22px;font-size:34px;font-weight:800;color:#ffd98a;}
+  .poster .score small{font-size:15px;font-weight:400;color:var(--text2);}
+  .info-bar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:28px;}
+  .info-item{background:var(--card);border:1px solid rgba(139,123,216,.15);border-radius:12px;padding:14px;text-align:center;}
+  .info-label{font-size:12px;color:var(--text2);letter-spacing:1px;margin-bottom:4px;}
+  .info-value{font-size:14px;font-weight:600;}
+  .card{background:var(--card);border:1px solid rgba(139,123,216,.15);border-radius:16px;padding:28px;margin-bottom:22px;}
+  .card h2{font-size:19px;color:var(--gold);margin-bottom:16px;padding-left:12px;border-left:3px solid var(--gold);}
+  .card p{color:var(--text);font-size:16px;margin-bottom:14px;text-indent:2em;}
+  .card p:last-child{margin-bottom:0;}
+  .highlight{background:linear-gradient(160deg,#2a2440,#1d1a2a);border-left:3px solid var(--accent);}
+  .highlight h2{color:var(--accent);border-left-color:var(--accent);}
+  .tag{display:inline-block;background:rgba(139,123,216,.18);color:#b9aef0;font-size:12px;padding:3px 12px;border-radius:20px;margin:0 6px 6px 0;}
+  footer{text-align:center;color:var(--text2);font-size:13px;margin-top:30px;padding-top:20px;border-top:1px solid rgba(139,123,216,.12);}
+  @media(max-width:480px){
+    h1{font-size:30px;}
+    .info-bar{grid-template-columns:1fr 1fr;}
+    .poster .year{font-size:44px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker">经典电影推荐</span>
+    <h1>让子弹飞</h1>
+    <div class="subtitle">一部把荒诞、江湖与寓言炖成一锅的华语神作</div>
+  </header>
+
+  <div class="poster">
+    <div class="year">2010</div>
+    <div class="dir">导演：姜文 · 主演：姜文 / 葛优 / 周润发</div>
+    <div class="score">9.0 <small>/ 10 · 豆瓣</small></div>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item"><div class="info-label">类型</div><div class="info-value">剧情 / 喜剧 / 西部</div></div>
+    <div class="info-item"><div class="info-label">片长</div><div class="info-value">132 分钟</div></div>
+    <div class="info-item"><div class="info-label">语言</div><div class="info-value">普通话</div></div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>民国年间，鹅城来了个自称"县长"的马邦德，身后却跟着一群荷枪实弹的土匪。真假县长、土匪与恶霸，一场围绕鹅城的权力与金钱游戏就此展开。谁是真、谁是假，谁是棋子、谁是棋手，在荒诞的周旋里渐渐模糊。</p>
+    <p>子弹上膛，一步一局。江湖气、草莽气、家国气交织，最终指向一个关于"站着把钱挣了"的朴素理想。</p>
+  </div>
+
+  <div class="card highlight">
+    <h2>亮点所在</h2>
+    <p>姜文导演用极具个人风格的语言，把一部商业片拍成了可反复咀嚼的寓言。台词密度极高，几乎句句有梗，被影迷奉为"台词能当酒喝"。</p>
+    <p>周润发、姜文、葛优三位影帝同台飙戏，张力拉满。片中大量桥段成为华语电影的文化符号，余味悠长。</p>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>它是一部"越看越有味道"的电影：第一遍看热闹与爽感，第二遍看台词与机锋，第三遍看结构与隐喻。每一次重看，都能咂摸出新的东西。</p>
+    <p>如果你喜欢华语电影、喜欢犀利台词、喜欢在笑声背后感受到一点重量，这部电影不容错过。</p>
+    <div style="margin-top:14px;">
+      <span class="tag">华语经典</span><span class="tag">影帝飙戏</span><span class="tag">台词封神</span><span class="tag">荒诞寓言</span>
+    </div>
+  </div>
+
+  <footer>2026-09-27 · 经典电影推荐 · 由小虾米温柔推荐 🦐</footer>
+</div>
+</body>
+</html>

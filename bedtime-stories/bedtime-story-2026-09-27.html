@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小鼹鼠的星光地图 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：亏凸月（右侧小暗弧，左侧亮） -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="52" fill="url(#moonGlow)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="76" cy="52" r="38" fill="#1c1f4a"/>
+    </svg>
+  </div>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小鼹鼠的星光地图</h1>
+    <p class="meta">🌟 把天上的星星，一颗一颗带回地下 · 3-8 岁睡前故事</p>
+  </header>
+
+  <div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <rect width="300" height="440" fill="#0e0f26"/>
+      <rect x="0" y="0" width="300" height="320" fill="#1c1f4a"/>
+      <circle cx="38" cy="52" r="2" fill="#fff" opacity="0.9"/>
+      <circle cx="120" cy="30" r="1.6" fill="#fff" opacity="0.8"/>
+      <circle cx="210" cy="60" r="2" fill="#fff" opacity="0.9"/>
+      <circle cx="270" cy="34" r="1.5" fill="#fff" opacity="0.7"/>
+      <circle cx="70" cy="110" r="1.4" fill="#fff" opacity="0.7"/>
+      <circle cx="250" cy="120" r="1.8" fill="#fff" opacity="0.8"/>
+      <circle cx="160" cy="80" r="1.5" fill="#fff" opacity="0.7"/>
+      <!-- 亏凸月：左侧亮，右侧小暗弧 -->
+      <circle cx="90" cy="150" r="34" fill="#e8ecf5"/>
+      <circle cx="104" cy="142" r="34" fill="#1c1f4a"/>
+      <circle cx="90" cy="150" r="40" fill="none" stroke="#e8ecf5" stroke-opacity="0.15" stroke-width="6"/>
+      <!-- 地面与洞口 -->
+      <path d="M0 340 Q 150 300 300 340 L 300 440 L 0 440 Z" fill="#2a2440"/>
+      <ellipse cx="150" cy="342" rx="70" ry="16" fill="#151229"/>
+      <ellipse cx="150" cy="342" rx="52" ry="11" fill="#0a0918"/>
+      <!-- 小鼹鼠 -->
+      <ellipse cx="150" cy="360" rx="30" ry="26" fill="#7a5c46"/>
+      <circle cx="150" cy="338" r="20" fill="#8a6a50"/>
+      <circle cx="142" cy="334" r="2.6" fill="#14111f"/>
+      <circle cx="158" cy="334" r="2.6" fill="#14111f"/>
+      <ellipse cx="150" cy="344" rx="5" ry="3.5" fill="#3a2a1e"/>
+      <ellipse cx="134" cy="340" rx="6" ry="4" fill="#8a6a50" stroke="#6b4f38" stroke-width="1.5"/>
+      <ellipse cx="166" cy="340" rx="6" ry="4" fill="#8a6a50" stroke="#6b4f38" stroke-width="1.5"/>
+      <!-- 小鼹鼠举着一颗星星 -->
+      <path d="M176 356 L 196 322" stroke="#7a5c46" stroke-width="6" stroke-linecap="round"/>
+      <circle cx="200" cy="314" r="9" fill="#f5d76e"/>
+      <path d="M200 302 L 202 310 L 210 310 L 203 315 L 206 323 L 200 318 L 194 323 L 197 315 L 190 310 L 198 310 Z" fill="#f5d76e" opacity="0.9"/>
+      <!-- 散落的星光 -->
+      <circle cx="66" cy="380" r="4" fill="#f5d76e" opacity="0.8"/>
+      <circle cx="238" cy="392" r="3.4" fill="#f5d76e" opacity="0.7"/>
+      <circle cx="120" cy="410" r="3" fill="#fff" opacity="0.5"/>
+      <circle cx="196" cy="416" r="2.6" fill="#fff" opacity="0.5"/>
+      <!-- 底部标题 -->
+      <text x="150" y="462" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="20" fill="#cfd8e8" font-weight="700">小鼹鼠的星光地图</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历八月十七 · 亏凸月🌖</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">寻找光亮 · 分享星光</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>在地底下，住着一只小鼹鼠，叫月月。她最害怕天黑，因为洞里黑乎乎的，什么也看不见。她总是缩在窝里，盼着月亮能照进来一点点。</p>
+    <p>这天晚上，月月鼓起勇气，从洞口探出小脑袋。哇，天上亮晶晶的，月亮圆圆的，身边还洒满了小星星。她想：要是能把星星带回地下，洞里就不黑啦。</p>
+    <p>可是，星星太高了，够也够不着。月月叹着气，忽然看见草丛里有一粒闪闪发光的东西，是一只迷路的小萤火虫。小萤火虫抖抖翅膀，却飞不起来了。</p>
+    <p>“别怕，我带你回家。”月月把小萤火虫捧在爪心里，一路问小蟋蟀、问小瓢虫，终于把它送回了萤火虫的家。临走时，萤火虫一家围着月月跳起了光舞，把黑黑的草地照得暖暖的。</p>
+    <p>月月开心极了，她发现：原来光亮不是只能在天上，也藏在身边的善良里。她回到家，用软软的泥土画了一幅画，把每一处见过光的地方都标出来——这里有过萤火虫，这里落下过月光，这里开过发亮的小花。</p>
+    <p>从那以后，月月再也不怕黑了。她把这幅画挂在床头，叫它“星光地图”。每天晚上睡觉前，她都要看看它，笑着想：明天，我还要把新的光，画进地图里。慢慢地，月月睡着了，梦里，整个地下都亮堂堂的。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>真正的光亮不在遥远的天上，而在你愿意为别人点亮的那一刻。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小鼹鼠月月说，你今天也是个好孩子，该做一个甜甜的梦了。🌟</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年09月27日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+</body>
+</html>

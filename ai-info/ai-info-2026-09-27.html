@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日 AI 情报 · 2026-09-27</title>
+<style>
+  :root{
+    --bg:#05070d; --panel:#0b0f1a; --card:#101624; --card2:#151c30;
+    --line:rgba(90,140,255,.14); --text:#dbe4f5; --text2:#8294b3;
+    --cyan:#4fc3f7; --purple:#a78bfa; --green:#4ade80; --amber:#fbbf24;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:
+      radial-gradient(900px 500px at 15% -5%, rgba(79,195,247,.08), transparent 60%),
+      radial-gradient(900px 500px at 85% 0%, rgba(167,139,250,.08), transparent 60%),
+      var(--bg);
+    color:var(--text); line-height:1.75; min-height:100vh;
+  }
+  .grid-bg{position:fixed;inset:0;pointer-events:none;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:44px 44px; opacity:.5; z-index:0;}
+  .wrap{max-width:880px;margin:0 auto;padding:52px 22px 70px;position:relative;z-index:1;}
+  header{text-align:center;margin-bottom:40px;}
+  .kicker{display:inline-block;font-size:12px;letter-spacing:4px;color:var(--cyan);border:1px solid rgba(79,195,247,.3);padding:5px 18px;border-radius:30px;margin-bottom:16px;}
+  h1{font-size:32px;font-weight:800;letter-spacing:1px;
+     background:linear-gradient(120deg,#7dd3fc,#a78bfa,#4ade80);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .date{color:var(--text2);font-size:14px;margin-top:10px;}
+  .section-title{font-size:18px;font-weight:700;color:var(--text);margin:34px 0 16px;padding-left:14px;border-left:4px solid var(--cyan);}
+  .section-title.embodied{border-left-color:var(--purple);}
+  .section-title.embodied::after{content:" · 具身智能";color:var(--purple);}
+  .section-title.coding::after{content:" · AI Coding";color:var(--cyan);}
+  .card{background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:14px;padding:20px 22px;margin-bottom:14px;position:relative;overflow:hidden;}
+  .card::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.6;}
+  .card.embodied::before{background:linear-gradient(90deg,transparent,var(--purple),transparent);}
+  .rank{display:inline-block;font-size:11px;font-weight:700;color:var(--bg);background:var(--cyan);border-radius:4px;padding:1px 8px;margin-right:10px;vertical-align:2px;}
+  .card.embodied .rank{background:var(--purple);}
+  .card h3{font-size:16px;font-weight:600;line-height:1.5;margin-bottom:8px;}
+  .card h3 a{color:var(--text);text-decoration:none;}
+  .card h3 a:hover{color:var(--cyan);}
+  .meta{font-size:12px;color:var(--text2);margin-bottom:8px;}
+  .meta .src{color:var(--cyan);}
+  .card.embodied .meta .src{color:var(--purple);}
+  .summary{font-size:14px;color:var(--text);opacity:.92;}
+  .why{font-size:13px;color:var(--green);margin-top:8px;}
+  .note{font-size:12px;color:var(--amber);margin-top:10px;}
+  .pool-badge{display:inline-block;font-size:11px;color:var(--amber);border:1px solid rgba(251,191,36,.4);border-radius:4px;padding:1px 8px;margin-left:8px;}
+  footer{text-align:center;color:var(--text2);font-size:13px;margin-top:40px;padding-top:20px;border-top:1px solid var(--line);}
+  @media(max-width:480px){h1{font-size:25px;} .card{padding:16px 14px;} .card h3{font-size:15px;}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <header>
+    <span class="kicker">AI 情报 · 每日简报</span>
+    <h1>每日 AI 情报</h1>
+    <div class="date">2026-09-27 · 侧重 AI Coding 与具身智能</div>
+  </header>
+
+  <div class="section-title coding">AI Coding 方向</div>
+
+  <div class="card">
+    <span class="rank">1</span><h3><a href="https://aihot.news/items/cmugshp2k17zorogvtrote4v1" target="_blank">Ruby on Rails 创始人 DHH 宣布不再手写代码</a></h3>
+    <div class="meta">The Decoder · 2026-09-25</div>
+    <div class="summary">Rails 之父 David Heinemeier Hansson 在 Rails World 2026 演讲中宣布，自 2026 年起自己不再手写代码，全面转向 AI 辅助开发。这一表态在开发者社区引发关于"程序员是否还需要亲手编码"的大讨论。</div>
+    <div class="why">值得关注：编程范式风向标——框架作者级别的开发者公开拥抱 AI 编码，信号意义极强。</div>
+  </div>
+
+  <div class="card">
+    <span class="rank">2</span><h3><a href="https://aihot.news/items/cmuidv8ll0ijqrov0kbltvmvh" target="_blank">一位开发者停用 AI 编码一个月的亲历复盘</a></h3>
+    <div class="meta">Hacker News · 2026-09-26</div>
+    <div class="summary">开发者自述重度使用 AI 编码智能体数月后逐渐失去对代码的掌控，最终决定停用 AI 一个月，回归 TDD，重新找回对每行代码的理解与编程乐趣。</div>
+    <div class="why">值得关注：与 DHH 形成鲜明对照，折射出"AI 提效"与"代码掌控感"之间的真实张力。</div>
+  </div>
+
+  <div class="card">
+    <span class="rank">3</span><h3><a href="https://aihot.news/items/cmubrwocy051frocidkbt13vz" target="_blank">Linear 重构 CI 应对 AI 编码带来的验证瓶颈</a></h3>
+    <div class="meta">Hacker News · 2026-09-21</div>
+    <div class="summary">Linear 工程师介绍团队如何重构 CI 流程：AI 智能体大幅加速写代码后，验证环节成为新瓶颈，测试套件年初以来增长近四倍，PR 等待时间从 6 分钟以上降至 5 分钟出头。</div>
+    <div class="why">值得关注：AI 编码落地后"写码提速、验证卡壳"是普遍痛点，Linear 给出了工程化解法。</div>
+  </div>
+
+  <div class="card">
+    <span class="rank">4</span><h3><a href="https://aihot.news/items/cmud2dm9s03w3ro5yar53tpf3" target="_blank">OpenAI 发布 GPT-6 Sol 与 GPT-6 Luna，API 价格再降 50%</a></h3>
+    <div class="meta">IT之家 · 2026-09-22</div>
+    <div class="summary">OpenAI 推出 GPT-6 系列新成员 Sol 与 Luna，API 价格较 GPT-5.6 促销价再降 50%，延续 GPT-6 Astra 架构。模型降价进一步降低 AI 编码等场景的接入成本。</div>
+    <div class="why">值得关注：推理成本持续下探，直接影响 AI coding 工具的经济性。</div>
+  </div>
+
+  <div class="card">
+    <span class="rank">5</span><h3><a href="https://aihot.news/items/cmuably0k0a4lro5tkkx3kgnk" target="_blank">Flet 1.0 发布：纯 Python 构建生产级 Web/桌面/移动应用</a></h3>
+    <div class="meta">MarkTechPost · 2026-09-20</div>
+    <div class="summary">开源 Python 框架 Flet 发布 1.0 正式版，基于 Flutter 渲染 UI，flet build 支持 apk、aab、ipa 等打包，宣称可用于生产级应用开发。</div>
+    <div class="why">值得关注：降低了 Python 开发者做跨端应用的门槛，与 AI 编码协作友好。</div>
+  </div>
+
+  <div class="section-title embodied">具身智能方向</div>
+
+  <div class="card embodied">
+    <span class="rank">1</span><h3><a href="https://aihot.news/items/cmugn2un312cgrogv0jiqxuky" target="_blank">宇树科技王兴兴：机器人核心瓶颈是几毫米误差，具身智能将迎"ChatGPT 时刻"</a></h3>
+    <div class="meta">IT之家 · 2026-09-25</div>
+    <div class="summary">宇树创始人王兴兴在数贸会上表示，机器人最大瓶颈是 AI 模型与真实物理世界匹配度不足，工作存在几毫米误差；谁能解决这一点，机器人问题就"完全解决"。</div>
+    <div class="why">值得关注：头部人形机器人公司的技术判断，点出具身智能落地的关键卡点。</div>
+  </div>
+
+  <div class="card embodied">
+    <span class="rank">2</span><h3><a href="https://aihot.news/items/cmuh6syb806ghro55g9ywb2mv" target="_blank">Perceptron 发布 35B 具身智能体模型 Mk1.5</a></h3>
+    <div class="meta">X · 2026-09-25</div>
+    <div class="summary">35B 参数的具身智能体模型 Mk1.5 可控制无人机、四足机器人、智能眼镜并调度子智能体，无需平台特定重训练，请求完成速度最高提升 4.7 倍。</div>
+    <div class="why">值得关注：通用具身模型在多平台泛化上迈进一步，是"一模型控多机"的实践样本。</div>
+  </div>
+
+  <div class="card embodied">
+    <span class="rank">3</span><h3><a href="https://aihot.news/items/cmufe278m0012ropdq70f6haj" target="_blank">智元与长隆打造全球首个大规模具身智能主题乐园开园</a></h3>
+    <div class="meta">IT之家 · 2026-09-24</div>
+    <div class="summary">智元与长隆联手打造的全球首个大规模具身智能主题乐园开园，投入超 300 台机器人，覆盖文娱商演、导览、伴游、酒店、竞技等七大场景。</div>
+    <div class="why">值得关注：具身智能从实验室走向规模化商业落地，是产业化的标志性事件。</div>
+  </div>
+
+  <div class="card embodied">
+    <span class="rank">4</span><h3><a href="https://aihot.news/items/cmuf3cccy08v3roodka24pm1s" target="_blank">智元第 20000 台具身智能机器人下线并交付长隆</a></h3>
+    <div class="meta">IT之家 · 2026-09-24</div>
+    <div class="summary">智元第 20000 台通用具身智能机器人"远征 A3 Ultra"下线并交付长隆集团，从 10000 台到 20000 台仅用约 6 个月。</div>
+    <div class="why">值得关注：出货量爬坡速度印证具身智能的产能与需求共振。</div>
+  </div>
+
+  <div class="card embodied">
+    <span class="rank">5</span><h3><a href="https://aihot.news/items/cmufma8ig0539ro8wxu2pyovl" target="_blank">自变量推出 X-Planner 具身任务规划器</a></h3>
+    <div class="meta">X · 2026-09-24</div>
+    <div class="summary">自变量（X Square）发布 X-Planner，面向具身智能的事件结构化任务规划器，以语义事件为规划单元，通过 Staircase Decoding 提供离散与隐式接口。</div>
+    <div class="why">值得关注：任务规划是具身智能的"大脑"环节，新架构值得跟踪。</div>
+  </div>
+
+  <div class="note">注：本期 AI coding 与具身智能方向内容均来自全量池，未进入当日精选池（精选池当日 24h 内无对应方向条目）。数据源：AI HOT v1 API。</div>
+
+  <footer>2026-09-27 · 每日 AI 情报 · 由小虾米整理 🦐</footer>
+</div>
+</body>
+</html>
