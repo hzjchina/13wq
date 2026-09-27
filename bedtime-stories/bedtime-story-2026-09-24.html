@@ -144,12 +144,13 @@
           <stop offset="70%" stop-color="#f3e3a8"/>
           <stop offset="100%" stop-color="#e6d18e"/>
         </radialGradient>
+        <clipPath id="moonClip24"><circle cx="43" cy="43" r="26"/></clipPath>
       </defs>
       <circle cx="43" cy="43" r="42" fill="url(#moonGlow24)"/>
-      <!-- 底盘：盈凸月整体轮廓 -->
+      <!-- 盈凸月底盘：右侧亮 -->
       <circle cx="43" cy="43" r="26" fill="url(#moonBody24)"/>
-      <!-- 左侧暗弧（八月十四：右侧亮，左侧微缺） -->
-      <path d="M 43 17 A 26 26 0 0 0 43 69 A 32 26 0 0 1 43 17 Z" fill="#141733" opacity="0.92"/>
+      <!-- 左侧细暗弧（八月十四：右侧亮，左侧微缺，暗圆偏移约1.7r并裁剪在月盘内） -->
+      <circle cx="-3" cy="43" r="26" fill="#141733" opacity="0.92" clip-path="url(#moonClip24)"/>
       <circle cx="34" cy="35" r="3.5" fill="#e6d18e" opacity="0.5"/>
       <circle cx="48" cy="50" r="2.6" fill="#e6d18e" opacity="0.45"/>
     </svg>
@@ -205,10 +206,11 @@
         <circle cx="135" cy="124" r="1.7"/>
       </g>
 
-      <!-- 盈凸月（八月十四，与背景月相同形态：左侧暗弧） -->
+      <!-- 盈凸月（八月十四，与背景月相同形态：右侧亮，左侧细暗弧，裁剪在月盘内） -->
+      <defs><clipPath id="posterMoonClip24"><circle cx="150" cy="110" r="30"/></clipPath></defs>
       <circle cx="150" cy="110" r="52" fill="url(#posterMoonGlow24)"/>
       <circle cx="150" cy="110" r="30" fill="#f5e6b8"/>
-      <path d="M 150 80 A 30 30 0 0 0 150 140 A 37 30 0 0 1 150 80 Z" fill="#1a1f42" opacity="0.9"/>
+      <circle cx="98" cy="110" r="30" fill="#1a1f42" opacity="0.9" clip-path="url(#posterMoonClip24)"/>
       <!-- 月亮妈妈的温柔笑脸 -->
       <circle cx="160" cy="104" r="2" fill="#8a6d2f"/>
       <circle cx="172" cy="104" r="2" fill="#8a6d2f"/>
