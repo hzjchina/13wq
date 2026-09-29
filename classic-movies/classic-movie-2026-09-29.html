@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盗火线</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #181b22;
+    --card-2: #1f232c;
+    --text: #e6e8ec;
+    --muted: #9aa1ad;
+    --accent: #e8b34b;
+    --accent-2: #c99a3a;
+    --line: #2a2f3a;
+    --tag-bg: #232938;
+    --tag-text: #c3c9d6;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  header {
+    text-align: center;
+    padding: 24px 0 8px;
+  }
+  .film-title {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #fff;
+  }
+  .film-en {
+    font-size: 16px;
+    color: var(--muted);
+    margin-top: 6px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .meta-line {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .meta-chip {
+    background: var(--tag-bg);
+    color: var(--tag-text);
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 14px;
+  }
+
+  .poster-band {
+    margin: 28px 0 8px;
+    background: linear-gradient(135deg, #1b2130 0%, #2a1f2d 55%, #3a2416 100%);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+  }
+  .poster-band .tagline {
+    font-size: 20px;
+    font-weight: 600;
+    color: #f0e6d0;
+    letter-spacing: 0.06em;
+  }
+  .poster-band .sub {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  section { margin-top: 30px; }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+  }
+  p { margin-bottom: 14px; color: #d7dbe2; }
+  .muted { color: var(--muted); }
+
+  .highlight-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 14px;
+  }
+  .highlight-card h3 {
+    font-size: 17px;
+    color: #fff;
+    margin-bottom: 8px;
+    font-weight: 700;
+  }
+  .highlight-card p { margin-bottom: 0; font-size: 16px; }
+
+  .why-list {
+    list-style: none;
+    counter-reset: why;
+  }
+  .why-list li {
+    position: relative;
+    padding: 14px 16px 14px 52px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    font-size: 16px;
+  }
+  .why-list li::before {
+    counter-increment: why;
+    content: counter(why);
+    position: absolute;
+    left: 16px;
+    top: 14px;
+    width: 26px;
+    height: 26px;
+    background: var(--accent);
+    color: #1a1410;
+    font-weight: 800;
+    font-size: 14px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quote {
+    margin-top: 30px;
+    background: var(--card-2);
+    border-left: 4px solid var(--accent-2);
+    border-radius: 0 12px 12px 0;
+    padding: 18px 22px;
+    font-style: italic;
+    color: #e9dcc3;
+    font-size: 17px;
+  }
+  .quote .src { display: block; margin-top: 8px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+  footer {
+    margin-top: 36px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+    padding-top: 18px;
+    border-top: 1px solid var(--line);
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    .film-title { font-size: 30px; }
+    .poster-band .tagline { font-size: 17px; }
+    h2 { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="film-title">盗火线</div>
+      <div class="film-en">Heat · 1995</div>
+      <div class="meta-line">
+        <span class="meta-chip">🎬 迈克尔·曼</span>
+        <span class="meta-chip">⭐ 豆瓣 8.5</span>
+        <span class="meta-chip">⏱ 170 分钟</span>
+        <span class="meta-chip">犯罪 / 剧情</span>
+      </div>
+    </header>
+
+    <div class="poster-band">
+      <div class="tagline">"一个警察，一个悍匪，两条无法回头的路。"</div>
+      <div class="sub">阿尔·帕西诺 与 罗伯特·德尼罗 首度同台正面交锋</div>
+    </div>
+
+    <section>
+      <h2>剧情梗概</h2>
+      <p>洛杉矶，一群经验丰富的职业劫匪在尼尔·麦考利（罗伯特·德尼罗 饰）的带领下，以精密如军事行动般的手法连续洗劫运钞车。紧追不舍的是洛杉矶警局重案组的文森特·汉纳（阿尔·帕西诺 饰），一位同样把全部人生投注在追凶上的老练警探。</p>
+      <p>一边是纪律严明、克制冷静的犯罪大师，一边是执着到偏执、把"抓捕"当成唯一生活重心的刑警。两个在各自领域登峰造极的男人，就像镜子的两面，彼此惺惺相惜，却又注定要走向那场无法避免的对决。</p>
+      <p class="muted">（更多情节不剧透，留给你亲眼看。）</p>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <div class="highlight-card">
+        <h3>影史首次双雄正面对戏</h3>
+        <p>阿尔·帕西诺与罗伯特·德尼罗，两位殿堂级演员首次在同一部电影里直接对手戏。那场咖啡店对话，成为影史被反复致敬的经典场景——没有枪战，只有两个男人隔着桌子平静地摊牌。</p>
+      </div>
+      <div class="highlight-card">
+        <h3>教科书级的街头枪战</h3>
+        <p>银行门口的巷战采用实景收音、真实枪声，音效与走位的写实程度至今被奉为动作片标杆，后来无数电影（包括《蝙蝠侠：黑暗骑士》）都在向它取经。</p>
+      </div>
+      <div class="highlight-card">
+        <h3>冷峻写实的都市美学</h3>
+        <p>导演迈克尔·曼标志性的蓝灰色调，洛杉矶的夜色、钢筋水泥、高速公路，冷峻克制地铺陈出一种"孤独而专业"的宿命氛围。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <ul class="why-list">
+        <li>顶级演技的对决——两大影帝同框，光是看他们如何"接戏"就是一种享受。</li>
+        <li>对"职业精神"的极致刻画——无论警察还是劫匪，都在追问：当你把一切都押在一件事上，代价是什么？</li>
+        <li>影响深远的动作美学——如果你喜欢诺兰、喜欢写实枪战，那么你会在这里看到它们的源头。</li>
+        <li>不止是警匪片，更是一部关于孤独、执念与人生选择的严肃电影。</li>
+      </ul>
+    </section>
+
+    <div class="quote">
+      "别让任何东西成为你的牵挂，除了眼前这一票。"
+      <span class="src">—— 尼尔·麦考利</span>
+    </div>
+
+    <footer>
+      经典电影推荐 · 保存于 classic-movies/classic-movie-2026-09-29.html
+    </footer>
+  </div>
+</body>
+</html>
