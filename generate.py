@@ -46,6 +46,14 @@ MODULES = [
         "dest": SITE_DIR / "ai-info",
         "pattern": r"ai-info-(\d{4}-\d{2}-\d{2})\.html",
     },
+    {
+        "key": "news-briefs",
+        "name": "新闻早报",
+        "icon": "📰",
+        "source": BASE_DIR / "news-briefs",
+        "dest": SITE_DIR / "news-briefs",
+        "pattern": r"news-brief-(\d{4}-\d{2}-\d{2})\.html",
+    },
 ]
 
 SUMMARY_LENGTH = 120  # 摘要字数
@@ -225,9 +233,22 @@ def extract_date(filename: str, pattern: str) -> str:
     return ""
 
 
+# 模板/非内容文件排除：这些文件不参与同步，也不进 manifest
+IGNORED_HTML = {"template.html", "template-2.html", "index.html"}
+
+
+def is_ignored_html(filename: str) -> bool:
+    """判断是否为应排除的 HTML（模板、首页等非内容文件）"""
+    name = filename.lower()
+    if name in IGNORED_HTML:
+        return True
+    # 模板类前缀一律排除
+    return name.startswith("template") or name == "index.html"
+
+
 def sync_incremental(source_dir: Path, dest_dir: Path, transform=None) -> list:
     """
-    增量同步: 只复制目标目录中不存在的HTML文件
+    增量同步: 只复制目标目录中不存在的HTML文件（排除模板等非内容文件）
     transform: 可选函数(html:str, filename:str) -> str，复制时对内容做转换（如注入播放器）
     返回: 已同步的文件名列表
     """
@@ -235,6 +256,8 @@ def sync_incremental(source_dir: Path, dest_dir: Path, transform=None) -> list:
     dest_dir.mkdir(parents=True, exist_ok=True)
 
     for html_file in sorted(source_dir.glob("*.html")):
+        if is_ignored_html(html_file.name):
+            continue
         dest_file = dest_dir / html_file.name
         if not dest_file.exists():
             if transform:
@@ -290,9 +313,11 @@ def process_module(module: dict) -> dict:
     if not synced:
         print(f"  无新增文件（已全部同步）")
 
-    # 扫描目标目录所有HTML，生成索引
+    # 扫描目标目录所有HTML，生成索引（排除模板等非内容文件）
     items = []
     for html_file in sorted(dest_dir.glob("*.html")):
+        if is_ignored_html(html_file.name):
+            continue
         try:
             html = html_file.read_text(encoding="utf-8")
         except UnicodeDecodeError:
