@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小稻草人的秋天 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 秋夜主题装饰：落叶飘落 */
+  .leaf {
+    position: absolute; font-size: 20px;
+    opacity: 0; animation: floatLeaf 11s ease-in-out infinite;
+    text-shadow: 0 0 6px rgba(245, 215, 110, 0.35);
+  }
+  @keyframes floatLeaf {
+    0%   { transform: translate(0, 0) rotate(-8deg); opacity: 0; }
+    12%  { opacity: 0.8; }
+    55%  { transform: translate(40px, 110px) rotate(18deg); opacity: 0.5; }
+    100% { transform: translate(70px, 200px) rotate(-12deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：农历八月廿一 · 亏凸月，illumination 0.67，暗圆右侧偏移 1.4r，clipPath 裁剪 -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+      <defs><clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath></defs>
+      <circle cx="60" cy="60" r="50" fill="rgba(232,236,245,0.12)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="113" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+  <!-- 秋夜主题装饰粒子：落叶飘落 + 田野萤火虫微光 -->
+  <span class="leaf" style="top:40%; left:10%; animation-delay:0s;">🍂</span>
+  <span class="leaf" style="top:48%; left:80%; animation-delay:3s;">🍂</span>
+  <span class="leaf" style="top:58%; left:25%; animation-delay:6s;">🍂</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小稻草人的秋天</h1>
+    <p class="meta">🌾 田野里第一个完整的秋天 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-01.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：秋夜稻田 + 亏凸月 + 稻草人小立 + 小田鼠 + 底部标题 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <clipPath id="posterMoonClip"><circle cx="240" cy="60" r="22"/></clipPath>
+      </defs>
+      <!-- 夜空背景 -->
+      <rect x="0" y="0" width="300" height="440" fill="url(#skyGrad)" rx="16"/>
+      <!-- 星星 -->
+      <circle cx="40" cy="40" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="90" cy="25" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="160" cy="50" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="200" cy="30" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="280" cy="100" r="1.3" fill="#fff" opacity="0.85"/>
+      <circle cx="120" cy="80" r="0.9" fill="#fff" opacity="0.6"/>
+      <!-- 月亮：亏凸月，暗圆右侧偏移 1.4r，clipPath 裁剪，与背景月亮形态一致 -->
+      <circle cx="240" cy="60" r="28" fill="rgba(232,236,245,0.12)"/>
+      <circle cx="240" cy="60" r="22" fill="#e8ecf5"/>
+      <circle cx="271" cy="60" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+      <!-- 稻田（金黄） -->
+      <path d="M0,300 Q75,280 150,295 T300,290 L300,440 L0,440 Z" fill="#c8920a"/>
+      <path d="M0,312 Q80,296 160,306 T300,302 L300,440 L0,440 Z" fill="#a37706" opacity="0.65"/>
+      <!-- 稻穗剪影 -->
+      <g fill="#e8b930" opacity="0.85">
+        <ellipse cx="20" cy="295" rx="2.5" ry="8"/>
+        <ellipse cx="45" cy="290" rx="2.5" ry="9"/>
+        <ellipse cx="70" cy="293" rx="2.5" ry="8"/>
+        <ellipse cx="100" cy="288" rx="2.5" ry="9"/>
+        <ellipse cx="130" cy="292" rx="2.5" ry="8"/>
+        <ellipse cx="180" cy="289" rx="2.5" ry="9"/>
+        <ellipse cx="210" cy="293" rx="2.5" ry="8"/>
+        <ellipse cx="240" cy="290" rx="2.5" ry="9"/>
+        <ellipse cx="275" cy="294" rx="2.5" ry="8"/>
+      </g>
+      <!-- 稻草人小立 -->
+      <g>
+        <!-- 立柱 -->
+        <rect x="147" y="160" width="6" height="160" fill="#8b6914"/>
+        <!-- 横杆（双臂） -->
+        <rect x="105" y="195" width="90" height="5" fill="#8b6914"/>
+        <!-- 身体（红格子衬衫） -->
+        <path d="M115,200 L185,200 L180,290 L120,290 Z" fill="#c0392b"/>
+        <!-- 格子纹路 -->
+        <g stroke="#fff" stroke-width="1" opacity="0.32">
+          <line x1="130" y1="200" x2="128" y2="290"/>
+          <line x1="150" y1="200" x2="150" y2="290"/>
+          <line x1="170" y1="200" x2="172" y2="290"/>
+          <line x1="115" y1="220" x2="185" y2="220"/>
+          <line x1="117" y1="245" x2="183" y2="245"/>
+          <line x1="119" y1="270" x2="181" y2="270"/>
+        </g>
+        <!-- 袖子末端（稻草扎） -->
+        <circle cx="108" cy="197" r="6" fill="#d4a017"/>
+        <circle cx="192" cy="197" r="6" fill="#d4a017"/>
+        <!-- 头（草束） -->
+        <circle cx="150" cy="180" r="18" fill="#d4a017"/>
+        <g stroke="#a37706" stroke-width="0.8" opacity="0.7">
+          <line x1="138" y1="172" x2="135" y2="158"/>
+          <line x1="142" y1="168" x2="140" y2="154"/>
+          <line x1="150" y1="166" x2="150" y2="152"/>
+          <line x1="158" y1="168" x2="160" y2="154"/>
+          <line x1="162" y1="172" x2="165" y2="158"/>
+        </g>
+        <!-- 草帽 -->
+        <ellipse cx="150" cy="165" rx="28" ry="4" fill="#b8941f"/>
+        <ellipse cx="150" cy="162" rx="12" ry="5" fill="#a37706"/>
+        <!-- 眼睛（黑点） -->
+        <circle cx="144" cy="180" r="1.8" fill="#3a2a0a"/>
+        <circle cx="156" cy="180" r="1.8" fill="#3a2a0a"/>
+        <!-- 嘴（小弧，温柔微笑） -->
+        <path d="M145,186 Q150,190 155,186" stroke="#3a2a0a" stroke-width="1.2" fill="none"/>
+        <!-- 腿（稻草扎） -->
+        <path d="M140,290 L138,322 M160,290 L162,322" stroke="#d4a017" stroke-width="3"/>
+      </g>
+      <!-- 小田鼠（在稻草人脚边，呼应故事里爬上肩膀的小田鼠） -->
+      <g transform="translate(195,322)">
+        <ellipse cx="0" cy="0" rx="8" ry="5" fill="#9b8769"/>
+        <circle cx="-7" cy="-2" r="4" fill="#9b8769"/>
+        <circle cx="-9" cy="-3" r="1.2" fill="#3a2a0a"/>
+        <circle cx="-8" cy="-5" r="1.5" fill="#9b8769"/>
+        <line x1="6" y1="-1" x2="12" y2="-3" stroke="#9b8769" stroke-width="1"/>
+        <line x1="-12" y1="0" x2="-16" y2="-2" stroke="#9b8769" stroke-width="0.8"/>
+      </g>
+      <!-- 底部标题文字 -->
+      <text x="150" y="398" text-anchor="middle" font-family="-apple-system,'PingFang SC',sans-serif" font-size="22" font-weight="700" fill="#f0ecdd" letter-spacing="2">小稻草人的秋天</text>
+      <text x="150" y="421" text-anchor="middle" font-family="-apple-system,'PingFang SC',sans-serif" font-size="11" fill="#a3a8d0" letter-spacing="3">儿童睡前故事 · 2026.10.01</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历八月廿一 · 亏凸月🌖</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">守护 · 陪伴 · 收获</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>稻草人小立站在田埂上，是这个秋天他第一次完整地守完一季稻子。</p>
+    <p>天刚转凉的时候，小立身上还披着一件红格子衬衫，扣子是主人一颗颗钉上去的。他不会动，也不会说话，可风一吹，他的袖子就轻轻摆，像在跟田里的稻子打招呼。</p>
+    <p>"稻子妹妹，再挺一挺，太阳很快就要把你们晒成金黄了。"小立心里悄悄说。</p>
+    <p>稻穗没回答，可它们一天天低头弯腰，像是在偷偷告诉小立："我们快要熟啦。"</p>
+    <p>夜里月亮升起来——月亮今天的样子怪怪的，是一个大圆盘，右边却悄悄缺了一小块，像被谁咬了一口。小立想起主人说过的"亏凸月"，左边亮、右边暗，照亮的部分一天比一天少。可稻子刚好相反，越往下垂，越说明谷粒越饱满。月亮在做减法，稻子在做加法。</p>
+    <p>一只小田鼠顺着小立的裤腿爬上来，躲在他肩膀的稻草里。小田鼠说："稻草人叔叔，秋天好短，我害怕。"</p>
+    <p>"我也是第一次守完整个秋天呢。"小立说，"可是你看，稻子从绿变黄，风从暖变凉，月亮从圆变缺，每一件事都在慢慢走它的路，我们不用急。"</p>
+    <p>小田鼠靠着稻草睡着了。</p>
+    <p>第二天天蒙蒙亮，主人来巡田，看见沉甸甸的稻穗，笑了，顺手把小立肩上被风吹歪的草帽扶正了。小立心里暖了一下——原来被扶一扶，也会暖。</p>
+    <p>秋天还在往前走，可小立已经不慌了。他知道，自己守的不只是一田稻子，还有每一粒悄悄长大的种子，每一只躲进稻草里睡一觉的小动物，和这个又短又长、又凉又暖的秋天。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>守着一整片田的人，也守着每一粒悄悄长大的种子。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小立说，你今天也是个好孩子，该做一个甜甜的梦了。🌾</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月01日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
