@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>每日 AI 情报 — 2026-10-01</title>
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --bg2: #10172b;
+    --card: #141d36;
+    --line: #22304f;
+    --txt: #dce4f5;
+    --sub: #8b99b8;
+    --cyan: #4dd7ff;
+    --purple: #a78bfa;
+    --pink: #ff6ec7;
+    --green: #4ade80;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    background-image:
+      linear-gradient(rgba(77,215,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(77,215,255,.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+    color: var(--txt);
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    padding: 40px 16px;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 40px; }
+  .glow {
+    position: relative;
+    display: inline-block;
+    font-size: 34px; font-weight: 800; letter-spacing: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--purple), var(--pink));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .sub { color: var(--sub); margin-top: 10px; font-size: 14px; }
+  .tag { display: inline-block; font-size: 12px; padding: 3px 10px; border-radius: 20px; margin: 8px 4px 0; border: 1px solid var(--line); color: var(--sub); }
+  .sec { margin-top: 34px; }
+  .sec-title {
+    font-size: 20px; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .sec-title::before { content: ""; width: 6px; height: 22px; border-radius: 3px; background: linear-gradient(var(--cyan), var(--purple)); }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin-bottom: 14px;
+    transition: transform .15s, border-color .15s;
+  }
+  .card:hover { transform: translateY(-2px); border-color: var(--cyan); }
+  .rank { display: inline-block; width: 24px; height: 24px; line-height: 24px; text-align: center; border-radius: 6px; font-size: 13px; font-weight: 700; background: rgba(77,215,255,.15); color: var(--cyan); margin-right: 10px; }
+  .card-title { font-size: 17px; font-weight: 700; line-height: 1.5; }
+  .card-meta { font-size: 12px; color: var(--sub); margin: 8px 0 6px; }
+  .card-sum { font-size: 14px; color: var(--txt); line-height: 1.7; opacity: .92; }
+  .card-why { font-size: 13px; color: var(--green); margin-top: 8px; }
+  .src-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; background: rgba(167,139,250,.15); color: var(--purple); }
+  .note { margin-top: 30px; font-size: 13px; color: var(--sub); text-align: center; border-top: 1px solid var(--line); padding-top: 20px; }
+  a { color: var(--cyan); text-decoration: none; }
+  @media (max-width: 600px) {
+    .glow { font-size: 26px; }
+    .card { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="glow">每日 AI 情报</div>
+    <div class="sub">2026-10-01 · AI coding 与具身智能方向 · 补跑版（当日 24h 精选已过期，采用 7 天全量池回补）</div>
+    <div>
+      <span class="tag">AI coding</span>
+      <span class="tag">具身智能</span>
+      <span class="tag">大模型</span>
+    </div>
+  </header>
+
+  <div class="sec">
+    <div class="sec-title">AI Coding 方向</div>
+
+    <div class="card">
+      <span class="rank">1</span><span class="card-title">DeepSeek Harness 公开预览并开源，采用「一切皆插件」架构</span>
+      <div class="card-meta"><span class="src-badge">Hacker News 热门</span> 2026-10-02</div>
+      <div class="card-sum">DeepSeek 的桌面编码/工作智能体 Harness 开始全球公开预览并开源，基于 Cordis 的「一切皆插件」架构，可作桌面应用或从代码启动 Web UI，支持日常文档处理、编码修 bug、研究检索、后台任务与插件扩展，可用 npx @deepseek/harness 启动。</div>
+      <div class="card-why">DeepSeek 从模型厂商杀进编码智能体赛道，插件化架构是产品化的关键一步，值得跟踪其对 Cursor/Claude Code 格局的冲击。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">2</span><span class="card-title">Artificial Analysis：Claude Sonnet 5.5、GPT-6.1 Sol、Gemini 4 Argon 登顶 Coding Agent Index，但成本差近 10 倍</span>
+      <div class="card-meta"><span class="src-badge">Artificial Analysis</span> 2026-10-02</div>
+      <div class="card-sum">Coding Agent Index 榜单：Claude Sonnet 5.5 (max) 在 Claude Code 以 68 分居首，但每任务成本最高达 $14.19；各家旗舰在编码智能体任务上的分数接近，成本差异巨大。</div>
+      <div class="card-why">「能力趋于同质、成本成为分水岭」的信号，选型时性价比权重将持续上升。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">3</span><span class="card-title">DeepSeek Harness v0.2 桌面应用发布，覆盖 macOS / Windows / Linux</span>
+      <div class="card-meta"><span class="src-badge">X · Testing Catalog</span> 2026-10-02</div>
+      <div class="card-sum">v0.2 桌面版落地三大平台，由 DeepSeek 模型驱动，可执行工作与编码任务；macOS、Windows 提供打包版本。</div>
+      <div class="card-why">与上条同源，标志着 DeepSeek Harness 从预览走向可分发，端侧编码智能体竞争加速。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">4</span><span class="card-title">AgSpec：把检索式投机解码推向编码智能体流水线极限</span>
+      <div class="card-meta"><span class="src-badge">HuggingFace 论文</span> 2026-10-01</div>
+      <div class="card-sum">面向编码智能体流水线的检索式投机解码框架，从会话、工作区、全局语料库检索草稿 token，按智能体离线画像设草稿长度上限并在线调整，在多数设置下优于五种基线。</div>
+      <div class="card-why">直接瞄准「编码智能体推理成本」这一痛点，与第 2 条的成本叙事形成呼应。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">5</span><span class="card-title">OpenRouter 对比六大 Agent 框架的工具调用 schema 处理方式</span>
+      <div class="card-meta"><span class="src-badge">OpenRouter 公告</span> 2026-10-02</div>
+      <div class="card-sum">横向对比 LangChain、CrewAI、OpenAI Agents SDK、Claude Agent SDK、Microsoft Agent Framework、Google ADK 如何定义与处理工具 schema，为多框架开发者提供选型参考。</div>
+      <div class="card-why">Agent 框架碎片化加剧，工具调用兼容性是跨框架迁移的核心成本，值得关注。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">6</span><span class="card-title">AWS Strands Labs 开源决策模型 Strands Decider 2B，中位延迟约 115ms</span>
+      <div class="card-meta"><span class="src-badge">MarkTechPost</span> 2026-10-02</div>
+      <div class="card-sum">1.9B 参数的小型决策模型，不生成文本，只在选项 / yes-no 概率 / 量表评分中给出带置信度的答案，主打低延迟路由与决策场景。</div>
+      <div class="card-why">「小模型做判断、大模型做生成」的架构趋势进一步落地。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">7</span><span class="card-title">NVIDIA DGX Spark 64GB 版本 10 月 23 日开售，$4,999 起</span>
+      <div class="card-meta"><span class="src-badge">NVIDIA Blog</span> 2026-10-02</div>
+      <div class="card-sum">DGX Spark 新增 64GB 统一内存配置，由 Acer、ASUS、Dell 等六家 OEM 发售，支持最高 1000 亿参数模型在端侧运行。</div>
+      <div class="card-why">个人/端侧跑大模型的硬件门槛继续下探。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">8</span><span class="card-title">Volantis 获 8800 万美元 A 轮，用光子学破解 AI 内存瓶颈</span>
+      <div class="card-meta"><span class="src-badge">X 多源</span> 2026-10-02</div>
+      <div class="card-sum">累计融资 9700 万美元，投资人含 Sam Altman、Jeff Dean、John Doerr；目标在超 10T 参数模型上实现每用户 10,000 tokens/秒。</div>
+      <div class="card-why">光子互连若兑现，将改写推理的内存带宽约束，是大模型基础设施的关键变量。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">9</span><span class="card-title">LoopCD：免训练对比解码，为 Looped Transformers 实现近乎免费提升</span>
+      <div class="card-meta"><span class="src-badge">HuggingFace 论文</span> 2026-10-01</div>
+      <div class="card-sum">通过对比最终预测与较早循环轮的中间表示引导 token 选择，分 logit 空间与零输出开销的 hidden 两种形式，免训练即可提升。</div>
+      <div class="card-why">推理效率优化仍是研究热点，免训练方案落地成本最低。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">10</span><span class="card-title">每日 AI 简报：Grok 4.7、Claude Code Mods 与微软 MAI 音频模型</span>
+      <div class="card-meta"><span class="src-badge">X · Testing Catalog</span> 2026-10-02</div>
+      <div class="card-sum">Grok 4.7 全量铺开成为 Fast/Expert/Build/Heavy 所有模式的基座模型，并上线 Google Gemini Enterprise Agent Platform。</div>
+      <div class="card-why">基座模型迭代 + 多模态（音频）能力扩散，是当日大盘动态。</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">具身智能方向</div>
+
+    <div class="card">
+      <span class="rank">1</span><span class="card-title">波士顿动力升级 Atlas 机械手：自由度 7 → 13，可操控钻头、拧螺丝</span>
+      <div class="card-meta"><span class="src-badge">IT之家</span> 2026-10-02</div>
+      <div class="card-sum">Atlas 新机械手自由度翻倍至 13，采用 1 拇指 + 3 额外手指，官方演示可操控钻头、单手移动两个高尔夫球、拧螺丝。</div>
+      <div class="card-why">从「抓箱子」迈向「使用人类工具」，是人形机器人实用化的标志性进展。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">2</span><span class="card-title">马斯克：为推进 Optimus 量产，特斯拉 AI5 芯片内存砍半</span>
+      <div class="card-meta"><span class="src-badge">IT之家</span> 2026-10-01</div>
+      <div class="card-sum">AI5 RAM 从 144GB 降至 72GB、AI6 从 216GB 降至 144GB，马斯克称是为 Optimus 机器人量产调配足够内存。</div>
+      <div class="card-why">透露出 Optimus 量产优先级极高，也暗示成本与供应的现实约束。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">3</span><span class="card-title">GPT-6 Astra 机器人智能体：成功率 +14%，Token 用量 -65%</span>
+      <div class="card-meta"><span class="src-badge">HuggingFace 论文</span> 2026-10-01</div>
+      <div class="card-sum">PyRUA-Lean 框架让 GPT-6 Astra 驱动的机器人智能体在 700 个仿真任务上，成功率从 63.1% 提升至约 77%，同等预算下 Token 用量大幅下降。</div>
+      <div class="card-why">「大模型 + 机器人」的样本效率与成本双优化，是具身智能落地的关键指标。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">4</span><span class="card-title">Figure 让 F.02 机器人跳入熔炉退役，采纳施瓦辛格提议</span>
+      <div class="card-meta"><span class="src-badge">IT之家</span> 2026-10-01</div>
+      <div class="card-sum">Figure 为退役的 F.02 举行「火化仪式」，机器人亲自跳入熔炉，创意源自《终结者 2》T-800 扮演者施瓦辛格，其本人到场见证。</div>
+      <div class="card-why">营销噱头背后，是 Figure 产品线快速迭代、旧机型退役的节奏信号。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">5</span><span class="card-title">Runway AI 峰会：机器人落地与三年展望</span>
+      <div class="card-meta"><span class="src-badge">X · Runway</span> 2026-10-02</div>
+      <div class="card-sum">The Bot Company CTO Paril Jain 与 Physical Intelligence 联创 Quan Vuong 同台，探讨真实世界评测、机器人实地部署与三年展望。</div>
+      <div class="card-why">产业界对「从仿真到实地」这一核心鸿沟的集中表态，具身智能商业化风向标。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">6</span><span class="card-title">InterEvolve：人形机器人移动操作奖励程序的测试时进化</span>
+      <div class="card-meta"><span class="src-badge">HuggingFace 论文</span> 2026-10-01</div>
+      <div class="card-sum">通过测试时进化奖励程序，让控制器无需重训即可完成未训练过的人形移动操作任务，LLM 智能体依据反馈修改奖励结构。</div>
+      <div class="card-why">「零重训泛化」是具身智能降低数据成本的核心路径。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">7</span><span class="card-title">Latent-Foresight：为潜在世界模型端到端学习可预测表征</span>
+      <div class="card-meta"><span class="src-badge">HuggingFace 论文</span> 2026-10-01</div>
+      <div class="card-sum">联合学习潜在 tokenizer 与基于 flow 的生成式动力学模型，直接塑造具备时间可预测性的表征，取代「先压缩再训练预测器」的两阶段流程。</div>
+      <div class="card-why">世界模型是机器人决策的关键底座，端到端表征学习是方向性进展。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">8</span><span class="card-title">湖北智能家居国补扩围：机器人、无人机等可补贴 15%</span>
+      <div class="card-meta"><span class="src-badge">IT之家</span> 2026-10-02</div>
+      <div class="card-sum">湖北 2026 年消费品以旧换新新增品类补贴自 10 月 1 日起实施，机器人、数码相机、无人机、血压仪等可享 15% 补贴，落实「人工智能+消费」实施意见。</div>
+      <div class="card-why">消费级机器人纳入国补，是 C 端具身智能放量的政策信号。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">9</span><span class="card-title">EvolvingNav：面向动态变化世界的预测式 4D 信念持久导航</span>
+      <div class="card-meta"><span class="src-badge">HuggingFace 论文</span> 2026-09-30</div>
+      <div class="card-sum">用带时间戳的 3D 物体历史构建时间索引信念，区分目标停留与迁移，以事件驱动滤波器预测目标占据情况。</div>
+      <div class="card-why">动态环境下的持久导航是机器人在开放世界可靠工作的基础能力。</div>
+    </div>
+
+    <div class="card">
+      <span class="rank">10</span><span class="card-title">DyRAD：面向动态驾驶场景的雷达新视角合成</span>
+      <div class="card-meta"><span class="src-badge">HuggingFace 论文</span> 2026-09-30</div>
+      <div class="card-sum">用静态背景反射体 + 动态点反射体建模动态驾驶场景，渲染完整的距离-方位-多普勒张量，避免传感器扩散写入场景表示。</div>
+      <div class="card-why">多模态传感融合（雷达视角）是自动驾驶与机器人感知的持续热点。</div>
+    </div>
+  </div>
+
+  <div class="note">
+    由小虾米整理生成 · 数据来源 AI HOT（aihot.virxact.com）· 补跑说明：当日 24h 精选池已过期，采用 7 天全量池回补，部分条目标记「未进入精选」
+  </div>
+</div>
+</body>
+</html>
