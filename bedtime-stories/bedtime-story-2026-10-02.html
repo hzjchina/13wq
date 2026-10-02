@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小银杏叶的金毯子 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：飘落的银杏叶 */
+  .leaf {
+    position: absolute; font-size: 18px; color: #f4c430;
+    opacity: 0; animation: floatNote 8s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(244, 196, 48, 0.4);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(40deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(80deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：农历八月廿二 · 亏凸月🌖 illumination 0.6，左侧亮、右侧暗弧，暗圆偏移 1.3r（介于凸月1.7r与弦月1.0r之间，clipPath裁剪） -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="120" height="120">
+      <defs><clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath></defs>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="110" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <circle cx="60" cy="60" r="38" fill="none" stroke="rgba(207,216,232,0.35)" stroke-width="1"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：飘落的银杏叶 🍂 -->
+  <span class="leaf" style="top:46%; left:12%; animation-delay:0s;">🍂</span>
+  <span class="leaf" style="top:52%; left:82%; animation-delay:2.2s;">🍂</span>
+  <span class="leaf" style="top:60%; left:22%; animation-delay:4.5s;">🍂</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小银杏叶的金毯子</h1>
+    <p class="meta">🍂 小小的温柔连成一条暖路 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-02.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <!-- 夜空背景渐变 -->
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#2a2d5c"/>
+        </linearGradient>
+        <linearGradient id="trunkGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#3a2818"/>
+          <stop offset="50%" stop-color="#5a3e26"/>
+          <stop offset="100%" stop-color="#3a2818"/>
+        </linearGradient>
+        <linearGradient id="blanketGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#f4c430"/>
+          <stop offset="100%" stop-color="#c89018"/>
+        </linearGradient>
+        <radialGradient id="moonGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="rgba(232,236,245,0.25)"/>
+          <stop offset="100%" stop-color="rgba(232,236,245,0)"/>
+        </radialGradient>
+        <clipPath id="posterMoonClip"><circle cx="245" cy="58" r="22"/></clipPath>
+      </defs>
+
+      <rect width="300" height="440" fill="url(#skyGrad)"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="40" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="110" cy="30" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="180" cy="50" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="280" cy="35" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="70" cy="80" r="1" fill="#fff" opacity="0.5"/>
+
+      <!-- 月亮光晕 -->
+      <circle cx="245" cy="58" r="34" fill="url(#moonGlow)"/>
+
+      <!-- 月亮：亏凸月（与背景一致，illumination 0.6，暗圆右侧偏移1.3r） -->
+      <circle cx="245" cy="58" r="22" fill="#e8ecf5"/>
+      <circle cx="274" cy="58" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+      <circle cx="245" cy="58" r="22" fill="none" stroke="rgba(207,216,232,0.4)" stroke-width="0.8"/>
+
+      <!-- 银杏树干 -->
+      <path d="M 70 440 Q 72 360 78 280 Q 82 200 85 150 L 90 100 L 95 150 Q 98 200 102 280 Q 108 360 110 440 Z" fill="url(#trunkGrad)"/>
+
+      <!-- 枝条 -->
+      <path d="M 88 180 Q 60 170 40 175" stroke="#3a2818" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M 92 160 Q 120 150 145 158" stroke="#3a2818" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M 90 130 Q 70 120 55 125" stroke="#3a2818" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <path d="M 93 110 Q 115 105 135 115" stroke="#3a2818" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+      <!-- 树上残留的几片银杏叶 -->
+      <g fill="#f4c430">
+        <path d="M 50 168 L 49 165 Q 43 162 44 156 Q 49 152 54 156 Q 53 162 50 165 Z"/>
+        <path d="M 142 152 L 141 149 Q 135 146 136 140 Q 141 136 146 140 Q 145 146 142 149 Z"/>
+        <path d="M 132 112 L 131 109 Q 125 106 126 100 Q 131 96 136 100 Q 135 106 132 109 Z"/>
+      </g>
+
+      <!-- 飘落中的银杏叶 -->
+      <g fill="#f4c430" opacity="0.92">
+        <path d="M 150 220 L 149 217 Q 140 213 142 205 Q 150 200 158 205 Q 160 213 151 217 Z"/>
+        <path d="M 200 250 L 199 247 Q 191 244 193 237 Q 200 233 207 237 Q 209 244 201 247 Z" opacity="0.85"/>
+        <path d="M 170 290 L 169 287 Q 162 284 164 278 Q 170 275 176 278 Q 178 284 171 287 Z" opacity="0.8"/>
+      </g>
+
+      <!-- 地面金毯子（由多层银杏叶堆叠而成） -->
+      <g>
+        <!-- 毯子底层阴影 -->
+        <ellipse cx="150" cy="420" rx="135" ry="22" fill="#1a1410" opacity="0.6"/>
+        <!-- 金黄毯子主体 -->
+        <rect x="15" y="370" width="270" height="60" rx="6" fill="url(#blanketGrad)"/>
+        <!-- 毯子上的银杏叶纹理（多片扇形叶排列） -->
+        <g fill="#e8a82a" opacity="0.7">
+          <path d="M 30 395 L 29 392 Q 23 389 24 383 Q 30 380 36 383 Q 37 389 30 392 Z"/>
+          <path d="M 55 405 L 54 402 Q 48 399 49 393 Q 55 390 61 393 Q 62 399 55 402 Z"/>
+          <path d="M 85 392 L 84 389 Q 78 386 79 380 Q 85 377 91 380 Q 92 386 85 389 Z"/>
+          <path d="M 115 408 L 114 405 Q 108 402 109 396 Q 115 393 121 396 Q 122 402 115 405 Z"/>
+          <path d="M 145 395 L 144 392 Q 138 389 139 383 Q 145 380 151 383 Q 152 389 145 392 Z"/>
+          <path d="M 175 402 L 174 399 Q 168 396 169 390 Q 175 387 181 390 Q 182 396 175 399 Z"/>
+          <path d="M 205 388 L 204 385 Q 198 382 199 376 Q 205 373 211 376 Q 212 382 205 385 Z"/>
+          <path d="M 235 406 L 234 403 Q 228 400 229 394 Q 235 391 241 394 Q 242 400 235 403 Z"/>
+          <path d="M 265 395 L 264 392 Q 258 389 259 383 Q 265 380 271 383 Q 272 389 265 392 Z"/>
+        </g>
+        <!-- 毯子边缘高光 -->
+        <rect x="15" y="370" width="270" height="3" rx="2" fill="#ffd84d" opacity="0.6"/>
+      </g>
+
+      <!-- 小田鼠坐在毯子上 -->
+      <g transform="translate(120, 348)">
+        <!-- 身体 -->
+        <ellipse cx="0" cy="14" rx="14" ry="11" fill="#9a8060"/>
+        <!-- 头 -->
+        <circle cx="-2" cy="6" r="9" fill="#a89270"/>
+        <!-- 耳朵 -->
+        <circle cx="-8" cy="0" r="3.5" fill="#8a7050"/>
+        <circle cx="-8" cy="0" r="2" fill="#d8a888"/>
+        <circle cx="3" cy="0" r="3.5" fill="#8a7050"/>
+        <circle cx="3" cy="0" r="2" fill="#d8a888"/>
+        <!-- 眼睛 -->
+        <circle cx="-5" cy="5" r="1.2" fill="#1a1410"/>
+        <circle cx="1" cy="5" r="1.2" fill="#1a1410"/>
+        <!-- 鼻子 -->
+        <circle cx="-2" cy="9" r="0.8" fill="#3a2818"/>
+        <!-- 尾巴 -->
+        <path d="M 12 16 Q 22 14 24 8" stroke="#9a8060" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>
+
+      <!-- 小刺猬在毯子另一侧（背着一颗红果子） -->
+      <g transform="translate(195, 350)">
+        <!-- 身体 -->
+        <ellipse cx="0" cy="14" rx="16" ry="10" fill="#6b5040"/>
+        <!-- 刺 -->
+        <g fill="#3a2818">
+          <path d="M -14 8 L -18 6 L -14 10 Z"/>
+          <path d="M -10 4 L -14 2 L -10 6 Z"/>
+          <path d="M -5 2 L -9 0 L -5 4 Z"/>
+          <path d="M 0 2 L -4 0 L 0 4 Z"/>
+          <path d="M 5 2 L 1 0 L 5 4 Z"/>
+          <path d="M 10 4 L 6 2 L 10 6 Z"/>
+          <path d="M 14 8 L 10 6 L 14 10 Z"/>
+        </g>
+        <!-- 脸 -->
+        <ellipse cx="-12" cy="14" rx="7" ry="7" fill="#a89270"/>
+        <!-- 眼睛 -->
+        <circle cx="-14" cy="13" r="1" fill="#1a1410"/>
+        <!-- 鼻子 -->
+        <circle cx="-17" cy="15" r="1.2" fill="#3a2818"/>
+        <!-- 背上的红果子 -->
+        <circle cx="3" cy="6" r="4" fill="#d83838"/>
+        <path d="M 3 2 L 4 -1" stroke="#3a5a18" stroke-width="1.2" fill="none"/>
+        <!-- 脚 -->
+        <ellipse cx="-10" cy="24" rx="2" ry="1.5" fill="#8a7050"/>
+        <ellipse cx="-4" cy="24" rx="2" ry="1.5" fill="#8a7050"/>
+      </g>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="432" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="700" fill="#f4c430" letter-spacing="2">小银杏叶的金毯子</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历八月廿二 · 亏凸月🌖</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">团结·温暖</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的夜里，银杏树妈妈的孩子扇扇，和兄弟姐妹们挤在枝头上看月亮。亏凸月从云后探出半个脸，把树梢照得金灿灿的。</p>
+    <p>"风伯伯说今晚会来，"扇扇小声说，"我们不等被风吹散，自己手拉手飘下去，给夜里赶路的小动物铺一张金毯子，好不好？"</p>
+    <p>"好呀好呀！"兄弟姐妹们都拍起小手。风伯伯一来，扇扇第一个松开了妈妈的手，像一把小金扇子打着转儿飘下来。哥哥姐姐弟弟妹妹也跟着一片一片飘落，挨挨挤挤，手拉手，从树根下一直铺到小路口，软软的，暖暖的。</p>
+    <p>怕冷的小田鼠豆豆从洞里探出头，想去小溪边喝水。它一踩上金毯子，"哎呀，软乎乎的！"叶子在脚底沙沙响，像在唱一首小小的歌。豆豆跑过毯子，觉得不那么冷了。</p>
+    <p>晚归的小刺猬球球背着一颗红果子回家，走到半路累得走不动。它看见金毯子，扑上去打了个滚，"哈，真暖和呀！"红果子从背上滚下来，被毯子稳稳接住，一点也没摔坏。</p>
+    <p>迷路的小蜗牛慢慢爬上金毯子。月光把叶子照得亮闪闪，像一条铺满路灯的小路。"沿着亮亮的毯子走，我就能回家啦。"小蜗牛高高兴兴地朝自家门口爬去。</p>
+    <p>第二天天亮了，小朋友踩着金毯子走过，叶子沙沙响成一片笑声。银杏树妈妈在风里轻轻摇着枝条，笑着说："我的孩子们睡得多好呀，他们暖了这么多小伙伴。"</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>每一片小小的温柔，连在一起，就是一条暖暖的路。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小银杏叶扇扇说，你今天也是个好孩子，该做一个甜甜的梦了。🍂</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月02日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
