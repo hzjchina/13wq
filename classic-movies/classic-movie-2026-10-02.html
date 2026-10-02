@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>美国丽人</title>
+<style>
+  :root {
+    --bg: #f7f4ef;
+    --card: #ffffff;
+    --ink: #2a2420;
+    --sub: #6b6159;
+    --accent: #a63a2b;
+    --gold: #c9a23d;
+    --line: #e8e0d6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.85;
+    font-size: 18px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+  header {
+    background: linear-gradient(135deg, #a63a2b 0%, #7c241b 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: 40px 30px;
+    margin-bottom: 28px;
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    background: rgba(255,255,255,.18);
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+  header h1 { font-size: 34px; font-weight: 700; letter-spacing: 1px; }
+  header .en { font-size: 15px; opacity: .85; margin-top: 6px; font-style: italic; }
+  header .meta { margin-top: 18px; font-size: 14px; opacity: .9; }
+  .card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 28px 26px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(60,40,20,.05);
+    border: 1px solid var(--line);
+  }
+  .card h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card h2::before {
+    content: "";
+    width: 6px;
+    height: 24px;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+  .card p { color: var(--sub); margin-bottom: 12px; }
+  .card p:last-child { margin-bottom: 0; }
+  .quote {
+    font-style: italic;
+    border-left: 4px solid var(--gold);
+    padding: 6px 0 6px 18px;
+    color: var(--ink);
+    margin: 10px 0;
+  }
+  .facts { list-style: none; }
+  .facts li {
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    gap: 12px;
+    font-size: 16px;
+  }
+  .facts li:last-child { border-bottom: none; }
+  .facts .k { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  .facts .v { color: var(--sub); }
+  footer {
+    text-align: center;
+    color: #a99e92;
+    font-size: 13px;
+    margin-top: 32px;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 17px; }
+    header { padding: 30px 22px; }
+    header h1 { font-size: 28px; }
+    .card { padding: 22px 20px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="tag">经典电影推荐</span>
+      <h1>美国丽人</h1>
+      <div class="en">American Beauty · 1999</div>
+      <div class="meta">萨姆·门德斯 执导 · 凯文·史派西 主演 · 第72届奥斯卡最佳影片</div>
+    </header>
+
+    <div class="card">
+      <h2>剧情梗概</h2>
+      <p>人到中年的莱斯特生活陷入一潭死水——工作麻木、婚姻名存实亡、与女儿形同陌路。表面上，他拥有一栋漂亮的郊区大房子、体面的工作、漂亮的花园和红色的玫瑰，可在这光鲜的中产阶级外壳之下，每个人都在暗自崩塌。直到一次偶然的相遇，让莱斯特决心撕掉这张虚伪的面具，重新夺回对自己生活的掌控权。</p>
+      <p>故事以他的视角展开，缓缓揭开这个"完美家庭"里每个人隐藏在平静表象下的欲望、孤独与挣扎。</p>
+    </div>
+
+    <div class="card">
+      <h2>亮点所在</h2>
+      <ul class="facts">
+        <li><span class="k">导演处女作</span><span class="v">萨姆·门德斯首执导筒即斩获奥斯卡最佳影片、最佳导演，惊艳影坛</span></li>
+        <li><span class="k">表演封神</span><span class="v">凯文·史派西凭此片拿下奥斯卡最佳男主角，塑造了影史经典的中年形象</span></li>
+        <li><span class="k">视觉美学</span><span class="v">摄影大师康拉德·霍尔掌镜，玫瑰红与冷灰色调对比鲜明，画面如诗</span></li>
+        <li><span class="k">配乐动人</span><span class="v">托马斯·纽曼的配乐空灵哀婉，与叙事水乳交融</span></li>
+        <li><span class="k">深刻主题</span><span class="v">对中产家庭、消费社会与"完美生活"假象的锋利剖解，经久不衰</span></li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>为什么值得一看</h2>
+      <p>这不是一部关于"成功"或"励志"的电影，而是一面照向现代人内心的镜子。它用黑色幽默包裹着尖锐的洞察，让我们在笑声与叹息之间，重新思考什么是真正想要的生活、什么又是被社会规训出来的"应该"。</p>
+      <p class="quote">有时候，人必须失去一切，才能找回自己。</p>
+      <p>它克制、优雅，又充满力量。二十多年过去，那句关于"美好"的独白，依然能精准击中每一个在生活里挣扎前行的成年人。</p>
+    </div>
+
+    <footer>🦐 小虾米 · 每日经典电影推荐</footer>
+  </div>
+</body>
+</html>
