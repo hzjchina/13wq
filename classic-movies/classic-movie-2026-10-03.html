@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>日落大道</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1e26;
+    --card-2: #222835;
+    --text: #e6e9ef;
+    --muted: #9aa3b2;
+    --accent: #e0a458;
+    --accent-2: #d4834a;
+    --line: #2c3342;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 0 60px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    padding: 64px 0 48px;
+    text-align: center;
+    background:
+      radial-gradient(1200px 500px at 50% -10%, rgba(224,164,88,0.16), transparent 60%),
+      linear-gradient(180deg, #131720, var(--bg));
+    border-bottom: 1px solid var(--line);
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 7vw, 52px);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+  .hero .en {
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+  .meta-row {
+    margin-top: 26px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .chip {
+    background: var(--card);
+    border: 1px solid var(--line);
+    color: var(--text);
+    padding: 7px 16px;
+    border-radius: 999px;
+    font-size: 13.5px;
+  }
+  .chip b { color: var(--accent); font-weight: 600; }
+
+  /* Sections */
+  section { padding: 34px 0 6px; }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2::before {
+    content: "";
+    width: 4px;
+    height: 20px;
+    background: linear-gradient(var(--accent), var(--accent-2));
+    border-radius: 2px;
+    flex: none;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 26px;
+  }
+  p { margin-bottom: 16px; color: #d3d9e3; }
+  p:last-child { margin-bottom: 0; }
+  strong { color: var(--text); }
+  em { color: var(--accent); font-style: normal; }
+
+  /* Highlights */
+  .hl-list { list-style: none; }
+  .hl-list li {
+    position: relative;
+    padding: 14px 0 14px 30px;
+    border-bottom: 1px solid var(--line);
+  }
+  .hl-list li:last-child { border-bottom: none; }
+  .hl-list li::before {
+    content: "✦";
+    position: absolute;
+    left: 2px;
+    top: 14px;
+    color: var(--accent);
+  }
+  .hl-list li b { color: var(--accent); font-weight: 600; }
+
+  /* Quote */
+  .quote {
+    margin-top: 30px;
+    background: linear-gradient(135deg, var(--card-2), var(--card));
+    border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    padding: 22px 26px;
+    font-style: italic;
+    color: #e8ecef;
+  }
+  .quote .src { display: block; margin-top: 10px; font-size: 13.5px; color: var(--muted); font-style: normal; }
+
+  .footer-note {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13.5px;
+  }
+
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    .card { padding: 20px 18px; }
+    .hero { padding: 46px 0 36px; }
+  }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="wrap">
+      <span class="kicker">Classic Film · 1950</span>
+      <h1>日落大道</h1>
+      <div class="en">Sunset Boulevard</div>
+      <div class="meta-row">
+        <span class="chip">导演 <b>比利·怀尔德</b></span>
+        <span class="chip">主演 <b>格洛丽亚·斯旺森 / 威廉·霍尔登</b></span>
+        <span class="chip">类型 <b>黑色电影 / 剧情</b></span>
+        <span class="chip">片长 <b>110 分钟</b></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <section>
+      <h2>剧情梗概</h2>
+      <div class="card">
+        <p>一个落魄的年轻编剧，为了躲避追债而误闯进好莱坞日落大道旁一座荒凉的大宅。宅子里住着一位曾经红极一时、如今早已被时代遗忘的默片巨星，以及她忠心耿耿、沉默寡言的管家。</p>
+        <p>这位昔日的银幕女王，依旧活在自己编织的辉煌旧梦里，坚信影迷还惦记着她，随时准备"复出"。她收留了这个年轻人，让他为自己改写一部"东山再起"的剧本——而这场看似偶然的相遇，就此把两个人拖进一场关于虚荣、依恋与沉沦的漩涡，缓缓滑向不可收拾的深渊。</p>
+        <p>影片以一声枪响开场，借由倒叙，从一具浮在泳池上的尸体讲起，带你回望这条"日落大道"上，光芒是如何一步步熄灭的。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <ul class="hl-list card">
+        <li><b>影史最伟大的黑色电影之一。</b>被美国电影学会、英国电影学院等反复评为影史前十，豆瓣与 IMDB 评分常年 8.5+，是"教科书级别"的经典。</li>
+        <li><b>神级开场与叙事。</b>一开场就揭示结局、再倒带讲述"他是怎么走到这一步的"，冷峻、宿命感十足，至今仍被无数电影模仿。</li>
+        <li><b>格洛丽亚·斯旺森"演自己"的绝唱。</b>她本人就是默片时代真正的巨星，戏里戏外的双重映射，让那个疯癫又令人心碎的女王格外真实。</li>
+        <li><b>比利·怀尔德式的犀利台词。</b>句句机锋、绵里藏针，对好莱坞浮华产业的嘲讽至今仍不过时。</li>
+        <li><b>镜头与光影的极致。</b>浓重的阴影、阴森的大宅、泳池的反光，把"辉煌之后的荒凉"拍得美而压抑。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <div class="card">
+        <p>这不仅是一部悬疑片，更是一面照向"名利场"的镜子。它讲透了人被梦想吞噬、被时代抛弃后的孤独与疯狂，那份残酷与悲悯交织的力量，跨越七十多年依然直击人心。</p>
+        <p>如果你想看懂"什么叫好电影"——<em>结构、表演、台词、光影的完成度</em>，《日落大道》是一部绕不过去的范本。它不靠特效，只靠一双手、一个眼神、一句台词，就能让你后背发凉。</p>
+        <p>更重要的是，它讲述了一个永恒的话题：当聚光灯熄灭之后，一个人该如何面对自己。这份叩问，对今天的我们同样有效。</p>
+      </div>
+      <div class="quote">
+        "Alright, Mr. DeMille, I'm ready for my close-up."
+        <span class="src">—— 诺玛·德斯蒙德，影史最著名的台词之一</span>
+      </div>
+    </section>
+
+    <div class="footer-note">🦐 小虾米 · 每日经典电影推荐 · 不剧透，留你亲自去感受那一池倒影</div>
+  </div>
+</body>
+</html>

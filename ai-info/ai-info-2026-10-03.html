@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-03</title>
+<style>
+  :root {
+    --bg: #07090f;
+    --bg2: #0b0f1a;
+    --card: #101527;
+    --card2: #151b30;
+    --line: #1f2942;
+    --text: #d8e0f0;
+    --muted: #7d8aa8;
+    --accent: #4f7cff;
+    --accent2: #8b5cf6;
+    --cyan: #22d3ee;
+    --green: #34d399;
+    --red: #f87171;
+    --amber: #fbbf24;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.6;
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content:"";
+    position: fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(79,124,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,124,255,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events:none;
+    z-index:0;
+  }
+  .glow {
+    position: fixed; border-radius:50%;
+    filter: blur(120px);
+    pointer-events:none; z-index:0;
+    opacity: .35;
+  }
+  .glow-a { width:520px; height:520px; top:-160px; left:-120px; background: radial-gradient(circle, #4f7cff, transparent 70%); }
+  .glow-b { width:480px; height:480px; top:30%; right:-160px; background: radial-gradient(circle, #8b5cf6, transparent 70%); }
+  .glow-c { width:420px; height:420px; bottom:-140px; left:40%; background: radial-gradient(circle, #22d3ee, transparent 70%); }
+
+  .wrap { position: relative; z-index:1; max-width: 1060px; margin: 0 auto; padding: 40px 20px 60px; }
+
+  header { text-align:center; margin-bottom: 36px; }
+  header .kicker {
+    display:inline-block; font-size:12px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--cyan); border:1px solid rgba(34,211,238,.35); padding:5px 14px; border-radius:20px;
+    margin-bottom:14px; background: rgba(34,211,238,.06);
+  }
+  header h1 {
+    font-size: clamp(28px, 5vw, 42px); font-weight: 700; letter-spacing: 1px;
+    background: linear-gradient(120deg, #4f7cff, #8b5cf6 50%, #22d3ee);
+    -webkit-background-clip: text; background-clip:text; color: transparent;
+  }
+  header .sub { color: var(--muted); margin-top:10px; font-size:14px; }
+  header .meta {
+    margin-top: 18px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;
+  }
+  .tag {
+    font-size:12px; padding:4px 12px; border-radius:16px; background: var(--card);
+    border:1px solid var(--line); color: var(--muted);
+  }
+  .tag b { color: var(--text); font-weight:600; }
+
+  .stats {
+    display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr));
+    gap:14px; margin: 28px 0 10px;
+  }
+  .stat {
+    background: linear-gradient(160deg, var(--card), var(--bg2));
+    border:1px solid var(--line); border-radius:14px; padding:16px 18px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .stat::after {
+    content:""; position:absolute; top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+  .stat .num { font-size:30px; font-weight:700; color:#fff; }
+  .stat .lbl { font-size:12px; color: var(--muted); margin-top:4px; }
+
+  .section-title {
+    display:flex; align-items:center; gap:10px; margin: 38px 0 16px;
+  }
+  .section-title .bar { width:4px; height:20px; border-radius:2px; background: linear-gradient(var(--accent), var(--cyan)); }
+  .section-title h2 { font-size:20px; font-weight:600; color:#fff; }
+  .section-title .cnt { font-size:13px; color: var(--muted); }
+
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap:18px; }
+
+  .card {
+    background: linear-gradient(160deg, var(--card), var(--bg2));
+    border:1px solid var(--line); border-radius:16px; padding:20px;
+    position:relative; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    display:flex; flex-direction:column; gap:12px;
+    overflow:hidden;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(79,124,255,.5);
+    box-shadow: 0 12px 40px rgba(79,124,255,.15);
+  }
+  .card::before {
+    content:""; position:absolute; top:0; left:0; right:0; height:3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--cyan));
+    opacity:.7;
+  }
+  .card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .score {
+    display:flex; align-items:center; gap:5px; font-size:13px; font-weight:700;
+    color: var(--amber); white-space:nowrap;
+  }
+  .score .flame { font-size:15px; }
+  .pool {
+    font-size:11px; padding:3px 9px; border-radius:12px; white-space:nowrap;
+  }
+  .pool-selected { background: rgba(34,211,238,.12); color: var(--cyan); border:1px solid rgba(34,211,238,.3); }
+  .pool-all { background: rgba(251,191,36,.1); color: var(--amber); border:1px solid rgba(251,191,36,.3); }
+
+  .card h3 { font-size:16px; font-weight:600; color:#fff; line-height:1.45; }
+  .card h3 a { color:inherit; text-decoration:none; }
+  .card h3 a:hover { color: var(--cyan); }
+  .card .desc { font-size:13.5px; color: #b6c2dc; }
+  .card .why {
+    font-size:12.5px; color: var(--green); background: rgba(52,211,153,.06);
+    border-left:3px solid var(--green); padding:8px 12px; border-radius:6px; margin-top:auto;
+  }
+  .card .why .wl { font-weight:700; color:#6ee7b7; }
+  .card-foot { display:flex; align-items:center; justify-content:space-between; font-size:12px; color: var(--muted); }
+  .card-foot .src { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width: 60%; }
+  .badge {
+    display:inline-block; font-size:11px; padding:2px 8px; border-radius:8px; margin-right:4px;
+    background: rgba(79,124,255,.12); color: #8fb0ff;
+  }
+
+  footer { text-align:center; margin-top:50px; color: var(--muted); font-size:12px; }
+  footer a { color: var(--accent); text-decoration:none; }
+
+  @media (max-width: 640px) {
+    .wrap { padding: 28px 14px 40px; }
+    .grid { grid-template-columns: 1fr; }
+    .card-foot .src { max-width: 50%; }
+  }
+</style>
+</head>
+<body>
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+<div class="glow glow-c"></div>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">AI Intelligence Daily</div>
+    <h1>AI 情报日报</h1>
+    <div class="sub">2026-10-03 · 过去 24 小时 · 侧重 AI Coding 与具身智能</div>
+    <div class="meta">
+      <span class="tag">数据源 <b>AI HOT</b></span>
+      <span class="tag">精选池 <b>17</b> 条</span>
+      <span class="tag">时间窗 <b>24h</b></span>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">20</div><div class="lbl">入选条目</div></div>
+    <div class="stat"><div class="num" style="color:#22d3ee">14</div><div class="lbl">AI Coding / 智能体</div></div>
+    <div class="stat"><div class="num" style="color:#8b5cf6">6</div><div class="lbl">具身智能</div></div>
+    <div class="stat"><div class="num" style="color:#fbbf24">7</div><div class="lbl">全量补充·未进精选</div></div>
+  </div>
+
+  <div class="section-title">
+    <div class="bar"></div>
+    <h2>AI Coding · 智能体 · 基础设施</h2>
+    <span class="cnt">共 14 条 · 按热度降序</span>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 76</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/nab0yosxdtyh7sbvoo0usb1iq" target="_blank">Bloomberg：Anthropic 邀请机构投资者在近 2 万亿美元 IPO 前质询高管</a></h3>
+      <div class="desc">据 Bloomberg，Anthropic 已邀请机构投资者在可能估值近 2 万亿美元的 IPO 前质询高管；10 月 14 日会议后最早 11 月 9 日当周启动路演，感恩节前上市，10 月下旬披露 S-1。OpenAI 则因安全担忧排除 2026 年上市，正以约 1.4 万亿美元估值私下募资至少 300 亿美元。</div>
+      <div class="why"><span class="wl">为何关注：</span>两大 AI 头部公司融资路线分化，Anthropic 冲刺年内上市，OpenAI 继续私有化，反映两家对公开市场与安全考量的不同取舍。</div>
+      <div class="card-foot"><span class="src">Bloomberg · Rohan Paul</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 73</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/jhshh53c18f71tkzk44izbs25" target="_blank">Artificial Analysis 榜单：Claude Sonnet 5.5 登顶 Coding Agent Index，但成本差异悬殊</a></h3>
+      <div class="desc">Artificial Analysis 发布 Coding Agent Index 榜单，Claude Sonnet 5.5 (max) 在 Claude Code 以 68 分居首，但每任务成本最高达 $14.19；GPT-6.1 Sol 与 Gemini 4 Argon 同样登顶但成本梯度差异巨大，性价比成为选型关键变量。</div>
+      <div class="why"><span class="wl">为何关注：</span>编码智能体已从「跑分」进入「跑分 × 成本」的综合评估阶段，为工程团队选型提供了更贴近生产视角的基准。</div>
+      <div class="card-foot"><span class="src">Artificial Analysis</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 73</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/bzodztryi4kvwm4kz9mrwb6nn" target="_blank">GPT-6.1 Sol (Max) 进入 Agent Arena 第 5 名，以更低成本逼近前列</a></h3>
+      <div class="desc">Arena 宣布 OpenAI 的 GPT-6.1 Sol (Max) 在 Agent Arena 排名第 5（+11.23%），中位任务成本仅 $0.56，并重塑了 Pareto 前沿，以远低于前列模型的价格逼近第一梯队。</div>
+      <div class="why"><span class="wl">为何关注：</span>以约五分之一的价格逼近头部性能，编码智能体的「性价比」叙事正在重构，对中小团队尤为友好。</div>
+      <div class="card-foot"><span class="src">X · Arena</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 72</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/rokeu6lgezhin523opd7ernimg" target="_blank">DeepSeek Harness 公开预览并开源，采用「一切皆插件」架构</a></h3>
+      <div class="desc">DeepSeek Harness 进入公开预览并开源，采用「一切皆插件」架构；配套 v0.2 桌面应用同步发布，支持 macOS、Windows 和 Linux，为编码智能体提供可高度定制的 harness 运行时。</div>
+      <div class="why"><span class="wl">为何关注：</span>国产编码智能体 harness 以插件化、全平台桌面形态开源，是 AI coding 工具链国产化的重要进展。</div>
+      <div class="card-foot"><span class="src">全量池 · DeepSeek</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 71</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/cw97qi7nc5ucehymkc1k9s6zk" target="_blank">OpenAI 发布 GPT-6 家族实用指南：选型、提示词与长任务管理</a></h3>
+      <div class="desc">OpenAI 发布 GPT-6 家族实用指南，讲解如何按任务选择 GPT-6 Astra、GPT-6.1 Sol、GPT-6 Luna 以及推理档位与速度模式，帮助开发者在多档位模型中做出选型决策。</div>
+      <div class="why"><span class="wl">为何关注：</span>模型产品线日益复杂，官方「选型手册」标志编码模型从单点能力走向组合式产品矩阵。</div>
+      <div class="card-foot"><span class="src">OpenAI 官网</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 70</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/z1wr1z3pf61s6kgdx0yz1mzjj" target="_blank">Airbnb CTO Ahmad Al-Dahle：60% 代码已由 AI 编写</a></h3>
+      <div class="desc">Airbnb CTO Ahmad Al-Dahle 谈 AI 原生化转型，称公司已有 60% 的代码由 AI 编写，分享大型科技公司在工程组织中系统性引入 AI 编码的实践经验与挑战。</div>
+      <div class="why"><span class="wl">为何关注：</span>「60% 代码由 AI 编写」是头部企业 AI 编码渗透率的实打实样本，为行业提供了可对照的转型标杆。</div>
+      <div class="card-foot"><span class="src">全量池 · Airbnb</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 69</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/fkxn0msd8ty9lmxchq77chupc" target="_blank">Arena 评测：Claude Sonnet 5.5 登顶 Agent Arena 第 3 名但未入 Pareto 前沿</a></h3>
+      <div class="desc">Claude Sonnet 5.5 以 +12.5% 净提升排名 Agent Arena 第 3，但单任务中位成本 $2.74，比第 2 名 Opus 5.5（$1.58）高约 73% 且得分更低，因此未进入 Pareto 前沿；Anthropic 模型包揽榜单前三。</div>
+      <div class="why"><span class="wl">为何关注：</span>Anthropic 在 Agent 榜单整体强势，但 Sonnet 5.5 相对 Opus 的「更贵却未更强」凸显产品线内部定位问题。</div>
+      <div class="card-foot"><span class="src">X · Arena</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 69</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/rp0ocer4fughonyd9ddfr3r8i" target="_blank">NVIDIA 介绍 Blackwell GPU 如何加速 OpenAI GPT-6 Astra Ultrafast</a></h3>
+      <div class="desc">GPT-6 Astra Ultrafast 现已在 OpenAI API 及符合条件的 ChatGPT Work 和 Codex 用户中可用，运行在 NVIDIA Blackwell GPU 上，实现更低的推理延迟与更高的吞吐。</div>
+      <div class="why"><span class="wl">为何关注：</span>「Ultrafast」档位落地 Codex，编码场景对低延迟推理的需求正推动底层算力加速迭代。</div>
+      <div class="card-foot"><span class="src">NVIDIA Blog</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 68</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/u7s37k3i99ayei0ja1kj6ay4j" target="_blank">Epoch AI 估算：2025–27 年 HBM 可支撑 3000 万至 1.7 亿并发前沿智能体</a></h3>
+      <div class="desc">Epoch AI 研究估算，2025–27 年出货的 HBM 硬件全面部署后，可运行约 3000 万至 1.7 亿并发前沿模型智能体，相当于每周约 1.4–7.2 亿全职员工的工作时长。</div>
+      <div class="why"><span class="wl">为何关注：</span>首次用算力供给量化「智能体劳动力」上限，为 AI 劳动力经济叙事提供了硬件侧约束依据。</div>
+      <div class="card-foot"><span class="src">Epoch AI</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 67</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/epb245so8hb7m1r74gumw2dze" target="_blank">NVIDIA DGX Spark 推出 64GB 版本，$4,999 起支持端侧千亿参数模型</a></h3>
+      <div class="desc">NVIDIA 宣布 DGX Spark 推出 64GB 统一内存新配置，10 月 23 日起由 Acer、ASUS、Dell、Gigabyte、HP 和 MSI 发售，起步价 $4,999，支持最高 1000 亿参数模型在端侧本地运行。</div>
+      <div class="why"><span class="wl">为何关注：</span>桌面级设备本地运行千亿模型，为本地编码智能体与数据敏感场景提供了可行的硬件底座。</div>
+      <div class="card-foot"><span class="src">NVIDIA Blog</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 64</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/uwm1ml1igd8k2u81g14uf8pc3" target="_blank">Baseten 工程师实测：LLM 生成的推理引擎比 vLLM 快最多 90%</a></h3>
+      <div class="desc">Baseten 工程师参考 MetaInfer 论文，让 Claude Code（Fable 5）为 Qwen-3.6-35B-A3B 自动构建推理引擎 VibeQwen，单流解码比 vLLM 0.25.1 快 90%，首 token 从 28ms 降至 12ms。</div>
+      <div class="why"><span class="wl">为何关注：</span>「用 AI 写推理引擎」反向优化推理栈，展示了 AI coding 在系统底层性能工程上的实用价值。</div>
+      <div class="card-foot"><span class="src">Baseten 工程博客</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 64</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/luziee3q9gvgyq8y0sn7ti82t" target="_blank">Redis 作者推出 ds4 本地推理引擎，可跑 DeepSeek V4、GLM 5.x 与 Qwen3.8</a></h3>
+      <div class="desc">Redis 作者发布 ds4 本地推理引擎，支持在本地运行 DeepSeek V4、GLM 5.x 和 Qwen3.8 等模型，聚焦本地化、低依赖的推理部署体验。</div>
+      <div class="why"><span class="wl">为何关注：</span>知名基础设施作者入局本地推理引擎，进一步印证「端侧/本地推理」成为开发者工具的新战场。</div>
+      <div class="card-foot"><span class="src">全量池 · ds4</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 62</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/l7mkdees7p8apb7stdidl4p3i" target="_blank">Ai2 开源 8B 科学报告生成模型 AstaBrief</a></h3>
+      <div class="desc">Ai2 开源 AstaBrief 8B，一个基于 Qwen3-8B、将研究问题与检索文献片段转化为带引用报告的科学报告生成模型，已在 Asta 的 Generate a report 功能中上线，并连同训练数据开放下载。</div>
+      <div class="why"><span class="wl">为何关注：</span>小参数量模型做「带引用的报告生成」，为知识密集型自动化提供了低成本、可复现的开源方案。</div>
+      <div class="card-foot"><span class="src">Ai2 / Allen AI</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 62</span>
+        <span class="pool pool-selected">精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/ukk2qw5l1r9jqhsykqai2cf30" target="_blank">OpenRouter 解析 LangChain/CrewAI 编排与原生路由的差异</a></h3>
+      <div class="desc">OpenRouter 发文将多模型编排分为工作流编排、模型路由和提供商路由三层，指出 LangGraph 和 CrewAI 负责工作流编排，OpenRouter 负责模型与提供商路由，二者不互相替代。</div>
+      <div class="why"><span class="wl">为何关注：</span>澄清智能体编排分层，有助于开发者避免重复造轮子、选对每一层的正确工具。</div>
+      <div class="card-foot"><span class="src">OpenRouter</span><span>10-02</span></div>
+    </div>
+
+  </div>
+
+  <div class="section-title">
+    <div class="bar"></div>
+    <h2>具身智能 · 机器人</h2>
+    <span class="cnt">共 6 条 · 按热度降序 · 均未进入精选</span>
+  </div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 51</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/vfdmgjvg5blu9up820dr7diby" target="_blank">湖北智能家居国补扩围，机器人、无人机等可补贴 15%</a></h3>
+      <div class="desc">湖北省对 2026 年消费品以旧换新新增品类补贴政策优化调整，自 10 月 1 日起，机器人、数码相机、无人机、血压仪等纳入 15% 补贴，落实《商务部等 8 部门关于加快「人工智能 + 消费」发展的实施意见》。</div>
+      <div class="why"><span class="wl">为何关注：</span>消费级机器人首次进入地方国补目录，政策端开始以真金白银拉动具身智能的 C 端渗透。</div>
+      <div class="card-foot"><span class="src">IT之家</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 44</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/okeu6lgezhin523opd7ernimg" target="_blank">InterEvolve：人形机器人移动操作奖励程序的测试时进化</a></h3>
+      <div class="desc">InterEvolve 通过测试时进化奖励程序，让控制器无需重新训练即可完成未训练过的人形机器人移动操作任务，结合物体感知行为基础模型与 LLM 智能体，并在 Unitree G1 实体机器人上基于第一视角感知自主运行。</div>
+      <div class="why"><span class="wl">为何关注：</span>「测试时进化」让人形机器人摆脱对大规模重训的依赖，是具身智能泛化能力的关键技术路线。</div>
+      <div class="card-foot"><span class="src">HuggingFace 热门论文</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 42</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/igqyrzvcmsqnkj8dmq573ydlj" target="_blank">波士顿动力升级 Atlas 机械手：自由度 7 → 13，可操控钻头、拧螺丝</a></h3>
+      <div class="desc">波士顿动力升级 Atlas 机械手，自由度从 7 提升至 13，采用 1 个拇指 + 3 根手指；演示中可操控钻头、单手移动两个高尔夫球、拧螺丝。官方称增加第 5 根手指会提高结构复杂度并增加能耗。</div>
+      <div class="why"><span class="wl">为何关注：</span>灵巧手自由度跃升是人形机器人走向精细作业的硬件基石，波士顿动力的取舍体现了工程权衡。</div>
+      <div class="card-foot"><span class="src">IT之家</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 40</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/d5huhxwv4g86ihhfawxb11x9h" target="_blank">GPT-6 Astra 机器人智能体：成功率提升 14%，Token 用量减少 65%</a></h3>
+      <div class="desc">PyRUA-Lean 框架让 GPT-6 Astra 驱动的机器人智能体在同等 LLM 调用预算下，将 LIBERO-PRO、RoboTwin 2.0、RoboCasa365 共 700 个仿真任务的整体成功率从 63.1% 提升至 71.7%，同时 Token 用量减少 65%。</div>
+      <div class="why"><span class="wl">为何关注：</span>前沿大模型直接驱动机器人控制，且在提升成功率的同时大幅降本，加速「大模型 + 具身」融合落地。</div>
+      <div class="card-foot"><span class="src">HuggingFace 热门论文</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 40</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/ekey6f2gpckgsijgrh3etwivg" target="_blank">Ego2Act：评估第一视角视频生成中的目标导向操作</a></h3>
+      <div class="desc">Ego2Act 是面向目标导向的第一视角视频生成基准，包含 110 个真实世界任务的 2640 段视频，要求模型根据初始场景与高层目标生成手部操作完成任务的逼真第一视角视频，并配套无参考评估流程 Ego2ActJudge。</div>
+      <div class="why"><span class="wl">为何关注：</span>第一视角操作基准补足了具身智能「视频生成 × 操作规划」的评测空白，支撑世界模型训练与评估。</div>
+      <div class="card-foot"><span class="src">HuggingFace 热门论文</span><span>10-02</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top">
+        <span class="score"><span class="flame">🔥</span> 27</span>
+        <span class="pool pool-all">全量·未进精选</span>
+      </div>
+      <h3><a href="https://aihot.news/items/hmnf6r4mkbfn478ng418q7fpz" target="_blank">Runway AI 峰会：机器人落地与三年展望</a></h3>
+      <div class="desc">The Bot Company CTO Paril Jain 与 Physical Intelligence 联合创始人 Quan Vuong 在 Runway AI Summit 同台，探讨真实世界评测、机器人实地部署，以及三年后机器人技术的走向。</div>
+      <div class="why"><span class="wl">为何关注：</span>两家头部具身智能公司高管同台对谈，一线视角勾勒机器人大规模落地的现实节奏与瓶颈。</div>
+      <div class="card-foot"><span class="src">X · Runway</span><span>10-02</span></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>数据来源：<a href="https://aihot.news" target="_blank">AI HOT</a> · 过去 24 小时 · 自动生成于 2026-10-03</p>
+    <p style="margin-top:6px; opacity:.7;">「全量·未进精选」表示该条目未进入 AI HOT 精选池，仅在全量池中检索命中，供参考补充。</p>
+  </footer>
+</div>
+</body>
+</html>
