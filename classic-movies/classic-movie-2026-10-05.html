@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雨人</title>
+<style>
+  :root {
+    --bg: #0f1218;
+    --card: #1a1f2b;
+    --card2: #202735;
+    --text: #e8eaf0;
+    --muted: #9aa3b5;
+    --accent: #f5b942;
+    --accent2: #e07a3f;
+    --line: #2b3242;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 32px 20px 60px; }
+  .poster {
+    background: linear-gradient(160deg, #2a1f0e, #161a24);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 40px 28px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 40px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .en { color: var(--muted); font-size: 15px; letter-spacing: 1px; margin-bottom: 16px; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 18px;
+  }
+  .meta span {
+    background: var(--card2); border: 1px solid var(--line);
+    border-radius: 999px; padding: 6px 16px; font-size: 14px; color: var(--muted);
+  }
+  .score {
+    margin-top: 22px; font-size: 15px; color: var(--muted);
+  }
+  .score b { color: var(--accent); font-size: 30px; font-weight: 800; }
+  .section {
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; padding: 26px 24px; margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 20px; font-weight: 700; margin-bottom: 14px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before {
+    content: ""; width: 6px; height: 20px; border-radius: 3px;
+    background: linear-gradient(var(--accent), var(--accent2));
+    display: inline-block;
+  }
+  p { color: #d3d8e2; margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  .quote {
+    border-left: 3px solid var(--accent);
+    padding: 8px 0 8px 18px; margin: 16px 0;
+    color: var(--accent); font-style: italic; font-size: 16px;
+  }
+  ul { list-style: none; }
+  li { padding: 8px 0 8px 24px; position: relative; color: #d3d8e2; }
+  li::before {
+    content: "◆"; position: absolute; left: 2px; top: 8px;
+    color: var(--accent2); font-size: 12px;
+  }
+  .note {
+    background: rgba(245,185,66,0.08); border: 1px solid rgba(245,185,66,0.25);
+    border-radius: 12px; padding: 16px 18px; font-size: 15px; color: #e6d8b8;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    h1 { font-size: 32px; }
+    .poster { padding: 30px 18px; }
+    .section { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="poster">
+      <span class="tag">今日推荐</span>
+      <h1>雨人</h1>
+      <div class="en">Rain Man · 1988</div>
+      <div class="meta">
+        <span>导演：巴里·莱文森</span>
+        <span>主演：达斯汀·霍夫曼 / 汤姆·克鲁斯</span>
+        <span>类型：剧情 / 公路</span>
+        <span>片长：133 分钟</span>
+      </div>
+      <div class="score">豆瓣评分 <b>8.7</b> · IMDb <b>8.0</b> · 第 61 届奥斯卡最佳影片</div>
+    </div>
+
+    <div class="section">
+      <h2>剧情梗概</h2>
+      <p>查理（汤姆·克鲁斯 饰）是个精明干练、利欲熏心的年轻汽车商人。父亲去世后，他满心以为能继承一大笔遗产，却被告知父亲的数百万美元遗产，全数留给了一个他从未听说过的"神秘人"。</p>
+      <p>顺着线索，查理找到了一家疗养院，见到了这位"神秘人"——他的亲哥哥雷蒙（达斯汀·霍夫曼 饰），一个患有自闭症、终生生活在机构里的"雨人"。愤怒又不甘的查理，决定"绑架"哥哥，以此要挟分得遗产。</p>
+      <p>于是，一对性格天差地别的兄弟，被迫踏上一段横穿美国的公路之旅。一路上，这位无法正常交流、却又拥有惊人记忆力和心算天赋的哥哥，一次次让查理抓狂，也一次次意外地击中了他的心。</p>
+      <div class="quote">“他是我哥哥。我知道我无法带走他，但我终于明白，我爱他。”</div>
+      <p>在这趟旅程的尽头，查理得到的，早已不是那笔钱。</p>
+    </div>
+
+    <div class="section">
+      <h2>亮点所在</h2>
+      <ul>
+        <li><b>神级表演</b>：达斯汀·霍夫曼塑造的雷蒙，被誉为影史最伟大的表演之一，凭此片二度摘得奥斯卡影帝；汤姆·克鲁斯则收敛锋芒，交出难得的细腻演出。</li>
+        <li><b>题材的开创性</b>：它是第一部真正让大众看见"自闭症谱系"的电影，影响深远，"雨人"一词自此成为"天才自闭者"的代名词。</li>
+        <li><b>情感的层次感</b>：表面是兄弟公路喜剧，内核却是关于亲情、理解与自我救赎的深沉故事，笑中带泪，余味悠长。</li>
+        <li><b>公路片美学</b>：广袤的美国公路、沿途的赌场与旅馆，配上温润的爵士配乐，营造出独特的时代质感。</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>为什么值得一看</h2>
+      <p>它没有宏大的场面，也没有跌宕的转折，却用一个"最不可能成为英雄的人"，讲述了人性里最柔软的部分。当利益的算计一点点被亲情融化，观众会跟着查理一起，完成一次关于"爱"的重新学习。</p>
+      <p>如果你想看一部温暖、克制、又能久久回味的电影，《雨人》是那种"看完之后，心里会多一点点柔软"的作品。</p>
+      <p class="note">温馨提示：本推荐不含剧透，请放心观看，把情绪留给电影自己去揭晓。</p>
+    </div>
+
+  </div>
+</body>
+</html>
