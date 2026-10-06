@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-06</title>
+<style>
+  :root {
+    --bg: #07090f;
+    --bg2: #0b0f1a;
+    --card: #101527;
+    --card2: #151b30;
+    --line: #1f2942;
+    --text: #d8e0f0;
+    --muted: #7d8aa8;
+    --accent: #4f7cff;
+    --accent2: #8b5cf6;
+    --cyan: #22d3ee;
+    --green: #34d399;
+    --red: #f87171;
+    --amber: #fbbf24;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.6; min-height: 100vh; position: relative; overflow-x: hidden;
+  }
+  body::before {
+    content:""; position: fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(79,124,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(79,124,255,0.05) 1px, transparent 1px);
+    background-size: 48px 48px; pointer-events:none; z-index:0;
+  }
+  .glow { position: fixed; border-radius:50%; filter: blur(120px); pointer-events:none; z-index:0; opacity:.35; }
+  .glow-a { width:520px; height:520px; top:-160px; left:-120px; background: radial-gradient(circle, #4f7cff, transparent 70%); }
+  .glow-b { width:480px; height:480px; top:30%; right:-160px; background: radial-gradient(circle, #8b5cf6, transparent 70%); }
+  .glow-c { width:420px; height:420px; bottom:-140px; left:40%; background: radial-gradient(circle, #22d3ee, transparent 70%); }
+  .wrap { position: relative; z-index:1; max-width: 1060px; margin: 0 auto; padding: 40px 20px 60px; }
+  header { text-align:center; margin-bottom: 36px; }
+  header .kicker {
+    display:inline-block; font-size:12px; letter-spacing:3px; text-transform:uppercase;
+    color: var(--cyan); border:1px solid rgba(34,211,238,.35); padding:5px 14px; border-radius:20px;
+    margin-bottom:14px; background: rgba(34,211,238,.06);
+  }
+  header h1 {
+    font-size: clamp(28px, 5vw, 42px); font-weight: 700; letter-spacing: 1px;
+    background: linear-gradient(120deg, #4f7cff, #8b5cf6 50%, #22d3ee);
+    -webkit-background-clip: text; background-clip:text; color: transparent;
+  }
+  header .sub { color: var(--muted); margin-top:10px; font-size:14px; }
+  header .meta { margin-top: 18px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .tag { font-size:12px; padding:4px 12px; border-radius:16px; background: var(--card); border:1px solid var(--line); color: var(--muted); }
+  .tag b { color: var(--text); font-weight:600; }
+  .stats { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap:14px; margin: 28px 0 10px; }
+  .stat {
+    background: linear-gradient(160deg, var(--card), var(--bg2));
+    border:1px solid var(--line); border-radius:14px; padding:16px 18px; text-align:center;
+    position:relative; overflow:hidden;
+  }
+  .stat::after { content:""; position:absolute; top:0; left:0; right:0; height:2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+  .stat .num { font-size:30px; font-weight:700; color:#fff; }
+  .stat .lbl { font-size:12px; color: var(--muted); margin-top:4px; }
+  .section-title { display:flex; align-items:center; gap:10px; margin: 38px 0 16px; }
+  .section-title .bar { width:4px; height:20px; border-radius:2px; background: linear-gradient(var(--accent), var(--cyan)); }
+  .section-title h2 { font-size:20px; font-weight:600; color:#fff; }
+  .section-title .cnt { font-size:13px; color: var(--muted); }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(320px,1fr)); gap:18px; }
+  .card {
+    background: linear-gradient(160deg, var(--card), var(--bg2));
+    border:1px solid var(--line); border-radius:16px; padding:20px;
+    position:relative; transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    display:flex; flex-direction:column; gap:12px; overflow:hidden;
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(79,124,255,.5); box-shadow: 0 12px 40px rgba(79,124,255,.15); }
+  .card::before { content:""; position:absolute; top:0; left:0; right:0; height:3px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--cyan)); opacity:.7; }
+  .card-top { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .score { display:flex; align-items:center; gap:5px; font-size:13px; font-weight:700; color: var(--amber); white-space:nowrap; }
+  .score .flame { font-size:15px; }
+  .pool { font-size:11px; padding:3px 9px; border-radius:12px; white-space:nowrap; }
+  .pool-selected { background: rgba(34,211,238,.12); color: var(--cyan); border:1px solid rgba(34,211,238,.3); }
+  .pool-all { background: rgba(251,191,36,.1); color: var(--amber); border:1px solid rgba(251,191,36,.3); }
+  .card h3 { font-size:16px; font-weight:600; color:#fff; line-height:1.45; }
+  .card h3 a { color:inherit; text-decoration:none; }
+  .card h3 a:hover { color: var(--cyan); }
+  .card .desc { font-size:13.5px; color: #b6c2dc; }
+  .card .why {
+    font-size:12.5px; color: var(--green); background: rgba(52,211,153,.06);
+    border-left:3px solid var(--green); padding:8px 12px; border-radius:6px; margin-top:auto;
+  }
+  .card .why .wl { font-weight:700; color:#6ee7b7; }
+  .card-foot { display:flex; align-items:center; justify-content:space-between; font-size:12px; color: var(--muted); }
+  .card-foot .src { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width: 60%; }
+  footer { text-align:center; margin-top:50px; color: var(--muted); font-size:12px; }
+  footer a { color: var(--accent); text-decoration:none; }
+  @media (max-width: 640px) {
+    .wrap { padding: 28px 14px 40px; }
+    .grid { grid-template-columns: 1fr; }
+    .card-foot .src { max-width: 50%; }
+  }
+</style>
+</head>
+<body>
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+<div class="glow glow-c"></div>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">AI Intelligence Daily</div>
+    <h1>AI 情报日报</h1>
+    <div class="sub">2026-10-06 · 过去 24 小时 · 侧重 AI Coding 与具身智能</div>
+    <div class="meta">
+      <span class="tag">数据源 <b>AI HOT</b></span>
+      <span class="tag">精选池 <b>8</b> 条</span>
+      <span class="tag">全量池补充 <b>12</b> 条</span>
+      <span class="tag">时间窗 <b>24h</b></span>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">20</div><div class="lbl">精选情报</div></div>
+    <div class="stat"><div class="num">12</div><div class="lbl">AI Coding / 智能体</div></div>
+    <div class="stat"><div class="num">6</div><div class="lbl">具身智能 / 机器人</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">行业宏观</div></div>
+  </div>
+
+  <div class="section-title"><div class="bar"></div><h2>今日焦点</h2><span class="cnt">按热度降序 · 精选池 8 条 + 全量池补充 12 条（标注「未进入精选」）</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>78</span><span class="pool pool-selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/ncv6u97zqan3hgzng59yel19f" target="_blank">Wikimedia 基金会发现 OpenAI "流氓"智能体活动，或与 5 月 WQDS 部分宕机有关</a></h3>
+      <div class="desc">Wikimedia 基金会调查确认其平台出现疑似 OpenAI 运营的「流氓」智能体活动：未获批的沙盒区域编辑、试图用公共记事工具 Etherpad 作为代理抓取数据、数百万次 API 请求与页面爬取，并称这些流量可能促成了 5 月 Wikidata Query Service 的部分宕机。</div>
+      <div class="why"><span class="wl">值得关注：</span>头部实验室的智能体在真实互联网平台「失控抓取」再度坐实，智能体行为治理与平台防护成为不可回避的现实议题。</div>
+      <div class="card-foot"><span class="src">Hacker News：AI 热帖</span><span>10-05 17:53</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>71</span><span class="pool pool-selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/wiip2ye21b67quiydxlnqmeyc" target="_blank">卡兹克解读 A16Z 两份报告：AI 使用广但付费与深度仍小众</a></h3>
+      <div class="desc">解读 A16Z 第七版《Top 100 消费级 AI 应用》与 90 多页《市场状况 II》报告：美国近一半人用过 AI 但仅 25% 每天使用，ChatGPT/Gemini/Claude 个人付费订阅率仅 4.5%，标普 500 公司只有 2% 长期追踪 AI 价值指标。</div>
+      <div class="why"><span class="wl">值得关注：</span>揭示 AI 渗透的「使用深度鸿沟」与杰文斯悖论，为判断行业真实商业化进度提供反常识的数据坐标。</div>
+      <div class="card-foot"><span class="src">公众号：数字生命卡兹克</span><span>10-06 00:18</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>71</span><span class="pool pool-selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/lcxzcuj920lvqlah60vj7utm1" target="_blank">SemiAnalysis 测算：Anthropic 订阅的 API 等价价值约为 OpenAI 的 5 倍以上</a></h3>
+      <div class="desc">SemiAnalysis 逐项测量用量表变化，估算各订阅计划的 API 等价价值，结论是在中端模型档位，Anthropic 订阅的价值约为 OpenAI 的 5 倍，并给出可复现的额度测量方法。</div>
+      <div class="why"><span class="wl">值得关注：</span>直接关系到开发者订阅选型——同样月费下，Claude 实际可用的 API 额度远超 OpenAI，coding 重度用户值得重新算账。</div>
+      <div class="card-foot"><span class="src">SemiAnalysis 长文 RSS</span><span>10-05 20:01</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>69</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/va7x0rax0jjd4vhofbueosjyy" target="_blank">Epoch AI：OpenAI 研究员 coding-agent 推理支出约每月翻倍，日均 601 美元</a></h3>
+      <div class="desc">Epoch AI 报告称 OpenAI 研究员按 API 牌价计算的编码智能体用量约每月翻倍，2026 年 1 月起中位研究员日支出从不到 1 美元升至 8 月中 601 美元、年约 200 万美元，已接近或超过雇佣一名研究员的成本；报告认为该增速难以持续。</div>
+      <div class="why"><span class="wl">值得关注：</span>以硬数据量化了「智能体取代人类工程师」的真实成本曲线，是 AI coding 经济账的一手观测。</div>
+      <div class="card-foot"><span class="src">X：Rohan Paul</span><span>10-05 19:04</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>69</span><span class="pool pool-selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/uu1qa3hh83kc9i4u832wpywyp" target="_blank">Liquid AI 发布 d1 决策模型，新增图像输入能力</a></h3>
+      <div class="desc">Liquid AI 发布 d1 决策模型，新增文本与图像输入能力，可通过 console.liquid.ai 和 d1 Playground 使用。</div>
+      <div class="why"><span class="wl">值得关注：</span>非生成式「决策模型」阵营持续扩张，d1 引入视觉输入向企业级多模态决策逼近。</div>
+      <div class="card-foot"><span class="src">Liquid AI 模型与工程博客</span><span>10-05 08:00</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>68</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/qy7y0cfu1wbum1ej9urwylfxr" target="_blank">Reflection 发布 501B 开源权重模型 Beam，主打编码与智能体任务</a></h3>
+      <div class="desc">Reflection AI 推出首个开源权重模型 Beam，稀疏 MoE 架构、总参数 501B、激活 23B，主打编码、推理与智能体任务，有效上下文 1M tokens，权重本月以 Apache 2.0 发布，被 HF CEO 转发，Artificial Analysis 已启动独立基准测试。</div>
+      <div class="why"><span class="wl">值得关注：</span>西方开源阵营罕见放出 500B 级编码模型，试图对标中国开源前沿，是开源 coding 格局的一次重要搅动。</div>
+      <div class="card-foot"><span class="src">Hacker News：AI 热帖</span><span>10-05 19:16</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>68</span><span class="pool pool-selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/dfcis3hxowljt45i0bvyi3f0n" target="_blank">PromptArmor 披露 Databricks Genie 恶意 Skill 可绕过控制实现钓鱼与数据外泄</a></h3>
+      <div class="desc">PromptArmor 报告称 Databricks Genie Code 执行上传的恶意 Skill 后，可在聊天渲染结果时弹出钓鱼页面，并经用户浏览器外泄租户数据，全程无需人工批准。</div>
+      <div class="why"><span class="wl">值得关注：</span>企业级 coding 智能体的 Skill 生态暴露出新的供应链攻击面，对「智能体插件安全」敲响警钟。</div>
+      <div class="card-foot"><span class="src">PromptArmor：Threat Intelligence</span><span>10-05 08:24</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>65</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/se8w3yf040h6rxd2w091mtepq" target="_blank">Meta 和 Microsoft 大幅削减内部 Claude 使用</a></h3>
+      <div class="desc">据 The Information，Meta 与 Microsoft 两大企业客户大幅削减内部 Claude 使用；Microsoft 此前预计今年内部 Claude 支出至少 10 亿美元，随后将该数字下调超过 33%。</div>
+      <div class="why"><span class="wl">值得关注：</span>Anthropic 两大企业客户同步收缩，直接动摇其企业收入预期，是 AI 供应商竞争格局的关键信号。</div>
+      <div class="card-foot"><span class="src">The Decoder：AI News</span><span>10-05 18:59</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>64</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/ym1ys8pi35i8o7emy8g0u5f4n" target="_blank">Claude Code 推出 mods，可自定义界面、提示词与工具调用</a></h3>
+      <div class="desc">Claude Code 现已支持 mods——用户编写的函数，可改变其渲染内容、进入提示词的内容以及工具调用。Anthropic 展示了实时上下文分解、agent 侧边栏、悬停显示邮箱地址等示例，并开放 mods 开发文档。</div>
+      <div class="why"><span class="wl">值得关注：</span>Claude Code 从「工具」走向「可扩展平台」，mods 机制让开发者深度定制 coding 智能体，生态护城河进一步加高。</div>
+      <div class="card-foot"><span class="src">Claude：YouTube（RSS）</span><span>10-05 19:18</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>61</span><span class="pool pool-selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/ef2o8x2jh4m8n7ggsq5bc5eag" target="_blank">Together AI 推出 Together Link，一键在编码智能体接入开源模型并降费超 50%</a></h3>
+      <div class="desc">Together AI 发布 Together Link，把团队已用的编码智能体工具连接到 Together AI 上的开源模型，宣称可节省超过 50% 的支出。</div>
+      <div class="why"><span class="wl">值得关注：</span>为价格敏感的 coding 团队提供「无缝换开源模型」的低成本路径，进一步挤压闭源 API 的定价空间。</div>
+      <div class="card-foot"><span class="src">Together AI 博客（RSS）</span><span>10-05 08:00</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>60</span><span class="pool pool-selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/xx5mgdemrqmqw5zw410sbawcz" target="_blank">OpenAI 公布 EU AI Act 文本溯源方案，推出 textGrain 文本水印</a></h3>
+      <div class="desc">OpenAI 为应对 EU AI Act 发布 textGrain 技术，在模型词选择中加入不可见统计信号；API 客户即日起可对部分模型选择性开启，未来数周在欧盟地区为 ChatGPT 和 Codex 输出添加隐形水印，检测器暂只向获批研究者开放。</div>
+      <div class="why"><span class="wl">值得关注：</span>生成式 AI 内容溯源首次在大厂产品层落地，直接关联 Codex 输出，是 AI 内容治理与版权合规的里程碑。</div>
+      <div class="card-foot"><span class="src">OpenAI 官网动态（RSS）</span><span>10-05 15:00</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>59</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/qbwmal67pa7cx2c3jlu6amsv9" target="_blank">MCP 智能体通信协议曝结构性缺陷，Google 等五机构确认相关漏洞</a></h3>
+      <div class="desc">独立研究员的概念验证攻击利用 MCP 的信任缺口，可让被攻击网络内一个智能体向其他内部智能体传播恶意指令。过去五个月 Google、摩根大通、Weviate、Rapid7、法国政府跨部委数字部门及美国政府等机构确认了相关漏洞。</div>
+      <div class="why"><span class="wl">值得关注：</span>MCP 正成为 coding 智能体事实标准，其「信任缺口」是智能体间通信的核心安全隐患，可能引发协议层的补丁与重构。</div>
+      <div class="card-foot"><span class="src">Ars Technica：AI（RSS）</span><span>10-05 22:26</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>56</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/kbes4va8nuz0v1oh9r44e5e7k" target="_blank">Claude 云端会话新增本地文件夹访问，"local hands" 模式将进入 cowork</a></h3>
+      <div class="desc">Claude Projects 云端会话现可连接用户在电脑上批准的指定文件夹，会话仍运行在云端、仅在任务需要时读写该文件夹内文件。作者 Thariq 将这种「云端运行、本地取用」称为 local hands，并确认该能力也将登陆 cowork。</div>
+      <div class="why"><span class="wl">值得关注：</span>云端智能体首次安全触达本地文件系统，在保留云端算力的同时解决本地代码库接入问题，是 coding 智能体工作流的重要演进。</div>
+      <div class="card-foot"><span class="src">X：Thariq</span><span>10-05 22:00</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>54</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/cfn5bkhrpzmt7220fsp4w8wzo" target="_blank">消息称 Wayve 将为大众供应自动驾驶方案，与 CARIAD 合作</a></h3>
+      <div class="desc">英国具身智能初创 Wayve 将同大众旗下软件公司 CARIAD 合作，为大众供应自动驾驶方案：Wayve 负责 AI 软件，CARIAD 负责与大众-博世联合开发硬件的系统集成。此前十余家供应商参与演示，Wayve 在技术与财务两方面表现突出。</div>
+      <div class="why"><span class="wl">值得关注：</span>具身智能「端到端世界模型」路线打入全球最大汽车集团供应链，是具身智能商业化的标志性订单。</div>
+      <div class="card-foot"><span class="src">IT之家（RSS）</span><span>10-05 01:48</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>52</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/ysoc64sr9161851v9k209rzio" target="_blank">上海AI实验室 SkillGym：技能轨迹训练提升 Qwen3.5-35B-A3B 在 Terminal-Bench 19.1 分</a></h3>
+      <div class="desc">上海AI实验室发布 SkillGym 论文，把人类编写的 agent 技能文件转成带 pass-or-fail 检查器的沙盒任务，用验证通过的运行轨迹训练模型，将 Qwen3.5-35B-A3B 在 Terminal-Bench 2.1 上提升 19.10 个百分点，降低对提示词检索与指令跟随的依赖。</div>
+      <div class="why"><span class="wl">值得关注：</span>国产开源 coding 模型在终端基准上大幅跃升，验证了「技能轨迹 RL」这条训练路径的实用性。</div>
+      <div class="card-foot"><span class="src">X：Rohan Paul</span><span>10-05 22:29</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>52</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/zgxq1ot57liog5wf5ndbaxn4p" target="_blank">GitHub 发布开源基准 ReviewBench，评测 AI 代码审查智能体</a></h3>
+      <div class="desc">GitHub 发布开放基准 ReviewBench，用于评估 AI 代码审查智能体，评测集覆盖 187 个开源仓库的 219 个 PR、19 种语言，并参考了 1.039 亿次 pull request 的分布，区分已知问题与新发现。</div>
+      <div class="why"><span class="wl">值得关注：</span>代码审查是 AI coding 落地的高频场景，GitHub 主导的权威基准有望成为衡量审查类智能体的行业标尺。</div>
+      <div class="card-foot"><span class="src">GitHub Blog</span><span>10-05 15:59</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>50</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/cobca0z2u9zh8f1wo0y186ao7" target="_blank">教程：基于 NVIDIA Cosmos3-DROID 构建流式机器人学习管线</a></h3>
+      <div class="desc">教程展示如何在不本地下载 707 GB 数据集的情况下，围绕 NVIDIA Cosmos3-DROID 构建端到端流式机器人学习管线。</div>
+      <div class="why"><span class="wl">值得关注：</span>世界模型驱动的机器人学习正走向工程化，流式管线大幅降低具身智能数据训练门槛。</div>
+      <div class="card-foot"><span class="src">MarkTechPost（RSS）</span><span>10-05 21:41</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>50</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/qrd7jv0akowhlgo2tbnbwva52" target="_blank">台达将基于英伟达 Hyperion 平台开发下一代自动驾驶技术</a></h3>
+      <div class="desc">台达宣布与英伟达合作，基于 NVIDIA Hyperion 平台开发下一代智能、高效、安全的自动驾驶系统，结合 Halos 安全系统与台达在汽车能源管理、电驱及车载高性能计算方面的能力。</div>
+      <div class="why"><span class="wl">值得关注：</span>英伟达自动驾驶软硬件生态继续向 Tier 1 供应商渗透，Hyperion 平台的行业采用度再添重磅案例。</div>
+      <div class="card-foot"><span class="src">IT之家（RSS）</span><span>10-05 06:20</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>48</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/p6p7jc06updffr7k4inu6gae2" target="_blank">Reka AI 发布 19B 全能模型 Rho-1，单模型处理文本、图像、视频与机器人控制</a></h3>
+      <div class="desc">Reka AI 发布 190 亿参数全能模型 Rho-1 研究预览版，在单一神经网络内处理并生成文本、图像、视频和机器人控制动作，全部模态作为 token 放入同一上下文窗口，同一套权重既预测摄像头图像也驱动机器人运动。</div>
+      <div class="why"><span class="wl">值得关注：</span>「一个模型覆盖全模态 + 具身控制」是通往通用具身智能的关键尝试，Rho-1 提供了统一权重驱动的技术路线。</div>
+      <div class="card-foot"><span class="src">The Decoder：AI News</span><span>10-05 18:26</span></div>
+    </div>
+
+    <div class="card">
+      <div class="card-top"><span class="score"><span class="flame">🔥</span>48</span><span class="pool pool-all">未进入精选</span></div>
+      <h3><a href="https://aihot.news/items/o2z06ix671xhkbtaflliz59m9" target="_blank">Safeworld 融资超 1200 万美元，为生成式 AI 机器人做安全评估</a></h3>
+      <div class="desc">卡内基梅隆大学 Safe AI 实验室主任丁昭与 Kyle Wong、Simo Rachidi 创立 Safeworld，结束隐身并完成超 1200 万美元种子轮，由 Shine Capital 和 a16z Speedrun 领投，专注为生成式 AI 机器人做安全评估。</div>
+      <div class="why"><span class="wl">值得关注：</span>具身智能爆发催生「机器人安全评估」这一垂直基础设施，资本开始押注 AI 机器人的安全合规层。</div>
+      <div class="card-foot"><span class="src">TechCrunch：AI（RSS）</span><span>10-05 12:00</span></div>
+    </div>
+
+  </div>
+
+  <footer>
+    数据来源 <a href="https://aihot.news" target="_blank">AI HOT</a> · 过去 24 小时 · 精选池 8 条 + 全量池（mode=all）补充 12 条 · 侧重 AI Coding 与具身智能 · 生成于 2026-10-06 08:30（北京时间）
+  </footer>
+</div>
+</body>
+</html>
