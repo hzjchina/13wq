@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小石磨的月光粉 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：月光粉尘埃 */
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：残月🌘 waning_crescent，illumination 0.31，左侧细弯钩亮弧，暗圆右侧偏移 0.5r -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="56" fill="url(#moonGlow)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="79" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：银色月光粉尘埃 -->
+  <span class="note" style="top:46%; left:12%; animation-delay:0s; color:#cfd8e8; text-shadow:0 0 8px rgba(207,216,232,0.55);">✦</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s; color:#cfd8e8; text-shadow:0 0 8px rgba(207,216,232,0.55);">✧</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s; color:#cfd8e8; text-shadow:0 0 8px rgba(207,216,232,0.55);">✦</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s; background:#dfe6f2; box-shadow:0 0 8px 2px rgba(223,230,242,0.6);"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px; background:#dfe6f2; box-shadow:0 0 8px 2px rgba(223,230,242,0.6);"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小石磨的月光粉</h1>
+    <p class="meta">🌾 慢慢磨，把月光磨成香甜 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-06.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="pmMoonClip"><circle cx="232" cy="56" r="20"/></clipPath>
+        <linearGradient id="pmSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <linearGradient id="pmStone" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#9a9dae"/>
+          <stop offset="100%" stop-color="#5a5d6e"/>
+        </linearGradient>
+        <linearGradient id="pmWood" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a3d28"/>
+          <stop offset="100%" stop-color="#3a2516"/>
+        </linearGradient>
+        <radialGradient id="pmGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.22"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="pmWarm" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#f5d76e" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#f5d76e" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 海报背景 -->
+      <rect width="300" height="440" fill="url(#pmSky)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="38" cy="38" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="92" cy="22" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="160" cy="48" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="118" cy="78" r="0.8" fill="#fff" opacity="0.6"/>
+      <circle cx="268" cy="96" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="55" cy="92" r="0.9" fill="#fff" opacity="0.6"/>
+      <circle cx="200" cy="30" r="0.7" fill="#fff" opacity="0.5"/>
+
+      <!-- 残月🌘：左侧细弯钩亮弧，暗圆右侧偏移 0.5r -->
+      <circle cx="232" cy="56" r="34" fill="url(#pmGlow)"/>
+      <circle cx="232" cy="56" r="20" fill="#e8ecf5"/>
+      <circle cx="242" cy="56" r="20" fill="#0e0f26" clip-path="url(#pmMoonClip)"/>
+
+      <!-- 月光如银色麦粒洒落 -->
+      <g opacity="0.75">
+        <circle cx="212" cy="98" r="1.3" fill="#e8ecf5"/>
+        <circle cx="226" cy="112" r="1" fill="#e8ecf5"/>
+        <circle cx="219" cy="128" r="1.2" fill="#e8ecf5"/>
+        <circle cx="234" cy="142" r="0.9" fill="#e8ecf5"/>
+        <circle cx="214" cy="156" r="1.1" fill="#e8ecf5"/>
+        <circle cx="240" cy="168" r="0.8" fill="#e8ecf5"/>
+        <circle cx="208" cy="172" r="1" fill="#e8ecf5"/>
+        <circle cx="228" cy="184" r="0.7" fill="#e8ecf5"/>
+      </g>
+
+      <!-- 磨坊暖光晕 -->
+      <ellipse cx="150" cy="270" rx="90" ry="60" fill="url(#pmWarm)"/>
+
+      <!-- 木质磨架 -->
+      <rect x="108" y="248" width="84" height="96" fill="url(#pmWood)" rx="5"/>
+      <rect x="113" y="253" width="74" height="86" fill="#2e1f12" rx="3"/>
+      <!-- 磨架横梁细节 -->
+      <rect x="108" y="300" width="84" height="4" fill="#4a3220" opacity="0.6"/>
+
+      <!-- 下磨盘 -->
+      <ellipse cx="150" cy="252" rx="56" ry="15" fill="#6a6d7e"/>
+      <ellipse cx="150" cy="250" rx="56" ry="13" fill="#7c7f90"/>
+      <!-- 上磨盘 -->
+      <ellipse cx="150" cy="238" rx="50" ry="13" fill="url(#pmStone)"/>
+      <ellipse cx="150" cy="236" rx="47" ry="10" fill="#aab0c2"/>
+      <!-- 磨盘纹路 -->
+      <ellipse cx="150" cy="236" rx="38" ry="7" fill="none" stroke="#8a8d9e" stroke-width="0.6" opacity="0.5"/>
+      <ellipse cx="150" cy="236" rx="28" ry="5" fill="none" stroke="#8a8d9e" stroke-width="0.6" opacity="0.4"/>
+      <!-- 磨心投料孔 -->
+      <ellipse cx="150" cy="236" rx="5" ry="2.5" fill="#3a3d4e"/>
+      <!-- 月光落入磨心 -->
+      <circle cx="150" cy="236" r="1.2" fill="#e8ecf5" opacity="0.8"/>
+
+      <!-- 磨杆（木质手柄） -->
+      <line x1="150" y1="234" x2="204" y2="216" stroke="#6a4d28" stroke-width="5" stroke-linecap="round"/>
+      <circle cx="204" cy="216" r="4.5" fill="#5a3d18"/>
+      <circle cx="204" cy="216" r="2.5" fill="#7a5d38"/>
+
+      <!-- 银色月光粉从磨盘间飘出 -->
+      <g opacity="0.7">
+        <circle cx="104" cy="262" r="1.6" fill="#e8ecf5"/>
+        <circle cx="118" cy="272" r="1.2" fill="#e8ecf5"/>
+        <circle cx="178" cy="268" r="1.4" fill="#e8ecf5"/>
+        <circle cx="194" cy="278" r="1" fill="#e8ecf5"/>
+        <circle cx="132" cy="282" r="1.1" fill="#e8ecf5"/>
+        <circle cx="164" cy="286" r="0.9" fill="#e8ecf5"/>
+        <circle cx="96" cy="276" r="1" fill="#e8ecf5"/>
+        <circle cx="206" cy="288" r="1.3" fill="#e8ecf5"/>
+        <circle cx="146" cy="292" r="0.8" fill="#e8ecf5"/>
+        <circle cx="120" cy="294" r="0.7" fill="#e8ecf5" opacity="0.5"/>
+        <circle cx="182" cy="298" r="0.9" fill="#e8ecf5" opacity="0.5"/>
+      </g>
+
+      <!-- 地面 -->
+      <rect x="8" y="344" width="284" height="88" fill="#181430" rx="0"/>
+      <rect x="8" y="344" width="284" height="3" fill="#2a2548" opacity="0.8"/>
+      <!-- 地面散落月光粉 -->
+      <circle cx="70" cy="360" r="1" fill="#e8ecf5" opacity="0.45"/>
+      <circle cx="230" cy="365" r="0.8" fill="#e8ecf5" opacity="0.4"/>
+      <circle cx="120" cy="372" r="0.7" fill="#e8ecf5" opacity="0.35"/>
+      <circle cx="190" cy="370" r="0.9" fill="#e8ecf5" opacity="0.4"/>
+
+      <!-- 底部标题 -->
+      <text x="150" y="396" text-anchor="middle" fill="#cfd8e8" font-size="23" font-weight="700" font-family="-apple-system, 'PingFang SC', sans-serif" letter-spacing="3">小石磨的月光粉</text>
+      <text x="150" y="418" text-anchor="middle" fill="#7ec8e3" font-size="10" letter-spacing="4" opacity="0.65">MOONLIGHT FLOUR · 晚安故事</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历八月廿六 · 残月🌘</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">耐心 · 温柔转化</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>村口的老磨坊里，住着一盘小石磨，名字叫咕噜。</p>
+    <p>咕噜年轻时，每天咕噜咕噜地转，把金黄的麦子磨成香喷喷的面粉，给全村人烤面包、蒸馒头。可后来村里有了新机器，又快又省力，大家再也不来找咕噜了。咕噜安安静静待在角落，落满了灰，心想："我是不是再也用不上了？"</p>
+    <p>深秋的夜，风凉了。天上挂着一弯细细的残月，像谁笑弯了眼睛。月光从磨坊小窗洒进来，一粒一粒，亮闪闪的，像银色的麦子，轻轻落进了磨盘里。</p>
+    <p>咕噜心动了一下，试探着慢慢、慢慢地转——咕噜……咕噜……月光被磨盘碾过，一圈又一圈，竟磨成了细细的粉！那粉软软的、香香的，闪着淡淡的银光，是咕噜从没见过的"月光粉"。</p>
+    <p>风婆婆闻到香味，推门探进头来："哎呀咕噜，你磨的是什么好东西呀？"</p>
+    <p>"是月光粉。"咕噜不好意思地说，"不知道有没有用。"</p>
+    <p>风婆婆笑了，兜起一捧呼地一吹——银粉飘了出去。</p>
+    <p>一缕落在小田鼠洞口，变成了暖暖亮亮的梦，小田鼠梦见抱着大金麦粒，咧嘴睡香了。一缕落在小刺猬背上，银粉挂满尖刺，像盖了条发光的小被子，他蜷成球呼呼打起小呼噜。一缕飘过小河，铺成一条发亮的小路，搬家的小蚂蚁顺着光，很快找到了暖和新家。</p>
+    <p>最后一缕飘飘悠悠，落进小朋友的窗台，变成一只软软的、会发光的月亮枕头。小朋友抱着枕头翻了个身，梦见自己坐在月亮船上数星星。</p>
+    <p>天快亮时，月光粉用完了。咕噜停下来，心里暖暖的。风婆婆拍拍他："你看，慢慢磨，连月光也能磨成香甜。"</p>
+    <p>从那以后，每个有月亮的夜，磨坊里都传出轻轻的咕噜声——那是小石磨在把月光，磨成大家的甜梦呢。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>慢慢磨，连月光也能变成香甜——耐心，是最温柔的力气。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。咕噜说，你今天也辛苦啦，把烦恼交给小石磨吧，他会慢慢磨成甜甜的梦。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月06日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
