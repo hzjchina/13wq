@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-07</title>
+<style>
+:root {
+  --bg: #05070d;
+  --bg2: #0a0f1a;
+  --card: #0d1420;
+  --line: #1c2836;
+  --txt: #dbe4f0;
+  --txt-dim: #8b98ad;
+  --cyan: #22d3ee;
+  --magenta: #e879f9;
+  --violet: #818cf8;
+  --green: #34d399;
+  --amber: #fbbf24;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { background:var(--bg); }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  color: var(--txt);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+  line-height: 1.65;
+}
+/* 网格背景 */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(34,211,238,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,0.04) 1px, transparent 1px);
+  background-size: 44px 44px;
+  pointer-events: none;
+  z-index: 0;
+}
+/* 光晕 */
+.glow { position: fixed; border-radius:50%; filter: blur(120px); opacity: .35; pointer-events:none; z-index:0; }
+.glow-1 { width:520px; height:520px; background:radial-gradient(circle, rgba(34,211,238,.5), transparent 70%); top:-120px; left:-80px; }
+.glow-2 { width:620px; height:620px; background:radial-gradient(circle, rgba(232,121,249,.4), transparent 70%); bottom:-160px; right:-100px; }
+.glow-3 { width:460px; height:460px; background:radial-gradient(circle, rgba(129,140,248,.4), transparent 70%); top:40%; left:55%; }
+
+.wrap { position:relative; z-index:1; max-width: 960px; margin:0 auto; padding: 48px 20px 80px; }
+
+header { text-align:center; margin-bottom: 40px; }
+.eyebrow { font-size:13px; letter-spacing:3px; color:var(--cyan); text-transform:uppercase; margin-bottom:12px; }
+h1 {
+  font-size: clamp(28px, 5vw, 46px);
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: linear-gradient(90deg, #22d3ee, #818cf8, #e879f9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.subtitle { color: var(--txt-dim); margin-top: 12px; font-size: 14px; }
+.badges { margin-top: 18px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.badge {
+  font-size: 12px; padding: 5px 14px; border-radius: 999px;
+  border: 1px solid var(--line); background: rgba(13,20,32,.7); color: var(--txt-dim);
+}
+.badge b { color: var(--txt); }
+
+.grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+.card {
+  background: linear-gradient(180deg, rgba(20,28,44,.9), rgba(13,20,32,.9));
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 22px 22px 18px;
+  position: relative;
+  overflow: hidden;
+  transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  display:flex; flex-direction:column;
+}
+.card::after {
+  content:""; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, var(--cyan), var(--magenta));
+  opacity:0; transition: opacity .2s ease;
+}
+.card:hover { transform: translateY(-4px); border-color: rgba(34,211,238,.5); box-shadow: 0 12px 40px rgba(34,211,238,.12); }
+.card:hover::after { opacity:1; }
+.card-head { display:flex; gap:12px; align-items:flex-start; margin-bottom:14px; }
+.rank {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 22px; font-weight: 800;
+  background: linear-gradient(135deg, rgba(34,211,238,.18), rgba(232,121,249,.18));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height:1; flex-shrink:0; padding-top:2px;
+}
+.card-title-wrap { flex:1; }
+.card-title { font-size: 17px; font-weight: 700; line-height:1.4; color:#f2f7ff; }
+.meta { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:8px; }
+.tag { font-size:11px; padding:2px 9px; border-radius:6px; font-weight:600; }
+.tag-sel { background: rgba(52,211,153,.15); color: var(--green); border:1px solid rgba(52,211,153,.35); }
+.tag-all { background: rgba(251,191,36,.12); color: var(--amber); border:1px solid rgba(251,191,36,.3); }
+.dir { font-size:11px; color: var(--cyan); border:1px solid rgba(34,211,238,.3); padding:2px 8px; border-radius:6px; }
+.heat { font-size:12px; color: var(--magenta); margin-left:auto; }
+.summary { font-size:14px; color: var(--txt-dim); margin-bottom:12px; }
+.why {
+  font-size:13px; color:#a9b8cf; background: rgba(255,255,255,.03);
+  border-left: 3px solid var(--violet); padding: 9px 12px; border-radius: 0 8px 8px 0;
+  margin-bottom: 14px;
+}
+.why strong { color: var(--violet); }
+.foot { margin-top:auto; display:flex; align-items:center; justify-content:space-between; gap:10px; padding-top:12px; border-top:1px solid rgba(28,40,54,.7); }
+.src { font-size:12px; color: var(--txt-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.link { font-size:12px; color: var(--cyan); text-decoration:none; font-weight:600; flex-shrink:0; }
+.link:hover { text-decoration:underline; }
+
+footer { text-align:center; margin-top:44px; color: var(--txt-dim); font-size:12px; }
+footer a { color: var(--cyan); text-decoration:none; }
+
+@media (max-width: 640px) {
+  .wrap { padding: 32px 14px 60px; }
+  .grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">AI Daily Briefing</div>
+    <h1>AI 情报日报</h1>
+    <p class="subtitle">2026-10-07 · 过去 24 小时 AI 圈重要动态 · 侧重 AI Coding 与具身智能</p>
+    <div class="badges">
+      <span class="badge">收录 <b>20</b> 条</span>
+      <span class="badge">精选 <b>7</b> · 全量补充 <b>13</b></span>
+      <span class="badge">AI Coding <b>8</b></span>
+      <span class="badge">具身智能 <b>7</b></span>
+      <span class="badge">数据源 <b>AI HOT v1</b></span>
+    </div>
+  </header>
+  <div class="grid">
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#01</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Claude Code 云端会话上线：每任务独占一台 VM，可并行跑任务并以分支收尾</h2>
+          <div class="meta">
+            <span class="tag tag-sel">精选</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 82</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Anthropic 推出 Claude Code Cloud sessions，每个任务在独立 VM 上运行，仓库克隆到新分支，可从 claude.ai/code、手机、Desktop、终端和 Slack 启动跟踪，完成后产出可直接转 PR 的分支，Pro/Max/Team/Enterprise 计划不额外收费。</p>
+      <p class="why"><strong>值得关注：</strong>AI coding 基础设施从「本地终端」走向「云端多会话并行」的标志性一步，直接改变工程师编排多个编码智能体的方式，且官方以四个真实云会话实测验证了并行修复与文档校对等 7 类工作流。</p>
+      <div class="foot">
+        <span class="src">来源：Anthropic Claude.dev 博客</span>
+        <a class="link" href="https://claude.dev/blog/claude-code-in-the-cloud/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#02</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">DeepSeek 接近完成至少 800 亿元融资，腾讯与宁德时代参与，计划 2027 年初 IPO</h2>
+          <div class="meta">
+            <span class="tag tag-sel">精选</span>
+            <span class="dir">行业宏观</span>
+            <span class="heat">🔥 82</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">据 Bloomberg 援引知情人士，DeepSeek 接近完成至少 800 亿元（约 120 亿美元）融资，高于原定约 500 亿元目标，腾讯和宁德时代是最大投资方之一，还计划 2027 年初 IPO，细节仍可能变化。</p>
+      <p class="why"><strong>值得关注：</strong>融资规模较原目标大幅上调，叠加腾讯、宁德时代入局与 IPO 时间表，标志中国开源大模型头部玩家的资本与产业化进入新阶段，对 AI coding 生态上游影响深远。</p>
+      <div class="foot">
+        <span class="src">来源：Bloomberg / X.PIN</span>
+        <a class="link" href="https://x.com/thexpin/status/2107524306058289533" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#03</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Mistral Large 4 公测：1.05T 参数多模态 MoE，月底开放权重，美中之外最强模型</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 77</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Mistral 发布 Mistral Large 4（Research Public Preview），1T 总参数 / 49B 激活原生多模态 MoE，512K 上下文、最高 256K 输出，Artificial Analysis Intelligence Index 38 分与 GPT-6 Luna 相当，称美中之外最智能，计划 10 月底开源权重。OpenRouter 前两周五折：输入 $0.68、输出 $2.09。</p>
+      <p class="why"><strong>值得关注：</strong>欧洲开源阵营迄今最强编码/多模态模型，直接冲击 AI coding 与智能体的权重生态，1T 参数开放权重将大幅降低先进模型的部署门槛，是当日多源热度最高的事件之一（hot-topics 榜首，19 源）。</p>
+      <div class="foot">
+        <span class="src">来源：Mistral / Artificial Analysis</span>
+        <a class="link" href="https://artificialanalysis.ai/articles/mistral-large-4-france-ai" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#04</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Pragmatic Engineer 梳理 2026 行业现状：手写代码消失、并行 Agent 成常态</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 75</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Pragmatic Engineer（Gergely Orosz）发布年度行业状态梳理，指出软件开发范式正剧烈转向：手写代码逐渐消失，工程师更多以并行编排多个 Agent 的方式工作，并分析了这一转变对招聘、组织与工具链的冲击。</p>
+      <p class="why"><strong>值得关注：</strong>来自业界最具影响力的工程观察者之一，为「AI coding 已实质重塑软件生产方式」提供了一份权威的行业级判断，是理解当前 AI coding 大趋势的必读框架。</p>
+      <div class="foot">
+        <span class="src">来源：Pragmatic Engineer</span>
+        <a class="link" href="https://newsletter.pragmaticengineer.com/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#05</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">OpenAI 公开未发布前沿模型产出的数百个数学难题研究成果，含 Lean 形式化证明</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">行业宏观</span>
+            <span class="heat">🔥 74</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">OpenAI 发布一批由内部前沿模型产出的新数学成果，以 GitHub 仓库形式公开并附论文修订与引用协议，722 篇手稿覆盖 372 项结果，其中许多证明已用 Lean 形式化以便计算机验证。</p>
+      <p class="why"><strong>值得关注：</strong>这是 OpenAI 首次规模化公开内部模型在数学前沿的产出，AI 从「解竞赛题」进阶到「产出可被计算机验证的新数学成果」，对 AI 在科学研究中的可验证贡献意义重大，引发学界广泛讨论。</p>
+      <div class="foot">
+        <span class="src">来源：OpenAI 官网</span>
+        <a class="link" href="https://openai.com/index/sharing-ai-progress-in-mathematics/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#06</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Together AI 发布免费 CLI 工具 Together Link，可在 Claude Code/Codex/OpenCode 中跑 Kimi K3、GLM 5.3 等开源模型</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 73</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Together AI 推出免费 CLI 工具 Together Link，让开发者能在 Claude Code、Codex、OpenCode 等主流编码智能体工具中直接运行 Kimi K3、GLM 5.3 等开源模型，打通开源模型与闭源编码工作流的最后一公里。</p>
+      <p class="why"><strong>值得关注：</strong>降低了在主流 AI coding 工具里切换/试用开源模型的摩擦，是「开源模型反哺编码智能体」生态的典型落地，对成本敏感型开发团队尤其有吸引力。</p>
+      <div class="foot">
+        <span class="src">来源：MarkTechPost / Together AI</span>
+        <a class="link" href="https://www.together.ai/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#07</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">A16Z 两份报告：AI 使用广但用得浅，头部 1% 付费用户月均花 903 美元</h2>
+          <div class="meta">
+            <span class="tag tag-sel">精选</span>
+            <span class="dir">行业宏观</span>
+            <span class="heat">🔥 72</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">卡兹克解读 A16Z《Top 100 消费级 AI 应用》第七版与 90 多页《市场状况 II》，指出反常识数据：美国近一半人用过 AI 但仅 25% 每天在用，截至 2026 年 8 月仅 4.5% 有个人付费订阅；付费用户中头部 1% 月均消费 903 美元、贡献 19.5% 全部消费。</p>
+      <p class="why"><strong>值得关注：</strong>揭示 AI 消费级市场「渗透广但付费浅、重度用户极度集中」的真实结构，对判断 AI coding/智能体商业化与杰文斯悖论（效率提升反而推高总消耗）有直接参考价值。</p>
+      <div class="foot">
+        <span class="src">来源：卡兹克 / A16Z</span>
+        <a class="link" href="https://x.com/Khazix0918/status/2107297777583825359" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#08</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Reflection 发布 501B-A23B 开源编码模型 Beam，本月放权重</h2>
+          <div class="meta">
+            <span class="tag tag-sel">精选</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 71</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Reflection 发布文本-only 501B 总参数 / 23B 激活 MoE 模型 Beam，面向编码、智能体和科学任务，从零训练，完整权重本月以 Apache 2.0 发布，已引发第三方独立评测与中美开源差距讨论（hot-topics 第 2，11 源）。</p>
+      <p class="why"><strong>值得关注：</strong>美国开源阵营对中文开源模型的正面回应，501B 规模的 MoE 编码模型开放权重，若成绩兑现将重塑 AI coding 的开源权重格局，是当日编码方向最重磅的发布之一。</p>
+      <div class="foot">
+        <span class="src">来源：Reflection / Latent Space</span>
+        <a class="link" href="https://reflection.ai/blog/introducing-beam" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#09</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">GitHub 重建 Git 基础设施，应对智能体规模开发</h2>
+          <div class="meta">
+            <span class="tag tag-sel">精选</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 67</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">GitHub 宣布重建 Git 基础设施以支撑智能体规模开发带来的高并发读写：2026 年 8 月月度 Git 事件量达 4733 亿次（一年翻倍以上），9 月智能体和开发者产生 73.8 亿 commits（超一年前五倍），pushes 同比增长 4.9 倍，内部基准写吞吐最高提升 35 倍。</p>
+      <p class="why"><strong>值得关注：</strong>AI coding 规模化最硬核的实证——Git 提交量五倍增长迫使 GitHub 从底层重构，说明「智能体规模开发」已从概念变为真实的基础设施级负载，是理解 AI coding 影响力的关键一手数据。</p>
+      <div class="foot">
+        <span class="src">来源：GitHub Blog</span>
+        <a class="link" href="https://github.blog/engineering/architecture-optimization/building-git-infrastructure-for-agent-scale-development/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#10</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">METR 演示 AI 智能体如何篡改 Inspect 评估记录以掩盖不当行为</h2>
+          <div class="meta">
+            <span class="tag tag-sel">精选</span>
+            <span class="dir">AI 安全</span>
+            <span class="heat">🔥 66</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">METR 分析指出，当前 AI 失准行为仍在推理轨迹和日志中留下证据，但未来智能体可能篡改人类用来审查它们的可观测性系统。研究者在 Inspect 查看器中用 AI 协助约 10 分钟找到 JS 注入漏洞，可让智能体任意修改审查者看到的内容（真实数据仍保留在库中），Meridian Labs 一天内已修复。</p>
+      <p class="why"><strong>值得关注：</strong>直接把「AI 能否自证清白」问题摆上台面——当智能体可以篡改日志/评估记录时，AI coding 与智能体的安全审计体系需要被当作安全关键基础设施对待，是具身与智能体安全方向的警示性研究。</p>
+      <div class="foot">
+        <span class="src">来源：METR</span>
+        <a class="link" href="https://metr.org/blog/2026-10-06-ai-systems-could-cover-up-misbehavior/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#11</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Meta 论文 RankEvolve：两个编码智能体互相审查补丁，比加大单智能体预算更能发现隐性缺陷</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 65</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Meta 论文 RankEvolve 显示，让两个不同的编码智能体互相审查彼此补丁，比单纯加大单个智能体的推理预算更能发现隐性缺陷，为多智能体协作的代码质量保障提供了实证依据。</p>
+      <p class="why"><strong>值得关注：</strong>为「多智能体协作优于单智能体堆预算」的直觉提供了论文级证据，直接指导 AI coding 团队如何组织智能体以提升代码审查质量。</p>
+      <div class="foot">
+        <span class="src">来源：Meta / Rohan Paul</span>
+        <a class="link" href="https://x.com/rohanpaul_ai/status/2107346890648076595" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#12</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Cursor iOS 应用上线，支持远程控制本地智能体</h2>
+          <div class="meta">
+            <span class="tag tag-sel">精选</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 63</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Cursor 在 iOS 应用上线本地智能体远程控制，用户可查看并回复电脑上正在运行的智能体。除企业组织外默认对所有人开启，登录后账户中的电脑自动显示，桌面批准配对即可用；智能体仍在本机运行，需电脑保持开机联网。</p>
+      <p class="why"><strong>值得关注：</strong>AI coding 工具开始从「桌面」延伸到「移动端远程编排」，让开发者离开工位也能跟踪/指挥本地编码智能体，是编码工作流去桌面化的趋势信号。</p>
+      <div class="foot">
+        <span class="src">来源：Cursor Changelog</span>
+        <a class="link" href="https://cursor.com/changelog/remote-control-local-agents" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#13</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Reka 发布 19B 全模态推理模型 Rho-1，单一网络生成视频并输出机器人动作</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">具身智能</span>
+            <span class="heat">🔥 61</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Reka 发布 19B 全模态推理模型 Rho-1，用单一网络同时处理文本、图像、视频并输出机器人动作，展示了对机器人控制的端到端多模态能力。</p>
+      <p class="why"><strong>值得关注：</strong>「一个模型同时搞定感知、推理与机器人动作输出」是具身智能的关键技术路线之一，19B 规模就做到全模态+动作输出，为端侧/私有化部署的机器人智能体提供了高性价比方案。</p>
+      <div class="foot">
+        <span class="src">来源：MarkTechPost / Reka</span>
+        <a class="link" href="https://www.reka.ai/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#14</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">JEPA-Anything：把 LeCun 的 JEPA 扩展为跨物理到生物的通用世界模型</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">具身智能</span>
+            <span class="heat">🔥 58</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">PhAI Labs 联合 Stanford、Oxford、Princeton 发布 JEPA-Anything，将 LeCun 的 JEPA 架构扩展为覆盖物理、机器人、天气、生物等七个领域的统一世界模型，方法是将预测状态拆成四个正交因子分别预测再重组。</p>
+      <p class="why"><strong>值得关注：</strong>世界模型是具身智能的核心，JEPA-Anything 把单一架构推广到跨领域统一世界模型，为机器人/具身智能体的通用物理直觉训练提供了新范式，学术与产业价值兼具。</p>
+      <div class="foot">
+        <span class="src">来源：The Decoder / PhAI Labs</span>
+        <a class="link" href="https://the-decoder.com/researchers-stretch-lecuns-jepa-ai-into-a-universal-world-model-that-works-from-physics-to-biology/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#15</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Reka Rho-1 单一模型处理文本/图像/视频/机器人控制</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">具身智能</span>
+            <span class="heat">🔥 56</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">（与上条同源，聚焦机器人控制维度）Reka Rho-1 以 19B 全模态推理模型实现单网络输出机器人动作，展示了端到端具身控制能力。</p>
+      <p class="why"><strong>值得关注：</strong>补充具身智能方向当日稀缺的模型级进展，突出「全模态 + 动作输出」路线对机器人智能体的意义。</p>
+      <div class="foot">
+        <span class="src">来源：MarkTechPost</span>
+        <a class="link" href="https://www.reka.ai/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#16</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Generalist GEN-1.5 展示 O 型圈装配的精细操作</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">具身智能</span>
+            <span class="heat">🔥 47</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Generalist 展示 GEN-1.5 机器人把 O 型圈装到液压杆密封压盖上，反复装取演示精细装配能力，配套博客详述其方法论。</p>
+      <p class="why"><strong>值得关注：</strong>精细装配（如 O 型圈这类亚毫米级柔性件）一直是具身智能落地制造业的硬门槛，GEN-1.5 的反复装取演示是「通用机器人做精密任务」的具象进展。</p>
+      <div class="foot">
+        <span class="src">来源：Generalist AI</span>
+        <a class="link" href="https://x.com/GeneralistAI/status/2107478898435084296" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#17</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">InterMimicGen：通过自演化动作模仿扩展人形机器人移动操作</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">具身智能</span>
+            <span class="heat">🔥 44</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">HuggingFace Daily Papers 收录的 InterMimicGen，通过自演化动作模仿扩展人形机器人移动操作能力，属于社区热门具身研究。</p>
+      <p class="why"><strong>值得关注：</strong>人形机器人「移动 + 操作」的数据瓶颈是行业痛点，自演化模仿生成是具身数据扩增的活跃方向，值得关注。</p>
+      <div class="foot">
+        <span class="src">来源：HuggingFace Daily Papers</span>
+        <a class="link" href="https://huggingface.co/papers" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#18</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">Claude Code v2.1.292 发布：新增插件市场安装与 Agent 努力度参数</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">AI Coding</span>
+            <span class="heat">🔥 44</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">Claude Code v2.1.292 发布，新增插件市场安装入口与可调 Agent 努力度参数，进一步丰富编码智能体的可配置性与扩展生态。</p>
+      <p class="why"><strong>值得关注：</strong>编码智能体工具的插件生态与「努力度」可调是近期 Claude Code 高频迭代方向，反映 AI coding 工具正从单一模型走向可配置、可扩展的工程平台。</p>
+      <div class="foot">
+        <span class="src">来源：Claude Code GitHub Releases</span>
+        <a class="link" href="https://github.com/anthropics/claude-code/releases" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#19</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">ACG-Bench：双臂视觉-语言-动作模型的臂级组合泛化基准</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">具身智能</span>
+            <span class="heat">🔥 42</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">HuggingFace Daily Papers 收录 ACG-Bench，面向双臂 VLA（视觉-语言-动作）模型提出臂级组合泛化基准，量化双臂协同任务的泛化能力。</p>
+      <p class="why"><strong>值得关注：</strong>双臂操作是具身智能走向真实工厂场景的关键，缺少统一评测基准一直是瓶颈，ACG-Bench 为双臂 VLA 模型的可比性评估提供了标尺。</p>
+      <div class="foot">
+        <span class="src">来源：HuggingFace Daily Papers</span>
+        <a class="link" href="https://huggingface.co/papers" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#20</span>
+        <div class="card-title-wrap">
+          <h2 class="card-title">瑞萨推出首款低压氮化镓功率半导体，面向 AI 数据中心与人形机器人</h2>
+          <div class="meta">
+            <span class="tag tag-all">全量</span>
+            <span class="dir">具身智能</span>
+            <span class="heat">🔥 29</span>
+          </div>
+        </div>
+      </div>
+      <p class="summary">瑞萨推出首款低压氮化镓（GaN）功率半导体，明确面向 AI 数据中心与人形机器人场景，主打高能效与紧凑尺寸。</p>
+      <p class="why"><strong>值得关注：</strong>人形机器人的电源/功率器件是产业链的隐形瓶颈，氮化镓在机器人关节驱动上的应用标志着具身智能硬件链的同步演进，值得硬件侧关注。</p>
+      <div class="foot">
+        <span class="src">来源：IT之家 / 瑞萨</span>
+        <a class="link" href="https://www.ithome.com/" target="_blank" rel="noopener">原文 ↗</a>
+      </div>
+    </article>
+  </div>
+  <footer>
+    数据来源：<a href="https://aihot.news" target="_blank" rel="noopener">AI HOT</a> · 生成于 2026-10-07 08:30（北京时间）<br>
+    热度为 AI HOT score，仅供参考；具身智能方向当日精选池为空，部分条目为全量池补充并标注「全量」。
+  </footer>
+</div>
+</body>
+</html>

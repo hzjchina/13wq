@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>勇敢的心</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --gold: #d29922;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 17px;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 40px 20px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    background: linear-gradient(160deg, #161b22 0%, #0d1117 100%);
+    margin-bottom: 28px;
+  }
+  .era { color: var(--gold); font-size: 15px; letter-spacing: 2px; margin-bottom: 12px; }
+  h1 { font-size: 34px; font-weight: 800; letter-spacing: 1px; }
+  .original { color: var(--muted); font-size: 15px; margin-top: 10px; }
+  .meta {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin-top: 18px;
+  }
+  .meta span {
+    background: #21262d; border: 1px solid var(--border);
+    border-radius: 999px; padding: 5px 14px; font-size: 13px; color: var(--text);
+  }
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 21px; font-weight: 700; margin-bottom: 14px;
+    padding-left: 12px; border-left: 4px solid var(--accent);
+  }
+  p { margin-bottom: 12px; color: #d7dde5; }
+  p:last-child { margin-bottom: 0; }
+  .score {
+    display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;
+    text-align: center; margin-top: 6px;
+  }
+  .score .num { font-size: 30px; font-weight: 800; color: var(--gold); }
+  .score .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .quote {
+    font-style: italic; color: var(--accent); text-align: center;
+    font-size: 16px; margin-top: 18px; padding-top: 18px;
+    border-top: 1px dashed var(--border);
+  }
+  .no-spoiler {
+    background: #1c2128; border: 1px dashed var(--gold);
+    border-radius: 10px; padding: 14px 18px; font-size: 14px;
+    color: var(--gold); text-align: center;
+  }
+  footer {
+    text-align: center; color: var(--muted); font-size: 13px;
+    margin-top: 30px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    h1 { font-size: 28px; }
+    section { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="era">CLASSIC FILM</div>
+    <h1>勇敢的心</h1>
+    <div class="original">Braveheart · 1995</div>
+    <div class="meta">
+      <span>导演 · 梅尔·吉布森</span>
+      <span>主演 · 梅尔·吉布森 / 苏菲·玛索</span>
+      <span>片长 · 178 分钟</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>影片概况</h2>
+    <div class="score">
+      <div><div class="num">8.9</div><div class="lbl">豆瓣评分</div></div>
+      <div><div class="num">8.4</div><div class="lbl">IMDb</div></div>
+      <div><div class="num">5 项</div><div class="lbl">奥斯卡大奖</div></div>
+    </div>
+    <div class="quote">"他们或许能夺走我们的生命，却永远夺不走我们的自由。"</div>
+  </section>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>故事发生在十三世纪的苏格兰。英格兰国王爱德华一世的铁腕统治，让苏格兰人民饱受压迫。年幼的威廉·华莱士在战乱中失去至亲，被叔父带离故土，成年后他只想回到家乡，与心上人平静地生活。</p>
+    <p>然而，英军的暴行无情地碾碎了这份安宁。压抑已久的怒火终于爆发，华莱士从一个只想独善其身的年轻人，被命运一步步推上了反抗的前线。他以超凡的勇气与胆识，带领一群装备简陋的乡民，一次次击退来势汹汹的正规军，点燃了整个民族的希望。</p>
+    <p>当自由与生命被放在天平两端，他做出了一个震动后世的选择。而在这条充满牺牲的道路上，有友情，有背叛，也有王权背后的阴谋与挣扎。</p>
+    <div class="no-spoiler">🔒 更多细节不再透露，精彩留给观影时刻</div>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <p><strong>史诗级的战争场面。</strong>千军万马在草原上正面对撞的镜头，至今仍是影史最具冲击力的冷兵器战争场面之一，实景拍摄带来的厚重与真实感，是特效难以复制的。</p>
+    <p><strong>深入人心的主题。</strong>「自由」二字贯穿始终，那场振聋发聩的战前演讲，足以让每一个观众热血沸腾、热泪盈眶。</p>
+    <p><strong>配乐与摄影的绝佳融合。</strong>詹姆斯·霍纳的风笛配乐苍凉而辽阔，与苏格兰高地壮美的自然风光交织，营造出荡气回肠的史诗氛围。</p>
+    <p><strong>梅尔·吉布森身兼导演与主演。</strong>他不仅演活了华莱士这个角色，更以惊人的掌控力交出了一部横扫奥斯卡的导演杰作。</p>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>这是一部关于勇气、自由与信念的电影。它不只是一场视觉盛宴，更是一次心灵的震撼——当一个人愿意为理想付出一切时，平凡也能成为传奇。它曾拿下第 68 届奥斯卡最佳影片、最佳导演等五项大奖，被无数影迷奉为史诗片的标杆。</p>
+    <p>无论你是喜欢宏大的战争史诗，还是渴望被一个好故事打动，这部跨越了近三十年的经典，都值得你在某个安静的夜晚，郑重地打开它。</p>
+  </section>
+
+  <footer>经典电影推荐 · 愿好片与你常在</footer>
+</div>
+</body>
+</html>
