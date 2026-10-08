@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>燃情岁月</title>
+<style>
+  :root {
+    --bg: #1a1713;
+    --card: #241f19;
+    --gold: #c9a35a;
+    --gold-soft: #e6c98a;
+    --text: #e8e0d2;
+    --muted: #a89c88;
+    --line: #3a3228;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.9;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 40px 8px 32px;
+  }
+  .era {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #f5ecd9;
+    margin-bottom: 10px;
+  }
+  .en-title {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: var(--muted);
+    margin-bottom: 22px;
+  }
+  .divider {
+    width: 56px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 28px;
+  }
+  .poster {
+    width: 100%;
+    aspect-ratio: 3/2;
+    border-radius: 14px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #2c2518 0%, #171310 60%, #0f0c09 100%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    box-shadow: 0 12px 40px rgba(0,0,0,.5);
+    border: 1px solid var(--line);
+  }
+  .poster .sun {
+    position: absolute;
+    top: 26%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 38%, #f2d9a0, #c98f3d 65%, #8a5c1e);
+    box-shadow: 0 0 60px rgba(201,163,90,.35);
+  }
+  .poster .ridge {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 55%;
+    background: linear-gradient(180deg, transparent 0%, #1b150f 22%, #120e0a 100%);
+  }
+  .poster .ridge::before {
+    content: "";
+    position: absolute;
+    top: -4%;
+    left: -5%;
+    width: 110%;
+    height: 70%;
+    background:
+      linear-gradient(172deg, transparent 42%, #241c11 42.5%, #241c11 44%, transparent 44.5%),
+      linear-gradient(8deg, transparent 48%, #2b2214 48.5%, #2b2214 50%, transparent 50.5%);
+    opacity: .85;
+  }
+  .poster .title-tag {
+    position: absolute;
+    bottom: 26px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: #f0e2c0;
+    font-size: 22px;
+    letter-spacing: 6px;
+    font-weight: 600;
+    text-shadow: 0 2px 12px rgba(0,0,0,.8);
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 18px;
+    margin: 22px 0 30px;
+  }
+  .meta span {
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--card);
+    border: 1px solid var(--line);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  .meta b { color: var(--gold-soft); font-weight: 600; }
+  section { margin-bottom: 34px; }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--gold);
+  }
+  p { margin-bottom: 14px; color: var(--text); text-align: justify; }
+  .highlight {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin: 16px 0;
+  }
+  .highlight li {
+    list-style: none;
+    padding: 7px 0 7px 24px;
+    position: relative;
+    color: var(--text);
+  }
+  .highlight li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    color: var(--gold);
+    font-size: 11px;
+  }
+  .quote {
+    font-style: italic;
+    text-align: center;
+    color: var(--gold-soft);
+    font-size: 16px;
+    padding: 20px 16px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 24px 0;
+    letter-spacing: 1px;
+  }
+  footer {
+    text-align: center;
+    margin-top: 44px;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    h1 { font-size: 28px; }
+    .poster .title-tag { font-size: 18px; letter-spacing: 4px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="era">Legends of the Fall · 1994</div>
+    <h1>燃情岁月</h1>
+    <div class="en-title">Legends of the Fall</div>
+    <div class="divider"></div>
+    <div class="poster">
+      <div class="sun"></div>
+      <div class="ridge"></div>
+      <div class="title-tag">燃情岁月</div>
+    </div>
+    <div class="meta">
+      <span>导演 <b>爱德华·兹威克</b></span>
+      <span>主演 <b>布拉德·皮特</b></span>
+      <span>上映 <b>1994 年</b></span>
+      <span>类型 <b>史诗 / 爱情 / 家庭</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>上世纪美国西部，退伍上校威廉·勒德洛在蒙大拿的荒野牧场里，独自抚养着三个性格迥异的儿子——沉稳持重的阿尔弗雷德、桀骜不驯的崔斯坦、以及敏感早熟的塞缪尔。兄弟三人在壮阔的群山与草原间长大，感情深厚却各怀心事。</p>
+    <p>随着一战爆发，塞缪尔执意奔赴战场，两个哥哥为保护弟弟一同参军。命运的齿轮由此转动，战争、爱情与家族责任交织成一张无法挣脱的网。崔斯坦——那个天生向往自由、与自然融为一体的灵魂——在爱与失去之间，走出了一段荡气回肠、跨越数十年的传奇人生。</p>
+    <p>这是一部关于一个家庭、一个时代、以及一个男人如何用一生去安放内心那份不羁与深情的故事。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul class="highlight">
+      <li>布拉德·皮特从影生涯最具标志性的角色之一，"崔斯坦"的自由与野性被演绎得淋漓尽致</li>
+      <li>詹姆斯·霍纳的配乐磅礴动人，主题旋律已成为影史不朽的经典乐章</li>
+      <li>蒙大拿的雪山、草原、金色原野，画面如油画般壮美，堪称"可以呼吸的风景"</li>
+      <li>将个人命运、家族兴衰与时代浪潮完美交融的史诗叙事</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>它不只是一部爱情片或战争片，而是一段关于"选择与代价"的人生寓言。每个人物都被赋予了真实的欲望与局限，没有简单的善恶，只有命运在时代洪流中的各自沉浮。看它，你会为壮丽的画面沉醉，为音乐的余韵动容，更会为那场横跨一生的爱与遗憾久久不能平静。</p>
+    <div class="quote">有些人注定如风，无法被任何东西束缚。</div>
+  </section>
+
+  <footer>🦐 经典电影推荐 · 不剧透 · 好片值得亲眼看</footer>
+</div>
+</body>
+</html>
