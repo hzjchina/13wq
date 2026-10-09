@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>甜蜜蜜</title>
+<style>
+  :root {
+    --bg: #1a1a1f;
+    --card: #24242b;
+    --text: #e8e8e6;
+    --muted: #a8a8a3;
+    --accent: #e8b84b;
+    --line: #3a3a42;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero {
+    text-align: center;
+    padding: 40px 20px 32px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 28px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    color: #fff;
+  }
+  .hero .meta {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .hero .meta span { margin: 0 6px; }
+  .badge {
+    display: inline-block;
+    background: var(--accent);
+    color: #1a1a1f;
+    font-weight: 700;
+    font-size: 13px;
+    padding: 3px 14px;
+    border-radius: 20px;
+    margin-top: 16px;
+    letter-spacing: 1px;
+  }
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--line);
+  }
+  .card h2 {
+    font-size: 20px;
+    color: var(--accent);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h2::before {
+    content: "";
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .card p { margin-bottom: 14px; color: var(--text); }
+  .card p:last-child { margin-bottom: 0; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .info-item {
+    background: #1f1f26;
+    border-radius: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+  }
+  .info-item .label {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .info-item .value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+  }
+  .highlight {
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 32px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 28px; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>甜蜜蜜</h1>
+      <div class="meta">
+        <span>陈可辛 导演</span>·<span>1996 年</span>·<span>香港</span>
+      </div>
+      <div class="badge">豆瓣 8.9 · 金像奖九项大奖</div>
+    </div>
+
+    <div class="card">
+      <h2>影片信息</h2>
+      <div class="info-grid">
+        <div class="info-item"><div class="label">导演</div><div class="value">陈可辛</div></div>
+        <div class="info-item"><div class="label">主演</div><div class="value">黎明 · 张曼玉 · 曾志伟</div></div>
+        <div class="info-item"><div class="label">类型</div><div class="value">爱情 / 剧情</div></div>
+        <div class="info-item"><div class="label">片长</div><div class="value">118 分钟</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>剧情梗概</h2>
+      <p>1986 年，内地青年黎小军独自来到香港打拼，一心想赚钱把远在故乡的女友接来团聚。在这座陌生而喧嚣的城市里，他遇到了同样从内地来港的李翘。两个背井离乡的年轻人，在相互扶持中渐生情愫，却各自怀着难以言说的心事与羁绊。</p>
+      <p>从香港到纽约，命运一次次让他们相遇、错过、再重逢。一曲邓丽君的《甜蜜蜜》，串联起横跨近十年的情感纠葛，也映照出一个大时代里小人物的漂泊与坚守。</p>
+    </div>
+
+    <div class="card">
+      <h2>亮点所在</h2>
+      <p>张曼玉奉献了堪称教科书级别的表演，她用一个眼神、一次欲哭又笑的微表情，演活了一个在时代洪流中挣扎求生的女性，也凭此片拿下金像奖、金马奖双料影后。</p>
+      <p>陈可辛以极细腻的笔触，把"移民"与"爱情"两大母题交织在一起，让一段私人情感成为时代变迁的注脚。邓丽君的歌声如一条温柔而伤感的暗线，贯穿全片，赋予了故事独特的年代质感。</p>
+      <p>黎明饰演的黎小军青涩而真挚，与张曼玉的对手戏火花四射，成为华语爱情电影里最经典的银幕组合之一。</p>
+    </div>
+
+    <div class="card">
+      <h2>为什么值得一看</h2>
+      <p>这是一部关于"错过"与"重逢"的爱情史诗。它没有轰轰烈烈的宣言，却在最日常的细节里，道尽了成年人在爱情面前的克制、无奈与深情。那些欲说还休的瞬间，远比直白的情话更动人。</p>
+      <p>它也是一部关于时代与漂泊的电影——无论你来自哪里、身处何处，都能在黎小军和李翘身上，看到自己曾有过的不安与渴望。当片尾那首熟悉的旋律响起，你或许会明白，有些感情，时间拿它毫无办法。</p>
+      <p class="highlight">「有些爱，不必说出口，时间会替它作答。」</p>
+    </div>
+
+    <div class="footer">🦐 每日一荐 · 好片不剧透</div>
+  </div>
+</body>
+</html>

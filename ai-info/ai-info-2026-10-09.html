@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-09</title>
+<style>
+:root{
+  --bg:#070a12; --bg2:#0b1020; --card:#0e1528; --card2:#111a30;
+  --line:#1e2a45; --txt:#d8e0f0; --sub:#8a94ad; --dim:#5b6680;
+  --cyan:#22d3ee; --blue:#3b82f6; --purple:#a855f7; --pink:#ec4899; --green:#34d399;
+  --amber:#fbbf24; --red:#f87171;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(59,130,246,.18), transparent 60%),
+    radial-gradient(900px 500px at 85% 5%, rgba(168,85,247,.16), transparent 60%),
+    radial-gradient(1000px 700px at 50% 110%, rgba(34,211,238,.12), transparent 55%),
+    var(--bg);
+  min-height:100vh;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:48px 24px 80px;position:relative}
+.grid-bg{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(120,140,180,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(120,140,180,.05) 1px,transparent 1px);
+  background-size:48px 48px;
+  -webkit-mask-image:radial-gradient(ellipse 80% 70% at 50% 20%,#000 30%,transparent 80%);
+  mask-image:radial-gradient(ellipse 80% 70% at 50% 20%,#000 30%,transparent 80%);
+}
+header{position:relative;z-index:1;margin-bottom:36px}
+.hero{text-align:center;margin-bottom:28px}
+.hero .kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:2px;color:var(--cyan);
+  border:1px solid rgba(34,211,238,.35);padding:6px 16px;border-radius:999px;background:rgba(34,211,238,.06);
+  text-transform:uppercase}
+.hero h1{font-size:clamp(28px,5vw,44px);font-weight:800;margin:18px 0 10px;
+  background:linear-gradient(100deg,#7dd3fc,#a5b4fc 40%,#c084fc 70%,#f9a8d4);
+  -webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:1px}
+.hero .date{color:var(--sub);font-size:15px}
+.hero .date b{color:var(--cyan);font-weight:600}
+.meta-strip{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.meta-strip .chip{font-size:12px;color:var(--sub);background:var(--bg2);border:1px solid var(--line);
+  padding:5px 13px;border-radius:999px}
+.meta-strip .chip b{color:var(--txt);font-weight:600}
+.meta-strip .chip.hot b{color:var(--amber)}
+.meta-strip .chip.emb b{color:var(--green)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:16px;font-size:12px;color:var(--dim)}
+.legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.grid{position:relative;z-index:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}
+.card{position:relative;background:linear-gradient(160deg,var(--card),var(--card2));border:1px solid var(--line);
+  border-radius:16px;padding:20px 20px 18px;overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.card:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.5);
+  box-shadow:0 10px 40px -12px rgba(34,211,238,.25)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent,#22d3ee),transparent);opacity:.85}
+.card::after{content:"";position:absolute;top:-60px;right:-60px;width:150px;height:150px;border-radius:50%;
+  background:radial-gradient(circle,var(--accent,#22d3ee),transparent 70%);opacity:.12;filter:blur(10px)}
+.card .rank{position:absolute;top:12px;right:14px;font-size:28px;font-weight:800;color:rgba(255,255,255,.07);line-height:1}
+.card .tag-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-size:11px;padding:3px 9px;border-radius:6px;font-weight:600;letter-spacing:.5px}
+.tag.coding{background:rgba(59,130,246,.16);color:#7db4ff;border:1px solid rgba(59,130,246,.4)}
+.tag.emb{background:rgba(52,211,153,.14);color:#5eead4;border:1px solid rgba(52,211,153,.4)}
+.tag.model{background:rgba(168,85,247,.16);color:#c9a3ff;border:1px solid rgba(168,85,247,.4)}
+.tag.industry{background:rgba(251,191,36,.14);color:#fcd34d;border:1px solid rgba(251,191,36,.4)}
+.tag.security{background:rgba(248,113,113,.15);color:#fca5a5;border:1px solid rgba(248,113,113,.4)}
+.tag.sel{background:rgba(34,211,238,.15);color:#67e8f9;border:1px solid rgba(34,211,238,.4)}
+.tag.full{background:rgba(138,148,173,.14);color:#a9b3c9;border:1px solid rgba(138,148,173,.4)}
+.card h2{font-size:16px;font-weight:700;line-height:1.4;margin-bottom:9px;color:#eef3ff}
+.card .summary{font-size:13.5px;color:var(--sub);margin-bottom:12px}
+.card .why{font-size:12.5px;color:var(--dim);border-left:2px solid var(--accent,#22d3ee);
+  padding-left:10px;margin-bottom:12px}
+.card .foot{display:flex;align-items:center;justify-content:space-between;font-size:12px;color:var(--dim);
+  border-top:1px solid rgba(30,42,69,.8);padding-top:11px}
+.card .source{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:66%}
+.card .score{display:inline-flex;align-items:center;gap:5px;font-weight:700;color:var(--amber)}
+.card .score .bar{width:5px;height:5px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+footer{position:relative;z-index:1;text-align:center;margin-top:40px;color:var(--dim);font-size:12px;line-height:2}
+footer a{color:var(--cyan);text-decoration:none}
+@media(max-width:640px){
+  .wrap{padding:30px 14px 60px}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <header>
+    <div class="hero">
+      <span class="kicker">AI HOT · Daily Intelligence</span>
+      <h1>AI 情报日报</h1>
+      <div class="date"><b>2026-10-09</b> · 过去 24 小时 · 侧重 AI Coding 与具身智能</div>
+    </div>
+    <div class="meta-strip">
+      <span class="chip">收录 <b>20</b> 条</span>
+      <span class="chip hot">AI Coding <b>12</b> 条</span>
+      <span class="chip emb">具身智能 / 物理 AI <b>5</b> 条</span>
+      <span class="chip">模型发布 <b>2</b> 条</span>
+      <span class="chip">行业 · 安全 <b>1</b> 条</span>
+    </div>
+    <div class="legend">
+      <span><span class="dot" style="background:#22d3ee"></span>精选池</span>
+      <span><span class="dot" style="background:#8a94ad"></span>全量池补充（未进精选）</span>
+      <span>按热度从高到低排序</span>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <article class="card" style="--accent:#f87171">
+      <span class="rank">01</span>
+      <div class="tag-row">
+        <span class="tag security">安全</span><span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>CrowdStrike：疑似单人用 AI 渗透工具攻击多家韩国银行，窃取超 2.5 万条客户数据</h2>
+      <p class="summary">一名疑似中文使用者于 9 月底至 10 月初，利用 AI 驱动的开源渗透测试工具 ARTEX 攻击多家韩国金融机构，其中新韩银行超 25,000 条含姓名、联系方式、收入与信用额度的记录泄露。</p>
+      <p class="why">关注点：AI 显著降低了单兵渗透的门槛，攻击者无需团队即可对金融机构造成大规模数据泄露，AI coding 工具被武器化的现实案例。</p>
+      <div class="foot"><span class="source">The Decoder</span><span class="score"><span class="bar"></span>82</span></div>
+    </article>
+
+    <article class="card" style="--accent:#a855f7">
+      <span class="rank">02</span>
+      <div class="tag-row">
+        <span class="tag model">AI 数学</span><span class="tag sel">精选</span>
+      </div>
+      <h2>部分数学家（陶哲轩主持）呼吁抵制 OpenAI，AI 生成数学证明涌入学界</h2>
+      <p class="summary">AHM 组织在陶哲轩主持下发表声明，称 OpenAI 一次性发布 700 多个 AI 生成证明文件是「展示力量而非学术行为」。此前 OpenAI 宣称内部模型一个月解决逾 100 个开放数学问题，成功率约 5%。</p>
+      <p class="why">关注点：AI 与学术共同体的首次正面冲突，涉及证明的「可验证性」与「学术贡献」如何界定，是 AI 冲击科研范式的标志性事件。</p>
+      <div class="foot"><span class="source">The Decoder</span><span class="score"><span class="bar"></span>81</span></div>
+    </article>
+
+    <article class="card" style="--accent:#fbbf24">
+      <span class="rank">03</span>
+      <div class="tag-row">
+        <span class="tag industry">行业</span><span class="tag sel">精选</span>
+      </div>
+      <h2>OpenAI 年化营收逼近 500 亿美元，比外界预期低约 200 亿美元</h2>
+      <p class="summary">金融时报报道，OpenAI 向投资者披露截至 9 月底年化营收逼近 500 亿美元，大幅低于此前估算的 700 亿美元。差异源于统计口径——Anthropic 计入 AWS 与谷歌云合作方收入，OpenAI 则剔除该部分。</p>
+      <p class="why">关注点：口径之争实为 AI 巨头营收「含金量」之争，消息直接引发美股科技股下挫、英伟达跌 2.9%，牵动资本对 AI 商业化真实性的判断。</p>
+      <div class="foot"><span class="source">IT之家 / FT</span><span class="score"><span class="bar"></span>78</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">04</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>ts-rust 发布：用 LLM 将 TypeScript 编译器、检查器和 LSP 全部移植到 Rust</h2>
+      <p class="summary">ts-rust（tsc-rs）将 microsoft/TypeScript（Go 实现）的编译器、类型检查器和语言服务器移植为 Rust，作者称全部代码由 LLM 编写，本人未读过代码。</p>
+      <p class="why">关注点：AI 全自动移植大型基础设施级项目的里程碑，若可靠将大幅改写编译器工具链的构建方式，是 AI coding 能力边界的最新证明。</p>
+      <div class="foot"><span class="source">Hacker News</span><span class="score"><span class="bar"></span>76</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">05</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>Codex 与 ChatGPT Work 活跃用户达 4000 万新高，付费账户重置已到账</h2>
+      <p class="summary">作者确认 banked reset 已到账所有账户，并转引 Day 3 动态称 Codex 与 ChatGPT Work 合计活跃用户达到 4000 万新高，GPT-6 已在 Chat 中上线。</p>
+      <p class="why">关注点：AI coding 工具从开发者向大众用户渗透的规模信号，4000 万活跃用户意味着编码智能体正成为新一代生产力入口。</p>
+      <div class="foot"><span class="source">X：Tibo</span><span class="score"><span class="bar"></span>74</span></div>
+    </article>
+
+    <article class="card" style="--accent:#34d399">
+      <span class="rank">06</span>
+      <div class="tag-row">
+        <span class="tag emb">具身 / 物理 AI</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>State of AI Report 2026 发布：智能体、物理 AI 与前沿竞赛年度盘点</h2>
+      <p class="summary">Air Street Press 发布年度重磅报告，系统盘点智能体、物理 AI 与前沿模型竞赛的最新格局。</p>
+      <p class="why">关注点：年度最具权威性的 AI 全景报告之一，「物理 AI」被单列为核心章节，是把握具身智能与机器人趋势的必读风向标。</p>
+      <div class="foot"><span class="source">Air Street Press</span><span class="score"><span class="bar"></span>73</span></div>
+    </article>
+
+    <article class="card" style="--accent:#a855f7">
+      <span class="rank">07</span>
+      <div class="tag-row">
+        <span class="tag model">模型发布</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>OpenAI 推出 GPT-6.1 Sol Ultrafast：最高 8 倍速度、6 倍价格</h2>
+      <p class="summary">OpenAI 在 API、Codex 与 ChatGPT Work 推出 GPT-6.1 Sol 的 Ultrafast 版本，速度最高达标准版 8 倍，每百万 tokens 输入 12 美元、输出 60 美元，面向 Pro 500 及企业方案开放。</p>
+      <p class="why">关注点：编码模型的「速度档位」分层策略，开发者可在成本与延迟间灵活取舍，反映 AI coding 正走向精细化运营。</p>
+      <div class="foot"><span class="source">IT之家</span><span class="score"><span class="bar"></span>59</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">08</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>Hugging Face 工程师用 ML Intern 以约 103 美元自制 7 个小模型</h2>
+      <p class="summary">HF 工程师用 HuggingChat 的 ML Intern 模式几天内做出 7 个模型，含 99.7% 有效输出的 0.8B 提示词重写器，以及将柑橘病害识别准确率从 14.9% 提升到 52.8% 的 Qwen3.5-2B 微调模型。</p>
+      <p class="why">关注点：AI 自动训练小模型的成本已降至百美元级，个人开发者「造模型」的门槛被彻底拉平，具身与垂直场景的小模型落地将加速。</p>
+      <div class="foot"><span class="source">Hugging Face</span><span class="score"><span class="bar"></span>72</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">09</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>Arena 公布 Claude Haiku 5.5 (High) 评测：Code Arena 1587 分首秀第 30 名</h2>
+      <p class="summary">Arena 公布 Anthropic Claude Haiku 5.5 (High) 真实评测结果，在 Code Arena: WebDev 以 1587 分首秀排名第 30，略在 Pareto 前沿之外。</p>
+      <p class="why">关注点：Anthropic 低价编码子模型的真实战力评估，性价比定位下仍能排进前 30，是中小团队选型的重要参考。</p>
+      <div class="foot"><span class="source">X：Arena</span><span class="score"><span class="bar"></span>71</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">10</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>Google 开源 ML Drift 端侧 GPU 推理引擎，接替 TFLite GPU delegate</h2>
+      <p class="summary">Google AI Edge 团队以 Apache 2.0 许可开源 ML Drift，一个跨平台端侧 GPU 推理计算引擎，作为 LiteRT 的核心 GPU 加速层。</p>
+      <p class="why">关注点：端侧推理基础设施升级，对具身智能、机器人等需要在设备本地跑模型的场景尤为关键，降低对云端的依赖。</p>
+      <div class="foot"><span class="source">Google Developers</span><span class="score"><span class="bar"></span>70</span></div>
+    </article>
+
+    <article class="card" style="--accent:#34d399">
+      <span class="rank">11</span>
+      <div class="tag-row">
+        <span class="tag emb">具身 / 世界模型</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>Odyssey 发布世界基础模型 Odyssey-3 并开放研究预览</h2>
+      <p class="summary">Odyssey 发布世界模型 Odyssey-3，Pro 版 Physics-IQ Verified 视频生成得分 66.1，开放研究预览。</p>
+      <p class="why">关注点：世界模型是具身智能「理解物理世界」的关键底座，Odyssey-3 的物理一致性得分是可量化的进展，值得持续跟踪其开源与应用落地。</p>
+      <div class="foot"><span class="source">Testing Catalog / Odyssey</span><span class="score"><span class="bar"></span>63</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">12</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>Anthropic 推出开源漏洞扫描服务 OSS Scanner，免费面向开源项目</h2>
+      <p class="summary">Anthropic 发布 OSS Scanner，开源项目可自愿加入，免费获得由其最强模型（含 Claude Mythos）定期生成的扫描报告，输出全模型生成、无人工复核。</p>
+      <p class="why">关注点：AI 主动防御开源供应链的最新尝试，直接回应「AI 攻击 vs AI 防御」的安全博弈，与当日 AI 渗透银行事件形成对照。</p>
+      <div class="foot"><span class="source">Anthropic Research</span><span class="score"><span class="bar"></span>69</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">13</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>Anthropic 访谈 Block：用 Claude Fable 编排数千个 pull request 的代码迁移</h2>
+      <p class="summary">Block 用 Claude Fable 5 做数据模型、API 规格等高层设计，再调度数十个更小的 Opus 或 Sonnet 模型执行文件修改和测试，一次迁移可合并上千个 PR。</p>
+      <p class="why">关注点：「大模型做架构 + 小模型做执行」的多智能体分工范式落地标杆，为大型企业代码迁移提供了可复用的工程样板。</p>
+      <div class="foot"><span class="source">Claude Blog</span><span class="score"><span class="bar"></span>66</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">14</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>Tessl 推出 Code Review：以 lens 技能定义上下文驱动的代码审查</h2>
+      <p class="summary">Tessl 发布 Code Review 功能，用 lens 技能定义上下文驱动的代码审查；同时 Tessl 详解如何工程化构建上下文驱动的软件工厂。</p>
+      <p class="why">关注点：AI 代码审查从「通用」走向「上下文驱动」的信号，围绕企业级 Agent 记忆与软件工厂的工程实践值得编码团队借鉴。</p>
+      <div class="foot"><span class="source">Tessl Blog</span><span class="score"><span class="bar"></span>59</span></div>
+    </article>
+
+    <article class="card" style="--accent:#34d399">
+      <span class="rank">15</span>
+      <div class="tag-row">
+        <span class="tag emb">具身 / 物理 AI</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>NVIDIA 押注物理 AI：Halos 安全系统瞄准更安全的 robotaxi 与人形机器人</h2>
+      <p class="summary">Ars Technica 报道 NVIDIA 的 Halos 安全系统，瞄准更安全的 robotaxi 与人形机器人，是 NVIDIA 在物理 AI 领域的最新布局。</p>
+      <p class="why">关注点：具身智能落地必须先过「安全」这道关，NVIDIA 从安全系统切入，折射出人形机器人大规模部署前的核心瓶颈。</p>
+      <div class="foot"><span class="source">Ars Technica</span><span class="score"><span class="bar"></span>47</span></div>
+    </article>
+
+    <article class="card" style="--accent:#34d399">
+      <span class="rank">16</span>
+      <div class="tag-row">
+        <span class="tag emb">具身 / 仿真</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>NVIDIA Omniverse：用 GPT-6 Astra 等前沿智能体把人形机器人想法变成仿真应用</h2>
+      <p class="summary">开发者用 GPT-6 Astra、Claude Fable 5 配合 Omniverse 构建仿真应用，覆盖人形机器人仓库控制、自动驾驶测试等；Robo Olympics 中 Unitree G1 在 100 次仿真里有 64 次跨过栏架。</p>
+      <p class="why">关注点：前沿大模型与机器人仿真工具链的融合，是「Sim2Real」闭环训练的关键一环，直接加速人形机器人的算法迭代。</p>
+      <div class="foot"><span class="source">NVIDIA Blog</span><span class="score"><span class="bar"></span>34</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">17</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag sel">精选</span>
+      </div>
+      <h2>Google 开源 AQuA 环境质量智能体，自动诊断生产环境中的 Agent 故障</h2>
+      <p class="summary">Google 发布并开源 AQuA，在 Google Cloud 项目中定时抽取生产会话，经抽样、评审、聚类、验证、跟踪五阶段流水线诊断 Agent 失败。</p>
+      <p class="why">关注点：当智能体大规模进生产，「可观测性与故障诊断」成为新基建，AQuA 开源为 agent 运维提供了可复用的工程范式。</p>
+      <div class="foot"><span class="source">Google Developers</span><span class="score"><span class="bar"></span>66</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">18</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>Codex v0.162.0 发布：新增托管 Git worktree 工具与任务置顶</h2>
+      <p class="summary">Codex 发布 v0.162.0，新增托管 Git worktree 工具与任务置顶能力。</p>
+      <p class="why">关注点：编码智能体在版本控制与任务编排上的持续增强，worktree 工具意味着 Agent 可更安全地在多分支并行工作。</p>
+      <div class="foot"><span class="source">Codex GitHub</span><span class="score"><span class="bar"></span>44</span></div>
+    </article>
+
+    <article class="card" style="--accent:#3b82f6">
+      <span class="rank">19</span>
+      <div class="tag-row">
+        <span class="tag coding">AI Coding</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>Claude Code v2.1.295 发布：新增 hook 阻断、OSC 7501 状态协议与网关超时控制</h2>
+      <p class="summary">Claude Code 发布 v2.1.295，新增 hook 阻断、OSC 7501 状态协议与网关超时控制等能力。</p>
+      <p class="why">关注点：Claude Code 在安全拦截与协议标准化上的细节打磨，hook 阻断增强了对 Agent 行为的管控，是工程化使用的重要更新。</p>
+      <div class="foot"><span class="source">Claude Code GitHub</span><span class="score"><span class="bar"></span>40</span></div>
+    </article>
+
+    <article class="card" style="--accent:#34d399">
+      <span class="rank">20</span>
+      <div class="tag-row">
+        <span class="tag emb">具身</span><span class="tag full">未进精选</span>
+      </div>
+      <h2>Hugging Face CEO 分享 Reachy Mini 舞蹈生成 Space 入口</h2>
+      <p class="summary">Hugging Face CEO Clément Delangue 分享 Reachy Mini 舞蹈生成 Space 入口，展示具身机器人动作生成的社区实践。</p>
+      <p class="why">关注点：开源社区在机器人动作生成上的探索，结合世界模型与仿真，是具身智能「平民化」的一条路径。</p>
+      <div class="foot"><span class="source">X：Clément Delangue</span><span class="score"><span class="bar"></span>50</span></div>
+    </article>
+
+  </main>
+
+  <footer>
+    数据来源：<a href="https://aihot.virxact.com" target="_blank" rel="noopener">AI HOT</a> 过去 24 小时公开 API（精选池 + 全量池补充）<br>
+    精选池 29 条 · 关键词「AI coding」精选 6 条 ·「具身智能」精选 0 条（全量池补充并标注）<br>
+    生成时间：2026-10-09 08:30 · 仅供信息参考，引用数据请以原文为准
+  </footer>
+</div>
+</body>
+</html>
