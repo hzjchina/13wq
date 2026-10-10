@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小茧的朔夜梦 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：丝光微粒（蚕丝在星光照耀下微微发光） */
+  .silk-glow {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: #e8f0ff; box-shadow: 0 0 6px 2px rgba(232, 240, 255, 0.4);
+    animation: silkDrift 8s ease-in-out infinite;
+  }
+  @keyframes silkDrift {
+    0%,100% { transform: translate(0,0); opacity: 0.7; }
+    50% { transform: translate(18px, -30px); opacity: 0.3; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：朔日不画实体月亮，用暗盘+红边光晕+虚线轮廓 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：朔日夜最暗，星星格外明亮，多放几颗 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <span class="star" style="top:5%; left:62%; width:2px; height:2px; animation-delay:1.2s;"></span>
+  <span class="star" style="top:18%; left:8%; width:2.5px; height:2.5px; animation-delay:0.8s;"></span>
+  <span class="star" style="top:35%; left:68%; width:2px; height:2px; animation-delay:3s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：朔日（农历九月初一，illumination 0.0），不画实体月亮，用暗盘+红边光晕+虚线轮廓 -->
+  <div class="moon">
+    <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="newMoonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="55%" stop-color="#0e0f26" stop-opacity="0"/>
+          <stop offset="78%" stop-color="#8B3A3A" stop-opacity="0.18"/>
+          <stop offset="92%" stop-color="#8B3A3A" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#8B3A3A" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <!-- 暗红边光晕（月食风格，表示月亮在但不可见） -->
+      <circle cx="40" cy="40" r="36" fill="url(#newMoonGlow)"/>
+      <!-- 暗盘（与背景同色，月亮不可见） -->
+      <circle cx="40" cy="40" r="32" fill="#0e0f26"/>
+      <!-- 虚线轮廓（表示月亮的位置） -->
+      <circle cx="40" cy="40" r="32" fill="none" stroke="#8B3A3A" stroke-opacity="0.3" stroke-width="0.8" stroke-dasharray="3,4"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：蚕丝星微光 -->
+  <span class="silk-glow" style="top:46%; left:12%; animation-delay:0s;"></span>
+  <span class="silk-glow" style="top:52%; left:82%; animation-delay:2.2s;"></span>
+  <span class="silk-glow" style="top:60%; left:22%; animation-delay:4.5s;"></span>
+  <span class="silk-glow" style="top:68%; left:58%; animation-delay:1.5s;"></span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小茧的朔夜梦</h1>
+    <p class="meta">🌑 最暗的夜，翅膀悄悄长成 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-10.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：朔日夜桑树枝头小茧场景 + 底部标题
+         朔日月亮：暗盘+红边光晕+虚线轮廓，与背景 .moon 形态一致 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <!-- 夜空背景渐变 -->
+      <defs>
+        <linearGradient id="posterSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="50%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="posterMoonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="55%" stop-color="#0e0f26" stop-opacity="0"/>
+          <stop offset="78%" stop-color="#8B3A3A" stop-opacity="0.18"/>
+          <stop offset="92%" stop-color="#8B3A3A" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#8B3A3A" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="cocoonGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#f5f0e8"/>
+          <stop offset="100%" stop-color="#d4cfc4"/>
+        </linearGradient>
+        <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#3a7d2f"/>
+          <stop offset="100%" stop-color="#2a5d22"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="300" height="440" fill="url(#posterSky)" rx="16"/>
+
+      <!-- 朔日月亮：暗盘+红边光晕+虚线轮廓（与背景月亮一致） -->
+      <g transform="translate(210, 55)">
+        <circle cx="0" cy="0" r="36" fill="url(#posterMoonGlow)"/>
+        <circle cx="0" cy="0" r="30" fill="#0e0f26"/>
+        <circle cx="0" cy="0" r="30" fill="none" stroke="#8B3A3A" stroke-opacity="0.3" stroke-width="0.8" stroke-dasharray="3,4"/>
+      </g>
+
+      <!-- 朔日格外明亮的星星 -->
+      <circle cx="50" cy="30" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="100" cy="50" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="160" cy="25" r="2" fill="#fff" opacity="0.95"/>
+      <circle cx="250" cy="120" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="80" cy="100" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="270" cy="80" r="1.5" fill="#fff" opacity="0.85"/>
+      <circle cx="40" cy="140" r="1" fill="#fff" opacity="0.5"/>
+      <circle cx="230" cy="160" r="1.2" fill="#fff" opacity="0.7"/>
+
+      <!-- 桑树枝（主枝从左下到右上方） -->
+      <path d="M20,380 Q60,320 100,280 Q140,250 180,220 Q200,210 220,195" stroke="#6b5238" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <!-- 分枝 -->
+      <path d="M100,280 Q115,260 130,245" stroke="#6b5238" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <path d="M160,230 Q175,215 190,200" stroke="#6b5238" stroke-width="4" fill="none" stroke-linecap="round"/>
+      <!-- 另一根枝 -->
+      <path d="M20,380 Q40,360 60,345" stroke="#5a4830" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+      <!-- 桑叶（3片） -->
+      <!-- 叶1 -->
+      <path d="M130,245 Q150,225 170,235 Q160,255 135,255 Z" fill="url(#leafGrad)" stroke="#1a3d14" stroke-width="0.8"/>
+      <path d="M150,235 L155,250" stroke="#1a3d14" stroke-width="0.6" fill="none"/>
+      <!-- 叶2 -->
+      <path d="M190,200 Q210,185 225,200 Q215,218 195,215 Z" fill="url(#leafGrad)" stroke="#1a3d14" stroke-width="0.8"/>
+      <path d="M207,200 L210,212" stroke="#1a3d14" stroke-width="0.6" fill="none"/>
+      <!-- 叶3 -->
+      <path d="M55,345 Q75,330 88,345 Q78,360 58,358 Z" fill="url(#leafGrad)" stroke="#1a3d14" stroke-width="0.8"/>
+
+      <!-- 小茧茧茧（挂在枝头，椭圆白色茧） -->
+      <g transform="translate(165, 285)">
+        <!-- 茧体 -->
+        <ellipse cx="0" cy="0" rx="16" ry="22" fill="url(#cocoonGrad)" stroke="#b0aa9e" stroke-width="0.8"/>
+        <!-- 茧上的丝纹 -->
+        <path d="M-14,-8 Q0,-6 14,-8" stroke="#c4beb2" stroke-width="0.5" fill="none" opacity="0.6"/>
+        <path d="M-15,-2 Q0,0 15,-2" stroke="#c4beb2" stroke-width="0.5" fill="none" opacity="0.6"/>
+        <path d="M-14,4 Q0,6 14,4" stroke="#c4beb2" stroke-width="0.5" fill="none" opacity="0.6"/>
+        <path d="M-12,10 Q0,12 12,10" stroke="#c4beb2" stroke-width="0.5" fill="none" opacity="0.6"/>
+        <!-- 茧顶的丝线连到枝头 -->
+        <path d="M0,-22 Q5,-28 10,-32" stroke="#d4cfc4" stroke-width="0.8" fill="none"/>
+        <!-- 茧上一条微微裂开的缝，透出星光 -->
+        <path d="M-3,5 Q0,8 3,5" stroke="#f5d76e" stroke-width="0.8" fill="none" opacity="0.7"/>
+        <circle cx="0" cy="6" r="1.5" fill="#f5d76e" opacity="0.6"/>
+      </g>
+
+      <!-- 茧周围微微飘散的丝光微粒 -->
+      <circle cx="145" cy="295" r="1.5" fill="#e8f0ff" opacity="0.5"/>
+      <circle cx="190" cy="300" r="1" fill="#e8f0ff" opacity="0.4"/>
+      <circle cx="175" cy="265" r="1.2" fill="#e8f0ff" opacity="0.5"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="395" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="18" font-weight="700" fill="#cfd8e8" letter-spacing="3">小茧的朔夜梦</text>
+      <text x="150" y="418" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="11" fill="#a3a8d0" letter-spacing="2">🌑 农历九月初一 · 朔</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月初一 · 朔🌑</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">黑暗中蜕变 · 新生</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>小桑树上挂着许多茧，其中最小的那个叫茧茧。茧茧是个白白胖胖的小蚕茧，安安静静地挂在枝头。</p>
+    <p>今天是朔日，天空中连月亮都看不见，是整月里最暗的一个夜晚。茧茧缩在小小的茧壳里，有点害怕。</p>
+    <p>"外面好黑呀，"茧茧小声说，"我什么也看不见。"</p>
+    <p>风婆婆轻轻吹过来，把枝头吹得摇摇晃晃。"茧茧，你知道吗？朔日是最好的夜晚。"风婆婆说。</p>
+    <p>"为什么呀？朔日连月亮都没有呢。"茧茧不太明白。</p>
+    <p>"正因为没有月亮，天空把最安静、最温柔的夜，留给了需要悄悄变化的小生命。"风婆婆的声音像在唱歌，"月亮也在休息呢，它要把光一点一点攒起来，从今天开始重新长。你也是呀，你要在黑黑的壳里，慢慢长出翅膀。"</p>
+    <p>茧茧安静下来。她感觉到身体里有什么在轻轻地动，像小小的翅膀在伸展，像细细的腿在伸长。她不害怕了，反而觉得好神奇——原来黑暗里藏着一双翅膀。</p>
+    <p>夜风轻轻地摇着桑树，星星比平时亮了好多好多，一颗一颗地眨眼，好像在跟茧茧说悄悄话。茧茧在黑暗中耐心等着，等着翅膀一点一点长好。</p>
+    <p>不知过了多久，茧茧觉得壳子轻轻裂开了一条缝。一缕星光溜了进来。她探出小脑袋，发现朔日的夜空虽然看不见月亮，可满天的星星像撒了一地碎银子，亮得她睁不开眼。</p>
+    <p>"我……我有翅膀了！"茧茧张开翅膀，那是一对软软的、毛茸茸的小翅膀，白白的，沾着星光。她轻轻扇了扇，飞上了最高的枝头，和星星面对面。</p>
+    <p>风婆婆笑着说："看，最暗的夜，也是翅膀长成的夜。新的月亮，也是从今天最暗的这一刻，重新一点点长起来的。"</p>
+    <p>茧茧在星星中间飞了一圈，又轻轻落回枝头。她对着夜空小声说："谢谢你，最暗也最温柔的夜。"</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>黑暗不是终点，是翅膀悄悄长出来的地方——新的月光、新的你，都从最暗的夜开始。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。茧茧说，你在黑黑的夜里不怕不怕，因为你也在悄悄长大呀。明天醒来，你就是新的你了。🌑✨</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月10日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
