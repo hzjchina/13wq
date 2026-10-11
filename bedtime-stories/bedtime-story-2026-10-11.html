@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小河蚌的月光珠 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 水底微光气泡 */
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：蛾眉月（盈月方向，右亮左暗） */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 蛾眉月（盈月，右亮左暗）：illumination 0.05，暗圆在左侧偏移 0.1r + clipPath 裁剪 + 月晕光圈 -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="120" height="120">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.28"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.07"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="url(#moonGlow)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="56" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+  <!-- 水底微光气泡（萤火虫） -->
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+  <span class="firefly" style="top:50%; left:18%; animation-delay:5s; width:4px; height:4px;"></span>
+  <span class="firefly" style="top:58%; left:85%; animation-delay:1.5s;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小河蚌的月光珠</h1>
+    <p class="meta">🐚 月亮的第一道弯钩，被小河蚌养成了珍珠 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-11.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：水底场景 + 蛾眉月 + 张开的河蚌 + 发光珍珠 + 底部标题 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="waterBg" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a2247"/>
+          <stop offset="45%" stop-color="#152049"/>
+          <stop offset="100%" stop-color="#0c1030"/>
+        </linearGradient>
+        <radialGradient id="pearlGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff5d0" stop-opacity="0.95"/>
+          <stop offset="40%" stop-color="#f5e6a8" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#f5e6a8" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="moonBeam" x1="0" y1="0" x2="0.25" y2="1">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </linearGradient>
+        <clipPath id="posterMoonClip"><circle cx="245" cy="50" r="22"/></clipPath>
+        <radialGradient id="posterMoonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.25"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 水底背景 -->
+      <rect width="300" height="440" fill="url(#waterBg)"/>
+
+      <!-- 月光光柱从水面透下 -->
+      <polygon points="225,0 275,0 205,440 145,440" fill="url(#moonBeam)"/>
+
+      <!-- 蛾眉月（右上角，与背景 .moon 一致：盈月右亮左暗） -->
+      <circle cx="245" cy="50" r="38" fill="url(#posterMoonGlow)"/>
+      <circle cx="245" cy="50" r="22" fill="#e8ecf5"/>
+      <circle cx="242.8" cy="50" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+
+      <!-- 星星点缀 -->
+      <circle cx="60" cy="40" r="1.5" fill="#fff" opacity="0.7"/>
+      <circle cx="130" cy="25" r="1" fill="#fff" opacity="0.5"/>
+      <circle cx="180" cy="65" r="1.2" fill="#fff" opacity="0.6"/>
+      <circle cx="100" cy="70" r="1" fill="#fff" opacity="0.4"/>
+
+      <!-- 水底沙石 -->
+      <ellipse cx="60" cy="400" rx="45" ry="10" fill="#1a2540" opacity="0.85"/>
+      <ellipse cx="220" cy="412" rx="50" ry="12" fill="#1a2540" opacity="0.85"/>
+      <ellipse cx="150" cy="422" rx="58" ry="14" fill="#152039" opacity="0.75"/>
+      <circle cx="40" cy="395" r="4" fill="#2a3458"/>
+      <circle cx="265" cy="405" r="3" fill="#2a3458"/>
+      <circle cx="280" cy="398" r="2.5" fill="#2a3458"/>
+
+      <!-- 水草 -->
+      <path d="M 40 440 Q 45 380 42 320 Q 38 280 45 240" stroke="#1d4a3a" stroke-width="3" fill="none" opacity="0.7"/>
+      <path d="M 260 440 Q 255 390 258 340 Q 262 300 255 270" stroke="#1d4a3a" stroke-width="3" fill="none" opacity="0.7"/>
+      <path d="M 250 440 Q 248 400 252 370" stroke="#1d4a3a" stroke-width="2" fill="none" opacity="0.6"/>
+      <path d="M 52 440 Q 50 410 54 385" stroke="#1d4a3a" stroke-width="2" fill="none" opacity="0.55"/>
+
+      <!-- 气泡 -->
+      <circle cx="80" cy="180" r="3" fill="none" stroke="#7ec8e3" stroke-width="1" opacity="0.4"/>
+      <circle cx="95" cy="140" r="2" fill="none" stroke="#7ec8e3" stroke-width="1" opacity="0.3"/>
+      <circle cx="210" cy="200" r="2.5" fill="none" stroke="#7ec8e3" stroke-width="1" opacity="0.35"/>
+      <circle cx="225" cy="160" r="1.5" fill="none" stroke="#7ec8e3" stroke-width="1" opacity="0.3"/>
+      <circle cx="70" cy="120" r="1.8" fill="none" stroke="#7ec8e3" stroke-width="1" opacity="0.25"/>
+
+      <!-- 珍珠光晕（在河蚌下方先画光晕） -->
+      <circle cx="150" cy="300" r="55" fill="url(#pearlGlow)"/>
+
+      <!-- 小河蚌（主角）：两片壳打开，壳里有发光珍珠 -->
+      <!-- 左壳 -->
+      <path d="M 150 298 Q 100 278 95 308 Q 100 346 150 326 Z" fill="#5a6478" stroke="#3a4458" stroke-width="2"/>
+      <!-- 右壳 -->
+      <path d="M 150 298 Q 200 278 205 308 Q 200 346 150 326 Z" fill="#4a5468" stroke="#3a4458" stroke-width="2"/>
+      <!-- 壳纹 -->
+      <path d="M 108 305 Q 120 302 130 312" stroke="#6a7488" stroke-width="1" fill="none" opacity="0.6"/>
+      <path d="M 192 305 Q 180 302 170 312" stroke="#6a7488" stroke-width="1" fill="none" opacity="0.6"/>
+      <path d="M 112 320 Q 125 322 135 322" stroke="#6a7488" stroke-width="1" fill="none" opacity="0.5"/>
+      <path d="M 188 320 Q 175 322 165 322" stroke="#6a7488" stroke-width="1" fill="none" opacity="0.5"/>
+      <!-- 珍珠 -->
+      <circle cx="150" cy="315" r="9" fill="#fff5d0"/>
+      <circle cx="147" cy="312" r="3" fill="#ffffff" opacity="0.85"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="378" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="20" font-weight="bold" fill="#cfd8e8" letter-spacing="2">小河蚌的月光珠</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月初二 · 蛾眉月🌒</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">耐心养光 · 温柔积累</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>小溪流过枫林时，天已经黑透了。溪底住着一只小河蚌，叫小贝。他的壳灰灰的，平时总闭得紧紧的，因为他怕黑。</p>
+    <p>这天是九月初二的夜里。风婆婆从水面探下来说："小贝，抬头看看呀，月亮又出来了。"</p>
+    <p>小贝悄悄把壳打开一条缝，仰起头——天上只有一道细细弯弯的光，像天幕上不小心划出的银指甲印，比秋天第一根蛛丝还细。</p>
+    <p>"这么细的光，有什么用呢？"小贝有点失望。</p>
+    <p>"你试试把它接住呀。"风婆婆说。</p>
+    <p>小贝把壳再打开一点。那道细月光像银丝，顺水一寸寸沉下来，落进了小贝的壳里。光太细，几乎看不见，可壳里似乎暖了一点点。</p>
+    <p>第二天夜里，月亮的弯钩稍稍宽了一丝。小贝又打开壳，接住那一点新的光。第三天再宽一点。小贝每天打开壳，把月光一缕一缕接进来，养在壳最里面。</p>
+    <p>"那么细的光，养着做什么？"旁边的大蚌壳咕噜笑着问。</p>
+    <p>"我妈妈说过，再细的光，养久了也会变亮的。"小贝轻轻地回答。</p>
+    <p>日子一天一天过去，弯月一天比一天胖。直到有一天，小贝低头一看——壳的最里面，一颗圆圆的、亮晶晶的小东西正闪着温柔的光，像一粒攒了好多好多月亮的小珠子。</p>
+    <p>"是珍珠呀！"风婆婆从水面上喊。</p>
+    <p>原来月光养在壳里久了，会变成亮亮的珍珠。小贝把壳打开一点，珍珠的光漏出来，软软地照亮了溪底——怕黑的小田螺看清了回家的路，迷路的小虾顺着光找到了妈妈，连水底最小的沙粒都被镀上了一层银。</p>
+    <p>"你看，"小贝对大蚌壳说，"这么细的光，养久了，真的会变亮的。"</p>
+    <p>月亮在天上又胖了一圈，溪底却亮起了一颗小小的、温柔的珠子。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>再细的光，耐心养着，也会变成照亮别人的温柔。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小贝说，今天如果只有一点点光也没关系，把它养在心里，慢慢地，它也会亮起来的。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月11日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
