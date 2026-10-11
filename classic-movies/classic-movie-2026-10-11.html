@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>城市之光</title>
+<style>
+  :root{
+    --bg:#14161c;
+    --card:#1e212a;
+    --card2:#262a35;
+    --text:#e8e6e0;
+    --muted:#a8a49b;
+    --accent:#f0b35c;
+    --line:#333844;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.9;
+    font-size:17px;
+    padding:0 0 60px;
+  }
+  .wrap{max-width:720px;margin:0 auto;padding:0 20px;}
+  header{
+    padding:56px 20px 40px;
+    text-align:center;
+    background:linear-gradient(180deg,#1c1f29 0%,var(--bg) 100%);
+  }
+  header h1{
+    font-size:40px;
+    letter-spacing:3px;
+    margin-bottom:14px;
+    font-weight:700;
+  }
+  header .sub{
+    color:var(--accent);
+    font-size:15px;
+    letter-spacing:1px;
+  }
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin-top:22px;
+  }
+  .meta span{
+    background:var(--card2);
+    color:var(--muted);
+    padding:6px 16px;
+    border-radius:20px;
+    font-size:13px;
+    border:1px solid var(--line);
+  }
+  section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:28px 24px;
+    margin-top:22px;
+  }
+  section h2{
+    font-size:20px;
+    margin-bottom:16px;
+    color:var(--accent);
+    letter-spacing:1px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  section h2::before{
+    content:"";
+    width:4px;
+    height:20px;
+    background:var(--accent);
+    border-radius:2px;
+  }
+  section p{margin-bottom:14px;color:var(--text);}
+  section p:last-child{margin-bottom:0;}
+  .quote{
+    background:var(--card2);
+    border-left:3px solid var(--accent);
+    padding:16px 20px;
+    border-radius:0 12px 12px 0;
+    font-style:italic;
+    color:var(--muted);
+    margin-top:18px;
+  }
+  .points li{
+    list-style:none;
+    margin-bottom:14px;
+    padding-left:26px;
+    position:relative;
+  }
+  .points li::before{
+    content:"✦";
+    position:absolute;
+    left:0;
+    color:var(--accent);
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:40px;
+    letter-spacing:1px;
+  }
+  @media(max-width:480px){
+    body{font-size:16px;}
+    header h1{font-size:32px;}
+    section{padding:22px 18px;}
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>城市之光</h1>
+      <div class="sub">City Lights · 1931</div>
+      <div class="meta">
+        <span>导演：查理·卓别林</span>
+        <span>主演：查理·卓别林</span>
+        <span>默片 / 喜剧 / 爱情</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <section>
+      <h2>剧情梗概</h2>
+      <p>流浪汉查理在街头偶遇一位卖花的盲女，对她一见倾心。为了让这位善良却困顿的姑娘能够重见光明、摆脱窘境，一贫如洗的查理想尽办法为她筹钱。他与一位酗酒成性的富翁之间，还结下了一段荒诞又令人心酸的"友谊"——富翁清醒时视他为陌路，烂醉时却把他奉为知己。</p>
+      <p>在一次次啼笑皆非的误会与努力之后，查理做出了一个近乎疯狂的抉择。而影片最后，当所有的付出汇聚成一个安静的瞬间，无声的黑白画面却爆发出影史最动人的力量。</p>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <ul class="points">
+        <li><strong>有声时代逆流而上的默片奇迹：</strong>1927 年有声片已席卷全球，卓别林却坚持用无声完成这部杰作，以纯视觉与音乐征服世界。</li>
+        <li><strong>悲喜交织的卓别林式叙事：</strong>笑中带泪，滑稽外壳下藏着对底层小人物的深切悲悯，喜剧与悲剧达到罕见的平衡。</li>
+        <li><strong>影史公认的最伟大结局之一：</strong>全片最后一幕，被无数影评人誉为电影史上最动人、最克制的结尾，没有一句台词。</li>
+        <li><strong>卓别林本人的全情投入：</strong>自编、自导、自演、自己配乐，是作者电影时代的巅峰范本。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <p>这是一部诞生于 1931 年、却至今毫无过时之感的电影。它不需要一句对白，就能让你笑出声，又让你在最后一刻湿了眼眶。卓别林用最纯粹的影像语言，讲述了一个关于善良、尊严与爱的故事——它提醒我们，真正打动人心的，从来不是华丽的特效或精巧的台词，而是一个人愿意为另一个人倾尽所有的温柔。</p>
+      <p>如果你还未真正领略过默片之美，这部作品会是最好的入口；如果你已经看遍现代电影，它则会让你重新相信影像最原始的力量。</p>
+      <div class="quote">"无论有声无声，好故事永远能穿透时代，直抵人心。"</div>
+    </section>
+
+    <footer>
+      <p>🦐 小虾米 · 每日经典电影推荐 · 2026-10-11</p>
+    </footer>
+  </div>
+</body>
+</html>
