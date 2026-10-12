@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小海马的月光卷 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0a1028;
+    --bg2: #0f1f4a;
+    --bg3: #15305c;
+    --card: rgba(30, 50, 90, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+    --seagrass: #4fae7a;
+    --coral: #ff9d7a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 气泡：海底主题装饰粒子 */
+  .bubble {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.6), rgba(126,200,227,0.15));
+    border: 1px solid rgba(200,230,240,0.25);
+    animation: rise 12s ease-in infinite;
+    pointer-events: none;
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) scale(1); opacity: 0; }
+    15%  { opacity: 0.7; }
+    80%  { opacity: 0.4; }
+    100% { transform: translateY(-220px) scale(1.15); opacity: 0; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+
+  <!-- 背景蛾眉月（农历九月初三，illumination 0.17，盈月方向：右侧细弯钩，暗圆在左侧偏移 0.3r） -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(232,236,245,0.35)"/>
+          <stop offset="60%" stop-color="rgba(232,236,245,0.12)"/>
+          <stop offset="100%" stop-color="rgba(232,236,245,0)"/>
+        </radialGradient>
+      </defs>
+      <!-- 月晕 -->
+      <circle cx="60" cy="60" r="56" fill="url(#moonGlow)"/>
+      <!-- 亮盘 -->
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 暗圆：盈月方向，暗圆在左侧，偏移 0.3r = 11.4px → cx = 60 - 11.4 ≈ 48.6 -->
+      <circle cx="48.6" cy="60" r="38" fill="#0a1028" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+
+  <!-- 海底气泡装饰 -->
+  <span class="bubble" style="top:82%; left:18%; width:8px; height:8px; animation-delay:0s;"></span>
+  <span class="bubble" style="top:74%; left:62%; width:6px; height:6px; animation-delay:2s;"></span>
+  <span class="bubble" style="top:88%; left:48%; width:10px; height:10px; animation-delay:4s;"></span>
+  <span class="bubble" style="top:68%; left:30%; width:5px; height:5px; animation-delay:6s;"></span>
+  <span class="bubble" style="top:90%; left:78%; width:7px; height:7px; animation-delay:3s;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小海马的月光卷</h1>
+    <p class="meta">🐚 弯弯的尾巴，弯弯的月亮，弯弯的甜梦 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-12.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="posterMoonClip"><circle cx="240" cy="48" r="22"/></clipPath>
+        <linearGradient id="seaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0a1028"/>
+          <stop offset="22%" stop-color="#102a52"/>
+          <stop offset="100%" stop-color="#0a1f3e"/>
+        </linearGradient>
+        <linearGradient id="seagrassGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5fc48a"/>
+          <stop offset="100%" stop-color="#2e7d56"/>
+        </linearGradient>
+        <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="rgba(232,236,245,0.4)"/>
+          <stop offset="100%" stop-color="rgba(232,236,245,0)"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 海底渐变背景 -->
+      <rect x="0" y="0" width="300" height="440" fill="url(#seaGrad)"/>
+
+      <!-- 水面波纹 -->
+      <path d="M0,82 Q30,76 60,82 T120,82 T180,82 T240,82 T300,82 L300,90 L0,90 Z" fill="rgba(126,200,227,0.15)"/>
+      <path d="M0,88 Q40,84 80,88 T160,88 T240,88 T300,88" stroke="rgba(180,220,240,0.25)" stroke-width="1" fill="none"/>
+
+      <!-- 海面上的月亮：蛾眉月，与背景月相一致（暗圆左侧偏移 0.3r = 6.6px → cx = 240-6.6 = 233.4） -->
+      <circle cx="240" cy="48" r="34" fill="url(#moonHalo)"/>
+      <circle cx="240" cy="48" r="22" fill="#e8ecf5"/>
+      <circle cx="233.4" cy="48" r="22" fill="#0a1028" clip-path="url(#posterMoonClip)"/>
+
+      <!-- 几颗海面星星 -->
+      <circle cx="60" cy="30" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="120" cy="22" r="1.2" fill="#fff" opacity="0.7"/>
+      <circle cx="180" cy="40" r="1" fill="#fff" opacity="0.6"/>
+
+      <!-- 海底沙地 -->
+      <ellipse cx="150" cy="410" rx="180" ry="22" fill="#1a3a5c" opacity="0.6"/>
+
+      <!-- 远处海草（淡） -->
+      <path d="M40,400 Q34,340 44,280 Q52,230 42,180" stroke="#2e7d56" stroke-width="3" fill="none" opacity="0.45" stroke-linecap="round"/>
+      <path d="M255,400 Q262,340 252,290 Q244,240 256,200" stroke="#2e7d56" stroke-width="3" fill="none" opacity="0.45" stroke-linecap="round"/>
+
+      <!-- 主海草（弯弯钩住的那根） -->
+      <path d="M150,408 Q140,340 150,270 Q160,210 148,150 Q142,110 152,80" stroke="url(#seagrassGrad)" stroke-width="5" fill="none" stroke-linecap="round"/>
+      <!-- 海草叶子 -->
+      <path d="M148,200 Q130,195 122,210 Q120,220 132,218 Q144,214 148,200" fill="#4fae7a" opacity="0.85"/>
+      <path d="M152,150 Q172,148 178,162 Q176,172 164,168 Q154,162 152,150" fill="#5fc48a" opacity="0.85"/>
+
+      <!-- 小海马"弯弯"：卷尾巴钩在海草上 -->
+      <g transform="translate(140,180)">
+        <!-- 身体（弯曲的S形） -->
+        <path d="M10,0 Q26,-4 30,12 Q32,26 20,34 Q10,40 14,52 Q18,62 30,62 Q40,62 38,52 Q36,46 28,48"
+              fill="#ffb088" stroke="#e88a5c" stroke-width="1.5" stroke-linejoin="round"/>
+        <!-- 头部 -->
+        <circle cx="22" cy="6" r="9" fill="#ffb088" stroke="#e88a5c" stroke-width="1.5"/>
+        <!-- 嘴部小突起 -->
+        <path d="M14,6 Q10,4 8,7 Q9,9 13,8" fill="#ffb088" stroke="#e88a5c" stroke-width="1.2"/>
+        <!-- 眼睛 -->
+        <circle cx="24" cy="5" r="1.8" fill="#0a1028"/>
+        <circle cx="24.6" cy="4.4" r="0.6" fill="#fff"/>
+        <!-- 背鳍 -->
+        <path d="M30,14 Q38,12 40,20 Q36,22 30,20" fill="#ff9d7a" opacity="0.9"/>
+        <path d="M28,28 Q36,28 38,36 Q32,38 26,34" fill="#ff9d7a" opacity="0.9"/>
+        <!-- 卷尾巴（钩住海草，卷成圈） -->
+        <path d="M38,52 Q50,52 50,64 Q50,74 38,74 Q30,74 32,66 Q34,60 40,62"
+              fill="none" stroke="#e88a5c" stroke-width="4" stroke-linecap="round"/>
+        <!-- 鳞片纹 -->
+        <circle cx="22" cy="22" r="1.2" fill="#e88a5c" opacity="0.5"/>
+        <circle cx="20" cy="34" r="1.2" fill="#e88a5c" opacity="0.5"/>
+        <circle cx="22" cy="46" r="1.2" fill="#e88a5c" opacity="0.5"/>
+      </g>
+
+      <!-- 小海星（底部右侧，五条弯腕） -->
+      <g transform="translate(210,360)">
+        <path d="M0,-12 L7,-4 L16,-3 L9,4 L11,13 L0,8 L-11,13 L-9,4 L-16,-3 L-7,-4 Z"
+              fill="#ff9d7a" stroke="#e88a5c" stroke-width="1.2" stroke-linejoin="round"/>
+        <circle cx="0" cy="0" r="2" fill="#ffd9b0"/>
+      </g>
+
+      <!-- 小水母（左下，弯弯伞盖） -->
+      <g transform="translate(55,300)">
+        <path d="M-14,0 Q-14,-14 0,-14 Q14,-14 14,0 Q10,4 6,2 Q2,4 -2,2 Q-6,4 -10,2 Q-14,4 -14,0 Z"
+              fill="rgba(180,220,240,0.55)" stroke="rgba(200,230,240,0.7)" stroke-width="1"/>
+        <path d="M-8,2 Q-9,12 -6,22" stroke="rgba(200,230,240,0.5)" stroke-width="1.2" fill="none"/>
+        <path d="M-2,2 Q-3,14 0,26" stroke="rgba(200,230,240,0.5)" stroke-width="1.2" fill="none"/>
+        <path d="M4,2 Q5,14 8,24" stroke="rgba(200,230,240,0.5)" stroke-width="1.2" fill="none"/>
+        <path d="M10,2 Q11,12 8,22" stroke="rgba(200,230,240,0.5)" stroke-width="1.2" fill="none"/>
+      </g>
+
+      <!-- 气泡 -->
+      <circle cx="100" cy="250" r="3" fill="rgba(200,230,240,0.4)" stroke="rgba(220,240,250,0.3)" stroke-width="0.6"/>
+      <circle cx="180" cy="220" r="2.5" fill="rgba(200,230,240,0.4)" stroke="rgba(220,240,250,0.3)" stroke-width="0.6"/>
+      <circle cx="80" cy="180" r="2" fill="rgba(200,230,240,0.4)" stroke="rgba(220,240,250,0.3)" stroke-width="0.6"/>
+      <circle cx="200" cy="300" r="2.5" fill="rgba(200,230,240,0.4)" stroke="rgba(220,240,250,0.3)" stroke-width="0.6"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="425" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif"
+            font-size="16" font-weight="700" fill="#cfd8e8" letter-spacing="2">小海马的月光卷</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月初三 · 蛾眉月🌒</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">独特的样子也有同伴</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>浅浅的海草丛里，住着一只小海马，名叫弯弯。弯弯有一条卷卷的尾巴，每天晚上，他都把尾巴钩在一根绿油油的海草上，挂着自己睡觉。</p>
+    <p>小银鱼游过来，咯咯笑："你怎么不躺平睡呀？卷着尾巴挂在草上，多奇怪！"小带鱼也甩着长身子经过："我们都是直直地睡，就你弯成一个圈。"弯弯听了，尾巴悄悄松了一点，心里有点难过。</p>
+    <p>他游到海马妈妈身边问："妈妈，为什么我的尾巴是卷的？是不是我不正常？"妈妈轻轻用尾巴也钩住一根海草，说："傻孩子，卷尾巴是海马家传了好多好多代的本领。海流那么急，要是直直躺着，一觉醒来就被冲到不知道哪儿去啦。卷起来，钩住一根草，稳稳的，才做得了一个不漂走的甜梦。"</p>
+    <p>弯弯听完，心里好受了一点，可还是有点羡慕那些"直直睡"的小伙伴。</p>
+    <p>那天夜里，海面静悄悄的。弯弯抬起头，透过晃晃的水面望向天上，看见一弯细细的月亮——蛾眉月，右边亮亮的一小弯，左边还藏在暗暗的夜里。弯弯看呀看，忽然眼睛亮了：月亮也是弯弯的！她也像一个卷着身子的小家伙，轻轻地挂在黑黑的海天上，一点也没被夜风吹走。</p>
+    <p>"原来月亮也是弯着身子睡觉的！"弯弯开心地转了个圈。他赶紧游去找小海星。小海星正愁着自己的五条腕也是弯弯的、不像别人直直的。弯弯拉他抬头看月亮："你看，月亮也弯弯的，跟你我的腕一样。"小海星一看，笑了。他们又喊来小水母。小水母的伞盖也是弯弯往下卷的，她一直觉得自己不如小银鱼直溜。可抬头看见那弯月亮，小水母也轻轻抖了抖伞盖，高兴起来。</p>
+    <p>那一夜，海草丛里挂满了弯弯的伙伴——海马弯着尾巴，海星弯着腕，水母弯着伞盖，还有天上那弯月亮，弯弯地挂在夜空。大家谁也不再觉得"弯"是奇怪的事了——原来世界上有一种晚安，是专给所有弯弯的小家伙的。</p>
+    <p>弯弯钩住海草，闭上眼睛，做了一个和月亮一模一样的、弯弯的、亮亮的甜梦。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>原来世界上有一种晚安，是专给所有弯弯的小家伙的——你的样子看起来奇怪，可天上那弯月亮也和你一样。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。弯弯说，你今天也是个好孩子，不管你是直直的还是弯弯的，都该做一个甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月12日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
