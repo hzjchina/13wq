@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-12</title>
+<style>
+:root{
+  --bg:#070b14; --bg2:#0b1120; --panel:#101829; --panel2:#131d31;
+  --line:#1f2c47; --line2:#2a3b5e;
+  --txt:#dbe4f5; --txt-dim:#8b98b8; --txt-faint:#5b6a8c;
+  --cyan:#22d3ee; --violet:#a78bfa; --pink:#f472b6; --green:#34d399;
+  --amber:#fbbf24; --red:#f87171;
+  --grad:linear-gradient(135deg,#22d3ee 0%,#a78bfa 50%,#f472b6 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",Segoe UI,sans-serif;line-height:1.6}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(34,211,238,.10), transparent 60%),
+    radial-gradient(1000px 500px at 85% 0%, rgba(167,139,250,.10), transparent 55%),
+    radial-gradient(900px 600px at 50% 110%, rgba(244,114,182,.08), transparent 60%),
+    var(--bg);
+  min-height:100vh;
+}
+/* 网格背景 */
+.grid-bg{
+  position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    linear-gradient(rgba(31,44,71,.5) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(31,44,71,.5) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(ellipse at 50% 0%, #000 0%, transparent 75%);
+}
+.wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 20px 60px}
+
+/* 头部 */
+header{padding:54px 0 30px;text-align:center}
+.badge{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:2px;color:var(--cyan);
+  border:1px solid rgba(34,211,238,.35);border-radius:999px;padding:6px 16px;background:rgba(34,211,238,.06);text-transform:uppercase}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:clamp(28px,5vw,46px);font-weight:800;margin:22px 0 8px;letter-spacing:-1px;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{color:var(--txt-dim);font-size:15px}
+.sub b{color:var(--txt)}
+
+/* 统计条 */
+.stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin:26px 0 8px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px 20px;text-align:center;min-width:110px}
+.stat .n{font-size:22px;font-weight:800;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat .l{font-size:12px;color:var(--txt-dim)}
+
+/* 分区标题 */
+.sec{margin-top:44px;display:flex;align-items:center;gap:12px}
+.sec .bar{width:4px;height:22px;border-radius:2px;background:var(--grad)}
+.sec h2{font-size:19px;font-weight:700;letter-spacing:.5px}
+.sec .cnt{font-size:12px;color:var(--txt-faint);border:1px solid var(--line);padding:2px 10px;border-radius:999px}
+
+/* 卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px;margin-top:20px}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;overflow:hidden;transition:transform .2s,border-color .2s,box-shadow .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:var(--grad);opacity:0;transition:opacity .25s}
+.card:hover::before{opacity:1}
+.card .rank{position:absolute;top:14px;right:16px;font-size:30px;font-weight:900;color:rgba(139,152,184,.14);line-height:1}
+.card .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-size:11px;padding:3px 9px;border-radius:6px;font-weight:600;letter-spacing:.5px}
+.tag.coding{background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.3)}
+.tag.embody{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.tag.model{background:rgba(167,139,250,.12);color:var(--violet);border:1px solid rgba(167,139,250,.3)}
+.tag.industry{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.3)}
+.tag.safety{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.3)}
+.tag.notsel{background:rgba(139,152,184,.10);color:var(--txt-dim);border:1px dashed rgba(139,152,184,.35)}
+.heat{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:700;color:var(--amber)}
+.heat .flame{filter:drop-shadow(0 0 4px rgba(251,191,36,.6))}
+.card h3{font-size:16px;font-weight:700;margin-bottom:8px;line-height:1.4;color:#fff}
+.card p{font-size:13.5px;color:var(--txt-dim)}
+.card .why{margin-top:12px;font-size:13px;color:var(--txt);background:var(--panel2);border-left:3px solid var(--violet);padding:8px 12px;border-radius:6px}
+.card .why b{color:var(--violet)}
+.card .src{margin-top:10px;font-size:11.5px;color:var(--txt-faint)}
+
+footer{text-align:center;margin-top:56px;color:var(--txt-faint);font-size:12px;line-height:1.8}
+footer a{color:var(--cyan);text-decoration:none}
+
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr}
+  header{padding:36px 0 20px}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+
+<header>
+  <div class="badge"><span class="dot"></span> AI 情报日报 · Daily Brief</div>
+  <h1>AI 圈今日要闻</h1>
+  <div class="sub">2026-10-12（周一） · 过去 24 小时 · 侧重 <b>AI coding</b> 与 <b>具身智能</b> · 数据源 AI HOT</div>
+  <div class="stats">
+    <div class="stat"><div class="n">20</div><div class="l">精选条目</div></div>
+    <div class="stat"><div class="n">12</div><div class="l">AI coding</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">具身智能</div></div>
+    <div class="stat"><div class="n">4</div><div class="l">行业·宏观</div></div>
+  </div>
+</header>
+
+<!-- 行业宏观 -->
+<div class="sec"><span class="bar"></span><h2>行业 · 宏观</h2><span class="cnt">4 条</span></div>
+<div class="grid">
+
+<div class="card"><span class="rank">1</span>
+  <div class="meta"><span class="tag industry">宏观</span><span class="heat"><span class="flame">🔥</span>95</span></div>
+  <h3>Karpathy：LLM 能力认知鸿沟扩大为「漏斗」，仅 0.2% 专业用户触及前沿智能体</h3>
+  <p>Andrej Karpathy 重发并扩展其 4 月观点——约 75% 的人几乎没接触过 LLM，约 20% 是免费层轻度用户，约 2000 万数学/代码专业者能亲眼看到智能体数周完成数月项目，仅约 5000 人触及前沿内部系统。</p>
+  <div class="why"><b>为何关注：</b>今日全网最热话题（5 源 7 信号），直指 AI coding 红利极度集中于少数专业用户，是理解「AI 能力 vs 认知扩散」断层的关键论述。</div>
+  <div class="src">来源 · X @karpathy</div>
+</div>
+
+<div class="card"><span class="rank">2</span>
+  <div class="meta"><span class="tag industry">并购</span><span class="heat"><span class="flame">🔥</span>88</span></div>
+  <h3>英伟达洽谈收购或追加投资 Reflection AI</h3>
+  <p>据多方消息，英伟达正与开源编码模型公司 Reflection AI 洽谈收购或追加投资。Reflection 此前开源 501B 参数编码模型 Beam，是开源 AI coding 赛道的重要玩家。</p>
+  <div class="why"><b>为何关注：</b>hot-topics 第 2 位（4 源 14 信号）。英伟达下场押注开源编码模型，若成行将重塑 AI coding 开源生态的竞争格局。</div>
+  <div class="src">来源 · X @rohanpaul_ai / IT之家</div>
+</div>
+
+<div class="card"><span class="rank">3</span>
+  <div class="meta"><span class="tag industry">并购</span><span class="heat"><span class="flame">🔥</span>75</span></div>
+  <h3>消息称亚马逊洽谈以约 70 亿美元收购 AI 初创公司 Decart</h3>
+  <p>据华尔街日报，亚马逊正就收购旧金山初创 Decart 谈判，估值约 70 亿美元。Decart 专注跨芯片适配软件，帮开发者在不同 AI 芯片间无缝切换，此前已融资逾 4 亿美元。</p>
+  <div class="why"><b>为何关注：</b>算力基础设施层的横向整合。跨芯片适配是 AI coding 工程团队降本的关键痛点，巨头加速收编。</div>
+  <div class="src">来源 · 华尔街日报</div>
+</div>
+
+<div class="card"><span class="rank">4</span>
+  <div class="meta"><span class="tag industry">招聘</span><span class="heat"><span class="flame">🔥</span>62</span></div>
+  <h3>Google 面试改考 AI 工具使用，Yuchen Jin 谈 Code Comprehension 轮取代 LeetCode</h3>
+  <p>Google 将取消 LeetCode 风格 coding 面试，改为考察候选人使用 AI 工具（Gemini）的能力。Yuchen Jin 称约 20 年前 Google 推广 LeetCode 式面试，如今连 1B 的 LLM 都能一次做对 LeetCode Hard。</p>
+  <div class="why"><b>为何关注：</b>标志性招聘改革——「会写代码」正让位于「会指挥 AI 写代码」，对软件工程师的职业能力模型影响深远。</div>
+  <div class="src">来源 · X @YuchenJ_UW</div>
+</div>
+
+</div>
+
+<!-- AI coding -->
+<div class="sec"><span class="bar"></span><h2>AI Coding · 智能体</h2><span class="cnt">12 条</span></div>
+<div class="grid">
+
+<div class="card"><span class="rank">5</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>74</span></div>
+  <h3>密歇根大学「Applied Agentic Software Engineering」发布五个工程 Skills</h3>
+  <p>密歇根大学 AI 编程课把方法论做成五个可复用 Skills（/peanuts、/elephant 等），系统教授智能体工程实践，面向真实软件工程的 Agentic 工作流。</p>
+  <div class="why"><b>为何关注：</b>高校将 Agentic 工程方法论沉淀为可落地的 Skill 包，是 AI coding 从「技巧」走向「工程学科」的典型样本。</div>
+  <div class="src">来源 · X</div>
+</div>
+
+<div class="card"><span class="rank">6</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>72</span></div>
+  <h3>哥伦比亚大学 Agentic Engineering 第 5 讲：221 分钟讲透 Agent 工具</h3>
+  <p>COMS W4995 第 5 讲「Agent tools in pictures」共 11 章约 221 分钟，讲解工具契约、调用链路、五种打包方式和信任边界。核心命题是模型只生成结构化输出，工具负责执行。</p>
+  <div class="why"><b>为何关注：</b>最系统的 Agent 工具设计课程之一，厘清「模型决策 vs 工具执行」的信任边界，是理解智能体可靠性的必修课。</div>
+  <div class="src">来源 · 课程</div>
+</div>
+
+<div class="card"><span class="rank">7</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>71</span></div>
+  <h3>用 500B tokens 让 AI 智能体反编译一款 FPS 游戏</h3>
+  <p>作者用 Claude Max 和 Codex Pro 的多智能体编排，历时约 3 个月、消耗估计 600-700B tokens，将一款热门第一人称射击游戏反编译并复刻。</p>
+  <div class="why"><b>为何关注：</b>AI coding 能力边界的极端实测——超大规模 token 预算下的逆向工程可行性，代价与产出的真实对照。</div>
+  <div class="src">来源 · X</div>
+</div>
+
+<div class="card"><span class="rank">8</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>69</span></div>
+  <h3>Lauren Tan：让 Agent 写出更正确代码的起点是「自我验证」</h3>
+  <p>Lauren Tan 提出让 Agent 更自主的基本切入点是赋予自我验证能力——像真实用户一样运行操作应用（CLI/API/UI），产出可审查工件（视频/截图），比通读 PR 更易审查。</p>
+  <div class="why"><b>为何关注：</b>点破「Agent 正确性」的核心方法论：可验证的工件 > 海量代码。对构建可靠 AI coding 工作流极具实操价值。</div>
+  <div class="src">来源 · X @poteto</div>
+</div>
+
+<div class="card"><span class="rank">9</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>65</span></div>
+  <h3>研究显示多智能体团队消耗大量 token 却几乎无质量提升</h3>
+  <p>Vals AI 在 Vibe Code Bench 上测试 GPT-6 Sol 和 Claude Opus 5.5 的单智能体 vs 团队表现，团队成本为单体的 1.8x–5.1x，但四组对比中仅一组有质量提升。</p>
+  <div class="why"><b>为何关注：</b>给「多智能体狂热」泼冷水的实证研究——token 预算激增未必换来质量，对 AI coding 团队架构选型有直接指导。</div>
+  <div class="src">来源 · Vals AI</div>
+</div>
+
+<div class="card"><span class="rank">10</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>63</span></div>
+  <h3>Epoch AI 发布 InnovationEval：AI 智能体远未达自主研究水平</h3>
+  <p>Epoch AI 用新基准 InnovationEval 测试 Claude Fable 5 与 GPT-5.6 Sol 能否独立发明新训练方法（以 SDPO 对 GRPO 的改进为参照），结论是智能体距离自主科研还很远。</p>
+  <div class="why"><b>为何关注：</b>以严格基准量化「自主研究」这一关键能力边界，为「AI 能否做创新性 coding/科研」提供可信证据。</div>
+  <div class="src">来源 · Epoch AI</div>
+</div>
+
+<div class="card"><span class="rank">11</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>60</span></div>
+  <h3>GPT-6.1 Sol 在 Codex 与 Work 中默认上下文提升至 500k</h3>
+  <p>官方宣布 GPT-6.1 Sol 通过 Codex 和 ChatGPT Work 使用时默认上下文从 272k 提升至 500k（约 +80%），减少压缩（compaction），同时订阅额度调用不再收长上下文费用。</p>
+  <div class="why"><b>为何关注：</b>本次唯一入选精选池的条目。长上下文默认值翻倍直接影响大代码库任务的连续性，是 AI coding 基础设施的实质升级。</div>
+  <div class="src">来源 · X @thsottiaux</div>
+</div>
+
+<div class="card"><span class="rank">12</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>58</span></div>
+  <h3>Every 推出全公司共享的 Every Agent，基于 Claude Managed Agents</h3>
+  <p>Every 本周推出 Every Agent，一个全公司共享的 Slack AI 协作智能体，同事可在线程中派活，成功工作流可保存为技能供全队复用。</p>
+  <div class="why"><b>为何关注：</b>「团队级智能体 + 技能沉淀」的落地范式，展示 AI coding/协作从个人工具走向组织能力的方向。</div>
+  <div class="src">来源 · Every</div>
+</div>
+
+<div class="card"><span class="rank">13</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>52</span></div>
+  <h3>Sakana AI 提出多智能体自监督方法 MASS，探索递归自改进</h3>
+  <p>Sakana AI 发布 MASS：一个共享模型通过虚拟子代理团队解决任务、搜索更优多智能体工作流，用自身判断选出最佳方案，再将团队经验蒸馏回共享模型。</p>
+  <div class="why"><b>为何关注：</b>「智能体自我蒸馏」的递归自改进路线，是通往更自主 AI coding 系统的前沿探索方向。</div>
+  <div class="src">来源 · Sakana AI</div>
+</div>
+
+<div class="card"><span class="rank">14</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>48</span></div>
+  <h3>Meta 论文 GitSwarm：让多智能体共享 Git 仓库协作</h3>
+  <p>Meta 提出 GitSwarm，让多个相同 AI 智能体在共享 Git 仓库上协作，无需管理者分配任务，每个智能体读取过往工作（含失败尝试）并自主推进。</p>
+  <div class="why"><b>为何关注：</b>以 Git 为共享记忆的智能体协作范式，直击多智能体协同中的上下文共享与冲突管理难题。</div>
+  <div class="src">来源 · Meta</div>
+</div>
+
+<div class="card"><span class="rank">15</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>46</span></div>
+  <h3>清华 AAArena：AI 智能体靠回放学游戏，Pacman 登顶但复杂规则卡壳</h3>
+  <p>清华论文构建 AAArena，用年度机器人竞赛的 12 款游戏和 1920 个存档人类程序作对手，测试编码智能体能否在模型权重不变下通过读规则、选对手、研究回放来改写游戏 bot。</p>
+  <div class="why"><b>为何关注：</b>检验 AI coding 智能体在「复杂规则 + 策略对抗」下的真实上限，揭示当前编码智能体的能力瓶颈。</div>
+  <div class="src">来源 · 清华</div>
+</div>
+
+<div class="card"><span class="rank">16</span>
+  <div class="meta"><span class="tag coding">AI coding</span><span class="heat"><span class="flame">🔥</span>45</span></div>
+  <h3>Agent swarms 推高 token 用量，AI 软件转向按量计费</h3>
+  <p>Agent swarms 把大部分新增 token 用量导向更便宜模型，agent token 消耗将超过前沿模型收入。父 agent 负责规划、子 agent 处理窄任务，可路由给最便宜且能通过的模型。</p>
+  <div class="why"><b>为何关注：</b>揭示 AI coding 智能体规模化后的经济学——分层路由与按量计费正成为基础设施层的必然选择。</div>
+  <div class="src">来源 · 行业分析</div>
+</div>
+
+</div>
+
+<!-- 具身智能 -->
+<div class="sec"><span class="bar"></span><h2>具身智能 · 世界模型</h2><span class="cnt">4 条</span></div>
+<div class="grid">
+
+<div class="card"><span class="rank">17</span>
+  <div class="meta"><span class="tag embody">具身智能</span><span class="heat"><span class="flame">🔥</span>64</span></div>
+  <h3>Odyssey 开放世界模型 Odyssey-3 公开研究预览，可免费试用</h3>
+  <p>加州 AI 公司 Odyssey 推出 Odyssey-3 世界模型的公开研究预览，用户可用文本提示生成并实时探索交互环境，开发者可申请 API。</p>
+  <div class="why"><b>为何关注：</b>当日具身方向最高热度条目。世界模型是具身智能「大脑」的关键拼图，开放预览意味着仿真训练环境门槛进一步降低。</div>
+  <div class="src">来源 · Odyssey</div>
+</div>
+
+<div class="card"><span class="rank">18</span>
+  <div class="meta"><span class="tag embody">具身智能</span><span class="heat"><span class="flame">🔥</span>45</span></div>
+  <h3>亚马逊论文：LLM 可当「研究世界模型」预测实验结果</h3>
+  <p>亚马逊新论文提出用 LLM 充当研究世界模型，在实验开跑前预测训练改动的收益。基于 9 个设置、2653 条真实实验记录测试，同设置历史记录将预测与实际结果对照。</p>
+  <div class="why"><b>为何关注：</b>「世界模型」概念的另一种落地——用 LLM 预测实验收益，为具身/训练管线节省真实试错成本。</div>
+  <div class="src">来源 · 亚马逊</div>
+</div>
+
+<div class="card"><span class="rank">19</span>
+  <div class="meta"><span class="tag embody">具身智能</span><span class="heat"><span class="flame">🔥</span>38</span></div>
+  <h3>星海图 LEMO 双臂开发平台开放订购</h3>
+  <p>Galaxea LEMO 双臂开发平台开放订购：一体化集高性能双臂硬件、同构遥操作、多模态数据采集和开放开发工具链于一体。</p>
+  <div class="why"><b>为何关注：</b>具身智能「数据-硬件-工具链」一体化平台，降低了机器人研发团队的采集与训练门槛，是国产具身基础设施的代表。</div>
+  <div class="src">来源 · Galaxea</div>
+</div>
+
+<div class="card"><span class="rank">20</span>
+  <div class="meta"><span class="tag embody">具身智能</span><span class="tag notsel">未进精选</span><span class="heat"><span class="flame">🔥</span>38</span></div>
+  <h3>Elon 构想 Terafab：把芯片迭代压到一年十版</h3>
+  <p>Elon 提出 Terafab 构想，把逻辑芯片、存储、封装、光刻掩膜全部放进同一栋楼，实现一年十版迭代，让设计、制造、测试、改掩膜的反馈回路内部闭环。</p>
+  <div class="why"><b>为何关注：</b>虽属芯片制造，但「快速硬件迭代」是具身智能/机器人算力底座的核心瓶颈，一年十版的节奏将加速智能体硬件演进。</div>
+  <div class="src">来源 · X @elonmusk</div>
+</div>
+
+</div>
+
+<footer>
+  数据源：AI HOT（aihot.news）· 过去 24 小时时间窗<br>
+  精选池 24h 返回 1 条；关键词「AI coding」「具身智能」精选池均为空 → 已用全量池（mode=all）多关键词补充，未进入精选的条目以 <span style="color:#8b98b8;border:1px dashed rgba(139,152,184,.35);padding:1px 6px;border-radius:4px;font-size:11px">未进精选</span> 标注<br>
+  本页为单文件内联 CSS、零外部依赖，可离线打开 · 由 AI 自动化生成，内容仅供资讯参考
+</footer>
+
+</div>
+</body>
+</html>
