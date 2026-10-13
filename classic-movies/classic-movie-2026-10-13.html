@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>入殓师</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --panel: #171a21;
+    --panel-2: #1e222b;
+    --text: #e8e6e3;
+    --muted: #a09b94;
+    --accent: #d9a066;
+    --accent-2: #8fb3a0;
+    --line: #2a2e38;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 22px 64px; }
+
+  .poster {
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, #2b2620 0%, #171a21 55%, #1b2520 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .poster .emoji { font-size: 72px; opacity: 0.9; }
+  .poster .title-on {
+    position: absolute; left: 24px; bottom: 20px;
+    color: #f0ece6; text-shadow: 0 2px 12px rgba(0,0,0,.6);
+  }
+  .poster .title-on h1 { font-size: 30px; font-weight: 700; letter-spacing: 2px; }
+  .poster .title-on p { font-size: 14px; color: #d8d2c8; margin-top: 4px; }
+
+  h1 { font-size: 28px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
+  .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 26px; }
+
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;
+  }
+  .tag {
+    background: var(--panel-2); border: 1px solid var(--line);
+    padding: 6px 14px; border-radius: 999px; font-size: 13.5px; color: var(--accent);
+  }
+  .tag b { color: var(--text); font-weight: 600; }
+
+  .card {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; padding: 24px; margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 18px; font-weight: 700; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px; color: var(--accent-2);
+  }
+  .card h2::before {
+    content: ""; display: inline-block; width: 4px; height: 18px;
+    background: var(--accent); border-radius: 2px;
+  }
+  .card p { color: var(--text); font-size: 16.5px; }
+  .card p + p { margin-top: 10px; }
+  .card .zhuyi { color: var(--muted); font-size: 15px; }
+
+  ul.points { list-style: none; margin-top: 6px; }
+  ul.points li {
+    position: relative; padding-left: 22px; margin-bottom: 10px; font-size: 16px;
+  }
+  ul.points li::before {
+    content: "·"; position: absolute; left: 6px; top: 0;
+    color: var(--accent); font-size: 22px; font-weight: 700;
+  }
+
+  .quote {
+    border-left: 3px solid var(--accent);
+    background: var(--panel-2);
+    padding: 18px 20px; border-radius: 0 12px 12px 0;
+    font-style: italic; color: #d8d2c8; margin: 24px 0; font-size: 16px;
+  }
+
+  .footer {
+    text-align: center; color: var(--muted); font-size: 13px; margin-top: 40px;
+  }
+
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .poster .title-on h1 { font-size: 24px; }
+    h1 { font-size: 24px; }
+    .card { padding: 18px; }
+    .poster .emoji { font-size: 56px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="poster">
+    <span class="emoji">🎻</span>
+    <div class="title-on">
+      <h1>入殓师</h1>
+      <p>おくりびと · Departures</p>
+    </div>
+  </div>
+
+  <h1>入殓师</h1>
+  <div class="subtitle">おくりびと · Departures（2008）· 日本 · 剧情</div>
+
+  <div class="meta">
+    <span class="tag">豆瓣 <b>8.9</b></span>
+    <span class="tag">IMDb <b>8.1</b></span>
+    <span class="tag">第 81 届奥斯卡 <b>最佳外语片</b></span>
+    <span class="tag">导演 <b>泷田洋二郎</b></span>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>大提琴手小林大悟所在的乐团突然解散，他带着妻子回到故乡，误打误撞应聘了一份"与旅行有关"的工作，入职后才发觉，那是为逝者整理仪容、送别最后一程的"入殓师"。</p>
+    <p>从最初的抗拒与羞于启齿，到在一次次庄严而温柔的仪式中，逐渐理解生死的分量。这份被世人所忌讳的职业，最终却让他触摸到了生命最柔软、最庄重的一面。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <ul class="points">
+      <li><b>题材独到</b>：以"入殓"这个冷门又沉重的职业切入，却拍出了极致的温暖与尊严，华语观众熟知的《人生大事》正是受其启发。</li>
+      <li><b>久石让配乐</b>：大提琴的旋律如泣如诉，与画面严丝合缝，是电影情感力量的另一根支柱。</li>
+      <li><b>表演克制</b>：本木雅弘、山崎努等演员没有一处用力过猛，平静之下暗流汹涌，全靠细节说话。</li>
+      <li><b>叙事节奏</b>：笑与泪自然交替，沉重主题被处理得举重若轻，看完不压抑，反而释然。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>它不贩卖悲伤，也不刻意煽情，而是用近乎虔诚的镜头语言告诉你：死亡不是禁忌，而是人生值得被认真对待的最后一道工序。</p>
+    <p>当你感到生活麻木、被日常琐碎磨去了热情时，这部电影会用一种安静的力量，重新提醒你"活着"与"告别"的意义。它讨论的是死亡，治愈的却是每一个活着的人。</p>
+    <p class="zhuyi">※ 提示：请放心观影，本推荐不含任何剧透，静待那个结局在音乐中悄然抵达。</p>
+  </div>
+
+  <div class="quote">
+    "死亡，不过是走过一道门，通往另一段旅程。"
+  </div>
+
+  <div class="footer">经典电影推荐 · 2026-10-13 · 去重片单已更新</div>
+
+</div>
+</body>
+</html>
