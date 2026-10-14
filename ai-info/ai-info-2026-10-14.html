@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-14</title>
+<style>
+:root{
+  --bg:#070b14;
+  --bg2:#0b1120;
+  --card:#101829;
+  --card2:#142033;
+  --line:#1e2a42;
+  --txt:#e6edf7;
+  --txt2:#8b9bb4;
+  --txt3:#5c6b85;
+  --cyan:#22d3ee;
+  --purple:#a78bfa;
+  --green:#34d399;
+  --pink:#f472b6;
+  --amber:#fbbf24;
+  --red:#f87171;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  line-height:1.6;
+  min-height:100vh;
+  position:relative;
+  overflow-x:hidden;
+}
+/* 网格背景 */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(34,211,238,.035) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(34,211,238,.035) 1px,transparent 1px);
+  background-size:44px 44px;
+  pointer-events:none;
+  z-index:0;
+}
+/* 霓虹光晕 */
+.glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.32;pointer-events:none;z-index:0}
+.glow1{width:520px;height:520px;background:radial-gradient(circle,#22d3ee,transparent 65%);top:-140px;left:-120px}
+.glow2{width:460px;height:460px;background:radial-gradient(circle,#a78bfa,transparent 65%);bottom:-120px;right:-100px}
+.glow3{width:360px;height:360px;background:radial-gradient(circle,#f472b6,transparent 65%);top:40%;left:55%}
+
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:48px 24px 80px}
+
+/* 头部 */
+header{text-align:center;margin-bottom:48px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border:1px solid var(--line);border-radius:999px;background:var(--bg2);color:var(--cyan);font-size:13px;letter-spacing:2px;margin-bottom:20px}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{font-size:44px;font-weight:800;letter-spacing:1px;background:linear-gradient(135deg,#e6edf7 0%,#22d3ee 50%,#a78bfa 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.subtitle{color:var(--txt2);font-size:15px}
+.meta{display:flex;justify-content:center;gap:24px;margin-top:18px;flex-wrap:wrap}
+.meta span{color:var(--txt3);font-size:13px;display:flex;align-items:center;gap:6px}
+.meta .num{color:var(--cyan);font-weight:700;font-size:18px}
+
+/* 统计条 */
+.stats{display:flex;gap:16px;justify-content:center;margin:32px 0 40px;flex-wrap:wrap}
+.stat{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:16px 26px;text-align:center;min-width:140px}
+.stat .v{font-size:26px;font-weight:800;color:var(--txt)}
+.stat .l{font-size:12px;color:var(--txt3);margin-top:4px}
+
+/* 卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.card{
+  background:linear-gradient(160deg,var(--card),var(--card2));
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px;
+  position:relative;
+  overflow:hidden;
+  transition:transform .25s,border-color .25s,box-shadow .25s;
+  display:flex;flex-direction:column;gap:12px;
+}
+.card:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 12px 40px rgba(34,211,238,.12)}
+.card::before{content:"";position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.7}
+.card.feature{grid-column:1/-1;background:linear-gradient(160deg,#142036,#1a1030)}
+.card.feature::before{height:3px}
+
+.card-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.rank{font-size:13px;font-weight:800;color:var(--txt3);letter-spacing:1px}
+.score{
+  font-size:15px;font-weight:800;padding:4px 12px;border-radius:8px;
+  background:rgba(34,211,238,.1);color:var(--cyan);border:1px solid rgba(34,211,238,.25);
+  white-space:nowrap;
+}
+.score.hot{background:rgba(248,113,113,.12);color:var(--red);border-color:rgba(248,113,113,.3)}
+.score.mid{background:rgba(251,191,36,.12);color:var(--amber);border-color:rgba(251,191,36,.3)}
+
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;padding:3px 10px;border-radius:6px;font-weight:600;letter-spacing:.5px}
+.tag.coding{background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.25)}
+.tag.embodied{background:rgba(167,139,250,.14);color:var(--purple);border:1px solid rgba(167,139,250,.3)}
+.tag.model{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.25)}
+.tag.industry{background:rgba(244,114,182,.12);color:var(--pink);border:1px solid rgba(244,114,182,.3)}
+.tag.sel{background:rgba(251,191,36,.12);color:var(--amber);border:1px solid rgba(251,191,36,.3)}
+.tag.nosel{background:rgba(92,107,133,.15);color:var(--txt3);border:1px solid rgba(92,107,133,.3)}
+
+h3{font-size:17px;font-weight:700;line-height:1.45;color:var(--txt)}
+.card.feature h3{font-size:22px}
+.summary{font-size:14px;color:var(--txt2);flex:1}
+.why{font-size:13px;color:var(--cyan);background:rgba(34,211,238,.06);border-left:3px solid var(--cyan);padding:8px 12px;border-radius:6px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto}
+.source{font-size:12px;color:var(--txt3)}
+.source b{color:var(--txt2);font-weight:600}
+a{color:var(--cyan);text-decoration:none;font-size:13px;font-weight:600}
+a:hover{text-decoration:underline}
+
+footer{text-align:center;margin-top:56px;color:var(--txt3);font-size:12px;line-height:2}
+
+@media(max-width:640px){
+  h1{font-size:32px}
+  .grid{grid-template-columns:1fr}
+  .wrap{padding:32px 16px 56px}
+}
+</style>
+</head>
+<body>
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+<div class="glow glow3"></div>
+
+<div class="wrap">
+  <header>
+    <div class="badge"><span class="dot"></span>AI INTELLIGENCE DAILY</div>
+    <h1>AI 情报日报</h1>
+    <div class="subtitle">当日 AI 圈大事情 · 侧重 AI Coding 与具身智能</div>
+    <div class="meta">
+      <span>📅 2026-10-14（周三）</span>
+      <span>⏱ 数据窗口 · 过去 24 小时</span>
+      <span>🔗 来源 · AI HOT</span>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="v">20</div><div class="l">精选信息</div></div>
+    <div class="stat"><div class="v" style="color:var(--cyan)">13</div><div class="l">AI Coding</div></div>
+    <div class="stat"><div class="v" style="color:var(--purple)">5</div><div class="l">具身智能</div></div>
+    <div class="stat"><div class="v" style="color:var(--green)">2</div><div class="l">模型·行业</div></div>
+  </div>
+
+  <div class="grid">
+
+    <!-- 1 头条 -->
+    <div class="card feature" style="--accent:#22d3ee">
+      <div class="card-top">
+        <span class="rank">TOP 1 · 头条</span>
+        <span class="score hot">热度 88</span>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap"><span class="tag model">模型</span><span class="tag sel">精选</span></div>
+      <h3>Google 发布 Gemini 4 Argon：面向复杂工程与科研任务的前沿模型</h3>
+      <div class="summary">Google 正式发布 Gemini 4 Argon，面向开发者、企业、科学家与消费者全球开放，可经 Gemini API、AI Studio 与 Google Antigravity 调用，带来 1M token 上下文与全新定价。</div>
+      <div class="why">当日最大事件，hot-topics 榜首（18 源 46 信号）。官方定位"解决最难问题"，工程与科研场景对标 GPT-6 Astra、Claude Opus 5.5。</div>
+      <div class="card-foot"><span class="source"><b>Google Blog</b></span><a href="https://aihot.news/items/smxxtw5ca2c9jscojk4ppe5hf" target="_blank">查看原文 →</a></div>
+    </div>
+
+    <!-- 2 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#02</span><span class="score hot">83</span></div>
+      <div style="display:flex;gap:6px"><span class="tag model">模型</span><span class="tag sel">精选</span></div>
+      <h3>Gemini 4 Argon 正式 GA，智能指数追平 GPT-6 Astra，单任务成本仅 60%</h3>
+      <div class="summary">Artificial Analysis 数据显示 Argon 在智能指数上与 GPT-6 Astra 持平，但 Cost per Task 仅为后者 60%，性价比突出。</div>
+      <div class="why">若 60% 成本属实，将在编码与科研工作流中形成对 OpenAI 的价格压力，直接影响模型选型。</div>
+      <div class="card-foot"><span class="source"><b>Artificial Analysis</b></span><a href="https://aihot.news/items/w2fkb8pssvuc0mtttxnufchc9" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 3 -->
+    <div class="card" style="--accent:#f472b6">
+      <div class="card-top"><span class="rank">#03</span><span class="score hot">82</span></div>
+      <div style="display:flex;gap:6px"><span class="tag industry">行业</span><span class="tag sel">精选</span></div>
+      <h3>Character.AI 成立五年后申请 Chapter 11 破产，部分资产 2000 万美元售予 Disney</h3>
+      <div class="summary">法院文件显示其资产与负债在 5000 万至 1 亿美元之间，Disney 以 2000 万美元竞购部分资产及非独占永久许可，若无买家平台将关停。</div>
+      <div class="why">曾估值 10 亿的明星公司倒下，暴露"高用户时长但算力成本吞噬变现"的 AI 商业模式困境，是二线 AI 公司的警示样本。</div>
+      <div class="card-foot"><span class="source"><b>TechCrunch</b></span><a href="https://aihot.news/items/vwu0li2nl5hztqeztnq8b5udc" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 4 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#04</span><span class="score hot">78</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag sel">精选</span></div>
+      <h3>XBOW 借 GPT-5.6 Sol 获 Chrome 全链漏洞 25 万美元赏金</h3>
+      <div class="summary">XBOW 团队用 GPT-5.6 Sol 辅助，6 天内以 4 万美元算力构建出 Chrome 全链漏洞，获 Google 25 万美元赏金，为 2026 新规下首次。</div>
+      <div class="why">AI 辅助安全研究的关键实证：过去需约 6 个月的漏洞构建被压缩到 6 天，AI 正重构漏洞挖掘的成本模型。</div>
+      <div class="card-foot"><span class="source"><b>X：Vaibhav Srivastav</b></span><a href="https://aihot.news/items/ekphiltd4fdsskdlueleul8qa" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 5 -->
+    <div class="card" style="--accent:#fbbf24">
+      <div class="card-top"><span class="rank">#05</span><span class="score hot">78</span></div>
+      <div style="display:flex;gap:6px"><span class="tag model">模型</span><span class="tag sel">精选</span></div>
+      <h3>卡兹克实测 Gemini 4 Argon：知识工作强劲，但体验糟糕难撼 Claude Opus 5.5</h3>
+      <div class="summary">以 100 刀 Ultra 会员实测，认为 Vals Index 综合第一（68.9）但 CUA-bench 仅 4.83% 倒数第二，中文写作味道重，前端效果不及 GPT-6 Astra。</div>
+      <div class="why">第三方一手测评给出与官方宣称的反差视角，Argon 的"强专业但弱体验"定位对订阅决策有参考价值。</div>
+      <div class="card-foot"><span class="source"><b>公众号：数字生命卡兹克</b></span><a href="https://aihot.news/items/oxaap1c1cvxi9ngybxks1gngi" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 6 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#06</span><span class="score hot">77</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag sel">精选</span></div>
+      <h3>NVIDIA 官宣 RTX Spark 生态就绪，10 月 16 日笔记本上市</h3>
+      <div class="summary">RTX Spark 笔记本最高 128GB 统一内存、1 petaflop AI 算力，本地智能体、创意与开发工具生态同步就绪。</div>
+      <div class="why">本地 AI coding 与端侧智能体的硬件基础加速落地，128GB 统一内存直击本地大模型运行痛点。</div>
+      <div class="card-foot"><span class="source"><b>NVIDIA Blog</b></span><a href="https://aihot.news/items/ug7g6psicfobnnft0ebgpyl10" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 7 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#07</span><span class="score hot">75</span></div>
+      <div style="display:flex;gap:6px"><span class="tag model">模型</span><span class="tag nosel">未进精选</span></div>
+      <h3>Meta 发布首批前沿模型 Muse Wonder / Muse Wonder Full</h3>
+      <div class="summary">定位面向长期运行的 agent 任务，支持 1M token 上下文及文本、图像、视频、音频多模态输入；Muse Wonder (Max) 已入 Arena 榜单 WebDev 第 15、文本第 2。</div>
+      <div class="why">Meta 首次进入前沿模型竞争，多模态+长上下文面向 agent 工作负载，对 AI coding 工具生态形成新变量。</div>
+      <div class="card-foot"><span class="source"><b>MarkTechPost</b></span><a href="https://aihot.news/items/yttmjsu0csjdy9uankxtp5mmk" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 8 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#08</span><span class="score mid">73</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag nosel">未进精选</span></div>
+      <h3>Claude Code 云端会话教程：在云端虚拟机中随时随地进行编码</h3>
+      <div class="summary">教程演示如何在云端 VM 中运行 Claude Code 会话，实现随时随地的编码体验。</div>
+      <div class="why">云会话是 AI coding 工具走向"环境无关"的关键方向，降低本地配置门槛。</div>
+      <div class="card-foot"><span class="source"><b>Simon Willison 博客</b></span><a href="https://aihot.news/items/ryr22a92zru2xwzrz4i4x16xi" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 9 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#09</span><span class="score mid">72</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag sel">精选</span></div>
+      <h3>Anthropic 自研版本控制系统 Scion，五个月完成 monorepo 从 git 迁移</h3>
+      <div class="summary">因 Claude 使日均合并代码量从 5 月约 2500 增至 9 月超 30000，Anthropic 五个月自研 Scion 完全替代 git，并推出代码评审工具 Antique。</div>
+      <div class="why">"智能体规模负载"下 git 不再够用的信号，AI 驱动的代码规模正倒逼基础设施重构，值得所有大仓库团队关注。</div>
+      <div class="card-foot"><span class="source"><b>Anthropic Engineering</b></span><a href="https://aihot.news/items/fpyjwv3o9zwxc9zs7j1bmnw8i" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 10 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#10</span><span class="score mid">70</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag sel">精选</span></div>
+      <h3>Google 用 Gemini 4 Argon 无人值守优化 20 万行 Python 代码库</h3>
+      <div class="summary">在 google/adk-python 上无人值守跑 11 小时，提出 6 项优化、审查后合并 2 项，长会话内存准备时间降约 40%，包导入加快 21%。</div>
+      <div class="why">真实大仓库的无人值守工作流复盘，含被否决的改动与可复用的 .agents/skills 设置，是 agent 驱动优化的落地范例。</div>
+      <div class="card-foot"><span class="source"><b>Google Developers Blog</b></span><a href="https://aihot.news/items/z371wogdvjh86jh8s6v6vlrui" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 11 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#11</span><span class="score mid">70</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag nosel">未进精选</span></div>
+      <h3>Simon Willison 评 Anthropic 自研源码控制系统 Scion 取代 Git</h3>
+      <div class="summary">Simon Willison 对 Scion 取代 Git 的深度点评，从开发者视角分析其影响与迁移价值。</div>
+      <div class="why">头部开发者对"AI 时代版本控制"的解读，与 Scion 官方复盘互为印证，帮助判断基础设施演进方向。</div>
+      <div class="card-foot"><span class="source"><b>Simon Willison 博客</b></span><a href="https://aihot.news/items/znq5591d0ans7l79658wn4dys" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 12 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#12</span><span class="score mid">69</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag nosel">未进精选</span></div>
+      <h3>Epic Games 要求团队用 AI 生成代码和美术开发 Disney 射击游戏</h3>
+      <div class="summary">Epic Games 在 Disney 授权射击游戏项目中要求团队采用全 AI 工作流生成代码与美术资源。</div>
+      <div class="why">大型游戏厂商将 AI 生成纳入正式开发流程的标志性案例，反映 AI coding 在创意产业的规模化渗透。</div>
+      <div class="card-foot"><span class="source"><b>行业报道</b></span><a href="https://aihot.news/items/cu0qt55nq3aasoohapyn5zn2q" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 13 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#13</span><span class="score mid">68</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag sel">精选</span></div>
+      <h3>OpenAI 办公室发现窃密录音装置，涉事员工被捕</h3>
+      <div class="summary">OpenAI 在办公室发现隐蔽录音装置，用自家模型分析设备与来源，确认系一名员工安放，已移交 FBI 并逮捕，无证据显示权重或客户数据泄露。</div>
+      <div class="why">AI 公司首次用自家模型反制内部物理安全威胁，同时暴露前沿实验室面临的新型内部窃密风险。</div>
+      <div class="card-foot"><span class="source"><b>X：OpenAI Newsroom</b></span><a href="https://aihot.news/items/fgxi5gwvctlssc05odpcyf6ov" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 14 具身 -->
+    <div class="card" style="--accent:#a78bfa">
+      <div class="card-top"><span class="rank">#14</span><span class="score mid">65</span></div>
+      <div style="display:flex;gap:6px"><span class="tag embodied">具身智能</span><span class="tag nosel">未进精选</span></div>
+      <h3>Google 发布 Gemini 4 Argon 具身推理模型，ERQA 基准 87%</h3>
+      <div class="summary">Gemini 4 Argon 的具身推理能力在 ERQA 基准取得 87% 得分，Google 用其加速机器人研究，通过人类任务视频自主生成训练模拟。</div>
+      <div class="why">当日具身智能核心事件：顶级前沿模型首次把"具身推理"作为主打能力，视频驱动训练模拟直指机器人数据稀缺难题。</div>
+      <div class="card-foot"><span class="source"><b>Google DeepMind</b></span><a href="https://aihot.news/items/op2q1wocmlbuvauflpfdb7u0f" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 15 具身 -->
+    <div class="card" style="--accent:#a78bfa">
+      <div class="card-top"><span class="rank">#15</span><span class="score mid">58</span></div>
+      <div style="display:flex;gap:6px"><span class="tag embodied">具身智能</span><span class="tag nosel">未进精选</span></div>
+      <h3>Nature Will 发布 50B 参数基础模型 Natura-1，灵巧手零样本执行语言指令</h3>
+      <div class="summary">50B MoE 模型基于 100 万小时第一视角人类经验预训练，可零样本理解语言指令并用灵巧手执行双手精细控制与长序列任务。</div>
+      <div class="why">"第一视角人类视频"作为数据扩展路径，绕开机器人演示数据采集难题，是具身大模型训练路线的重要探索。</div>
+      <div class="card-foot"><span class="source"><b>X：Rohan Paul</b></span><a href="https://aihot.news/items/cgv2ji71fd3m7q7ikgp6u5fmw" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 16 具身 -->
+    <div class="card" style="--accent:#a78bfa">
+      <div class="card-top"><span class="rank">#16</span><span class="score mid">56</span></div>
+      <div style="display:flex;gap:6px"><span class="tag embodied">具身智能</span><span class="tag nosel">未进精选</span></div>
+      <h3>Physical Intelligence 发布 Pi API beta，向更多团队开放机器人控制</h3>
+      <div class="summary">Pi API 进入 beta 并向更多团队开放，此前已与多行业企业合作适配不同机器人，用例涵盖采摘草莓与组装服务器。</div>
+      <div class="why">具身智能从"模型发布"走向"API 化"的关键一步，通用机器人控制能力开始以服务形式开放。</div>
+      <div class="card-foot"><span class="source"><b>X：Physical Intelligence</b></span><a href="https://aihot.news/items/k2vhnbcayj1q6ij6a4qkuatui" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 17 具身 -->
+    <div class="card" style="--accent:#a78bfa">
+      <div class="card-top"><span class="rank">#17</span><span class="score mid">52</span></div>
+      <div style="display:flex;gap:6px"><span class="tag embodied">具身智能</span><span class="tag nosel">未进精选</span></div>
+      <h3>王兴兴：过去十几年犯的最大错误是对 AI 相信得还不够</h3>
+      <div class="summary">宇树 CEO 王兴兴称 GPT-6 在机器人上测试效果很好，宇树等已在工厂落地试点，商业服务场景落地或快于工业领域，大规模应用还需提升泛化与效率。</div>
+      <div class="why">国内具身龙头对前沿大模型驱动的判断，透露人形机器人落地节奏与"OpenAI 可能抄家机器人行业"的竞争隐忧。</div>
+      <div class="card-foot"><span class="source"><b>X：Oran Ge</b></span><a href="https://aihot.news/items/ico0pxeeb6a2bvzthz9ax83h7" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 18 具身 -->
+    <div class="card" style="--accent:#a78bfa">
+      <div class="card-top"><span class="rank">#18</span><span class="score mid">52</span></div>
+      <div style="display:flex;gap:6px"><span class="tag embodied">具身智能</span><span class="tag nosel">未进精选</span></div>
+      <h3>Dyna Robotics 联合创始人深谈 Dyna-2 world-action 模型与小时级自主机器人</h3>
+      <div class="summary">Latent Space 访谈 Dyna Robotics 联合创始人 Jason Ma，解读 Dyna-2 world-action 模型与后续实体机器人智能体 Dyna-2.1。</div>
+      <div class="why">world-action 模型是具身智能"世界模型+动作"融合的技术前沿，访谈提供一线团队的架构思路。</div>
+      <div class="card-foot"><span class="source"><b>Latent Space</b></span><a href="https://aihot.news/items/gglj5qab0zuuwyjxomay5hppr" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 19 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#19</span><span class="score mid">60</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag nosel">未进精选</span></div>
+      <h3>Arena 推出智能体版 Max 模型路由器，以低 37% 成本达到前沿性能</h3>
+      <div class="summary">Arena 推出智能体版 Max 模型路由器，可在编码等任务中以低于前沿模型 37% 的成本达到相当性能。</div>
+      <div class="why">模型路由是 AI coding 降本的关键技术，动态选择模型平衡性能与成本。</div>
+      <div class="card-foot"><span class="source"><b>Arena</b></span><a href="https://aihot.news/items/krmjfx4cjreymw54hho3h0122" target="_blank">原文 →</a></div>
+    </div>
+
+    <!-- 20 -->
+    <div class="card" style="--accent:#22d3ee">
+      <div class="card-top"><span class="rank">#20</span><span class="score mid">59</span></div>
+      <div style="display:flex;gap:6px"><span class="tag coding">AI Coding</span><span class="tag nosel">未进精选</span></div>
+      <h3>NVIDIA 发布 cuDF skills for Apache Spark，AI Agent 重写 UDF 实现 22x GPU 提速</h3>
+      <div class="summary">NVIDIA 发布 cuDF skills，让 AI Agent 自动重写 Spark UDF，在 GPU 上实现最高 22 倍提速。</div>
+      <div class="why">AI coding 与大数据基础设施结合：agent 自动迁移 UDF 到 GPU，是代码重构自动化在数据工程领域的落地。</div>
+      <div class="card-foot"><span class="source"><b>NVIDIA</b></span><a href="https://aihot.news/items/ba7agifmr8e3xcv882f90yy3l" target="_blank">原文 →</a></div>
+    </div>
+
+  </div>
+
+  <footer>
+    数据来源：AI HOT（aihot.virxact.com · 过去 24 小时窗口）<br>
+    标注「未进精选」的信息来自全量池补充（精选池关键词命中为空时启用）<br>
+    热度值取自 AI HOT score · 本页为单文件内联样式，可离线打开
+  </footer>
+</div>
+</body>
+</html>

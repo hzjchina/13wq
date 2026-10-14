@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>愤怒的公牛</title>
+<style>
+  :root {
+    --bg: #1a1a1d;
+    --panel: #232327;
+    --panel-2: #2b2b30;
+    --accent: #d4a24c;
+    --accent-2: #c0392b;
+    --text: #e8e6e1;
+    --text-dim: #a8a5a0;
+    --border: #3a3a40;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.8;
+    font-size: 17px;
+    letter-spacing: 0.2px;
+    padding: 24px 16px 48px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 32px; }
+  .kicker {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    color: var(--text-dim);
+    font-size: 15px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin: 20px 0 0;
+  }
+  .chip {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .chip b { color: var(--accent); font-weight: 600; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  h2 .bar {
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  p { margin-bottom: 12px; color: #d6d3cd; }
+  p:last-child { margin-bottom: 0; }
+  ul { list-style: none; }
+  ul li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    color: #d6d3cd;
+  }
+  ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 11px;
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+  }
+  .quote {
+    font-style: italic;
+    font-size: 16px;
+    color: var(--text-dim);
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    margin: 4px 0 0;
+  }
+  .verdict {
+    background: linear-gradient(135deg, #2b2b30, #232327);
+    border: 1px solid var(--accent);
+  }
+  .verdict p { color: var(--text); }
+  footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 32px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    h1 { font-size: 1.7rem; }
+    section { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker">Classic Film</span>
+    <h1>愤怒的公牛</h1>
+    <div class="subtitle">Raging Bull · 1980</div>
+    <div class="meta">
+      <span class="chip">导演 <b>马丁·斯科塞斯</b></span>
+      <span class="chip">主演 <b>罗伯特·德尼罗</b></span>
+      <span class="chip">豆瓣 <b>8.4</b></span>
+      <span class="chip">IMDb <b>8.1</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2><span class="bar"></span>剧情梗概</h2>
+    <p>影片改编自中量级拳王杰克·拉莫塔的真实人生。上世纪四十年代的纽约，出身贫寒的拉莫塔凭借一双铁拳和近乎自毁的执拗，一步步从贫民区打进拳坛顶端。然而在拳台之外，他的偏执、猜忌与暴烈性格，却不断撕裂着身边最亲近的人——兄弟、妻子，最终连同他自己，一起推向深渊。</p>
+    <p>这不是一部关于"胜利"的电影，而是一部关于"代价"的电影：一个男人如何用自己的方式站上巅峰，又如何亲手毁掉拥有的一切。</p>
+  </section>
+
+  <section>
+    <h2><span class="bar"></span>亮点所在</h2>
+    <ul>
+      <li><b>封神的表演</b>：罗伯特·德尼罗为角色增重近三十公斤，从健硕拳王演到发福落魄的晚年，被认为是影史最伟大的表演之一，他凭此片二度摘得奥斯卡影帝。</li>
+      <li><b>黑白影像的诗意</b>：斯科塞斯刻意采用黑白摄影，让鲜血、汗水与暗影呈现得冷峻而震撼，被誉为教科书级的镜头语言。</li>
+      <li><b>拳击戏的真实质感</b>：导演用慢镜头、主观视角和凌厉剪辑，把拳击场面拍成近乎残酷的交响，观感远超一般体育片。</li>
+      <li><b>深刻的人性刻画</b>：它不美化也不说教，只是冷静地注视一个被欲望与恐惧吞噬的灵魂，看完久久难以平静。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2><span class="bar"></span>为什么值得一看</h2>
+    <p>很多体育片讲的是"逆袭"与"热血"，而《愤怒的公牛》反其道而行——它诚实地呈现了一个天才如何被自己的性格缺陷反噬。这种对人性幽暗面的凝视，使它超越了拳击题材，成为关于嫉妒、暴力与救赎的现代寓言。</p>
+    <p>如果你喜欢马丁·斯科塞斯、喜欢德尼罗、或者只是想看一部"看完会思考很久"的电影，它都不容错过。它常年位列各类"影史百大佳片"榜单，是电影艺术不可绕开的丰碑。</p>
+    <p class="quote">"我是否在拳击场上击败过所有人？是的。可我是否击败了自己？"——这是一部关于自我救赎的追问。</p>
+  </section>
+
+  <section class="verdict">
+    <h2><span class="bar"></span>一句话推荐</h2>
+    <p>一部关于暴烈与孤独的黑白史诗——德尼罗与斯科塞斯联手的巅峰之作，看完你会重新理解"强大"这个词的真正代价。</p>
+  </section>
+
+  <footer>不剧透 · 留一份完整观感给你</footer>
+</div>
+</body>
+</html>
