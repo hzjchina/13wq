@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星球大战</title>
+<style>
+  :root {
+    --bg: #0d1220;
+    --card: #1a2035;
+    --accent: #f5c542;
+    --text: #e8ecf5;
+    --muted: #a8b0c4;
+    --line: #2a3348;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: radial-gradient(circle at 20% 0%, #1b2a4a 0%, var(--bg) 55%);
+    color: var(--text);
+    line-height: 1.85;
+    min-height: 100vh;
+    padding: 2rem 1rem;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 2rem 0 1.5rem;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 0.85rem;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+  }
+  h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+  }
+  .meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.8rem 1.6rem;
+    margin: 1.4rem 0;
+  }
+  h2 {
+    font-size: 1.25rem;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  h2::before {
+    content: "";
+    width: 6px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+  p { margin-bottom: 1rem; font-size: 1.05rem; color: #d5dbe8; }
+  ul { padding-left: 1.3rem; margin-bottom: 1rem; }
+  li { margin-bottom: 0.6rem; font-size: 1.03rem; color: #d5dbe8; }
+  .rating {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 1.5rem 0;
+  }
+  .rating .r {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 0.7rem 1.3rem;
+    text-align: center;
+  }
+  .rating .r strong { display: block; font-size: 1.4rem; color: var(--accent); }
+  .rating .r span { font-size: 0.8rem; color: var(--muted); }
+  .tagline {
+    text-align: center;
+    font-style: italic;
+    color: var(--accent);
+    font-size: 1.1rem;
+    margin: 1.5rem 0;
+    letter-spacing: 0.04em;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 2.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--line);
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 1.7rem; }
+    .card { padding: 1.4rem 1.1rem; }
+    p, li { font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="kicker">A Long Time Ago in a Galaxy Far, Far Away…</div>
+      <h1>星球大战</h1>
+      <div class="meta">Star Wars（1977） · 导演：乔治·卢卡斯 · 科幻 / 冒险 / 太空歌剧</div>
+    </header>
+
+    <div class="rating">
+      <div class="r"><strong>8.6</strong><span>IMDb</span></div>
+      <div class="r"><strong>8.5</strong><span>豆瓣</span></div>
+      <div class="r"><strong>7项</strong><span>奥斯卡</span></div>
+    </div>
+
+    <div class="card">
+      <h2>剧情梗概</h2>
+      <p>在遥远的银河系，残暴的帝国统治着万千星球。一名年轻的农场男孩意外卷入一场跨越星系的抗争，他与一位神秘的老战士、一名狡猾的走私者、两个机灵的机器人，以及一位勇敢的公主结伴而行，试图从帝国手中夺回一件关乎自由命运的关键之物。这是一段从平凡走向不凡的冒险，也是一段关于勇气、友情与信念的启蒙旅程。</p>
+    </div>
+
+    <div class="card">
+      <h2>亮点所在</h2>
+      <ul>
+        <li><strong>开创性的工业神话</strong>——1977 年上映时彻底改写了电影特效与商业片的规则，工业光魔的特效与约翰·威廉姆斯的配乐至今仍是行业标杆。</li>
+        <li><strong>不朽的世界观</strong>——「原力」「光剑」「帝国与义军」成为流行文化中最具生命力的符号，一个真正可无限延展的宇宙。</li>
+        <li><strong>经典的英雄叙事</strong>——「英雄之旅」的故事原型在此被诠释得纯粹而动人，即使跨越近半个世纪仍充满感染力。</li>
+        <li><strong>划时代的视听语言</strong>——开场的巨大星舰、跃迁的星空、那首一响起就让人心潮澎湃的主题曲，早已刻进几代人的记忆。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>为什么值得一看</h2>
+      <p>它不是一部「看过就算」的电影，而是一部塑造了现代流行文化根基的作品。如果你好奇科幻片为什么会走到今天、为什么那么多人对「原力」「愿原力与你同在」念念不忘，那么从这一部开始，你会找到所有答案的源头。它讲述的不仅是一场银河战争，更是一个普通人如何回应命运的召唤——这份朴素的勇气，放在任何时代都不过时。</p>
+      <div class="tagline">May the Force be with you. 愿原力与你同在。</div>
+    </div>
+
+    <footer>本推荐不涉及剧透 · 愿你在观影中找回最初的惊奇 🦐</footer>
+  </div>
+</body>
+</html>

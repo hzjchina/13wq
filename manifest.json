@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "星球大战",
+          "date": "2026-10-15",
+          "summary": "星球大战 A Long Time Ago in a Galaxy Far, Far Away… 星球大战 Star Wars（1977） · 导演：乔治·卢卡斯 · 科幻 / 冒险 / 太空歌剧 8.6 IMDb 8.5 豆瓣 7项 奥斯卡...",
+          "path": "classic-movies/classic-movie-2026-10-15.html"
+        },
+        {
           "title": "愤怒的公牛",
           "date": "2026-10-14",
           "summary": "愤怒的公牛 Classic Film 愤怒的公牛 Raging Bull · 1980 导演 马丁·斯科塞斯 主演 罗伯特·德尼罗 豆瓣 8.4 IMDb 8.1 剧情梗概 影片改编自中量级拳王杰克·拉莫塔的真实人生。上世纪四十年代的纽约，...",
@@ -1557,6 +1563,12 @@
       "icon": "🤖",
       "items": [
         {
+          "title": "AI 情报日报 · 2026-10-15",
+          "date": "2026-10-15",
+          "summary": "AI 情报日报 · 2026-10-15 AI INTELLIGENCE DAILY AI 情报日报 2026年10月15日 · 过去 24 小时 · 侧重 AI Coding 与具身智能 🔥 Gemini 4 Argon 全面开放 🤖 首...",
+          "path": "ai-info/ai-info-2026-10-15.html"
+        },
+        {
           "title": "AI 情报日报 · 2026-10-14",
           "date": "2026-10-14",
           "summary": "AI 情报日报 · 2026-10-14 AI INTELLIGENCE DAILY AI 情报日报 当日 AI 圈大事情 · 侧重 AI Coding 与具身智能 📅 2026-10-14（周三） ⏱ 数据窗口 · 过去 24 小时 🔗 ...",
@@ -1928,6 +1940,12 @@
       "name": "新闻早报",
       "icon": "📰",
       "items": [
+        {
+          "title": "新闻早报 · 2026-10-15",
+          "date": "2026-10-15",
+          "summary": "新闻早报 · 2026-10-15 📰 新闻早报 🗓️ 2026-10-15 星期四 🌙 农历 丙午年九月初六 🌿 霜降前 8 天（霜降 10-23） 🌤️ 深圳：晴转多云偶有小雨，26~30℃，东风 3 级，空气质量良 🌐 时政国际 中朝...",
+          "path": "news-briefs/news-brief-2026-10-15.html"
+        },
         {
           "title": "新闻早报 · 2026-10-14",
           "date": "2026-10-14",
