@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小拱桥的月亮兜 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：拱桥水边夜晚——萤火虫 + 水面光点 */
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 水面光点（桥下月影泛起的小光） */
+  .shimmer {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: #cfe8f5; box-shadow: 0 0 6px 2px rgba(207, 232, 245, 0.55);
+    opacity: 0; animation: ripple 8s ease-in-out infinite;
+  }
+  @keyframes ripple {
+    0% { opacity: 0; transform: scale(0.6); }
+    30% { opacity: 0.85; transform: scale(1); }
+    70% { opacity: 0.5; transform: scale(1.3); }
+    100% { opacity: 0; transform: scale(0.6); }
+  }
+
+  /* 月亮：按农历九月初六蛾眉月绘制（盈月方向，右侧亮弯钩，illumination 0.53） */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：农历九月初六 · 蛾眉月（盈月方向，右侧亮弯钩，illumination 0.53，暗圆左侧偏移 0.65r） -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <!-- 月晕柔光 -->
+      <circle cx="60" cy="60" r="48" fill="rgba(232,236,245,0.07)"/>
+      <circle cx="60" cy="60" r="42" fill="rgba(232,236,245,0.05)"/>
+      <!-- 亮盘 -->
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 暗圆（盈月方向在左侧，偏移 0.65r ≈ 24.7px，cx = 60 - 24.7 = 35.3） -->
+      <circle cx="35.3" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <!-- 亮盘细描边 -->
+      <circle cx="60" cy="60" r="38" fill="none" stroke="rgba(232,236,245,0.3)" stroke-width="1"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：萤火虫 + 桥下水光 -->
+  <span class="firefly" style="top:64%; left:18%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:72%; animation-delay:3s; width:4px; height:4px;"></span>
+  <span class="firefly" style="top:58%; left:46%; animation-delay:1.5s; width:4px; height:4px;"></span>
+  <span class="shimmer" style="top:82%; left:38%; animation-delay:0s;"></span>
+  <span class="shimmer" style="top:85%; left:55%; animation-delay:3s;"></span>
+  <span class="shimmer" style="top:80%; left:62%; animation-delay:5s; width:3px; height:3px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小拱桥的月亮兜</h1>
+    <p class="meta">🌉 弯弯兜住一弯月影 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-15.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报（300×440）：拱桥+蛾眉月+水中月影+夜归小动物剪影+底部标题 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGradP" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <linearGradient id="waterGradP" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a2a4a"/>
+          <stop offset="100%" stop-color="#0a1530"/>
+        </linearGradient>
+        <clipPath id="moonClipPoster"><circle cx="238" cy="62" r="22"/></clipPath>
+        <clipPath id="moonClipWater"><ellipse cx="150" cy="322" rx="20" ry="6"/></clipPath>
+        <linearGradient id="bridgeGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#8a7a6a"/>
+          <stop offset="100%" stop-color="#5a4a3a"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 天空 -->
+      <rect width="300" height="290" fill="url(#skyGradP)"/>
+      <!-- 水面 -->
+      <rect y="288" width="300" height="152" fill="url(#waterGradP)"/>
+
+      <!-- 星星 -->
+      <circle cx="42" cy="48" r="1.3" fill="#fff" opacity="0.9"/>
+      <circle cx="92" cy="28" r="1" fill="#fff" opacity="0.8"/>
+      <circle cx="178" cy="42" r="1.1" fill="#fff" opacity="0.85"/>
+      <circle cx="278" cy="22" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="62" cy="88" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="200" cy="92" r="0.9" fill="#fff" opacity="0.55"/>
+
+      <!-- 蛾眉月（盈月方向，右侧亮弯钩，暗圆左侧偏移 0.65r ≈ 14.3px，cx = 238 - 14.3 = 223.7） -->
+      <circle cx="238" cy="62" r="26" fill="rgba(232,236,245,0.08)"/>
+      <circle cx="238" cy="62" r="22" fill="#e8ecf5"/>
+      <circle cx="223.7" cy="62" r="22" fill="#0e0f26" clip-path="url(#moonClipPoster)"/>
+      <circle cx="238" cy="62" r="22" fill="none" stroke="rgba(232,236,245,0.3)" stroke-width="0.8"/>
+
+      <!-- 河岸草地 -->
+      <path d="M 0 290 Q 60 284 120 290 Q 180 284 240 290 Q 280 287 300 290 L 300 298 L 0 298 Z" fill="#1a3520" opacity="0.85"/>
+      <!-- 左岸小草 -->
+      <line x1="20" y1="290" x2="20" y2="272" stroke="#2a4a2a" stroke-width="1.4"/>
+      <line x1="17" y1="285" x2="14" y2="270" stroke="#3a5a2a" stroke-width="1"/>
+      <line x1="23" y1="285" x2="26" y2="270" stroke="#3a5a2a" stroke-width="1"/>
+      <line x1="32" y1="290" x2="32" y2="278" stroke="#2a4a2a" stroke-width="1.2"/>
+      <!-- 右岸小草 -->
+      <line x1="280" y1="290" x2="280" y2="270" stroke="#2a4a2a" stroke-width="1.4"/>
+      <line x1="277" y1="285" x2="274" y2="270" stroke="#3a5a2a" stroke-width="1"/>
+      <line x1="283" y1="285" x2="286" y2="270" stroke="#3a5a2a" stroke-width="1"/>
+      <line x1="290" y1="290" x2="290" y2="276" stroke="#2a4a2a" stroke-width="1.2"/>
+
+      <!-- 拱桥桥身（弯弯，桥洞兜月影） -->
+      <!-- 桥洞内暗腔 -->
+      <path d="M 86 290 Q 150 244 214 290 L 214 296 Q 150 250 86 296 Z" fill="#070a1a"/>
+      <!-- 桥身外缘（弯弯的拱） -->
+      <path d="M 70 292 Q 150 220 230 292 L 230 300 Q 150 228 70 300 Z" fill="url(#bridgeGrad)"/>
+      <!-- 桥面顶（弯弯桥面，小动物走的路） -->
+      <path d="M 68 290 Q 150 218 232 290 L 232 294 Q 150 222 68 294 Z" fill="#9a8a7a"/>
+      <!-- 桥栏（弯弯的弧线） -->
+      <path d="M 70 286 Q 150 214 230 286" fill="none" stroke="#b8a890" stroke-width="1.8"/>
+      <!-- 桥栏小柱 -->
+      <line x1="90" y1="276" x2="90" y2="284" stroke="#b8a890" stroke-width="1"/>
+      <line x1="120" y1="262" x2="120" y2="270" stroke="#b8a890" stroke-width="1"/>
+      <line x1="150" y1="256" x2="150" y2="264" stroke="#b8a890" stroke-width="1"/>
+      <line x1="180" y1="262" x2="180" y2="270" stroke="#b8a890" stroke-width="1"/>
+      <line x1="210" y1="276" x2="210" y2="284" stroke="#b8a890" stroke-width="1"/>
+
+      <!-- 水中月影（蛾眉月倒影，兜在桥洞下方） -->
+      <ellipse cx="150" cy="322" rx="24" ry="7" fill="rgba(232,236,245,0.12)"/>
+      <ellipse cx="150" cy="322" rx="20" ry="5.5" fill="#e8ecf5" opacity="0.55"/>
+      <ellipse cx="140.4" cy="322" rx="20" ry="5.5" fill="#0a1530" clip-path="url(#moonClipWater)" opacity="0.85"/>
+
+      <!-- 水波纹（月影荡漾） -->
+      <path d="M 100 318 Q 120 315 140 318 Q 160 315 180 318 Q 200 315 220 318" fill="none" stroke="rgba(232,236,245,0.22)" stroke-width="0.8"/>
+      <path d="M 108 328 Q 128 325 148 328 Q 168 325 188 328" fill="none" stroke="rgba(232,236,245,0.16)" stroke-width="0.7"/>
+      <path d="M 116 338 Q 136 335 156 338 Q 176 335 196 338" fill="none" stroke="rgba(232,236,245,0.12)" stroke-width="0.6"/>
+
+      <!-- 桥上小动物剪影 -->
+      <!-- 小田鼠（桥中央顶部） -->
+      <ellipse cx="150" cy="258" rx="4" ry="3" fill="#3a2a2a"/>
+      <circle cx="153.5" cy="256" r="1.6" fill="#3a2a2a"/>
+      <line x1="151.9" y1="254.5" x2="150.5" y2="253" stroke="#3a2a2a" stroke-width="0.6"/>
+      <line x1="155.1" y1="254.5" x2="156.5" y2="253" stroke="#3a2a2a" stroke-width="0.6"/>
+      <line x1="148" y1="261" x2="146" y2="263" stroke="#3a2a2a" stroke-width="0.5"/>
+      <line x1="152" y1="261" x2="154" y2="263" stroke="#3a2a2a" stroke-width="0.5"/>
+
+      <!-- 小刺猬（桥左斜面） -->
+      <ellipse cx="118" cy="272" rx="3.5" ry="2.6" fill="#4a3a2a"/>
+      <line x1="116" y1="270" x2="115" y2="267" stroke="#6a5a3a" stroke-width="0.6"/>
+      <line x1="118" y1="269.5" x2="118" y2="266" stroke="#6a5a3a" stroke-width="0.6"/>
+      <line x1="120" y1="270" x2="121" y2="267" stroke="#6a5a3a" stroke-width="0.6"/>
+      <line x1="119" y1="272" x2="119" y2="274" stroke="#3a2a2a" stroke-width="0.4"/>
+
+      <!-- 小蚂蚁队伍（桥右斜面） -->
+      <circle cx="178" cy="276" r="0.9" fill="#1a1a1a"/>
+      <circle cx="181" cy="277.5" r="0.9" fill="#1a1a1a"/>
+      <circle cx="184" cy="279" r="0.9" fill="#1a1a1a"/>
+      <circle cx="187" cy="280.5" r="0.9" fill="#1a1a1a"/>
+
+      <!-- 萤火虫 -->
+      <circle cx="40" cy="180" r="1.6" fill="#d9f7a8" opacity="0.85"/>
+      <circle cx="40" cy="180" r="3" fill="rgba(217,247,168,0.25)"/>
+      <circle cx="262" cy="160" r="1.4" fill="#d9f7a8" opacity="0.8"/>
+      <circle cx="262" cy="160" r="2.6" fill="rgba(217,247,168,0.22)"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="396" text-anchor="middle" fill="#cfd8e8" font-size="20" font-weight="700" letter-spacing="2.5" font-family="-apple-system,'PingFang SC',sans-serif">小拱桥的月亮兜</text>
+      <text x="150" y="418" text-anchor="middle" fill="#7ec8e3" font-size="10.5" letter-spacing="3.5" font-family="-apple-system,'PingFang SC',sans-serif">蛾眉月 · 弯弯兜月影</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月初六 · 蛾眉月🌒</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">自我价值 · 弯弯也有用</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>村口小河上有一座小拱桥，小名叫拱拱。他的桥身弯弯的，像半个圆月亮倒扣在水面上。</p>
+    <p>拱拱心里一直有点不痛快。上游那座大石桥笔直笔直的，能并排走两辆牛车，多气派呀。可自己呢，弯弯的，瘦瘦的，小刺猬跑上来都嫌他硌脚。</p>
+    <p>"我要是直直的该多好。"拱拱常常这样想。</p>
+    <p>蛾眉月的夜里，一只小田鼠急匆匆跑来，要赶在天黑透之前过河回家。它一头钻进拱拱的桥洞，"哎呀"叫了一声——桥下黑乎乎的，看不见路呀。</p>
+    <p>就在这时，拱拱低头一看，自己也愣住了：河面映着一弯亮亮的蛾眉月，正好被自己弯弯的桥洞兜在当中，像挂了一盏小小的桥灯。柔柔的月光洒在石板上，小田鼠借着这点光，看清了脚下的路，安安心心过了桥。</p>
+    <p>"谢谢你呀，弯弯的小桥。"小田鼠回头喊。</p>
+    <p>拱拱心里咯噔一下，第一次有人谢谢他的"弯弯"。</p>
+    <p>不一会儿，一只迷路的小刺猬滚着红果子来，又一队搬家的小蚂蚁扛着小包袱排成长长一条线。它们都钻进桥洞，借着桥下那弯被兜住的月影照路，一个挨一个安全过了河。</p>
+    <p>拱拱静静站着，忽然听见头顶有个轻轻的声音。他抬头，看见天上那弯蛾眉月正对他笑呢。</p>
+    <p>"我呀，也是弯弯的，"月亮说，"可我弯弯的，刚好能给赶夜路的小家伙当一盏小灯。你也弯弯的，刚好兜住了我在水里的小影子，把这点光照亮了石板路。咱俩弯弯，都不是白弯的。"</p>
+    <p>拱拱这才明白过来。原来弯弯的桥身不是没用，是老天爷特意把他捏成弯弯的，好让他能兜住一弯月影，给夜晚过河的小动物当一盏亮亮的小桥灯。</p>
+    <p>从那以后，每当蛾眉月升起，拱拱就静静站好，把月影兜进桥洞里。过河的小动物们远远看见桥下那弯亮亮的小影子，都安心地跑上桥来。</p>
+    <p>"弯弯的小桥真好。"它们说。</p>
+    <p>拱拱笑了，弯弯地，像天上的月亮。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>弯弯的也有弯弯的好——正好兜住一弯月影，给夜归的小家伙当一盏温柔的小桥灯。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。拱拱说，你今天也是个好孩子，弯弯的温柔也能兜住一盏小光，照着你自己做个甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月15日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
