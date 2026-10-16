@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小栗子的半月壳 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+    --leaf: #c4953a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 秋日落叶飘落粒子 */
+  .leaf {
+    position: absolute; font-size: 20px; color: var(--leaf);
+    opacity: 0; animation: floatLeaf 9s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(196, 149, 58, 0.4);
+  }
+  @keyframes floatLeaf {
+    0%   { transform: translate(0, 0) rotate(-10deg); opacity: 0; }
+    12%  { opacity: 0.8; }
+    55%  { transform: translate(35px, 110px) rotate(20deg); opacity: 0.5; }
+    100% { transform: translate(58px, 180px) rotate(-15deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9c47a; box-shadow: 0 0 8px 2px rgba(217, 196, 122, 0.5);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+
+  <!-- 月相月亮：农历九月初七 · 上弦月🌓（illumination 0.5，右半边亮左半暗）
+       上弦月画法：亮盘 + 暗圆在左侧偏移 1.0r + clipPath 裁剪 -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+        <radialGradient id="moonGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="rgba(232,236,245,0.25)"/>
+          <stop offset="100%" stop-color="rgba(232,236,245,0)"/>
+        </radialGradient>
+      </defs>
+      <!-- 月晕光圈 -->
+      <circle cx="60" cy="60" r="55" fill="url(#moonGlow)"/>
+      <!-- 亮盘 -->
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 暗圆在左侧偏移 1.0r=38px，cx=60-38=22，右半亮左半暗 -->
+      <circle cx="22" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+
+  <!-- 秋日落叶飘落粒子 -->
+  <span class="leaf" style="top:40%; left:10%; animation-delay:0s;">🍂</span>
+  <span class="leaf" style="top:48%; left:78%; animation-delay:2.5s;">🍂</span>
+  <span class="leaf" style="top:58%; left:25%; animation-delay:5s;">🍂</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小栗子的半月壳</h1>
+    <p class="meta">🌰 半边亮也是光，半步勇敢也是勇敢 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-16.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：秋夜栗子树 + 上弦月 + 半开的刺壳栗子 + 底部标题 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyP" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#2a3055"/>
+        </linearGradient>
+        <clipPath id="moonClipP"><circle cx="235" cy="55" r="22"/></clipPath>
+        <radialGradient id="moonGlowP" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="rgba(232,236,245,0.22)"/>
+          <stop offset="100%" stop-color="rgba(232,236,245,0)"/>
+        </radialGradient>
+        <radialGradient id="chestnutHi" cx="0.32" cy="0.28" r="0.7">
+          <stop offset="0%" stop-color="#c47a4a"/>
+          <stop offset="55%" stop-color="#9a4e26"/>
+          <stop offset="100%" stop-color="#703016"/>
+        </radialGradient>
+      </defs>
+
+      <!-- 背景 -->
+      <rect width="300" height="440" fill="url(#skyP)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="35" cy="30" r="1.5" fill="#fff" opacity="0.8"/>
+      <circle cx="75" cy="55" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="125" cy="35" r="1.2" fill="#fff" opacity="0.7"/>
+      <circle cx="170" cy="65" r="1" fill="#fff" opacity="0.5"/>
+      <circle cx="275" cy="25" r="1.3" fill="#fff" opacity="0.7"/>
+      <circle cx="50" cy="80" r="0.8" fill="#fff" opacity="0.4"/>
+      <circle cx="195" cy="40" r="0.9" fill="#fff" opacity="0.5"/>
+
+      <!-- 上弦月：右半亮左半暗，与背景月亮形态一致 -->
+      <circle cx="235" cy="55" r="40" fill="url(#moonGlowP)"/>
+      <circle cx="235" cy="55" r="22" fill="#e8ecf5"/>
+      <circle cx="213" cy="55" r="22" fill="#0e0f26" clip-path="url(#moonClipP)"/>
+
+      <!-- 树枝 -->
+      <path d="M 5 170 Q 80 158 150 163 Q 220 168 295 155" stroke="#4a3820" stroke-width="7" fill="none" stroke-linecap="round"/>
+      <!-- 小分枝 -->
+      <path d="M 145 163 Q 148 185 145 205" stroke="#4a3820" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+      <!-- 栗树叶（秋黄） -->
+      <g opacity="0.85">
+        <ellipse cx="60" cy="153" rx="22" ry="8" fill="#c4953a" transform="rotate(-25 60 153)"/>
+        <ellipse cx="56" cy="148" rx="16" ry="5" fill="#d4a442" transform="rotate(-12 56 148)"/>
+        <ellipse cx="100" cy="156" rx="18" ry="6" fill="#b8862e" transform="rotate(15 100 156)"/>
+        <ellipse cx="200" cy="150" rx="22" ry="8" fill="#c4953a" transform="rotate(-8 200 150)"/>
+        <ellipse cx="255" cy="158" rx="16" ry="6" fill="#d4a442" transform="rotate(28 255 158)"/>
+        <ellipse cx="40" cy="160" rx="14" ry="5" fill="#b8862e" transform="rotate(-30 40 160)"/>
+      </g>
+
+      <!-- 半开的栗子刺壳（主体，画面中心） -->
+      <g transform="translate(150 275)">
+        <!-- 左半壳（微微张开，向左倾斜） -->
+        <path d="M -5 -38 Q -48 -32 -50 5 Q -46 38 -8 40 L -5 2 Z" fill="#6b7d3a" opacity="0.92"/>
+        <!-- 左半壳刺 -->
+        <line x1="-44" y1="-16" x2="-52" y2="-22" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="-48" y1="2" x2="-57" y2="2" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="-45" y1="20" x2="-54" y2="26" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="-38" y1="-30" x2="-44" y2="-36" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="-36" y1="32" x2="-41" y2="40" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- 右半壳（打开更多，向右倾斜） -->
+        <path d="M 5 -38 Q 50 -30 52 8 Q 47 38 9 40 L 5 2 Z" fill="#7a8e44" opacity="0.88" transform="rotate(10 0 0)"/>
+        <!-- 右半壳刺 -->
+        <line x1="44" y1="-14" x2="52" y2="-19" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="50" y1="6" x2="59" y2="6" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="46" y1="24" x2="55" y2="30" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="38" y1="-30" x2="44" y2="-36" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="40" y1="32" x2="45" y2="40" stroke="#4a5a28" stroke-width="2.5" stroke-linecap="round"/>
+
+        <!-- 栗子（只露出右半边，左半藏壳里——与上弦月右半亮呼应） -->
+        <ellipse cx="9" cy="2" rx="21" ry="25" fill="url(#chestnutHi)"/>
+        <!-- 栗子高光（右上方，承接右半亮的月光） -->
+        <ellipse cx="15" cy="-6" rx="7" ry="11" fill="#d4855a" opacity="0.45"/>
+        <!-- 栗子底部浅色斑 -->
+        <ellipse cx="9" cy="23" rx="13" ry="4" fill="#d4b896" opacity="0.55"/>
+      </g>
+
+      <!-- 飘落的秋叶 -->
+      <g opacity="0.6">
+        <ellipse cx="40" cy="315" rx="10" ry="4" fill="#c4953a" transform="rotate(35 40 315)"/>
+        <ellipse cx="260" cy="328" rx="9" ry="3.5" fill="#d4a442" transform="rotate(-25 260 328)"/>
+        <ellipse cx="190" cy="348" rx="8" ry="3" fill="#b8862e" transform="rotate(50 190 348)"/>
+        <ellipse cx="70" cy="362" rx="7" ry="3" fill="#c4953a" transform="rotate(-40 70 362)"/>
+        <ellipse cx="230" cy="372" rx="6" ry="2.5" fill="#d4a442" transform="rotate(20 230 372)"/>
+        <ellipse cx="115" cy="355" rx="7" ry="3" fill="#b8862e" transform="rotate(-15 115 355)"/>
+      </g>
+
+      <!-- 地面落叶堆 -->
+      <ellipse cx="150" cy="408" rx="135" ry="22" fill="#2d2210" opacity="0.45"/>
+      <ellipse cx="80" cy="402" rx="14" ry="5" fill="#6b5232" opacity="0.6"/>
+      <ellipse cx="180" cy="404" rx="12" ry="4" fill="#7a5e3a" opacity="0.5"/>
+      <ellipse cx="240" cy="402" rx="10" ry="4" fill="#6b5232" opacity="0.5"/>
+      <ellipse cx="120" cy="406" rx="11" ry="4" fill="#7a5e3a" opacity="0.45"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="430" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#cfd8e8" letter-spacing="2">小栗子的半月壳</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月初七 · 上弦月🌓</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">半步勇敢 · 不必一次做到完美</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的栗子树上，长满了圆滚滚、棕红色的小栗子。每一颗栗子都裹在一件扎手的外壳里，那壳上面长满了细细的刺儿，像穿着一件刺猬小铠甲。</p>
+    <p>有一颗小栗子叫半半，他特别害怕外面的世界。</p>
+    <p>"万一外面很冷呢？万一风很大呢？万一我滚出去就找不着家了呢？"半半总是这么想，于是他紧紧抱着自己的小刺壳，一点儿缝儿也不肯露。</p>
+    <p>初七的夜里，月亮升上来了。半半从树缝里偷偷一看——咦，今天的月亮怎么也只亮了一半？右半边亮堂堂、白亮亮的，左半边却是暗暗的、藏进了夜空里。</p>
+    <p>"月亮姐姐，你是不是也害怕呀？你怎么只亮了一半呢？"半半小声问。</p>
+    <p>月亮轻轻笑了："我呀，今天是上弦月。我的右半边先亮起来，左半边还要慢慢攒光呢。你看，我只亮了一半，可是整片夜空都被我照亮了呀——小田鼠找到了回家的路，小刺猬看见了红果子，小蚂蚁们手拉手搬了新家，都是借了我这半边光呢。"</p>
+    <p>半半眨眨眼："只亮一半……也能帮上忙吗？"</p>
+    <p>"当然啦，"月亮说，"半边光也是光呀。就像你——只敢探出半个身子，就已经是很勇敢的半步了。不用一次做到完美，半步勇敢也是一种勇敢。"</p>
+    <p>半半的心里暖暖的。他鼓起勇气，让紧紧裹着的刺壳"咔"地裂开了一条小缝，露出里面圆滚滚、棕红发亮的小半张脸。</p>
+    <p>就在这时，一只晚归的小松鼠抱着空篮子路过栗子树。半半从那条半开的缝里"咕噜"一下滚了出来，正正落在松鼠的篮子里，发出"咚"的一声。</p>
+    <p>小松鼠低头一看，惊喜极了："哎呀！一颗最甜最饱满的栗子，自己跑到我篮子里来啦！这下冬天有香香软软的烤栗子吃了。"</p>
+    <p>半半躺在铺了落叶的篮子里，软软的、暖暖的，一点儿也不冷。他抬头看见那半亮的月亮，心里想：原来只迈出半步，就能落到这么好的地方。</p>
+    <p>月亮轻轻说："你看，半边亮照亮了夜空，半步勇敢，也能落到一个暖呼呼的家。"</p>
+    <p>半半在月光里安心地睡着了，梦里他长成了一棵高高的栗子树，让每一颗小栗子都勇敢地、一半一半地探出头来。🌙</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>半边亮照亮了夜空，半步勇敢也能落到一个暖暖的家。不用一次做到完美，慢慢来，也会到达。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。半半说，你今天哪怕只做到一半，也是个好孩子，该做一个甜甜的梦了。🌰</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月16日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
