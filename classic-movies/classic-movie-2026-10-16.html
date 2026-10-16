@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>少年派的奇幻漂流</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --card:#161b22;
+    --card2:#1c2129;
+    --text:#e6edf3;
+    --muted:#8b949e;
+    --accent:#58a6ff;
+    --accent2:#f78166;
+    --line:#30363d;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.8;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:32px 20px 60px;}
+  header{
+    text-align:center;
+    padding:36px 20px 28px;
+    border-bottom:1px solid var(--line);
+    margin-bottom:28px;
+  }
+  header h1{
+    font-size:34px;
+    font-weight:800;
+    letter-spacing:1px;
+    color:#fff;
+    margin-bottom:10px;
+  }
+  header .en{
+    color:var(--muted);
+    font-size:15px;
+    letter-spacing:.5px;
+  }
+  .meta{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    justify-content:center;
+    margin-top:18px;
+  }
+  .meta span{
+    background:var(--card2);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:6px 16px;
+    font-size:14px;
+    color:var(--muted);
+  }
+  .meta b{color:var(--accent);font-weight:600;}
+  .score{
+    display:flex;
+    gap:14px;
+    justify-content:center;
+    margin:22px 0 4px;
+  }
+  .score .s{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px 20px;
+    text-align:center;
+    min-width:110px;
+  }
+  .score .s .num{font-size:26px;font-weight:800;color:var(--accent2);}
+  .score .s .lbl{font-size:12px;color:var(--muted);margin-top:4px;}
+  section{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:26px 26px;
+    margin-bottom:20px;
+  }
+  section h2{
+    font-size:20px;
+    font-weight:700;
+    color:var(--accent);
+    margin-bottom:14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  section h2::before{
+    content:"";
+    width:4px;height:20px;
+    background:var(--accent2);
+    border-radius:2px;
+    display:inline-block;
+  }
+  section p{margin-bottom:12px;color:var(--text);}
+  section p:last-child{margin-bottom:0;}
+  ul.hl{list-style:none;}
+  ul.hl li{
+    padding:10px 0 10px 28px;
+    position:relative;
+    border-bottom:1px dashed var(--line);
+  }
+  ul.hl li:last-child{border-bottom:none;}
+  ul.hl li::before{
+    content:"✦";
+    position:absolute;
+    left:2px;
+    color:var(--accent2);
+    font-size:14px;
+    top:12px;
+  }
+  ul.hl li b{color:#fff;}
+  .quote{
+    border-left:3px solid var(--accent);
+    background:var(--card2);
+    padding:16px 20px;
+    border-radius:0 10px 10px 0;
+    font-style:italic;
+    color:var(--muted);
+    margin:18px 0;
+  }
+  .tip{
+    background:linear-gradient(135deg,#1f2a3d,#161b22);
+    border:1px solid #2d3a50;
+  }
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:13px;
+    margin-top:30px;
+  }
+  @media (max-width:560px){
+    body{font-size:16px;}
+    header h1{font-size:27px;}
+    section{padding:20px 18px;}
+    .score .s{min-width:90px;padding:12px 14px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>少年派的奇幻漂流</h1>
+    <div class="en">Life of Pi</div>
+    <div class="meta">
+      <span>导演 <b>李安</b></span>
+      <span>年份 <b>2012</span>
+      <span>国家 <b>美国 / 中国台湾</span>
+    </div>
+    <div class="score">
+      <div class="s"><div class="num">9.1</div><div class="lbl">豆瓣评分</div></div>
+      <div class="s"><div class="num">7.9</div><div class="lbl">IMDb</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>少年派（Pi）成长于印度一个动物园主家庭，父亲决定举家迁往加拿大，并带着园中动物乘坐货轮横渡太平洋。一场突如其来的风暴让货轮沉没，派的家人与船员无一生还，唯有他侥幸登上一艘救生艇——船上还困着一头名叫"理查德·帕克"的孟加拉虎、一只斑马、一只鬣狗和一只猩猩。</p>
+    <p>在茫茫无际的汪洋中，生存的本能逐渐显现，弱肉强食之后，救生艇上最终只剩下派与那只猛虎。一个十六岁的少年，与一头 250 公斤的孟加拉虎，在太平洋上展开了一场长达 227 天的漂流。从最初的恐惧与敌对，到彼此试探、划定"领地"，再到相依为命、共同求生，一人一虎在绝望与希望之间反复拉扯，书写了一段不可思议的海上历险。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul class="hl">
+      <li><b>震撼的视觉奇观：</b>李安将海洋拍成了流动的诗——荧光般的夜晚、跃出海面的座头鲸、倒映星空的镜面海、奇幻的"食人岛"。全片大部分镜头是电脑特效，却达到了"以假乱真"的艺术境界。</li>
+      <li><b>信仰与哲思的碰撞：</b>派同时信仰印度教、基督教与伊斯兰教，电影借他的视角探讨"神是否存在""信仰如何支撑人渡过绝境"，却从不给出说教式的答案。</li>
+      <li><b>一人一虎的绝妙张力：</b>苏拉杰·夏尔马的细腻表演，与 CG 老虎"理查德·帕克"形成了令人动容的羁绊，是全片的情感核心。</li>
+      <li><b>李安的巅峰技艺：</b>本片为李安赢得第 85 届奥斯卡最佳导演奖，同时斩获最佳摄影、最佳视觉效果、最佳配乐，堪称技术与叙事的双重胜利。</li>
+      <li><b>音乐与摄影的完美结合：</b>麦切尔·丹纳的配乐空灵悠远，克劳迪奥·米兰达的摄影美得令人屏息，两者共同营造出梦幻而孤绝的氛围。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>这不仅是一部关于海上求生的冒险片，更是一部关于"叙事"与"真相"的寓言。当风暴、猛虎与漂流的故事落幕，电影在结尾抛出一个令人久久无法平静的提问——它邀请你重新审视之前所看到的一切，并作出自己的选择。</p>
+    <p>你选择相信哪一个故事，往往就折射出你如何看待这个世界：是选择相信奇迹与神性，还是接受残酷而赤裸的现实。这种开放性的余味，正是本片历经多年仍被反复讨论、回味无穷的原因。</p>
+    <div class="quote">"人生就是不断放下，但最遗憾的是，我们来不及好好告别。"</div>
+    <p>无论你是被它美到极致的画面吸引，还是想体验一场心灵层面的洗礼，《少年派的奇幻漂流》都值得你在一个安静的夜晚，独自沉入那片深蓝。</p>
+  </section>
+
+  <section class="tip">
+    <h2>观影小贴士</h2>
+    <p>建议选择大屏、高清片源观看，本片的视觉效果在手机小屏上会大打折扣；结尾处请务必静心看完最后十分钟的对话，那是全片真正的高潮所在。</p>
+  </section>
+
+  <footer>🦐 小虾米 · 经典电影推荐 · 2026-10-16</footer>
+</div>
+</body>
+</html>
