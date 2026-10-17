@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>回到未来</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #f0883e;
+    --accent2: #58a6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 20px 60px; }
+  .hero {
+    background: linear-gradient(135deg, #1b2430 0%, #0d1117 100%);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 36px 28px;
+    margin-bottom: 28px;
+  }
+  .hero .eyebrow {
+    color: var(--accent);
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+  .hero .subtitle {
+    color: var(--muted);
+    font-size: 16px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .meta span {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .score-row {
+    display: flex;
+    gap: 18px;
+    margin-top: 20px;
+  }
+  .score {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+    text-align: center;
+    flex: 1;
+  }
+  .score .num { font-size: 28px; font-weight: 700; color: var(--accent2); }
+  .score .label { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  section h2 {
+    font-size: 22px;
+    margin-bottom: 14px;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  section h2::before {
+    content: "";
+    width: 6px;
+    height: 22px;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  ul { padding-left: 22px; margin-bottom: 12px; }
+  li { margin-bottom: 8px; }
+  .highlight {
+    border-left: 3px solid var(--accent2);
+    padding-left: 16px;
+    color: var(--text);
+    font-style: italic;
+  }
+  .tag { color: var(--accent2); font-weight: 600; }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 28px; }
+    section { padding: 20px; }
+    .score-row { flex-direction: column; gap: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow">Classic Film · 经典电影</div>
+    <h1>回到未来</h1>
+    <div class="subtitle">Back to the Future (1985)</div>
+    <div class="meta">
+      <span>导演：罗伯特·泽米吉斯</span>
+      <span>编剧：罗伯特·泽米吉斯 / 鲍勃·盖尔</span>
+      <span>主演：迈克尔·J·福克斯</span>
+      <span>类型：科幻 / 喜剧 / 冒险</span>
+    </div>
+    <div class="score-row">
+      <div class="score"><div class="num">8.8</div><div class="label">豆瓣评分</div></div>
+      <div class="score"><div class="num">8.5</div><div class="label">IMDb 评分</div></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>高中生马蒂·麦克弗莱是个热爱摇滚的普通男孩，生活里唯一的亮点是古怪的科学家朋友——布朗博士。博士发明了一台以德罗宁跑车为载体的时间机器，却意外卷入一场变故，马蒂被迫驾驶这辆跑车，从 1985 年一下子被甩回了 30 年前的 1955 年。</p>
+    <p>问题在于，马蒂在 1955 年竟然撞见了自己尚未相识的父母，还阴差阳错地破坏了两人最初的相遇。如果父母不能相爱，马蒂自己也将不复存在。为了修正这条即将崩坏的时间线，他必须想尽办法，让年少的父亲鼓起勇气、赢得母亲的芳心——同时还得找到 30 年前的布朗博士，想办法回家。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul>
+      <li><span class="tag">教科书级的时间旅行叙事：</span>把"穿越"玩得妙趣横生又不失严谨，环环相扣的因果逻辑，至今仍被无数科幻片借鉴。</li>
+      <li><span class="tag">斯皮尔伯格监制的节奏魔法：</span>整部电影几乎没有一分钟冷场，笑点、紧张与温情无缝切换，是"类型片剧作"的完美范本。</li>
+      <li><span class="tag">经典的德罗宁跑车符号：</span>那辆改装的时间机器，早已成为流行文化中"回到未来"的代名词，其魅力历久弥新。</li>
+      <li><span class="tag">天才配乐与金曲：</span>Alan Silvestri 的主题旋律激昂澎湃，主角在舞会上弹唱的那段即兴摇滚，更是影史名场面。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p class="highlight">它不只是一部娱乐大片，更是一封写给"想象力"与"可能性"的情书。</p>
+    <p>在特效早已日新月异的今天，《回到未来》依然稳坐影史经典，靠的不是炫技，而是对"时间"这一命题的真诚与巧思。它用最轻松的方式，讲述了一个关于命运、勇气与亲情的深刻故事——你会跟着主角一起笑、一起紧张，也会在最后收获一种久违的、纯粹看电影的快乐。</p>
+    <p>无论你是科幻迷、喜剧爱好者，还是只想找个周末好好放松，这部电影都配得上"公认经典"这四个字。</p>
+  </section>
+
+</div>
+</body>
+</html>
