@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小葫芦瓢的半瓢月 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs><clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath></defs>
+      <circle cx="60" cy="60" r="44" fill="none" stroke="rgba(232,236,245,0.12)" stroke-width="3"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="22" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">✦</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">✦</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s;">✧</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小葫芦瓢的半瓢月</h1>
+    <p class="meta">🥄 半个也能舀起整夜的月光 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-17.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="60%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <clipPath id="posterMoonClip"><circle cx="235" cy="70" r="22"/></clipPath>
+        <radialGradient id="moonGlow" cx="0.5" cy="0.5" r="0.5">
+          <stop offset="0%" stop-color="rgba(232,236,245,0.3)"/>
+          <stop offset="100%" stop-color="rgba(232,236,245,0)"/>
+        </radialGradient>
+        <radialGradient id="waterShine" cx="0.5" cy="0.4" r="0.6">
+          <stop offset="0%" stop-color="rgba(232,236,245,0.7)"/>
+          <stop offset="100%" stop-color="rgba(126,200,227,0.2)"/>
+        </radialGradient>
+      </defs>
+
+      <rect width="300" height="440" fill="url(#skyGrad)"/>
+
+      <circle cx="40" cy="30" r="1.2" fill="#fff" opacity="0.9"/>
+      <circle cx="90" cy="55" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="150" cy="25" r="1.3" fill="#fff" opacity="0.85"/>
+      <circle cx="200" cy="45" r="0.9" fill="#fff" opacity="0.6"/>
+      <circle cx="270" cy="100" r="1.1" fill="#fff" opacity="0.8"/>
+      <circle cx="25" cy="90" r="0.8" fill="#fff" opacity="0.5"/>
+      <circle cx="110" cy="40" r="0.7" fill="#fff" opacity="0.5"/>
+
+      <circle cx="235" cy="70" r="38" fill="url(#moonGlow)"/>
+      <circle cx="235" cy="70" r="22" fill="#e8ecf5"/>
+      <circle cx="213" cy="70" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+
+      <path d="M 0 150 Q 80 145 160 156 Q 220 162 300 150" fill="none" stroke="#3d2e1f" stroke-width="4" stroke-linecap="round"/>
+      <path d="M 140 154 Q 150 170 145 180" fill="none" stroke="#3d2e1f" stroke-width="2.5" stroke-linecap="round"/>
+
+      <line x1="160" y1="156" x2="160" y2="200" stroke="#8b7355" stroke-width="1.2"/>
+
+      <ellipse cx="160" cy="218" rx="34" ry="26" fill="#d4a849" stroke="#8b6914" stroke-width="1.5"/>
+      <ellipse cx="160" cy="204" rx="34" ry="6.5" fill="#3d2e1f" opacity="0.55"/>
+      <ellipse cx="160" cy="216" rx="29" ry="9" fill="url(#waterShine)"/>
+      <circle cx="172" cy="216" r="4.5" fill="#e8ecf5" opacity="0.85"/>
+      <circle cx="168" cy="214" r="1.2" fill="#fff" opacity="0.9"/>
+
+      <ellipse cx="150" cy="322" rx="58" ry="15" fill="#2a2a3d"/>
+      <ellipse cx="150" cy="318" rx="58" ry="15" fill="#1a1a2e" stroke="#5a5a6e" stroke-width="1.5"/>
+      <ellipse cx="150" cy="318" rx="50" ry="12" fill="#0a0a1e"/>
+      <ellipse cx="150" cy="318" rx="46" ry="10" fill="#1c2a4a" opacity="0.8"/>
+      <circle cx="158" cy="318" r="6.5" fill="#e8ecf5" opacity="0.6"/>
+      <circle cx="162" cy="316" r="1" fill="#fff" opacity="0.7"/>
+
+      <rect x="92" y="306" width="6" height="20" fill="#5a5a6e" opacity="0.6"/>
+      <rect x="202" y="306" width="6" height="20" fill="#5a5a6e" opacity="0.6"/>
+
+      <ellipse cx="78" cy="350" rx="13" ry="10" fill="#a0845c"/>
+      <circle cx="70" cy="344" r="6.5" fill="#a0845c"/>
+      <ellipse cx="68" cy="335" rx="2.2" ry="3.2" fill="#8b6f4a"/>
+      <ellipse cx="73" cy="334" rx="2.2" ry="3.2" fill="#8b6f4a"/>
+      <circle cx="68" cy="343" r="1.4" fill="#1a1a1a"/>
+      <circle cx="66" cy="341" r="0.8" fill="#1a1a1a"/>
+      <circle cx="67.4" cy="343" r="0.4" fill="#fff"/>
+      <path d="M 90 351 Q 96 349 98 355" fill="none" stroke="#a0845c" stroke-width="1.8" stroke-linecap="round"/>
+
+      <ellipse cx="228" cy="352" rx="15" ry="11" fill="#6b5641"/>
+      <path d="M 216 350 L 211 340 M 221 348 L 216 338 M 226 347 L 221 337 M 231 347 L 226 337 M 236 348 L 231 338"
+            stroke="#4a3a2a" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+      <circle cx="240" cy="353" r="5.5" fill="#6b5641"/>
+      <circle cx="241" cy="352" r="1.1" fill="#1a1a1a"/>
+      <circle cx="239" cy="350" r="0.7" fill="#1a1a1a"/>
+      <circle cx="241.3" cy="352" r="0.3" fill="#fff"/>
+
+      <circle cx="108" cy="378" r="1.6" fill="#1a1a1a"/>
+      <circle cx="114" cy="378" r="1.6" fill="#1a1a1a"/>
+      <circle cx="120" cy="378" r="1.6" fill="#1a1a1a"/>
+      <circle cx="126" cy="378" r="1.6" fill="#1a1a1a"/>
+      <circle cx="132" cy="378" r="1.6" fill="#1a1a1a"/>
+
+      <ellipse cx="150" cy="402" rx="145" ry="22" fill="#1a1228" opacity="0.55"/>
+
+      <text x="150" y="426" text-anchor="middle" font-family="PingFang SC, sans-serif" font-size="16" fill="#cfd8e8" letter-spacing="2">小葫芦瓢的半瓢月</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月初八 · 上弦月🌓</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">半个也能装下别人</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的院子里，老爷爷把一个晒得金灿灿的小葫芦从房梁上取下来，"咔嚓"一刀，切成了两半。</p>
+    <p>"哎呀——" 小葫芦瓢瓢吓了一跳，"我本来圆圆整整的，现在只剩下半个了。"</p>
+    <p>老爷爷把瓢瓢的边磨得光光的，又在葫芦腰上系了一根细麻绳，挂在井边的老槐树枝上。瓢瓢就这样变成了打水的瓢。</p>
+    <p>"唉，" 瓢瓢望着井里自己的影子叹气，"别人都是整整一个，就我是个半边。"</p>
+    <p>那天正好是九月初八，上弦月。月亮只亮了右半边，左半边还暗暗的。月亮从井口探下头，看见了难过的小葫芦瓢。</p>
+    <p>"小瓢瓢，你怎么不开心呀？" 月亮问。</p>
+    <p>"我……我被切了一刀，只剩下半个了。" 瓢瓢小声说。</p>
+    <p>月亮笑了："你看我，今晚我也是半个呀。"</p>
+    <p>瓢瓢抬头望天，真的呢——天上那弯月亮，也是半边亮、半边暗，和自己圆圆的身子被切成两半一模一样。</p>
+    <p>"可是……" 瓢瓢犹豫着，"你不难过吗？"</p>
+    <p>"不难过呀，" 月亮说，"我亮的这半边，正好照亮了赶夜路的小田鼠回家的路，照亮了找不到洞的小刺猬，也照亮了搬家的小蚂蚁一家。半边光，也是光呀。"</p>
+    <p>瓢瓢听了，心里轻轻一动。它低下头，把自己的半个身子探进井里，舀了满满一瓢清凉的井水。水里正好映着那弯上弦月，亮亮的，暖暖的。</p>
+    <p>"哎——" 瓢瓢惊喜地叫起来，"我舀到了半瓢月亮！"</p>
+    <p>小田鼠最先跑来，围着瓢瓢喝了一口水，水里带着月光，喝下去暖暖的。小刺猬也来了，小蚂蚁一家排着队，一个一个喝。</p>
+    <p>每个小家伙喝完，都抬起头笑着说："水里头有月亮呢，甜甜的。"</p>
+    <p>瓢瓢晃了晃自己半圆的身子，第一次觉得"半个"也没什么不好——正因为它只剩了半边，才能正好舀起半瓢月光，分给每一个夜归的小家伙。</p>
+    <p>月亮在天上轻轻地说："你呀，不是少了半边，是多了一份能装下别人的地方。"</p>
+    <p>那一夜，井边的老槐树下，半圆的小葫芦瓢里，盛着半瓢清凉的月光，也盛着一整个秋夜最温柔的故事。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>你少了的那半边，不是空，是多出了一个能装下别人的地方。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。瓢瓢说，你今天也是个好孩子，该做一个甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月17日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
