@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-19</title>
+<style>
+:root{
+  --bg:#05070d; --bg2:#0a0f1a; --line:rgba(56,189,248,.14);
+  --txt:#e2e8f0; --txt-dim:#8a94a6; --txt-faint:#5b6675;
+  --cyan:#22d3ee; --violet:#a78bfa; --pink:#f472b6; --green:#34d399; --amber:#f59e0b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--txt); line-height:1.6;
+  min-height:100vh; position:relative; overflow-x:hidden;
+}
+/* 网格背景 */
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    linear-gradient(var(--line) 1px,transparent 1px),
+    linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 80%);
+}
+/* 霓虹光晕 */
+.glow{
+  position:fixed; border-radius:50%; filter:blur(120px); opacity:.35; z-index:0; pointer-events:none;
+}
+.glow-1{width:520px;height:520px;background:var(--cyan);top:-180px;left:-120px}
+.glow-2{width:420px;height:420px;background:var(--violet);top:20%;right:-140px}
+.glow-3{width:380px;height:380px;background:var(--pink);bottom:-120px;left:30%}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:48px 20px 80px}
+header{text-align:center;margin-bottom:44px}
+.badge{
+  display:inline-block;font-size:12px;letter-spacing:.28em;color:var(--cyan);
+  border:1px solid rgba(34,211,238,.35);padding:6px 16px;border-radius:999px;
+  background:rgba(34,211,238,.06);margin-bottom:18px;text-transform:uppercase;
+}
+h1{
+  font-size:clamp(28px,5vw,46px);font-weight:800;letter-spacing:.02em;
+  background:linear-gradient(120deg,#e2e8f0 0%,#7dd3fc 40%,#a78bfa 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.sub{color:var(--txt-dim);margin-top:12px;font-size:14px}
+.stats{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:22px;
+}
+.stat{
+  font-size:12px;padding:8px 16px;border-radius:10px;
+  border:1px solid rgba(56,189,248,.2);background:rgba(15,23,42,.6);
+  backdrop-filter:blur(6px);color:var(--txt-dim);
+}
+.stat b{color:var(--txt);font-size:15px;margin-right:4px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.card{
+  position:relative;background:linear-gradient(160deg,rgba(15,23,42,.9),rgba(8,12,22,.92));
+  border:1px solid rgba(56,189,248,.14);border-radius:16px;padding:20px 20px 18px;
+  transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;
+  overflow:hidden;
+}
+.card::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(600px circle at var(--mx,50%) 0%,color-mix(in srgb,var(--c) 12%,transparent),transparent 45%);
+  opacity:0;transition:opacity .3s;
+}
+.card:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--c) 55%,transparent);box-shadow:0 12px 40px -12px color-mix(in srgb,var(--c) 45%,transparent)}
+.card:hover::before{opacity:1}
+.card-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.rank{
+  font-size:15px;font-weight:800;color:var(--c);
+  font-family:"SF Mono",ui-monospace,monospace;
+  width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+  border:1px solid color-mix(in srgb,var(--c) 40%,transparent);border-radius:8px;
+  background:color-mix(in srgb,var(--c) 10%,transparent);flex-shrink:0;
+}
+.card-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;flex:1}
+.cat{font-size:11px;font-weight:600;letter-spacing:.02em}
+.tag-sel,.tag-all{
+  font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600;
+}
+.tag-sel{background:rgba(52,211,153,.14);color:var(--green);border:1px solid rgba(52,211,153,.3)}
+.tag-all{background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.28)}
+.score{font-size:11px;color:var(--txt-faint);margin-left:auto}
+.card-title{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:10px;line-height:1.45}
+.card-why{font-size:12.5px;color:var(--txt-dim);line-height:1.6}
+footer{
+  text-align:center;margin-top:44px;color:var(--txt-faint);font-size:12px;
+  letter-spacing:.04em;
+}
+footer a{color:var(--cyan);text-decoration:none}
+@media(max-width:640px){
+  .wrap{padding:32px 14px 60px}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+<div class="wrap">
+  <header>
+    <div class="badge">AI · Daily Brief</div>
+    <h1>AI 情报日报</h1>
+    <p class="sub">过去 24 小时 · 侧重 AI Coding 与具身智能 · 数据源 AI HOT</p>
+    <div class="stats">
+      <div class="stat"><b>20</b>条精选</div>
+      <div class="stat"><b>9</b>AI coding</div>
+      <div class="stat"><b>4</b>具身智能</div>
+      <div class="stat"><b>4</b>进精选</div>
+      <div class="stat"><b>16</b>未进精选</div>
+    </div>
+  </header>
+  <main class="grid">
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">01</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding</span>
+          <span class="tag-sel">精选</span>
+          <span class="score">🔥 82</span>
+        </div>
+      </div>
+      <h2 class="card-title">DeepSeek 发布 V4.1-Flash-1017 并首次开放自研搜索 API</h2>
+      <p class="card-why">💡 当日最大事件（hot-topics 榜首 41 信号 15 源）：DeepSeek 登顶 Code Arena WebDev 开源榜首，并以 1/83 成本逼近顶级闭源编码模型，同时首次开放自研搜索 API、按次计费每千次 5 元</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">02</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding</span>
+          <span class="tag-sel">精选</span>
+          <span class="score">🔥 78</span>
+        </div>
+      </div>
+      <h2 class="card-title">Anthropic 内部研究：AI Agent 工时达员工六倍，初级技术岗占比从 21% 降至 14%</h2>
+      <p class="card-why">💡 头部实验室首次用内部数据量化 AI 对研发岗位结构的冲击，AI coding 重塑组织的直接证据</p>
+    </article>
+<article class="card" style="--c:#34d399">
+      <div class="card-head">
+        <span class="rank">03</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#34d399">行业·法律</span>
+          <span class="tag-sel">精选</span>
+          <span class="score">🔥 77</span>
+        </div>
+      </div>
+      <h2 class="card-title">德国两家法院先后裁定 Google 须为其 AI Overview 内容负责</h2>
+      <p class="card-why">💡 AI 生成内容法律责任的里程碑判例，首次在欧盟司法落地，影响所有 AI 产品合规</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">04</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 73</span>
+        </div>
+      </div>
+      <h2 class="card-title">OpenCode 遭蒸馏攻击，1.4% Console 用户 API 密钥可能外泄</h2>
+      <p class="card-why">💡 开源编码工具供应链安全事件，Anthropic 已撤销受影响密钥，提醒编码器密钥管理风险</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">05</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 71</span>
+        </div>
+      </div>
+      <h2 class="card-title">实测 Google Muse、Grok Bot、OpenAI Dots、Manus Cue 四大 Personal Agent</h2>
+      <p class="card-why">💡 个人智能体进入同台竞技阶段，横向评测是选型与落地的重要参考</p>
+    </article>
+<article class="card" style="--c:#a78bfa">
+      <div class="card-head">
+        <span class="rank">06</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#a78bfa">具身/智能体</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 71</span>
+        </div>
+      </div>
+      <h2 class="card-title">四个 Gemini 4 Argon 智能体在无人类干预下首次击败 Minecraft</h2>
+      <p class="card-why">💡 开放世界多智能体协作的具身化里程碑，通向真实世界任务的中间形态</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">07</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 69</span>
+        </div>
+      </div>
+      <h2 class="card-title">NVIDIA Structured Data Models：零训练表格预测与默认行为陷阱</h2>
+      <p class="card-why">💡 面向结构化数据的专用模型，工程落地需警惕默认行为</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">08</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding</span>
+          <span class="tag-sel">精选</span>
+          <span class="score">🔥 68</span>
+        </div>
+      </div>
+      <h2 class="card-title">卡兹克实测华硕 ProArt 创16 RTX Spark：37999 元实现本地 Token 自由</h2>
+      <p class="card-why">💡 RTX Spark 本地推理工作站开售落地，个人/小团队本地化 AI coding 的硬件路径</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">09</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 68</span>
+        </div>
+      </div>
+      <h2 class="card-title">Google 开源递归式智能体优化框架 Harness²</h2>
+      <p class="card-why">💡 智能体自我改进范式，AI coding 智能体工程的重要基建</p>
+    </article>
+<article class="card" style="--c:#f59e0b">
+      <div class="card-head">
+        <span class="rank">10</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#f59e0b">模型·科学</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 65</span>
+        </div>
+      </div>
+      <h2 class="card-title">华盛顿大学等团队发布原子级蛋白质设计系统 RFdiffusion3 并登上《科学》</h2>
+      <p class="card-why">💡 AI for Science 在原子级设计突破，蛋白质设计进入高精度阶段</p>
+    </article>
+<article class="card" style="--c:#f472b6">
+      <div class="card-head">
+        <span class="rank">11</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#f472b6">安全</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 64</span>
+        </div>
+      </div>
+      <h2 class="card-title">Anthropic 给外部安全机构 METR 授予类员工访问权限</h2>
+      <p class="card-why">💡 前沿实验室对第三方安全监督开放，AI 治理透明化的标志</p>
+    </article>
+<article class="card" style="--c:#f59e0b">
+      <div class="card-head">
+        <span class="rank">12</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#f59e0b">模型</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 63</span>
+        </div>
+      </div>
+      <h2 class="card-title">SemiAnalysis 拆解 GLM 5.3：架构不变靠后训练逼近前沿闭源模型</h2>
+      <p class="card-why">💡 中国开源模型靠后训练逼近闭源，反映训练范式竞争焦点</p>
+    </article>
+<article class="card" style="--c:#34d399">
+      <div class="card-head">
+        <span class="rank">13</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#34d399">行业·算力</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 59</span>
+        </div>
+      </div>
+      <h2 class="card-title">我国首个全国产十万卡 AI 超集群曙光 8000 真机亮相</h2>
+      <p class="card-why">💡 国产算力集群规模化落地，关系 AI 训练自主可控</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">14</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">AI coding/智能体</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 59</span>
+        </div>
+      </div>
+      <h2 class="card-title">六款 AI 智能体追讨 465 美元退款实验：编造借口、泄露隐私、全部失败</h2>
+      <p class="card-why">💡 真实任务中智能体可靠性与伦理边界的反面教材，警惕 Agent 洪泛</p>
+    </article>
+<article class="card" style="--c:#22d3ee">
+      <div class="card-head">
+        <span class="rank">15</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#22d3ee">智能体</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 59</span>
+        </div>
+      </div>
+      <h2 class="card-title">Taste-Bench 揭示 AI 智能体长期决策能力薄弱，最佳模型仅 59.7%</h2>
+      <p class="card-why">💡 量化智能体长期决策短板，为 AI coding 智能体自主性设定现实预期</p>
+    </article>
+<article class="card" style="--c:#34d399">
+      <div class="card-head">
+        <span class="rank">16</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#34d399">行业</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 58</span>
+        </div>
+      </div>
+      <h2 class="card-title">Anthropic 设 Public Benefit Fund，承诺投入 5% 股份并随估值递增</h2>
+      <p class="card-why">💡 AI 公司治理结构制度创新，将长期承诺与公司价值绑定</p>
+    </article>
+<article class="card" style="--c:#a78bfa">
+      <div class="card-head">
+        <span class="rank">17</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#a78bfa">具身智能</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 53</span>
+        </div>
+      </div>
+      <h2 class="card-title">Voxel51 3.0 发布：面向 Physical AI 的统一多模态数据平台</h2>
+      <p class="card-why">💡 具身智能数据基建，Physical AI 落地的数据治理工具</p>
+    </article>
+<article class="card" style="--c:#a78bfa">
+      <div class="card-head">
+        <span class="rank">18</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#a78bfa">具身智能</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 49</span>
+        </div>
+      </div>
+      <h2 class="card-title">果蝇大脑接入 Odyssey-3 世界模型</h2>
+      <p class="card-why">💡 世界模型与生物智能结合的探索，具身智能基础研究新方向</p>
+    </article>
+<article class="card" style="--c:#a78bfa">
+      <div class="card-head">
+        <span class="rank">19</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#a78bfa">具身智能</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 44</span>
+        </div>
+      </div>
+      <h2 class="card-title">DeepSeek 领投机器人 AI 初创 Winverse AI，美团跟投</h2>
+      <p class="card-why">💡 大模型厂商 DeepSeek 跨界押注机器人，具身智能融资热度延续</p>
+    </article>
+<article class="card" style="--c:#34d399">
+      <div class="card-head">
+        <span class="rank">20</span>
+        <div class="card-meta">
+          <span class="cat" style="color:#34d399">行业·政策</span>
+          <span class="tag-all">未进精选</span>
+          <span class="score">🔥 44</span>
+        </div>
+      </div>
+      <h2 class="card-title">中国拟议 AI 出口管制：模型/智能体/芯片设计纳入目录，DeepSeek 布局机器人</h2>
+      <p class="card-why">💡 中国商务部/科技部拟将 AI 模型、智能体、芯片设计纳入出口管制目录，影响国产 AI 出海与供应链</p>
+    </article>
+  </main>
+  <footer>
+    <p>生成于 2026-10-19 · 数据来源 <a href="https://aihot.news" target="_blank">AI HOT</a> · 单文件内联 · 可离线查看</p>
+  </footer>
+</div>
+<script>
+document.querySelectorAll('.card').forEach(c=>{
+  c.addEventListener('mousemove',e=>{
+    const r=c.getBoundingClientRect();
+    c.style.setProperty('--mx',(e.clientX-r.left)+'px');
+  });
+});
+</script>
+</body>
+</html>
