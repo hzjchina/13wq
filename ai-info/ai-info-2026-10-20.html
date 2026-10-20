@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-20</title>
+<style>
+  :root{
+    --bg:#070b14; --bg2:#0b1120; --card:#101828; --card-h:#131f38;
+    --line:rgba(120,160,255,.12); --txt:#dbe4f5; --sub:#8b98b8; --dim:#5c6a8a;
+    --cyan:#22d3ee; --violet:#a78bfa; --pink:#f472b6; --green:#34d399; --amber:#fbbf24;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--txt); line-height:1.65;
+    background-image:
+      radial-gradient(1100px 600px at 12% -8%, rgba(34,211,238,.10), transparent 60%),
+      radial-gradient(900px 600px at 88% 0%, rgba(167,139,250,.10), transparent 55%),
+      radial-gradient(800px 700px at 50% 110%, rgba(244,114,182,.07), transparent 60%);
+    min-height:100vh;
+  }
+  .grid-overlay{
+    position:fixed; inset:0; pointer-events:none; z-index:0;
+    background-image:
+      linear-gradient(rgba(120,160,255,.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,160,255,.045) 1px, transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at 50% 0%, #000 30%, transparent 80%);
+  }
+  .wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:40px 24px 80px}
+  header{text-align:center; padding:28px 0 12px}
+  .kicker{display:inline-flex; align-items:center; gap:8px; font-size:12px; letter-spacing:2px;
+    color:var(--cyan); text-transform:uppercase; padding:6px 14px; border:1px solid var(--line);
+    border-radius:999px; background:rgba(34,211,238,.06)}
+  .kicker .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);
+    box-shadow:0 0 10px var(--cyan); animation:blink 1.8s infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+  h1{font-size:clamp(30px,5vw,52px); font-weight:800; margin:18px 0 8px;
+    background:linear-gradient(100deg,#7dd3fc,#a78bfa 45%,#f472b6 90%);
+    -webkit-background-clip:text; background-clip:text; color:transparent; letter-spacing:1px}
+  .subtitle{color:var(--sub); font-size:15px; max-width:640px; margin:0 auto}
+  .meta{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:18px}
+  .chip{font-size:12px; padding:5px 12px; border-radius:8px; background:var(--card);
+    border:1px solid var(--line); color:var(--sub)}
+  .chip b{color:var(--txt); font-weight:600}
+
+  .legend{display:flex; flex-wrap:wrap; justify-content:center; gap:14px; margin:26px 0 8px; font-size:12px; color:var(--sub)}
+  .legend span{display:inline-flex; align-items:center; gap:6px}
+  .lg{width:10px;height:10px;border-radius:3px}
+  .lg.coding{background:var(--cyan); box-shadow:0 0 8px var(--cyan)}
+  .lg.embody{background:var(--violet); box-shadow:0 0 8px var(--violet)}
+  .lg.model{background:var(--pink); box-shadow:0 0 8px var(--pink)}
+  .lg.industry{background:var(--amber); box-shadow:0 0 8px var(--amber)}
+  .lg.security{background:var(--green); box-shadow:0 0 8px var(--green)}
+
+  .grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px; margin-top:26px}
+  .card{
+    position:relative; background:var(--card); border:1px solid var(--line);
+    border-radius:16px; padding:20px 20px 18px; overflow:hidden;
+    transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    display:flex; flex-direction:column;
+  }
+  .card:hover{transform:translateY(-4px); border-color:rgba(120,160,255,.35);
+    box-shadow:0 12px 40px -12px rgba(34,211,238,.25)}
+  .card::before{content:""; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg,var(--cc,var(--cyan)),transparent); opacity:.9}
+  .card::after{content:""; position:absolute; top:-40px; right:-40px; width:140px; height:140px;
+    background:radial-gradient(circle,var(--cc,var(--cyan)) 0%,transparent 70%); opacity:.12;
+    filter:blur(6px); pointer-events:none}
+  .top{display:flex; align-items:flex-start; gap:12px; margin-bottom:12px}
+  .rank{flex:none; font-size:26px; font-weight:800; line-height:1;
+    background:linear-gradient(135deg,var(--cc,var(--cyan)),transparent);
+    -webkit-background-clip:text; background-clip:text; color:transparent; min-width:34px}
+  .hd{flex:1; min-width:0}
+  .tag{display:inline-block; font-size:11px; padding:2px 8px; border-radius:6px; margin-bottom:7px;
+    background:color-mix(in srgb,var(--cc,var(--cyan)) 16%,transparent); color:var(--cc,var(--cyan));
+    border:1px solid color-mix(in srgb,var(--cc,var(--cyan)) 30%,transparent); font-weight:600}
+  .tag.featured{background:color-mix(in srgb,var(--amber) 18%,transparent); color:var(--amber);
+    border-color:color-mix(in srgb,var(--amber) 35%,transparent)}
+  .tag.pool{background:rgba(139,152,184,.12); color:var(--dim); border-color:var(--line)}
+  h2{font-size:16px; font-weight:700; line-height:1.45; color:#eef3ff}
+  .desc{font-size:13.5px; color:var(--sub); margin-top:10px; flex:1}
+  .why{margin-top:12px; font-size:12.5px; color:var(--txt); padding:10px 12px; border-radius:10px;
+    background:rgba(120,160,255,.05); border-left:3px solid var(--cc,var(--cyan))}
+  .why b{color:var(--cc,var(--cyan))}
+  .foot{display:flex; align-items:center; justify-content:space-between; gap:8px;
+    margin-top:14px; padding-top:12px; border-top:1px solid var(--line); font-size:12px; color:var(--dim)}
+  .src{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+  .score{flex:none; display:inline-flex; align-items:center; gap:4px; font-weight:700;
+    color:var(--cc,var(--cyan)); font-size:13px}
+  .score::before{content:""; width:6px; height:6px; border-radius:50%; background:var(--cc,var(--cyan));
+    box-shadow:0 0 8px var(--cc,var(--cyan))}
+
+  footer{text-align:center; margin-top:40px; color:var(--dim); font-size:12px; line-height:2}
+  footer a{color:var(--sub); text-decoration:none}
+  @media(max-width:520px){
+    .grid{grid-template-columns:1fr}
+    h1{font-size:30px}
+  }
+</style>
+</head>
+<body>
+<div class="grid-overlay"></div>
+<div class="wrap">
+
+  <header>
+    <span class="kicker"><span class="dot"></span> AI INTELLIGENCE DAILY</span>
+    <h1>AI 情报日报</h1>
+    <p class="subtitle">AI coding 与具身智能方向 · 过去 24 小时重要动态 · 按热度排序</p>
+    <div class="meta">
+      <span class="chip">📅 <b>2026-10-20</b> 周二</span>
+      <span class="chip">⏱ 窗口 <b>24h</b></span>
+      <span class="chip">📌 精选 <b>20</b> 条</span>
+      <span class="chip">🎯 侧重 <b>AI coding · 具身智能</b></span>
+    </div>
+    <div class="legend">
+      <span><i class="lg coding"></i>AI coding</span>
+      <span><i class="lg embody"></i>具身智能</span>
+      <span><i class="lg model"></i>模型发布</span>
+      <span><i class="lg industry"></i>行业/安全</span>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <div class="card" style="--cc:#f472b6">
+      <div class="top"><div class="rank">01</div><div class="hd">
+        <span class="tag featured">精选 · 头条</span>
+        <h2>MiniMax 发布 M3.1 Flash，推理提速近 3 倍、智能体成本降 70%</h2>
+      </div></div>
+      <p class="desc">稀宇科技发布 M3.1 Flash（428B MoE、约 23B 激活，1M 上下文），定价 $0.15/$0.60 每 1M tokens，约为 M3 的一半；此前的匿名"隐身"模型 Space Bunny 即其早期版本，已处理超 200 万亿 token。DeepSWE v1.1 达 73.7%，CyberGym 82%。</p>
+      <div class="why"><b>为何关注：</b>当日 hot-topics 榜首（9 源 24 信号）。用约 1/3 成本、3 倍速度逼近前沿编码模型，且 10-23 开放权重，Cline/Ollama/GMI Cloud 已 day0 适配，是开源编码/agent 性价比的新锚点。</div>
+      <div class="foot"><span class="src">MiniMax Blog</span><span class="score">70</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">02</div><div class="hd">
+        <span class="tag featured">精选</span>
+        <h2>DeepSeek-V4.1-Flash-1017 登顶 Agent Arena 开源第一 + 开放自研搜索 API</h2>
+      </div></div>
+      <p class="desc">Arena 宣布 DeepSeek-V4.1-Flash-20261017 (Max) 成为 Agent Arena 第一开源模型（总榜第 11），基于 7.5K 真实会话净提升 +5.1%，中位任务成本 $0.20，约为 GPT-6.1 Sol 的 27%。同日 DeepSeek 首次开放自研搜索 API 并按次计费（每千次 5 元）。</p>
+      <div class="why"><b>为何关注：</b>开源编码模型以 27% 成本逼近闭源 Sol，且无 Tool Hallucination；搜索 API 的开放把 DeepSeek 从纯模型推向量产工具链，进一步拉低 AI coding 的边际成本。</div>
+      <div class="foot"><span class="src">Arena · DeepSeek API 日志</span><span class="score">74</span></div>
+    </div>
+
+    <div class="card" style="--cc:#fbbf24">
+      <div class="top"><div class="rank">03</div><div class="hd">
+        <span class="tag featured">精选</span>
+        <h2>美国国土安全部令所有联邦文职机构移除 DeepSeek 及基于其开发的产品</h2>
+      </div></div>
+      <p class="desc">国土安全部依据 2018 年供应链法发布 2026-01 号命令，要求联邦文职机构立即停止采购 DeepSeek 及关联公司产品，并移除含基于 DeepSeek 开发的第三方产品与服务。</p>
+      <div class="why"><b>为何关注：</b>禁令首次延伸到"基于 DeepSeek 魔改"的第三方产品，向所有面向美国联邦供货的 AI 厂商提出溯源模型组件的新合规要求，直接影响开源模型出海生态。</div>
+      <div class="foot"><span class="src">Hacker News · AI 热帖</span><span class="score">85</span></div>
+    </div>
+
+    <div class="card" style="--cc:#34d399">
+      <div class="top"><div class="rank">04</div><div class="hd">
+        <span class="tag featured">精选</span>
+        <h2>FBI：前 OpenAI 工程师涉窃密，手机发现"Saudi Gov Docs"文件夹</h2>
+      </div></div>
+      <p class="desc">法院批准羁押被指控在 OpenAI 会议室装窃听器的前工程师 Abdulrahman Alfozan。检方称其 iPhone 有"Saudi Gov Docs"文件夹，与沙特王室有 WhatsApp 联系，曾用 OpenAI 生产力 Agent 搜索放窃听器的会议室，被捕前已订沙特政府付费单程机票。</p>
+      <div class="why"><b>为何关注：</b>披露窃密手段与潜在动机（外国政府渗透）此前未公开的细节，凸显前沿实验室面临的国家级安全与内鬼风险，也反映 AI Agent 本身被用于犯罪策划。</div>
+      <div class="foot"><span class="src">Ars Technica</span><span class="score">81</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">05</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>OpenCode Console 遭入侵，泄露 API key 致用户产生上千美元费用</h2>
+      </div></div>
+      <p class="desc">开源 AI 编码工具 OpenCode 的在线平台 Console 遭一处旧系统入侵，影响 1.4% 用户的 API key，部分用户被刷数百乃至超 1000 美元未授权费用；Anthropic、Google 已封相关 key，OpenAI 配合恢复与退款。</p>
+      <div class="why"><b>为何关注：</b>AI coding 工具链成为攻击面，开发者把各厂 API key 集中在第三方平台的风险集中爆发，提醒 coding agent 平台的密钥托管与凭据隔离仍是薄弱环节。</div>
+      <div class="foot"><span class="src">TechCrunch</span><span class="score">73</span></div>
+    </div>
+
+    <div class="card" style="--cc:#a78bfa">
+      <div class="top"><div class="rank">06</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>商汤开源 SenseNova-RoboRSI：GPT-6-Astra 具身智能最大规模实证研究</h2>
+      </div></div>
+      <p class="desc">商汤发布覆盖面最广的 GPT-6-Astra 具身智能实证研究，横跨 12 个仿真基准与 8 个真机平台，并开源 SenseNova-RoboRSI 框架及一个以约 1/50 推理成本运行的 27B 模型。</p>
+      <div class="why"><b>为何关注：</b>当日具身方向最重要的实证研究，把前沿大模型的具身能力系统化量化，并给出成本 1/50 的蒸馏路线，为机器人"大脑"落地提供了可复现框架。</div>
+      <div class="foot"><span class="src">商汤 SenseTime</span><span class="score">64</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">07</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>OpenAI 发布 MultiLangBench 与 COBOL 迁移评测，强化低资源编程语言</h2>
+      </div></div>
+      <p class="desc">OpenAI 宣布其最新模型在 COBOL、Fortran、Visual Basic 等低资源编程语言上的构建与迁移能力显著提升，并开源评测套件 MultiLangBench。</p>
+      <div class="why"><b>为何关注：</b>银行/政府遗留 COBOL 系统的现代化是万亿级刚需，GPT-6 系列补强低资源语言意味着 AI coding 正从主流语言渗透进企业核心遗留代码，商用价值极高。</div>
+      <div class="foot"><span class="src">OpenAI 官网</span><span class="score">68</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">08</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>开发者用 Claude Code 给智能电视"降智"：去广告、去预装、去追踪</h2>
+      </div></div>
+      <p class="desc">TechCrunch 报道新趋势：开发者用 Claude Code 等 AI 工具移除智能电视的广告、预装软件与追踪功能，并更换启动器，把"智能"电视变回"笨"电视。</p>
+      <div class="why"><b>为何关注：</b>AI coding 赋能普通消费者改造硬件的有趣落地，也折射出对智能设备过度收集数据的反弹，是 coding agent 在消费电子"越狱/去臃肿"场景的代表案例。</div>
+      <div class="foot"><span class="src">TechCrunch</span><span class="score">68</span></div>
+    </div>
+
+    <div class="card" style="--cc:#f472b6">
+      <div class="top"><div class="rank">09</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Inception 扩散模型 Mercury 3 上线 OpenRouter，生成速度破 1000 tok/s</h2>
+      </div></div>
+      <p class="desc">Inception 的扩散模型 Mercury 3 上线 OpenRouter，速度超 1000 tok/s、支持 1M 上下文，是 Mercury 2.5 的 4 倍；官方称在 IFBench、GPQA Diamond、SWE-Bench Atlas 上超过 GPT-6 Luna 与 Haiku 5.5，上线五折（$0.10/$0.35）。</p>
+      <div class="why"><b>为何关注：</b>扩散式大模型以 4 倍速 + 4 倍上下文挑战自回归范式，在 SWE-Bench 编码基准上叫板闭源模型，可能是 AI coding 推理层的一次架构级变量。</div>
+      <div class="foot"><span class="src">OpenRouter</span><span class="score">67</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">10</div><div class="hd">
+        <span class="tag featured">精选</span>
+        <h2>Meta 详解"瘦编排器"模式：让路由少干活提升智能体可靠性</h2>
+      </div></div>
+      <p class="desc">Meta 工程团队介绍其数据管道智能体采用的 thin orchestrator 模式：约 1300 行的编排器只负责路由与可靠性检查，把 20+ 工作流分派给 14 个上下文隔离的专项子智能体，自身不做领域推理。</p>
+      <div class="why"><b>为何关注：</b>直接可迁移的 agent 架构方法论——用固定路由协议 + 隔离子智能体降低生产环境幻觉风险，是当下 AI coding 团队设计多智能体系统的优质工程范式。</div>
+      <div class="foot"><span class="src">Meta Engineering</span><span class="score">70</span></div>
+    </div>
+
+    <div class="card" style="--cc:#a78bfa">
+      <div class="top"><div class="rank">11</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Dream Labs 走出隐身模式，发布机器人基础模型 Dream-1</h2>
+      </div></div>
+      <p class="desc">Dream Labs 正式推出 Dream-1——一个机器人基础模型，能控制它从未见过的双臂机器人、完成未训练过的任务，在陌生场所每小时仅需 3 美元；Dream API 即日对所有人开放，fal 提供 serverless 推理支持。</p>
+      <div class="why"><b>为何关注：</b>"通用机器人基础模型 + 按小时计费 API"是具身智能走向云服务化的信号，零样本跨机器人泛化若成立，将大幅降低机器人编程门槛。</div>
+      <div class="foot"><span class="src">谢赛宁 X · fal</span><span class="score">48</span></div>
+    </div>
+
+    <div class="card" style="--cc:#fbbf24">
+      <div class="top"><div class="rank">12</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>黑客用 AI 智能体入侵 John Deere、SharkNinja 等超 100 家网站</h2>
+      </div></div>
+      <p class="desc">AI 安全公司 Norforge 发现一名黑客用开源 AI 平台 Cairn 编排的智能体入侵超 100 个网站，据 Reuters 报道受害者包括 John Deere、SharkNinja 和 Cummins。</p>
+      <div class="why"><b>为何关注：</b>AI coding 能力被武器化的又一实证——单个攻击者借智能体实现规模化入侵，暴露暴露在公网的 AI 编排平台正成为新的攻击基础设施。</div>
+      <div class="foot"><span class="src">The Verge</span><span class="score">77</span></div>
+    </div>
+
+    <div class="card" style="--cc:#a78bfa">
+      <div class="top"><div class="rank">13</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Skyfall AI 发布工程世界模型 SKY-001，CAD 成本降 150 倍</h2>
+      </div></div>
+      <p class="desc">Skyfall AI 发布工程世界模型 SKY-001，可把发动机/汽车照片拆解为完整零件树并预测每个零件草图与操作序列；官方称在 CAD 与户型设计上成本比最强通用 LLM 低 150x–185x、精度相当。</p>
+      <div class="why"><b>为何关注：</b>世界模型从游戏/视频走向工程制造，直接冲击 CAD 与工业设计流程，是具身智能"物理理解"能力在实体制造链上的高价值落点。</div>
+      <div class="foot"><span class="src">Rohan Paul X</span><span class="score">48</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">14</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Devin Fusion 登顶 Artificial Analysis Coding Agent Index（68 分）</h2>
+      </div></div>
+      <p class="desc">Cognition 宣布 Devin Fusion 以 68 分登顶 Coding Agent Index，采用 Opus 5.5 领队 + GPT-6 Luna 副手的组合；官方称性能与价格均优于用 Opus 5.5 的 Claude Code，每任务成本低 31%。</p>
+      <div class="why"><b>为何关注：</b>多模型异构编排（强模型领队 + 便宜模型副手）成为 coding agent 冲榜的主流策略，印证了 Cohere 同日论文"强模型领队、弱模型只做规划"的结论。</div>
+      <div class="foot"><span class="src">Cognition</span><span class="score">52</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">15</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Cohere 论文：多智能体编码团队宜强模型领队、便宜模型只做规划</h2>
+      </div></div>
+      <p class="desc">Cohere Labs 论文《Scaling Inference-Time Compute with Teams of Coding Agents》研究多智能体编码团队的算力分配，发现团队效果超单 agent，但成本高出 3–7 倍。</p>
+      <div class="why"><b>为何关注：</b>给出多 agent 编码的算力-收益定量边界，提示"团队化"并非一味加 agent 就划算，对优化 coding agent 的推理成本有直接指导意义。</div>
+      <div class="foot"><span class="src">Cohere Labs</span><span class="score">58</span></div>
+    </div>
+
+    <div class="card" style="--cc:#a78bfa">
+      <div class="top"><div class="rank">16</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>HUMXN 免费上门修水电，录制技师作业数据训练 AI 机器人</h2>
+      </div></div>
+      <p class="desc">AI 实验室 HUMXN 补贴管道、电工、暖通空调等居家服务，居民免费获得服务，条件是允许佩戴可穿戴设备录制技师作业，用于训练 AI 机器人；首批落地明尼阿波利斯、芝加哥、迈阿密。</p>
+      <div class="why"><b>为何关注：</b>具身智能最稀缺的是真实操作数据，HUMXN 用"免费服务换数据"的商业模式直击数据采集痛点，是机器人数据飞轮的一个现实样本。</div>
+      <div class="foot"><span class="src">IT之家</span><span class="score">57</span></div>
+    </div>
+
+    <div class="card" style="--cc:#fbbf24">
+      <div class="top"><div class="rank">17</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>德国与 NVIDIA 签署联合意向宣言，推进工业 AI 并投资四家德国初创</h2>
+      </div></div>
+      <p class="desc">德国总理 Merz 与黄仁勋在柏林对谈 AI 路线图，德方签署联合意向宣言，将与 NVIDIA 合作推进物理 AI 模型与工业 AI 生态，并投资四家德国初创。</p>
+      <div class="why"><b>为何关注：</b>主权国家与英伟达在"工业 AI / 物理 AI"层面战略绑定，标志着具身与工业智能上升为国家战略，制造业强国德国的转向具风向意义。</div>
+      <div class="foot"><span class="src">NVIDIA Blog</span><span class="score">56</span></div>
+    </div>
+
+    <div class="card" style="--cc:#a78bfa">
+      <div class="top"><div class="rank">18</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Laplace Intelligence 为机器人/自动驾驶做部署前 AI 红队测试</h2>
+      </div></div>
+      <p class="desc">Laplace Intelligence 用 AI 智能体在仿真中主动为机器人、自动驾驶寻找故障点，环境基于 Nvidia Cosmos 后训练版本，可结合真实地图与实时交通重建场景，已实现盈利，客户含 Bot Auto 与一家日本大型车企。</p>
+      <div class="why"><b>为何关注：</b>把"红队测试"范式从 LLM 迁移到物理 AI 系统，在仿真中暴露故障再部署，是具身智能走向安全落地的关键基础设施方向。</div>
+      <div class="foot"><span class="src">TechCrunch</span><span class="score">46</span></div>
+    </div>
+
+    <div class="card" style="--cc:#f472b6">
+      <div class="top"><div class="rank">19</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Meta Muse Wonder Full (Max) 首登 Code Arena WebDev 第 6（1726 分）</h2>
+      </div></div>
+      <p class="desc">Arena 宣布 Meta 的 Muse Wonder Full (Max) 首次进入 Code Arena: WebDev 榜单，以 1726 分排第 6，使 Meta 成为第 3 个进入该榜的实验室，此前该位置由 Google 持有。</p>
+      <div class="why"><b>为何关注：</b>Meta 开源编码模型在 WebDev 榜单持续攀升，与 DeepSeek、MiniMax 等共同改写"开源 vs 闭源"的编码格局，头部实验室竞争白热化。</div>
+      <div class="foot"><span class="src">Arena</span><span class="score">65</span></div>
+    </div>
+
+    <div class="card" style="--cc:#22d3ee">
+      <div class="top"><div class="rank">20</div><div class="hd">
+        <span class="tag pool">未进精选</span>
+        <h2>Simon Willison 回应《我为编程写的讣告》：智能体夺走了解谜乐趣</h2>
+      </div></div>
+      <p class="desc">Simon Willison 回应 Jeremy Scheff 的《我为编程写的讣告》：编程智能体让热爱解谜的程序员失去核心乐趣。若只在意构建可用系统，LLM 是持续馈赠；若享受解题过程，损失则非常真实。</p>
+      <div class="why"><b>为何关注：</b>顶级技术意见领袖对"AI coding 是否杀死编程乐趣"的反思，从工程师价值感维度审视智能体带来的行业冲击，值得每一位开发者思考。</div>
+      <div class="foot"><span class="src">Simon Willison 博客</span><span class="score">40</span></div>
+    </div>
+
+  </div>
+
+  <footer>
+    数据源：AI HOT（过去 24 小时）· 精选池 + 全量池补充 · 具身/机器人等冷门方向部分条目标注「未进精选」<br>
+    <a href="https://aihot.news">AI HOT</a> · 时间：北京时间 2026-10-20 · 本页单文件内联样式，离线可读
+  </footer>
+</div>
+</body>
+</html>
