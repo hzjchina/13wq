@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小柿子的月光红 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 秋夜装饰粒子：飘落的红黄落叶 */
+  .leaf {
+    position: absolute; font-size: 18px; color: #e8a24a;
+    opacity: 0; animation: leafFall 12s linear infinite;
+    text-shadow: 0 0 6px rgba(232, 160, 74, 0.4);
+  }
+  @keyframes leafFall {
+    0%   { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.8; }
+    50%  { transform: translate(40px, 50vh) rotate(180deg); opacity: 0.7; }
+    100% { transform: translate(-30px, 105vh) rotate(360deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：农历九月十二 · 盈凸月，暗圆在左侧 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：农历九月十二 · 盈凸月🌔（illumination 0.84，暗圆在左侧偏移1.8r，clipPath裁剪） -->
+  <div class="moon">
+    <svg width="84" height="84" viewBox="0 0 120 120">
+      <defs>
+        <clipPath id="moonClipBg"><circle cx="60" cy="60" r="38"/></clipPath>
+        <radialGradient id="haloBg" cx="50%" cy="50%" r="50%">
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0"/>
+          <stop offset="80%" stop-color="#e8ecf5" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="url(#haloBg)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="-8" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClipBg)"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：秋夜飘落的红黄落叶 + 萤火虫 -->
+  <span class="leaf" style="top:8%; left:18%; animation-delay:0s;">🍃</span>
+  <span class="leaf" style="top:20%; left:80%; animation-delay:3s;">🍂</span>
+  <span class="leaf" style="top:5%; left:55%; animation-delay:6s;">🍃</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小柿子的月光红</h1>
+    <p class="meta">🍅 被等待也是最甜的偏爱 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-21.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报（300×440）：深秋柿子树 + 盈凸月 + 枝头红柿 + 底部标题 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <!-- 夜空渐变背景 -->
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#11132e"/>
+          <stop offset="55%" stop-color="#1c2050"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="moonHaloP" cx="50%" cy="50%" r="50%">
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0"/>
+          <stop offset="80%" stop-color="#e8ecf5" stop-opacity="0.14"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClipPoster"><circle cx="248" cy="70" r="22"/></clipPath>
+        <radialGradient id="persimmonG" cx="35%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#ff8a4a"/>
+          <stop offset="60%" stop-color="#e8602a"/>
+          <stop offset="100%" stop-color="#c43d12"/>
+        </radialGradient>
+        <radialGradient id="persimmonHi" cx="32%" cy="30%" r="35%">
+          <stop offset="0%" stop-color="#ffd9b0" stop-opacity="0.75"/>
+          <stop offset="100%" stop-color="#ffd9b0" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect width="300" height="440" fill="url(#skyGrad)"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="50" r="1.6" fill="#fff" opacity="0.9"/>
+      <circle cx="110" cy="38" r="1.2" fill="#fff" opacity="0.7"/>
+      <circle cx="180" cy="30" r="1.4" fill="#fff" opacity="0.85"/>
+      <circle cx="60" cy="95" r="1.1" fill="#fff" opacity="0.6"/>
+      <circle cx="300" cy="40" r="1.3" fill="#fff" opacity="0.7"/>
+
+      <!-- 月亮：盈凸月，暗圆左侧偏移1.8r=39.6 → 暗圆cx=208 -->
+      <circle cx="248" cy="70" r="30" fill="url(#moonHaloP)"/>
+      <circle cx="248" cy="70" r="22" fill="#e8ecf5"/>
+      <circle cx="208" cy="70" r="22" fill="#11132e" clip-path="url(#moonClipPoster)"/>
+
+      <!-- 远山剪影 -->
+      <path d="M0 360 Q60 330 120 348 T240 340 T300 350 V440 H0 Z" fill="#0c0e22" opacity="0.85"/>
+      <path d="M0 380 Q80 360 160 372 T300 374 V440 H0 Z" fill="#0a0c1e" opacity="0.9"/>
+
+      <!-- 柿子树主干（弯曲老树） -->
+      <path d="M150 360 C146 320 158 290 144 250 C136 224 150 200 140 172 C134 156 146 140 140 120"
+            fill="none" stroke="#3a2410" stroke-width="9" stroke-linecap="round"/>
+      <!-- 主干高光 -->
+      <path d="M150 360 C146 320 158 290 144 250 C136 224 150 200 140 172 C134 156 146 140 140 120"
+            fill="none" stroke="#5a3a1c" stroke-width="3" stroke-linecap="round" opacity="0.6"/>
+      <!-- 树枝 -->
+      <path d="M142 175 C160 168 176 160 192 150" fill="none" stroke="#3a2410" stroke-width="5" stroke-linecap="round"/>
+      <path d="M140 210 C124 200 108 196 92 188" fill="none" stroke="#3a2410" stroke-width="5" stroke-linecap="round"/>
+      <path d="M144 245 C160 240 178 236 196 230" fill="none" stroke="#3a2410" stroke-width="4" stroke-linecap="round"/>
+      <path d="M141 150 C132 142 122 138 112 134" fill="none" stroke="#3a2410" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- 枝头红柿（主角迟迟在最低处最红那颗） -->
+      <!-- 迟迟：最下面最红最大的那颗 -->
+      <g>
+        <line x1="146" y1="252" x2="146" y2="262" stroke="#3a2410" stroke-width="1.5"/>
+        <!-- 四瓣小萼片 -->
+        <path d="M146 263 L140 258 M146 263 L152 258 M146 263 L142 268 M146 263 L150 268" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" fill="none"/>
+        <circle cx="146" cy="276" r="14" fill="url(#persimmonG)"/>
+        <circle cx="146" cy="276" r="14" fill="url(#persimmonHi)"/>
+        <!-- 高光点 -->
+        <ellipse cx="141" cy="271" rx="3.5" ry="2.6" fill="#ffe6c8" opacity="0.7"/>
+      </g>
+      <!-- 另外几颗红柿 -->
+      <g>
+        <line x1="190" y1="148" x2="190" y2="156" stroke="#3a2410" stroke-width="1.2"/>
+        <path d="M190 157 L185 153 M190 157 L195 153" stroke="#2e7d32" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <circle cx="190" cy="165" r="9" fill="url(#persimmonG)"/>
+        <ellipse cx="187" cy="162" rx="2.4" ry="1.8" fill="#ffe6c8" opacity="0.6"/>
+      </g>
+      <g>
+        <line x1="96" y1="186" x2="96" y2="194" stroke="#3a2410" stroke-width="1.2"/>
+        <path d="M96 195 L91 191 M96 195 L101 191" stroke="#2e7d32" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <circle cx="96" cy="202" r="8.5" fill="url(#persimmonG)"/>
+        <ellipse cx="93" cy="199" rx="2.2" ry="1.6" fill="#ffe6c8" opacity="0.6"/>
+      </g>
+      <g>
+        <line x1="200" y1="228" x2="200" y2="234" stroke="#3a2410" stroke-width="1.2"/>
+        <path d="M200 235 L195 231 M200 235 L205 231" stroke="#2e7d32" stroke-width="1.6" stroke-linecap="round" fill="none"/>
+        <circle cx="200" cy="241" r="7.5" fill="url(#persimmonG)"/>
+      </g>
+      <g>
+        <line x1="114" y1="132" x2="114" y2="138" stroke="#3a2410" stroke-width="1.2"/>
+        <path d="M114 139 L110 136 M114 139 L118 136" stroke="#2e7d32" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+        <circle cx="114" cy="145" r="6.5" fill="url(#persimmonG)"/>
+      </g>
+
+      <!-- 月光斜照在迟迟身上的光带 -->
+      <path d="M250 92 L160 268 L156 262 L246 86 Z" fill="#e8ecf5" opacity="0.10"/>
+
+      <!-- 草地 + 落叶 -->
+      <ellipse cx="150" cy="395" rx="150" ry="22" fill="#0a0c1e"/>
+      <text x="50" y="392" font-size="14" fill="#c4712a" opacity="0.6">🍂</text>
+      <text x="230" y="398" font-size="12" fill="#c4712a" opacity="0.6">🍂</text>
+      <text x="180" y="402" font-size="10" fill="#c4712a" opacity="0.5">🍃</text>
+
+      <!-- 底部标题 -->
+      <rect x="0" y="408" width="300" height="32" fill="#0a0c1e" opacity="0.55"/>
+      <text x="150" y="429" text-anchor="middle" font-family="PingFang SC, -apple-system, sans-serif"
+            font-size="17" font-weight="700" fill="#f0ecdd" letter-spacing="3">小柿子的月光红</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月十二 · 盈凸月🌔</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">被等待 · 最晚也最甜</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>院子角落的老柿子树上，最矮的那根枝头，挂着小柿子迟迟。别的柿子都红着摘走了，只剩迟迟还是青青的、硬硬的，谁路过都摇头说："这颗怕是等不红咯。"</p>
+    <p>迟迟自己也着急。白天的太阳晒，晚上的风婆婆吹，他还是青青的。小麻雀落在他旁边啄了一口，"酸！"吐着舌头飞走了。迟迟难过极了，悄悄地想：是不是我哪里坏掉了，所以永远红不了？</p>
+    <p>盈凸月的夜里，月亮升起来了，差一点点就要圆了。月光一照，照了迟迟一整夜。月亮柔声说："别急呀，我把光慢慢存进你心里，你急不得的。"月光一遍一遍地照，照进了迟迟薄薄的皮，照进了他小小的心。</p>
+    <p>秋霜也悄悄来了，在月亮后面踮着脚，亲了迟迟一下。迟迟觉得肚子里攒了好多东西——太阳的暖、月光的银、秋霜的凉——它们在一起慢慢搅啊搅，变成了一点点甜。他的皮慢慢透出橘红，像点亮了一盏小灯。</p>
+    <p>第二天清早，老爷爷来到树下，抬头就看见迟迟变得红通通、亮晶晶的，挂在枝头像一盏小红灯笼。老爷爷笑了："等的就是你呀，最晚的最甜。"他轻轻把迟迟摘下来，放进竹篮。</p>
+    <p>可老爷爷没把枝头的柿子都摘光。他故意又留下两颗，对迟迟说："这两颗，留给冬天过路的小鸟。等雪下大了，它们抬头看见这盏红灯笼，就不怕冷啦。"</p>
+    <p>迟迟躺在竹篮里，终于明白了：原来被等待，不是被忘记了，是被大家爱地留到最好的时候。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>被等待不是被忘记，是被爱地留到最甜的时候。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。迟迟说，慢慢红透的果子最甜，你也慢慢长大，今晚先甜甜地睡吧。🍅</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月21日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
