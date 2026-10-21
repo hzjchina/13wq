@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>布达佩斯大饭店</title>
+<style>
+  :root {
+    --ink: #2a2420;
+    --muted: #7a6f64;
+    --paper: #f7f1ea;
+    --card: #fffaf5;
+    --accent: #b54a68;
+    --accent2: #5a3b78;
+    --gold: #c9a227;
+    --line: #e8ddd0;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    line-height: 1.9;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 40px 22px 80px; }
+  header.hero {
+    text-align: center;
+    padding: 36px 20px 30px;
+    margin-bottom: 28px;
+    background: linear-gradient(160deg, #5a3b78 0%, #b54a68 100%);
+    border-radius: 18px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(90, 59, 120, 0.22);
+  }
+  header.hero .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    padding: 4px 14px;
+    border: 1px solid rgba(255,255,255,0.55);
+    border-radius: 20px;
+    margin-bottom: 14px;
+    color: #f3e6da;
+  }
+  header.hero h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  header.hero .en {
+    font-size: 15px;
+    opacity: 0.85;
+    letter-spacing: 1px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .meta span {
+    font-size: 13px;
+    background: rgba(255,255,255,0.14);
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+  section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+  }
+  section h2 {
+    font-size: 20px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.4;
+  }
+  section p { margin-bottom: 12px; }
+  section p:last-child { margin-bottom: 0; }
+  .score-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 6px;
+  }
+  .score {
+    flex: 1 1 140px;
+    background: #faf3ea;
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+  }
+  .score .num { font-size: 26px; font-weight: 700; color: var(--accent2); }
+  .score .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .highlight-list { list-style: none; }
+  .highlight-list li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 12px;
+  }
+  .highlight-list li::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+  }
+  .quote {
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    padding: 18px 10px;
+    font-size: 16px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 30px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    header.hero h1 { font-size: 28px; }
+    section { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="tag">今日推荐</div>
+    <h1>布达佩斯大饭店</h1>
+    <div class="en">The Grand Budapest Hotel · 2014</div>
+    <div class="meta">
+      <span>导演：韦斯·安德森</span>
+      <span>类型：喜剧 / 剧情 / 冒险</span>
+      <span>时长：99 分钟</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>故事发生在一座虚构的中欧山城，主角是布达佩斯大饭店那位举止优雅、一丝不苟的礼宾长古斯塔夫先生。他深谙待客之道，也深受住客（尤其是年长的贵妇们）的信赖与喜爱。</p>
+    <p>当一位他最敬重的老顾客突然离世，并留下一幅价值连城的名画与巨额遗产给他时，一场荒诞又惊险的争夺就此拉开帷幕。古斯塔夫先生与他忠诚的门童零（Zero）结伴逃亡，卷入家族阴谋、火车逃亡与一场离奇的谋杀案之中。</p>
+    <p>而这一切，都是由多年后已成为饭店老板的零，向一位年轻作家娓娓道来的往事——层层嵌套，如同一本被翻阅了无数次的旧书。</p>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <ul class="highlight-list">
+      <li><strong>独一无二的视觉美学。</strong>韦斯·安德森的对称构图、马卡龙般的粉彩配色与精致的场景道具，每一帧都像一幅可以裱起来挂墙上的插画，赏心悦目到极致。</li>
+      <li><strong>教科书级的叙事结构。</strong>故事套故事的三层嵌套，像俄罗斯套娃一样精巧，节奏轻快又不失深情，看完让人回味悠长。</li>
+      <li><strong>群星璀璨却毫不炫技。</strong>拉尔夫·费因斯领衔，阿德里安·布洛迪、蒂尔达·斯文顿、西尔莎·罗南、爱德华·诺顿等数十位明星甘当配角，只为成全一部纯粹的作者电影。</li>
+      <li><strong>荒诞外壳下的温柔内核。</strong>喜剧的表象之下，藏着对逝去的旧世界、对绅士精神与忠诚友谊的深情回望，笑中带泪，余味悠长。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>口碑与荣誉</h2>
+    <div class="score-row">
+      <div class="score"><div class="num">8.9</div><div class="lbl">豆瓣评分</div></div>
+      <div class="score"><div class="num">8.1</div><div class="lbl">IMDb 评分</div></div>
+      <div class="score"><div class="num">4 项</div><div class="lbl">奥斯卡奖</div></div>
+    </div>
+    <p style="margin-top:16px;">第 87 届奥斯卡金像奖共获 9 项提名，斩获最佳艺术指导、最佳服装设计、最佳化妆与发型设计、最佳原创配乐四项大奖，是当年公认的"年度最美电影"。</p>
+  </section>
+
+  <div class="quote">"在野蛮的屠宰场里，还是有一些文明的微光存在。"</div>
+
+  <footer>—— 每日一部 · 经典电影推荐 ——</footer>
+</div>
+</body>
+</html>
