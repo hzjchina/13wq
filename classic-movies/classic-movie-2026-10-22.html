@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>闪灵</title>
+<style>
+  :root {
+    --bg: #0d0d0f;
+    --card: #16161a;
+    --text: #e8e6e3;
+    --sub: #9a968f;
+    --accent: #c0392b;
+    --gold: #d4a843;
+    --border: #26262c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 40px 20px 80px; }
+  .hero {
+    text-align: center;
+    padding: 48px 24px;
+    background: linear-gradient(160deg, #1a0f0f 0%, #0d0d0f 70%);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    margin-bottom: 32px;
+  }
+  .hero .year { color: var(--gold); letter-spacing: 3px; font-size: 14px; }
+  .hero h1 {
+    font-size: 40px;
+    margin: 10px 0 8px;
+    letter-spacing: 2px;
+    color: #f5f2ee;
+  }
+  .hero .en { color: var(--sub); font-style: italic; font-size: 15px; margin-bottom: 16px; }
+  .hero .meta { color: var(--sub); font-size: 15px; }
+  .hero .meta b { color: var(--text); font-weight: 600; }
+  .badge-row { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+  .badge {
+    background: #1e1e24;
+    border: 1px solid var(--border);
+    color: var(--gold);
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+  }
+  section {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 28px 26px;
+    margin-bottom: 22px;
+  }
+  h2 {
+    font-size: 21px;
+    color: var(--accent);
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  p { margin-bottom: 14px; color: #cfccc7; }
+  p:last-child { margin-bottom: 0; }
+  .no-spoiler {
+    background: #171720;
+    border: 1px dashed var(--accent);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--sub);
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .foot { text-align: center; color: #5a5650; font-size: 13px; margin-top: 36px; }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 32px; }
+    section { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="year">1980 · 斯坦利·库布里克</div>
+      <h1>闪灵</h1>
+      <div class="en">The Shining</div>
+      <div class="meta">导演 <b>斯坦利·库布里克</b> ｜ 主演 <b>杰克·尼科尔森</b>、<b>谢莉·杜瓦尔</b> ｜ 改编自 <b>斯蒂芬·金</b>同名小说</div>
+      <div class="badge-row">
+        <span class="badge">IMDb 8.4</span>
+        <span class="badge">豆瓣 8.3</span>
+        <span class="badge">心理恐怖里程碑</span>
+        <span class="badge">库布里克代表作</span>
+      </div>
+    </div>
+
+    <section>
+      <h2>剧情梗概</h2>
+      <p>作家杰克·托兰斯接受了一份冬季看管人工作，带着妻子温蒂和年幼的儿子丹尼，搬进坐落于雪山深处、冬季封闭的眺望旅馆。整座旅馆空旷、寂静，与世隔绝，一家三口要在其中度过漫长的寒冬。</p>
+      <p>随着日子一天天过去，旅馆仿佛拥有自己的意志。它看似华丽光鲜，却在走廊与房间的阴影里，慢慢渗出一股令人不安的气息。而丹尼——一个拥有特殊感应能力的孩子——比谁都更早察觉到，这栋建筑里潜藏着某些不祥之物。</p>
+      <p class="no-spoiler">🔒 为避免剧透，后续剧情在此打住。只能说，寒冬、孤寂与人心，将在这座旅馆里交织成一场难以醒来的噩梦。</p>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <p><b>· 库布里克的镜头美学。</b> 近乎偏执的对称构图、斯坦尼康长镜头、低角度仰拍，每一帧都经过精雕细琢。小男孩骑车穿行旅馆走廊那场戏，已成为影史最令人屏息的画面之一。</p>
+      <p><b>· 杰克·尼科尔森的巅峰表演。</b> 他从温和父亲到疯狂失控的渐变，堪称表演教科书，那句对着门缝低语的台词，是恐怖片史上最经典、被致敬最多的瞬间之一。</p>
+      <p><b>· 氛围的极致营造。</b> 它不靠廉价惊吓堆砌，而是用声音设计、空间压迫感与心理暗示，让恐惧从脚底慢慢爬上脊背。真正的恐怖，来自熟悉之人逐渐陌生。</p>
+      <p><b>· 耐人寻味的多重解读。</b> 影片埋藏了无数符号与细节，关于家庭、暴力、孤独与轮回，几十年来影迷乐此不疲地逐帧解读，常看常新。</p>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <p>《闪灵》早已超越"恐怖片"的范畴，成为影史公认的杰作。它证明了一部商业惊悚片同样可以承载导演强烈的作者印记与深层的心理洞察。</p>
+      <p>即便你不是恐怖片爱好者，它依然值得一看——为了库布里克那无与伦比的影像掌控力，为了尼科尔森那令人过目难忘的表演，也为了感受一部电影如何在类型框架内，抵达艺术的深处。</p>
+      <p>这是一部越品越有味道的作品：第一次看，是被气氛攫住；再看，是被细节折服。</p>
+    </section>
+
+    <div class="foot">本页内容不涉及剧透，放心观看 🦐</div>
+  </div>
+</body>
+</html>
