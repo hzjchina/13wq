@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>绿里奇迹</title>
+<style>
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2129;
+    --panel-2: #202a33;
+    --text: #e8edf2;
+    --muted: #9aa7b4;
+    --accent: #d4a24c;
+    --accent-2: #7fa8d9;
+    --border: #2c3742;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 17px;
+    padding: 24px 16px 48px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 36px 20px 28px;
+    background: linear-gradient(160deg, #1d2a24 0%, #141c22 100%);
+    border-radius: 16px;
+    border: 1px solid var(--border);
+    margin-bottom: 28px;
+  }
+  .kicker {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .meta span {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 16px;
+    font-size: 13.5px;
+    color: var(--muted);
+  }
+  .meta span b { color: var(--accent); font-weight: 600; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin-bottom: 18px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 1px;
+  }
+  p { margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  .quote {
+    border-left: 3px solid var(--accent);
+    background: var(--panel-2);
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    color: var(--accent-2);
+    margin: 16px 0;
+  }
+  ul { padding-left: 22px; margin-bottom: 14px; }
+  li { margin-bottom: 10px; }
+  .highlight {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 32px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    h1 { font-size: 28px; }
+    section { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">Classic Film</div>
+    <h1>绿里奇迹</h1>
+    <div class="subtitle">The Green Mile · 1999</div>
+    <div class="meta">
+      <span>导演 <b>弗兰克·德拉邦特</b></span>
+      <span>主演 <b>汤姆·汉克斯</b></span>
+      <span>豆瓣 <b>8.9</b></span>
+      <span>IMDb <b>8.6</b></span>
+    </div>
+  </header>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>故事发生在大萧条时期的美国南部，一座名为"冷山"的死囚监狱。年迈的看守保罗（汤姆·汉克斯 饰）在一家养老院里，向身边人娓娓道来那段他毕生难忘的往事。</p>
+    <p>冷山监狱的死刑区有一条铺着绿色地板的长廊，囚犯们走完它，便走向生命的终点——因此被称为"绿里"。保罗与几位忠厚的狱警日复一日地照看着等待行刑的死囚，其中有一个体型如山、却目光温和的巨人——约翰·考菲，他因一桩骇人的罪行被判死刑。</p>
+    <p>然而，随着时间推移，保罗渐渐发现，这个看似可怕的黑人壮汉身上，隐藏着某种不可思议的力量，也藏着一个令人心碎的秘密。绿里之上，善与恶、奇迹与死亡，悄然交织成一段关于人性最深处的寓言。</p>
+    <div class="quote">"我很累，头儿。我厌倦了一直在路上，像雨中的麻雀一样孤单。"</div>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul>
+      <li><span class="highlight">导演功力</span>：弗兰克·德拉邦特继《肖申克的救赎》后，再度改编斯蒂芬·金小说，同样被誉为"改编超越原著"的典范。</li>
+      <li><span class="highlight">汤姆·汉克斯的演技</span>：他的保罗克制而深情，把一位狱警的挣扎与悲悯演得入木三分。</li>
+      <li><span class="highlight">约翰·考菲这个角色</span>：影史最令人难忘的"巨人"之一，演员迈克尔·克拉克·邓肯奉献了载入史册的表演。</li>
+      <li><span class="highlight">超自然元素的克制运用</span>：奇迹与现实的边界处理得恰到好处，不炫技，却直击人心。</li>
+      <li><span class="highlight">群像刻画</span>：一帮狱警与死囚之间的日常，温暖、黑色幽默与沉重并存，人物个个鲜活。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>这是一部关于<span class="highlight">善良、奇迹与救赎</span>的电影。它不靠炫目的特效或烧脑的反转，而是用三小时从容不迫的讲述，让你跟着保罗一起，重新审视何为人性、何为正义、何为"值得被拯救"的生命。</p>
+    <p>它催泪，却绝不廉价煽情；它奇幻，却扎根于真实的人间烟火。当片尾那根绿里的故事尘埃落定，你收获的不仅是一次观影体验，更是一场对良善力量的温柔致敬。如果你喜欢《肖申克的救赎》那种"黑暗中仍有光"的力量，这部片会是你不可错过的一站。</p>
+    <p>全片无剧透的说明到此为止——真正的震撼，留给你亲自走进那三小时的"绿里"。</p>
+  </section>
+
+  <footer>🦐 小虾米 · 经典电影推荐 · 2026-10-23</footer>
+</div>
+</body>
+</html>
