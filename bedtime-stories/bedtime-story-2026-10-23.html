@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小水獭的牵手月 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：河面小水泡 + 萤火虫（兜兜追萤火虫） */
+  .bubble {
+    position: absolute; border-radius: 50%;
+    background: rgba(207, 216, 232, 0.35);
+    border: 1px solid rgba(207, 216, 232, 0.25);
+    opacity: 0; animation: floatBubble 8s ease-in-out infinite;
+  }
+  @keyframes floatBubble {
+    0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+    20%  { opacity: 0.7; }
+    60%  { transform: translate(10px, -70px) scale(1); opacity: 0.5; }
+    100% { transform: translate(16px, -130px) scale(1.3); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：农历九月十四·盈凸月（illumination 0.99，差一点点就满月，右侧亮左侧极窄暗弧） */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：农历九月十四·盈凸月（illumination 0.99，差一点点就满月） -->
+  <div class="moon">
+    <svg width="170" height="170" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.35"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <!-- 月晕 -->
+      <circle cx="60" cy="60" r="58" fill="url(#moonHalo)"/>
+      <!-- 亮盘 -->
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 盈凸月：暗圆在左侧偏移 1.9r=72.2px，暗圆cx=60-72.2=-12.2，illumination 0.99 左侧极窄暗弧（差一点点就圆） -->
+      <circle cx="-12.2" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：河面小水泡 + 萤火虫 -->
+  <span class="bubble" style="top:60%; left:18%; width:8px; height:8px; animation-delay:0s;"></span>
+  <span class="bubble" style="top:68%; left:48%; width:6px; height:6px; animation-delay:2.5s;"></span>
+  <span class="bubble" style="top:74%; left:78%; width:9px; height:9px; animation-delay:5s;"></span>
+  <span class="firefly" style="top:50%; left:30%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:58%; left:66%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小水獭的牵手月</h1>
+    <p class="meta">🦦 月亮差一点点就圆，我们牵着手今晚就已经圆 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-23.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：河面盈凸月夜 + 一家人手拉手浮成小圆圈 + 水中月影 + 底部标题 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="78%" stop-color="#2a3a5c"/>
+          <stop offset="100%" stop-color="#14243a"/>
+        </linearGradient>
+        <linearGradient id="waterGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a2a44"/>
+          <stop offset="100%" stop-color="#0a1426"/>
+        </linearGradient>
+        <radialGradient id="pMoonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.4"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="posterMoonClip"><circle cx="248" cy="70" r="22"/></clipPath>
+      </defs>
+
+      <!-- 夜空 -->
+      <rect x="0" y="0" width="300" height="440" fill="url(#skyGrad)"/>
+
+      <!-- 远山 -->
+      <path d="M0,250 Q60,210 120,235 T240,228 L300,232 L300,300 L0,300 Z" fill="#101a36" opacity="0.85"/>
+      <path d="M0,275 Q50,250 110,265 T220,260 L300,266 L300,300 L0,300 Z" fill="#0a1428" opacity="0.9"/>
+
+      <!-- 河面 -->
+      <rect x="0" y="300" width="300" height="140" fill="url(#waterGrad)"/>
+
+      <!-- 远星 -->
+      <circle cx="40" cy="60" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="90" cy="40" r="0.9" fill="#fff" opacity="0.6"/>
+      <circle cx="170" cy="55" r="1.1" fill="#fff" opacity="0.7"/>
+      <circle cx="200" cy="30" r="0.8" fill="#fff" opacity="0.5"/>
+
+      <!-- 盈凸月（illumination 0.99，差一点点就满）+ 月晕 -->
+      <circle cx="248" cy="70" r="34" fill="url(#pMoonHalo)"/>
+      <circle cx="248" cy="70" r="22" fill="#e8ecf5"/>
+      <!-- 暗圆在左侧偏移 1.9r=41.8px，暗圆cx=248-41.8=206.2，盈月方向右亮左暗、左侧极窄暗弧 -->
+      <circle cx="206.2" cy="70" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+
+      <!-- 水中月影（倒映在河面，与天上月同形） -->
+      <ellipse cx="150" cy="318" rx="20" ry="4" fill="#1a2a44"/>
+      <ellipse cx="150" cy="318" rx="18" ry="3.2" fill="#cfd8e8" opacity="0.55"/>
+      <ellipse cx="150" cy="318" rx="15" ry="2.4" fill="#0e0f26" opacity="0.35"/>
+
+      <!-- 一家人手拉手浮成的小圆圈（俯视/侧视）——水中"第三个圆" -->
+      <!-- 圆心约 (150, 380)，4 只小水獭肚皮朝上手牵着手 -->
+      <g id="otterCircle">
+        <!-- 水獭1 上 -->
+        <ellipse cx="150" cy="356" rx="20" ry="11" fill="#7a5a3a"/>
+        <ellipse cx="150" cy="354" rx="14" ry="7.5" fill="#b08a5e"/>
+        <circle cx="168" cy="352" r="6.5" fill="#7a5a3a"/>
+        <circle cx="166" cy="350" r="4.5" fill="#d8b888"/>
+        <circle cx="164" cy="350.5" r="0.9" fill="#1a1208"/>
+        <circle cx="169" cy="350.5" r="0.9" fill="#1a1208"/>
+        <path d="M163,353 q3,2 6,0" stroke="#3a2410" stroke-width="0.8" fill="none"/>
+        <!-- 牵手线 -->
+        <line x1="150" y1="367" x2="170" y2="378" stroke="#8a6a44" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- 水獭2 右 -->
+        <ellipse cx="176" cy="384" rx="20" ry="11" fill="#7a5a3a"/>
+        <ellipse cx="176" cy="382" rx="14" ry="7.5" fill="#b08a5e"/>
+        <circle cx="194" cy="380" r="6.5" fill="#7a5a3a"/>
+        <circle cx="192" cy="378" r="4.5" fill="#d8b888"/>
+        <circle cx="190" cy="378.5" r="0.9" fill="#1a1208"/>
+        <circle cx="195" cy="378.5" r="0.9" fill="#1a1208"/>
+        <line x1="170" y1="378" x2="176" y2="373" stroke="#8a6a44" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="176" y1="395" x2="156" y2="402" stroke="#8a6a44" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- 水獭3 下 -->
+        <ellipse cx="150" cy="404" rx="20" ry="11" fill="#7a5a3a"/>
+        <ellipse cx="150" cy="402" rx="14" ry="7.5" fill="#b08a5e"/>
+        <circle cx="132" cy="400" r="6.5" fill="#7a5a3a"/>
+        <circle cx="134" cy="398" r="4.5" fill="#d8b888"/>
+        <circle cx="131" cy="398.5" r="0.9" fill="#1a1208"/>
+        <circle cx="136" cy="398.5" r="0.9" fill="#1a1208"/>
+        <line x1="156" y1="402" x2="150" y2="393" stroke="#8a6a44" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="130" y1="400" x2="124" y2="378" stroke="#8a6a44" stroke-width="2.2" stroke-linecap="round"/>
+        <!-- 水獭4 左（妈妈，稍大） -->
+        <ellipse cx="124" cy="378" rx="22" ry="12" fill="#6a4a2e"/>
+        <ellipse cx="124" cy="376" rx="15" ry="8" fill="#a07a50"/>
+        <circle cx="142" cy="374" r="7" fill="#6a4a2e"/>
+        <circle cx="140" cy="372" r="5" fill="#d8b888"/>
+        <circle cx="138" cy="372.5" r="1" fill="#1a1208"/>
+        <circle cx="143" cy="372.5" r="1" fill="#1a1208"/>
+        <path d="M137,375 q3,2.5 7,0" stroke="#3a2410" stroke-width="0.9" fill="none"/>
+        <line x1="124" y1="366" x2="150" y2="367" stroke="#8a6a44" stroke-width="2.4" stroke-linecap="round"/>
+        <!-- 妈妈搂兜兜：中央小水獭 -->
+        <ellipse cx="150" cy="380" rx="16" ry="9" fill="#7a5a3a"/>
+        <ellipse cx="150" cy="378" rx="11" ry="6" fill="#c0a070"/>
+        <circle cx="164" cy="376" r="5.5" fill="#7a5a3a"/>
+        <circle cx="163" cy="374" r="3.8" fill="#e0c898"/>
+        <circle cx="161.5" cy="374.5" r="0.85" fill="#1a1208"/>
+        <circle cx="165" cy="374.5" r="0.85" fill="#1a1208"/>
+        <path d="M161,377 q2.5,1.8 5,0" stroke="#3a2410" stroke-width="0.7" fill="none"/>
+      </g>
+
+      <!-- 水波纹 -->
+      <ellipse cx="150" cy="382" rx="58" ry="8" fill="none" stroke="#3a5a7a" stroke-width="1" opacity="0.4"/>
+      <ellipse cx="150" cy="382" rx="70" ry="10" fill="none" stroke="#3a5a7a" stroke-width="0.8" opacity="0.25"/>
+
+      <!-- 一只小萤火虫（兜兜追的那只） -->
+      <circle cx="215" cy="330" r="3" fill="#d9f7a8"/>
+      <circle cx="215" cy="330" r="6" fill="#d9f7a8" opacity="0.25"/>
+
+      <!-- 底部标题文字 -->
+      <rect x="30" y="420" width="240" height="16" fill="#0a1020" opacity="0.55" rx="3"/>
+      <text x="150" y="431" text-anchor="middle" font-size="11" fill="#cfd8e8" letter-spacing="3" font-family="-apple-system, 'PingFang SC', sans-serif">小水獭的牵手月</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月十四 · 盈凸月🌔</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">在一起就是圆满</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的夜里，河面上飘着一家人——水獭妈妈带着兜兜和哥哥姐姐，肚皮朝上，一只牵一只的手，浮成一个小小的圆圈。天上的月亮又大又亮，仔细看，左边还差细细一弯就要圆了。它把整条河照得亮堂堂的，像撒了一河的碎银子。</p>
+    <p>兜兜偏偏不肯牵。他看见一只亮闪闪的小萤火虫从水面上飞过，一松手就追了上去。"哗啦"一扑，萤火虫没抓着，河水却推着他骨碌碌地往远处飘。兜兜回头一看，妈妈和哥哥姐姐已经变成了远处几个小小的黑点，吓得"吱吱"叫起来。</p>
+    <p>河水凉凉的，月亮那么圆那么亮，却没办法把他推回家。兜兜急得眼泪都掉了下来。就在这时，水面上"哗啦哗啦"漾起一串小波纹——是妈妈！妈妈划得飞快，一把牵住了兜兜湿漉漉的小手。哥哥姐姐也一只接一只地游过来，手拉着手，又围成了一个圆圆的小圈。</p>
+    <p>兜兜躺在圆圈中间，仰起头看天："妈妈，月亮还差一点点才圆呢。"妈妈笑着把他搂进怀里："月亮差一点点，明天就圆啦。可是我们牵着手，今晚就已经圆了。"</p>
+    <p>兜兜低下头，一家人手拉手围成的圆圈，浮在亮亮的河面上；水里还倒映着那个差一点点就圆的月亮。天上一个月亮，水里一个月亮，再加上他们手拉手围成的一个圆——今晚，河面上已经有三个月亮啦。兜兜紧紧握住妈妈和姐姐的手，安心地闭上了眼睛。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>在一起就是圆满——牵着手的圆，比月亮还先圆。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。兜兜说，今晚记得牵住你爱的人的手，你们的小圆圈，就是今晚最早的满月。🦦</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月23日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
