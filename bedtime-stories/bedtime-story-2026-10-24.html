@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小汤圆的满月圆 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：汤圆热气/月光尘 */
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：满月，正圆+月晕 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 满月：正圆 #e8ecf5 + 月晕光圈 -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120">
+      <defs>
+        <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f0ecdd" stop-opacity="0.28"/>
+          <stop offset="45%" stop-color="#e8ecf5" stop-opacity="0.1"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="55" fill="url(#moonHalo)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="52" cy="52" r="4" fill="#d4d8e8" opacity="0.4"/>
+      <circle cx="68" cy="58" r="3" fill="#d4d8e8" opacity="0.3"/>
+      <circle cx="56" cy="70" r="2.5" fill="#d4d8e8" opacity="0.3"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：暖色小圆点（汤圆热气/月光尘）+ 萤火虫 -->
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">●</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">●</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s;">●</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小汤圆的满月圆</h1>
+    <p class="meta">🌕 小小圆圆也是满 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-24.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：满月夜厨房窗台 + 汤圆碗 + 底部标题
+         海报里的月亮按满月绘制，与背景 .moon 保持一致 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="skyGrad" cx="50%" cy="25%" r="90%">
+          <stop offset="0%" stop-color="#232a5c"/>
+          <stop offset="100%" stop-color="#0e0f26"/>
+        </radialGradient>
+        <radialGradient id="posterMoonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f0ecdd" stop-opacity="0.3"/>
+          <stop offset="50%" stop-color="#e8ecf5" stop-opacity="0.1"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="windowLight" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#f5d76e" stop-opacity="0.2"/>
+          <stop offset="100%" stop-color="#f5d76e" stop-opacity="0.08"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 夜空背景 -->
+      <rect width="300" height="440" fill="url(#skyGrad)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="35" cy="35" r="1.5" fill="#fff" opacity="0.8"/>
+      <circle cx="90" cy="25" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="155" cy="48" r="1.2" fill="#fff" opacity="0.7"/>
+      <circle cx="55" cy="75" r="0.8" fill="#fff" opacity="0.5"/>
+      <circle cx="120" cy="38" r="0.9" fill="#fff" opacity="0.5"/>
+
+      <!-- 满月 + 月晕 -->
+      <circle cx="240" cy="58" r="40" fill="url(#posterMoonGlow)"/>
+      <circle cx="240" cy="58" r="22" fill="#e8ecf5"/>
+      <circle cx="234" cy="53" r="2.5" fill="#d4d8e8" opacity="0.45"/>
+      <circle cx="246" cy="60" r="2" fill="#d4d8e8" opacity="0.35"/>
+      <circle cx="238" cy="66" r="1.5" fill="#d4d8e8" opacity="0.3"/>
+
+      <!-- 月光光柱（从月亮斜照下来） -->
+      <path d="M 218 80 L 70 280 L 230 280 L 262 80 Z" fill="#e8ecf5" opacity="0.04"/>
+
+      <!-- 厨房窗户 -->
+      <rect x="75" y="130" width="150" height="105" rx="8" fill="#1c1f4a" stroke="#7ec8e3" stroke-width="2" opacity="0.95"/>
+      <rect x="82" y="137" width="136" height="91" rx="4" fill="url(#windowLight)"/>
+      <!-- 窗户十字格 -->
+      <line x1="150" y1="137" x2="150" y2="228" stroke="#7ec8e3" stroke-width="1" opacity="0.4"/>
+      <line x1="82" y1="182" x2="218" y2="182" stroke="#7ec8e3" stroke-width="1" opacity="0.4"/>
+
+      <!-- 窗台 -->
+      <rect x="65" y="235" width="170" height="10" rx="3" fill="#3a3a5c"/>
+      <rect x="65" y="235" width="170" height="3" rx="1" fill="#5a5a7c" opacity="0.6"/>
+
+      <!-- 碗影 -->
+      <ellipse cx="150" cy="288" rx="58" ry="10" fill="#000" opacity="0.25"/>
+
+      <!-- 青花瓷碗 -->
+      <path d="M 92 260 Q 150 250 208 260 L 198 292 Q 150 300 102 292 Z" fill="#3a4a7a" stroke="#7ec8e3" stroke-width="1.5"/>
+      <!-- 碗口边缘 -->
+      <ellipse cx="150" cy="260" rx="58" ry="9" fill="#2a3a6a" stroke="#7ec8e3" stroke-width="1.5"/>
+      <!-- 桂花甜汤 -->
+      <ellipse cx="150" cy="260" rx="53" ry="7" fill="#c4954a" opacity="0.65"/>
+      <!-- 碗中月影 -->
+      <circle cx="150" cy="260" r="9" fill="#e8ecf5" opacity="0.35"/>
+
+      <!-- 汤圆们（白白圆圆） -->
+      <circle cx="133" cy="257" r="7" fill="#f5f0e0" stroke="#d4d4c4" stroke-width="0.5"/>
+      <circle cx="167" cy="258" r="6.5" fill="#f5f0e0" stroke="#d4d4c4" stroke-width="0.5"/>
+      <circle cx="142" cy="261" r="5.5" fill="#f5f0e0" stroke="#d4d4c4" stroke-width="0.5"/>
+      <circle cx="160" cy="262" r="5" fill="#f5f0e0" stroke="#d4d4c4" stroke-width="0.5"/>
+
+      <!-- 主角汤圆圆圆（带小脸） -->
+      <circle cx="150" cy="256" r="8" fill="#f5f0e0" stroke="#d4d4c4" stroke-width="0.6"/>
+      <circle cx="147" cy="254" r="0.9" fill="#3a3a5c"/>
+      <circle cx="153" cy="254" r="0.9" fill="#3a3a5c"/>
+      <path d="M 147 258 Q 150 260.5 153 258" stroke="#3a3a5c" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+
+      <!-- 热气 -->
+      <path d="M 128 248 Q 126 233 130 218 Q 128 203 132 188" stroke="#a3a8d0" stroke-width="1.5" fill="none" opacity="0.3" stroke-linecap="round"/>
+      <path d="M 150 248 Q 152 233 148 218 Q 150 203 146 188" stroke="#a3a8d0" stroke-width="1.5" fill="none" opacity="0.25" stroke-linecap="round"/>
+      <path d="M 172 248 Q 170 233 174 218 Q 172 203 176 188" stroke="#a3a8d0" stroke-width="1.5" fill="none" opacity="0.2" stroke-linecap="round"/>
+
+      <!-- 桂花瓣飘落 -->
+      <circle cx="100" cy="120" r="1.5" fill="#f5d76e" opacity="0.5"/>
+      <circle cx="200" cy="140" r="1.2" fill="#f5d76e" opacity="0.4"/>
+      <circle cx="115" cy="160" r="1" fill="#f5d76e" opacity="0.3"/>
+
+      <!-- 小田鼠（窗台下来喝甜汤的） -->
+      <ellipse cx="95" cy="300" rx="9" ry="5.5" fill="#8a7a6a"/>
+      <circle cx="103" cy="298" r="3.5" fill="#8a7a6a"/>
+      <circle cx="104.5" cy="297" r="0.6" fill="#3a3a5c"/>
+      <circle cx="104.5" cy="298.5" r="0.4" fill="#3a3a5c"/>
+      <path d="M 101 295 L 99 291 M 106 295 L 108 291" stroke="#8a7a6a" stroke-width="0.8" fill="none" stroke-linecap="round"/>
+      <path d="M 86 302 Q 80 300 83 295" stroke="#8a7a6a" stroke-width="1" fill="none" stroke-linecap="round"/>
+
+      <!-- 小燕子（飞过窗台） -->
+      <path d="M 220 120 Q 225 116 230 120 Q 235 116 240 120" stroke="#cfd8e8" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+      <path d="M 218 124 Q 223 122 228 124" stroke="#cfd8e8" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.6"/>
+
+      <!-- 桌面/地面 -->
+      <rect x="0" y="305" width="300" height="135" fill="#0e0f26" opacity="0.5"/>
+
+      <!-- 底部标题区 -->
+      <rect x="0" y="360" width="300" height="80" fill="#0e0f26" opacity="0.85"/>
+      <line x1="40" y1="375" x2="260" y2="375" stroke="#7ec8e3" stroke-width="0.5" opacity="0.3"/>
+      <text x="150" y="402" text-anchor="middle" fill="#cfd8e8" font-size="20" font-weight="700" font-family="-apple-system, PingFang SC, sans-serif" letter-spacing="2">小汤圆的满月圆</text>
+      <text x="150" y="425" text-anchor="middle" fill="#a3a8d0" font-size="11" font-family="-apple-system, PingFang SC, sans-serif" letter-spacing="1">农历九月十五 · 满月🌕</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月十五 · 满月🌕</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">小小圆圆也是满</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>小指甲盖那么大的汤圆圆圆，是奶奶在农历九月十五那天揉出来的最小一个。</p>
+    <p>别的汤圆都胖嘟嘟的，像小拳头，只有圆圆小得藏在掌心里，悄悄担心："我这么小，配不配叫'圆'呀？"</p>
+    <p>奶奶把揉好的汤圆排在撒了糯米粉的竹匾上，圆圆挤在大个子们中间，像一颗白芝麻掉进了一盘元宵里。</p>
+    <p>窗外的满月升起来了。好大好圆的月亮，把整个院子照得亮堂堂的，连厨房窗台上的桂花都镀了一层银。</p>
+    <p>月光从窗缝里溜进来，刚好落在圆圆身上。圆圆仰起头，看见天上那轮满月——又大又圆，亮得像一面镜子。</p>
+    <p>"月亮月亮，"圆圆小声问，"你那么大那么圆，我这么小，也算圆吗？"</p>
+    <p>满月笑了笑，月光落进圆圆的心里，轻轻说："我圆，你也圆。圆圆不分大小，完整就是圆满。"</p>
+    <p>圆圆的心里一下子暖暖的。</p>
+    <p>奶奶烧开了水，把汤圆一个一个下进锅里。热水咕嘟咕嘟地翻，圆圆在里面翻了个身，滚得圆溜溜的，白白的肚皮亮晶晶。</p>
+    <p>"好了好了！"奶奶把汤圆盛进青花瓷碗里，浇上桂花甜汤。</p>
+    <p>碗刚好放在窗台上。满月的月光斜斜地照进碗里——甜汤表面映出一个圆圆的月亮。天上一个月亮，碗里一个月亮，汤圆圆圆也是一个小小的圆月亮。</p>
+    <p>晚归的小燕子飞过窗台，啄了一小口甜汤，扑扑翅膀说："好甜，好圆！"</p>
+    <p>怕冷的小田鼠踮着脚尖来，舔了一小口，胡须翘翘地说："暖暖的，圆圆的！"</p>
+    <p>小朋友被奶奶抱着过来，用小勺子舀起圆圆，吹了吹："呼——"然后送进嘴里，眼睛弯成了月牙："奶奶，这个汤圆好甜，和月亮一样圆！"</p>
+    <p>圆圆在小朋友暖暖的嘴里，最后化成了一口甜甜的桂花味儿。它终于明白了月亮说的那句话——不必等长大了才圆，此刻小小的圆圆的，就是一轮满月。</p>
+    <p>窗外的满月笑眯眯的，碗里的月光也笑眯眯的。满月夜，什么都是圆的。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>圆圆的不分大小，此刻完整就是圆满。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。圆圆说，你今天也是个圆圆的好孩子，心里装着一轮满月，该做一个甜甜的圆梦了。🌕</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月24日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
