@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小灯笼鱼的深海满月 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子（深海主题：生物光点 + 上浮气泡） */
+  .glowdot {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #aef5e0; box-shadow: 0 0 10px 2px rgba(174, 245, 224, 0.7);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+  .bubble {
+    position: absolute; border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, rgba(255,255,255,0.5), rgba(126,200,227,0.18));
+    border: 1px solid rgba(174, 245, 224, 0.25);
+    opacity: 0; animation: rise 9s ease-in infinite;
+  }
+  @keyframes rise {
+    0%   { transform: translate(0, 0) scale(0.7); opacity: 0; }
+    15%  { opacity: 0.7; }
+    70%  { transform: translate(8px, -150px) scale(1); opacity: 0.5; }
+    100% { transform: translate(14px, -240px) scale(1.05); opacity: 0; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：满月🌕 illumination 1.0，正圆 + 月晕光圈，无暗圆 -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="halo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.55"/>
+          <stop offset="45%" stop-color="#cfd8e8" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#cfd8e8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="moonFill" cx="38%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#fbfcf8"/>
+          <stop offset="60%" stop-color="#e8ecf5"/>
+          <stop offset="100%" stop-color="#cfd8e8"/>
+        </radialGradient>
+      </defs>
+      <!-- 月晕光圈 -->
+      <circle cx="60" cy="60" r="58" fill="url(#halo)"/>
+      <!-- 满月正圆 -->
+      <circle cx="60" cy="60" r="38" fill="url(#moonFill)"/>
+      <!-- subtle crater 质感 -->
+      <circle cx="50" cy="52" r="4" fill="#c7cee0" opacity="0.35"/>
+      <circle cx="68" cy="48" r="2.5" fill="#c7cee0" opacity="0.3"/>
+      <circle cx="64" cy="68" r="3" fill="#c7cee0" opacity="0.28"/>
+      <circle cx="46" cy="66" r="2" fill="#c7cee0" opacity="0.25"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：深海主题——上浮气泡 + 生物光点 -->
+  <span class="bubble" style="top:70%; left:14%; width:10px; height:10px; animation-delay:0s;"></span>
+  <span class="bubble" style="top:78%; left:82%; width:7px; height:7px; animation-delay:2.4s;"></span>
+  <span class="bubble" style="top:64%; left:48%; width:8px; height:8px; animation-delay:4.6s;"></span>
+  <span class="glowdot" style="top:46%; left:12%; animation-delay:0s;"></span>
+  <span class="glowdot" style="top:58%; left:88%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小灯笼鱼的深海满月</h1>
+    <p class="meta">🏮 月光藏在每个看不见它的小生命头顶 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-25.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a3568"/>
+          <stop offset="35%" stop-color="#1a2350"/>
+          <stop offset="100%" stop-color="#0c1238"/>
+        </linearGradient>
+        <linearGradient id="surface" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3a4a85"/>
+          <stop offset="100%" stop-color="#1a2350" stop-opacity="0"/>
+        </linearGradient>
+        <radialGradient id="posterHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.5"/>
+          <stop offset="50%" stop-color="#cfd8e8" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="#cfd8e8" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="posterMoonFill" cx="38%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#fbfcf8"/>
+          <stop offset="60%" stop-color="#e8ecf5"/>
+          <stop offset="100%" stop-color="#cfd8e8"/>
+        </radialGradient>
+        <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#fff6c8" stop-opacity="0.95"/>
+          <stop offset="40%" stop-color="#f5d76e" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#f5d76e" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="moonbeam" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.45"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 深海背景 -->
+      <rect x="0" y="0" width="300" height="440" fill="url(#sea)" rx="16"/>
+
+      <!-- 海面浅色光带 -->
+      <rect x="0" y="0" width="300" height="60" fill="url(#surface)" rx="16"/>
+      <path d="M0 52 Q 40 46 80 52 T 160 52 T 240 52 T 300 52 L300 60 L0 60 Z" fill="#3a4a85" opacity="0.5"/>
+
+      <!-- 满月（天上） -->
+      <circle cx="240" cy="48" r="58" fill="url(#posterHalo)"/>
+      <circle cx="240" cy="48" r="22" fill="url(#posterMoonFill)"/>
+      <circle cx="233" cy="44" r="2.5" fill="#c7cee0" opacity="0.35"/>
+      <circle cx="246" cy="52" r="1.8" fill="#c7cee0" opacity="0.3"/>
+
+      <!-- 月光透过海水的银线（从海面延伸到深海，通向灯笼鱼头顶的灯） -->
+      <path d="M236 70 L228 180 L224 300 L220 380" stroke="url(#moonbeam)" stroke-width="3" fill="none" opacity="0.6"/>
+      <path d="M244 70 L250 180 L256 300 L260 380" stroke="url(#moonbeam)" stroke-width="2" fill="none" opacity="0.45"/>
+      <path d="M228 70 L218 200 L214 340" stroke="url(#moonbeam)" stroke-width="1.5" fill="none" opacity="0.3"/>
+
+      <!-- 小水母（深海小伙伴 1，左上） -->
+      <g transform="translate(60,120)">
+        <ellipse cx="0" cy="0" rx="14" ry="10" fill="#aef5e0" opacity="0.35"/>
+        <path d="M-10 8 Q -8 18 -10 26 M-4 9 Q -3 20 -4 30 M2 9 Q 3 22 2 32 M8 8 Q 9 18 8 26" stroke="#aef5e0" stroke-width="1.2" fill="none" opacity="0.5"/>
+      </g>
+
+      <!-- 小海葵（左下角点缀） -->
+      <g transform="translate(40,360)">
+        <path d="M0 40 Q -6 20 -3 0 M0 40 Q 6 20 3 0 M0 40 Q 0 18 0 -2 M-8 38 Q -10 22 -6 8 M8 38 Q 10 22 6 8" stroke="#7ec8e3" stroke-width="2" fill="none" opacity="0.55" stroke-linecap="round"/>
+      </g>
+
+      <!-- 海底小光点（其它深海小灯笼鱼，远处） -->
+      <circle cx="80" cy="320" r="2.5" fill="#fff6c8" opacity="0.85"/>
+      <circle cx="80" cy="320" r="6" fill="#f5d76e" opacity="0.3"/>
+      <circle cx="250" cy="340" r="2" fill="#fff6c8" opacity="0.8"/>
+      <circle cx="250" cy="340" r="5" fill="#f5d76e" opacity="0.28"/>
+      <circle cx="120" cy="395" r="2.2" fill="#fff6c8" opacity="0.8"/>
+      <circle cx="120" cy="395" r="5.5" fill="#f5d76e" opacity="0.3"/>
+
+      <!-- 主角：小灯笼鱼（中下方，头顶圆灯被月光银线接通） -->
+      <g transform="translate(150,300)">
+        <!-- 头顶圆灯 + 光晕 -->
+        <circle cx="0" cy="-44" r="14" fill="url(#lampGlow)"/>
+        <circle cx="0" cy="-44" r="5.5" fill="#fff6c8"/>
+        <!-- 灯柄 -->
+        <path d="M0 -30 Q -2 -18 -6 -8 Q -4 -2 0 0" stroke="#cfd8e8" stroke-width="1.5" fill="none" opacity="0.7"/>
+        <!-- 鱼身（圆胖） -->
+        <ellipse cx="0" cy="10" rx="34" ry="26" fill="#5a6aa0"/>
+        <ellipse cx="0" cy="10" rx="34" ry="26" fill="url(#sea)" opacity="0.2"/>
+        <!-- 腹部高光 -->
+        <ellipse cx="-6" cy="18" rx="18" ry="10" fill="#7ec8e3" opacity="0.25"/>
+        <!-- 嘴 -->
+        <path d="M30 8 Q 36 6 36 10 Q 36 14 30 12" stroke="#cfd8e8" stroke-width="1.2" fill="#3a4a85"/>
+        <!-- 眼睛 -->
+        <circle cx="22" cy="2" r="4" fill="#fbfcf8"/>
+        <circle cx="23" cy="3" r="2" fill="#0c1238"/>
+        <!-- 尾鳍 -->
+        <path d="M-32 10 L-50 0 L-50 20 Z" fill="#5a6aa0"/>
+        <path d="M-32 10 L-48 6 L-48 14 Z" fill="#7ec8e3" opacity="0.4"/>
+        <!-- 胸鳍 -->
+        <path d="M-6 22 Q -2 30 6 26 Q 4 22 -6 22 Z" fill="#4a5a90" opacity="0.8"/>
+        <!-- 牙齿（小鮟鱇特征，简化） -->
+        <path d="M28 11 L30 13 L32 11" stroke="#cfd8e8" stroke-width="0.8" fill="none"/>
+      </g>
+
+      <!-- 海底沙地 -->
+      <ellipse cx="150" cy="425" rx="160" ry="14" fill="#0a0e2c" opacity="0.8"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="420" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="15" font-weight="600" fill="#cfd8e8" letter-spacing="2">小灯笼鱼的深海满月</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月十六 · 满月🌕</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">看不见也是圆满 · 月光分身</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深海里住着一只小灯笼鱼，名字叫灯灯。他头顶长着一根细细的柄，柄的尽头挂着一颗圆圆的小灯，亮起来像一颗小星星。可是深海那么黑那么深，灯灯从出生起，就从来没见过天上的月亮。</p>
+    <p>有一回，一条老鱼慢悠悠地游下来，说：“孩子们，今天是满月夜，天上的月亮又圆又亮，把整片海面都照成了银子。”灯灯听完，难过地垂下小灯。他想：我头顶只有这么一盏小灯，哪里比得上那么大、那么圆的月亮呢。</p>
+    <p>灯灯决定鼓起勇气，游上去看一眼。满月夜，他摆摆尾巴往上、往上、再往上。游过打着转的暗流，绕过打着哈欠的大鱼，穿过摇来摇去的海带林。海水越来越浅，越来越亮，他终于游到了浅海。</p>
+    <p>灯灯抬起头，看见了天上那轮满月。它又圆又亮，像一只银盘子挂在天上。月光穿过海水，化成无数条细细的银线，一根一根，慢慢往下沉。灯灯顺着银线往深海里看——每一条银线，都通向深海里一盏圆圆的小灯。</p>
+    <p>“那是我的小灯吗？”灯灯小声问。月亮温柔地说：“是啊。我把自己的光分成万千份，藏在深海里每一只看不见我的小生命头顶。你头顶那盏圆灯，就是我藏起来的一块圆满。”</p>
+    <p>灯灯一下子明白了。原来深海里看不见月亮的小鱼、小水母、小虾，每一个头顶都有一份月亮。他开心地游回深海，把这件事告诉所有的小伙伴。从此每个满月夜，深海里万千盏小圆灯一起亮起来，像海底也升起了一轮满满的月亮。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>看不见的圆满也是圆满——月亮把自己的光分成万千份，藏在每一个看不见它的小生命头顶。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。灯灯说，你头顶也藏着一盏小月亮，今天也该亮起来，做一个银色的梦了。🌕</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月25日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
