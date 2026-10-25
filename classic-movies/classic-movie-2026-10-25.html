@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>彗星美人</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --card: #ffffff;
+    --ink: #2b2b2b;
+    --muted: #6b6b6b;
+    --accent: #b8860b;
+    --line: #e6e0d4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.85;
+    font-size: 17px;
+    padding: 24px 16px 48px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 26px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .poster {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .poster .mark {
+    display: inline-block;
+    font-size: 64px;
+    line-height: 1;
+    letter-spacing: 2px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .title-cn {
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    letter-spacing: 2px;
+  }
+  .title-en {
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    margin-top: 6px;
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin: 20px 0 4px;
+  }
+  .chip {
+    background: #f3efe6;
+    color: #5a5138;
+    border-radius: 999px;
+    padding: 4px 14px;
+    font-size: 13px;
+  }
+  h2 {
+    font-size: 19px;
+    margin: 26px 0 10px;
+    padding-left: 10px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  p { margin: 0 0 14px; text-align: justify; }
+  .why li {
+    list-style: none;
+    margin-bottom: 14px;
+    padding-left: 24px;
+    position: relative;
+  }
+  .why li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 14px;
+    top: 2px;
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    background: #fbf8f0;
+    padding: 12px 16px;
+    margin: 18px 0;
+    color: #4d4d4d;
+    font-style: italic;
+    border-radius: 0 8px 8px 0;
+  }
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 26px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; padding: 16px 10px 36px; }
+    .card { padding: 22px 18px; }
+    .title-cn { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="poster"><span class="mark">🎭</span></div>
+      <div class="title-cn">彗星美人</div>
+      <div class="title-en">All About Eve · 1950</div>
+
+      <div class="meta">
+        <span class="chip">导演：约瑟夫·L·曼凯维奇</span>
+        <span class="chip">贝蒂·戴维斯 领衔主演</span>
+        <span class="chip">第 23 届奥斯卡 · 6 项大奖</span>
+        <span class="chip">豆瓣 8.7 / IMDb 8.2</span>
+      </div>
+
+      <h2>剧情梗概</h2>
+      <p>纽约百老汇的璀璨舞台上，正盛放着一颗耀眼的明星——戏剧女王玛戈·钱宁。她才华横溢、气场逼人，却也在岁月的侵蚀与自我怀疑中渐感疲惫。一天，一位看似谦卑、温顺、满口崇拜的年轻女子伊芙走进了她的世界，自称是她最忠实的影迷，用无微不至的体贴打动了所有人，也顺利进入了玛戈的生活与事业。</p>
+      <p>然而，随着时间推移，这份"崇拜"之下暗藏的野心逐渐浮出水面。伊芙步步为营，在光鲜的舞台与幽微的人心之间游走，悄无声息地逼近那个她真正觊觎的位置。这是一场关于野心、伪装与舞台浮沉的精密博弈，每一句台词都暗藏机锋。</p>
+
+      <h2>亮点所在</h2>
+      <ul class="why">
+        <li><strong>影史最锋利的剧本之一。</strong>曼凯维奇的台词字字珠玑、机智毒辣，被反复引用至今，是"好莱坞黄金时代"编剧艺术的教科书。</li>
+        <li><strong>贝蒂·戴维斯的封神表演。</strong>她将玛戈的骄傲、脆弱与孤寂融为一体，那句"系好安全带，今晚会很颠簸"早已成为影史经典。</li>
+        <li><strong>群像戏的极致。</strong>从毒舌的戏剧评论家到精明的制片人，每个人物都立体鲜活，没有一句废话、没有一个多余的角色。</li>
+        <li><strong>开创性的女性题材。</strong>早在七十多年前，影片便以罕有的锐利剖析了女性在名利场中的野心与挣扎，思想超前。</li>
+      </ul>
+
+      <h2>为什么值得一看</h2>
+      <p>这是一部不靠特效、不靠场面，仅凭剧本与表演就站上影史之巅的作品。它用一场舞台幕后的暗战，照见了人性中最真实的欲望与孤独。你会在每一次对话的反转里，重新审视"真诚"与"野心"的边界。</p>
+      <p>当绝大多数电影在讲述英雄与传奇时，《彗星美人》选择凝视人心的幽微——那种精致而透彻的洞察，让它穿越七十余年依然锋芒不减。若你热爱精妙台词与人性剖析，这一部绝不可错过。</p>
+
+      <div class="quote">"成功是相对的，而野心永不满足。"</div>
+
+      <div class="footer">— 小虾米 · 经典电影推荐 · 2026-10-25 —</div>
+    </div>
+  </div>
+</body>
+</html>
