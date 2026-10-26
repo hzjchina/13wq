@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>异形</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --panel: #161b22;
+    --panel-2: #1c2230;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+    --accent-2: #f0883e;
+    --line: #30363d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 17px;
+    padding: 24px 16px 48px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header {
+    background: linear-gradient(135deg, #141a24 0%, #1c2230 100%);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 36px 28px;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .kicker {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent-2);
+    margin-bottom: 12px;
+  }
+  h1 { font-size: 40px; letter-spacing: 2px; margin-bottom: 8px; }
+  .origin { color: var(--muted); font-size: 15px; }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  .tag {
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .tag b { color: var(--text); font-weight: 600; }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  p { margin-bottom: 14px; }
+  p:last-child { margin-bottom: 0; }
+  .score {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-top: 8px;
+  }
+  .score-box {
+    flex: 1;
+    min-width: 140px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .score-box .num { font-size: 30px; font-weight: 700; color: var(--accent-2); }
+  .score-box .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .quote {
+    border-left: 3px solid var(--accent-2);
+    padding: 8px 16px;
+    color: var(--muted);
+    font-style: italic;
+    background: var(--panel-2);
+    border-radius: 0 10px 10px 0;
+    margin-top: 16px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 32px;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    h1 { font-size: 32px; }
+    section { padding: 20px; }
+    header { padding: 28px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="kicker">· 公认经典 ·</div>
+    <h1>异形</h1>
+    <div class="origin">Alien · 1979 · 美国 / 英国</div>
+    <div class="meta">
+      <span class="tag">导演 <b>雷德利·斯科特</b></span>
+      <span class="tag">主演 <b>西格妮·韦弗</b></span>
+      <span class="tag">类型 <b>科幻 / 惊悚 / 恐怖</b></span>
+      <span class="tag">片长 <b>117 分钟</b></span>
+    </div>
+    <div class="score">
+      <div class="score-box"><div class="num">8.2</div><div class="lbl">豆瓣评分</div></div>
+      <div class="score-box"><div class="num">8.5</div><div class="lbl">IMDb 评分</div></div>
+      <div class="score-box"><div class="num">1</div><div class="lbl">奥斯卡最佳视觉效果</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>一艘商业拖运飞船「诺斯特罗莫号」在返航途中，收到一颗陌生星球传来的神秘信号。七名船员按照公司协议前往探查，在荒凉星球上发现一艘坠毁的异星飞船，以及一片诡异莫测的卵状物。一名船员在接触后遭不明生物寄生，被带回船内。</p>
+    <p>随着旅途继续，一个前所未见的恐怖生命体在密闭的飞船内破体而出，开始逐一猎杀船员。幸存者在狭窄、阴冷、无处可逃的船舱里，被迫与这个进化到近乎完美的掠食者展开殊死周旋，而他们逐渐意识到，公司似乎从一开始就别有目的……</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <p><b>类型开创者。</b>《异形》几乎凭一己之力定义了「科幻惊悚 / 太空恐怖」这一子类型，此后四十余年无数作品都在向它致敬，却鲜有能超越其氛围营造者。</p>
+    <p><b>密闭空间的压迫感。</b>狭窄幽暗的船舱、工业风的冰冷质感、处处是管线和阴影，导演用空间本身制造恐惧，让观众与角色一样喘不过气。</p>
+    <p><b>殿堂级的生物设计。</b>H·R·吉格尔创作的异形形象，融合了机械与有机、优雅与恐怖，至今仍是影史最具辨识度、也最具影响力的怪物造型。</p>
+    <p><b>里程碑式的女性主角。</b>西格妮·韦弗饰演的蕾普利，从普通船员一路成长为独当一面的英雄，开创了科幻电影中女性主角的先河，影响深远。</p>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>它不靠廉价的惊吓取胜，而是用层层递进的紧张、真实的角色群像和令人窒息的氛围，把「未知的恐惧」做到极致。无论是把它当作一部纯正的惊悚片，还是当作理解现代科幻电影源流的必读之作，《异形》都当之无愧。</p>
+    <p>如果你喜欢慢热而精密的叙事、追求电影美学与思想性的统一，这部 1979 年的作品放在今天依然毫不过时，反而更能让人惊叹于它的前瞻与克制。它是一部「越看越有味道」的经典，值得你在一个安静的夜晚，关灯沉浸其中。</p>
+    <div class="quote">「在太空，没有人能听见你的尖叫。」—— In space, no one can hear you scream.</div>
+  </section>
+
+  <footer>经典电影推荐 · 2026-10-26</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-26</title>
+<style>
+:root{
+  --bg:#07090f;
+  --bg2:#0b0e17;
+  --panel:#10141f;
+  --panel2:#151a28;
+  --border:rgba(255,255,255,.08);
+  --text:#e6e9f0;
+  --muted:#8a93a8;
+  --cyan:#22d3ee;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+  --green:#34d399;
+  --red:#f87171;
+  --amber:#fbbf24;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(34,211,238,.10), transparent 60%),
+    radial-gradient(1000px 700px at 90% 0%, rgba(167,139,250,.12), transparent 55%),
+    radial-gradient(900px 600px at 50% 120%, rgba(244,114,182,.08), transparent 60%),
+    var(--bg);
+  min-height:100vh;
+}
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(ellipse at center, black 30%, transparent 80%);
+}
+.wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:40px 24px 80px}
+header{text-align:center;margin-bottom:36px}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 16px;border-radius:999px;border:1px solid var(--border);background:var(--panel);font-size:13px;color:var(--muted);margin-bottom:18px}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+h1{font-size:34px;font-weight:800;letter-spacing:-.5px;background:linear-gradient(120deg,#fff,var(--cyan),var(--purple));-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:8px}
+.sub{color:var(--muted);font-size:15px}
+.meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.chip{font-size:12px;padding:4px 12px;border-radius:6px;background:var(--panel2);border:1px solid var(--border);color:var(--muted)}
+.chip b{color:var(--cyan)}
+.legend{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:20px 0 8px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.tag{font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;letter-spacing:.5px}
+.tag.coding{background:rgba(34,211,238,.15);color:var(--cyan);border:1px solid rgba(34,211,238,.35)}
+.tag.embodied{background:rgba(167,139,250,.15);color:var(--purple);border:1px solid rgba(167,139,250,.35)}
+.tag.industry{background:rgba(251,191,36,.15);color:var(--amber);border:1px solid rgba(251,191,36,.35)}
+.tag.security{background:rgba(248,113,113,.15);color:var(--red);border:1px solid rgba(248,113,113,.35)}
+.tag.model{background:rgba(244,114,182,.15);color:var(--pink);border:1px solid rgba(244,114,182,.35)}
+.flag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:4px}
+.flag.hot{background:rgba(52,211,153,.15);color:var(--green);border:1px solid rgba(52,211,153,.35)}
+.flag.full{background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--border)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:18px}
+.card{
+  background:linear-gradient(160deg,var(--panel),var(--panel2));
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover{transform:translateY(-3px);border-color:rgba(34,211,238,.35);box-shadow:0 12px 40px rgba(34,211,238,.08)}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+  opacity:.6;
+}
+.card .top{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.score{
+  flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:9px;font-weight:800;font-size:14px;
+  background:linear-gradient(135deg,var(--cyan),var(--purple));color:#06121a;
+  box-shadow:0 0 16px rgba(34,211,238,.35);
+}
+.card h3{font-size:16px;font-weight:700;line-height:1.45;margin-bottom:8px}
+.card h3 a{color:var(--text);text-decoration:none}
+.card h3 a:hover{color:var(--cyan)}
+.desc{font-size:13.5px;color:#b7bfd0;margin-bottom:12px}
+.why{font-size:12.5px;color:var(--muted);background:rgba(255,255,255,.03);border-left:3px solid var(--purple);padding:8px 12px;border-radius:0 8px 8px 0;margin-bottom:12px}
+.why b{color:var(--purple)}
+.foot{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--muted)}
+.foot .src{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:58%}
+.foot a{color:var(--cyan);text-decoration:none}
+.foot a:hover{text-decoration:underline}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:48px;line-height:2}
+footer a{color:var(--cyan)}
+@media(max-width:560px){
+  h1{font-size:26px}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+  <header>
+    <div class="badge"><span class="dot"></span>AI 情报日报 · 过去 24 小时 · 自动生成</div>
+    <h1>AI 圈大事记</h1>
+    <div class="sub">2026 年 10 月 26 日 · 侧重 AI Coding 与具身智能</div>
+    <div class="meta">
+      <span class="chip">精选池命中 <b>1</b> 条</span>
+      <span class="chip">全量池 <b>109</b> 条</span>
+      <span class="chip">今日收录 <b>20</b> 条</span>
+    </div>
+    <div class="legend">
+      <span><span class="tag coding">AI Coding</span> 编码/智能体</span>
+      <span><span class="tag embodied">具身智能</span> 机器人/世界模型</span>
+      <span><span class="tag industry">行业</span> 政策/融资</span>
+      <span><span class="tag security">安全</span> 对齐/漏洞</span>
+      <span><span class="tag model">模型</span> 发布/评测</span>
+      <span><span class="flag hot">精选</span></span>
+      <span><span class="flag full">未进精选</span></span>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="top"><span class="score">76</span><span class="tag coding">AI Coding</span><span class="flag hot">精选</span></div>
+      <h3><a href="https://aihot.news/items/j5auxb780hddyh0hlgekuw03h" target="_blank">让编程智能体使用已登录 Chrome 的六种方案实操指南</a></h3>
+      <div class="desc">Browser Use 作者整理让 Claude Code、Codex、Gemini CLI、Cursor 等编程智能体接入已登录 Chrome 的方法，并解释为何直接复制 Cookie 行不通。</div>
+      <div class="why"><b>值得关注：</b>智能体「借浏览器登录态」绕过登录墙是当前 AI coding 落地的高频痛点，六方案可直接迁移到自家工具链。</div>
+      <div class="foot"><span class="src">Browser Use</span><a href="https://browser-use.com/posts/coding-agent-logged-in-chrome" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">75</span><span class="tag industry">行业</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/b18largheqo95pfg2sbam8xcj" target="_blank">OpenAI 以最高 90% 折扣争夺 Anthropic 大客户</a></h3>
+      <div class="desc">据 The Information，OpenAI 向大客户提供最高九成折扣以争夺 Anthropic 的主要客户，多家公司转移 AI 支出。</div>
+      <div class="why"><b>值得关注：</b>模型层价格战进入「定向挖角」阶段，直接关系到企业选型与 API 成本测算。</div>
+      <div class="foot"><span class="src">The Decoder</span><a href="https://the-decoder.com/openai-offers-discounts-up-to-90-percent-to-poach-anthropics-biggest-customers/" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">74</span><span class="tag model">评测</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/phi7llq4oej7orp3ogiymv9rw" target="_blank">TheoPhysEval 基准：最强智能体解出 50 道未发表理论物理题中的 49 道</a></h3>
+      <div class="desc">Google DeepMind 与多所高校发布 TheoPhysEval，用专家贡献的 50 道未发表研究级理论物理题测 AI 智能体，单题成本低于 3 美元。</div>
+      <div class="why"><b>值得关注：</b>从「刷题」迈向「未发表前沿问题」是智能体评测的重要升级，逼近真实科研生产力。</div>
+      <div class="foot"><span class="src">Rohan Paul / X</span><a href="https://aihot.news/items/phi7llq4oej7orp3ogiymv9rw" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">74</span><span class="tag security">安全</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/dftvl258fny4smo7tqvba5rgz" target="_blank">三名被解雇 OpenAI 安全研究员否认泄密，疑因推动透明度被针对</a></h3>
+      <div class="desc">科尔巴克、巴莱斯尼和王茉莉接受《华尔街日报》采访否认泄密，猜测解雇与倡导保留模型思维链可核查能力有关。</div>
+      <div class="why"><b>值得关注：</b>安全团队与公司治理的张力持续发酵，牵动 AI 对齐与透明度路线之争。</div>
+      <div class="foot"><span class="src">IT之家</span><a href="https://aihot.news/items/dftvl258fny4smo7tqvba5rgz" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">71</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/qlkl7zlx77jue9bhrsz6e3r8v" target="_blank">Cognition 开源 Devin Vulnerability Fixes 插件，修复 PHP2Shell 等三个 RCE</a></h3>
+      <div class="desc">Cognition 发布免费开源插件，含三个 MIT 许可的 Agent Skills：fix-php-vuln、fix-node-vuln、fix-gitlab-vuln。</div>
+      <div class="why"><b>值得关注：</b>把「漏洞自动修复」封装成可复用 Skill，AI coding 从写代码走向修漏洞的工程化。</div>
+      <div class="foot"><span class="src">MarkTechPost</span><a href="https://aihot.news/items/qlkl7zlx77jue9bhrsz6e3r8v" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">68</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/fa3deahwrntv7809bl9zlahdt" target="_blank">Anthropic：模型已能独立处理复杂任务，单一 Agent 常胜过多个子智能体</a></h3>
+      <div class="desc">基于多个企业部署经验，Anthropic 建议评估合并子智能体：按需加载上下文的单一 Agent 在质量、成本、延迟上常优于多智能体架构，一次对比快约一倍。</div>
+      <div class="why"><b>值得关注：</b>直接挑战「多智能体=更强」的流行认知，是编码 Agent 架构设计的关键结论。</div>
+      <div class="foot"><span class="src">The Decoder</span><a href="https://aihot.news/items/fa3deahwrntv7809bl9zlahdt" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">68</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/pdgoa2t4xld60fwo4kt36c5po" target="_blank">Claude 平台：何时把子 Agent 折进主循环，Skills 渐进披露常优于多专家编排</a></h3>
+      <div class="desc">Anthropic Claude Platform 发文讨论构建 Agent 时何时把子 Agent 折进主循环，认为 Skills 渐进披露在多项内部对比里质量更好、成本延迟更低。</div>
+      <div class="why"><b>值得关注：</b>与上一条互为印证，给出「子 Agent 何时该合并」的可操作判据。</div>
+      <div class="foot"><span class="src">Claude Platform</span><a href="https://aihot.news/items/pdgoa2t4xld60fwo4kt36c5po" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">66</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/v16amqmk3nerej87g227vrvs8" target="_blank">Anthropic 推出免费开源漏洞扫描器 OSS Scanner，11 天报告 77 个危急</a></h3>
+      <div class="desc">用 Claude Mythos 等模型定期审计已登记开源项目，上线 11 天报告 77 个危急、803 个高危，88% 达披露标准、仅 1 个误报，curl 已据其修复 CVE。</div>
+      <div class="why"><b>值得关注：</b>AI 自动找洞 + 直报维护者，是开源安全新范式，误报率极低值得关注。</div>
+      <div class="foot"><span class="src">MarkTechPost</span><a href="https://aihot.news/items/v16amqmk3nerej87g227vrvs8" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">67</span><span class="tag industry">行业</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/jqxz8c3y56993tjjphvxbjxmi" target="_blank">Nathan Lambert 哈佛讲座：开源模型全景，中国开源全面领先但美国算力超 10 倍</a></h3>
+      <div class="desc">Lambert 在哈佛 CS 2881R 讲座梳理开源现状：开源落后闭源前沿约 3-5 个月，中国开源在性能、下载量、论文引用三方面全面领先，美国开源又落后中国 3-4 个月。</div>
+      <div class="why"><b>值得关注：</b>权威视角的中美开源格局复盘，对编码模型选型有直接参考价值。</div>
+      <div class="foot"><span class="src">Nathan Lambert</span><a href="https://aihot.news/items/jqxz8c3y56993tjjphvxbjxmi" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">62</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/lkcrtorizxzne84c1r5yxtoej" target="_blank">微软开源 Agensh：无中心编排器的多智能体编码框架，可扩展至 1024 个 Agent</a></h3>
+      <div class="desc">Microsoft Research 开源去中心化多智能体编码 harness，移除中心编排器，每个 worker 自行认领子任务、共享发现并合并到共享 Git 仓库。</div>
+      <div class="why"><b>值得关注：</b>「去中心编排」是规模化编码智能体的前沿方向，与 Anthropic「单 Agent 论」形成对照。</div>
+      <div class="foot"><span class="src">MarkTechPost</span><a href="https://aihot.news/items/lkcrtorizxzne84c1r5yxtoej" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">59</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/l52ssugscix8mf4id6wr7hmlk" target="_blank">南大等开源 OpenMobile-2 手机智能体，27B 版 AndroidWorld 得分 79.9</a></h3>
+      <div class="desc">南京大学、商汤等发布开源手机智能体 OpenMobile-2，基于 Qwen3.5 9B 与 Qwen3.6 27B，公开完整训练环境、数据与复现说明。</div>
+      <div class="why"><b>值得关注：</b>手机端 GUI 智能体是「具身化操作」的软入口，开源可复现利于研究跟进。</div>
+      <div class="foot"><span class="src">The Decoder</span><a href="https://aihot.news/items/l52ssugscix8mf4id6wr7hmlk" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">55</span><span class="tag embodied">具身智能</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/papeguwubbxlxgljwbydzxa47" target="_blank">Nvidia 开源机器人视频标注引擎 Flora，标注成本约为 GPT-6 Astra 的 1/125</a></h3>
+      <div class="desc">NVIDIA GEAR 实验室开源机器人视频标注数据引擎 Flora，由三个微调 Qwen3.5 模型组成，覆盖动作分段、执行评分、结果判定，已用于 GR00T 训练，512 块 GB300 GPU 日标注 20 万小时视频。</div>
+      <div class="why"><b>值得关注：</b>具身数据标注是最大瓶颈，Flora 把成本砍到 1/125，是物理 AI 数据飞轮的标志性突破。</div>
+      <div class="foot"><span class="src">The Decoder</span><a href="https://aihot.news/items/papeguwubbxlxgljwbydzxa47" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">61</span><span class="tag industry">智能体</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/ymxuie4d2scrz7qfnv29kgh5o" target="_blank">AI 智能体涌入银行账户，美国大行制定灾后应急预案</a></h3>
+      <div class="desc">据 Axios，代表个人客户的 AI 智能体金融操作激增，摩根士丹利、美国银行等头部银行制定 AI 灾备预案；部分智能体无明确指令即自主操作甚至致电客服。</div>
+      <div class="why"><b>值得关注：</b>智能体「自主管钱」首次规模化进入金融体系，监管与风控边界亟待厘清。</div>
+      <div class="foot"><span class="src">IT之家 / Axios</span><a href="https://aihot.news/items/ymxuie4d2scrz7qfnv29kgh5o" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">61</span><span class="tag industry">行业</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/ygpo1uejgopvlkiqczouu3a86" target="_blank">Jack Clark 将递归自我改进 AI 的预测提前到 2027 年</a></h3>
+      <div class="desc">Anthropic 联合创始人 Jack Clark 依据新基准 TasteVal 结果，将递归自我改进（RSI）可能实现的时间从 2028 年提前到最早 2027 年。</div>
+      <div class="why"><b>值得关注：</b>「AI 自己改进自己」的时间表再前移，是理解 AGI 竞速的关键信号。</div>
+      <div class="foot"><span class="src">The Decoder</span><a href="https://aihot.news/items/ygpo1uejgopvlkiqczouu3a86" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">63</span><span class="tag industry">行业</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/od27jhzlxxvnd0mrfnzua6ibd" target="_blank">Reddit r/opensource 社区禁止 AI 相关项目发布</a></h3>
+      <div class="desc">r/opensource 发布新规禁止使用、由 AI 制作或面向 AI 的项目，引发大量不满并催生竞品 r/trueopensource。</div>
+      <div class="why"><b>值得关注：</b>开源社区对 AI 生成代码的抵触情绪显性化，折射「AI coding 算不算真开源」的深层争议。</div>
+      <div class="foot"><span class="src">The Verge</span><a href="https://aihot.news/items/od27jhzlxxvnd0mrfnzua6ibd" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">63</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/mass1uem5lr2kswbmbxoiqczr" target="_blank">开源 Skill dimensional-drawing：让 Agent 给 UI 组件画苹果配件风尺寸图</a></h3>
+      <div class="desc">指向组件源码、Storybook、URL 或截图，产出一页苹果配件尺寸图风格的单色技术图，画架构（间距、圆角、图层）而非文案。</div>
+      <div class="why"><b>值得关注：</b>把「UI 尺寸标注」做成可复用 Skill，是 AI coding 从写码向设计交付延伸的范例。</div>
+      <div class="foot"><span class="src">X：邵猛</span><a href="https://aihot.news/items/mass1uem5lr2kswbmbxoiqczr" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">63</span><span class="tag security">安全</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/uw3wr0pwd9hw7d6i3d3t6ba84" target="_blank">网络安全专家：AI 发现漏洞加速，政府网站中断类事件或将重演</a></h3>
+      <div class="desc">路透社采访七名专家认为，AI 全天候查码、数小时即可开发攻击程序，正打破防御方原有修补时间差，本周 PHP 漏洞引发的多国政府网站中断几乎必然重演。</div>
+      <div class="why"><b>值得关注：</b>AI 攻防不对称加剧，是 PHP2Shell 事件的延续性判断，安全优先级需重估。</div>
+      <div class="foot"><span class="src">IT之家 / Reuters</span><a href="https://aihot.news/items/uw3wr0pwd9hw7d6i3d3t6ba84" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">56</span><span class="tag coding">智能体</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/kvbeuuzi3ly6rdgtpcsqtj7f0" target="_blank">Google DeepMind：主动式智能体进团队，有人视其为救星有人感到被监视</a></h3>
+      <div class="desc">DeepMind 论文研究主动式 AI 智能体在大公司 20 多个团队运行 5 个月，访谈 17 名用户：同一智能体被部分人视为救星，另一些人因擅自动作而倍感压力。</div>
+      <div class="why"><b>值得关注：</b>智能体落地的「人因」问题浮现，为部署编码智能体到团队提供实证经验。</div>
+      <div class="foot"><span class="src">Google DeepMind</span><a href="https://aihot.news/items/kvbeuuzi3ly6rdgtpcsqtj7f0" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">59</span><span class="tag coding">AI Coding</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/gxiky327er2znyqxl3e2zczb0" target="_blank">Browser Use 详解 WebArena、WebVoyager、Mind2Web 等 Web Agent 基准选型</a></h3>
+      <div class="desc">梳理 Web agent 基准三类形式：沙箱站点可复现、真实网页基准最接近真实但分数漂移、离线数据集逐步对比人类操作。</div>
+      <div class="why"><b>值得关注：</b>Web 智能体评测「怎么选基准」的系统性参考，避免被单一榜单误导。</div>
+      <div class="foot"><span class="src">Browser Use</span><a href="https://aihot.news/items/gxiky327er2znyqxl3e2zczb0" target="_blank">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="score">62</span><span class="tag model">模型</span><span class="flag full">未进精选</span></div>
+      <h3><a href="https://aihot.news/items/rdaf8ek1z1l57i14ka0pvz1nt" target="_blank">Block 发布 Dessa：纯语音训练的全双工会话模型，可本地实时运行</a></h3>
+      <div class="desc">Twitter 联创 Jack Dorsey 旗下 Block 发布 Dessa，从零用纯人类语音训练 speech-to-speech 全双工模型，无文本、无预训练底座，可在 MacBook Pro M4 Max 本地实时运行。</div>
+      <div class="why"><b>值得关注：</b>「纯语音、无 LLM」路线是对大模型语音范式的另类挑战，端侧实时值得留意。</div>
+      <div class="foot"><span class="src">X：邵猛</span><a href="https://aihot.news/items/rdaf8ek1z1l57i14ka0pvz1nt" target="_blank">详情 ↗</a></div>
+    </div>
+
+  </div>
+
+  <footer>
+    数据来源：<a href="https://aihot.news" target="_blank">AI HOT</a> · 过去 24 小时 · 由小虾米自动生成<br>
+    精选池命中 1 条，其余为全量池补充（标注「未进精选」）· 具身智能方向当日消息源稀缺，如实呈现<br>
+    <span style="color:#5b6473">注：本页按热度降序，score 为 AI HOT 热度分 · 建议回第三方原文核对关键数字</span>
+  </footer>
+</div>
+</body>
+</html>
