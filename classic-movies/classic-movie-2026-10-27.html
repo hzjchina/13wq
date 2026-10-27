@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>海边的曼彻斯特</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --accent: #6ea8fe;
+    --line: #2a2f3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    padding: 24px 16px 60px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { text-align: center; padding: 20px 0 8px; }
+  .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .origin {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  .meta span {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .meta .score { color: #f6c453; font-weight: 600; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 19px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 3px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  .card p { font-size: 16.5px; color: var(--text); }
+  .card p + p { margin-top: 12px; }
+  .quote {
+    font-style: italic;
+    color: var(--muted);
+    border-left: 3px solid var(--line);
+    padding-left: 14px;
+    margin-top: 16px;
+    font-size: 15.5px;
+  }
+  ul.points { list-style: none; }
+  ul.points li {
+    position: relative;
+    padding-left: 26px;
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  ul.points li::before {
+    content: "◆";
+    position: absolute;
+    left: 2px;
+    color: var(--accent);
+    font-size: 13px;
+    top: 2px;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 34px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 28px; }
+    .card { padding: 20px 18px; }
+    .card p { font-size: 15.5px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="tag">经典电影推荐</div>
+      <h1>海边的曼彻斯特</h1>
+      <div class="origin">Manchester by the Sea · 2016</div>
+    </header>
+
+    <div class="meta">
+      <span>导演：肯尼斯·罗纳根</span>
+      <span>主演：卡西·阿弗莱克</span>
+      <span>卢卡斯·赫奇斯</span>
+      <span class="score">豆瓣 8.6</span>
+      <span class="score">IMDb 7.8</span>
+    </div>
+
+    <div class="card">
+      <h2>剧情梗概</h2>
+      <p>波士顿一名沉默寡言的水管工李·钱德勒，突然接到哥哥病逝的消息。他不得不返回故乡——那座被海风与冰雪包裹的小镇"海边的曼彻斯特"，处理后事，并意外成为十六岁侄子帕特里克的法定监护人。</p>
+      <p>回乡的路，迫使他重新面对那场改变他余生的往事。在冰冷的日常、倔强的少年与挥之不去的记忆之间，李挣扎着试图与过去和解，却也在这一过程中，慢慢找到继续活下去的一点点理由。</p>
+    </div>
+
+    <div class="card">
+      <h2>亮点所在</h2>
+      <ul class="points">
+        <li><strong>教科书级的表演</strong>——卡西·阿弗莱克凭此片横扫奥斯卡、金球、英奥最佳男主角，用克制的微表情演活了一个被悲伤击碎却仍要活下去的男人。</li>
+        <li><strong>反套路的治愈叙事</strong>——它拒绝"时间治愈一切"的俗套，诚实地说：有些伤痛不会消失，人只是学会带着它继续走。这种真实，比任何鸡汤都更有力量。</li>
+        <li><strong>冷冽而诗意的影像</strong>——新英格兰的海风、灰蓝的天空、结冰的港湾，画面本身就在诉说人物内心的荒凉与温柔。</li>
+        <li><strong>配乐恰到好处</strong>——舒缓的古典乐与留白，不煽情，却直抵人心。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>为什么值得一看</h2>
+      <p>因为它罕见地诚实。大多数电影教你"放下"，它却告诉你"放不下也没关系"。当所有人都在催促你向前看时，这部电影温柔地陪着你，允许你停一停、难过一会儿。</p>
+      <p>它让我们明白，所谓坚强，不是没有悲伤，而是明知无法痊愈，依然选择好好活下去。这是关于失去、关于家人、关于自我救赎最克制也最深刻的一次表达。</p>
+      <p class="quote">"我走不出来了，也不打算走出来了。"——但它依然值得你看完。</p>
+    </div>
+
+    <footer>🦐 小虾米 · 每日一部 · 2026-10-27</footer>
+  </div>
+</body>
+</html>
