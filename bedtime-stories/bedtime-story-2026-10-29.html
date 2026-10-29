@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小乌龟的月光壳 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .leaf {
+    position: absolute; font-size: 16px; color: #d9a441;
+    opacity: 0; animation: floatLeaf 9s ease-in-out infinite;
+  }
+  @keyframes floatLeaf {
+    0%   { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+    15%  { opacity: 0.7; }
+    60%  { transform: translate(-22px, 110px) rotate(40deg); opacity: 0.5; }
+    100% { transform: translate(-40px, 200px) rotate(70deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <div class="moon">
+    <!-- 背景月亮：农历九月二十 · 亏凸月🌖 illumination 0.74，亏月方向左亮右暗，暗圆右侧偏移 1.7r -->
+    <svg viewBox="0 0 120 120" width="110" height="110" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="60%" stop-color="#e8ecf5" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0.18"/>
+        </radialGradient>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <!-- 月晕 -->
+      <circle cx="60" cy="60" r="52" fill="url(#moonGlow)"/>
+      <!-- 亮盘 -->
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 暗圆：亏凸月右侧偏移 1.7r = 64.6px，cx = 60+64.6 = 124.6，clipPath 裁剪在月盘内 -->
+      <circle cx="124.6" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <!-- 环形山质感（亮盘上的 subtle 暗斑） -->
+      <circle cx="48" cy="50" r="4" fill="#c8cfde" opacity="0.5" clip-path="url(#moonClip)"/>
+      <circle cx="68" cy="68" r="5" fill="#c8cfde" opacity="0.4" clip-path="url(#moonClip)"/>
+      <circle cx="55" cy="74" r="3" fill="#c8cfde" opacity="0.45" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：音符（小溪歌声）+ 落叶（深秋）+ 萤火虫（月光呼应） -->
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">♪</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">♫</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s;">♩</span>
+  <span class="leaf" style="top:18%; left:30%; animation-delay:0s;">🍂</span>
+  <span class="leaf" style="top:26%; left:68%; animation-delay:3s;">🍂</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小乌龟的月光壳</h1>
+    <p class="meta">🐢 把小手脚温柔地收回家，是攒新的开始 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-10-29.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：深秋夜，小乌龟缩进壳里冬眠，亏凸月月光从壳缝照进来 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="posterMoonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0.25"/>
+        </radialGradient>
+        <clipPath id="posterMoonClip"><circle cx="248" cy="48" r="22"/></clipPath>
+        <radialGradient id="shellGrad" cx="40%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#8a5a2e"/>
+          <stop offset="60%" stop-color="#6b4423"/>
+          <stop offset="100%" stop-color="#4a2f18"/>
+        </radialGradient>
+        <radialGradient id="moonlightOnShell" cx="50%" cy="30%" r="60%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="streamGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#2a4a6a"/>
+          <stop offset="50%" stop-color="#3a6a9a"/>
+          <stop offset="100%" stop-color="#2a4a6a"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 夜空背景 -->
+      <rect x="0" y="0" width="300" height="440" fill="url(#skyGrad)"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="30" r="1.2" fill="#fff" opacity="0.9"/>
+      <circle cx="90" cy="22" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="160" cy="36" r="1.4" fill="#fff" opacity="0.85"/>
+      <circle cx="210" cy="20" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="280" cy="80" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="120" cy="60" r="0.9" fill="#fff" opacity="0.6"/>
+
+      <!-- 亏凸月（右上）：illumination 0.74，暗圆右侧偏移 1.7r=37.4px，cx=248+37.4=285.4 -->
+      <circle cx="248" cy="48" r="30" fill="url(#posterMoonGlow)"/>
+      <circle cx="248" cy="48" r="22" fill="#e8ecf5"/>
+      <circle cx="285.4" cy="48" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+      <circle cx="240" cy="42" r="2.5" fill="#c8cfde" opacity="0.5" clip-path="url(#posterMoonClip)"/>
+      <circle cx="254" cy="54" r="3" fill="#c8cfde" opacity="0.4" clip-path="url(#posterMoonClip)"/>
+
+      <!-- 月光斜斜洒下（银色光柱） -->
+      <path d="M 230 70 L 250 70 L 200 300 L 180 300 Z" fill="#e8ecf5" opacity="0.08"/>
+
+      <!-- 远处草丛轮廓 -->
+      <path d="M 0 340 Q 30 320 60 335 Q 90 318 120 335 Q 150 320 180 335 Q 210 318 240 335 Q 270 320 300 335 L 300 360 L 0 360 Z" fill="#1a2a1a" opacity="0.7"/>
+
+      <!-- 小溪（底部弯曲水流） -->
+      <path d="M 0 380 Q 75 370 150 384 Q 225 370 300 382 L 300 410 L 0 410 Z" fill="url(#streamGrad)" opacity="0.55"/>
+      <!-- 溪面月光反光 -->
+      <ellipse cx="150" cy="392" rx="50" ry="3" fill="#e8ecf5" opacity="0.25"/>
+      <path d="M 120 392 Q 150 388 180 392" stroke="#e8ecf5" stroke-width="0.8" fill="none" opacity="0.4"/>
+
+      <!-- 落叶飘在溪面 -->
+      <text x="60" y="395" font-size="10" fill="#d9a441" opacity="0.7">🍂</text>
+      <text x="220" y="398" font-size="9" fill="#c98a31" opacity="0.6">🍂</text>
+
+      <!-- 主角：小乌龟慢慢（缩进壳里冬眠） -->
+      <!-- 壳影底 -->
+      <ellipse cx="150" cy="305" rx="76" ry="10" fill="#000" opacity="0.35"/>
+
+      <!-- 龟壳主体（椭圆，深褐渐变） -->
+      <ellipse cx="150" cy="288" rx="72" ry="56" fill="url(#shellGrad)"/>
+      <!-- 壳边缘高光 -->
+      <ellipse cx="150" cy="288" rx="72" ry="56" fill="none" stroke="#9a6a3e" stroke-width="2.5" opacity="0.6"/>
+
+      <!-- 月光洒在壳顶 -->
+      <ellipse cx="150" cy="258" rx="48" ry="22" fill="url(#moonlightOnShell)"/>
+
+      <!-- 龟甲六边形格子纹（中央一条 + 两侧） -->
+      <!-- 中央六边形 -->
+      <polygon points="150,250 172,262 172,288 150,300 128,288 128,262" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.7"/>
+      <!-- 上排左右 -->
+      <polygon points="128,262 150,250 150,238 132,238 120,250" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.6"/>
+      <polygon points="172,262 150,250 150,238 168,238 180,250" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.6"/>
+      <!-- 中排左右 -->
+      <polygon points="128,262 120,250 104,260 104,284 120,294 128,288" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.6"/>
+      <polygon points="172,262 180,250 196,260 196,284 180,294 172,288" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.6"/>
+      <!-- 下排中央 -->
+      <polygon points="150,300 172,288 172,300 150,312 128,300 128,288" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.7"/>
+      <!-- 下排左右 -->
+      <polygon points="128,288 120,294 108,300 116,316 132,318 128,300" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.6"/>
+      <polygon points="172,288 180,294 192,300 184,316 168,318 172,300" fill="none" stroke="#3a2410" stroke-width="1.5" opacity="0.6"/>
+
+      <!-- 壳缝透月光（银色竖向短线，从壳缝漏进壳里） -->
+      <line x1="150" y1="240" x2="150" y2="312" stroke="#e8ecf5" stroke-width="1.2" opacity="0.55"/>
+      <line x1="128" y1="250" x2="120" y2="316" stroke="#e8ecf5" stroke-width="1" opacity="0.45"/>
+      <line x1="172" y1="250" x2="180" y2="316" stroke="#e8ecf5" stroke-width="1" opacity="0.45"/>
+      <line x1="108" y1="265" x2="104" y2="300" stroke="#e8ecf5" stroke-width="0.8" opacity="0.35"/>
+      <line x1="192" y1="265" x2="196" y2="300" stroke="#e8ecf5" stroke-width="0.8" opacity="0.35"/>
+
+      <!-- 龟头（只露一点点，正在缩进去） -->
+      <ellipse cx="150" cy="238" rx="16" ry="12" fill="#5a6b3a"/>
+      <!-- 头顶高光 -->
+      <ellipse cx="146" cy="234" rx="6" ry="3" fill="#7a8b4a" opacity="0.6"/>
+      <!-- 小眼睛（半闭，要睡了） -->
+      <path d="M 145 236 Q 147 238 149 236" stroke="#1a1a1a" stroke-width="1" fill="none"/>
+      <path d="M 153 236 Q 155 238 157 236" stroke="#1a1a1a" stroke-width="1" fill="none"/>
+      <!-- 小嘴（微笑） -->
+      <path d="M 147 242 Q 150 244 153 242" stroke="#1a1a1a" stroke-width="0.8" fill="none"/>
+
+      <!-- 一只后脚还露在外面（右侧，即将缩进去） -->
+      <ellipse cx="216" cy="312" rx="13" ry="8" fill="#5a6b3a" transform="rotate(20 216 312)"/>
+      <!-- 脚趾 -->
+      <circle cx="224" cy="316" r="2" fill="#4a5b2a"/>
+      <circle cx="228" cy="313" r="1.8" fill="#4a5b2a"/>
+
+      <!-- 尾巴尖（左侧，已快缩进去） -->
+      <ellipse cx="88" cy="306" rx="6" ry="4" fill="#5a6b3a" transform="rotate(-25 88 306)"/>
+
+      <!-- 壳旁一片小落叶 -->
+      <text x="60" y="320" font-size="11" fill="#c98a31" opacity="0.7">🍂</text>
+      <text x="232" y="340" font-size="10" fill="#b8782a" opacity="0.6">🍂</text>
+
+      <!-- 萤火虫点缀 -->
+      <circle cx="70" cy="220" r="2" fill="#d9f7a8" opacity="0.85"/>
+      <circle cx="70" cy="220" r="4" fill="#d9f7a8" opacity="0.25"/>
+      <circle cx="225" cy="200" r="1.8" fill="#d9f7a8" opacity="0.8"/>
+      <circle cx="225" cy="200" r="3.5" fill="#d9f7a8" opacity="0.2"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="404" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="15" font-weight="600" fill="#cfd8e8" letter-spacing="2">小乌龟的月光壳</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月二十 · 亏凸月🌖</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">安心归藏 · 期待新生</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>温柔地收回家</h2>
+    <p>深秋的夜里，小溪边的草丛落满了黄叶。小乌龟慢慢第一次要冬眠了，可他把小脑袋伸出硬壳，怎么也舍不得缩进去——他怕睡过去，就听不见小溪哗哗的歌，看不见天上那弯弯的月亮了。</p>
+    <p>这时候，亏凸月正挂在天上，左边亮亮圆圆，右边温柔地缺了一点点。月亮看见慢慢发愁，轻轻地笑了：「小慢慢，别怕呀。你看我，刚刚圆满过，现在也温柔地把一点点光收回家了。收起来不是不见，是攒到新月的时候，再重新一点点圆起来呢。」</p>
+    <p>慢慢眨眨眼睛：「原来月亮也要回家休息呀？」</p>
+    <p>「是呀，」亏凸月说，「圆满之后温柔地收回一点点，睡一个长长的觉，等攒够了新光，再亮亮地出来。这不叫结束，叫攒新的开始。」</p>
+    <p>慢慢这下放心了。他学着月亮的样子，先把小尾巴轻轻缩进壳里，再把四只小脚一只一只收回家——左前脚、右前脚、左后脚、右后脚，最后把小脑袋也慢慢缩进硬壳。月光从壳缝里细细地照进来，把壳里铺成一道道银色的光格子，暖乎乎的，像一床月光被。</p>
+    <p>慢慢在壳里做了一个长长的甜甜的梦。他梦见自己变成了一轮亏凸月，温柔地藏起一点点光，慢慢地往新月走，又从新月一点点胖起来，胖成满月，把光一缕缕洒给小溪和草丛。梦里他听见小溪还在轻轻地唱歌，等他春天再伸出脑袋，第一件事就是去和小溪和声。</p>
+    <p>壳外，月光安安静静地落着。亏凸月慢慢地、慢慢地往新月走，慢慢也在壳里慢慢地、慢慢地往春天走。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>把活动温柔地收回家休息，不是结束，是攒新的开始——像亏凸月藏起一点点光，等春天再亮亮地伸出来。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。慢慢说，你今天也攒了一整天的光啦，把小手脚收进被窝，做一个长长的甜甜的梦吧，等明天再亮亮地出来。🐢</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年10月29日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
