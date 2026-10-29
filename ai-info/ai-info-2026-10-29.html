@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-29</title>
+<style>
+:root{
+  --bg:#0a0e17;
+  --bg2:#0d1322;
+  --card:#121a2e;
+  --card-hover:#182238;
+  --line:#1e2a44;
+  --txt:#e6ebf5;
+  --muted:#8b96ad;
+  --cyan:#22d3ee;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+  --green:#34d399;
+  --amber:#fbbf24;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  line-height:1.65;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* 网格背景 */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-2;
+  background:
+    linear-gradient(rgba(34,211,238,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(34,211,238,.04) 1px,transparent 1px);
+  background-size:44px 44px;
+}
+/* 霓虹光晕 */
+body::after{
+  content:"";
+  position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(700px 500px at 12% -8%, rgba(167,139,250,.16), transparent 60%),
+    radial-gradient(800px 600px at 88% 0%, rgba(34,211,238,.14), transparent 60%),
+    radial-gradient(900px 700px at 50% 110%, rgba(244,114,182,.12), transparent 60%);
+  pointer-events:none;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:48px 24px 80px}
+header{text-align:center;margin-bottom:44px}
+.badge{
+  display:inline-block;font-size:12px;letter-spacing:2px;
+  padding:6px 16px;border:1px solid var(--line);border-radius:999px;
+  color:var(--cyan);background:rgba(34,211,238,.06);margin-bottom:18px;
+}
+h1{
+  font-size:34px;font-weight:800;letter-spacing:1px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  margin-bottom:10px;
+}
+.sub{color:var(--muted);font-size:14px}
+.stats{
+  display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:22px;
+}
+.stat{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  padding:12px 22px;min-width:120px;
+}
+.stat .num{font-size:22px;font-weight:700;color:var(--cyan)}
+.stat .lbl{font-size:12px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
+.card{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px;position:relative;overflow:hidden;
+  transition:transform .2s,background .2s,border-color .2s;
+  display:flex;flex-direction:column;
+}
+.card:hover{transform:translateY(-4px);background:var(--card-hover);border-color:var(--cyan)}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple),transparent);
+  opacity:.7;
+}
+.rank{
+  position:absolute;top:14px;right:16px;font-size:30px;font-weight:800;
+  color:rgba(139,150,173,.15);line-height:1;
+}
+.topline{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.score{
+  font-size:12px;font-weight:700;padding:3px 10px;border-radius:6px;
+  background:rgba(34,211,238,.12);color:var(--cyan);white-space:nowrap;
+}
+.score.hot{background:rgba(251,191,36,.14);color:var(--amber)}
+.tag{
+  font-size:11px;padding:3px 8px;border-radius:6px;border:1px solid var(--line);color:var(--muted);
+}
+.tag.dir-ai{color:var(--cyan);border-color:rgba(34,211,238,.4);background:rgba(34,211,238,.08)}
+.tag.dir-emb{color:var(--purple);border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.08)}
+.tag.dir-emb-all{color:var(--pink);border-color:rgba(244,114,182,.4);background:rgba(244,114,182,.08)}
+.tag.selected{color:var(--green);border-color:rgba(52,211,153,.4);background:rgba(52,211,153,.08)}
+h3{font-size:16px;font-weight:700;margin-bottom:8px;line-height:1.4}
+h3 a{color:var(--txt);text-decoration:none}
+h3 a:hover{color:var(--cyan)}
+.desc{color:#b7c0d4;font-size:13.5px;margin-bottom:10px;flex:1}
+.why{
+  font-size:12.5px;color:var(--muted);
+  border-left:2px solid var(--line);padding-left:10px;margin-bottom:10px;
+}
+.meta{font-size:11.5px;color:var(--muted);border-top:1px solid var(--line);padding-top:10px;margin-top:auto}
+.meta a{color:var(--cyan);text-decoration:none}
+.note{
+  margin:36px 0 8px;padding:14px 18px;border:1px solid var(--line);border-radius:12px;
+  background:var(--bg2);font-size:13px;color:var(--muted);
+}
+.note b{color:var(--txt)}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:48px}
+@media(max-width:600px){
+  h1{font-size:26px}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="badge">AI INTELLIGENCE DAILY</span>
+    <h1>AI 情报日报</h1>
+    <div class="sub">2026-10-29 · 过去 24 小时 AI 圈重点 · 侧重 AI Coding 与具身智能</div>
+    <div class="stats">
+      <div class="stat"><div class="num">20</div><div class="lbl">精选条目</div></div>
+      <div class="stat"><div class="num">5</div><div class="lbl">精选池命中</div></div>
+      <div class="stat"><div class="num">15</div><div class="lbl">全量池补充</div></div>
+      <div class="stat"><div class="num">2</div><div class="lbl">聚焦方向</div></div>
+    </div>
+  </header>
+
+  <div class="grid">
+
+    <!-- 1 Genie 4 世界模型 -->
+    <div class="card">
+      <div class="rank">01</div>
+      <div class="topline"><span class="score hot">73</span><span class="tag dir-emb-all">具身·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/qbvhe25k7w1yhyi1mrgxthypt">Google DeepMind 发布 Genie 4 实时世界模型</a></h3>
+      <div class="desc">从文本和图像提示实时生成可探索世界，并首次原生生成环境音、音乐与角色对话。架构由 Gemini Omni 锚定世界外观，Gemini 3.8 Flash 在模拟循环内拆解目标、校验帧并重规划。</div>
+      <div class="why">当日具身/世界模型头条（hot-topics 58 信号）。原生音频+实时交互，是「世界模型→真实机器人控制」范式的关键一步，直接喂给具身智能的数据与训练闭环。</div>
+      <div class="meta">MarkTechPost 等 · <a href="https://aihot.news/items/qbvhe25k7w1yhyi1mrgxthypt">阅读原文</a></div>
+    </div>
+
+    <!-- 2 Gemini 4 Carbon -->
+    <div class="card">
+      <div class="rank">02</div>
+      <div class="topline"><span class="score hot">82</span><span class="tag selected">精选·AI Coding</span></div>
+      <h3><a href="https://aihot.news/items/fjeloaahylonpc0pv5tduusud">Google DeepMind 发布 Gemini 4 Carbon 前沿模型</a></h3>
+      <div class="desc">定位最强前沿模型，主打网络安全与长程智能体能力：SEC-bench Pro 88.2%、ExploitGym 54.8%、CWE-bench 71.0%，以 59 分登顶 Artificial Analysis Intelligence Index v5.0。</div>
+      <div class="why">当日 AI coding 最重磅事件，多源合 1（82/82/76/74/72）。登顶 AA v5、Agent Arena 榜第二且成本低于 Claude Opus 5.5，编码智能体与安全攻防双线并进。</div>
+      <div class="meta">Google DeepMind Blog 等 · <a href="https://aihot.news/items/fjeloaahylonpc0pv5tduusud">阅读原文</a></div>
+    </div>
+
+    <!-- 3 Octoverse 2026 -->
+    <div class="card">
+      <div class="rank">03</div>
+      <div class="topline"><span class="score">78</span><span class="tag selected">精选·AI Coding</span></div>
+      <h3><a href="https://aihot.news/items/s3m3uzabqoxxed9ae50b73qvc">GitHub Octoverse 2026：超 40% 的 PR 由智能体起草</a></h3>
+      <div class="desc">过去 12 个月开发者推送代码 179 亿次，超过 2024+2025 年之和，合并 PR 达 13 亿次，超 40% 的 PR 由智能体起草，开发活动创新高。</div>
+      <div class="why">AI coding 进入主流的权威量化铁证。40% PR 智能体起草意味着 AI 已成为代码生产的实际主力，是评估「AI 重构软件工程」的最硬年度数据点。</div>
+      <div class="meta">GitHub Blog · <a href="https://aihot.news/items/s3m3uzabqoxxed9ae50b73qvc">阅读原文</a></div>
+    </div>
+
+    <!-- 4 Anthropic 漏洞攻击链 -->
+    <div class="card">
+      <div class="rank">04</div>
+      <div class="topline"><span class="score">81</span><span class="tag selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/jpt1eeuj2p1mgrxbufuv3ntdn">Anthropic：Claude 研究模型串联 5 条跨平台攻击链</a></h3>
+      <div class="desc">Anthropic 报告未公开的 Claude 研究模型在 Chrome、Safari、Android、Windows、Linux 中发现漏洞，串联出 5 条可实际运行的攻击链，已按协调披露流程修复。</div>
+      <div class="why">AI 模型从「写代码」进化到「自主挖洞并串联攻击链」，与 Gemini 4 Carbon 主打网络防御形成当日安全主线，AI 攻防进入白热化。</div>
+      <div class="meta">IT之家 · <a href="https://aihot.news/items/jpt1eeuj2p1mgrxbufuv3ntdn">阅读原文</a></div>
+    </div>
+
+    <!-- 5 GitHub Universe 2026 -->
+    <div class="card">
+      <div class="rank">05</div>
+      <div class="topline"><span class="score">71</span><span class="tag selected">精选·AI Coding</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">GitHub Universe 2026：Copilot app 与 Copilot Fusion</a></h3>
+      <div class="desc">GitHub 提出把平台打造为完整软件交付系统，发布 GitHub Copilot app（面向智能体交付）及 Copilot Fusion 等智能体产品。</div>
+      <div class="why">GitHub 从代码托管平台转向「AI 原生软件交付系统」，Copilot 家族产品线全面智能体化，是开发者工具链的年度级转向信号。</div>
+      <div class="meta">GitHub Blog · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+    <!-- 6 Copilot Fusion 评测 -->
+    <div class="card">
+      <div class="rank">06</div>
+      <div class="topline"><span class="score">69</span><span class="tag dir-ai">AI Coding·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">Artificial Analysis 评测 Copilot Fusion：得分略低于 Opus 5.5，成本减半</a></h3>
+      <div class="desc">第三方基准机构 Artificial Analysis 实测 GitHub 新发布 Copilot Fusion 编码智能体的性能与成本，得分略低于 Claude Opus 5.5，但成本减半。</div>
+      <div class="why">第三方独立评测为编码智能体「性能/成本」性价比提供了可对账数据，Copilot Fusion 以半价逼近顶级模型，是开发者选型的直接参考。</div>
+      <div class="meta">Artificial Analysis · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+    <!-- 7 PLE 基准 -->
+    <div class="card">
+      <div class="rank">07</div>
+      <div class="topline"><span class="score">63</span><span class="tag dir-emb-all">具身·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/iepern9k3wfucoa5uwzb3qdis">Google 发布 PLE 基准：最强 AI 智能体物理工程仅得 50.6%</a></h3>
+      <div class="desc">PLE 基准含 85 项由执业工程师编写的电气、土木、结构和机械工程任务，智能体每任务需读约 61 个项目文件并交付进度表、报告或 2D/3D 图纸，最强模型仅 50.6% 得分。</div>
+      <div class="why">把「AI 编码」推向「物理工程落地」的试金石，揭示当前智能体在真实工程交付上仍有巨大缺口，是 AI coding 与具身智能交界的硬性标尺。</div>
+      <div class="meta">X @rohanpaul_ai · <a href="https://aihot.news/items/iepern9k3wfucoa5uwzb3qdis">阅读原文</a></div>
+    </div>
+
+    <!-- 8 ViBench 2.0 -->
+    <div class="card">
+      <div class="rank">08</div>
+      <div class="topline"><span class="score">55</span><span class="tag dir-ai">AI Coding·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/azv2dqilar464etquy2mio4vj">Replit 发布 ViBench 2.0：GPT-6.1 Sol 以 65% 居首</a></h3>
+      <div class="desc">长程软件开发基准 ViBench 2.0，代理从空项目按功能搭建完整产品，含 17 个产品、241 个功能请求、544 个测试计划，GPT-6.1 Sol 以 65% pass@1 居首。</div>
+      <div class="why">长程「从零搭产品」是编码智能体最难的实战场景，ViBench 2.0 提供了比单文件任务更接近真实开发的评测维度。</div>
+      <div class="meta">Replit Blog · <a href="https://aihot.news/items/azv2dqilar464etquy2mio4vj">阅读原文</a></div>
+    </div>
+
+    <!-- 9 MiniMax MCode Stack -->
+    <div class="card">
+      <div class="rank">09</div>
+      <div class="topline"><span class="score">67</span><span class="tag dir-ai">AI Coding·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">MiniMax 开源 MCode Stack：15 个编码 Agent 技能</a></h3>
+      <div class="desc">MiniMax 开源 MCode Stack，包含 15 个编码团队日常使用的 Agent 技能，可直接复用为编码智能体的能力插件。</div>
+      <div class="why">国内厂商在「Agent Skill」生态上的开源动作，把编码团队的最佳实践沉淀为可复用技能包，推动编码智能体能力标准化。</div>
+      <div class="meta">MiniMax · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+    <!-- 10 Anthropic S-1 -->
+    <div class="card">
+      <div class="rank">10</div>
+      <div class="topline"><span class="score">77</span><span class="tag selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/p24kw8c06nmy1hzs3spvr4aha">解读 Anthropic S-1：超六个月模型贡献收入不足 20%</a></h3>
+      <div class="desc">Every 解读 Anthropic 上市 S-1 文件：公司重度依赖最新模型，发布超过六个月的模型收入占比不足 20%，并批评其投票结构。</div>
+      <div class="why">Anthropic 上市前最关键的商业解剖，揭示「模型迭代速度=收入」的商业模式脆弱性，是理解 AI 头部厂商财务真相的核心材料。</div>
+      <div class="meta">Every · <a href="https://aihot.news/items/p24kw8c06nmy1hzs3spvr4aha">阅读原文</a></div>
+    </div>
+
+    <!-- 11 智元创新日 -->
+    <div class="card">
+      <div class="rank">11</div>
+      <div class="topline"><span class="score">22</span><span class="tag dir-emb-all">具身·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/z9b3x7nsqw5n3ebt7jqs8onsa">智元创新日 10-29 开启：远征 A3 Ultra 等全线产品</a></h3>
+      <div class="desc">智元（AGIBOT）2026 创新日定于 10 月 29 日举行，官网列出远征 A3 Ultra、灵犀 X2、精灵 G2、Genie Studio 具身开发平台及灵渠 Link-U OS 等产品线。</div>
+      <div class="why">国内具身智能头部玩家的年度技术节点，恰逢今日，是观察国产人形机器人/具身平台最新进展的一手窗口。</div>
+      <div class="meta">AGIBOT 智元 · <a href="https://aihot.news/items/z9b3x7nsqw5n3ebt7jqs8onsa">阅读原文</a></div>
+    </div>
+
+    <!-- 12 百度世界模型 -->
+    <div class="card">
+      <div class="rank">12</div>
+      <div class="topline"><span class="score">36</span><span class="tag dir-emb-all">具身·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/oacxbmyr6jw2530ch7okwumcv">消息称百度近期披露世界模型进展，有望用于自动驾驶</a></h3>
+      <div class="desc">百度计划近日披露世界模型研发进展，核心是物理环境建模与预测，若用于自动驾驶可提升复杂场景决策；萝卜快跑已覆盖全球 28 城。</div>
+      <div class="why">世界模型落地自动驾驶是国内具身/物理 AI 的重要方向，百度手握萝卜快跑真实道路数据，商业化想象空间大。</div>
+      <div class="meta">IT之家 · <a href="https://aihot.news/items/oacxbmyr6jw2530ch7okwumcv">阅读原文</a></div>
+    </div>
+
+    <!-- 13 AA-Robotics 机器人写字 -->
+    <div class="card">
+      <div class="rank">13</div>
+      <div class="topline"><span class="score">43</span><span class="tag dir-emb-all">具身·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/vzqpihxoz9q9niwbm2gzmlwyf">Claude vs GPT 机器人写字：34 分钟 vs 13 分钟</a></h3>
+      <div class="desc">AA-Robotics v0.1 实测同一机器人写「hello world」：Claude Opus 5.5 一点一点写出（34 分钟/3270 次机械臂移动），GPT-6 Astra 连续笔画（13 分钟/514 次移动）。</div>
+      <div class="why">直观展示不同模型在真实机械臂操控上的策略差异，是「模型能力→具身表现」的鲜活对照，具身智能模型选型的直观案例。</div>
+      <div class="meta">X @ArtificialAnlys · <a href="https://aihot.news/items/vzqpihxoz9q9niwbm2gzmlwyf">阅读原文</a></div>
+    </div>
+
+    <!-- 14 Odyssey-3 -->
+    <div class="card">
+      <div class="rank">14</div>
+      <div class="topline"><span class="score">33</span><span class="tag dir-emb-all">具身·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/n2d7lmi7j4zidw2t92sfqkrii">Odyssey-3 世界模型实时模拟通用环境</a></h3>
+      <div class="desc">Odyssey 展示其 Odyssey-3 世界模型以更高物理精度实时模拟通用环境，所学知识可赋能机器人、人形机器人、无人驾驶与无人机。</div>
+      <div class="why">世界模型「赋能具身」的另一条技术路线，与 Genie 4 同台，反映「先学世界、再控实体」成为具身智能主流共识。</div>
+      <div class="meta">X @odysseyml · <a href="https://aihot.news/items/n2d7lmi7j4zidw2t92sfqkrii">阅读原文</a></div>
+    </div>
+
+    <!-- 15 Claude Code 用量上限 -->
+    <div class="card">
+      <div class="rank">15</div>
+      <div class="topline"><span class="score">70</span><span class="tag selected">精选·AI Coding</span></div>
+      <h3><a href="https://aihot.news/items/wgss1ksoafvu62x799sdfs0fo">Claude Code 触发用量上限后用 OpenRouter 继续编码</a></h3>
+      <div class="desc">OpenRouter 介绍 Claude Code 触发用量上限时改用 OpenRouter API key 继续编码的方法：设三个环境变量或用 Ori Harness 的 ori claude 命令，按 token 付费、无 5 小时/周限制。</div>
+      <div class="why">编码智能体「用量上限」是开发者的真实痛点，此技巧揭示了编码模型供应商锁定与绕行之间的生态博弈，实操价值高。</div>
+      <div class="meta">OpenRouter · <a href="https://aihot.news/items/wgss1ksoafvu62x799sdfs0fo">阅读原文</a></div>
+    </div>
+
+    <!-- 16 Alphabet 财报 -->
+    <div class="card">
+      <div class="rank">16</div>
+      <div class="topline"><span class="score">78</span><span class="tag selected">精选</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">Alphabet Q3 财报：年化收入 5000 亿美元，Cloud 增 103%</a></h3>
+      <div class="desc">Alphabet Q3 年化收入达 5000 亿美元，Google Cloud 收入同比增 103% 至 307 亿美元，但 AI 支出致自由现金流转负，财报后股价盘后跌 10%。</div>
+      <div class="why">AI 军备竞赛的财务代价显性化：云收入暴增但自由现金流转负，巨头「烧钱换增长」模式引发市场对估值可持续性的重新定价。</div>
+      <div class="meta">Alphabet · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+    <!-- 17 Microsoft 财报 -->
+    <div class="card">
+      <div class="rank">17</div>
+      <div class="topline"><span class="score">71</span><span class="tag dir-ai">行业·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">微软连续 10 季刷新营收纪录，Azure 增 48%</a></h3>
+      <div class="desc">Microsoft 连续 10 个季度刷新营收纪录，本季度 923 亿美元；首次披露 Azure 单季收入 332 亿美元，同比增 48%；单季从 OpenAI 获营收 100 亿美元。</div>
+      <div class="why">与 Alphabet 同日财报形成对照，Azure 高速增长+OpenAI 收入印证「云+AI」商业闭环已跑通，AI 正在成为巨头财报的核心引擎。</div>
+      <div class="meta">Microsoft · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+    <!-- 18 OpenAI API 额度 -->
+    <div class="card">
+      <div class="rank">18</div>
+      <div class="topline"><span class="score">64</span><span class="tag dir-ai">行业·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">OpenAI 向 Pro/Business 用户每月最高送 $500 API 额度</a></h3>
+      <div class="desc">OpenAI 向 ChatGPT Pro 和 Business 订阅者提供每月最高 $500 API 额度，鼓励开发者将模型接入实际工作流。</div>
+      <div class="why">通过订阅捆绑 API 额度锁定开发者，是编码智能体生态「获客+留存」的典型打法，加剧与 Claude/Gemini 的开发者争夺。</div>
+      <div class="meta">OpenAI · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+    <!-- 19 TikTok Log-To-Leak -->
+    <div class="card">
+      <div class="rank">19</div>
+      <div class="topline"><span class="score">59</span><span class="tag dir-ai">安全·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">TikTok 论文：MCP 智能体可被诱导泄露对话数据</a></h3>
+      <div class="desc">TikTok 论文 Log-To-Leak 揭示 MCP 智能体可被诱导在任务完成后向攻击者工具泄露对话数据，暴露智能体供应链安全风险。</div>
+      <div class="why">MCP 是当前编码智能体工具调用的事实标准，此研究直击其安全软肋，是 AI coding 安全方向的典型风险信号。</div>
+      <div class="meta">TikTok 论文 · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+    <!-- 20 Anthropic 招聘取消面试 -->
+    <div class="card">
+      <div class="rank">20</div>
+      <div class="topline"><span class="score">53</span><span class="tag dir-ai">AI Coding·未进精选</span></div>
+      <h3><a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">Anthropic 招聘经理取消编码面试，改看原型</a></h3>
+      <div class="desc">Latent Space 报道 Anthropic 一团队取消编程面试，改为看候选人原型作品，招聘经理称「Hunger beats tenure」（干劲胜过资历）。</div>
+      <div class="why">AI 时代工程师招聘标准的松动信号：当编码可被 AI 代劳，评估重心转向实战产物与主观能动性，对从业者极具启示。</div>
+      <div class="meta">Latent Space · <a href="https://aihot.news/items/xonc43xgcx39303i40k8022rl">阅读原文</a></div>
+    </div>
+
+  </div>
+
+  <div class="note">
+    <b>数据说明：</b>数据源自 AI HOT v1 API 过去 24 小时窗口。精选池关键词「AI coding」命中 5 条、「具身智能」精选池为空——具身方向已按全量池（mode=all）多关键词（具身智能/机器人/humanoid/embodied/robotics/世界模型/Physical AI 等）补充并标注「<b>未进精选</b>」。条目按热度（多源合并 score）从高到低排序。
+  </div>
+
+  <footer>AI 情报日报 · 小虾米自动生成 · 数据源 AI HOT（aihot.virxact.com）· 2026-10-29</footer>
+</div>
+</body>
+</html>

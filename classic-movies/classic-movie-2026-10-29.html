@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>偷自行车的人</title>
+<style>
+  :root {
+    --bg: #f5f1e8;
+    --card: #fffdf7;
+    --ink: #2b2620;
+    --sub: #6b6258;
+    --accent: #b0392b;
+    --line: #e5ddd0;
+    --gold: #a87b2d;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.9;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 60px; }
+  header.hero {
+    text-align: center;
+    padding: 48px 20px 40px;
+    background: linear-gradient(160deg, #2b2620 0%, #4a3b2a 100%);
+    border-radius: 18px;
+    color: #f6efe2;
+    margin-bottom: 36px;
+  }
+  .hero .label {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: #d9c49a;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h1 { font-size: 34px; font-weight: 700; letter-spacing: 1px; line-height: 1.3; }
+  .hero .original { font-size: 15px; color: #cbbfa8; margin-top: 8px; font-style: italic; }
+  .hero .year { font-size: 14px; color: #d9c49a; margin-top: 14px; letter-spacing: 2px; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    margin-top: 20px;
+  }
+  .meta span {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.16);
+    padding: 6px 14px; border-radius: 20px; font-size: 13px; color: #ece2cf;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 28px 26px;
+    margin-bottom: 22px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+  }
+  h2 {
+    font-size: 20px; font-weight: 700; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  h2::before {
+    content: ""; width: 4px; height: 20px; border-radius: 2px;
+    background: var(--accent); flex-shrink: 0;
+  }
+  .card p { margin-bottom: 12px; color: var(--ink); }
+  .card p:last-child { margin-bottom: 0; }
+  .info-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+    margin-top: 6px;
+  }
+  .info-item {
+    background: #faf6ec; border-radius: 12px; padding: 14px 16px;
+    border: 1px solid #efe8d8;
+  }
+  .info-item .k { font-size: 12px; color: var(--sub); letter-spacing: 1px; margin-bottom: 4px; }
+  .info-item .v { font-size: 15px; font-weight: 600; }
+  .highlight {
+    background: linear-gradient(135deg, #fdf6ea 0%, #f9ead6 100%);
+    border: 1px solid #eed9b8;
+    border-radius: 14px; padding: 20px 22px; margin-top: 14px;
+  }
+  .highlight .t { font-weight: 700; color: var(--accent); margin-bottom: 8px; }
+  ul.why { list-style: none; margin-top: 8px; }
+  ul.why li {
+    padding: 12px 0 12px 30px; position: relative;
+    border-bottom: 1px dashed var(--line);
+  }
+  ul.why li:last-child { border-bottom: none; }
+  ul.why li::before {
+    content: "◆"; position: absolute; left: 4px; top: 12px;
+    color: var(--gold); font-size: 12px;
+  }
+  .quote {
+    font-size: 18px; font-style: italic; color: #6b5a3e;
+    text-align: center; padding: 8px 0;
+  }
+  footer {
+    text-align: center; color: var(--sub); font-size: 13px;
+    margin-top: 40px; letter-spacing: 1px;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 27px; }
+    .card { padding: 22px 18px; }
+    .info-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="label">意大利新现实主义 · 影史里程碑</span>
+    <h1>偷自行车的人</h1>
+    <div class="original">Ladri di biciclette / Bicycle Thieves</div>
+    <div class="year">1948 · 维托里奥·德·西卡</div>
+    <div class="meta">
+      <span>豆瓣 9.0</span>
+      <span>IMDb 8.3</span>
+      <span>影史百大常客</span>
+      <span>第 22 届奥斯卡荣誉奖</span>
+    </div>
+  </header>
+
+  <section class="card">
+    <h2>剧情梗概</h2>
+    <p>二战后的罗马，经济萧条，失业者如潮。主人公里奇好不容易等到一份贴海报的工作——前提是他必须有一辆自行车。妻子咬牙当掉了家里的床单，才把自行车从当铺赎回来。工作第一天，自行车就在光天化日之下被人偷走了。</p>
+    <p>失去自行车，就等于失去工作，也就等于全家人断了生计。里奇带着年幼的儿子布鲁诺，在罗马的大街小巷展开了一场近乎绝望的追寻。父子二人穿行于旧货市场、教堂、贫民区和贼窝之间，从满怀希望到疲惫不堪，从愤怒到无助，一点一点坠入现实的泥沼。</p>
+    <p>这不仅是找一辆自行车，更是一个父亲在儿子面前、一个普通人在命运面前，关于尊严与底线的挣扎。</p>
+  </section>
+
+  <section class="card">
+    <h2>亮点所在</h2>
+    <div class="info-grid">
+      <div class="info-item"><div class="k">导演</div><div class="v">维托里奥·德·西卡</div></div>
+      <div class="info-item"><div class="k">主演</div><div class="v">兰贝托·马乔拉尼</div></div>
+      <div class="info-item"><div class="k">类型</div><div class="v">剧情 / 现实主义</div></div>
+      <div class="info-item"><div class="k">时长</div><div class="v">约 89 分钟</div></div>
+    </div>
+    <div class="highlight">
+      <div class="t">为什么是"里程碑"</div>
+      <p>它几乎不用专业演员——主角里奇和儿子布鲁诺都是临时找来的普通人，用真实街头的质感、自然光和非职业表演，开创了"把摄影机扛到街上去"的新现实主义美学。没有一丝表演痕迹，却比任何炫技都更击中人心。</p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>为什么值得一看</h2>
+    <ul class="why">
+      <li><strong>真实到残酷的底层叙事。</strong>没有英雄，没有救赎套路，只有一个普通父亲的挣扎，映照出大时代里小人物的命运。</li>
+      <li><strong>父子情的克制表达。</strong>布鲁诺那一双孩子的眼睛，是整部电影最安静也最有力的镜头，胜过千言万语。</li>
+      <li><strong>影响深远。</strong>它被无数影史榜单列为"必看经典"，启发了后世一代又一代的电影人。</li>
+      <li><strong>短小精悍。</strong>不到一个半小时，却能让人久久难以平静，是一堂关于"电影本质"的课。</li>
+    </ul>
+    <p class="quote">"当一个人失去他的自行车，他就失去了一切。"</p>
+  </section>
+
+  <footer>经典电影推荐 · 2026-10-29 · 不剧透</footer>
+</div>
+</body>
+</html>
