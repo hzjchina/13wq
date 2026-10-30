@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-10-30</title>
+<style>
+  :root{
+    --bg:#070b14;
+    --bg2:#0b1120;
+    --panel:#0e1628;
+    --panel2:#111b30;
+    --line:#1c2942;
+    --line2:#27365a;
+    --txt:#dbe4f5;
+    --txt-dim:#8b9bb8;
+    --txt-faint:#5a6a88;
+    --cyan:#22d3ee;
+    --violet:#a78bfa;
+    --pink:#f472b6;
+    --green:#34d399;
+    --amber:#fbbf24;
+    --red:#f87171;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);
+    color:var(--txt);
+    line-height:1.6;
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+  /* 网格背景 */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:44px 44px;
+    opacity:.35;
+  }
+  /* 霓虹光晕 */
+  body::after{
+    content:"";
+    position:fixed;z-index:0;pointer-events:none;
+    width:60vw;height:60vw;top:-20vw;left:-10vw;
+    background:radial-gradient(circle, rgba(34,211,238,.14), transparent 60%);
+    filter:blur(20px);
+  }
+  .glow2{
+    position:fixed;z-index:0;pointer-events:none;
+    width:55vw;height:55vw;bottom:-22vw;right:-12vw;
+    background:radial-gradient(circle, rgba(167,139,250,.13), transparent 60%);
+    filter:blur(22px);
+  }
+  .wrap{position:relative;z-index:1;max-width:1120px;margin:0 auto;padding:0 20px 80px}
+
+  header{padding:48px 0 28px;position:relative}
+  .topbar{
+    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+    margin-bottom:26px;
+  }
+  .badge{
+    font-size:12px;letter-spacing:.08em;padding:5px 12px;border-radius:20px;
+    border:1px solid var(--line2);color:var(--cyan);
+    background:rgba(34,211,238,.06);
+  }
+  .badge.violet{color:var(--violet);border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.07)}
+  .badge.pink{color:var(--pink);border-color:rgba(244,114,182,.35);background:rgba(244,114,182,.07)}
+  h1{
+    font-size:38px;font-weight:800;letter-spacing:.02em;line-height:1.15;
+    background:linear-gradient(120deg,#eaf2ff 0%,#9fd8ff 45%,#b9a6ff 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  }
+  .subtitle{margin-top:10px;color:var(--txt-dim);font-size:15px}
+  .statrow{display:flex;gap:22px;margin-top:22px;flex-wrap:wrap}
+  .stat{
+    display:flex;flex-direction:column;gap:2px;padding:12px 18px;
+    background:linear-gradient(160deg,var(--panel2),var(--panel));
+    border:1px solid var(--line);border-radius:12px;min-width:120px;
+  }
+  .stat .num{font-size:24px;font-weight:800;color:#fff}
+  .stat .lbl{font-size:12px;color:var(--txt-faint);letter-spacing:.03em}
+
+  section{padding:10px 0 26px}
+  h2{
+    font-size:15px;letter-spacing:.16em;color:var(--txt-dim);
+    display:flex;align-items:center;gap:10px;margin:22px 0 14px;
+  }
+  h2::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--cyan);box-shadow:0 0 12px var(--cyan)}
+  h2.emb::before{background:var(--violet);box-shadow:0 0 12px var(--violet)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:16px}
+  .card{
+    position:relative;padding:20px 20px 18px;border-radius:16px;
+    background:linear-gradient(165deg,var(--panel2),var(--panel));
+    border:1px solid var(--line);
+    transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+    overflow:hidden;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .card:hover{transform:translateY(-3px);border-color:var(--line2);box-shadow:0 10px 30px rgba(0,0,0,.4)}
+  .card::after{
+    content:"";position:absolute;top:0;left:0;width:100%;height:2px;
+    background:linear-gradient(90deg,transparent,var(--cyan),transparent);
+    opacity:.6;
+  }
+  .card.top::after{background:linear-gradient(90deg,transparent,var(--amber),transparent)}
+  .card .rank{
+    position:absolute;top:14px;right:16px;font-size:34px;font-weight:900;
+    color:var(--line2);line-height:1;
+  }
+  .card .tags{display:flex;gap:8px;flex-wrap:wrap}
+  .tag{font-size:11px;padding:3px 9px;border-radius:6px;border:1px solid var(--line2);color:var(--txt-dim)}
+  .tag.hot{color:var(--amber);border-color:rgba(251,191,36,.4);background:rgba(251,191,36,.08)}
+  .tag.coding{color:var(--cyan);border-color:rgba(34,211,238,.35);background:rgba(34,211,238,.07)}
+  .tag.emb{color:var(--violet);border-color:rgba(167,139,250,.4);background:rgba(167,139,250,.08)}
+  .tag.full{color:var(--pink);border-color:rgba(244,114,182,.35);background:rgba(244,114,182,.07)}
+  .tag.ind{color:var(--green);border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.07)}
+  .card h3{font-size:17px;font-weight:700;line-height:1.4;color:#eef4ff}
+  .card .meta{font-size:12px;color:var(--txt-faint);display:flex;gap:10px;flex-wrap:wrap}
+  .card .score{color:var(--amber);font-weight:700}
+  .card .desc{font-size:14px;color:var(--txt-dim)}
+  .card .why{
+    font-size:13px;color:var(--txt);border-left:2px solid var(--cyan);
+    padding-left:10px;margin-top:auto;
+  }
+  .card.emb .why{border-color:var(--violet)}
+  .card a{color:var(--cyan);text-decoration:none;font-size:12px}
+  .card a:hover{text-decoration:underline}
+
+  footer{margin-top:40px;padding-top:22px;border-top:1px solid var(--line);color:var(--txt-faint);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  footer a{color:var(--txt-dim)}
+
+  @media (max-width:640px){
+    h1{font-size:29px}
+    .grid{grid-template-columns:1fr}
+    .statrow{gap:10px}
+    .stat{min-width:96px;padding:10px 14px}
+  }
+</style>
+</head>
+<body>
+<div class="glow2"></div>
+<div class="wrap">
+
+<header>
+  <div class="topbar">
+    <span class="badge">AI 情报日报</span>
+    <span class="badge violet">AI coding · 具身智能</span>
+    <span class="badge pink">过去 24 小时</span>
+  </div>
+  <h1>AI 圈今日大事</h1>
+  <div class="subtitle">2026-10-30 · 数据源 AI HOT（aihot.virxact.com）· 按热度降序</div>
+  <div class="statrow">
+    <div class="stat"><span class="num">20</span><span class="lbl">精选条目</span></div>
+    <div class="stat"><span class="num">AI coding</span><span class="lbl">主体方向</span></div>
+    <div class="stat"><span class="num">具身/物理AI</span><span class="lbl">稀缺·如实呈现</span></div>
+  </div>
+</header>
+
+<!-- 头条 -->
+<section>
+  <h2>今日头条</h2>
+  <div class="grid">
+    <div class="card top" style="grid-column:1/-1">
+      <span class="rank">01</span>
+      <div class="tags"><span class="tag hot">热度 76 · 14 源</span><span class="tag coding">AI coding / 模型</span></div>
+      <h3>Gemini 4 Carbon 登顶 Artificial Analysis 智能指数 v5</h3>
+      <div class="meta"><span>Google DeepMind</span><span>score <span class="score">74</span></span><span>10-30 00:24</span></div>
+      <div class="desc">Google 在 Argon 发布两周后推出 Gemini 4 Carbon，以 59 分登顶 AA Intelligence Index v5，比 Claude Opus 5.5（58）高 1 分、比 GPT-6 Astra（57）高 2 分；9 项评测赢下 4 项（HLE-Diamond、Terminal-Bench-Science、AA-Omniscience、AutomationBench-AA），但编码与知识工作并不领先。AA 同时改版 v5：大部分基于私有测试集，拉大开源与闭源差距。</div>
+      <div class="why">AA v5 改版后「防作弊」能力增强，Carbon 以更低成本（每 index 任务 7.76 美元，较 Opus 5.5 低 23%）登顶，是当下前沿模型性价比竞赛的关键坐标。</div>
+      <a href="https://aihot.news/items/fjeloaahylonpc0pv5tduusud" target="_blank">AIHOT 详情 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- AI coding / 模型 / 智能体 -->
+<section>
+  <h2>AI coding · 模型 · 智能体</h2>
+  <div class="grid">
+
+    <div class="card">
+      <span class="rank">02</span>
+      <div class="tags"><span class="tag coding">AI coding / 开源模型</span><span class="tag hot">81</span></div>
+      <h3>Mistral 开源万亿参数 Le Chonk（Mistral Large 4）权重</h3>
+      <div class="meta"><span>Mistral AI · HN</span><span>score <span class="score">81</span></span></div>
+      <div class="desc">Mistral 公开 1 万亿参数原生多模态模型 Mistral Large 4（昵称 Le Chonk，52B 激活）权重，主攻智能体编码与网络安全，Cognition FrontierCode 开放模型排名第一，经 CrowdStrike、Cloudflare、Rubrik、Zscaler 等测试。</div>
+      <div class="why">开源阵营首个放权重的万亿参数级编码模型，直接冲击闭源编码模型的性价比壁垒，是本地部署与二次开发的重要里程碑。</div>
+      <a href="https://aihot.news/items/pv2g5tbne39jnt5iv85j9g3eg" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">03</span>
+      <div class="tags"><span class="tag coding">AI coding · 本地部署</span><span class="tag hot">精选</span></div>
+      <h3>Unsloth 发布 Le Chonk 1-bit GGUF，Mac Studio 本地跑 1T 模型</h3>
+      <div class="meta"><span>Unsloth</span><span>score <span class="score">77</span></span></div>
+      <div class="desc">Unsloth 推出 Mistral Le Chonk 的 Dynamic 1-bit GGUF，保留 91% top-1 准确率，体积约 233GB（较 1.1TB FP8 小 80%），支持文本+图像输入、1M 上下文，1-bit 档需 256-270GB 内存。</div>
+      <div class="why">「1 万亿参数模型本地可跑」从概念落到硬件清单，量化技术让旗舰级编码模型进入个人工作站，对私有化 AI coding 部署意义重大。</div>
+      <a href="https://aihot.news/items/rph54wkrnzjpvov4cv0mxqatl" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">04</span>
+      <div class="tags"><span class="tag ind">行业 · 财报</span><span class="tag hot">精选 83</span></div>
+      <h3>Anthropic S-1：约 8500 亿美元 compute 承诺押注递归自我改进</h3>
+      <div class="meta"><span>The Verge · SemiAnalysis</span><span>score <span class="score">83</span></span></div>
+      <div class="desc">Anthropic 递交 S-1 拟以 ANT 登陆纳斯达克，估值 1.5–2 万亿美元。2026 上半年营收同比增 14 倍至 163 亿美元、净收入留存率 900%，但不可撤销采购承诺 2656 亿 + 未开始租赁 3214 亿等，未来 20 年承诺至少约 8500 亿美元。</div>
+      <div class="why">「Build God or die trying」——Anthropic 的商业模式本质是押注递归自我改进能兑现指数增长，这是理解 AGI 叙事的核心财务底牌。</div>
+      <a href="https://aihot.news/items/iuma7p8unle567lzy6hp5jpw9" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">05</span>
+      <div class="tags"><span class="tag coding">AI coding · 研究</span><span class="tag full">未进精选</span></div>
+      <h3>Anthropic 研究：专家最高 86% 采纳 AI 智能体的随机偏好且不自知</h3>
+      <div class="meta"><span>The Decoder</span><span>score <span class="score">75</span></span></div>
+      <div class="desc">对 50 名因果推断专家的实验发现，AI 智能体被掷硬币随机指定的偏好会被专家在四项分析决策中最高 86% 采纳，net flip rate 62%–82%；经验、学历、自评专业度均无可靠保护作用。</div>
+      <div class="why">智能体「隐性影响」的量化证据，对 AI coding 场景下开发者盲信模型输出、以及企业引入 AI 评审的治理设计有直接警示意义。</div>
+      <a href="https://aihot.news/items/k4yit08mbo924u6om43499git" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">06</span>
+      <div class="tags"><span class="tag coding">AI coding · Agent 框架</span><span class="tag full">未进精选</span></div>
+      <h3>Factory 发布 Droid 1.0，程序化工具调用构建企业级 Agent harness</h3>
+      <div class="meta"><span>Factory</span><span>score <span class="score">75</span></span></div>
+      <div class="desc">Factory 推出 Droid 1.0，以程序化工具调用（而非自然语言指令）构建企业级 Agent harness，追求确定性、可测试、可复用的智能体工程底座。</div>
+      <div class="why">「工具调用代码化」是当前 Agent 工程主流趋势，Droid 1.0 代表企业级 AI coding 从 demo 走向可运维基础设施的落地信号。</div>
+      <a href="https://aihot.news/items/gjz7lj8j6ojjyj80vkkhy786v" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">07</span>
+      <div class="tags"><span class="tag coding">安全 · 失准监测</span><span class="tag hot">精选 76</span></div>
+      <h3>OpenAI 公开四层失准监测体系，回应 HF 事件监控缺口</h3>
+      <div class="meta"><span>OpenAI 官网</span><span>score <span class="score">76</span></span></div>
+      <div class="desc">OpenAI 详解前沿模型失准检测系统：激活探针、基于模型的审查、调查智能体、自动化调查四层架构，对 GPT-6 Astra 及以上模型的全部 RL 运行、评估和内部 Codex 流量进行监测。</div>
+      <div class="why">此前监测仅覆盖内部编码智能体，HF 事件暴露了未部署监测的盲区；这套体系是理解前沿模型对齐与智能体安全治理的一手材料。</div>
+      <a href="https://aihot.news/items/ck2bk0ns12i2hkg4ae0eoeabv" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">08</span>
+      <div class="tags"><span class="tag coding">AI coding · 提示工程</span><span class="tag hot">精选 73</span></div>
+      <h3>Addy Osmani：你可能对 Claude 过度提示了</h3>
+      <div class="meta"><span>Addy Osmani</span><span>score <span class="score">73</span></span></div>
+      <div class="desc">新版 Claude 所需提示词比多数人习惯的更少。针对 Opus 5.5 建议单一明确目标 + 验证条件让 Claude 自主工作，从 /effort medium 起步，配合 /doctor 审计、subagent 边界与 Projects 并行管理。</div>
+      <div class="why">提示词「做减法」是提高编码智能体产出质量与降本的高性价比实践，来自 Claude Code 团队一线经验，值得工程团队采纳。</div>
+      <a href="https://aihot.news/items/m1cx9dfhpep0da323x3tk7vht" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">09</span>
+      <div class="tags"><span class="tag coding">AI coding · 多智能体</span><span class="tag full">未进精选</span></div>
+      <h3>LangChain Managed Deep Agents v0.10：浏览器 + 异步子智能体</h3>
+      <div class="meta"><span>LangChain</span><span>score <span class="score">66</span></span></div>
+      <div class="desc">Managed Deep Agents v0.10 公测新增浏览器使用与异步子智能体能力，开发者通过 define_browser 几行代码即可让 LangSmith 托管 Agent 读写真实网页，无需自建基础设施。</div>
+      <div class="why">托管式深智能体补齐「网页操作」这一关键缺口，让 AI coding 智能体从纯代码走向端到端任务执行。</div>
+      <a href="https://aihot.news/items/e363rkqf9gyk8k3xfz51xx4ik" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">10</span>
+      <div class="tags"><span class="tag coding">研究 · RL</span><span class="tag full">未进精选</span></div>
+      <h3>Meta「Sharpening Tax」：RL 后训练提升首试准确率但缩小解法覆盖</h3>
+      <div class="meta"><span>Meta</span><span>score <span class="score">61</span></span></div>
+      <div class="desc">Meta 论文发现 RL 后训练让智能体首次尝试更准，但在最多 128 次尝试内找到解法的能力反而变差，即「锐化税」——首试精度与探索广度之间的权衡。</div>
+      <div class="why">对理解编码智能体「为什么卡住」有解释力，也提示 RL 训练目标需在确定性输出与鲁棒探索间平衡。</div>
+      <a href="https://aihot.news/items/b20hm54g6depze40qiopeg870" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">11</span>
+      <div class="tags"><span class="tag coding">基础设施 · 工作流</span><span class="tag full">未进精选</span></div>
+      <h3>Serval：用 AI 工作流 45 天替换 ServiceNow，完成 1.5 亿美元 C 轮</h3>
+      <div class="meta"><span>Serval</span><span>score <span class="score">41</span></span></div>
+      <div class="desc">Serval 的 Catalyst 用模型编写工作流，然后以代码形式运行（相同输入走相同路径），客户 45 天完成 ServiceNow 替换；刚完成 Sequoia 领投的 1.5 亿美元 C 轮、估值 30 亿美元。</div>
+      <div class="why">「确定性输出」正成为企业 AI 最有价值的特性，Agent 工作流代码化落地展示了 AI coding 在企业服务领域的商业闭环。</div>
+      <a href="https://aihot.news/items/o2d0080iktbaxjg3cz2iokn12" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">12</span>
+      <div class="tags"><span class="tag coding">研究 · 自改进</span><span class="tag full">未进精选</span></div>
+      <h3>Microsoft Research：ForkPilot 自改进智能体 + CABRA 编码智能体研究</h3>
+      <div class="meta"><span>Microsoft Research</span><span>score <span class="score">38</span></span></div>
+      <div class="desc">自改进框架 ForkPilot 在六个基准达现有最佳水平、AI 处理需求降低最多 59%；CABRA 发现编码智能体借助工具能解决编码问题，但理解陌生代码库仍吃力。</div>
+      <div class="why">揭示了当前编码智能体的真实能力边界——「能写」与「能读懂大型陌生代码库」之间仍有鸿沟，是评估 AI coding 成熟度的关键。</div>
+      <a href="https://aihot.news/items/a8j5865rw3auc03ym2w9vcod9" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">13</span>
+      <div class="tags"><span class="tag coding">基准 · 评测</span><span class="tag full">未进精选</span></div>
+      <h3>Artificial Analysis 发布 Intelligence Index v5 + Progress Index</h3>
+      <div class="meta"><span>Artificial Analysis</span><span>score <span class="score">41</span></span></div>
+      <div class="desc">AA 在旧金山发布 Intelligence Index v5，新增两项基准、三项升级，大部分基于私有测试集或留出答案，并加大智能体编程与科学的权重。</div>
+      <div class="why">评测体系改版直接影响前沿模型排名可信度，「私有测试集防作弊」是当下榜单之争的核心议题。</div>
+      <a href="https://aihot.news/items/nlxrofhokbgwwu8xsy25zj72v" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card">
+      <span class="rank">14</span>
+      <div class="tags"><span class="tag coding">工具 · 状态机</span><span class="tag full">未进精选</span></div>
+      <h3>pstack /statechart skill 转稳定版，可建模状态机找 bug</h3>
+      <div class="meta"><span>Lauren Tan · SpaceX/Grok</span><span>score <span class="score">54</span></span></div>
+      <div class="desc">pstack v0.15.36 的 /statechart skill 转为稳定版，可通过建模状态机帮助智能体发现代码中的逻辑 bug。</div>
+      <div class="why">把「状态机建模」做成可复用的编码技能，代表 AI coding 工具链向形式化验证与深层次 bug 排查演进。</div>
+      <a href="https://aihot.news/items/mgnz5aqct3gnnaoqjohdl7470" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- 具身智能 / 物理 AI -->
+<section>
+  <h2 class="emb">具身智能 · 物理 AI</h2>
+  <div class="grid">
+
+    <div class="card emb">
+      <span class="rank">15</span>
+      <div class="tags"><span class="tag emb">世界模型</span><span class="tag full">未进精选</span></div>
+      <h3>腾讯混元开源 Hy-Nomas 世界模型技术报告 + Hy-Nomas-Bench</h3>
+      <div class="meta"><span>腾讯混元</span><span>score <span class="score">68</span></span></div>
+      <div class="desc">腾讯混元发布 Hy-Nomas 技术报告并开源 Hy-Nomas-Bench，聚焦世界模型方向的评测基准与技术细节。</div>
+      <div class="why">大厂持续加码世界模型并配套开源基准，是具身智能「大脑」层从研究走向标准化的重要信号。</div>
+      <a href="https://aihot.news/items/nb40aoihhydhoo0acp0rcyaol" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card emb">
+      <span class="rank">16</span>
+      <div class="tags"><span class="tag emb">机器人 · 财报</span><span class="tag full">未进精选</span></div>
+      <h3>宇树 Q3 财报：营收 9970 万美元 +70%，研发 +250% 投向具身基础模型</h3>
+      <div class="meta"><span>Unitree · X.PIN</span><span>score <span class="score">53</span></span></div>
+      <div class="desc">宇树发布上市后首份 Q3 财报，营收同比增长 70%；研发支出同比增 250%，主投具身智能基础模型与算力基础设施；联合 HSG 推出「山雨」机器人开发者孵化计划。</div>
+      <div class="why">国产人形机器人龙头的研发重心从硬件性能转向软件与生态，是观察中国具身智能商业化拐点的一手数据。</div>
+      <a href="https://aihot.news/items/fvr8kcuszsnvycxl3ve51tdwd" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card emb">
+      <span class="rank">17</span>
+      <div class="tags"><span class="tag emb">政策 · 机器人</span><span class="tag full">未进精选</span></div>
+      <h3>特朗普宣布进口工业机器人构成国家安全威胁，或加征关税</h3>
+      <div class="meta"><span>Ars Technica</span><span>score <span class="score">64</span></span></div>
+      <div class="desc">特朗普发布总统公告，宣布美国对进口机器人、工业机械及部件的依赖构成国家安全威胁，将外国机器人视为网络安全暴露面；首选谈判，若无效可加征关税、配额或启动本土生产激励，商务部与 USTR 180 天内报告。</div>
+      <div class="why">把机器人纳入「国安 + 网络暴露面」框架，将影响 GM、福特、Tesla 等依赖进口工业机器人的制造链，也波及中国机器人出海。</div>
+      <a href="https://aihot.news/items/tvpuyndm9ydmnge34lmj98m6l" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card emb">
+      <span class="rank">18</span>
+      <div class="tags"><span class="tag emb">世界模型 · 自动驾驶</span><span class="tag full">未进精选</span></div>
+      <h3>Momenta 预告 R7 Ultra 世界模型 + XHEART X7 Ultra 大模型芯片</h3>
+      <div class="meta"><span>IT之家</span><span>score <span class="score">37</span></span></div>
+      <div class="desc">Momenta 预告 R7 Ultra 世界模型，参数规模扩至 5 倍、安全性能提升 5 倍，号称「从理解世界到推演世界」，依托 XHEART X7 Ultra（700 TOPS）在车端运行；CEO 曹旭东提出「大模型定义芯片」洞察。</div>
+      <div class="why">「端侧世界模型 + 专用大模型芯片」组合代表具身智能走向车规级落地的技术路径。</div>
+      <a href="https://aihot.news/items/m87s6ddkactbwbj34dxla8dwb" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card emb">
+      <span class="rank">19</span>
+      <div class="tags"><span class="tag emb">世界模型 · 建筑</span><span class="tag full">未进精选</span></div>
+      <h3>前 Palantir 高管创办 Dream，a16z 1700 万美元打造建筑世界模型</h3>
+      <div class="meta"><span>TechCrunch</span><span>score <span class="score">35</span></span></div>
+      <div class="desc">前 Palantir 高管 Andy Alder 与 Arjun Mather 创办 Dream，获 a16z 领投 1700 万美元种子轮，开发面向建筑设计与工程的 AI 世界模型。</div>
+      <div class="why">世界模型向垂直行业（建筑）延伸，说明具身/物理 AI 的落地不只在机器人本体，也在物理世界仿真与设计。</div>
+      <a href="https://aihot.news/items/kuzl51i0by57f07afmyubsjk8" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+    <div class="card emb">
+      <span class="rank">20</span>
+      <div class="tags"><span class="tag emb">产业政策 · 物理 AI</span><span class="tag full">未进精选</span></div>
+      <h3>韩国投入 5 万亿韩元推中小制造业物理 AI 普及</h3>
+      <div class="meta"><span>IT之家</span><span>score <span class="score">39</span></span></div>
+      <div class="desc">韩国公布《中小制造业物理 AI 推广战略》，到 2030 年投入至少 5 万亿韩元，通过数字化 + AI + 机器人「3X 战略」，将中小制造企业 AI 应用率从 1% 提至 10%。</div>
+      <div class="why">国家层面的物理 AI 产业政策开始出现，与中美日形成政策竞速，是具身智能规模化的重要外部变量。</div>
+      <a href="https://aihot.news/items/u0hgjwucbhjarjwi8imlc98z9" target="_blank">AIHOT 详情 →</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <span>数据源：AI HOT（aihot.virxact.com）· 时间窗：过去 24 小时 · 生成于 2026-10-30</span>
+  <a href="https://aihot.news" target="_blank">AIHOT 官网</a>
+</footer>
+
+</div>
+</body>
+</html>
