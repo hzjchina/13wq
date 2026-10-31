@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>千钧一发</title>
+<style>
+  :root {
+    --bg: #0e1117;
+    --panel: #161b26;
+    --panel-2: #1d2432;
+    --text: #e6eaf2;
+    --text-dim: #a8b0bf;
+    --accent: #4f9cf9;
+    --accent-2: #f0a35e;
+    --border: #2a3242;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.8;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 24px 20px 48px; }
+  .hero {
+    text-align: center;
+    padding: 36px 20px 28px;
+    background: linear-gradient(160deg, var(--panel-2), var(--panel));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-bottom: 24px;
+  }
+  .hero .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent-2);
+    border: 1px solid var(--accent-2);
+    padding: 2px 12px;
+    border-radius: 20px;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .hero .en {
+    font-size: 15px;
+    color: var(--text-dim);
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .meta span {
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    padding: 3px 12px;
+    border-radius: 16px;
+  }
+  .score {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .score div {
+    text-align: center;
+  }
+  .score .num {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .score .lbl {
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  section {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+  }
+  section h2 {
+    font-size: 20px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.4;
+  }
+  section p { color: var(--text-dim); margin-bottom: 12px; }
+  section p:last-child { margin-bottom: 0; }
+  section p strong { color: var(--text); }
+  ul { padding-left: 20px; }
+  li { color: var(--text-dim); margin-bottom: 10px; }
+  li strong { color: var(--text); }
+  .quote {
+    font-style: italic;
+    text-align: center;
+    color: var(--accent-2);
+    font-size: 18px;
+    padding: 16px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin: 18px 0;
+  }
+  .footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 13px;
+    margin-top: 12px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 28px; }
+    section { padding: 18px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="tag">科 幻 · 哲 思 · 梦 想</span>
+    <h1>千钧一发</h1>
+    <div class="en">Gattaca · 1997</div>
+    <div class="meta">
+      <span>导演：安德鲁·尼科尔</span>
+      <span>主演：伊桑·霍克 · 乌玛·瑟曼 · 裘德·洛</span>
+      <span>类型：科幻 / 剧情 / 惊悚</span>
+    </div>
+    <div class="score">
+      <div><div class="num">8.8</div><div class="lbl">豆瓣评分</div></div>
+      <div><div class="num">7.7</div><div class="lbl">IMDb</div></div>
+      <div><div class="num">1997</div><div class="lbl">上映年份</div></div>
+    </div>
+  </div>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>在一个基因技术高度发达的未来世界，一个人从出生那一刻起，一生的天赋、健康甚至命运都已被基因检测写定。社会被清晰地划分为两类人——经过基因优选出生的"合格者"，以及自然受孕、带有各种缺陷的"瑕疵者"。</p>
+    <p>主人公文森特就属于后者。他天生患有心脏病，被判定只能活到三十岁，从小到大都被贴上"不合格"的标签。可他有一个毕生的梦想——成为一名宇航员，飞向太空。</p>
+    <p>为了进入只接纳"合格者"的宇航公司，文森特选择了一条极其危险的伪装之路：他借用了另一名基因优秀却因意外瘫痪的青年杰罗姆的身份，日复一日地清理皮屑、毛发、尿液等一切可能暴露真实基因的痕迹，用尽心力扮演一个"完美"的人，只为离太空更近一步。</p>
+    <p>然而，就在发射前夕，公司里发生了一桩命案，调查的矛头一点点逼近文森特隐藏多年的秘密……</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul>
+      <li><strong>深刻而超前的主题：</strong>影片早在 1997 年就精准预言了基因编辑、基因歧视与"优生学"的社会隐忧，探讨了"命运是否由基因决定"这一至今仍极具现实意义的命题，其思考深度远超同时代科幻片。</li>
+      <li><strong>反高潮的克制美学：</strong>没有炫目的爆炸与太空激战，全片以冷峻、极简、近乎素净的视觉风格（大量对称构图与冷色调）营造出压抑而克制的未来质感，被称为"科幻片里的文艺片"。</li>
+      <li><strong>教科书级的表演：</strong>伊桑·霍克、乌玛·瑟曼与裘德·洛三位主演贡献了极具张力的演出，尤其裘德·洛饰演的天才而绝望的"身份提供者"，内敛中透出令人心碎的力量。</li>
+      <li><strong>经典的意象运用：</strong>"游泳竞赛""楼梯攀爬"等反复出现的场景，被赋予超越剧情的象征意义，成为影迷津津乐道的经典画面。</li>
+      <li><strong>名场面与台词：</strong>那句关于"我不是为了逃避，而是为了抵达"的精神内核，以及"我从不给自己留退路"的决绝，多年后依然激励着无数观众。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>这不是一部靠特效堆砌的科幻大片，而是一部用"软科幻"外壳包裹"人定胜天"内核的哲思之作。它真正打动人的，不是未来科技的奇观，而是那个明知自己"生来有缺陷"、却依旧拼尽全力向命运发起挑战的普通人。</p>
+    <p>它提出了一个我们每个人都绕不开的问题：<strong>当世界告诉你"你不配"的时候，你是否有勇气用行动改写被定义的人生？</strong></p>
+    <p>无论你是科幻迷，还是喜欢有深度、有回味的故事，《千钧一发》都是一部看完之后会让你久久思考的佳作。它安静、克制，却蕴含着震撼人心的力量，被无数影迷奉为"被严重低估的科幻神作"。</p>
+    <div class="quote">"我从不为自己留退路，因为那意味着失败。"</div>
+  </section>
+
+  <div class="footer">千钧一发 · Gattaca (1997) · 一部关于梦想与命运的科幻经典</div>
+</div>
+</body>
+</html>
