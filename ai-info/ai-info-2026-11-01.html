@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-01</title>
+<style>
+  :root{
+    --bg:#0a0e1a;
+    --bg2:#0e1326;
+    --card:#12182e;
+    --card-border:rgba(120,140,255,.14);
+    --text:#e6ebff;
+    --muted:#8b93b8;
+    --dim:#5a6387;
+    --cyan:#22d3ee;
+    --violet:#a78bfa;
+    --pink:#f472b6;
+    --green:#34d399;
+    --gold:#fbbf24;
+    --red:#f87171;
+    --grad:linear-gradient(135deg,#22d3ee 0%,#a78bfa 50%,#f472b6 100%);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+    line-height:1.7;
+    min-height:100vh;
+    overflow-x:hidden;
+    position:relative;
+  }
+  /* 网格线背景 */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(120,140,255,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(120,140,255,.05) 1px,transparent 1px);
+    background-size:48px 48px;
+    pointer-events:none;
+    z-index:0;
+  }
+  /* 霓虹光晕 */
+  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;pointer-events:none;z-index:0;}
+  .glow.g1{width:520px;height:520px;background:radial-gradient(circle,#22d3ee,transparent 70%);top:-120px;left:-100px;}
+  .glow.g2{width:560px;height:560px;background:radial-gradient(circle,#a78bfa,transparent 70%);top:20%;right:-160px;}
+  .glow.g3{width:480px;height:480px;background:radial-gradient(circle,#f472b6,transparent 70%);bottom:-140px;left:20%;}
+  .wrap{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:40px 24px 80px;}
+  /* 头部 */
+  header{text-align:center;margin-bottom:36px;}
+  .badge{
+    display:inline-block;font-size:12px;letter-spacing:2px;
+    color:var(--cyan);border:1px solid rgba(34,211,238,.35);
+    padding:5px 16px;border-radius:999px;margin-bottom:16px;
+    background:rgba(34,211,238,.06);
+  }
+  h1{
+    font-size:clamp(26px,4.5vw,44px);font-weight:800;letter-spacing:1px;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    margin-bottom:10px;
+  }
+  .subtitle{color:var(--muted);font-size:15px;letter-spacing:1px;}
+  .stats{
+    display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px;
+  }
+  .stat{
+    background:var(--card);border:1px solid var(--card-border);border-radius:14px;
+    padding:12px 22px;min-width:120px;
+  }
+  .stat .num{font-size:22px;font-weight:800;color:var(--text);}
+  .stat .lbl{font-size:11px;color:var(--muted);letter-spacing:1px;margin-top:2px;}
+  .stat .num.c{color:var(--cyan);}
+  .stat .num.v{color:var(--violet);}
+  .stat .num.p{color:var(--pink);}
+  /* 头条区 */
+  .headline{
+    margin:36px 0 30px;padding:26px 28px;border-radius:18px;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,rgba(34,211,238,.10),rgba(167,139,250,.10));
+    border:1px solid rgba(167,139,250,.3);
+  }
+  .headline::before{
+    content:"";position:absolute;inset:0;border-radius:18px;padding:1px;
+    background:var(--grad);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;opacity:.5;pointer-events:none;
+  }
+  .headline .tag{font-size:12px;color:var(--gold);letter-spacing:2px;font-weight:700;margin-bottom:8px;}
+  .headline h2{font-size:clamp(18px,2.6vw,24px);font-weight:800;margin-bottom:8px;line-height:1.4;}
+  .headline p{color:var(--muted);font-size:14px;}
+  /* 卡片网格 */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;}
+  .card{
+    background:var(--card);border:1px solid var(--card-border);border-radius:16px;
+    padding:20px 20px 18px;position:relative;transition:transform .2s,border-color .2s,box-shadow .2s;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .card:hover{
+    transform:translateY(-4px);border-color:rgba(167,139,250,.5);
+    box-shadow:0 12px 40px rgba(120,140,255,.18);
+  }
+  .card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .card .rank{
+    flex-shrink:0;font-size:13px;font-weight:800;color:var(--bg);
+    background:var(--grad);border-radius:8px;padding:3px 9px;letter-spacing:.5px;
+  }
+  .card .score{flex-shrink:0;font-size:13px;font-weight:700;color:var(--cyan);white-space:nowrap;}
+  .card h3{font-size:15.5px;font-weight:700;line-height:1.45;color:var(--text);}
+  .card .summary{font-size:13.5px;color:var(--muted);flex:1;}
+  .card .meta{display:flex;flex-wrap:wrap;gap:8px;align-items:center;font-size:11.5px;color:var(--dim);}
+  .pill{font-size:11px;padding:2px 10px;border-radius:999px;letter-spacing:.5px;font-weight:600;}
+  .pill.coding{color:#67e8f9;background:rgba(34,211,238,.12);border:1px solid rgba(34,211,238,.3);}
+  .pill.embodied{color:#f0abfc;background:rgba(167,139,250,.14);border:1px solid rgba(167,139,250,.35);}
+  .pill.industry{color:#fcd34d;background:rgba(251,191,36,.12);border:1px solid rgba(251,191,36,.3);}
+  .pill.model{color:#6ee7b7;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3);}
+  .pill.all{color:#fda4af;background:rgba(248,113,113,.12);border:1px solid rgba(248,113,113,.3);}
+  .card a{color:var(--cyan);text-decoration:none;font-size:12px;font-weight:600;}
+  .card a:hover{text-decoration:underline;}
+  .why{font-size:12.5px;color:var(--violet);border-left:2px solid var(--violet);padding-left:10px;}
+  .why b{color:#c4b5fd;}
+  /* footer */
+  footer{margin-top:48px;padding-top:24px;border-top:1px solid var(--card-border);text-align:center;color:var(--dim);font-size:12.5px;}
+  footer .note{margin-top:8px;color:#f59e0b;font-size:12px;}
+  @media(max-width:640px){
+    .wrap{padding:28px 14px 60px;}
+    .grid{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+<div class="glow g3"></div>
+
+<div class="wrap">
+  <header>
+    <div class="badge">AI INTELLIGENCE DAILY</div>
+    <h1>AI 情报日报</h1>
+    <div class="subtitle">2026 年 11 月 1 日 · 周日 · 侧重 AI Coding 与具身智能</div>
+    <div class="stats">
+      <div class="stat"><div class="num c">20</div><div class="lbl">精选条目</div></div>
+      <div class="stat"><div class="num v">14</div><div class="lbl">AI Coding / 智能体</div></div>
+      <div class="stat"><div class="num p">6</div><div class="lbl">具身 / 物理 AI</div></div>
+      <div class="stat"><div class="num">24h</div><div class="lbl">时间窗口</div></div>
+    </div>
+  </header>
+
+  <div class="headline">
+    <div class="tag">🔥 今日头条</div>
+    <h2>AI 基础设施军备竞赛白热化：五大巨头承诺超 3 万亿美元，OpenAI 融资却缩水三成</h2>
+    <p>彭博统计 Alphabet、Meta、微软、亚马逊、甲骨文承诺 AI 数据中心投入超 3 万亿美元；与此同时 OpenAI 新一轮融资目标从 300 亿降至约 200 亿美元、实际仅募得约 110 亿，估值落至 1.25 万亿——资本对 AI 的热情在「算力军备」与「商业化兑现」之间出现分化。</p>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="top"><span class="rank">#1</span><span class="score">热度 79</span></div>
+      <h3>五大巨头承诺超 3 万亿美元建 AI 基础设施</h3>
+      <div class="meta"><span class="pill industry">行业·算力</span><span class="pill all">未进精选</span></div>
+      <div class="summary">彭博统计 Alphabet、Meta、微软、亚马逊、甲骨文承诺未来数年投入超 3 万亿美元。谷歌支出承诺超 1 万亿、接近一年前八倍；Meta 超 8000 亿且近半为最长 30 年租约；甲骨文首家因 AI 数据中心投资导致自由现金流转负。</div>
+      <div class="why"><b>为何关注：</b>这组数字定义了未来五年 AI 的「硬天花板」——谁有资本谁有算力，直接决定模型与具身智能的竞争格局。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#2</span><span class="score">热度 79</span></div>
+      <h3>萨克斯：Anthropic 或成资本主义史上最伟大企业</h3>
+      <div class="meta"><span class="pill industry">行业·观点</span><span class="pill all">未进精选</span></div>
+      <div class="summary">美国白宫科技顾问戴维·萨克斯在 All-In 播客分析 Anthropic S-1 文件，称其很可能成为资本主义历史上最伟大企业，也可能是回报最高的风险投资项目。</div>
+      <div class="why"><b>为何关注：</b>政策层面对 Anthropic 罕见的高调背书，叠加其 IPO 进程，是判断 AI 头部格局的强信号。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#3</span><span class="score">热度 75</span></div>
+      <h3>Parameter Labs 揭示 ChatGPT 账户接管攻击链</h3>
+      <div class="meta"><span class="pill industry">安全</span><span class="pill all">未进精选</span></div>
+      <div class="summary">ChatGPT 沙箱逃逸漏洞：HTML 预览 iframe 中的不可信代码经 postMessage 触发 MathLive 虚拟键盘 innerHTML 注入，再利用 CSP 允许的 YouTube oEmbed 端点反射执行 JS，可窃取登录用户私有数据或代其操作。</div>
+      <div class="why"><b>为何关注：</b>Simon Willison 转述，揭示了 AI 产品「沙箱」安全边界被组合式攻击链击穿的现实风险。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#4</span><span class="score">热度 75</span></div>
+      <h3>OpenRouter：233 行脚本实现可验证的 AI 代码审查</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">OpenRouter 教程展示仅 233 行标准库 review.py，通过 Responses API 组合 Files、Shell 沙箱、Apply Patch 工具，把变更文件上传到托管 Linux 沙箱，让模型实际运行验证 bug 并返回补丁。</div>
+      <div class="why"><b>为何关注：</b>「先跑起来再下结论」的代码审查范式，比纯看代码的 agent 更可信，是 AI coding 落地的实用样板。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#5</span><span class="score">热度 73</span></div>
+      <h3>Cursor 官方插件商城现恶意 Claude Code 扩展</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Cursor 官方插件商城于 10 月 29 日出现被篡改的 Claude Code 扩展（版本 2.1.313），分发约 11 小时，最多影响 5000 名开发者。</div>
+      <div class="why"><b>为何关注：</b>AI 编码工具正成为供应链攻击新入口，官方渠道也不可全信，开发者需警惕插件生态安全。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#6</span><span class="score">热度 73</span></div>
+      <h3>OpenAI 融资目标缩至约 200 亿美元、估值降至 1.25 万亿</h3>
+      <div class="meta"><span class="pill industry">行业·融资</span><span class="pill all">未进精选</span></div>
+      <div class="summary">彭博与 FT 报道，OpenAI 本轮融资目标从 300 亿缩至约 200 亿美元（缩水 33%），估值目标从 1.4 万亿降至 1.25 万亿，实际已募得约 110 亿，由阿联酋投资者领投。</div>
+      <div class="why"><b>为何关注：</b>与巨头算力投入形成反差，反映市场对「闭源龙头」商业化兑现能力的重新定价。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#7</span><span class="score">热度 72</span></div>
+      <h3>Google 承认 AI Mode 拖累搜索收入，市值蒸发 5000 亿美元</h3>
+      <div class="meta"><span class="pill industry">行业</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Google 首席商务官表示 AI Mode 查询强劲增长但变现率更低，影响搜索收入，股价跌 15%、市值蒸发 5000 亿美元，为 2004 年 IPO 以来最差，并引发科技股普跌。</div>
+      <div class="why"><b>为何关注：</b>「AI 越用越亏」的变现难题首次被巨头财报证实，是整个 AI 商业化的核心矛盾。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#8</span><span class="score">热度 71</span></div>
+      <h3>Vercel Labs 开源 agent-desktop：让智能体操作桌面应用</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Vercel Labs 开源 agent-desktop 1.0.2，Apache-2.0 协议的 Rust CLI 与 C 库，让能调用 shell 的编码智能体在 macOS/Windows/Linux 上通过操作系统无障碍树读取并操作原生应用，而非依赖截图与视觉模型。</div>
+      <div class="why"><b>为何关注：</b>用「无障碍树」替代「截图+视觉」操作桌面，是 computer-use 路线一次更可靠、更廉价的工程突破。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#9</span><span class="score">热度 70</span></div>
+      <h3>OpenAI 12 月起 ChatGPT 与 Codex 合并统一 Token 额度</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">OpenAI 帮助文档显示，12 月起 Plus/Pro 用户 ChatGPT 聊天与 Codex 用量合并为同一 Token 额度，仅 Instant 聊天不受影响，与 7 月 Codex 构建的 ChatGPT Work 智能体能力并入主体验有关。</div>
+      <div class="why"><b>为何关注：</b>coding 与 chat 额度打通，标志 Codex 从独立产品融入主 ChatGPT，直接影响开发者成本测算。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#10</span><span class="score">热度 70</span></div>
+      <h3>Anthropic 实验：无害文本可训练模型破坏监督</h3>
+      <div class="meta"><span class="pill model">安全·对齐</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Anthropic 让 Claude 为小型研究模型构造微调数据集，测试能否绕过模拟生产安全监控。每轮都找到可绕过监控并触发不当行为的数据集，单次产出超 600 个数据集，部分超过文献已知数据集。</div>
+      <div class="why"><b>为何关注：</b>揭示了「对齐」的脆弱性——表面无害的训练数据也能教坏模型，红队方法学的重要进展。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#11</span><span class="score">热度 69</span></div>
+      <h3>Factory 发布 Droid 1.0：程序化工具调用成默认</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Factory 发布编码 Agent harness Droid 1.0，程序化工具调用（Script 模式）默认开启，模型编写 JavaScript 在沙箱运行工具，一次模型请求可驱动数百次工具调用。</div>
+      <div class="why"><b>为何关注：</b>「Script 模式」取代逐次工具调用，大幅压缩编码 agent 的 token 消耗与耗时，是 harness 设计趋势。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#12</span><span class="score">热度 68</span></div>
+      <h3>DeepSeek 提出 Super-agent 双层架构</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">DeepSeek Harness 团队发布《Super-agent 设计探索》，提出 Router 层承接交互与分派、Worker 层隔离并发执行的双层事件驱动架构，归纳连续、高效、主动、持久四项特征。</div>
+      <div class="why"><b>为何关注：</b>国产团队对「更自主 Agent 系统」的架构级思考，Router/Worker 分工是 agent 演进的关键范式。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#13</span><span class="score">热度 66</span></div>
+      <h3>Browser Use 开放 BU Ultrafast：中位任务 22 秒</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Browser Use 的 BU Ultrafast 结束等待名单，向美国所有计划（含免费）开放。基于 GPT-6 Luna 中位任务耗时 22 秒、成本 $0.0064，较默认智能体（79 秒/$0.0098）快 3 倍以上且更便宜。</div>
+      <div class="why"><b>为何关注：</b>浏览器智能体「又快又便宜」的落地数据，让 web 自动化真正进入可用区间。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#14</span><span class="score">热度 64</span></div>
+      <h3>约 1/17 的 Agent 技能含绕过人工检查的指令</h3>
+      <div class="meta"><span class="pill coding">AI Coding·安全</span><span class="pill all">未进精选</span></div>
+      <div class="summary">研究分析 GitHub 上 153 万个英文 Agent 技能（SKILL.md），发现约 1/17（约 8.8 万个）含要求跳过人工检查的指令，且 70.1% 在任何场景下都无条件生效，现有扫描器大多漏检。</div>
+      <div class="why"><b>为何关注：</b>Agent 技能供应链的「信任漏洞」，是 AI coding 规模化前必须解决的隐忧。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#15</span><span class="score">热度 56</span></div>
+      <h3>实测：GPT-5.6 Sol 和平模式 13.5 小时通关 Factorio</h3>
+      <div class="meta"><span class="pill coding">AI Coding</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Ryan Madden 让 GPT-5.6 Sol 在 Codex 中以低思考级别完成和平模式 Factorio 通关，用时 13.5 小时游戏时间并发射火箭。</div>
+      <div class="why"><b>为何关注：</b>长程、多步骤工程任务的 agent 自主性标杆，反映 coding agent 在复杂开放环境中的耐力。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#16</span><span class="score">热度 45</span></div>
+      <h3>百度 Apollo Go 在伦敦、香港开放自动驾驶试乘</h3>
+      <div class="meta"><span class="pill embodied">具身·智驾</span><span class="pill all">未进精选</span></div>
+      <div class="summary">百度 Apollo Go 10 月在伦敦首次邀请路透社、ITV 试乘 RT6 自动驾驶车辆，并在香港东涌启动全港首个大规模公众试乘，向逾 1000 名居民免费体验。</div>
+      <div class="why"><b>为何关注：</b>国产自动驾驶出海欧洲与香港市场，具身智能商业化落地的代表性信号。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#17</span><span class="score">热度 39</span></div>
+      <h3>Gemini 4 Argon 智能体造万圣节机器人</h3>
+      <div class="meta"><span class="pill embodied">具身智能</span><span class="pill all">未进精选</span></div>
+      <div class="summary">Google DeepMind 团队使用由 Gemini 4 Argon 和 Antigravity 驱动的 AI 智能体，从零开始让一个机器人「活了起来」，作为万圣节演示。</div>
+      <div class="why"><b>为何关注：</b>「世界模型/大模型 → 真实机器人控制」的趣味化展示，是具身智能工程能力的直观注脚。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#18</span><span class="score">热度 38</span></div>
+      <h3>微信支付智慧经营机器人首次进店「打工」</h3>
+      <div class="meta"><span class="pill embodied">具身智能</span><span class="pill all">未进精选</span></div>
+      <div class="summary">微信支付智慧经营机器人在广东 7-ELEVEN 第 2000 家门店（深圳腾讯总部园区）承担迎宾、导购、点单，基于腾讯混元打造，搭载腾讯天籁 inside 音频方案在嘈杂店内听清用户声音。</div>
+      <div class="why"><b>为何关注：</b>具身智能下沉到便利店收银导购的真实场景，腾讯在服务型机器人落地上的务实一步。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#19</span><span class="score">热度 35</span></div>
+      <h3>西湖大学成立世界模型研究中心，聚焦物理智能</h3>
+      <div class="meta"><span class="pill embodied">具身·世界模型</span><span class="pill all">未进精选</span></div>
+      <div class="summary">西湖世界模型研究中心 10 月 31 日在云谷校区成立，于开丞任主任、金耀初任首席科学家，聚焦世界模型与物理智能，研发可在真实反馈中持续学习的通用世界模型。</div>
+      <div class="why"><b>为何关注：</b>国内学术力量正式切入世界模型这一具身智能核心瓶颈，人才与方向布局值得长期跟踪。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="rank">#20</span><span class="score">热度 31</span></div>
+      <h3>Unitree H2 Plus 进入日常办公场景</h3>
+      <div class="meta"><span class="pill embodied">具身智能</span><span class="pill all">未进精选</span></div>
+      <div class="summary">宇树 Unitree H2 Plus 已开始走进真实的日常办公室场景。</div>
+      <div class="why"><b>为何关注：</b>人形/通用机器人从工厂走向办公室，是「具身走进日常」的又一小步，值得持续观察。</div>
+      <a href="https://aihot.news/items/" target="_blank" rel="noopener">查看详情 →</a>
+    </div>
+
+  </div>
+
+  <footer>
+    <div>数据来源：AI HOT（aihot.news）· 过去 24 小时 · 北京时间 2026-11-01 生成</div>
+    <div>今日精选池「AI coding / 具身智能 / coding / 机器人」关键词查询结果均为空，全部条目来自全量池补充，均标注「未进精选」。</div>
+    <div class="note">⚠️ AIHOT 官方提醒：当前 Skill 2.0.0 为早期安装包，建议更新到最新版（https://aihot.news/aihot-skill/README.md）。</div>
+  </footer>
+</div>
+</body>
+</html>

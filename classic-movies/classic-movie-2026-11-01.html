@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大独裁者</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --card-2: #20242e;
+    --text: #e8eaed;
+    --muted: #9aa0a6;
+    --accent: #e0a74e;
+    --line: #2a2f3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.9;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 0 16px 48px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero {
+    text-align: center;
+    padding: 44px 12px 28px;
+  }
+  .hero .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 16px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .hero .en {
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 1px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  .meta span {
+    background: var(--card-2);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 5px 14px;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .meta span b { color: var(--text); font-weight: 600; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin-bottom: 18px;
+  }
+  .card h2 {
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card h2::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+  }
+  .card p { color: var(--text); margin-bottom: 12px; }
+  .card p:last-child { margin-bottom: 0; }
+  .quote {
+    font-style: italic;
+    color: var(--accent);
+    border-left: 3px solid var(--accent);
+    padding-left: 16px;
+    margin: 18px 0;
+  }
+  .why li {
+    list-style: none;
+    margin-bottom: 14px;
+    padding-left: 26px;
+    position: relative;
+    color: var(--text);
+  }
+  .why li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: var(--accent);
+    font-size: 14px;
+  }
+  .why li b { color: var(--accent); }
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 28px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 28px; }
+    .card { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="tag">查理 · 卓别林</span>
+    <h1>大独裁者</h1>
+    <div class="en">The Great Dictator · 1940</div>
+    <div class="meta">
+      <span>导演 <b>查理·卓别林</b></span>
+      <span>主演 <b>查理·卓别林</b></span>
+      <span>豆瓣 <b>9.1</b></span>
+      <span>IMDb <b>8.5</b></span>
+      <span>片长 <b>125 分钟</b></span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>第一次世界大战的硝烟里，一位犹太理发师在战场上救了一名军官，自己却因失忆在病院沉睡了二十年。当他醒来，国家已落入一个与他长得一模一样的独裁者"辛克尔"手中——此人疯狂鼓吹战争、排挤异己，把整个民族拖向深渊。理发师在荒谬的时局里艰难求生，而一连串阴差阳错的身份错位，最终把他推到了命运的十字路口，说出了一段影史留名的宣言。</p>
+    <p class="quote">这是卓别林的第一部有声片，也是他告别"流浪汉"形象的转折之作。他用喜剧的糖衣，包裹了当时最锋利的一把刀。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <p>全片最闪耀的，是卓别林一人分饰两角——卑微善良的犹太理发师，与张狂滑稽的独裁者辛克尔。前者延续了流浪汉式的温柔，后者则用极尽夸张的肢体与台词，把暴政演绎成一出令人捧腹又脊背发凉的闹剧。</p>
+    <p>片中有多个载入影史的桥段：辛克尔把玩充气地球仪的独舞，用荒诞到极致的舞蹈消解了权力的狂妄；他口中那段真假难辨的"德语演讲"，纯粹靠音调与情绪传递出煽动的可怕力量。而结尾理发师那段长达数分钟的反战宣言，至今仍被反复引用，字字滚烫。</p>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <ul class="why">
+      <li><b>勇气与先见：</b>影片上映于 1940 年，正是纳粹如日中天、世界对其野心尚存幻想之时。卓别林冒着巨大风险，用一部喜剧公开嘲讽法西斯，这份远见与胆识，让它在影史中拥有无可替代的位置。</li>
+      <li><b>喜剧的巅峰形态：</b>它证明了喜剧的终极力量不是逗人发笑，而是让笑声成为刺穿荒谬与恐惧的武器。看懂了它的笑，也就看懂了它的泪。</li>
+      <li><b>跨越时代的宣言：</b>结尾那段演讲虽然诞生于八十多年前，但其中对自由、理性与人性尊严的呼唤，放到今天依然振聋发聩。</li>
+    </ul>
+  </div>
+
+  <div class="footer">不剧透 · 请放心享用 · 🦐 小虾米推荐</div>
+</div>
+</body>
+</html>
