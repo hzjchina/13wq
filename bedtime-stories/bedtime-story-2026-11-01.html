@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小斗笠的半边光 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 秋夜落叶飘落 */
+  .leaf {
+    position: absolute; font-size: 18px; color: #d9a04e;
+    opacity: 0; animation: floatLeaf 11s ease-in-out infinite;
+    text-shadow: 0 0 6px rgba(217, 160, 78, 0.4);
+  }
+  @keyframes floatLeaf {
+    0%   { transform: translate(0, -10px) rotate(-10deg); opacity: 0; }
+    12%  { opacity: 0.8; }
+    55%  { transform: translate(34px, 120px) rotate(40deg); opacity: 0.6; }
+    100% { transform: translate(60px, 240px) rotate(-20deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <div class="moon">
+    <!-- 下弦月：左半亮右半暗，暗圆右侧偏移 1.0r -->
+    <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+        <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#cfd8e8" stop-opacity="0.35"/>
+          <stop offset="60%" stop-color="#cfd8e8" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#cfd8e8" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="55" fill="url(#moonHalo)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 暗圆在右侧偏移 1.0r = 38，cx=98，clipPath 裁剪 → 右半暗 -->
+      <circle cx="98" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <!-- 亮面环形山细节（左侧亮区） -->
+      <circle cx="44" cy="52" r="4" fill="#d4dae8" opacity="0.5"/>
+      <circle cx="52" cy="68" r="2.5" fill="#d4dae8" opacity="0.4"/>
+      <circle cx="38" cy="64" r="3" fill="#d4dae8" opacity="0.45"/>
+    </svg>
+  </div>
+  <!-- 秋夜主题：落叶飘落 + 萤火虫 -->
+  <span class="leaf" style="top:18%; left:18%; animation-delay:0s;">🍂</span>
+  <span class="leaf" style="top:24%; left:78%; animation-delay:3s;">🍂</span>
+  <span class="leaf" style="top:40%; left:35%; animation-delay:6s;">🍃</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小斗笠的半边光</h1>
+    <p class="meta">🌾 半遮风露半漏月光 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-01.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <!-- 夜空背景渐变 -->
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <linearGradient id="fieldGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a3a2a"/>
+          <stop offset="100%" stop-color="#1a2418"/>
+        </linearGradient>
+        <clipPath id="posterMoonClip"><circle cx="248" cy="48" r="22"/></clipPath>
+        <radialGradient id="posterMoonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#cfd8e8" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#cfd8e8" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="moonBeam" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.55"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="hatStraw" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#c9a86a"/>
+          <stop offset="100%" stop-color="#8a6a3a"/>
+        </linearGradient>
+      </defs>
+
+      <rect width="300" height="440" fill="url(#skyGrad)"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="30" r="1.4" fill="#fff" opacity="0.9"/>
+      <circle cx="90" cy="50" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="160" cy="28" r="1.2" fill="#fff" opacity="0.85"/>
+      <circle cx="200" cy="70" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="120" cy="90" r="0.9" fill="#fff" opacity="0.5"/>
+      <circle cx="270" cy="100" r="1.1" fill="#fff" opacity="0.7"/>
+
+      <!-- 下弦月：左半亮右半暗，暗圆右侧偏移 1.0r=22，cx=270 -->
+      <circle cx="248" cy="48" r="34" fill="url(#posterMoonHalo)"/>
+      <circle cx="248" cy="48" r="22" fill="#e8ecf5"/>
+      <circle cx="270" cy="48" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+      <circle cx="238" cy="42" r="2.2" fill="#d4dae8" opacity="0.5"/>
+      <circle cx="244" cy="54" r="1.5" fill="#d4dae8" opacity="0.4"/>
+
+      <!-- 远山剪影 -->
+      <path d="M0 300 Q 60 270 120 290 Q 180 268 240 292 Q 280 280 300 296 L300 320 L0 320 Z" fill="#15173a" opacity="0.7"/>
+
+      <!-- 田野 -->
+      <rect x="0" y="318" width="300" height="122" fill="url(#fieldGrad)"/>
+      <!-- 稻茬剪影 -->
+      <g fill="#3a2a1a" opacity="0.6">
+        <rect x="30" y="335" width="2" height="8"/>
+        <rect x="55" y="338" width="2" height="7"/>
+        <rect x="78" y="336" width="2" height="9"/>
+        <rect x="210" y="337" width="2" height="8"/>
+        <rect x="235" y="340" width="2" height="6"/>
+        <rect x="260" y="335" width="2" height="9"/>
+        <rect x="285" y="338" width="2" height="7"/>
+      </g>
+
+      <!-- 稻草人（左中） -->
+      <g>
+        <!-- 木桩 -->
+        <rect x="68" y="250" width="4" height="90" fill="#6a4a2a"/>
+        <!-- 横杆手臂 -->
+        <rect x="50" y="268" width="40" height="3" fill="#6a4a2a"/>
+        <!-- 草扎身体 -->
+        <ellipse cx="70" cy="278" rx="16" ry="22" fill="#c9a86a"/>
+        <!-- 草扎头 -->
+        <circle cx="70" cy="250" r="10" fill="#c9a86a"/>
+        <!-- 草帽 -->
+        <ellipse cx="70" cy="244" rx="16" ry="4" fill="#8a6a3a"/>
+        <ellipse cx="70" cy="241" rx="8" ry="3" fill="#a8884a"/>
+        <!-- 衣服领口示意 -->
+        <path d="M62 264 Q70 268 78 264 L76 272 Q70 274 64 272 Z" fill="#7a5a3a"/>
+      </g>
+
+      <!-- 月光从右上斜照下来的光带 -->
+      <polygon points="248,70 232,78 180,330 210,330" fill="url(#moonBeam)" opacity="0.5"/>
+
+      <!-- 主角：草斗笠（扣在田埂稻草人右侧地上，圆锥形） -->
+      <!-- 斗笠阴影 -->
+      <ellipse cx="165" cy="340" rx="52" ry="8" fill="#000" opacity="0.35"/>
+      <!-- 斗笠主体：尖顶朝上，底边略弧（扣在地上） -->
+      <path d="M 165 248 L 112 332 Q 165 345 218 332 Z" fill="url(#hatStraw)" stroke="#6a4a2a" stroke-width="1.2"/>
+      <!-- 斗笠草编横纹 -->
+      <path d="M 118 320 Q 165 328 212 320" stroke="#6a4a2a" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <path d="M 126 300 Q 165 308 204 300" stroke="#6a4a2a" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <path d="M 135 280 Q 165 286 195 280" stroke="#6a4a2a" stroke-width="0.8" fill="none" opacity="0.5"/>
+      <path d="M 145 262 Q 165 266 185 262" stroke="#6a4a2a" stroke-width="0.7" fill="none" opacity="0.5"/>
+      <!-- 斗笠顶尖 -->
+      <circle cx="165" cy="248" r="3" fill="#a8884a"/>
+
+      <!-- 斗笠左半檐漏下的月光（银色光斑照在地上） -->
+      <path d="M 112 332 L 118 320 L 90 360 L 70 372 Z" fill="#e8ecf5" opacity="0.25"/>
+      <ellipse cx="88" cy="368" rx="26" ry="5" fill="#e8ecf5" opacity="0.2"/>
+      <!-- 斗笠右半檐底下挡住露水（暗影区） -->
+      <path d="M 218 332 L 212 320 L 245 355 L 255 365 Z" fill="#0e0f26" opacity="0.3"/>
+
+      <!-- 小田鼠（左下，走在月光照亮处） -->
+      <g>
+        <ellipse cx="80" cy="372" rx="9" ry="5" fill="#7a6a5a"/>
+        <circle cx="71" cy="370" r="3.5" fill="#7a6a5a"/>
+        <circle cx="69" cy="368.5" r="1" fill="#3a2a1a"/>
+        <path d="M68 367 L66 364 M70 367 L70 364" stroke="#7a6a5a" stroke-width="0.8" fill="none"/>
+        <!-- 尾巴 -->
+        <path d="M89 372 Q 95 370 96 376" stroke="#7a6a5a" stroke-width="1" fill="none"/>
+      </g>
+
+      <!-- 小蟋蟀（右下斗笠底下暗影处） -->
+      <g>
+        <ellipse cx="230" cy="368" rx="6" ry="3.5" fill="#3a5a2a"/>
+        <circle cx="225" cy="366" r="2.5" fill="#3a5a2a"/>
+        <path d="M223 364 L221 360 M225 364 L226 360" stroke="#3a5a2a" stroke-width="0.7" fill="none"/>
+        <!-- 触须 -->
+        <path d="M225 364 Q 222 358 220 354" stroke="#5a7a3a" stroke-width="0.5" fill="none"/>
+        <path d="M226 364 Q 229 358 231 354" stroke="#5a7a3a" stroke-width="0.5" fill="none"/>
+      </g>
+
+      <!-- 小蚂蚁搬家（中下，一列） -->
+      <g fill="#2a1a0a">
+        <circle cx="140" cy="388" r="1.6"/>
+        <circle cx="146" cy="388" r="1.6"/>
+        <circle cx="152" cy="388" r="1.6"/>
+        <circle cx="158" cy="388" r="1.6"/>
+        <circle cx="164" cy="388" r="1.6"/>
+      </g>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="415" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="17" font-weight="700" fill="#cfd8e8" letter-spacing="2">小斗笠的半边光</text>
+      <text x="150" y="432" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="10" fill="#a3a8d0" letter-spacing="3">下弦月 · 农历九月廿三</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月廿三 · 下弦月🌗</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">半遮半漏 · 各得其所</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的田埂边，稻子都收完了。老农爷爷扛起锄头回家，走得太急，把那顶戴了一夏天的旧草斗笠忘在了田头。一阵风吹来，斗笠"骨碌碌"滚了几滚，停在稻草人脚边，尖顶朝上、帽檐朝下，像一只倒扣着的小船。</p>
+    <p>斗笠名叫笠笠。他难过极了——整个夏天他都替爷爷挡日头，如今稻子收完了，自己却被忘在田里过夜。"是不是我老了、没用了，爷爷就不要我了？"笠笠越想越委屈，草编的帽檐都耷拉下来。</p>
+    <p>这时，下弦月从东边升了起来。笠笠抬头一看，愣住了：月亮今晚竟然也是半个——左半边亮堂堂的，右半边却暗沉沉的。"月亮，你怎么也只剩半个啦？"月亮弯弯地笑着回答："我今晚就是下弦月呀，左半边亮，是留给赶夜路的小生灵照路的；右半边暗，是留给需要休息的人闭上眼睛的。半个，也有半个的安排。"</p>
+    <p>笠笠一下子来了精神："那我也能学你吗？"月亮说："你试试看——把左半边的帽檐翘起来一点点，接住我的月光漏到地上；右半边的帽檐压低一点点，挡住夜里渗下来的冷露。"</p>
+    <p>笠笠照着做了。果然，左半边檐一翘，一束银晃晃的月光就顺着檐边漏下去，在地上铺成一小片亮；右半边檐一压，把越刮越凉的秋风和露水挡在了外头，檐底下暖烘烘、干爽爽的。</p>
+    <p>没过多久，一只迷路的小田鼠豆豆急急忙忙跑过来。田埂黑漆漆的，它找不到回洞的路。忽然，它看见笠笠左半边漏下的那片月光，亮堂堂的正好照着田埂——豆豆顺着光，一溜烟跑回了家。</p>
+    <p>又过了一会儿，一只翅膀被冷露打湿的小蟋蟀，哆哆嗦嗦钻到了笠笠右半边底下。那里又干又暖，不一会儿翅膀就干透了，小蟋蟀高兴得轻轻唱起歌来。</p>
+    <p>半夜里，一队搬家的小蚂蚁扛着行李路过。左边漏下的月光给他们照亮了路，右边挡住了越刮越紧的秋风。蚂蚁们安安稳稳地走过去，一只也没掉队。</p>
+    <p>天快亮的时候，下弦月要沉下去了，它轻轻对笠笠说："半个夜班，交班啦。"笠笠这才发现，这一夜过得满满当当——它替月亮守了半个夜班，半遮风露、半漏月光，让夜归的、歇脚的、赶路的，都各得其所。</p>
+    <p>清晨，老农爷爷巡田，一眼就看见了稻草人脚边的旧斗笠。他弯腰捡起来，拍拍灰，重新戴回头上，笑着说："老伙计，让你在田里守了一夜啊。"笠笠贴着爷爷暖暖的脑袋，再也不觉得自己被忘记了——它知道，那一夜的半遮半漏，是月亮交给它的、刚刚好的"半个夜班"。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>不必把什么都挡住，留一半让光透过去——半遮风露、半漏月光，半个也有半个刚刚好的温柔用处。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。笠笠说，你今天也是个好孩子，该做一个甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月01日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
