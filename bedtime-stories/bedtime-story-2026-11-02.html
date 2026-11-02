@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小藤筛的月光星 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 月光星点：银色小光点飘浮（替代萤火虫，贴合"漏光成星"主题） */
+  .moonstar {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #e8ecf5; box-shadow: 0 0 8px 2px rgba(232, 236, 245, 0.7);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：下弦月🌗 illumination 0.5，左半亮右半暗，暗圆右侧偏移 1.0r -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="84" height="84" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.32"/>
+          <stop offset="60%" stop-color="#e8ecf5" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <circle cx="60" cy="60" r="54" fill="url(#moonGlow)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 下弦月：暗圆在右侧，偏移 1.0r → cx=60+38=98，clipPath 裁剪在月盘内 -->
+      <circle cx="98" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <!-- 环形山细节（只在左半亮区） -->
+      <circle cx="48" cy="52" r="4" fill="#c4cad8" opacity="0.5"/>
+      <circle cx="55" cy="68" r="3" fill="#c4cad8" opacity="0.4"/>
+      <circle cx="42" cy="64" r="2.5" fill="#c4cad8" opacity="0.45"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：银色月光星点飘浮（替代萤火虫/音符，贴合"漏光成星"主题） -->
+  <span class="moonstar" style="top:46%; left:12%; animation-delay:0s;"></span>
+  <span class="moonstar" style="top:52%; left:82%; animation-delay:2.2s; width:4px; height:4px;"></span>
+  <span class="moonstar" style="top:60%; left:22%; animation-delay:4.5s;"></span>
+  <span class="moonstar" style="top:64%; left:70%; animation-delay:1.2s; width:4px; height:4px;"></span>
+  <span class="moonstar" style="top:70%; left:38%; animation-delay:3s;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小藤筛的月光星</h1>
+    <p class="meta">✨ 月光透过网眼变成一地小星星 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-02.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <!-- 天空渐变背景 -->
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="60%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="posterMoonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.28"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="posterMoonClip"><circle cx="248" cy="48" r="22"/></clipPath>
+        <linearGradient id="sieveWood" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#b88a4a"/>
+          <stop offset="100%" stop-color="#8a6432"/>
+        </linearGradient>
+        <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.9"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="300" height="440" fill="url(#skyGrad)"/>
+
+      <!-- 天空小星星 -->
+      <circle cx="30" cy="40" r="1.2" fill="#fff" opacity="0.9"/>
+      <circle cx="80" cy="22" r="1" fill="#fff" opacity="0.8"/>
+      <circle cx="130" cy="35" r="1.4" fill="#fff" opacity="0.85"/>
+      <circle cx="180" cy="18" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="210" cy="42" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="60" cy="60" r="1" fill="#fff" opacity="0.7"/>
+
+      <!-- 下弦月：暗圆右侧偏移 1.0r → cx=248+22=270，clipPath 裁剪，与背景moon形态一致 -->
+      <circle cx="248" cy="48" r="34" fill="url(#posterMoonGlow)"/>
+      <circle cx="248" cy="48" r="22" fill="#e8ecf5"/>
+      <circle cx="270" cy="48" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+      <!-- 左半亮区环形山 -->
+      <circle cx="242" cy="44" r="2.6" fill="#c4cad8" opacity="0.5"/>
+      <circle cx="244" cy="52" r="1.8" fill="#c4cad8" opacity="0.4"/>
+
+      <!-- 月光光柱（从月亮方向斜射向藤筛） -->
+      <path d="M 240 70 L 250 70 L 175 200 L 168 200 Z" fill="#e8ecf5" opacity="0.06"/>
+
+      <!-- 石磨木架（横梁） -->
+      <rect x="70" y="148" width="160" height="9" rx="3" fill="#5a3d22"/>
+      <rect x="72" y="155" width="9" height="40" fill="#4a3018"/>
+      <rect x="219" y="155" width="9" height="40" fill="#4a3018"/>
+
+      <!-- 藤筛：挂在木架上的圆盘 + 网眼 -->
+      <!-- 挂绳 -->
+      <path d="M 150 148 Q 150 168 150 178" stroke="#6a4a28" stroke-width="2" fill="none"/>
+      <!-- 筛盘外圈 -->
+      <ellipse cx="150" cy="186" rx="78" ry="16" fill="url(#sieveWood)" stroke="#6a4a28" stroke-width="2"/>
+      <ellipse cx="150" cy="183" rx="78" ry="14" fill="#9a7038" opacity="0.6"/>
+      <!-- 筛网眼（密点阵列，表示藤编网眼） -->
+      <g fill="#0e0f26" opacity="0.55">
+        <circle cx="92" cy="184" r="1.6"/><circle cx="102" cy="186" r="1.6"/><circle cx="112" cy="184" r="1.6"/>
+        <circle cx="122" cy="186" r="1.6"/><circle cx="132" cy="184" r="1.6"/><circle cx="142" cy="186" r="1.6"/>
+        <circle cx="152" cy="184" r="1.6"/><circle cx="162" cy="186" r="1.6"/><circle cx="172" cy="184" r="1.6"/>
+        <circle cx="182" cy="186" r="1.6"/><circle cx="192" cy="184" r="1.6"/><circle cx="202" cy="186" r="1.6"/>
+        <circle cx="98" cy="190" r="1.6"/><circle cx="108" cy="192" r="1.6"/><circle cx="118" cy="190" r="1.6"/>
+        <circle cx="128" cy="192" r="1.6"/><circle cx="138" cy="190" r="1.6"/><circle cx="148" cy="192" r="1.6"/>
+        <circle cx="158" cy="190" r="1.6"/><circle cx="168" cy="192" r="1.6"/><circle cx="178" cy="190" r="1.6"/>
+        <circle cx="188" cy="192" r="1.6"/><circle cx="198" cy="190" r="1.6"/>
+      </g>
+      <!-- 筛框边缘高光 -->
+      <ellipse cx="150" cy="182" rx="78" ry="13" fill="none" stroke="#d9a85a" stroke-width="1" opacity="0.5"/>
+
+      <!-- 月光透过网眼漏成的一地小光点（撒在青石板上） -->
+      <g>
+        <circle cx="78" cy="300" r="2.2" fill="url(#starGlow)"/>
+        <circle cx="96" cy="312" r="1.8" fill="#e8ecf5"/>
+        <circle cx="112" cy="296" r="2.4" fill="url(#starGlow)"/>
+        <circle cx="128" cy="318" r="1.6" fill="#e8ecf5"/>
+        <circle cx="142" cy="302" r="2.6" fill="url(#starGlow)"/>
+        <circle cx="156" cy="322" r="1.8" fill="#e8ecf5"/>
+        <circle cx="168" cy="300" r="2.2" fill="url(#starGlow)"/>
+        <circle cx="184" cy="316" r="2" fill="#e8ecf5"/>
+        <circle cx="198" cy="298" r="2.4" fill="url(#starGlow)"/>
+        <circle cx="214" cy="320" r="1.8" fill="#e8ecf5"/>
+        <circle cx="88" cy="288" r="1.6" fill="#e8ecf5"/>
+        <circle cx="120" cy="332" r="1.8" fill="url(#starGlow)"/>
+        <circle cx="160" cy="340" r="2" fill="#e8ecf5"/>
+        <circle cx="196" cy="336" r="1.6" fill="url(#starGlow)"/>
+        <circle cx="104" cy="324" r="1.4" fill="#e8ecf5"/>
+        <circle cx="176" cy="290" r="1.6" fill="url(#starGlow)"/>
+      </g>
+
+      <!-- 青石板地面 -->
+      <rect x="0" y="345" width="300" height="95" fill="#2a2d52"/>
+      <line x1="0" y1="345" x2="300" y2="345" stroke="#3a3e6a" stroke-width="1.5"/>
+      <line x1="0" y1="385" x2="300" y2="385" stroke="#33376a" stroke-width="1" opacity="0.6"/>
+      <line x1="0" y1="415" x2="300" y2="415" stroke="#33376a" stroke-width="1" opacity="0.6"/>
+
+      <!-- 小田鼠豆豆：仰头数光点 -->
+      <g transform="translate(70,360)">
+        <!-- 身体 -->
+        <ellipse cx="0" cy="0" rx="16" ry="11" fill="#b89376"/>
+        <!-- 头 -->
+        <circle cx="14" cy="-4" r="9" fill="#c4a085"/>
+        <!-- 耳朵 -->
+        <circle cx="10" cy="-11" r="3.5" fill="#a07a5a"/>
+        <circle cx="18" cy="-12" r="3.5" fill="#a07a5a"/>
+        <!-- 眼睛（仰头看光点） -->
+        <circle cx="17" cy="-6" r="1.3" fill="#1a1a2a"/>
+        <!-- 鼻子 -->
+        <circle cx="22" cy="-3" r="1" fill="#6a4a3a"/>
+        <!-- 尾巴 -->
+        <path d="M -14 -2 Q -22 -6 -24 -12" stroke="#a07a5a" stroke-width="1.8" fill="none"/>
+        <!-- 举起的小手（指光点） -->
+        <line x1="8" y1="-8" x2="14" y2="-16" stroke="#a07a5a" stroke-width="1.6"/>
+      </g>
+
+      <!-- 小蟋蟀 -->
+      <g transform="translate(196,372)">
+        <ellipse cx="0" cy="0" rx="8" ry="6" fill="#5a7a3a"/>
+        <circle cx="6" cy="-3" r="4.5" fill="#6a8a4a"/>
+        <line x1="4" y1="-7" x2="2" y2="-13" stroke="#3a5a2a" stroke-width="1"/>
+        <line x1="8" y1="-7" x2="10" y2="-13" stroke="#3a5a2a" stroke-width="1"/>
+        <line x1="-8" y1="-2" x2="-14" y2="-8" stroke="#3a5a2a" stroke-width="1.2"/>
+        <circle cx="7" cy="-4" r="0.9" fill="#1a1a2a"/>
+      </g>
+
+      <!-- 小飞蛾（循光飞） -->
+      <g transform="translate(148,278)">
+        <ellipse cx="0" cy="0" rx="5" ry="4" fill="#d8d0c0"/>
+        <ellipse cx="-5" cy="-1" rx="4" ry="6" fill="#c8c0b0" opacity="0.85" transform="rotate(-18 -5 -1)"/>
+        <ellipse cx="5" cy="-1" rx="4" ry="6" fill="#c8c0b0" opacity="0.85" transform="rotate(18 5 -1)"/>
+        <circle cx="0" cy="-2" r="1" fill="#3a3a4a"/>
+      </g>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="425" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="14" font-weight="600" fill="#cfd8e8" letter-spacing="2">小藤筛的月光星</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月廿四 · 下弦月🌗</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">换种方式发光 · 被遗忘也有用</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的晒谷场上，秋风把最后一袋稻谷送进了粮仓。老奶奶的小藤筛筛筛被忘在了石磨上，身上落了薄薄一层灰。它难过地想：秋收都结束了，我再也没谷子可筛啦。</p>
+    <p>夜里，下弦月慢慢爬上晒谷场的屋脊。它左半边亮亮的、右半边暗暗的，像把光分成了两半。月光顺着木架溜下来，正好照在筛筛身上，又透过筛筛密密的网眼，漏到了石磨下的青石板上。</p>
+    <p>"叮——"一粒银色的小光点落在青石板上。接着是第二粒、第三粒、第四粒……整片月光被网眼筛成了一地闪闪的小星星，像谁不小心打翻了一兜子星光。</p>
+    <p>小田鼠豆豆从洞里探出头，以为星星真的掉下来了，兴奋地一颗一颗数起来："一、二、三……哎呀数不过来！"小蟋蟀跳过来，以为是会发光的谷粒，凑近一闻，是凉凉的月光味儿。一只迷路的小飞蛾，把光点当成同伴的小灯，循着一粒一粒的亮，慢慢找到了回家的路。</p>
+    <p>下弦月在屋脊上轻轻说："我今晚左半亮、右半暗，一半的光正好给你筛成星，一半的影留给歇着的小生命。你呀，虽然不再筛谷子，却能把我整片月光，筛成一地温柔的小星星。"</p>
+    <p>筛筛开心极了。原来被忘在石磨上也不是没用，换个法子，还能把月光筛成星点，送给怕黑的小生灵。它安心地挂在木架上，等每一个下弦月夜，再把月光筛成一地亮晶晶的小星。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>被遗忘也不是没有用——换个方式，你还能把整片月光筛成一地小星星，送给怕黑的人。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。筛筛说，你今天也是个好孩子，就算觉得自己没用，也总有人正借着你的光，照亮回家的路。该做一个甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月02日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
