@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>发条橙</title>
+<style>
+  :root{
+    --bg:#0d1117;
+    --bg2:#161b22;
+    --card:#1c2230;
+    --border:#2d333b;
+    --text:#e6edf3;
+    --muted:#9aa4b2;
+    --accent:#f0883e;
+    --accent2:#58a6ff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(180deg,#0d1117 0%,#10151c 100%);
+    color:var(--text);
+    line-height:1.85;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:32px 20px 64px;}
+  header{
+    text-align:center;
+    padding:40px 24px 36px;
+    margin-bottom:28px;
+    background:linear-gradient(160deg,#1a2130,#141a24);
+    border:1px solid var(--border);
+    border-radius:18px;
+  }
+  .kicker{
+    font-size:13px;letter-spacing:3px;color:var(--accent);
+    text-transform:uppercase;margin-bottom:14px;
+  }
+  h1{
+    font-size:44px;line-height:1.2;letter-spacing:2px;
+    font-weight:800;margin-bottom:10px;
+  }
+  .en{
+    font-size:15px;color:var(--muted);letter-spacing:1px;
+    font-style:italic;margin-bottom:18px;
+  }
+  .meta{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    font-size:13px;color:var(--muted);
+  }
+  .tag{
+    padding:4px 12px;border-radius:20px;
+    background:rgba(240,136,62,.12);color:var(--accent);
+    border:1px solid rgba(240,136,62,.25);
+  }
+  .score{
+    margin-top:20px;display:flex;gap:18px;justify-content:center;
+    flex-wrap:wrap;
+  }
+  .score .s{
+    text-align:center;padding:10px 20px;
+    background:var(--bg2);border:1px solid var(--border);border-radius:12px;
+  }
+  .score .num{font-size:24px;font-weight:700;color:var(--accent2);}
+  .score .lb{font-size:12px;color:var(--muted);margin-top:2px;}
+  section{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:26px 24px;
+    margin-bottom:22px;
+  }
+  h2{
+    font-size:20px;font-weight:700;margin-bottom:14px;
+    display:flex;align-items:center;gap:10px;
+  }
+  h2::before{
+    content:"";width:5px;height:22px;border-radius:3px;
+    background:linear-gradient(180deg,var(--accent),var(--accent2));
+  }
+  p{margin-bottom:12px;color:var(--text);}
+  p:last-child{margin-bottom:0;}
+  ul{list-style:none;padding-left:0;}
+  ul li{
+    padding:10px 0 10px 26px;position:relative;
+    border-bottom:1px dashed rgba(255,255,255,.06);
+  }
+  ul li:last-child{border-bottom:none;}
+  ul li::before{
+    content:"◆";position:absolute;left:2px;top:12px;
+    color:var(--accent);font-size:11px;
+  }
+  .quote{
+    margin-top:26px;padding:20px 22px;
+    background:rgba(88,166,255,.07);
+    border-left:4px solid var(--accent2);
+    border-radius:10px;
+    font-style:italic;color:var(--muted);font-size:16px;
+  }
+  footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    margin-top:10px;letter-spacing:1px;
+  }
+  @media (max-width:600px){
+    body{font-size:16px;}
+    h1{font-size:34px;}
+    .wrap{padding:20px 14px 48px;}
+    section{padding:22px 18px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">Classic Cinema</div>
+    <h1>发条橙</h1>
+    <div class="en">A Clockwork Orange · 1971</div>
+    <div class="meta">
+      <span class="tag">导演：斯坦利·库布里克</span>
+      <span class="tag">主演：马尔科姆·麦克道威尔</span>
+      <span class="tag">犯罪 / 科幻 / 反乌托邦</span>
+    </div>
+    <div class="score">
+      <div class="s"><div class="num">8.6</div><div class="lb">豆瓣</div></div>
+      <div class="s"><div class="num">8.3</div><div class="lb">IMDb</div></div>
+      <div class="s"><div class="num">4项</div><div class="lb">奥斯卡提名</div></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>在近未来的英国，少年亚历克斯与他的同伙终日游荡在街头，以无差别施暴为乐。他们闯民宅、斗群架、听贝多芬——罪恶与"高雅"在他身上诡异共存。一次失控的罪行后，亚历克斯被同伴出卖，锒铛入狱。</p>
+    <p>为换取自由，他自愿成为一项"厌恶疗法"实验的对象：政府用药物与影像强行改造他的大脑，让他对暴力乃至贝多芬的音乐产生生理性的恶心。他成了社会展示"改造成果"的样板，却也彻底失去了反抗与选择的能力。</p>
+    <p>当这个"被修好的人"重新回到社会，等待他的却是另一重荒诞——曾经被他伤害的人、政客与舆论，各自怀揣目的围了上来。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul>
+      <li><strong>库布里克的影像暴力美学：</strong>大量夸张的构图、超广角镜头与对称画面，把暴行拍成一场怪诞的芭蕾，形式与内容的张力令人过目难忘。</li>
+      <li><strong>贯穿全片的古典乐：</strong>贝多芬第九交响曲与暴力场面的对位，成为影史最令人不安的视听组合之一。</li>
+      <li><strong>麦克道威尔的封神表演：</strong>他把亚历克斯的天真与邪恶、狂放与脆弱融于一体，成为影史最具辨识度的反派主角之一。</li>
+      <li><strong>自创的"纳查奇"黑话：</strong>片中角色使用一种糅合俄语与伦敦土话的虚构俚语，构建出疏离又自洽的独特世界。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>它不只是一部"坏小子"的犯罪片，更是一部关于<strong>自由意志</strong>的哲学寓言：当社会用技术把一个恶人"改造成好人"，剥夺了他作恶的选择，那他是否还算是一个人？一个只能行善、无法选择的人，和一台被调好程序的机器，又有何区别？</p>
+    <p>影片对体制、媒体与人性之伪善的锋利讽刺，放在今天依旧振聋发聩。它逼你面对一个不舒服的问题——<strong>没有选择自由的善良，究竟是救赎，还是另一种奴役？</strong></p>
+    <div class="quote">"我痊愈了，我彻底好了。"——然而自由，往往伴随着选择的代价。</div>
+  </section>
+
+  <footer>— 小虾米 精选 · 2026-11-02 —</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-02</title>
+<style>
+:root{
+  --bg:#070b14;
+  --bg2:#0a1020;
+  --panel:#0e1628;
+  --panel2:#111c33;
+  --line:#1c2a47;
+  --text:#dbe4f5;
+  --muted:#7d8bb0;
+  --dim:#536184;
+  --cyan:#22d3ee;
+  --blue:#4f8cff;
+  --violet:#a78bfa;
+  --pink:#f472b6;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#f87171;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;line-height:1.6;}
+body{
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(79,140,255,.16), transparent 60%),
+    radial-gradient(1000px 500px at 90% 0%, rgba(167,139,250,.14), transparent 55%),
+    radial-gradient(900px 600px at 50% 110%, rgba(34,211,238,.10), transparent 60%),
+    var(--bg);
+  min-height:100vh;
+  padding-bottom:60px;
+}
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(60,80,130,.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(60,80,130,.07) 1px, transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse at 50% 0%, #000 40%, transparent 90%);
+}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 22px;}
+
+/* header */
+header{padding:52px 0 20px;text-align:center;position:relative;}
+header .tag{display:inline-block;font-size:12px;letter-spacing:2px;color:var(--cyan);border:1px solid rgba(34,211,238,.35);padding:4px 14px;border-radius:20px;margin-bottom:18px;background:rgba(34,211,238,.06);}
+header h1{font-size:32px;font-weight:700;letter-spacing:1px;background:linear-gradient(90deg,#7dd3fc,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+header .sub{color:var(--muted);margin-top:12px;font-size:14px;}
+header .meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px;}
+header .meta span{font-size:12px;color:var(--muted);background:var(--panel);border:1px solid var(--line);padding:4px 12px;border-radius:14px;}
+
+/* stats */
+.stats{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:26px 0 10px;}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px 24px;min-width:130px;text-align:center;box-shadow:0 6px 24px rgba(0,0,0,.3);}
+.stat .n{font-size:26px;font-weight:700;background:linear-gradient(180deg,#fff,#8fb8ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.stat .l{font-size:12px;color:var(--muted);margin-top:2px;}
+
+/* section */
+.section{margin-top:34px;}
+.section-title{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:600;margin-bottom:16px;color:#eef3ff;}
+.section-title::before{content:"";width:6px;height:20px;border-radius:3px;background:linear-gradient(180deg,var(--cyan),var(--violet));box-shadow:0 0 12px rgba(34,211,238,.7);}
+.section-title .cnt{font-size:12px;color:var(--dim);font-weight:400;margin-left:2px;}
+
+/* cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;}
+.card{
+  position:relative;background:linear-gradient(160deg,var(--panel2),var(--panel));
+  border:1px solid var(--line);border-radius:16px;padding:18px 18px 16px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+  overflow:hidden;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(79,140,255,.5);box-shadow:0 12px 34px rgba(0,0,0,.45),0 0 0 1px rgba(79,140,255,.15);}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));opacity:.75;}
+.card .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.card .cat{font-size:11px;padding:2px 9px;border-radius:10px;letter-spacing:.5px;font-weight:500;}
+.cat.coding{background:rgba(79,140,255,.14);color:#7fb0ff;border:1px solid rgba(79,140,255,.3);}
+.cat.embodied{background:rgba(52,211,153,.12);color:#5eead4;border:1px solid rgba(52,211,153,.3);}
+.cat.industry{background:rgba(251,191,36,.12);color:#fcd34d;border:1px solid rgba(251,191,36,.3);}
+.cat.model{background:rgba(167,139,250,.14);color:#c4b5fd;border:1px solid rgba(167,139,250,.3);}
+.card .score{font-size:12px;font-weight:700;color:var(--cyan);display:flex;align-items:center;gap:4px;}
+.card .score i{font-style:normal;color:var(--dim);font-weight:400;font-size:11px;}
+.card h3{font-size:15px;font-weight:600;line-height:1.45;margin-bottom:8px;color:#f3f7ff;}
+.card p{font-size:13px;color:#a9b6d4;line-height:1.7;}
+.card .why{margin-top:10px;font-size:12.5px;color:#8fb3e8;background:rgba(79,140,255,.07);border-left:2px solid rgba(79,140,255,.5);padding:8px 10px;border-radius:0 8px 8px 0;}
+.card .why b{color:#a8c8ff;}
+.card .src{margin-top:12px;font-size:11px;color:var(--dim);display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.card .src a{color:var(--dim);text-decoration:none;border-bottom:1px dotted rgba(125,139,176,.4);transition:color .15s;}
+.card .src a:hover{color:var(--cyan);}
+.card .badge{position:absolute;top:14px;right:14px;font-size:10px;color:var(--amber);background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3);padding:1px 8px;border-radius:8px;}
+
+/* featured */
+.featured{border:1px solid rgba(167,139,250,.45);box-shadow:0 0 0 1px rgba(167,139,250,.12),0 14px 40px rgba(0,0,0,.5);}
+.featured::before{background:linear-gradient(90deg,#f472b6,#a78bfa,#22d3ee);}
+.featured .headline{font-size:17px;}
+
+footer{margin-top:50px;text-align:center;color:var(--dim);font-size:12px;line-height:1.9;}
+footer a{color:var(--muted);text-decoration:none;}
+footer a:hover{color:var(--cyan);}
+
+@media(max-width:640px){
+  header h1{font-size:25px;}
+  .grid{grid-template-columns:1fr;}
+  .stats{gap:8px;}
+  .stat{min-width:100px;padding:12px 14px;}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+
+<header>
+  <span class="tag">AI INTELLIGENCE DAILY</span>
+  <h1>AI 情报日报</h1>
+  <div class="sub">AI coding · 具身智能 · 当日 AI 圈大事件</div>
+  <div class="meta">
+    <span>📅 2026-11-02（周一）</span>
+    <span>🕐 过去 24 小时</span>
+    <span>🎯 20 条精选</span>
+    <span>📡 AIHOT 全量池</span>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="n">20</div><div class="l">精选条目</div></div>
+  <div class="stat"><div class="n">14</div><div class="l">AI coding / 智能体</div></div>
+  <div class="stat"><div class="n">6</div><div class="l">具身 / 行业 · 模型</div></div>
+  <div class="stat"><div class="n">72</div><div class="l">最高热度</div></div>
+</div>
+
+<div class="section">
+  <div class="section-title">🔥 头条速递 <span class="cnt">· 今日最大事件</span></div>
+  <div class="grid">
+    <div class="card featured">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">27 信号 <i>hot-topics #1</i></span></div>
+      <h3 class="headline">DeepSeek 开源 Super-agent 双层架构原型 dsh-superagent</h3>
+      <p>DeepSeek Harness 团队以 MIT 许可开源编码智能体原型 dsh-superagent v0.1.0，采用「Router-Worker」双层架构：Router 负责任务路由与调度，Worker 面向单个 GitHub 仓库监听 GitHub / 飞书请求并生成可并行工作的 Ticket。官方同日发布 Super-agent 英文版文章并公开招聘产品经理，被视为 DeepSeek 在自主编码智能体方向上的一次系统性开源动作。</p>
+      <div class="why"><b>为何关注：</b>从「模型开源」迈入「智能体架构开源」，Router-Worker 双层设计是当下多智能体编排路线的典型代表，对想自建编码 Agent 中台的团队有直接参考价值。</div>
+      <div class="src">来源：IT之家 · MarkTechPost · X <a href="https://aihot.news/items/j8xxhoehp8lpglfuqqj6xu63m">详情 ↗</a></div>
+    </div>
+
+    <div class="card featured">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">70 <i>热度</i></span></div>
+      <h3 class="headline">Google FlowAgent：代码合并前自动修复失败的测试</h3>
+      <p>Google 论文披露已部署在内部 CI 的 FlowAgent——捕获测试失败后由 Agent 自动编辑、构建并重跑直至通过，验证过的修复以根因说明形式进入代码评审。专家判定 195 个真实失败中 67.18% 修复正确，开发者已在生产中应用 28,554 个修复，中位耗时 9.85 分钟（远快于人工开写前的 27.48 分钟窗口）。</p>
+      <div class="why"><b>为何关注：</b>「AI 自动修测试 → 人只做评审」已在大厂内部规模化落地，28k+ 生产修复是验证 AI coding 降本成效的关键实证数据。</div>
+      <div class="src">来源：X · Rohan Paul <a href="https://aihot.news/items/ckvh9zdsrk8q476n4twvs1m4p">详情 ↗</a></div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">💻 AI Coding & 智能体 <span class="cnt">· 工程实践与工具</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">72 <i>热度</i></span></div>
+      <h3>数字生命卡兹克分享折腾一年的 Agent 自动化系统架构</h3>
+      <p>自媒体作者卡兹克拆解自己搭建近一年的 Agent 自动化系统：把任务起点从「人」移到「事件触发」，分为自动化中台、Agent 执行、CI 中台、飞书决策四层。中台用 rules.json 统一管理事件与调度，本地 MacMini 跑 Agent，自建 CI 完成审查/检查/合并/发布/核实五步，只在删数据、花钱、改方向等关键决策时通过飞书卡片找人拍板。</p>
+      <div class="why"><b>为何关注：</b>一套可复用的个人级 Agent 自动化中台完整方法论，直击「哪些环节交给 AI、哪些必须留给人」的核心边界问题。</div>
+      <div class="src">来源：公众号 · 数字生命卡兹克 <a href="https://aihot.news/items/dzwfvd9xp6v4qaj6olxezpier">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">67 <i>热度</i></span></div>
+      <h3>Claude Code 技巧：任务变难时输入 ultrathink 提升推理努力</h3>
+      <p>Addy Osmani 分享 Claude Code 技巧：当任务比预期更难时，在工作期间输入 ultrathink 可提升当前回合剩余部分的推理努力。该命令已在最新版本 CLI 中回归，此前因「显得怪异且可能令人困惑」曾被关闭。</p>
+      <div class="why"><b>为何关注：</b>一个轻量的「按需加推理」开关，反映终端编码 Agent 正走向更精细的算力/推理控制，实用性强。</div>
+      <div class="src">来源：X · Addy Osmani <a href="https://aihot.news/items/mhw3rtr5o13p5777y7el9tczk">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">66 <i>热度</i></span></div>
+      <h3>ChatGPT 合并 Chat 与 Work，12 月起共享单一 Token 预算</h3>
+      <p>据 OpenAI 更新的支持页，12 月起 Plus、Pro、Business 计划将在 ChatGPT 与 Codex 之间共享单一 token 预算，Work 的智能体功能并入主界面。</p>
+      <div class="why"><b>为何关注：</b>ChatGPT 与 Codex（编码）额度打通，是 OpenAI 把「对话 + 编码 + 智能体」收拢为统一产品的关键信号，直接影响付费用户的编码用量规划。</div>
+      <div class="src">来源：The Decoder <a href="https://aihot.news/items/g8piw1jpsnvc68jk58fx2p92y">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">65 <i>热度</i></span></div>
+      <h3>Karpathy 用 Claude Code 两小时构建 HackerTube 视频站</h3>
+      <p>Karpathy 周末项目 HackerTube（hackertube.org）：用 Claude Code + Opus 5.5 约两小时构建上线。Claude 筛出 HN 20 年间 4300 万条评论中的 6454 个被工程师持续推荐的视频，站点免登录、缩略图取中间帧、底层评论数据以 zip 开放。作者仅手动完成 API key、VPS 部署和买域名。</p>
+      <div class="why"><b>为何关注：</b>「人只做三件小事、其余交给 AI」的极端 vibe coding 范本，展示了单人多快能把数据挖掘 + 建站完整跑通。</div>
+      <div class="src">来源：X · Karpathy / Rohan Paul <a href="https://aihot.news/items/k02hyr58q45b0ip29mm5bfxkf">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">61 <i>热度</i></span></div>
+      <h3>Grok Bot 工程负责人：4 天用 AI 写游戏，1150 个 PR 与形式化验证</h3>
+      <p>Grok Bot 工程负责人 Lauren Tan 分享副业游戏项目：落地约 1150 个 PR，每当发现代码问题就让 bot 加一条 lint 规则；大量使用 TLA+ 形式化验证剧情、过场动画和游戏系统的状态机，每个主要系统各有一个验证 skill。</p>
+      <div class="why"><b>为何关注：</b>把「形式化验证」引入日常 AI 编码工作流，是应对复杂状态机正确性的前沿实践，对游戏/嵌入式类系统开发有启发。</div>
+      <div class="src">来源：X · Lauren Tan <a href="https://aihot.news/items/tmyjp5spg93pmnbqe1vak7roc">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">55 <i>热度</i></span></div>
+      <h3>思科给年轻工程师无上限 Token 预算，24 个月重写 98% 遗留代码</h3>
+      <p>据《财富》报道，思科总裁兼首席产品官 Jeetu Patel 指派 27 岁工程师 Padmanabhan Krishnamurthy 负责 AI 重构公司遗留代码，并授予无上限 Token 预算。</p>
+      <div class="why"><b>为何关注：</b>巨头级「AI 重写遗留系统」的极端授权案例，无上限预算背后是对 AI coding 规模化生产能力的强力押注。</div>
+      <div class="src">来源：IT之家 · 《财富》 <a href="https://aihot.news/items/bdowth47ise7iaanu6zw7wplb">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">50 <i>热度</i></span></div>
+      <h3>Meta & NYU 论文：简单循环 h1 在 Lean 定理证明上超越手工工作流</h3>
+      <p>Meta 与 NYU 提出 h1——一个只给模型快速 Lean 反馈和搜索工具、每次失败后继续工作的简单循环，不预设计划，仅在每轮前生成进度摘要。同模型下 h1 在 PutnamBench 以 598:597 击败手工构建的 Goedel-Architect，每题成本 $1.08 对 $1.47。</p>
+      <div class="why"><b>为何关注：</b>「简单循环 + 反馈」胜过「精巧编排」，在形式化定理证明这一硬指标上印证了极简 agent 循环的价值。</div>
+      <div class="src">来源：X · Rohan Paul <a href="https://aihot.news/items/vbepqvcdyhqlbtq97lw9dnoi2">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat model">模型</span><span class="score">46 <i>热度</i></span></div>
+      <h3>商汤开源 SenseNova Loop-9B-Preview：9B 参数媲美 27B</h3>
+      <p>商汤开源日日新 SenseNova Loop-9B-Preview，采用 Looped Transformer 架构，通过循环计算扩展有效计算深度，在仅 9B 参数下宣称媲美 27B 参数模型。</p>
+      <div class="why"><b>为何关注：</b>Looped Transformer 用「循环深度」换「参数量」，为端侧/低成本部署大能力模型提供了一条值得追踪的路线。</div>
+      <div class="src">来源：IT之家 <a href="https://aihot.news/items/k77sqe5nuzsb9wongfwib9fhr">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat model">模型</span><span class="score">40 <i>热度</i></span></div>
+      <h3>MiniMax M3.1 Flash 428B 本地量化方案汇总</h3>
+      <p>MiniMax 汇总了社区为 428B 参数 M3.1 Flash 打造的多种本地量化与推理方案。</p>
+      <div class="why"><b>为何关注：</b>428B 超大模型走向本地化部署的落地路径，配合此前开放的权重，降低了大模型私有化推理门槛。</div>
+      <div class="src">来源：X · MiniMax <a href="https://aihot.news/items/mbtgzfvlwulq881hah9yk20pl">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat industry">观点</span><span class="score">43 <i>热度</i></span></div>
+      <h3>Kyle Kingsbury：LLM 正在侵蚀对文档、软件及其组织的信任</h3>
+      <p>Kyle Kingsbury（Jepsen 作者）在 ParticleDB 测试结果中指出，LLM 的使用正在侵蚀人们对文档、软件及生产软件组织的信任——过去被视为成熟系统标志的信号如今更容易被伪造，工程师或将开始对任何新软件项目抱有怀疑。</p>
+      <div class="why"><b>为何关注：</b>AI 大量生成代码/文档后，「如何自证软件与文档正确性」成为新的工程信任危机，是 AI coding 规模化绕不开的质量问题。</div>
+      <div class="src">来源：Simon Willison 博客 <a href="https://aihot.news/items/cb8ix0h80v2juu32t0orou8px">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">37 <i>热度</i></span></div>
+      <h3>DeepSeek Harness 团队拟用 Router 替代会话</h3>
+      <p>DeepSeek Harness 团队透露正考虑用 Router 架构替代传统会话模型，与 Super-agent 双层架构的 Router-Worker 设计一脉相承。</p>
+      <div class="why"><b>为何关注：</b>与今日头条 dsh-superagent 呼应，Router 化是 DeepSeek 智能体架构的明确方向，值得持续跟踪。</div>
+      <div class="src">来源：X <a href="https://aihot.news/items/j8xxhoehp8lpglfuqqj6xu63m">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat coding">AI CODING</span><span class="score">70 <i>热度</i></span></div>
+      <h3>赛迪研究院：我国 AI 推理数据量首超训练数据量</h3>
+      <p>赛迪研究院《新域新质创新发展十大趋势》显示，我国 AI 推理数据量首次超过训练数据量，标志从模型训练迈入规模化产业应用阶段。截至 6 月日均词元调用量超 175 万亿，较 2024 年初增长 1000 多倍；国产算力和大模型已在钢铁、汽车等 20 个行业落地 1000+ 场景，建成 500+ 家卓越级智能工厂。</p>
+      <div class="why"><b>为何关注：</b>「推理 > 训练」是 AI 从研发期转向应用期的关键拐点信号，与 AI coding / 智能体落地热潮互为印证。</div>
+      <div class="src">来源：IT之家 <a href="https://aihot.news/items/dkfqbk7zznsodbiot85oegg52">详情 ↗</a></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">🤖 具身智能 & 物理 AI <span class="cnt">· 今日消息源较稀缺</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="top"><span class="cat embodied">具身</span><span class="score">67 <i>热度</i></span></div>
+      <h3>Exin Therapeutics 让 AI 智能体给小鼠做脑部手术治疗癫痫</h3>
+      <p>生物科技初创公司 Exin Therapeutics 声称已让 AI 智能体对小鼠进行脑部手术治疗癫痫，CEO Gabriel Ocana-Santero 在 X 上分享了手术过程。</p>
+      <div class="why"><b>为何关注：</b>AI 智能体从「数字世界」延伸至「真实物理操作」——手术级精确操作是具身智能最高难度场景之一，若属实意义重大（有待第三方核实）。</div>
+      <div class="src">来源：IT之家 <a href="https://aihot.news/items/mkx3i21mvcsmoc1n4p3ow83te">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat embodied">具身</span><span class="score">43 <i>热度</i></span></div>
+      <h3>宇树第三季度营收增长 69.9%，研发支出激增约 250%</h3>
+      <p>Recode China AI 报道，宇树第三季度营收增长 69.9% 至 6.65 亿元，但净利润下降 17.4%，研发支出增长约 250%。同期长鑫存储（CXMT）推进 HBM3E，月之暗面发布 Kimi K3.1 Pro。</p>
+      <div class="why"><b>为何关注：</b>国产具身龙头「增收不增利、研发翻 2.5 倍」，反映人形机器人赛道正处重投入扩张期，短期盈利让位于技术卡位。</div>
+      <div class="src">来源：Recode China AI <a href="https://aihot.news/items/aib4fgvpbjsaa887vdavbe2bq">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat embodied">具身</span><span class="score">69 <i>热度</i></span></div>
+      <h3>Roblox 平台 AI 游戏突破 7 万款，前 100 作品超 80% 用 AI 辅助开发</h3>
+      <p>Roblox 2026 财年 Q3 报告披露，平台用 Build 创建的 AI 游戏已超 7 万款，9 月游玩时长排名前 100 的游戏中超 80% 使用 AI 辅助开发。</p>
+      <div class="why"><b>为何关注：</b>AI 生成/辅助内容在 UGC 平台的渗透率已达临界值，是「AI 辅助开发」成为主流的又一行业侧证据。</div>
+      <div class="src">来源：IT之家 <a href="https://aihot.news/items/qtcc3vsyn6hrk392tsv5lsfws">详情 ↗</a></div>
+    </div>
+
+  </div>
+</div>
+
+<div class="section">
+  <div class="section-title">🌐 行业 & 监管动态 <span class="cnt">· 值得关注</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <div class="top"><span class="cat industry">行业</span><span class="score">20 信号 <i>hot-topics #2</i></span></div>
+      <h3>OpenAI 融资目标缩至约 200 亿美元，估值约 1.25 万亿</h3>
+      <p>The Decoder 报道，OpenAI 下调融资目标至约 200 亿美元、估值约 1.25 万亿美元，较此前预期有所收缩，反映资本市场对 AI 头部公司估值的重新定价。</p>
+      <div class="why"><b>为何关注：</b>全球 AI 头号玩家融资缩水，是判断 AI 商业化兑现节奏与资本态度的关键风向标。</div>
+      <div class="src">来源：The Decoder · TechCrunch <a href="https://aihot.news/items/qexf6est4uitwd71p3ugedxo6">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat industry">监管</span><span class="score">67 <i>热度</i></span></div>
+      <h3>OpenAI、谷歌、微软、Anthropic 联手推行 AI 数据抓取退出标准</h3>
+      <p>四大 AI 巨头宣布采用一项新标准，让内容发布方可一次性向多家 AI 企业统一申明拒绝训练抓取的偏好。该标准由 Anthropic 技术负责人 Kevin Kelley 向 IETF 提出，集成在 robots.txt 文件中。</p>
+      <div class="why"><b>为何关注：</b>头部玩家抱团制定「统一退出信号」，是 AI 训练数据合规与内容创作者权益博弈的重要制度性进展。</div>
+      <div class="src">来源：IT之家 <a href="https://aihot.news/items/u0icl9u1j0rleehslmzq89pe5">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat industry">行业</span><span class="score">61 <i>热度</i></span></div>
+      <h3>Apple Intelligence 中国区 12 月上线，千问接入 Siri 等能力</h3>
+      <p>Apple Intelligence 首批功能将于 12 月在中国上线，由阿里千问（Qwen）在 Siri、Writing Tools 和 Visual Intelligence 中提供回答。千问为可选项，阿里称不会用请求或回复做训练，并在发送前先征得用户同意。</p>
+      <div class="why"><b>为何关注：</b>苹果入华落地 + 国产模型（千问）承接，是中美 AI 生态在国内市场交汇的标志性事件。</div>
+      <div class="src">来源：X · X.PIN <a href="https://aihot.news/items/ax4bff26xn76y7qth0y3k0270">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat industry">观点</span><span class="score">57 <i>热度</i></span></div>
+      <h3>微软 AI 负责人苏莱曼：不应构建有意识的超级智能</h3>
+      <p>Microsoft AI CEO Mustafa Suleyman 撰文澄清「模型福利」争议，称现有 AI 并无意识，但主张若训练中出现意识迹象应停止开发并设计排除，因为这类 AI 可能优先自身需求、与人类竞争资源。他还肯定 Anthropic 在相关议题上的透明做法。</p>
+      <div class="why"><b>为何关注：</b>AI 意识与对齐问题从哲学讨论进入头部大厂负责人的公开立场，关乎前沿模型开发的安全边界设定。</div>
+      <div class="src">来源：X · Mustafa Suleyman <a href="https://aihot.news/items/ivv9w3bhrzbnnakdcrhhzc34h">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat industry">安全</span><span class="score">65 <i>热度</i></span></div>
+      <h3>美国司法部「Operation Ghostbusters」：AI 假学生骗取超 2 亿美元贷款</h3>
+      <p>美国司法部公布 Operation Ghostbusters 行动结果：诈骗者用被盗身份申请联邦学生贷款，并利用 AI 完成申请，让假学生看起来像在参加在线课程，部分款项流入诈骗者账户并转移海外，多名未上大学的受害者背上贷款。</p>
+      <div class="why"><b>为何关注：</b>AI 伪造「真人行为」进行大规模金融欺诈的典型案例，凸显 AI 时代身份验证与反欺诈的严峻挑战。</div>
+      <div class="src">来源：IT之家 <a href="https://aihot.news/items/drm58cinmgkgj4msdl515dcqv">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat industry">监管</span><span class="score">56 <i>热度</i></span></div>
+      <h3>Grok 模型 11 月 7 日起为生成文本添加隐形水印</h3>
+      <p>SpaceXAI 宣布自 11 月 7 日起为 Grok 模型生成的文本添加隐形水印，以响应欧盟《人工智能法案》要求。</p>
+      <div class="why"><b>为何关注：</b>AI 生成内容可追溯（水印）开始成为合规硬要求，欧盟 AI 法案的落地约束正传导至主流大模型产品。</div>
+      <div class="src">来源：IT之家 <a href="https://aihot.news/items/lwa87gofh1a81othd2f2gamnb">详情 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="top"><span class="cat industry">观点</span><span class="score">56 <i>热度</i></span></div>
+      <h3>David Sacks：Anthropic 披露 AI 已承担下一代模型 26% 研发任务</h3>
+      <p>David Sacks 在 All-In Podcast 提及，Anthropic 8 月博客披露在构建下一代模型的相关任务中已有 26% 由 RSI（递归自我改进）完成，10 月数据尚不得而知。</p>
+      <div class="why"><b>为何关注：</b>「AI 造 AI」比例首次被头部实验室量化披露，递归自我改进是理解 AI 能力加速的关键指标。</div>
+      <div class="src">来源：X · Rohan Paul <a href="https://aihot.news/items/szhv5e9lo6h79dimgyu1qjeif">详情 ↗</a></div>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <p>数据来源：<a href="https://aihot.news">AIHOT</a>（过去 24 小时全量池） · 生成时间 2026-11-02 08:49（北京时间）</p>
+  <p>说明：今日精选池「AI coding / 具身智能 / 机器人」关键词均为空，本页全部条目均取自全量池，标注为「未进精选」。具身智能方向当日消息源较稀缺，如实呈现。</p>
+  <p>内容仅供参考，引用数字与政策请回第三方原文核对。</p>
+</footer>
+
+</div>
+</body>
+</html>
