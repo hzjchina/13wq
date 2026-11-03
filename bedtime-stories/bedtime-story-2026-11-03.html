@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小昙花的月夜绽 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="100" height="100">
+      <defs>
+        <clipPath id="bgMoonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+        <radialGradient id="bgMoonGlow">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.25"/>
+          <stop offset="60%" stop-color="#e8ecf5" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="52" fill="url(#bgMoonGlow)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="86.6" cy="60" r="38" fill="#0e0f26" clip-path="url(#bgMoonClip)"/>
+    </svg>
+  </div>
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">❀</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">✦</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s;">❀</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小昙花的月夜绽</h1>
+    <p class="meta">🌸 一瞬绽放，也是整个夜晚的最美 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-03.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="posterSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="50%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <clipPath id="posterMoonClip"><circle cx="248" cy="48" r="22"/></clipPath>
+        <radialGradient id="posterMoonGlow">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="flowerGlow">
+          <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+
+      <rect width="300" height="440" fill="url(#posterSky)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="30" r="1.5" fill="#fff" opacity="0.9"/>
+      <circle cx="85" cy="50" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="180" cy="22" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="120" cy="38" r="0.8" fill="#fff" opacity="0.6"/>
+      <circle cx="210" cy="85" r="1" fill="#fff" opacity="0.65"/>
+      <circle cx="60" cy="75" r="0.8" fill="#fff" opacity="0.5"/>
+
+      <!-- 残月：左亮右暗，暗圆右侧偏移 0.7r=15.4px -->
+      <circle cx="248" cy="48" r="32" fill="url(#posterMoonGlow)"/>
+      <circle cx="248" cy="48" r="22" fill="#e8ecf5"/>
+      <circle cx="263.4" cy="48" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+
+      <!-- 月光光线 -->
+      <line x1="248" y1="70" x2="160" y2="190" stroke="#e8ecf5" stroke-width="0.6" opacity="0.12"/>
+      <line x1="240" y1="68" x2="140" y2="210" stroke="#e8ecf5" stroke-width="0.4" opacity="0.08"/>
+
+      <!-- 院子围墙 -->
+      <rect x="0" y="395" width="300" height="3" fill="#3a3f6e" opacity="0.5"/>
+
+      <!-- 花盆 -->
+      <path d="M 118 345 L 122 378 Q 122 388 132 388 L 168 388 Q 178 388 178 378 L 182 345 Z" fill="#8b6f47" opacity="0.85"/>
+      <ellipse cx="150" cy="345" rx="32" ry="6" fill="#6b5337"/>
+      <ellipse cx="150" cy="343" rx="30" ry="4" fill="#5a4530"/>
+
+      <!-- 花茎和叶子（昙花的扁平叶状茎） -->
+      <path d="M 150 343 Q 148 320 146 295 Q 144 275 148 255" stroke="#4a7c3f" stroke-width="2.5" fill="none" opacity="0.9"/>
+      <ellipse cx="135" cy="315" rx="16" ry="7" fill="#4a7c3f" opacity="0.85" transform="rotate(-35 135 315)"/>
+      <ellipse cx="162" cy="300" rx="14" ry="6" fill="#4a7c3f" opacity="0.85" transform="rotate(35 162 300)"/>
+      <ellipse cx="140" cy="280" rx="13" ry="6" fill="#4a7c3f" opacity="0.8" transform="rotate(-25 140 280)"/>
+
+      <!-- 昙花花朵（盛开） -->
+      <circle cx="150" cy="225" r="45" fill="url(#flowerGlow)"/>
+      <!-- 外层花瓣 -->
+      <ellipse cx="150" cy="205" rx="16" ry="30" fill="#ffffff" opacity="0.82"/>
+      <ellipse cx="133" cy="215" rx="13" ry="26" fill="#ffffff" opacity="0.78" transform="rotate(-28 133 215)"/>
+      <ellipse cx="167" cy="215" rx="13" ry="26" fill="#ffffff" opacity="0.78" transform="rotate(28 167 215)"/>
+      <ellipse cx="122" cy="232" rx="11" ry="22" fill="#ffffff" opacity="0.72" transform="rotate(-48 122 232)"/>
+      <ellipse cx="178" cy="232" rx="11" ry="22" fill="#ffffff" opacity="0.72" transform="rotate(48 178 232)"/>
+      <!-- 内层花瓣 -->
+      <ellipse cx="150" cy="218" rx="11" ry="18" fill="#ffffff" opacity="0.95"/>
+      <ellipse cx="138" cy="225" rx="9" ry="16" fill="#ffffff" opacity="0.9" transform="rotate(-18 138 225)"/>
+      <ellipse cx="162" cy="225" rx="9" ry="16" fill="#ffffff" opacity="0.9" transform="rotate(18 162 225)"/>
+      <!-- 花心 -->
+      <circle cx="150" cy="225" r="6" fill="#f5d76e" opacity="0.75"/>
+      <circle cx="150" cy="225" r="3" fill="#ffffff"/>
+
+      <!-- 香气波纹 -->
+      <circle cx="150" cy="225" r="55" fill="none" stroke="#ffffff" stroke-width="0.5" opacity="0.12"/>
+      <circle cx="150" cy="225" r="68" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.06"/>
+
+      <!-- 小蟋蟀（左下角花盆旁） -->
+      <ellipse cx="95" cy="385" rx="7" ry="4.5" fill="#5a6b3a"/>
+      <circle cx="89" cy="383" r="3.5" fill="#5a6b3a"/>
+      <line x1="86" y1="380" x2="82" y2="374" stroke="#5a6b3a" stroke-width="0.8"/>
+      <line x1="91" y1="379" x2="93" y2="373" stroke="#5a6b3a" stroke-width="0.8"/>
+
+      <!-- 小飞蛾（花朵右上方） -->
+      <ellipse cx="205" cy="185" rx="4" ry="2.5" fill="#c4b89a"/>
+      <ellipse cx="201" cy="183" rx="3.5" ry="5" fill="#c4b89a" opacity="0.7"/>
+      <ellipse cx="209" cy="183" rx="3.5" ry="5" fill="#c4b89a" opacity="0.7"/>
+
+      <!-- 小田鼠（右下角） -->
+      <ellipse cx="245" cy="388" rx="9" ry="5.5" fill="#a89070"/>
+      <circle cx="238" cy="385" r="4.5" fill="#a89070"/>
+      <circle cx="235" cy="382" r="1.8" fill="#a89070"/>
+      <circle cx="237" cy="383" r="0.7" fill="#000"/>
+      <line x1="254" y1="388" x2="258" y2="386" stroke="#a89070" stroke-width="1.2"/>
+
+      <!-- 底部标题 -->
+      <text x="150" y="422" text-anchor="middle" fill="#cfd8e8" font-size="13" font-family="sans-serif" letter-spacing="2">小昙花的月夜绽</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月廿五 · 残月🌘</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">一瞬绽放 · 勇敢盛开</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>在一个深深的院子里，住着一盆小昙花，名叫点点。点点的花苞小小的、尖尖的，像一颗白白的米粒。隔壁的月季花笑她："你一年只开一次，还只开一夜，多没意思呀！我从春天开到秋天，天天有人来看我。"</p>
+    <p>点点低下了头，心里有点难过。她也想开很久很久，让所有人都看见自己最美的样子。</p>
+    <p>这天夜里，天空中挂着一弯细细的残月。月亮左边亮亮的，像一只弯弯的小眼睛，温柔地看着院子里的每一朵花。</p>
+    <p>"月亮姐姐，"点点小声问，"你是不是也越来越小了？是不是也快看不见了？"</p>
+    <p>残月轻轻笑了："是啊，我每天少一点点，再过几天就完全藏起来了。可你知道吗？到了初一那天，我会重新开始，慢慢变回圆圆的大月亮。"</p>
+    <p>"那你不难过吗？"</p>
+    <p>"一点也不，"残月说，"因为哪怕只剩一弯细细的光，也够照亮一只赶夜路的小蚂蚁回家的路，也够让一株小花鼓起勇气开出最美的花。"</p>
+    <p>点点抬起头，那弯细细的月光正好落在她的小花苞上，暖暖的、柔柔的。</p>
+    <p>"最细的光也够吗？"</p>
+    <p>"够的，"残月说，"光不在多少，在于你愿不愿意被它照亮。"</p>
+    <p>点点深深吸了一口气，鼓起所有勇气，慢慢地张开花瓣——一层、两层、三层……雪白的花瓣像小小的白裙子一样展开了。一股甜甜的香气飘了出来，飘过围墙，飘过小路，飘进每扇亮着灯的窗户。</p>
+    <p>小蟋蟀停下了弹琴，痴痴地看着她；一只小飞蛾循着香气飞来绕了三圈；连墙角的小田鼠也探出脑袋："好香啊！"</p>
+    <p>点点开心极了。原来哪怕只开一夜，哪怕只有一弯细细的月光照着，也能把最美的样子完完整整地绽放出来。</p>
+    <p>天亮的时候，点点的花瓣轻轻合上了。可院子里的小生灵们都记住了——昨夜有一朵小花，在细细的月光下，开出了整个秋天最香最香的一朵花。</p>
+    <p>月季花看着点点安静睡去的模样，悄悄说了一句："你那一夜，比我整个秋天都美。"</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>哪怕只开一夜，也是最认真的一夜——被记住的从来不是开了多久，而是开得多勇敢。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。点点说，哪怕今天只有一小会儿是开心的，那一小会儿也是你最闪亮的时刻。该做一个香香甜甜的梦了。🌸</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月03日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
