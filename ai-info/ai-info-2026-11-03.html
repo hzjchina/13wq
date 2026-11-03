@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-03</title>
+<style>
+:root{
+  --bg:#0a0e1a; --bg2:#0f1526; --card:#131a2e; --line:#1e2948;
+  --txt:#e6ecff; --sub:#8b96b8; --dim:#5b6684;
+  --cyan:#22d3ee; --violet:#a78bfa; --pink:#f472b6; --green:#34d399;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg); color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+  min-height:100vh; position:relative; overflow-x:hidden;
+  background-image:
+    linear-gradient(rgba(34,211,238,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.05) 1px, transparent 1px);
+  background-size:44px 44px;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(900px 500px at 15% -5%, rgba(167,139,250,.20), transparent 60%),
+    radial-gradient(800px 500px at 90% 10%, rgba(34,211,238,.18), transparent 60%),
+    radial-gradient(700px 600px at 50% 110%, rgba(244,114,182,.12), transparent 60%);
+}
+.wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:48px 22px 80px;}
+header{text-align:center; margin-bottom:44px;}
+.logo{display:inline-block; font-size:13px; letter-spacing:4px; color:var(--cyan);
+  border:1px solid var(--line); padding:6px 16px; border-radius:30px; margin-bottom:18px;
+  text-transform:uppercase; background:rgba(34,211,238,.06);}
+h1{font-size:38px; font-weight:800; letter-spacing:1px;
+  background:linear-gradient(100deg,#22d3ee,#a78bfa 55%,#f472b6);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;}
+.subtitle{color:var(--sub); margin-top:14px; font-size:14px; line-height:1.7;}
+.subtitle b{color:var(--cyan);}
+.stats{display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top:22px;}
+.stat{background:var(--bg2); border:1px solid var(--line); border-radius:14px;
+  padding:12px 22px; text-align:center;}
+.stat .num{font-size:24px; font-weight:800; color:var(--txt);}
+.stat .lbl{font-size:12px; color:var(--dim); margin-top:3px;}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px;}
+.card{background:linear-gradient(160deg,var(--card),#0f1526);
+  border:1px solid var(--line); border-radius:18px; padding:22px;
+  position:relative; transition:transform .25s, border-color .25s, box-shadow .25s;
+  overflow:hidden;}
+.card:hover{transform:translateY(-4px); border-color:var(--cyan);
+  box-shadow:0 12px 40px rgba(34,211,238,.14);}
+.card::after{content:""; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);
+  opacity:.7;}
+.card-head{display:flex; align-items:center; gap:12px; margin-bottom:14px;}
+.rank{font-size:30px; font-weight:900; color:transparent;
+  -webkit-text-stroke:1px rgba(34,211,238,.55); line-height:1; min-width:40px;}
+.meta{display:flex; gap:8px; flex-wrap:wrap; flex:1;}
+.badge{font-size:11px; padding:3px 9px; border-radius:20px; border:1px solid;}
+.badge.sel{color:#ffd76a; border-color:rgba(255,215,106,.4); background:rgba(255,215,106,.08);}
+.badge.pool{color:var(--dim); border-color:var(--line); background:rgba(91,102,132,.08);}
+.badge.code{color:var(--cyan); border-color:rgba(34,211,238,.35); background:rgba(34,211,238,.08);}
+.badge.emb{color:var(--green); border-color:rgba(52,211,153,.35); background:rgba(52,211,153,.08);}
+.src{font-size:11px; color:var(--dim); align-self:center;}
+.score{font-size:26px; font-weight:800; color:var(--violet); text-align:right; line-height:1;}
+.score i{display:block; font-size:10px; font-style:normal; color:var(--dim); font-weight:400; margin-top:2px;}
+.title{font-size:16.5px; font-weight:700; line-height:1.5; margin-bottom:10px;}
+.title a{color:var(--txt); text-decoration:none;}
+.title a:hover{color:var(--cyan);}
+.summary{font-size:13.5px; color:var(--sub); line-height:1.75; margin-bottom:12px;}
+.why{font-size:12.5px; color:var(--dim); line-height:1.7; padding:10px 12px;
+  background:rgba(167,139,250,.05); border-left:3px solid var(--violet);
+  border-radius:0 8px 8px 0;}
+.why strong{color:var(--violet);}
+.foot{display:flex; justify-content:space-between; margin-top:14px;
+  font-size:11px; color:var(--dim);}
+.cat{text-transform:uppercase; letter-spacing:1px;}
+footer{text-align:center; margin-top:50px; color:var(--dim); font-size:12px; line-height:1.8;}
+@media(max-width:600px){
+  h1{font-size:28px;}
+  .grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="logo">AI Intelligence Daily</div>
+    <h1>AI 情报日报</h1>
+    <p class="subtitle">2026-11-03 · 过去 24 小时 · <b>侧重 AI Coding 与具身智能</b><br>
+    数据源：AI HOT（aihot.news）· 精选池关键词为空，已用全量池多关键词补充</p>
+    <div class="stats">
+      <div class="stat"><div class="num">20</div><div class="lbl">精选条目</div></div>
+      <div class="stat"><div class="num">16</div><div class="lbl">AI Coding</div></div>
+      <div class="stat"><div class="num">4</div><div class="lbl">具身智能</div></div>
+      <div class="stat"><div class="num">4</div><div class="lbl">进入精选池</div></div>
+    </div>
+  </header>
+  <div class="grid">
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">01</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge sel">★ 精选</span>
+          <span class="src">The Decoder：AI News（RSS）</span>
+        </div>
+        <div class="score">77<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/owfopy087lszd1cpfp3c82pxv" target="_blank" rel="noopener">Anthropic 季度营收增长十二倍至近 170 亿美元，但净亏损达 233 亿美元</a></h3>
+      <p class="summary">据 Bloomberg 与 The Information，Anthropic 该季度营收近 170 亿美元，为一年前的十二倍，但运营成本达 175 亿美元，季度净亏损 233 亿美元，高于去年同期的 121 亿美元。</p>
+      <p class="why"><strong>为何关注：</strong>Anthropic S-1 修订文件首度披露真实财务：营收一年飙 12 倍至近 170 亿美元，但净亏损高达 233 亿美元。AI 龙头「营收狂奔、亏损黑洞」的剪刀差首次被量化，是判断行业商业化兑现与 IPO 定价的核心依据。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 00:26</span>
+        <span class="cat">industry</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">02</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">O'Reilly Radar（热点 RSS）</span>
+        </div>
+        <div class="score">74<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/zeogxjkaeg341nq9qupw0jd6x" target="_blank" rel="noopener">Addy Osmani 谈 Claude Code 的实用循环工程：goal 与 loop 的用法和边界</a></h3>
+      <p class="summary">Addy Osmani 介绍自己如何用 Claude Code 和 Codex 的 loop engineering 原语，同时并行运行五到十个 Agent。goal 通过 /goal 定义可验证的完成条件驱动单个任务到目标达成，loop 类似 cron 按固定间隔重跑提示词，可用 /schedule 移到云端。</p>
+      <p class="why"><strong>为何关注：</strong>前端界意见领袖系统拆解 Claude Code/Codex 的 goal 与 loop 两个编程原语，展示「单 Agent 目标驱动 + cron 式云端循环」的成熟范式，是当下 AI coding 工作流最落地的实战经验。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 19:54</span>
+        <span class="cat">tip</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">03</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">Latent Space（RSS）</span>
+        </div>
+        <div class="score">73<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/utuvd0lxxho61sk8sa74wu4dc" target="_blank" rel="noopener">Latent Space 访谈 Legora CTO Jacob Lauritzen：如何为律师构建 AI Agent</a></h3>
+      <p class="summary">Latent Space 播客访谈 Legora CTO Jacob Lauritzen，围绕为其融资与产品方法展开，此前该公司宣布 5.5 亿美元 E 轮融资、估值 88 亿美元，4 月 ARR 已过 1 亿美元、客户超 1800 家。</p>
+      <p class="why"><strong>为何关注：</strong>法律垂直 AI 标杆 Legora（估值 88 亿美元、ARR 过 1 亿）CTO 现身说法，揭示如何在看不见客户数据的前提下构建并验证垂直智能体，垂直行业 AI 工程化路径的稀缺一手材料。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 07:01</span>
+        <span class="cat">opinion</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">04</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge sel">★ 精选</span>
+          <span class="src">OpenAI：官网动态（RSS · 排除企业/客户案例）</span>
+        </div>
+        <div class="score">70<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/sxbs5a90fgybhyucacmzvrc6w" target="_blank" rel="noopener">OpenAI 推出 Grid Protectors 计划，从 Georgia 校园开始支持电网削峰</a></h3>
+      <p class="summary">OpenAI 推出 Grid Protectors 计划，与电力公司、监管机构和政策制定者合作，让未来算力校园在电网紧张时降低用电需求，首站为 Effingham County 校园。</p>
+      <p class="why"><strong>为何关注：</strong>OpenAI 把「数据中心电力」问题反向做成产品——在电网峰值期释放负荷换取收益，标志 AI 巨头开始系统化化解自身最大的能源瓶颈，具战略信号意义。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 23:00</span>
+        <span class="cat">industry</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">05</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge sel">★ 精选</span>
+          <span class="src">Claude：Blog（网页）</span>
+        </div>
+        <div class="score">69<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/sg5u3u91kw42j1grtyp3ny65n" target="_blank" rel="noopener">Claude Platform 推出 message threads 公测，降低长会话智能体延迟</a></h3>
+      <p class="summary">Anthropic 在 Claude Platform 推出 message threads 公测，智能体每轮只需发送新增消息而无需重发全部对话历史，从而缩短首 token 时间。</p>
+      <p class="why"><strong>为何关注：</strong>智能体长会话的上下文成本与延迟是核心工程痛点，message threads 通过「增量发送」降低首 token 延迟，是 Agent 基础设施层的关键改进，直接影响编码智能体体验。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 08:00</span>
+        <span class="cat">ai-products</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">06</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge sel">★ 精选</span>
+          <span class="src">公众号：腾讯混元</span>
+        </div>
+        <div class="score">68<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/l37ydaic43icz85huclc2io6c" target="_blank" rel="noopener">腾讯混元发布 Hyra 2.0：让通用 agent 研发可复用的科学工具与模型</a></h3>
+      <p class="summary">腾讯混元发布 Hyra 2.0，将自动化科研重点从直接解题转向由 agent 研发和升级科学模型、工作流与软件工具。系统采用 Overall、Mission、Worker 三层分工，接入企业微信、计算平台和代码仓库的实际研发环境，成果已公开在 GitHub 仓库。</p>
+      <p class="why"><strong>为何关注：</strong>腾讯把自动化科研重心从「直接解题」转向「让 agent 自研可复用工具」，三层分工（Overall/Mission/Worker）接真实研发环境，代表国内大厂智能体科研平台化的新方向。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 18:06</span>
+        <span class="cat">ai-products</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">07</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">X：ARC Prize (@arcprize)</span>
+        </div>
+        <div class="score">68<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/uv4r6xyqdjs2uw7j4zn84le1h" target="_blank" rel="noopener">ARC Prize 公布 DeepSeek V4.1 Flash 1017 在 ARC-AGI-1 和 ARC-AGI-2 上的成绩</a></h3>
+      <p class="summary">ARC Prize 公布 DeepSeek V4.1 Flash 1017 在 ARC-AGI（Verified）上的成绩：ARC-AGI-2 得分 78.1%，每任务成本 $0.16；ARC-AGI-1 得分 94.5%，每任务成本 $0.06。DeepSeek Flash 系列的 ARC-AGI-2 最佳成绩从 V4 Flash 0731 的 61.4% 升至 V4.1 Flash 的 72.9%，再到 V4.1 Flash 1017 的 78.1%。</p>
+      <p class="why"><strong>为何关注：</strong>DeepSeek V4.1 Flash 在 ARC-AGI-2 达 78.1%（单任务 $0.16）、ARC-AGI-1 达 94.5%，以极低成本逼近 AGI 推理前沿，国产开源模型在抽象推理基准上的突破值得跟踪。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 04:57</span>
+        <span class="cat">ai-models</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">08</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">X：Saito 硬地骇客 (@SaitoWu)</span>
+        </div>
+        <div class="score">67<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/i8n8pyikki3cpqtvejt91i7nq" target="_blank" rel="noopener">Bending Spoons 的 Luca Ferrari 谈收购模式、杠杆纪律与 94% AI 代码</a></h3>
+      <p class="summary">a16z 播客访谈 Bending Spoons 创始人 Luca Ferrari，其公司估值 200 亿美元，先后收购 Airtable、AOL、Vimeo 等五十多家软件公司，94% 代码由 AI 写，数据分析九成以上交给 AI，客服工单基本交给 AI 或外部供应商。</p>
+      <p class="why"><strong>为何关注：</strong>估值 200 亿美元、收购 Airtable/Vimeo 等 50+ 公司的「AI 杠杆之王」披露 94% 代码由 AI 写、九成数据分析交给 AI，是 AI 重构软件公司组织形态的极端样本。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 18:22</span>
+        <span class="cat">opinion</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">09</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">The Decoder：AI News（RSS）</span>
+        </div>
+        <div class="score">66<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/g271nop6x508z3ytdvcr7pcys" target="_blank" rel="noopener">高盛限制交易员和银行家使用 Claude Code 等 AI 编码工具</a></h3>
+      <p class="summary">据 Bloomberg 报道，高盛从 10 月的内部指引起将 Claude Code、Microsoft GitHub 等 AI 编码工具的使用权限收窄至工程师，交易员和银行家此前曾用其监控交易流和创建内容。</p>
+      <p class="why"><strong>为何关注：</strong>投行巨头收窄 Claude Code 等工具权限至工程师，反向印证「AI coding 能力越强、越需管控边界」，金融机构对 AI 编码工具的合规化收缩是重要行业风向。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 04:00</span>
+        <span class="cat">industry</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">10</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">X：indigo (@indigox)</span>
+        </div>
+        <div class="score">65<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/gjlarekzvw4g4kakw25tjpr7h" target="_blank" rel="noopener">Andrej Karpathy 周末项目 HackerTube：用 Claude 从 4300 万条 HN 评论中筛选推荐视频</a></h3>
+      <p class="summary">Andrej Karpathy 发布周末项目 HackerTube（hackertube.org），让 Claude 从 20 年来 HN 的 4300 万条评论中筛出 6454 个持续被推荐的视频，显著改善了观看体验，用 Opus 5.5 大约花了 2 小时。</p>
+      <p class="why"><strong>为何关注：</strong>Karpathy 用 Claude 2 小时从 4300 万条 HN 评论中筛出 6454 个「持续被推荐」的视频，展示 LLM 在信息策展/数据清洗上的生产力，AI coding 泛化为通用自动化。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 10:29</span>
+        <span class="cat">tip</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">11</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">Pydantic AI 官方文章</span>
+        </div>
+        <div class="score">64<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/ho81pk02n4n88f48amq68peby" target="_blank" rel="noopener">2026 年 Python AI Agent 框架横评：Pydantic AI 对比 LangGraph、OpenAI Agents SDK 等 9 个框架</a></h3>
+      <p class="summary">Pydantic AI 团队按模型供应商、持久化执行、人工审批、语音、前端协议、MCP、可观测性和商业支持等维度，横评 2026 年主流 Python AI Agent 框架。</p>
+      <p class="why"><strong>为何关注：</strong>Pydantic AI 官方从持久化、审批、MCP、可观测性等 8 维度横评 9 大主流框架，为开发者选型提供权威对照，是智能体框架成熟度的重要晴雨表。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 17:00</span>
+        <span class="cat">tip</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">12</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+        </div>
+        <div class="score">63<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/ob84tivbahzy2ux0letnmcxp7" target="_blank" rel="noopener">MIT 研究让 GPT-6 Astra 无需训练直接改写 Qwen3.5-0.8B 权重提升数学表现</a></h3>
+      <p class="summary">MIT CSAIL 研究者演示了 GPT-6 Astra 无需训练或梯度、直接读写神经网络权重的方法，称为 Weight-Space Programming。</p>
+      <p class="why"><strong>为何关注：</strong>MIT CSAIL 展示 GPT-6 Astra 无需训练/梯度直接读写神经网络权重（Weight-Space Programming），若成立将颠覆「训练 vs 推理」边界，是具颠覆性的研究信号。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 04:17</span>
+        <span class="cat">paper</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">13</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+        </div>
+        <div class="score">62<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/rlrbaplq6k09qoovy0ksafrcg" target="_blank" rel="noopener">SemiAnalysis 发布 GDPx 基准：智能体在 11 个领域专家工作上最高仅得 12%</a></h3>
+      <p class="summary">SemiAnalysis 发布 GDPx 基准，测试 AI 智能体在 11 个领域的专家工作，任务来自 14 家专业数据伙伴。Claude Opus 5.5 平均仅 12% 居首，Gemini 4 Carbon 为 10.9%；GPT-6 Astra 在 AI 研究和材料科学任务上领先。</p>
+      <p class="why"><strong>为何关注：</strong>新基准 GDPx 覆盖 11 个专家领域，最强 Claude Opus 5.5 平均仅得 12%，用数据戳破「通用智能体已近成熟」的乐观叙事，校准行业预期的重要标尺。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 20:45</span>
+        <span class="cat">paper</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">14</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">IT之家·人工智能</span>
+        </div>
+        <div class="score">62<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/jdv2xqfo6amyiy5uk97u6s30j" target="_blank" rel="noopener">美国特拉华州拟允许 AI 智能体创办和运营企业，设 30 个月监管沙盒</a></h3>
+      <p class="summary">据 TechRadar 报道，美国特拉华州计划放宽商业监管，允许 AI 智能体运营的企业注册成立，并为 AIC 设定 30 个月监管沙盒，期间由智能体在受监管环境中作出商业决策，AI 企业可被起诉也可主动提起诉讼。</p>
+      <p class="why"><strong>为何关注：</strong>特拉华州拟立法允许 AI 智能体注册、运营企业并设 30 个月监管沙盒，AI 智能体首次被赋予「法人主体」地位的制度实验，可能重塑商业与法律框架。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 08:18</span>
+        <span class="cat">industry</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">15</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">公众号：龙猫LongCat（美团）</span>
+        </div>
+        <div class="score">61<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/uglz0t6iq1oob9jcs9cwis9t7" target="_blank" rel="noopener">美团龙猫发布 LongCat-2.5 原生多模态模型，主打长程智能体任务</a></h3>
+      <p class="summary">美团龙猫发布 LongCat-2.5，一个面向长程智能体任务的原生多模态模型，总参数 1.6 万亿、每 token 激活约 480 亿，在 LongCat-2.0 基础上强化原生视觉理解与智能体编程能力。</p>
+      <p class="why"><strong>为何关注：</strong>美团龙猫发布 1.6T 参数原生多模态模型，强化视觉理解与智能体编程，主攻长程智能体任务，国产端到端多模态大模型的务实落地。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 09:00</span>
+        <span class="cat">ai-models</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">16</div>
+        <div class="meta">
+          <span class="badge emb">具身智能</span><span class="badge pool">未进精选</span>
+          <span class="src">NVIDIA Technical Blog：Agentic AI / Generative AI</span>
+        </div>
+        <div class="score">55<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/eqp2bcoz6z132dgeijefk1bj2" target="_blank" rel="noopener">NVIDIA Cosmos 教程：为交互式仿真构建世界模型并部署 NIM 推理</a></h3>
+      <p class="summary">NVIDIA 技术博客介绍如何用 Cosmos 平台为物理 AI 构建世界模型，覆盖 Cosmos Framework 的训练、LoRA/SFT 后训练、DPO、GRPO、PPO 等强化学习管线，以及 Cosmos3-Nano 系列 checkpoint 在自动驾驶、机器人和手术场景下生成相机视频与 LiDAR 观测的推理流程。</p>
+      <p class="why"><strong>为何关注：</strong>NVIDIA 官方教程详解用 Cosmos 为物理 AI 构建世界模型（覆盖训练/LoRA/RL 管线及自动驾驶、机器人、手术场景推理），是具身智能数据与仿真基础设施的权威入口。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 00:00</span>
+        <span class="cat">ai-products</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">17</div>
+        <div class="meta">
+          <span class="badge code">AI Coding</span><span class="badge pool">未进精选</span>
+          <span class="src">OpenAI：官网动态（RSS · 排除企业/客户案例）</span>
+        </div>
+        <div class="score">54<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/mpr1137e44d58bcjdbsgvgqym" target="_blank" rel="noopener">OpenAI 发布 Git 后端 Pando，支撑 Codex 带来的 monorepo 并发规模</a></h3>
+      <p class="summary">OpenAI 推出 Git 仓库新后端 Pando，现已支撑其 monorepo 全部开发工作，旨在应对 Codex 使并行开发激增带来的源码管理压力。Pando 采用因果一致性和 packfile 复用两种设计，兼容 Git 协议与客户端，生产环境将中位 push 延迟降低近 5x，每天传输近 1 PB Git 数据。</p>
+      <p class="why"><strong>为何关注：</strong>OpenAI 自研 Git 后端 Pando 应对 Codex 带来的 monorepo 并发压力，中位 push 延迟降 5 倍、日传近 1PB，AI coding 规模化倒逼版本控制基础设施重构的标志。</p>
+      <div class="foot">
+        <span class="time">🕐 11-02 23:30</span>
+        <span class="cat">ai-products</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">18</div>
+        <div class="meta">
+          <span class="badge emb">具身智能</span><span class="badge pool">未进精选</span>
+          <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+        </div>
+        <div class="score">45<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/vsibp5ceghrlwooi2zrmuxrz1" target="_blank" rel="noopener">Skyfall AI 发布 SKY-001 工程世界模型</a></h3>
+      <p class="summary">Skyfall AI 发布 SKY-001，可按零件与建造步骤在 3D 中设计实体产品，CAD 精度与 GPT-6 Astra 相当，单次设计成本约低 150 倍。模型输出零件树、每步操作草图及中间实体，由 Hierarchical Composer 拆解装配与零件、Construction World Model 预测建造视觉步骤两阶段完成。</p>
+      <p class="why"><strong>为何关注：</strong>SKY-001 工程世界模型可按零件与建造步骤在 3D 设计实体产品，CAD 精度对标 GPT-6 Astra 但成本低约 150 倍，具身智能「世界模型驱动实体设计」的落地探索。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 02:30</span>
+        <span class="cat">ai-models</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">19</div>
+        <div class="meta">
+          <span class="badge emb">具身智能</span><span class="badge pool">未进精选</span>
+          <span class="src">a16z：News（RSS）</span>
+        </div>
+        <div class="score">42<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/dlp2r0n8r7812ag6arcuhol2g" target="_blank" rel="noopener">a16z 领投 Tutor Intelligence B 轮：用人类远程操作员训练机器人基础模型</a></h3>
+      <p class="summary">a16z 领投 Tutor Intelligence 的 B 轮融资，该公司用人类远程操作员（"tutors"）在真实生产环境中训练机器人基础模型。Tutor 先锁定仓储物流用例再反向构建模型，目前机器人已部署于美国多家大型制造与物流网络，计划到 2027 年底签约超过 1000 台机器人。</p>
+      <p class="why"><strong>为何关注：</strong>a16z 押注「人类远程操作员训练机器人基础模型」路线，先锁仓储物流用例再反向建模型，目标 2027 年底签约超 1000 台，具身智能数据飞轮的商业化样本。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 00:05</span>
+        <span class="cat">industry</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <div class="rank">20</div>
+        <div class="meta">
+          <span class="badge emb">具身智能</span><span class="badge pool">未进精选</span>
+          <span class="src">Ars Technica：AI（RSS）</span>
+        </div>
+        <div class="score">42<i>热度</i></div>
+      </div>
+      <h3 class="title"><a href="https://aihot.news/items/py2oqp0ycmq3vtup22xkqkymk" target="_blank" rel="noopener">苹果 2027 年拟推 1000 美元家用机器人 J595，支持 FaceTime 与开关灯</a></h3>
+      <p class="summary">苹果计划 2027 年推出代号 J595 的 AI 家用机器人，可能命名为 HomeView Ultra，售价 1000 美元以上，开发延迟或推迟至 2028 年。该机器人可自主移动、支持 FaceTime 通话并在有人进入房间时自动开关灯，由 CEO John Ternus 推动。其原型最早于 2018 年出现，团队约有 10 名核心机器人工程师和约 300 人软件团队。</p>
+      <p class="why"><strong>为何关注：</strong>苹果被曝 2027 年推 1000 美元家用机器人 J595（自主移动/FaceTime/自动开关灯），科技巨头入局家用具身，或成具身智能走向 C 端消费级的重要拐点。</p>
+      <div class="foot">
+        <span class="time">🕐 11-03 02:32</span>
+        <span class="cat">industry</span>
+      </div>
+    </article>
+  </div>
+  <footer>按热度降序排列 · ★ 表示进入 AI HOT 精选池 · 「未进精选」表示仅在全量池命中<br>
+  © 2026 AI 情报日报 · 内容来自 AI HOT 公开聚合，仅供参考</footer>
+</div>
+</body>
+</html>
