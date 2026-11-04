@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小狗尾巴草的月光痒 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子（笑声音符 + 萤火虫） */
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：残月，左侧细细弯钩 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星星：固定 6 颗 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 残月：农历九月廿六 · illumination 0.31 · 左侧细细弯钩 · 暗圆右侧偏移 0.5r -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="120" height="120">
+      <defs>
+        <radialGradient id="bgMoonGlow" cx="0.5" cy="0.5">
+          <stop offset="0" stop-color="#e8ecf5" stop-opacity="0.25"/>
+          <stop offset="1" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="bgMoonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="url(#bgMoonGlow)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="79" cy="60" r="38" fill="#0e0f26" clip-path="url(#bgMoonClip)"/>
+      <circle cx="54" cy="52" r="3" fill="#cdd6e8" opacity="0.35"/>
+      <circle cx="48" cy="66" r="2" fill="#cdd6e8" opacity="0.3"/>
+      <circle cx="58" cy="72" r="2.5" fill="#cdd6e8" opacity="0.25"/>
+    </svg>
+  </div>
+  <!-- 笑声音符（挠痒逗出的笑声） + 萤火虫 -->
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">♪</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">♫</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s;">♩</span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小狗尾巴草的月光痒</h1>
+    <p class="meta">🌾 弯弯的穗子挠出第一声笑 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-04.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="posterSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#0e0f26"/>
+          <stop offset="0.55" stop-color="#1c1f4a"/>
+          <stop offset="1" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="posterMoonGlow" cx="0.5" cy="0.5">
+          <stop offset="0" stop-color="#e8ecf5" stop-opacity="0.3"/>
+          <stop offset="1" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="posterMoonClip"><circle cx="240" cy="50" r="22"/></clipPath>
+      </defs>
+
+      <!-- 夜空背景 -->
+      <rect width="300" height="440" fill="url(#posterSky)"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="60" r="1" fill="#fff" opacity="0.8"/>
+      <circle cx="80" cy="40" r="0.8" fill="#fff" opacity="0.6"/>
+      <circle cx="120" cy="70" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="170" cy="45" r="0.8" fill="#fff" opacity="0.5"/>
+      <circle cx="200" cy="85" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="60" cy="100" r="0.7" fill="#fff" opacity="0.5"/>
+
+      <!-- 残月 + 月晕（illumination 0.31，左亮右暗，暗圆右侧偏移 0.5r=11px） -->
+      <circle cx="240" cy="50" r="40" fill="url(#posterMoonGlow)"/>
+      <circle cx="240" cy="50" r="22" fill="#e8ecf5"/>
+      <circle cx="251" cy="50" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+      <circle cx="236" cy="46" r="2" fill="#cdd6e8" opacity="0.4"/>
+      <circle cx="233" cy="54" r="1.5" fill="#cdd6e8" opacity="0.3"/>
+
+      <!-- 萤火虫光点 -->
+      <circle cx="65" cy="200" r="2" fill="#d9f7a8" opacity="0.85"/>
+      <circle cx="65" cy="200" r="5" fill="#d9f7a8" opacity="0.18"/>
+      <circle cx="245" cy="175" r="1.5" fill="#d9f7a8" opacity="0.7"/>
+      <circle cx="245" cy="175" r="3.5" fill="#d9f7a8" opacity="0.15"/>
+      <circle cx="105" cy="255" r="1.5" fill="#d9f7a8" opacity="0.6"/>
+      <circle cx="220" cy="260" r="1.2" fill="#d9f7a8" opacity="0.55"/>
+
+      <!-- 田野远景剪影 -->
+      <path d="M0,340 Q75,320 150,335 T300,330 L300,440 L0,440 Z" fill="#161830" opacity="0.7"/>
+      <path d="M0,365 Q60,350 130,358 T280,352 L300,357 L300,440 L0,440 Z" fill="#0d0f20" opacity="0.6"/>
+
+      <!-- 远处草丛 -->
+      <g stroke="#2a3050" stroke-width="1.5" opacity="0.5" fill="none" stroke-linecap="round">
+        <path d="M18,340 L16,310"/>
+        <path d="M30,342 L33,308"/>
+        <path d="M45,340 L43,315"/>
+        <path d="M255,344 L257,312"/>
+        <path d="M270,342 L267,310"/>
+        <path d="M283,345 L286,315"/>
+      </g>
+
+      <!-- 主角：狗尾巴草毛毛（居中） -->
+      <!-- 茎杆 -->
+      <path d="M150,388 Q148,340 150,300 Q152,272 150,248" stroke="#4a6b3a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <!-- 叶子 -->
+      <path d="M150,328 Q128,322 116,338" stroke="#3d5a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M150,352 Q174,350 184,365" stroke="#3d5a2e" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+      <!-- 穗子（弯弯的，毛茸茸，顶端弯钩呼应残月） -->
+      <g transform="translate(150,232) rotate(-12)">
+        <!-- 穗子主体 -->
+        <ellipse cx="0" cy="0" rx="11" ry="30" fill="#6b8e4e"/>
+        <ellipse cx="0" cy="-8" rx="10" ry="22" fill="#7ba055" opacity="0.8"/>
+        <!-- 顶端弯钩（呼应残月弯钩） -->
+        <path d="M-4,-28 Q0,-36 8,-32" stroke="#6b8e4e" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <!-- 毛茸茸细节：左侧辐射毛 -->
+        <g stroke="#9bc285" stroke-width="0.7" opacity="0.75" stroke-linecap="round">
+          <line x1="-9" y1="-22" x2="-15" y2="-26"/>
+          <line x1="-10" y1="-16" x2="-17" y2="-16"/>
+          <line x1="-10" y1="-10" x2="-17" y2="-8"/>
+          <line x1="-10" y1="-4" x2="-17" y2="0"/>
+          <line x1="-10" y1="2" x2="-17" y2="8"/>
+          <line x1="-10" y1="8" x2="-16" y2="14"/>
+          <line x1="-9" y1="14" x2="-15" y2="20"/>
+          <line x1="-8" y1="20" x2="-13" y2="26"/>
+          <line x1="-7" y1="25" x2="-11" y2="30"/>
+        </g>
+        <!-- 毛茸茸细节：右侧辐射毛 -->
+        <g stroke="#9bc285" stroke-width="0.7" opacity="0.75" stroke-linecap="round">
+          <line x1="9" y1="-22" x2="15" y2="-26"/>
+          <line x1="10" y1="-16" x2="17" y2="-16"/>
+          <line x1="10" y1="-10" x2="17" y2="-8"/>
+          <line x1="10" y1="-4" x2="17" y2="0"/>
+          <line x1="10" y1="2" x2="17" y2="8"/>
+          <line x1="10" y1="8" x2="16" y2="14"/>
+          <line x1="9" y1="14" x2="15" y2="20"/>
+          <line x1="8" y1="20" x2="13" y2="26"/>
+          <line x1="7" y1="25" x2="11" y2="30"/>
+        </g>
+      </g>
+
+      <!-- 小田鼠豆豆（穗子下方，蜷缩睡着，穗子搭着，嘴角带笑） -->
+      <g transform="translate(150,392)">
+        <!-- 身体 -->
+        <ellipse cx="0" cy="0" rx="22" ry="14" fill="#8a7a6a"/>
+        <ellipse cx="0" cy="-2" rx="18" ry="10" fill="#9a8a78" opacity="0.6"/>
+        <!-- 耳朵 -->
+        <circle cx="-13" cy="-9" r="4.5" fill="#7a6a5a"/>
+        <circle cx="-13" cy="-9" r="2.5" fill="#9a8a7a"/>
+        <!-- 尾巴 -->
+        <path d="M20,3 Q28,1 31,-4" stroke="#7a6a5a" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+        <!-- 闭眼笑 -->
+        <path d="M-17,-3 Q-14,-1 -11,-3" stroke="#3a2a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <!-- 小笑嘴 -->
+        <path d="M-15,4 Q-12,7 -9,4" stroke="#3a2a1a" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        <!-- 腮红（被挠痒痒后的红晕） -->
+        <circle cx="-8" cy="2" r="2" fill="#e8a0a0" opacity="0.4"/>
+      </g>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="425" text-anchor="middle" fill="#cfd8e8" font-size="14" font-family="-apple-system,sans-serif" letter-spacing="3">小狗尾巴草的月光痒</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月廿六 · 残月🌘</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">换种方式陪伴 · 不会发光也能赶走害怕</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的田埂边，站着一棵小小的狗尾巴草，名字叫毛毛。毛毛的穗子弯弯的、毛茸茸的，像一条绿色的小狐狸尾巴。别的野花早就谢了，只有毛毛还举着毛茸茸的小穗子，在晚风里轻轻晃。</p>
+    <p>农历九月廿六的夜里，天上只剩一弯细细的残月，月光又细又淡，照不亮整片田野。毛毛抬头看看那弯残月，又低头看看自己弯弯的穗子——嗯，长得有点像，都是弯弯的。可月亮在天上发光，自己只是路边一棵不起眼的小草。</p>
+    <p>这时，草丛里窸窸窣窣钻出一只小田鼠，叫豆豆。豆豆怕黑，残月的光又太细，照不到田埂底下的草窝。豆豆缩成一团，抖得像片秋风里的叶子，怎么也睡不着。</p>
+    <p>残月弯弯地望着毛毛，轻轻说："我的光越来越细了，照不亮这片草丛。可你那弯弯的毛茸茸穗子，能做我做不了的事呀。"</p>
+    <p>毛毛想了想，弯下腰，用毛茸茸的穗子轻轻碰了碰豆豆的耳朵尖。"噗嗤——"豆豆一下子笑了出来，"好痒！"毛毛又拿穗子挠了挠豆豆的小鼻头，豆豆痒得打了个小喷嚏，"阿嚏——"然后咯咯笑成一团。笑着笑着，咦，害怕不知道跑哪儿去了。</p>
+    <p>晚风一吹，毛毛的穗子扫过一整片草丛，把藏在里头怕黑的小蟋蟀、小瓢虫，全挠得笑起来。草丛里响起了细细碎碎的笑声，比月光还亮——原来笑声也是会发光的，它把害怕一点点赶跑了。</p>
+    <p>豆豆笑着笑着，眼皮越来越沉，趴在毛毛脚边睡着了，嘴角还挂着笑。毛毛弯下穗子，轻轻搭在豆豆身上，像一条毛茸茸的小被子。天上的残月弯弯的，也像在笑。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>不会发光也没关系，弯弯的毛茸茸穗子能挠出笑声——赶走害怕的，不只有光，还有痒痒的笑。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。毛毛说，你今天也是个好孩子，如果夜里有点怕黑，就让弯弯的月亮给你一点光，让毛茸茸的穗子给你一点痒，笑着笑着，害怕就跑掉啦。🌾</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月04日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
