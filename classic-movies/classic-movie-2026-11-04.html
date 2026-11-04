@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>热情如火</title>
+<style>
+  :root {
+    --bg: #1b1b1f;
+    --card: #24242a;
+    --card2: #2c2c34;
+    --text: #ececf0;
+    --muted: #a8a8b3;
+    --accent: #e6a23c;
+    --accent2: #d9730d;
+    --line: #3a3a44;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.75;
+    font-size: 17px;
+    padding: 0 0 48px;
+  }
+  .hero {
+    padding: 48px 20px 32px;
+    text-align: center;
+    background: linear-gradient(160deg, #2a2118 0%, #1b1b1f 60%);
+    border-bottom: 1px solid var(--line);
+  }
+  .badge {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .orig {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .meta {
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .scorebar {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 28px 0 8px;
+  }
+  .score {
+    flex: 1 1 140px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 14px;
+    text-align: center;
+  }
+  .score .num {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .score .lbl {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 2px;
+  }
+  section {
+    margin-top: 32px;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+  }
+  p {
+    color: #d8d8de;
+    margin-bottom: 12px;
+    text-align: justify;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  .card h3 {
+    font-size: 16px;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  .card p { margin-bottom: 0; }
+  ul.tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+  }
+  ul.tags li {
+    background: var(--card2);
+    border: 1px solid var(--line);
+    color: #cfcfd6;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 8px;
+  }
+  .quote {
+    margin-top: 32px;
+    padding: 20px;
+    background: var(--card2);
+    border-left: 4px solid var(--accent);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+    color: #e8e8ee;
+  }
+  .foot {
+    margin-top: 40px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  @media (max-width: 480px) {
+    h1 { font-size: 28px; }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="hero">
+    <div class="badge">经典电影推荐</div>
+    <h1>热情如火</h1>
+    <div class="orig">Some Like It Hot · 1959</div>
+    <div class="meta">导演：比利·怀尔德（Billy Wilder）｜主演：玛丽莲·梦露、托尼·柯蒂斯、杰克·莱蒙</div>
+  </div>
+
+  <div class="wrap">
+    <div class="scorebar">
+      <div class="score"><div class="num">8.9</div><div class="lbl">豆瓣评分</div></div>
+      <div class="score"><div class="num">8.2</div><div class="lbl">IMDb</div></div>
+      <div class="score"><div class="num">#1</div><div class="lbl">AFI 百大喜剧之首</div></div>
+    </div>
+
+    <section>
+      <h2>剧情梗概</h2>
+      <p>1929 年芝加哥，两个穷困潦倒的乐手乔和杰瑞，阴差阳错目睹了一桩黑帮枪击案，为躲避追杀，两人男扮女装混进一支即将前往迈阿密的女子爵士乐团。在船上，乔对乐队里甜美动人的主唱甜甜一见钟情，而杰瑞则被一位痴情的年迈富翁疯狂追求。一场关于身份、爱情与逃亡的荒诞闹剧就此展开，而迈阿密的阳光海滩上，还有更大的麻烦在等着他们。</p>
+    </section>
+
+    <section>
+      <h2>亮点所在</h2>
+      <div class="card">
+        <h3>影史最完美的喜剧剧本</h3>
+        <p>比利·怀尔德被誉为"最会写台词的导演"，《热情如火》的剧本被美国编剧工会评为影史最伟大喜剧剧本第一名。每一句台词都精炼利落，笑点密集却毫不刻意，结尾那句神来之笔，至今仍是影史最著名的最后一句台词。</p>
+      </div>
+      <div class="card">
+        <h3>玛丽莲·梦露的巅峰魅力</h3>
+        <p>这是梦露最具代表性的银幕形象之一，她在片中演唱的《I Wanna Be Loved by You》成为永恒经典。梦露的角色不仅美丽，更被赋予了一种天真与脆弱并存的独特气质，让人过目难忘。</p>
+      </div>
+      <div class="card">
+        <h3>男扮女装的喜剧艺术</h3>
+        <p>杰克·莱蒙和托尼·柯蒂斯贡献了教科书级别的喜剧表演。两人穿高跟鞋、涂口红，在性别错位的误会中制造出层层递进的滑稽效果，却又在荒诞中透出对爱情与身份的温柔思考。</p>
+      </div>
+      <div class="card">
+        <h3>黑白影像下的大胆超前</h3>
+        <p>诞生于 1959 年，影片却大胆触碰了性别、婚姻等在当时极为敏感的议题，用轻松的喜剧外壳包裹了超前的思想内核，半个多世纪后看依然不过时。</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>为什么值得一看</h2>
+      <p>如果你觉得"老电影"沉闷乏味，那《热情如火》会是彻底颠覆你认知的一次观影体验。它节奏飞快、笑点不断，全片没有一个废镜头、没有一句废话，两个小时的片长让人不知不觉看到结尾。它证明了一件事：真正的幽默是经得起时间考验的，好的喜剧永远不会老。</p>
+      <p>这不仅是一部让人捧腹的电影，更是一部关于"爱与接纳"的温柔寓言。无论你对喜剧、爱情片还是影史经典感兴趣，它都能给你一场酣畅淋漓又回味悠长的享受。</p>
+    </section>
+
+    <section>
+      <h2>影片信息</h2>
+      <ul class="tags">
+        <li>类型：喜剧 / 爱情 / 犯罪</li>
+        <li>片长：121 分钟</li>
+        <li>语言：英语</li>
+        <li>奥斯卡：最佳服装设计</li>
+        <li>金球奖：最佳影片、最佳男/女主角</li>
+      </ul>
+    </section>
+
+    <div class="quote">
+      "Well, nobody's perfect."（——影史最著名的最后一句台词）
+    </div>
+
+    <div class="foot">🦐 小虾米 · 经典电影推荐 · 每日一部</div>
+  </div>
+</body>
+</html>

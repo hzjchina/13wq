@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "热情如火",
+          "date": "2026-11-04",
+          "summary": "热情如火 经典电影推荐 热情如火 Some Like It Hot · 1959 导演：比利·怀尔德（Billy Wilder）｜主演：玛丽莲·梦露、托尼·柯蒂斯、杰克·莱蒙 8.9 豆瓣评分 8.2 IMDb #1 AFI 百大喜剧之首 ...",
+          "path": "classic-movies/classic-movie-2026-11-04.html"
+        },
+        {
           "title": "老无所依",
           "date": "2026-11-03",
           "summary": "老无所依 老无所依 No Country for Old Men · 2007 科恩兄弟 豆瓣 8.3 IMDb 8.2 第 80 届奥斯卡最佳影片 剧情梗概 故事发生在美国得克萨斯州与墨西哥交界处的荒凉边境。一个普通猎人在打猎途中，意外撞...",
@@ -1817,6 +1823,12 @@
       "icon": "🤖",
       "items": [
         {
+          "title": "AI 情报日报 · 2026-11-04",
+          "date": "2026-11-04",
+          "summary": "AI 情报日报 · 2026-11-04 AI Intelligence Daily AI 情报日报 2026-11-04 · 过去 24 小时 · 侧重 AI Coding 与具身智能 数据源：AI HOT（aihot.news）· 「具...",
+          "path": "ai-info/ai-info-2026-11-04.html"
+        },
+        {
           "title": "AI 情报日报 · 2026-11-03",
           "date": "2026-11-03",
           "summary": "AI 情报日报 · 2026-11-03 AI Intelligence Daily AI 情报日报 2026-11-03 · 过去 24 小时 · 侧重 AI Coding 与具身智能 数据源：AI HOT（aihot.news）· 精选...",
@@ -2308,6 +2320,12 @@
       "name": "新闻早报",
       "icon": "📰",
       "items": [
+        {
+          "title": "新闻早报 · 2026-11-04",
+          "date": "2026-11-04",
+          "summary": "新闻早报 · 2026-11-04 📰 新闻早报 🗓️ 2026-11-04 星期三 🌙 农历 丙午年九月廿六 🌿 霜降第13天 · 距立冬(11-07)还有3天 🌤️ 深圳：多云转雷阵雨 24~29℃ · 东风3级 · 空气质量优 · 森...",
+          "path": "news-briefs/news-brief-2026-11-04.html"
+        },
         {
           "title": "新闻早报 · 2026-11-03",
           "date": "2026-11-03",
