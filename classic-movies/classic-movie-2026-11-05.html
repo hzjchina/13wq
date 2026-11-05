@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>出租车司机</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --card: #1a1d24;
+    --accent: #ffb300;
+    --text: #e8e6e0;
+    --muted: #9aa0ab;
+    --line: #2a2e37;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero {
+    text-align: center;
+    padding: 40px 0 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 32px;
+  }
+  .hero .kicker {
+    display: inline-block;
+    color: var(--accent);
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .hero .sub {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 24px 0 8px;
+  }
+  .chip {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .chip b { color: var(--accent); font-weight: 600; }
+  h2 {
+    font-size: 21px;
+    margin: 40px 0 16px;
+    padding-left: 14px;
+    border-left: 4px solid var(--accent);
+    font-weight: 700;
+  }
+  p { margin-bottom: 16px; color: var(--text); }
+  .lead { font-size: 18px; color: #f2efe9; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 22px;
+    margin: 18px 0;
+  }
+  .card ul { list-style: none; }
+  .card li {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .card li:last-child { border-bottom: none; }
+  .card li::before {
+    content: "";
+    flex: none;
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin-top: 10px;
+  }
+  .quote {
+    font-style: italic;
+    color: var(--accent);
+    text-align: center;
+    font-size: 18px;
+    padding: 24px 12px;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    margin: 32px 0;
+  }
+  .footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 28px; }
+    .lead { font-size: 17px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="kicker">Classic Film</span>
+    <h1>出租车司机</h1>
+    <div class="sub">Taxi Driver · 1976</div>
+    <div class="meta">
+      <span class="chip">导演 · <b>马丁·斯科塞斯</b></span>
+      <span class="chip">主演 · <b>罗伯特·德尼罗</b></span>
+      <span class="chip">豆瓣 <b>8.6</b></span>
+      <span class="chip">IMDb <b>8.2</b></span>
+    </div>
+  </div>
+
+  <h2>剧情梗概</h2>
+  <p class="lead">越战退伍老兵特拉维斯·比克尔在纽约谋得一份夜班出租车司机的工作。长期失眠、孤独与战争留下的创伤，让他在城市的夜色中游走，目之所及尽是污秽与冷漠。</p>
+  <p>他渴望与人建立联系，渴望被看见、被需要，却一次次在现实里碰壁。渐渐地，积压的愤怒与无力感让他走向一条偏执的自我救赎之路——他决定用最极端的方式，去"清洗"这个他眼中的堕落世界。</p>
+
+  <h2>亮点所在</h2>
+  <div class="card">
+    <ul>
+      <li>德尼罗教科书级的表演：那场对着镜子的独白，早已成为影史最经典的即兴瞬间之一，孤独与疯狂在眼神里同时燃烧。</li>
+      <li>斯科塞斯与编剧保罗·施拉德联手，把一座城市拍成了一个角色的内心——纽约的夜，潮湿、霓虹、又空得可怕。</li>
+      <li>伯纳德·赫尔曼的配乐（也是他生前最后的作品），萨克斯与鼓点的迷离质感，把焦虑浸透进每一帧画面。</li>
+      <li>一部"社会病理切片"：它不解释，只呈现，把一个普通人的崩溃与异化拍得冷静而揪心。</li>
+    </ul>
+  </div>
+
+  <h2>为什么值得一看</h2>
+  <p>这不仅仅是一部犯罪电影，更是关于"孤独"最锋利的一次银幕书写。它拍的是一个人如何在都市的冷漠中一点点失去自己，又如何以一种近乎悲剧的错位方式寻找意义。将近半个世纪过去，那份疏离与迷茫依然能击中今天的都市人。</p>
+  <p>它也是一部让人"看完久久无法平静"的电影——不是靠反转，而是靠那种无处不在的、被时代与孤独碾过的窒息感。如果你想看看什么是真正的"氛围"与"人物"，它值得你完整地坐下来，不被打断地看完。</p>
+
+  <div class="quote">"你在跟我说话吗？"</div>
+
+  <div class="footer">🦐 小虾米 · 经典电影推荐</div>
+
+</div>
+</body>
+</html>
