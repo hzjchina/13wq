@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小竹扫帚的残月弯 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 秋天主题：落叶飘落 */
+  .leaf {
+    position: absolute; font-size: 17px; color: #d4a857;
+    opacity: 0; animation: leafFall 13s linear infinite;
+    text-shadow: 0 0 6px rgba(212, 168, 87, 0.4);
+  }
+  @keyframes leafFall {
+    0%   { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
+    10%  { opacity: 0.8; }
+    50%  { transform: translate(34px, 200px) rotate(180deg); opacity: 0.6; }
+    90%  { opacity: 0.4; }
+    100% { transform: translate(64px, 440px) rotate(360deg); opacity: 0; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：残月 illumination 0.13，左侧极细弯钩亮弧，亏月方向左亮右暗，暗圆右侧偏移 0.29r -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.35"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.08"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <circle cx="60" cy="60" r="56" fill="url(#moonGlow)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="71" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <!-- 残月 0.13：暗圆右侧偏移 0.29r=11px，左侧极细弯钩亮弧；clipPath 裁剪在月盘内 -->
+    </svg>
+  </div>
+  <!-- 秋天主题装饰：落叶飘落 -->
+  <span class="leaf" style="top:8%; left:18%; animation-delay:0s;">🍂</span>
+  <span class="leaf" style="top:14%; left:68%; animation-delay:2.4s;">🍁</span>
+  <span class="leaf" style="top:20%; left:42%; animation-delay:5s;">🍂</span>
+  <span class="leaf" style="top:32%; left:8%; animation-delay:7.5s;">🍁</span>
+  <span class="leaf" style="top:26%; left:82%; animation-delay:3.2s;">🍂</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小竹扫帚的残月弯</h1>
+    <p class="meta">🍂 月光留给院子的最后一道弯钩 · 3-8 岁睡前故事</p>
+  </header>
+
+  <div class="poster">
+    <!-- 竖版故事海报插画（300×440）：老院子秋夜 + 残月 + 小竹扫帚立在落叶堆旁 + 底部标题 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="60%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="moonGlow2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.4"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.1"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClip2"><circle cx="248" cy="48" r="22"/></clipPath>
+        <linearGradient id="groundGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#2a2f5a"/>
+          <stop offset="100%" stop-color="#1a1d3e"/>
+        </linearGradient>
+      </defs>
+      <!-- 夜空背景 -->
+      <rect x="0" y="0" width="300" height="300" fill="url(#skyGrad)"/>
+      <!-- 星星 -->
+      <circle cx="40" cy="40" r="1.2" fill="#fff" opacity="0.85"/>
+      <circle cx="90" cy="28" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="160" cy="52" r="1.4" fill="#fff" opacity="0.9"/>
+      <circle cx="200" cy="30" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="120" cy="80" r="0.9" fill="#fff" opacity="0.65"/>
+      <circle cx="280" cy="90" r="1.1" fill="#fff" opacity="0.7"/>
+      <!-- 残月 illumination 0.13：左侧极细弯钩，暗圆右侧偏移 0.29r=6.4px，clipPath 裁剪 -->
+      <circle cx="248" cy="48" r="32" fill="url(#moonGlow2)"/>
+      <circle cx="248" cy="48" r="22" fill="#e8ecf5"/>
+      <circle cx="254.4" cy="48" r="22" fill="#0e0f26" clip-path="url(#moonClip2)"/>
+      <!-- 院子青石板地面 -->
+      <rect x="0" y="300" width="300" height="140" fill="url(#groundGrad)"/>
+      <!-- 青石板缝 -->
+      <line x1="0" y1="320" x2="300" y2="320" stroke="#3a3f6a" stroke-width="0.6" opacity="0.5"/>
+      <line x1="0" y1="350" x2="300" y2="350" stroke="#3a3f6a" stroke-width="0.6" opacity="0.4"/>
+      <line x1="0" y1="385" x2="300" y2="385" stroke="#3a3f6a" stroke-width="0.6" opacity="0.4"/>
+      <line x1="80" y1="300" x2="80" y2="440" stroke="#3a3f6a" stroke-width="0.5" opacity="0.4"/>
+      <line x1="180" y1="300" x2="180" y2="440" stroke="#3a3f6a" stroke-width="0.5" opacity="0.4"/>
+      <!-- 弯弯落叶小山（月牙形） -->
+      <path d="M 70 380 Q 130 340 190 380 Q 130 372 70 380 Z" fill="#b8862e" opacity="0.85"/>
+      <path d="M 75 382 Q 130 348 185 382 Q 130 374 75 382 Z" fill="#d4a857" opacity="0.7"/>
+      <!-- 小竹扫帚：立在落叶堆旁，弯弯的竹把柄同构残月弯钩 -->
+      <!-- 扫帚头（竹丝束） -->
+      <ellipse cx="245" cy="380" rx="22" ry="14" fill="#8b6332" opacity="0.9"/>
+      <line x1="230" y1="380" x2="226" y2="392" stroke="#6b4a22" stroke-width="1.2"/>
+      <line x1="236" y1="384" x2="234" y2="396" stroke="#6b4a22" stroke-width="1.2"/>
+      <line x1="242" y1="386" x2="241" y2="398" stroke="#6b4a22" stroke-width="1.2"/>
+      <line x1="248" y1="386" x2="249" y2="398" stroke="#6b4a22" stroke-width="1.2"/>
+      <line x1="254" y1="384" x2="256" y2="396" stroke="#6b4a22" stroke-width="1.2"/>
+      <line x1="260" y1="380" x2="264" y2="392" stroke="#6b4a22" stroke-width="1.2"/>
+      <ellipse cx="245" cy="376" rx="20" ry="9" fill="#a87a3e" opacity="0.85"/>
+      <!-- 弯弯的竹把柄：弧线形（同构残月弯钩） -->
+      <path d="M 245 370 Q 248 320 256 280 Q 262 250 258 220" stroke="#c9a35a" stroke-width="4.5" fill="none" stroke-linecap="round"/>
+      <!-- 把柄顶端小系绳 -->
+      <circle cx="258" cy="220" r="3" fill="#d4a857"/>
+      <!-- 扫帚旁的小田鼠（剪影，钻进落叶拱门） -->
+      <ellipse cx="120" cy="372" rx="9" ry="6" fill="#3a3a5a" opacity="0.85"/>
+      <circle cx="128" cy="370" r="3" fill="#3a3a5a" opacity="0.85"/>
+      <line x1="131" y1="370" x2="135" y2="368" stroke="#3a3a5a" stroke-width="0.8" opacity="0.85"/>
+      <!-- 小蟋蟀在拱门顶 -->
+      <ellipse cx="130" cy="350" rx="3.5" ry="2.5" fill="#4a4a6a" opacity="0.85"/>
+      <line x1="132" y1="349" x2="136" y2="345" stroke="#4a4a6a" stroke-width="0.7" opacity="0.85"/>
+      <!-- 落叶飘 -->
+      <path d="M 60 110 q 4 -3 8 0 q 4 3 8 0 q -4 5 -8 5 q -4 0 -8 -5 Z" fill="#d4a857" opacity="0.7" transform="rotate(20 68 112)"/>
+      <path d="M 110 160 q 3 -2 6 0 q 3 2 6 0 q -3 4 -6 4 q -3 0 -6 -4 Z" fill="#b8862e" opacity="0.65" transform="rotate(-15 116 162)"/>
+      <path d="M 40 200 q 3 -2 6 0 q 3 2 6 0 q -3 4 -6 4 q -3 0 -6 -4 Z" fill="#d4a857" opacity="0.6" transform="rotate(35 46 202)"/>
+      <!-- 底部标题文字 -->
+      <text x="150" y="420" text-anchor="middle" fill="#cfd8e8" font-size="16" font-weight="600" letter-spacing="2" font-family="-apple-system, 'PingFang SC', sans-serif">小竹扫帚的残月弯</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历九月廿八 · 残月🌘</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">临别的温柔 · 留弯弯继续守护</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>深秋的老院子里，落叶铺了满地金黄。小竹扫帚扫扫每天天不亮就开工，把一片片落叶扫成软软的小山，给小蟋蟀当床、给小田鼠攒过冬的粮。它有一根弯弯的竹把柄，扫起来不费劲，拢落叶拢得圆圆的。</p>
+    <p>九月廿八的夜里，扫扫靠在墙角歇着，抬头看见天上只剩一弯细细的残月，亮亮的那一道弯钩在左边，右边都是暗的。它忽然发现，那弯残月和自己弯弯的竹把柄一个样——都弯弯的，都快歇一歇了。残月轻轻说：「我快藏起来休息了，攒够新光再回来。临走前，我把弯弯的样子留给你。你弯弯的把柄替我继续守护院子里的小伙伴。」</p>
+    <p>扫扫一下子懂了，原来弯弯的把柄不是它以为的「不够直的累赘」，是月亮临走前留给它的礼物。弯弯的把柄扫起来贴着青石板的缝儿走，落叶一片不漏；弯弯的把柄拢起落叶来转一圈就是一座圆滚滚的小山；弯弯的把柄还能弯弯地搭在落叶堆上，给小田鼠一家当暖暖的小拱门。</p>
+    <p>第二天残月更细了，扫扫把最后一堆落叶扫成一座弯弯的月牙小山，把竹把柄弯弯地搭上去当小拱门，小田鼠一家暖暖地钻进去住下来，连小蟋蟀也跳到拱门顶上唱起了歌。</p>
+    <p>到了残月完全藏起来那天清晨，扫扫抬头看不见月亮了，却低头看见自己弯弯的影子映在月光照过的青石板上。月亮藏起来了，可弯弯的温柔留在了扫扫的把柄里，也留在了它扫出的每一座弯弯落叶小山里。等月亮攒够新光回来那天，院子里已经多了一座座暖呼呼的弯弯小月牙。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>临别不是消失，是把弯弯的样子留给还在守护的人——快歇一歇的时候，别忘了把自己弯弯的温柔留下来。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。扫扫说，月亮藏起来的时候，弯弯的把柄还在扫着暖呼呼的小山，你今天也是个好孩子，该做一个弯弯的甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月06日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+</body>
+</html>
