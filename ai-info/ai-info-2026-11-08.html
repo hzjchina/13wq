@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-08</title>
+<style>
+:root{
+  --bg:#05070d;
+  --bg2:#0a0f1a;
+  --panel:rgba(15,22,38,.72);
+  --panel-hover:rgba(20,30,52,.88);
+  --line:rgba(90,130,220,.16);
+  --line-glow:rgba(90,180,255,.35);
+  --txt:#dbe4f5;
+  --txt-dim:#7d8ca6;
+  --txt-soft:#a7b4cc;
+  --acc1:#4dd0ff;
+  --acc2:#8b5cf6;
+  --acc3:#22d3a8;
+  --pink:#f472b6;
+  --red:#ff5d73;
+  --gold:#ffc94d;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.7;-webkit-font-smoothing:antialiased}
+body{overflow-x:hidden}
+
+/* 网格背景 */
+.grid-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(90,130,220,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(90,130,220,.05) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 30%,transparent 100%);
+}
+/* 霓虹光晕 */
+.glow{position:fixed;border-radius:50%;filter:blur(90px);z-index:0;pointer-events:none;opacity:.55}
+.glow-a{width:520px;height:520px;top:-160px;left:-120px;background:radial-gradient(circle,rgba(77,208,255,.30),transparent 65%)}
+.glow-b{width:600px;height:600px;top:-120px;right:-180px;background:radial-gradient(circle,rgba(139,92,246,.28),transparent 65%)}
+.glow-c{width:460px;height:460px;bottom:-180px;left:30%;background:radial-gradient(circle,rgba(34,211,168,.20),transparent 65%)}
+
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:0 22px 80px}
+
+/* 头部 */
+header{padding:56px 0 30px;text-align:center}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--acc1);border:1px solid var(--line);border-radius:999px;padding:6px 16px;background:rgba(77,208,255,.05)}
+.kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc1);box-shadow:0 0 10px var(--acc1);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-size:clamp(30px,5vw,46px);font-weight:800;margin:22px 0 10px;letter-spacing:.01em;
+  background:linear-gradient(120deg,#fff 0%,#9bd8ff 45%,#b39dff 75%,#7de0c3 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--txt-dim);font-size:14px}
+.meta-bar{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:24px}
+.chip{font-size:12px;color:var(--txt-soft);border:1px solid var(--line);border-radius:8px;padding:5px 12px;background:var(--panel)}
+.chip b{color:var(--acc1);font-weight:600}
+
+/* 概览 */
+.overview{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:34px 0 8px}
+.ov-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 20px;backdrop-filter:blur(10px)}
+.ov-card .num{font-size:30px;font-weight:800;background:linear-gradient(120deg,var(--acc1),var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ov-card .lbl{font-size:12px;color:var(--txt-dim);margin-top:4px}
+
+/* 分区标题 */
+.sec-title{display:flex;align-items:center;gap:12px;margin:44px 0 18px}
+.sec-title .bar{width:4px;height:22px;border-radius:2px;background:linear-gradient(180deg,var(--acc1),var(--acc2));box-shadow:0 0 12px var(--line-glow)}
+.sec-title h2{font-size:20px;font-weight:700}
+.sec-title .tag{font-size:12px;color:var(--gold);border:1px solid rgba(255,201,77,.3);border-radius:6px;padding:2px 9px;background:rgba(255,201,77,.06)}
+
+/* 卡片 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px}
+.card{position:relative;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 20px 16px;transition:all .28s ease;overflow:hidden;backdrop-filter:blur(10px)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--c,#4dd0ff),transparent);opacity:.7}
+.card:hover{transform:translateY(-4px);border-color:var(--line-glow);background:var(--panel-hover);box-shadow:0 14px 40px rgba(20,60,140,.28)}
+.card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.rank{flex-shrink:0;font-size:13px;font-weight:800;color:var(--c,#4dd0ff);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:8px;padding:3px 10px;white-space:nowrap}
+.hot{flex-shrink:0;font-size:11px;color:var(--red);display:flex;align-items:center;gap:4px}
+.hot::before{content:"🔥"}
+.cat{display:inline-block;font-size:11px;letter-spacing:.05em;color:var(--txt-dim);border:1px solid var(--line);border-radius:6px;padding:2px 8px;margin-bottom:9px}
+.card h3{font-size:15.5px;font-weight:700;line-height:1.5;margin-bottom:9px;color:#eef3fd}
+.card p{font-size:13px;color:var(--txt-soft);line-height:1.75}
+.reason{margin-top:11px;font-size:12.5px;color:#9fd8ff;background:rgba(77,208,255,.06);border-left:3px solid var(--acc1);border-radius:0 8px 8px 0;padding:8px 12px}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.src{font-size:11px;color:var(--txt-dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1}
+.time{font-size:11px;color:var(--txt-dim);white-space:nowrap}
+.card a.link{font-size:12px;color:var(--acc1);text-decoration:none;white-space:nowrap;transition:.2s}
+.card a.link:hover{color:#a8e4ff;text-shadow:0 0 8px rgba(77,208,255,.6)}
+.badge-unsel{font-size:10px;color:var(--gold);border:1px solid rgba(255,201,77,.35);border-radius:5px;padding:1px 6px;margin-left:6px;background:rgba(255,201,77,.06);vertical-align:middle}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);text-align:center;color:var(--txt-dim);font-size:12px;line-height:2}
+footer a{color:var(--acc1);text-decoration:none}
+
+@media(max-width:720px){
+  .overview{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+<div class="glow glow-c"></div>
+
+<div class="wrap">
+  <header>
+    <span class="kicker">AI INTELLIGENCE BRIEFING</span>
+    <h1>AI 情报日报</h1>
+    <div class="sub">聚焦 AI Coding · 具身智能 · 当日大事 · 2026-11-08</div>
+    <div class="meta-bar">
+      <span class="chip">时间窗：<b>过去 24 小时</b></span>
+      <span class="chip">精选 <b>2</b> 条 + 全量补充 <b>18</b> 条</span>
+      <span class="chip">按热度降序</span>
+    </div>
+  </header>
+
+  <div class="overview">
+    <div class="ov-card"><div class="num">20</div><div class="lbl">入选情报条数</div></div>
+    <div class="ov-card"><div class="num">2</div><div class="lbl">进入精选池</div></div>
+    <div class="ov-card"><div class="num">24h</div><div class="lbl">滚动时间窗</div></div>
+  </div>
+
+  <div class="sec-title"><span class="bar"></span><h2>🔥 今日头条</h2><span class="tag">Top Stories</span></div>
+  <div class="grid">
+
+    <div class="card" style="--c:#4dd0ff">
+      <div class="card-top"><span class="rank">#1</span><span class="hot">热度最高</span></div>
+      <span class="cat">行业 · 精选</span>
+      <h3>Anthropic 拟感恩节前 IPO，估值预期下调至 1.25–1.75 万亿美元</h3>
+      <p>据《金融时报》援引投资者消息，Anthropic 计划感恩节前 IPO，拟募资 800–1000 亿美元，估值 1.25–1.75 万亿美元，低于最乐观预期但高于当前 9650 亿估值。</p>
+      <div class="reason">值得关注：与 OpenAI 110 亿融资并置，是观察本轮 AI 市场降温/估值回归的最直接风向标，也关系到 Claude 生态的长期投入能力。</div>
+      <div class="card-foot">
+        <span class="src">The Decoder · Anthropic Newsroom</span>
+        <a class="link" href="https://aihot.news/items/okhx4jjwucd647299qwzsl6ua" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#8b5cf6">
+      <div class="card-top"><span class="rank">#2</span><span class="hot">热度高</span></div>
+      <span class="cat">行业 · 融资</span>
+      <h3>OpenAI 110 亿美元首笔融资到账，估值 1.25 万亿美元</h3>
+      <p>OpenAI 新一轮巨额融资首笔 110 亿美元资金到位，估值锁定 1.25 万亿美元，多家头部媒体跟进报道。</p>
+      <div class="reason">值得关注：巨量资本持续涌入头部实验室，与 Anthropic IPO 形成鲜明对照，凸显「赢家通吃」的资本格局。</div>
+      <div class="card-foot">
+        <span class="src">X：Rohan Paul 等 4 源</span>
+        <a class="link" href="https://aihot.news/items/m45kaixmfb2554qlzxbpnir36" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#f472b6">
+      <div class="card-top"><span class="rank">#3</span></div>
+      <span class="cat">模型 · 多模态</span>
+      <h3>Google 发布 Gemini Omni 1.2 Flash，视频生成提至 15 秒</h3>
+      <p>Google 推出 Gemini Omni 1.2 Flash，将原生视频生成时长提升至 15 秒，多模态能力再进一步。</p>
+      <div class="reason">值得关注：视频生成时长是当前多模态竞争关键指标，Omni 系列升级直接对标 OpenAI 的视频产品线。</div>
+      <div class="card-foot">
+        <span class="src">Google Blog：AI</span>
+        <a class="link" href="https://aihot.news/items/yjwroxww17lcg4ntcu9ruo105" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#22d3a8">
+      <div class="card-top"><span class="rank">#4</span></div>
+      <span class="cat">产品 · Meta</span>
+      <h3>Meta 在 Muse 推出 Spaces 并升级模型，主动记忆全面下放</h3>
+      <p>Meta 推出基于 Muse Wonder 训练的专用模型版本，向全体用户下放「主动记忆」与「主动专注」两项能力，并新增 Spaces 自定义空间。</p>
+      <div class="reason">值得关注：主动记忆（Active Memory）是消费级 AI 助手迈向「更懂你」的关键，Meta 将其普及化会抬高竞争门槛。</div>
+      <div class="card-foot">
+        <span class="src">Meta Newsroom</span>
+        <a class="link" href="https://aihot.news/items/f3hogz1c4bmgbcwblqblumxpv" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#4dd0ff">
+      <div class="card-top"><span class="rank">#5</span></div>
+      <span class="cat">研究 · 智能体</span>
+      <h3>Anthropic 发布研究，拆解 Claude 智能体记忆机制</h3>
+      <p>Anthropic 发布研究报告，系统拆解 Claude 智能体的记忆组成机制，为理解与设计更可靠的长期智能体提供依据。</p>
+      <div class="reason">值得关注：智能体「记忆」是长周期任务可靠性的核心痛点，头部实验室的机制级拆解对 AI Coding 与 Agent 工程有直接借鉴价值。</div>
+      <div class="card-foot">
+        <span class="src">Anthropic Research</span>
+        <a class="link" href="https://aihot.news/items/d28mrqwr7h7tl8b8jcse4b449" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#8b5cf6">
+      <div class="card-top"><span class="rank">#6</span></div>
+      <span class="cat">模型 · 开源</span>
+      <h3>Thinking Machines 发布 Inkling 2 Small，权重下周开源</h3>
+      <p>Thinking Machines 发布 Inkling 2 Small 小模型，承诺下周开放权重，持续在开放模型赛道发力。</p>
+      <div class="reason">值得关注：开源小模型在编码与推理场景持续走强，权重开源将进一步压低本地化 AI Coding 的门槛。</div>
+      <div class="card-foot">
+        <span class="src">Thinking Machines Lab</span>
+        <a class="link" href="https://aihot.news/items/bu8612ca3e1uyxjppk56ef1wl" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#f472b6">
+      <div class="card-top"><span class="rank">#7</span></div>
+      <span class="cat">产品 · 图像</span>
+      <h3>OpenAI 发布 Images 2.6，ChatGPT 可直接生成 GIF</h3>
+      <p>OpenAI 推出 Images 2.6 图像生成模型，ChatGPT 内可直接生成 GIF 动图，创作能力进一步扩展。</p>
+      <div class="reason">值得关注：从静态图到动图的原生支持，标志着多模态生成工具进入「动效」阶段，赋能内容与产品创作。</div>
+      <div class="card-foot">
+        <span class="src">OpenAI 官网</span>
+        <a class="link" href="https://aihot.news/items/wwltahauj3uhzwy9yizi2i6f3" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#ff5d73">
+      <div class="card-top"><span class="rank">#8</span></div>
+      <span class="cat">行业 · 服务中断</span>
+      <h3>DeepSeek 网页 / API 服务中断约 45 分钟后恢复</h3>
+      <p>DeepSeek 网页与 API 出现部分中断，对话提示「服务器暂时不可用」，持续约 45 分钟后恢复。</p>
+      <div class="reason">值得关注：DeepSeek 作为主流开源/国产模型的重要基础设施，其稳定性直接影响大量下游 AI Coding 与 Agent 应用的可用性。</div>
+      <div class="card-foot">
+        <span class="src">IT之家</span>
+        <a class="link" href="https://aihot.news/items/ob3k2pi4okhhltmfxgkavfjod" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#22d3a8">
+      <div class="card-top"><span class="rank">#9</span></div>
+      <span class="cat">产品 · 智能体</span>
+      <h3>Perplexity 推出 Teammates 工作智能体，Max 用户网页版先行</h3>
+      <p>Perplexity 发布面向工作的个人智能体 Teammates，从「写提示词」升级为「下达高层目标」，CEO 称上线次日自动化运行量增长 3.7 倍。</p>
+      <div class="reason">值得关注：「目标驱动」取代「指令驱动」是 AI Coding / 工作流智能体的明确趋势，Teammates 是这一方向的最新落地。</div>
+      <div class="card-foot">
+        <span class="src">X：Perplexity</span>
+        <a class="link" href="https://aihot.news/items/wkgcal7l9pkj3g7w8ohlp3c45" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#ffc94d">
+      <div class="card-top"><span class="rank">#10</span></div>
+      <span class="cat">行业 · 芯片</span>
+      <h3>纽时称中国情报人员接近黄仁勋，英伟达否认，国会要求简报</h3>
+      <p>《纽约时报》报道称中国情报人员接近英伟达 CEO 黄仁勋，英伟达否认，美国国会要求就此简报。</p>
+      <div class="reason">值得关注：地缘政治持续影响 AI 芯片供应链，英伟达作为算力核心，相关动态牵动全球 AI 硬件格局。</div>
+      <div class="card-foot">
+        <span class="src">The Decoder</span>
+        <a class="link" href="https://aihot.news/items/lq97h52ctxw2nkri4qqxj5lbx" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sec-title"><span class="bar"></span><h2>💻 AI Coding 专区</h2><span class="tag">AI Coding</span></div>
+  <div class="grid">
+
+    <div class="card" style="--c:#4dd0ff">
+      <div class="card-top"><span class="rank">#11</span></div>
+      <span class="cat">安全 · 评测<span class="badge-unsel">未进精选</span></span>
+      <h3>METR：Anthropic 模型改进速度翻倍，引发安全研究者担忧</h3>
+      <p>METR 报告称 Anthropic 模型的能力改进速度翻倍，安全研究界担忧模型能力跃迁快于对齐保障。</p>
+      <div class="reason">值得关注：编码/推理能力快速提升是双刃剑，能力曲线陡增意味着安全与对齐压力同步上升。</div>
+      <div class="card-foot">
+        <span class="src">The Verge</span>
+        <a class="link" href="https://aihot.news/items/" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#22d3a8">
+      <div class="card-top"><span class="rank">#12</span></div>
+      <span class="cat">实战 · Claude Code<span class="badge-unsel">未进精选</span></span>
+      <h3>Karpathy 用 Claude Code 一次成型打造 TristanTube 视频站</h3>
+      <p>Karpathy 用 Claude Code 约 3 分钟一次生成 TristanTube，收录 4.7 万个高技术含量视频并附带 TV 模式。</p>
+      <div class="reason">值得关注：顶尖工程师亲自示范「一次成型」的 AI 编程生产力，是 AI Coding 成熟度最有说服力的案例。</div>
+      <div class="card-foot">
+        <span class="src">X：Andrej Karpathy</span>
+        <a class="link" href="https://aihot.news/items/yatljomnnxk39an1vzjyrih1u" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#8b5cf6">
+      <div class="card-top"><span class="rank">#13</span></div>
+      <span class="cat">产品 · 浏览器智能体<span class="badge-unsel">未进精选</span></span>
+      <h3>OpenCode 发布 Browse，智能体可控制真实浏览器</h3>
+      <p>OpenCode 推出 Browse，让智能体直接操控用户真实浏览器，复用现有标签页、登录态与扩展。</p>
+      <div class="reason">值得关注：浏览器是 AI Coding 智能体执行端到端任务的关键环境，接入真实会话态可大幅提升自动化实用性。</div>
+      <div class="card-foot">
+        <span class="src">X：opencode</span>
+        <a class="link" href="https://aihot.news/items/silmyf0o2hvis8vuehr4axstm" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#f472b6">
+      <div class="card-top"><span class="rank">#14</span></div>
+      <span class="cat">评测 · 桌面智能体<span class="badge-unsel">未进精选</span></span>
+      <h3>实测：agent-desktop 未解决后台处理问题，macOS 通过率仅 20%</h3>
+      <p>Dash 实测反驳 agent-desktop 已解决 AI 抢鼠标问题的说法，macOS 后台处理通过率仅 20%，Codex 33%，Cua Driver 最高 58%。</p>
+      <div class="reason">值得关注：桌面/操作系统级智能体是真实现状照妖镜，通过率数据帮助开发者理性评估可用边界。</div>
+      <div class="card-foot">
+        <span class="src">X：Dash</span>
+        <a class="link" href="https://aihot.news/items/n9rwjlyagouo1jm1m7mzs0jue" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#ff5d73">
+      <div class="card-top"><span class="rank">#15</span></div>
+      <span class="cat">评测 · 科研智能体<span class="badge-unsel">未进精选</span></span>
+      <h3>CMU「Into the Unknown」基准：9 个智能体无一通过国家实验室专家评审</h3>
+      <p>CMU 联合美国能源部国家实验室推出开放性科研基准，9 个智能体 135 份提交无一同时满足诚实、完整、专家标准，114 份未过诚信检查。</p>
+      <div class="reason">值得关注：为 AI Coding 智能体的「自主科研」能力泼了盆冷水，暴露出诚实性与完整性仍是硬短板。</div>
+      <div class="card-foot">
+        <span class="src">The Decoder</span>
+        <a class="link" href="https://aihot.news/items/efpzmp6y2tqv6foaqpf5ocu5r" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#22d3a8">
+      <div class="card-top"><span class="rank">#16</span></div>
+      <span class="cat">工具 · 长周期智能体<span class="badge-unsel">未进精选</span></span>
+      <h3>阶跃星辰亮相 AI Engineer 上海站，分享 Step 5 Preview 与 Step Code</h3>
+      <p>阶跃星辰在 AI Engineer Shanghai 分享 Step 5 Preview 与开源 Agent Harness「Step Code」如何协同，帮助智能体保持正轨、可靠执行长周期任务。</p>
+      <div class="reason">值得关注：国产大模型厂商在 Agent Harness 层面的开源布局，直接对标长周期 AI Coding 任务的工程化能力。</div>
+      <div class="card-foot">
+        <span class="src">X：阶跃星辰 StepFun</span>
+        <a class="link" href="https://aihot.news/items/v41b2hyjesiijbu36945ljjbf" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#4dd0ff">
+      <div class="card-top"><span class="rank">#17</span></div>
+      <span class="cat">技巧 · Claude Code<span class="badge-unsel">未进精选</span></span>
+      <h3>Addy Osmani 分享 Claude Code 简洁输出技巧</h3>
+      <p>Addy Osmani 提示：将 Claude Code 输出风格切换为 Concise 可获得简短直奔主题的结果，通过 /config → Output style 或 settings.json 的 outputStyle 启用。</p>
+      <div class="reason">值得关注：实用工程技巧，直接提升 AI Coding 日常交互效率，减少冗余输出。</div>
+      <div class="card-foot">
+        <span class="src">X：Addy Osmani</span>
+        <a class="link" href="https://aihot.news/items/rcbixqny6j996q0gyklgh6q3r" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sec-title"><span class="bar"></span><h2>🤖 具身智能专区</h2><span class="tag">Embodied AI</span></div>
+  <div class="grid">
+
+    <div class="card" style="--c:#22d3a8">
+      <div class="card-top"><span class="rank">#18</span></div>
+      <span class="cat">框架 · 机器人学习<span class="badge-unsel">未进精选</span></span>
+      <h3>Ai2 发布开源机器人评测框架 ToyBlocks 及首个 FoundationWorld</h3>
+      <p>Ai2 推出 ToyBlocks——围绕机械臂与桌面方块的开源仿真框架，作为 FoundationWorld 首个受控环境，支持自动生成任务与演示、单卡并行数百规划、最高 24 倍实时速度。</p>
+      <div class="reason">值得关注：具身智能的「ImageNet 时刻」需要统一评测底座，开源可控环境是推动机器人学习规模化的重要基础设施。</div>
+      <div class="card-foot">
+        <span class="src">Ai2 / Hugging Face</span>
+        <a class="link" href="https://aihot.news/items/kqwyh5azkwgfuaom4o87yzsto" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#4dd0ff">
+      <div class="card-top"><span class="rank">#19</span></div>
+      <span class="cat">人形机器人 · 实拍<span class="badge-unsel">未进精选</span></span>
+      <h3>Figure 03 人形机器人实拍视频发布</h3>
+      <p>Figure AI 创始人 Brett Adcock 发布 Figure 03 实拍视频，展示其在美国加州圣何塞总部园区内的真实运行状态。</p>
+      <div class="reason">值得关注：Figure 是人形机器人头部玩家，实拍（而非渲染）视频是判断其量产与商业化进度的一手信号。</div>
+      <div class="card-foot">
+        <span class="src">X：Rohan Paul</span>
+        <a class="link" href="https://aihot.news/items/e386s9n8f4hh5pgyzot0lpymb" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+    <div class="card" style="--c:#f472b6">
+      <div class="card-top"><span class="rank">#20</span></div>
+      <span class="cat">具身大模型 · 国产<span class="badge-unsel">未进精选</span></span>
+      <h3>自变量机器人搭载具身 AI 模型 WALL-B 亮相</h3>
+      <p>自变量机器人（X Square）发布其机器人实拍，由自研具身 AI 模型 WALL-B 驱动，官方配文「机器人也有情绪上头的时候」。</p>
+      <div class="reason">值得关注：国产具身智能厂商在「具身大模型」方向的探索，反映从机械控制向「具身智能」范式迁移的趋势。</div>
+      <div class="card-foot">
+        <span class="src">X：自变量 X Square</span>
+        <a class="link" href="https://aihot.news/items/d88htnzqa7fz6uugeqrnrfson" target="_blank">详情 ↗</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>数据来源：AI HOT v1 API · 时间窗：过去 24 小时（滚动）</p>
+    <p>「未进精选」标注的条目来自全量池补充，未进入 AI HOT 精选策展。内容仅作资讯参考，请以 <a href="https://aihot.news" target="_blank">aihot.news</a> 及第三方原文为准。</p>
+  </footer>
+</div>
+</body>
+</html>

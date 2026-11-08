@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>春光乍泄</title>
+<style>
+  :root {
+    --bg: #121212;
+    --card: #1e1e1e;
+    --text: #e8e6e3;
+    --muted: #a8a29e;
+    --accent: #e0b060;
+    --accent2: #7fb8d9;
+    --line: #2c2c2c;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
+    padding: 24px 16px 60px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { text-align: center; padding: 28px 0 22px; }
+  .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    padding: 4px 14px;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+  .poster-band {
+    text-align: center;
+    margin: 22px 0 8px;
+  }
+  .poster-band .big-char {
+    font-size: 88px;
+    font-weight: 700;
+    color: var(--accent);
+    opacity: 0.9;
+    line-height: 1;
+    letter-spacing: 6px;
+  }
+  .meta {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+    margin: 20px 0;
+    font-size: 15px;
+  }
+  .meta .row {
+    display: flex;
+    padding: 7px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  .meta .row:last-child { border-bottom: none; }
+  .meta .k {
+    width: 78px;
+    flex-shrink: 0;
+    color: var(--muted);
+  }
+  .meta .v { color: var(--text); }
+  .score {
+    display: flex;
+    gap: 18px;
+    justify-content: center;
+    margin: 22px 0;
+    flex-wrap: wrap;
+  }
+  .score .box {
+    text-align: center;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 22px;
+    min-width: 110px;
+  }
+  .score .num {
+    font-size: 30px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+  .score .lbl {
+    font-size: 13px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  section { margin: 30px 0; }
+  h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  p { margin-bottom: 14px; color: #d6d3cf; }
+  .quote {
+    border-left: 3px solid var(--accent2);
+    background: var(--card);
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    color: var(--muted);
+    margin: 18px 0;
+  }
+  footer {
+    margin-top: 40px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; padding: 16px 12px 40px; }
+    h1 { font-size: 28px; }
+    .poster-band .big-char { font-size: 64px; }
+    .meta .row { flex-direction: column; }
+    .meta .k { margin-bottom: 2px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="tag">经典电影推荐</span>
+    <h1>春光乍泄</h1>
+    <div class="subtitle">Happy Together · 1997</div>
+  </header>
+
+  <div class="poster-band">
+    <div class="big-char">春光乍泄</div>
+  </div>
+
+  <div class="meta">
+    <div class="row"><span class="k">导演</span><span class="v">王家卫</span></div>
+    <div class="row"><span class="k">主演</span><span class="v">张国荣、梁朝伟、张震</span></div>
+    <div class="row"><span class="k">类型</span><span class="v">剧情 / 爱情</span></div>
+    <div class="row"><span class="k">上映</span><span class="v">1997 年</span></div>
+    <div class="row"><span class="k">地区</span><span class="v">中国香港</span></div>
+  </div>
+
+  <div class="score">
+    <div class="box"><div class="num">8.9</div><div class="lbl">豆瓣评分</div></div>
+    <div class="box"><div class="num">7.7</div><div class="lbl">IMDb 评分</div></div>
+    <div class="box"><div class="num">戛纳</div><div class="lbl">最佳导演</div></div>
+  </div>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>一对恋人从香港远赴阿根廷，想在地球最遥远的南端重新开始。布宜诺斯艾利斯的街头、破旧的小旅馆、反复的分分合合，两个人在异乡的孤独里彼此靠近又彼此推远。一心想去看伊瓜苏瀑布，却总是差一点；一盏旧台灯上的瀑布照片，成了两人共同望向远方的念想。</p>
+    <p>这是一部关于爱与漂泊的电影——不是童话，而是一段真实到有些疼痛的关系切片。在离家最远的地方，他们反而最清晰地照见了自己和对方。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <p>王家卫的镜头语言在本片达到极致。杜可风的摄影把布宜诺斯艾利斯拍得既迷离又灼热，大片的暖色与冷色交织，每一帧都像一张能挂在墙上的照片。梁朝伟和张国荣贡献了生涯最具张力的对手戏，一个隐忍克制，一个任性炽烈，无需台词，眼神就已说尽一切。</p>
+    <p>影片的配乐同样经典——探戈旋律《Prologue》贯穿始终，慵懒、缠绵又带着一丝凄清，与画面的情绪严丝合缝。王家卫惯用的碎片化叙事在这里被压缩得更加凝练，情绪大于情节，氛围大于故事。</p>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>因为它是华语电影里把"爱而不得"拍得最通透的一部。它不煽情、不狗血，只是安静地呈现两个相爱的人如何互相伤害又互相依赖。看完你未必会哭，但那种怅然若失会久久留在心里——这正是好电影的分量。</p>
+    <p>也因为它是张国荣在银幕上留下的最动人的表演之一，是一代人关于爱情、关于离别、关于南半球那场未能抵达的瀑布的共同记忆。无论你是否经历过片中那样的关系，它都能让你对"爱"这件事，多一层更深的体认。</p>
+    <div class="quote">"不如我们从头来过。"</div>
+  </section>
+
+  <footer>经典电影推荐 · 2026-11-08</footer>
+</div>
+</body>
+</html>
