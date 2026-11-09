@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>卧虎藏龙</title>
+<style>
+  :root {
+    --bg: #f5f2ea;
+    --card: #ffffff;
+    --ink: #2b2723;
+    --sub: #6b6257;
+    --accent: #8c2f1b;
+    --line: #e6dfd2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+  .hero {
+    background: linear-gradient(135deg, #1c1a17 0%, #3a2f26 100%);
+    color: #f5efe3;
+    border-radius: 16px;
+    padding: 40px 28px;
+    margin-bottom: 28px;
+  }
+  .hero .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #d8b98c;
+    border: 1px solid #d8b98c;
+    border-radius: 20px;
+    padding: 3px 14px;
+    margin-bottom: 18px;
+  }
+  .hero h1 { font-size: 40px; letter-spacing: 4px; font-weight: 700; margin-bottom: 10px; }
+  .hero .origin { font-size: 16px; color: #c8b99f; letter-spacing: 1px; }
+  .hero .meta { margin-top: 20px; font-size: 14px; color: #b6a68a; }
+  .hero .meta span { margin-right: 18px; white-space: nowrap; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  p { color: var(--sub); margin-bottom: 12px; text-align: justify; }
+  .hl { color: var(--ink); font-weight: 600; }
+  .rating { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+  .rating .box {
+    flex: 1; min-width: 140px;
+    background: #faf6ee;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .rating .num { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .rating .lbl { font-size: 13px; color: var(--sub); margin-top: 4px; }
+  ul { list-style: none; }
+  ul li { position: relative; padding-left: 22px; color: var(--sub); margin-bottom: 10px; }
+  ul li::before {
+    content: "";
+    position: absolute; left: 4px; top: 12px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .quote {
+    font-style: italic;
+    color: var(--accent);
+    text-align: center;
+    font-size: 16px;
+    padding: 8px 0;
+  }
+  .footer { text-align: center; font-size: 13px; color: #a89d8b; margin-top: 12px; }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 32px; }
+    .hero { padding: 30px 20px; }
+    .card { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="tag">华语武侠 · 里程碑</span>
+    <h1>卧虎藏龙</h1>
+    <div class="origin">Crouching Tiger, Hidden Dragon · 2000</div>
+    <div class="meta">
+      <span>导演：李安</span>
+      <span>主演：周润发 / 杨紫琼 / 章子怡 / 张震</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>一代大侠李慕白厌倦了江湖争斗，决定交出自己视若珍宝的青冥剑，退隐归田。宝剑被托付进京，却在深夜里离奇失窃。李慕白与多年知己俞秀莲循着线索追查，牵出一位出身官宦、武艺卓绝却心向江湖的少女玉娇龙。一柄剑、一段未了的情、几代人的恩怨，在竹林与屋檐之间徐徐铺开。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <ul>
+      <li><span class="hl">武打之美</span>：李安把武侠打斗拍成了"会飞的舞蹈"——竹海追逐、屋顶夜奔、兵器对峙，动作行云流水，兼具力量与留白，重塑了全球观众对东方武侠的想象。</li>
+      <li><span class="hl">情感内核</span>：它不只是一部打斗片，更是一部被压抑的情感史诗。克制、隐忍与遗憾贯穿始终，刀光剑影之下藏着深沉的东方人情。</li>
+      <li><span class="hl">美学与配乐</span>：叶锦添的服饰美术、谭盾与马友友合作的配乐，共同营造出如诗如画的东方意境。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>它斩获第 73 届奥斯卡最佳外语片、最佳摄影、最佳艺术指导、最佳原创配乐四项大奖，是华语电影叩开世界主流影坛大门的标志性作品。无论你是武侠迷，还是偏爱细腻叙事的观众，都能在它"武"与"情"的交织里找到共鸣——既有大开大合的江湖气魄，又有欲说还休的人心幽微。</p>
+    <div class="rating">
+      <div class="box"><div class="num">8.3</div><div class="lbl">豆瓣评分</div></div>
+      <div class="box"><div class="num">7.9</div><div class="lbl">IMDb 评分</div></div>
+      <div class="box"><div class="num">4 项</div><div class="lbl">奥斯卡大奖</div></div>
+    </div>
+    <p class="quote">"江湖里卧虎藏龙，人心何尝不是？"</p>
+  </div>
+
+  <div class="footer">一部值得静下心来，慢慢品味的东方武侠经典。</div>
+</div>
+</body>
+</html>
