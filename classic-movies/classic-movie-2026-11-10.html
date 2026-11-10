@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小鞋子</title>
+<style>
+  :root {
+    --bg: #f5f2ea;
+    --card: #ffffff;
+    --ink: #2b2723;
+    --sub: #6b6257;
+    --accent: #8c2f1b;
+    --line: #e6dfd2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 32px 20px 64px; }
+  .hero {
+    background: linear-gradient(135deg, #1c1a17 0%, #3a2f26 100%);
+    color: #f5efe3;
+    border-radius: 16px;
+    padding: 40px 28px;
+    margin-bottom: 28px;
+  }
+  .hero .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: #d8b98c;
+    border: 1px solid #d8b98c;
+    border-radius: 20px;
+    padding: 3px 14px;
+    margin-bottom: 18px;
+  }
+  .hero h1 { font-size: 40px; letter-spacing: 4px; font-weight: 700; margin-bottom: 10px; }
+  .hero .origin { font-size: 16px; color: #c8b99f; letter-spacing: 1px; }
+  .hero .meta { margin-top: 20px; font-size: 14px; color: #b6a68a; }
+  .hero .meta span { margin-right: 18px; white-space: nowrap; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 21px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  p { color: var(--sub); margin-bottom: 12px; text-align: justify; }
+  .hl { color: var(--ink); font-weight: 600; }
+  .rating { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 6px; }
+  .rating .box {
+    flex: 1; min-width: 140px;
+    background: #faf6ee;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: center;
+  }
+  .rating .num { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .rating .lbl { font-size: 13px; color: var(--sub); margin-top: 4px; }
+  ul { list-style: none; }
+  ul li { position: relative; padding-left: 22px; color: var(--sub); margin-bottom: 10px; }
+  ul li::before {
+    content: "";
+    position: absolute; left: 4px; top: 12px;
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+  }
+  .quote {
+    font-style: italic;
+    color: var(--accent);
+    text-align: center;
+    font-size: 16px;
+    padding: 8px 0;
+  }
+  .footer { text-align: center; font-size: 13px; color: #a89d8b; margin-top: 12px; }
+  @media (max-width: 600px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 32px; }
+    .hero { padding: 30px 20px; }
+    .card { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <span class="tag">伊朗电影 · 纯真杰作</span>
+    <h1>小鞋子</h1>
+    <div class="origin">Children of Heaven · 1997</div>
+    <div class="meta">
+      <span>导演：马基德·马基迪</span>
+      <span>主演：阿米尔·法罗赫·哈什米安 / 巴哈尔·塞迪吉</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>小男孩阿里弄丢了妹妹莎拉唯一的一双鞋。对这样一个拮据的家庭来说，一双新鞋是难以承受的开销。为了不让父母担忧，兄妹俩约定轮流穿阿里那双旧球鞋上学——每天穿梭在狭窄的街巷里奔跑换鞋。直到有一天，一场长跑比赛传来消息：季军的奖品，正好是一双崭新的运动鞋。阿里决定拼尽全力，为妹妹赢回那双鞋子。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <ul>
+      <li><span class="hl">质朴的叙事力量</span>：没有炫技，没有煽情，只靠两个孩子一双鞋的日常，就能让人笑中带泪。导演马基德用最克制的镜头，讲出了最动人的故事。</li>
+      <li><span class="hl">孩子的纯真视角</span>：兄妹俩悄悄保守着秘密，那份懂事与体谅令人心疼。孩子的世界干净纯粹，苦难被轻轻托起，反而更显重量。</li>
+      <li><span class="hl">真实的伊朗市井</span>：镜头下的贫民区街巷、市场与学校，真实而有温度，让观众看见一个陌生国度里熟悉的人情冷暖。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>它是首部获得奥斯卡最佳外语片提名的伊朗电影，也是无数影迷心中的"最纯粹的儿童电影"之一。它不贩卖苦难，却用一双鞋照见了贫穷里的尊严、亲情与希望。无论大人还是孩子，都能在阿里奔跑的每一步里，感受到那种毫无保留的爱与坚持——它提醒我们，幸福有时不过是一双合脚的鞋，以及那个愿意为你奔跑的人。</p>
+    <div class="rating">
+      <div class="box"><div class="num">9.2</div><div class="lbl">豆瓣评分</div></div>
+      <div class="box"><div class="num">8.2</div><div class="lbl">IMDb 评分</div></div>
+      <div class="box"><div class="num">1 项</div><div class="lbl">奥斯卡提名</div></div>
+    </div>
+    <p class="quote">"有些鞋子很小，装下的爱却很大。"</p>
+  </div>
+
+  <div class="footer">一部干净、温暖，值得全家一起看的电影。</div>
+</div>
+</body>
+</html>
