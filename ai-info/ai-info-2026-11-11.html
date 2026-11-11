@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-11</title>
+<style>
+:root{
+  --bg:#07090f;
+  --bg2:#0b0f1a;
+  --panel:#101624;
+  --panel2:#141b2e;
+  --line:rgba(120,160,255,.14);
+  --txt:#e6ecf7;
+  --txt-dim:#8b96ad;
+  --txt-faint:#5c667d;
+  --cyan:#38e1ff;
+  --violet:#8b5cff;
+  --pink:#ff4da6;
+  --green:#2ee6a8;
+  --amber:#ffb84d;
+  --red:#ff5c5c;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+body{min-height:100vh;position:relative;overflow-x:hidden}
+/* 网格背景 */
+.grid-bg{
+  position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(120,160,255,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,160,255,.05) 1px,transparent 1px);
+  background-size:44px 44px;
+}
+/* 光晕 */
+.glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.5;z-index:0;pointer-events:none}
+.glow-a{width:520px;height:520px;top:-140px;left:-120px;background:radial-gradient(circle,rgba(56,225,255,.35),transparent 70%)}
+.glow-b{width:560px;height:560px;top:10%;right:-160px;background:radial-gradient(circle,rgba(139,92,255,.32),transparent 70%)}
+.glow-c{width:480px;height:480px;bottom:-160px;left:30%;background:radial-gradient(circle,rgba(255,77,166,.22),transparent 70%)}
+.wrap{position:relative;z-index:1;max-width:1080px;margin:0 auto;padding:48px 24px 80px}
+/* 头部 */
+header{text-align:center;margin-bottom:44px}
+.kicker{display:inline-block;font-size:12px;letter-spacing:.35em;text-transform:uppercase;color:var(--cyan);
+  padding:6px 18px;border:1px solid rgba(56,225,255,.3);border-radius:999px;margin-bottom:20px;
+  background:linear-gradient(90deg,rgba(56,225,255,.08),rgba(139,92,255,.08))}
+h1{font-size:40px;font-weight:800;letter-spacing:.02em;line-height:1.2;
+  background:linear-gradient(120deg,#eaf6ff 0%,#9fd8ff 40%,#c3a6ff 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.sub{margin-top:16px;color:var(--txt-dim);font-size:14px;line-height:1.8}
+.sub b{color:var(--cyan);font-weight:600}
+.meta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.chip{font-size:12px;color:var(--txt-dim);padding:5px 14px;border-radius:999px;
+  background:var(--panel2);border:1px solid var(--line)}
+.chip b{color:var(--txt)}
+.chip .hot{color:var(--pink)}
+.chip .emb{color:var(--green)}
+/* 统计条 */
+.statbar{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:32px 0 40px}
+.stat{flex:1;min-width:150px;max-width:220px;background:var(--panel);border:1px solid var(--line);
+  border-radius:14px;padding:18px 16px;text-align:center}
+.stat .num{font-size:30px;font-weight:800;
+  background:linear-gradient(120deg,#9fd8ff,#c3a6ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.stat .lbl{font-size:12px;color:var(--txt-dim);margin-top:6px}
+/* 卡片 */
+.grid{display:grid;grid-template-columns:1fr;gap:18px}
+.card{position:relative;background:linear-gradient(160deg,var(--panel) 0%,var(--panel2) 100%);
+  border:1px solid var(--line);border-radius:16px;padding:22px 24px;overflow:hidden;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.card:hover{transform:translateY(-3px);border-color:rgba(56,225,255,.4);
+  box-shadow:0 12px 40px rgba(0,0,0,.4),0 0 24px rgba(56,225,255,.08)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:.7}
+.card .top{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px}
+.rank{flex:none;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;font-weight:800;color:var(--txt);
+  background:linear-gradient(140deg,rgba(56,225,255,.18),rgba(139,92,255,.18));
+  border:1px solid rgba(56,225,255,.25)}
+.card h2{font-size:17px;font-weight:700;line-height:1.5;color:var(--txt)}
+.card h2 a{color:inherit;text-decoration:none}
+.card h2 a:hover{color:var(--cyan)}
+.badges{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 10px 54px}
+.badge{font-size:10.5px;padding:3px 9px;border-radius:6px;letter-spacing:.02em;white-space:nowrap}
+.badge.score{background:rgba(255,184,77,.14);color:var(--amber);border:1px solid rgba(255,184,77,.3)}
+.badge.rank3{background:rgba(255,92,92,.14);color:var(--red);border:1px solid rgba(255,92,92,.3)}
+.badge.sel{background:rgba(46,230,168,.14);color:var(--green);border:1px solid rgba(46,230,168,.3)}
+.badge.all{background:rgba(139,92,255,.14);color:var(--violet);border:1px solid rgba(139,92,255,.3)}
+.badge.tag{background:rgba(56,225,255,.12);color:var(--cyan);border:1px solid rgba(56,225,255,.25)}
+.summary{font-size:14px;line-height:1.85;color:var(--txt-dim);margin:6px 0 12px 54px}
+.why{font-size:13px;line-height:1.75;color:var(--txt-faint);margin:0 0 12px 54px;
+  padding-left:12px;border-left:2px solid var(--line)}
+.why b{color:var(--green);font-weight:600}
+.meta2{display:flex;align-items:center;gap:12px;margin-left:54px;font-size:11.5px;color:var(--txt-faint);flex-wrap:wrap}
+.src{display:inline-flex;align-items:center;gap:5px}
+.src .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan)}
+a.link{color:var(--txt-faint);text-decoration:none;transition:color .15s}
+a.link:hover{color:var(--cyan)}
+footer{text-align:center;margin-top:52px;color:var(--txt-faint);font-size:12px;line-height:2}
+footer a{color:var(--txt-dim);text-decoration:none}
+footer a:hover{color:var(--cyan)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,var(--line),transparent);margin:20px 0}
+@media(min-width:720px){
+  .grid{grid-template-columns:1fr 1fr}
+  h1{font-size:52px}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="glow glow-a"></div>
+<div class="glow glow-b"></div>
+<div class="glow glow-c"></div>
+
+<div class="wrap">
+  <header>
+    <div class="kicker">AI DAILY INTELLIGENCE</div>
+    <h1>AI 情报日报</h1>
+    <div class="sub">
+      2026 年 11 月 11 日 · 过去 24 小时 AI 圈大事<br>
+      侧重 <b>AI Coding</b> 与 <b>具身智能</b> 方向 · 按热度降序
+    </div>
+    <div class="meta">
+      <span class="chip">数据源 <b>AI HOT</b></span>
+      <span class="chip">精选池命中 <b class="hot">3</b> 条</span>
+      <span class="chip">具身精选池 <b class="emb">空 · 全量池补充</b></span>
+      <span class="chip">筛选 <b>20</b> 条</span>
+    </div>
+  </header>
+
+  <div class="statbar">
+    <div class="stat"><div class="num">20</div><div class="lbl">高价值信息</div></div>
+    <div class="stat"><div class="num">2</div><div class="lbl">具身重磅发布</div></div>
+    <div class="stat"><div class="num">3</div><div class="lbl">精选池命中</div></div>
+    <div class="stat"><div class="num">123</div><div class="lbl">头条信号数</div></div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">1</div><h2><a href="https://aihot.news/items/wkpj021rmg6sgthgj9zwevei4" target="_blank">Google 发布 Gemini 4 Carbon 前沿模型</a></h2></div>
+      <div class="badges"><span class="badge score">热度 85</span><span class="badge sel">进精选</span><span class="badge tag">AI Coding</span></div>
+      <p class="summary">Google DeepMind 正式向开发者、企业与科学家开放 Gemini 4 Carbon，定位最强前沿模型，主打网络安全能力与复杂知识工作、软件工程、科学推理中的长程智能体工作流。入门价 $2/1M input、$10/1M output。</p>
+      <p class="why"><b>值得关注：</b>Google 年度最强旗舰落地，长程编码智能体与网络安全双能力对标 GPT-6 系，token 单价与 Argon 持平但推理消耗更多，实际成本博弈是工程选型关键。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Google DeepMind Blog</span><a class="link" href="https://aihot.news/items/wkpj021rmg6sgthgj9zwevei4" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#8b5cff">
+      <div class="top"><div class="rank">2</div><h2><a href="https://aihot.news" target="_blank">Anthropic 发布 Claude Fable 5.2 与 Mythos 5.2，重登榜首</a></h2></div>
+      <div class="badges"><span class="badge score">热度 88</span><span class="badge rank3">当日最高热度</span><span class="badge tag">AI Coding</span></div>
+      <p class="summary">Fable 5.2 在 Artificial Analysis Intelligence Index v5 以 65 分登顶，超过 Gemini 4 Carbon 与 Opus 5.5。Fable/Mythos 为同一底层模型，前者增加拦截高风险网络与生物研究任务的分类器，后者取消限制、需验证项目访问。输出速度最高提 30%、成本降 20%。</p>
+      <p class="why"><b>值得关注：</b>Anthropic 以「同模型双安全档」策略同时守住企业合规与前沿研究市场，编码基准超 GPT-6 Astra，性价比与安全边界的平衡值得工程团队参考。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Latent Space / MarkTechPost</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">3</div><h2><a href="https://aihot.news" target="_blank">Anthropic 发布 Claude Meetings / Sheets / Whiteboards 进军办公套件</a></h2></div>
+      <div class="badges"><span class="badge score">热度 73</span><span class="badge tag">产品</span></div>
+      <p class="summary">Anthropic 面向非技术知识工作者发布 Claude Meetings、Sheets、Whiteboards 三款工具，支持参会记录、协作表格与白板整理想法，均开放 beta；同步新增 Data 等 artifact 类型，Adobe、Atlassian、Salesforce 等应用可直接嵌入 Claude 使用。</p>
+      <p class="why"><b>值得关注：</b>Anthropic 从「开发者工具」正式切入办公生产力，直接对标 Copilot 生态，标志头部模型厂向企业办公场景的规模化渗透。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>The Verge / Claude Blog</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#2ee6a8">
+      <div class="top"><div class="rank">4</div><h2><a href="https://aihot.news" target="_blank">Nvidia 发布 GR00T 2 世界动作模型，可从人类视频学习机器人任务</a></h2></div>
+      <div class="badges"><span class="badge score">热度 66</span><span class="badge tag">具身智能</span><span class="badge all">未进精选</span></div>
+      <p class="summary">Nvidia 发布基础模型 GR00T 2，采用世界动作模型（WAM）架构，同时预测下一步动作与未来短片段视频，用超一千块 GB300 芯片、约 40 万小时头戴相机人类动作视频训练，可将人类动作迁移到机械臂、机械手与人形机器人。</p>
+      <p class="why"><b>值得关注：</b>具身智能当日重磅——「人类视频即训练数据」范式落地，大幅降低机器人数据采集门槛，是通往通用机器人操作的关键一步。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>The Decoder / X</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#2ee6a8">
+      <div class="top"><div class="rank">5</div><h2><a href="https://aihot.news" target="_blank">Google DeepMind 发布 Gemini Robotics 2.5，奔驰产线 96% 分拣成功率</a></h2></div>
+      <div class="badges"><span class="badge score">热度 63</span><span class="badge tag">具身智能</span><span class="badge all">未进精选</span></div>
+      <p class="summary">DeepMind 发布视觉-语言-动作模型 Gemini Robotics 2.5，与 Apptronik、Mercedes-Benz 在匈牙利与德国实际产线测试中，Apollo 2 人形机器人完成金属零件分拣装箱，成功率达 96%，并推出开源安全基准 ASIMOV-jailbreak。</p>
+      <p class="why"><b>值得关注：</b>人形机器人在真实制造产线跑通 96% 成功率，是「实验室 demo → 工业落地」的里程碑信号，具身智能商业化验证加速。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Google DeepMind / Ars Technica</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#ff5c5c">
+      <div class="top"><div class="rank">6</div><h2><a href="https://aihot.news" target="_blank">研究显示 Grok Build 编码智能体泄露大量机密数据</a></h2></div>
+      <div class="badges"><span class="badge score">热度 74</span><span class="badge tag">AI Coding · 安全</span></div>
+      <p class="summary">安全公司 Claroc 研究发现，xAI 的 vibe-coding 智能体 Grok Build 正泄露数千用户机密数据，包括 SpaceXSI 自身 24 个应用的配置信息。</p>
+      <p class="why"><b>值得关注：</b>AI 编码智能体的数据安全红线再次被敲响——连自家兄弟公司应用都中招，团队引入 vibe-coding 前必须评估权限隔离与密钥泄露风险。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Ars Technica</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#ffb84d">
+      <div class="top"><div class="rank">7</div><h2><a href="https://aihot.news" target="_blank">Meta 发布轻量模型 Muse Ember，单任务成本仅 Claude Haiku 5.5 的 1/3</a></h2></div>
+      <div class="badges"><span class="badge score">热度 72</span><span class="badge tag">AI Coding · 模型</span></div>
+      <p class="summary">Meta Superintelligence Labs 发布迄今最小、最高效模型 Muse Ember，1M 上下文多模态推理模型，主打智能体重复性子任务（工具调用、编码子任务、路由、抽取、长文档解析），跑分媲美 Claude Haiku 5.5 且成本仅其 1/3。</p>
+      <p class="why"><b>值得关注：</b>「小而强」的智能体侧翼路线，直指海量编码子任务场景的极致性价比，可能冲击中小模型的定价格局。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Simon Willison / IT之家</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">8</div><h2><a href="https://aihot.news" target="_blank">Cursor Projects 升级为多人协作模式</a></h2></div>
+      <div class="badges"><span class="badge score">热度 67</span><span class="badge sel">进精选</span><span class="badge tag">AI Coding</span></div>
+      <p class="summary">Cursor 宣布 Projects 迈入多人协作阶段，此前 9 月推出的 Projects 通过单一协调者调度一组智能体，现在支持邀请团队成员加入同一 Project，与各自智能体共同规划、构建和交付。</p>
+      <p class="why"><b>值得关注：</b>AI 编程从「单人 + 智能体」走向「团队 + 多智能体协作」，软件开发协作范式的结构性变化。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Cursor Blog</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">9</div><h2><a href="https://aihot.news" target="_blank">PSI 借 Claude Fable 5.2 解决 18 年未解的量子计算猜想</a></h2></div>
+      <div class="badges"><span class="badge score">热度 76</span><span class="badge sel">进精选</span><span class="badge tag">AI Coding · 科学</span></div>
+      <p class="summary">PSI 实验室的 David Turturean 借助 Anthropic Fable 5.2 模型早期访问权限，解决了存在 18 年的量子计算问题 Aaronson-Ambainis 猜想，并证明经 Lean 自动形式化验证。</p>
+      <p class="why"><b>值得关注：</b>「AI 前沿模型 + 形式化验证」攻克数学难题的范例，AI Coding 能力向上游科学研究迁移的强证据。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>TechCrunch</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#2ee6a8">
+      <div class="top"><div class="rank">10</div><h2><a href="https://aihot.news" target="_blank">IFM 发布开源世界模型 PAN 2，可生成 20 秒动作后果视频</a></h2></div>
+      <div class="badges"><span class="badge score">热度 63</span><span class="badge tag">具身智能 · 世界模型</span><span class="badge all">未进精选</span></div>
+      <p class="summary">IFM 推出开放基础世界模型 PAN 2，接受描述动作并生成最多 20 秒展示物理后果的视频，让 Agent 把试错成本移入模拟。语言模型先规划情节、再由 29B 视频模型渲染，开放模型中完整计划完成率第一。</p>
+      <p class="why"><b>值得关注：</b>「动作后果预演」为具身智能提供低成本试错沙盒，世界模型正成为机器人与智能体训练的新基建。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>X · Rohan Paul</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">11</div><h2><a href="https://aihot.news" target="_blank">OpenRouter 实测 MCP vs CLI vs Skills 的上下文 token 成本</a></h2></div>
+      <div class="badges"><span class="badge score">热度 —</span><span class="badge tag">AI Coding · 工程</span></div>
+      <p class="summary">OpenRouter 实测同一 GitHub 任务下 MCP、CLI 与 skill 的 token 成本差异，在 Claude Sonnet 5.5 上 CLI 用 1.x 倍成本，为工程选型提供量化依据。</p>
+      <p class="why"><b>值得关注：</b>AI 编码工具链的「隐性 token 成本」首次被实测量化，帮助团队在功能与成本之间做精确权衡。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>OpenRouter Announcements</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#8b5cff">
+      <div class="top"><div class="rank">12</div><h2><a href="https://aihot.news" target="_blank">提示 Claude Fable 5.2：声明代码归属影响重构行为</a></h2></div>
+      <div class="badges"><span class="badge score">热度 69</span><span class="badge tag">AI Coding · 技巧</span></div>
+      <p class="summary">Simon Willison 转引 Anthropic 文档：Claude Fable 5.2 对提示词中代码归属表述很敏感，写明「This codebase is yours」后，小任务测试中约一半尝试会合并重复代码，不写则不足十分之一。</p>
+      <p class="why"><b>值得关注：</b>一个 prompt 措辞之差可让重构成功率翻数倍，是提升 AI 编码质量的低成本实用技巧。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Simon Willison 博客</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">13</div><h2><a href="https://aihot.news" target="_blank">Berkeley RDI 与 AWS 发布 Aqueduct：用 Lean 等价证明验证智能体优化</a></h2></div>
+      <div class="badges"><span class="badge score">热度 59</span><span class="badge tag">AI Coding · 安全</span></div>
+      <p class="summary">Berkeley RDI 与 AWS 发布 Aqueduct，用 Lean 等价证明验证智能体软件优化，为 AI 生成代码的正确性提供形式化保证。</p>
+      <p class="why"><b>值得关注：</b>AI 编码「可验证性」方向的重要进展，形式化验证正成为可信 AI 软件工程的关键拼图。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Berkeley RDI Blog</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#ff5c5c">
+      <div class="top"><div class="rank">14</div><h2><a href="https://aihot.news" target="_blank">Factory 推出 Security Factory：把安全发现转化为已验证修复</a></h2></div>
+      <div class="badges"><span class="badge score">热度 38</span><span class="badge tag">AI Coding · 安全</span></div>
+      <p class="summary">Factory 推出 Security Factory 产品，把安全发现自动转化为已验证修复，将 AI 安全从「检测」推进到「自动修复」闭环。</p>
+      <p class="why"><b>值得关注：</b>AI 编码安全从告警走向自主修复，DevSecOps 自动化闭环的落地样本。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Factory 官方</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#2ee6a8">
+      <div class="top"><div class="rank">15</div><h2><a href="https://aihot.news" target="_blank">蚂蚁灵波开源触觉基础模型 LingBot-Touch</a></h2></div>
+      <div class="badges"><span class="badge score">热度 54</span><span class="badge tag">具身智能 · 触觉</span><span class="badge all">未进精选</span></div>
+      <p class="summary">蚂蚁灵波开源触觉基础模型 LingBot-Touch（另有 Robbyant 版本），聚焦机器人触觉感知，是具身智能「力觉/触觉」细分方向的开源贡献。</p>
+      <p class="why"><b>值得关注：</b>国内团队在具身智能触觉基础模型上的开源进展，补齐机器人灵巧操作「感知-触觉」关键一环。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>IT之家 / X</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#2ee6a8">
+      <div class="top"><div class="rank">16</div><h2><a href="https://aihot.news" target="_blank">Amazon 推出 Ring Drone Cam 与 Ring Rover Cam AI 安防机器人</a></h2></div>
+      <div class="badges"><span class="badge score">热度 55</span><span class="badge tag">具身智能 · 机器人</span><span class="badge all">未进精选</span></div>
+      <p class="summary">Ring 成立 Ring Robotics，发布家用安防无人机 Ring Drone Cam 与企业安防机器人 Ring Rover Cam，将 AI 视觉与自主巡逻引入消费级安防。</p>
+      <p class="why"><b>值得关注：</b>具身智能落地消费级安防场景，机器人与无人机商业化从 B 端工业向 C 端家庭延伸的信号。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>TechCrunch / Ars Technica</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">17</div><h2><a href="https://aihot.news" target="_blank">Vibe Check 评测：Gemini 4 Carbon 编码更强但判断力跟不上</a></h2></div>
+      <div class="badges"><span class="badge score">热度 62</span><span class="badge tag">AI Coding · 评测</span></div>
+      <p class="summary">Every 对 Gemini 4 Carbon 的评测显示，其编码能力明显强于 Argon，可生成立体度更好的三维物体，并在少监督下连续工作数小时，但判断力（judgment）仍跟不上其编码速度。</p>
+      <p class="why"><b>值得关注：</b>「编码强、判断弱」提示工程师不能把复杂决策全权交给模型，人工把关仍是刚需。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Every</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#38e1ff">
+      <div class="top"><div class="rank">18</div><h2><a href="https://aihot.news" target="_blank">Simon Willison 用 Claude Code 构建声学三角定位系统</a></h2></div>
+      <div class="badges"><span class="badge score">热度 59</span><span class="badge tag">AI Coding · 实战</span></div>
+      <p class="summary">Simon Willison 用 Claude Code 构建声学三角定位系统，找出家中神秘蜂鸣声来源，展示 AI 编码在真实工程问题中的端到端应用。</p>
+      <p class="why"><b>值得关注：</b>AI Coding 解决真实物理世界工程问题的鲜活案例，兼具趣味与实用性。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>Simon Willison 博客</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#2ee6a8">
+      <div class="top"><div class="rank">19</div><h2><a href="https://aihot.news" target="_blank">星海图 LEMO 双臂桌面机器人开售</a></h2></div>
+      <div class="badges"><span class="badge score">热度 26</span><span class="badge tag">具身智能 · 机器人</span><span class="badge all">未进精选</span></div>
+      <p class="summary">国内具身智能公司星海图 Galaxea 的 LEMO 双臂桌面机器人开售，面向消费级/桌面场景的双臂协作机器人进入市场。</p>
+      <p class="why"><b>值得关注：</b>国内具身智能公司产品化落地进展，双臂桌面机器人走向 C 端市场。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>X · 星海图 Galaxea</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+    <div class="card" style="--accent:#ffb84d">
+      <div class="top"><div class="rank">20</div><h2><a href="https://aihot.news" target="_blank">OpenAI 在 ChatGPT 测试企业智能体与 Business Hub</a></h2></div>
+      <div class="badges"><span class="badge score">热度 —</span><span class="badge tag">智能体 · 企业</span></div>
+      <p class="summary">OpenAI 在 ChatGPT 中测试企业智能体与 Business Hub，探索面向企业工作流的多智能体编排与统一入口。</p>
+      <p class="why"><b>值得关注：</b>头部模型厂加速布局企业智能体平台，与 Claude 办公套件形成正面竞争，企业 AI 入口之争升温。</p>
+      <div class="meta2"><span class="src"><span class="dot"></span>AI HOT 热点</span><a class="link" href="https://aihot.news" target="_blank">阅读原文 →</a></div>
+    </div>
+
+  </div>
+
+  <div class="divider"></div>
+  <footer>
+    数据来源：<a href="https://aihot.news" target="_blank">AI HOT</a>（过去 24 小时）· 由小虾米 🦐 自动生成<br>
+    精选池命中 3 条；具身智能精选池为空，相关条目经全量池补充并标注「未进精选」<br>
+    所有信息仅供参考，数字与观点请回原文核对
+  </footer>
+</div>
+</body>
+</html>
