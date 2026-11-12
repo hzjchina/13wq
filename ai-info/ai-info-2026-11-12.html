@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-12</title>
+<style>
+  :root {
+    --bg: #070a12;
+    --bg2: #0b1020;
+    --card: rgba(17, 24, 46, 0.72);
+    --line: rgba(90, 120, 255, 0.16);
+    --text: #dbe4ff;
+    --muted: #8492b5;
+    --cyan: #22d3ee;
+    --purple: #a78bfa;
+    --pink: #f472b6;
+    --green: #34d399;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .grid-bg {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 80%);
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 80%);
+  }
+  .glow {
+    position: fixed; z-index: 0; pointer-events: none; border-radius: 50%;
+    filter: blur(120px); opacity: 0.5;
+  }
+  .g1 { width: 520px; height: 520px; background: #1d4ed8; top: -180px; left: -120px; }
+  .g2 { width: 460px; height: 460px; background: #7c3aed; top: 220px; right: -140px; }
+  .g3 { width: 400px; height: 400px; background: #0ea5e9; bottom: -160px; left: 30%; }
+  .wrap { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 48px 24px 72px; }
+  header { text-align: center; margin-bottom: 40px; }
+  .kicker {
+    display: inline-block; font-size: 13px; letter-spacing: 3px; color: var(--cyan);
+    border: 1px solid rgba(34,211,238,.35); padding: 4px 16px; border-radius: 20px;
+    background: rgba(34,211,238,.06); margin-bottom: 18px;
+  }
+  h1 {
+    font-size: clamp(30px, 5vw, 46px); font-weight: 800; letter-spacing: 1px;
+    background: linear-gradient(100deg, #22d3ee, #a78bfa 55%, #f472b6);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .sub { color: var(--muted); margin-top: 12px; font-size: 14px; }
+  .stats { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px; }
+  .stat {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 8px 18px; font-size: 13px; color: var(--muted);
+  }
+  .stat b { color: var(--cyan); font-size: 16px; margin-right: 4px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+  .card {
+    position: relative; background: var(--card); border: 1px solid var(--line);
+    border-radius: 16px; padding: 22px; backdrop-filter: blur(10px);
+    transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+    display: flex; flex-direction: column; gap: 10px;
+    overflow: hidden;
+  }
+  .card::before {
+    content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--cyan), var(--purple), transparent);
+    opacity: 0; transition: opacity .25s ease;
+  }
+  .card:hover { transform: translateY(-4px); border-color: rgba(34,211,238,.45); box-shadow: 0 12px 40px rgba(34,211,238,.12); }
+  .card:hover::before { opacity: 1; }
+  .card-top { display: flex; align-items: center; gap: 10px; }
+  .rank {
+    font-size: 22px; font-weight: 800; color: var(--cyan); font-variant-numeric: tabular-nums;
+    text-shadow: 0 0 18px rgba(34,211,238,.5);
+  }
+  .cat {
+    font-size: 11px; letter-spacing: 1px; color: var(--purple);
+    border: 1px solid rgba(167,139,250,.35); padding: 2px 10px; border-radius: 12px;
+    background: rgba(167,139,250,.08);
+  }
+  .score { margin-left: auto; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .title { font-size: 17px; font-weight: 700; line-height: 1.45; }
+  .title a { color: var(--text); text-decoration: none; }
+  .title a:hover { color: var(--cyan); }
+  .summary { font-size: 13.5px; color: #aeb9d6; }
+  .reason {
+    font-size: 12.5px; color: var(--muted); background: rgba(34,211,238,.05);
+    border-left: 3px solid var(--cyan); padding: 8px 12px; border-radius: 0 8px 8px 0;
+  }
+  .reason span { color: var(--green); font-weight: 600; margin-right: 6px; }
+  .card-foot { display: flex; align-items: center; gap: 10px; margin-top: auto; }
+  .src { font-size: 12px; color: #6b7694; }
+  .badge { margin-left: auto; font-size: 11px; padding: 2px 10px; border-radius: 12px; letter-spacing: 1px; }
+  .badge.sel { color: #22d3ee; border: 1px solid rgba(34,211,238,.4); background: rgba(34,211,238,.08); }
+  .badge.pool { color: #f59e0b; border: 1px solid rgba(245,158,11,.4); background: rgba(245,158,11,.08); }
+  footer { text-align: center; color: #5b6683; font-size: 12px; margin-top: 48px; }
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 32px 14px 56px; }
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+<div class="wrap">
+  <header>
+    <span class="kicker">AI INTELLIGENCE DAILY</span>
+    <h1>AI 情报日报</h1>
+    <p class="sub">2026-11-12 · 过去 24 小时 · 侧重 AI Coding 与具身智能 · 数据源 AIHOT</p>
+    <div class="stats">
+      <div class="stat"><b>20</b>条精选情报</div>
+      <div class="stat"><b>11</b>AI Coding</div>
+      <div class="stat"><b>3</b>具身智能</div>
+      <div class="stat"><b>4</b>今日头条</div>
+      <div class="stat"><b>8</b>条进精选</div>
+    </div>
+  </header>
+  <main class="grid">
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">01</span>
+          <span class="cat">头条·安全</span>
+          <span class="score">热度 86</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/iz168hjk4ew8jpiokzjqcwbgi" target="_blank" rel="noopener">Grok 被指生成儿童色情图像，xAI 面临多起集体诉讼</a></h3>
+        <p class="summary">据彭博社报道，多名未成年受害者就 Grok 被用于把普通照片篡改成儿童性虐待材料（CSAM），对马斯克旗下 xAI 提起多起集体诉讼，律师估计符合索赔条件的受害者可能多达数千人。</p>
+        <p class="reason"><span>为什么值得关注</span>图像生成模型内容安全失控的极端案例，直接触发多起集体诉讼，是当日 AI 治理与责任边界最重大事件。</p>
+        <div class="card-foot">
+          <span class="src">IT之家·人工智能</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">02</span>
+          <span class="cat">头条·商业</span>
+          <span class="score">热度 76</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/mzxxannvi5wge7wz0c0jfdyz5" target="_blank" rel="noopener">OpenAI Q3 营收达 100 亿美元，效率仍落后于 Anthropic</a></h3>
+        <p class="summary">据 WSJ 与 The Information 报道，OpenAI Q3 环比增长约 50% 至 100 亿美元，但调整后经营亏损从 101 亿升至 109 亿美元。</p>
+        <p class="reason"><span>为什么值得关注</span>OpenAI 单季营收首破百亿，却同时陷入亏损扩大，揭示头部大模型公司「增收不增效」的深层矛盾，对行业估值有风向标意义。</p>
+        <div class="card-foot">
+          <span class="src">The Decoder</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">03</span>
+          <span class="cat">头条·安全</span>
+          <span class="score">热度 76</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/wlmgb3vb5ycgom7wq44felnin" target="_blank" rel="noopener">安全公司 Claroc：94.7% 的 Grok 构建应用可被任意访问</a></h3>
+        <p class="summary">Claroc 检查 37,571 个在线 Grok 构建应用，35,578 个（94.7%）无需登录即可访问，含患者数据和 SpaceXSI 内部文件，原因是发布默认预选「Anyone with the link」且子域名可被被动 DNS 检索。</p>
+        <p class="reason"><span>为什么值得关注</span>AI 应用一键发布的默认权限存在灾难级安全隐患，暴露患者数据与内部文件，为所有智能体应用开发者敲响警钟。</p>
+        <div class="card-foot">
+          <span class="src">The Decoder</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">04</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 74</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/jcostrwrefbi74nntek3ogscy" target="_blank" rel="noopener">Claude Fable 5.2 (Max) 以 +30.4% 净提升登顶 Arena Agent 榜首</a></h3>
+        <p class="summary">Arena 宣布 Claude Fable 5.2 (Max) 登顶 Agent Arena，净提升 +30.4%，约为第二名 Opus-5.5（+19.5%）的 1.6 倍，数据来自 4.7k 真实智能体会话。</p>
+        <p class="reason"><span>为什么值得关注</span>真实智能体会话基准下大幅领先，Anthropic 在编码智能体赛道的统治力进一步巩固，直接关系开发者选型。</p>
+        <div class="card-foot">
+          <span class="src">X：Arena</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">05</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 72</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/tcy3t4xkpwuy5rgy7urs2apgt" target="_blank" rel="noopener">AWS 发布 AWS Emulator：为编码智能体提供本地测试环境</a></h3>
+        <p class="summary">AWS 发布 AWS Emulator，为编码智能体提供可本地离线运行的 AWS 副本用于测试，代码 CC0 开源，全部由智能体编写和测试，覆盖 200+ 项 AWS 服务。</p>
+        <p class="reason"><span>为什么值得关注</span>首次出现「由 AI 智能体写代码并自测」的云基础设施测试闭环，预示工程师角色与云端开发范式的根本性重构。</p>
+        <div class="card-foot">
+          <span class="src">Hacker News</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">06</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 72</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/jkkyw2xtgfgsv7gtiwk7g20ft" target="_blank" rel="noopener">Claude Code 默认 30 天删除会话记录，可用 cleanupPeriodDays 保留</a></h3>
+        <p class="summary">Claude Code 默认在 30 天后删除会话记录，建议在 ~/.claude/settings.json 设 cleanupPeriodDays 保留，尤其对打算用会话转录做微调的用户。</p>
+        <p class="reason"><span>为什么值得关注</span>开发者依赖 Claude Code 沉淀的会话数据可能被静默清空，直接影响工作流与数据资产，属高频实用坑。</p>
+        <div class="card-foot">
+          <span class="src">X：Ian Johnson</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">07</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 72</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/vq9nwgwhtm31cgoliyb7ydyde" target="_blank" rel="noopener">OpenRouter 实测六模型并给出四层防护，解决 AI Agent 无限循环烧钱问题</a></h3>
+        <p class="summary">OpenRouter 发布教程，解析 AI Agent 因工具反复失败陷入无限循环的成因，给出 doom-loop 检测、loopKey 归一化、stopWhen 上限、API key 信用额度四层防护。</p>
+        <p class="reason"><span>为什么值得关注</span>智能体「烧钱死循环」是落地最痛的工程问题，OpenRouter 给出可直接套用的完整防护方案，实用价值高。</p>
+        <div class="card-foot">
+          <span class="src">OpenRouter</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">08</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 70</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/t31amj2cpbspohccj3o1ay2i2" target="_blank" rel="noopener">Anthropic 称 Claude 用三天完成 AMD GPU 移植，AI 正在削弱 CUDA 优势</a></h3>
+        <p class="summary">Anthropic 在投资者演示中称 Mythos 几乎无人干预地把 Claude 移植到 AMD MI355X GPU，三天可用，传统工程需 6-12 个月，近 100% kernel 由模型自行移植。</p>
+        <p class="reason"><span>为什么值得关注</span>AI 自主完成跨硬件架构的底层迁移，若成真将颠覆芯片生态格局、削弱 NVIDIA CUDA 护城河，具重大产业意义。</p>
+        <div class="card-foot">
+          <span class="src">The Decoder</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">09</span>
+          <span class="cat">AI Coding·智能体</span>
+          <span class="score">热度 70</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/z9u4n1e7zfapxjozcn97quhdp" target="_blank" rel="noopener">Anthropic 发布 MAMUBench：单一智能体协调胜过各自智能体团队</a></h3>
+        <p class="summary">Anthropic 构建四个多用户多智能体模拟环境，测试 Anthropic/OpenAI/Alibaba 前沿模型，发布三个环境作为基准 MAMUBench。</p>
+        <p class="reason"><span>为什么值得关注</span>聚焦多智能体协作与共享资源预算的稀缺基准，为「一个智能体 vs 智能体团队」的架构之争提供实验证据。</p>
+        <div class="card-foot">
+          <span class="src">Anthropic Alignment Blog</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">10</span>
+          <span class="cat">具身智能</span>
+          <span class="score">热度 69</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/eczeofiunre6yra1xcm7ed76c" target="_blank" rel="noopener">Jim Fan 演示 GR00T 2 原速完成化学实验并自主清理</a></h3>
+        <p class="summary">Jim Fan 发布未剪辑 1 倍速实机视频，展示 GR00T 2 控制真实灵巧手端到端完成化学实验并自行清理，支持 20+ 步长程任务与 X-Adapt 零样本迁移。</p>
+        <p class="reason"><span>为什么值得关注</span>具身智能在真实长程任务上首次以原速实拍展示，破除了「剪辑加速」的质疑，是当日具身方向最有说服力的一手证据。</p>
+        <div class="card-foot">
+          <span class="src">X：Jim Fan</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">11</span>
+          <span class="cat">具身智能</span>
+          <span class="score">热度 67</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/bx3sq4dxfqblyztkuiktiz0wv" target="_blank" rel="noopener">Runway 开源 27B 世界动作模型 Praxis-1，Apache 2.0 许可</a></h3>
+        <p class="summary">Runway 开放世界动作模型 Praxis-1 权重，27B MoE 扩散 Transformer 同时预测视频与动作，在 NVIDIA RoboLab-120 以 46.2% 成功率居首。</p>
+        <p class="reason"><span>为什么值得关注</span>世界动作模型走向开源，RoboLab 榜单登顶，为具身智能与世界模型融合提供了可复现的强基线。</p>
+        <div class="card-foot">
+          <span class="src">Runway</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">12</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 67</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/ep5oqt7m4l7gn3tqieilznmuk" target="_blank" rel="noopener">Claude Code 中如何选择 Fable 5.2 与 Opus 等模型</a></h3>
+        <p class="summary">Claude 发布视频教程，讲解在 Claude Code 中何时用 Fable 5.2/Opus 5.5、何时降级 Sonnet 5.5/Haiku 5.5，以及如何拆分任务给多模型。</p>
+        <p class="reason"><span>为什么值得关注</span>模型矩阵越复杂，选型与降本越关键，官方给出成本/能力平衡的实操指南，对日常编码提效直接可用。</p>
+        <div class="card-foot">
+          <span class="src">Claude：YouTube</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">13</span>
+          <span class="cat">AI Coding·文化</span>
+          <span class="score">热度 66</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/gwjrqp9wjp0offz208i9row04" target="_blank" rel="noopener">Big Walk 开发商披露用 LLM 修复 Unity bug，引发独立游戏界 AI 使用争议</a></h3>
+        <p class="summary">独立游戏《Big Walk》开发商 House House 披露在开发末期少量使用 LLM 修复一个 Unity 阴影 bug，代码占比不到 0.1%，却引爆独立游戏圈争论。</p>
+        <p class="reason"><span>为什么值得关注</span>折射创作者群体对 AI 介入创作底线的敏感情绪，是「AI 辅助开发」伦理边界的一个典型文化样本。</p>
+        <div class="card-foot">
+          <span class="src">Ars Technica</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">14</span>
+          <span class="cat">观点</span>
+          <span class="score">热度 66</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/rqzawxavtsape27uq4n9anorr" target="_blank" rel="noopener">Tim O&#x27;Reilly 长文分析：AI 的杀手级应用可能还没出现</a></h3>
+        <p class="summary">Tim O&#x27;Reilly 撰文提出，ChatGPT、Claude Code 等更像是新平台时代的浏览器和 BASIC，真正改变普通人能力的 AI 原生杀手级应用可能尚未出现。</p>
+        <p class="reason"><span>为什么值得关注</span>资深技术思想家对 AI 应用层阶段的清醒判断，为「当下到底是泡沫还是前夜」之争提供重要视角。</p>
+        <div class="card-foot">
+          <span class="src">O&#x27;Reilly Radar</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">15</span>
+          <span class="cat">头条·商业</span>
+          <span class="score">热度 65</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/gh6y2lbtyon3hs6wrpg3ibzys" target="_blank" rel="noopener">字节跳动拟推类似 Meta Muse 的 AI 助手，张一鸣称 2029/2030 才能追平</a></h3>
+        <p class="summary">据彭博社报道，字节计划未来几周推出类 Meta Muse 的 AI 助手；张一鸣内部称 Seed 预训练数据集比美国顶尖对手小几个数量级，追平要到 2029/2030 年。</p>
+        <p class="reason"><span>为什么值得关注</span>中国头部大厂一把手罕见公开承认数据与算力差距，给出追平时间表，对国产大模型格局判断极具信号意义。</p>
+        <div class="card-foot">
+          <span class="src">IT之家</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">16</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 64</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/kxpq6tyf2efel9eewoemi6yfs" target="_blank" rel="noopener">Muse Ember (Max) 登顶 Arena Agent 高效模型，成本约为竞品四分之一</a></h3>
+        <p class="summary">Meta 的 Muse Ember (Max) 进入 Agent Arena，在 6k 真实会话中以 +1.7% 净改进排高效模型第一，每任务约 $0.02。</p>
+        <p class="reason"><span>为什么值得关注</span>Meta 以极低成本切入编码智能体市场，展示「性价比优先」路线，对预算敏感的开发者与团队有吸引力。</p>
+        <div class="card-foot">
+          <span class="src">X：Arena</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">17</span>
+          <span class="cat">具身智能</span>
+          <span class="score">热度 62</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/e8xhyo4xsh9gbc5r62xdycnen" target="_blank" rel="noopener">Google 发布 Gemini Robotics 2.5 视觉-语言-动作模型</a></h3>
+        <p class="summary">Google 发布 Gemini Robotics 2.5，称在灵巧性、可靠性、安全性三方面显著提升，Apptronik Apollo 2 在 Mercedes-Benz 产线以 96% 成功率拣选打包零部件。</p>
+        <p class="reason"><span>为什么值得关注</span>VLA 模型在真实汽车产线以高成功率落地，标志具身智能从实验室向工业场景规模化推进的关键一步。</p>
+        <div class="card-foot">
+          <span class="src">X：Google</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">18</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 62</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/pr4mvilpzgsenpkhjr1o6f180" target="_blank" rel="noopener">百度 ERNIE 5.5 Flash Preview 上线 Arena 评测平台</a></h3>
+        <p class="summary">ERNIE 5.5 Flash Preview 上线 Arena，总参数 280B、每 token 激活 14B、1M 上下文、超 200 tokens/sec，权重将于 11 月 25 日前发布。</p>
+        <p class="reason"><span>为什么值得关注</span>国产模型以开源权重策略冲击编码赛道，参数与价格定位对标一线，值得关注其 Code Arena 后续表现。</p>
+        <div class="card-foot">
+          <span class="src">X：Arena</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">19</span>
+          <span class="cat">AI Coding</span>
+          <span class="score">热度 62</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/lk5yiww5t7sooazffyn4qcxlx" target="_blank" rel="noopener">CMU 与 JetBrains 论文：token 花费衡量的是 AI 使用量而非工程产出</a></h3>
+        <p class="summary">研究发现 token 消耗反映工程师使用 AI 智能体的程度而非实际产出，关联 404 名工程师 5 周 token 使用与提交记录，九成岗位把智能体用于编码之外任务。</p>
+        <p class="reason"><span>为什么值得关注</span>戳破「token 用量=生产力」的迷思，为企业评估 AI 编码投入产出提供实证依据，值得管理者深思。</p>
+        <div class="card-foot">
+          <span class="src">X：Rohan Paul</span>
+          <span class="badge pool">未进精选</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-top">
+          <span class="rank">20</span>
+          <span class="cat">观点·智能体</span>
+          <span class="score">热度 62</span>
+        </div>
+        <h3 class="title"><a href="https://aihot.news/items/bisaluc0ii0f4s1gzi2zxbr1k" target="_blank" rel="noopener">a16z 提出 B2A 经济：AI 智能体正成为新的流量与分发渠道</a></h3>
+        <p class="summary">a16z 发布文章提出 B2A 经济概念，用 Shopify、Vercel、Stripe 等多组增长数据拆解智能体如何成为新的分发渠道，从回答问题转向代替用户消费。</p>
+        <p class="reason"><span>为什么值得关注</span>顶级 VC 用真实增长数据为「智能体即渠道」定名立论，为产品增长与商业模式创新提供新框架。</p>
+        <div class="card-foot">
+          <span class="src">a16z</span>
+          <span class="badge sel">精选</span>
+        </div>
+      </article>
+  </main>
+  <footer>数据来源 AIHOT（aihot.news）· 精选池优先，关键词方向精选池为空时由全量池补充并标注「未进精选」· 本页单文件内联，可离线打开</footer>
+</div>
+</body>
+</html>
