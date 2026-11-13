@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-13</title>
+<style>
+:root {
+  --bg: #05070f;
+  --bg2: #0a0f1f;
+  --card: rgba(16,22,42,0.72);
+  --border: rgba(0,224,255,0.14);
+  --text: #e6ecff;
+  --muted: #8b96b8;
+  --cyan: #00e0ff;
+  --purple: #b388ff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { background:var(--bg); }
+body {
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  color:var(--text);
+  min-height:100vh;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+/* 背景网格 */
+body::before {
+  content:""; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    linear-gradient(rgba(0,224,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,224,255,0.05) 1px, transparent 1px);
+  background-size:44px 44px;
+}
+/* 霓虹光晕 */
+body::after {
+  content:""; position:fixed; z-index:0; pointer-events:none;
+  width:60vw; height:60vw; top:-20vw; left:-10vw; border-radius:50%;
+  background:radial-gradient(circle, rgba(0,224,255,0.16), transparent 60%);
+  filter:blur(40px);
+}
+.wrap { position:relative; z-index:1; max-width:1000px; margin:0 auto; padding:48px 20px 80px; }
+header { text-align:center; margin-bottom:36px; }
+header .kicker {
+  display:inline-block; font-size:12px; letter-spacing:3px; color:var(--cyan);
+  border:1px solid var(--border); padding:5px 16px; border-radius:20px; margin-bottom:16px;
+}
+header h1 {
+  font-size:clamp(26px,5vw,44px); font-weight:800; letter-spacing:1px;
+  background:linear-gradient(120deg,#fff, #7ef0ff 45%, #b388ff 80%);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;
+}
+header .sub { color:var(--muted); margin-top:12px; font-size:14px; }
+.stats {
+  display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:20px;
+}
+.stats .chip {
+  font-size:12px; padding:6px 14px; border-radius:20px; color:var(--muted);
+  background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08);
+}
+.stats .chip b { color:var(--text); }
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+.card {
+  background:var(--card); border:1px solid var(--border); border-radius:16px;
+  padding:20px; position:relative; overflow:hidden;
+  backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  display:flex; flex-direction:column;
+}
+.card:hover {
+  transform:translateY(-4px); border-color:rgba(0,224,255,0.4);
+  box-shadow:0 12px 40px rgba(0,224,255,0.12);
+}
+.card::before {
+  content:""; position:absolute; top:0; left:0; right:0; height:2px;
+  background:linear-gradient(90deg,var(--cyan),var(--purple));
+  opacity:.7;
+}
+.card-head { display:flex; align-items:flex-start; gap:12px; margin-bottom:12px; }
+.rank {
+  font-size:13px; font-weight:800; color:var(--cyan);
+  background:rgba(0,224,255,0.1); border:1px solid rgba(0,224,255,0.3);
+  padding:4px 8px; border-radius:8px; flex-shrink:0;
+}
+.card-head-main { flex:1; min-width:0; }
+.card-title { font-size:16px; font-weight:700; line-height:1.4; }
+.meta { display:flex; flex-wrap:wrap; align-items:center; gap:8px; margin-top:8px; }
+.cat { font-size:11px; padding:2px 8px; border-radius:10px; }
+.seltag { font-size:11px; padding:2px 8px; border-radius:10px; color:#ffd166; background:#ffd16622; border:1px solid #ffd16655; }
+.seltag.alt { color:#9aa6c8; background:#ffffff12; border:1px solid #ffffff22; }
+.src { font-size:11px; color:var(--muted); }
+.hotnum { font-size:26px; font-weight:800; flex-shrink:0; line-height:1; }
+.hotbar { height:5px; border-radius:4px; background:rgba(255,255,255,0.07); overflow:hidden; margin-bottom:14px; }
+.hotfill { height:100%; border-radius:4px; }
+.sum { font-size:13.5px; color:#c7d0ea; margin-bottom:12px; }
+.why {
+  font-size:12.5px; color:var(--muted); background:rgba(0,224,255,0.05);
+  border-left:3px solid var(--cyan); padding:8px 12px; border-radius:0 8px 8px 0; margin-bottom:12px;
+}
+.why-label { color:var(--cyan); font-weight:600; margin-right:6px; }
+.link {
+  margin-top:auto; display:inline-block; font-size:12.5px; color:var(--purple);
+  text-decoration:none; font-weight:600;
+}
+.link:hover { text-decoration:underline; }
+footer { text-align:center; margin-top:40px; color:var(--muted); font-size:12px; }
+footer a { color:var(--cyan); text-decoration:none; }
+@media (max-width:480px) {
+  .grid { grid-template-columns:1fr; }
+  .wrap { padding:36px 14px 60px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker">AI INTELLIGENCE DAILY</span>
+    <h1>AI 情报日报</h1>
+    <div class="sub">2026-11-13 · 过去 24 小时 AI 圈动态 · 侧重 AI Coding 与具身智能</div>
+    <div class="stats">
+      <span class="chip">共 <b>20</b> 条</span>
+      <span class="chip">AI Coding <b>9</b></span>
+      <span class="chip">具身智能 <b>4</b></span>
+      <span class="chip">今日头条 <b>4</b></span>
+      <span class="chip">精选 <b>2</b> · 全量补充 <b>18</b></span>
+    </div>
+  </header>
+  <main class="grid">
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#01</span>
+        <div class="card-head-main">
+          <h2 class="card-title">黄仁勋辞任英伟达 CEO 并退出董事会</h2>
+          <div class="meta">
+            <span class="cat" style="color:#ff4d6d;background:#ff4d6d33;border:1px solid #ff4d6d55;">今日头条</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">NVIDIA Newsroom</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ff4d6d">95</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:100%;background:linear-gradient(90deg,#ff4d6d33,#ff4d6d);"></div></div>
+      <p class="sum">NVIDIA 宣布 CEO 黄仁勋因承认与一名涉嫌中国间谍者的婚外情而辞任并退出董事会，CFO Colette Kress 出任临时 CEO。该事件信号数达 101、11 家信源跟进，是当日 AI 圈最重磅的人事地震。</p>
+      <div class="why"><span class="why-label">为何关注</span>全球 AI 算力龙头 CEO 突发离任，或重塑开源模型（Nemotron）战略与 Hugging Face 130 亿美元收购走向。</div>
+      <a class="link" href="https://aihot.news/items/qsbjbz754aodhcijq56puh6va" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#02</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Google 发布 Gemini 4 Hydrogen</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00ffa3;background:#00ffa326;border:1px solid #00ffa355;">AI 大模型</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">Google DeepMind / The Decoder</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ff4d6d">86</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:90%;background:linear-gradient(90deg,#ff4d6d33,#ff4d6d);"></div></div>
+      <p class="sum">Gemini 4 Hydrogen 主打快速低价处理日常任务，在 Artificial Analysis 智能指数上 high 档 51 分、xhigh 档 54 分，超过 Gemini 4 Argon 的 50 分，速度较 3.8 Flash 快 2.5 倍，并接入搜索与编程工具。</p>
+      <div class="why"><span class="why-label">为何关注</span>Gemini 4 系列再添高性价比新成员，直接对标 Claude Sonnet 5.5，且内置编程工具接入，是 AI coding 基础设施的关键变量。</div>
+      <a class="link" href="https://aihot.news/items/u7yh59ito20pqcy3kfrg1jao9" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#03</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Anthropic 建议把 Claude Opus 5.5 作为知识工作日常主力</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00ffa3;background:#00ffa326;border:1px solid #00ffa355;">AI 大模型</span>
+            <span class="seltag">精选</span>
+            <span class="src">Claude Blog</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ff4d6d">85</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:89%;background:linear-gradient(90deg,#ff4d6d33,#ff4d6d);"></div></div>
+      <p class="sum">Anthropic 宣布 Claude Opus 5.5 成为 Pro/Max/Ultra/Team 套餐默认模型，并推荐作为研究、分析、写作等知识工作的日常主力，附带各档模型定位与提示词习惯调整建议。</p>
+      <div class="why"><span class="why-label">为何关注</span>官方首次明确&quot;日常主力&quot;定位，为开发者与知识工作者提供了清晰的模型选型坐标。</div>
+      <a class="link" href="https://aihot.news/items/t5pucqx6ac58z0ed1b0875ci0" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#04</span>
+        <div class="card-head-main">
+          <h2 class="card-title">黄仁勋辞职引发 Nvidia 开源 AI 战略延续性疑问</h2>
+          <div class="meta">
+            <span class="cat" style="color:#ff4d6d;background:#ff4d6d33;border:1px solid #ff4d6d55;">今日头条</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">TechCrunch</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ff4d6d">83</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:87%;background:linear-gradient(90deg,#ff4d6d33,#ff4d6d);"></div></div>
+      <p class="sum">黄仁勋离任引发对其开源 AI 支持路线能否延续的疑问：他此前推动 Nemotron 开源、支持收购 Hugging Face 130 亿美元交易，并牵头 25 家公司联名信反对政府过度限制开源权重模型。</p>
+      <div class="why"><span class="why-label">为何关注</span>开源 AI 生态的&quot;旗手&quot;易主，Nemotron 与 Hugging Face 收购案的走向牵动整个开源社区。</div>
+      <a class="link" href="https://aihot.news/items/ey8wwzav6ohoxh11jw491kcjg" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#05</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Anthropic 启动 IPO 路演，估值预期回落至 1.25–1.75 万亿美元</h2>
+          <div class="meta">
+            <span class="cat" style="color:#ff4d6d;background:#ff4d6d33;border:1px solid #ff4d6d55;">今日头条</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">Anthropic Newsroom</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">72</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:75%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">Anthropic 启动 IPO 路演并公开 S-1，市场估值预期从早前高点回落至 1.25–1.75 万亿美元区间。</p>
+      <div class="why"><span class="why-label">为何关注</span>AI 头部实验室上市定价，将成为衡量整个 AI 赛道泡沫与真实价值的风向标。</div>
+      <a class="link" href="https://aihot.news/items/xywgx35ocbe6mzl2pnajw8ruu" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#06</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Hugging Face CEO 承诺黄仁勋离任后继续力挺开源 AI</h2>
+          <div class="meta">
+            <span class="cat" style="color:#ffb020;background:#ffb02026;border:1px solid #ffb02055;">开源生态</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">TechCrunch</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">73</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:77%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">Hugging Face CEO Clément Delangue 在 X 回应黄仁勋离任，称&quot;这是令人难过的一天&quot;，并承诺比以往更坚定地支持开源 AI。</p>
+      <div class="why"><span class="why-label">为何关注</span>开源社区核心平台表态，稳定开发者对开源权重模型未来供给的预期。</div>
+      <a class="link" href="https://aihot.news/items/mkahdchhxfc4z36augopprdh9" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#07</span>
+        <div class="card-head-main">
+          <h2 class="card-title">AWS 发布 Emulator：由 AI 智能体编写的 200+ 服务本地模拟器</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">MarkTechPost</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">71</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:74%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">AWS Emulator 可在本地或 CI 提供 AWS API 端点，覆盖 438 个 API 模型、200+ 服务，全部代码由智能体编写和评审，无需 AWS 账号、免费、CC0 许可。</p>
+      <div class="why"><span class="why-label">为何关注</span>&quot;智能体写代码&quot;落地的标志性案例，极大降低 AWS 本地开发与测试门槛。</div>
+      <a class="link" href="https://aihot.news/items/wsm9qxvjfsnzxcgfbmwtk0lcl" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#08</span>
+        <div class="card-head-main">
+          <h2 class="card-title">OpenAI 分析：前沿模型隐藏推理源于能力与算力的取舍</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">The Decoder</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">70</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:73%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">OpenAI 安全团队追踪 GPT-5 至 GPT-6 Astra，归纳链式思维可监控性退化的四个训练因素：预训练能力提升带来的无声推理、偏向无声推理的架构选择、RL 训练对 CoT 可控性、师生模型继承效应。</p>
+      <div class="why"><span class="why-label">为何关注</span>解释了&quot;模型为何越来越难被看懂推理&quot;这一可解释性与安全核心难题的成因。</div>
+      <a class="link" href="https://aihot.news/items/metjpail2t5z1ctw3rjbx9t76" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#09</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Replit Agent 新增代购能力和 Google Ads 投放功能</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag">精选</span>
+            <span class="src">Replit Blog</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">69</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:72%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">Replit Agent 新增两项能力：通过 Stripe Link/Visa 为企业代购物资，以及在 Replit 内直接创建并投放 Google Ads（覆盖 Search/YouTube 等渠道）。</p>
+      <div class="why"><span class="why-label">为何关注</span>AI Agent 从&quot;写代码&quot;迈向&quot;代办真实商业交易&quot;，智能体能力边界进一步外扩。</div>
+      <a class="link" href="https://aihot.news/items/k7sfjumcmtq0zswb5yj5kmju1" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#10</span>
+        <div class="card-head-main">
+          <h2 class="card-title">GitHub 发布 Agent Skills 实操指南：一次编写、跨 Agent 复用</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">GitHub Blog</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">65</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:68%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">GitHub 发布 Agent Skills 实操指南，讲解如何用 SKILL.md 把可重复任务指令沉淀为可跨 Agent 复用的版本化技能目录。</p>
+      <div class="why"><span class="why-label">为何关注</span>Agent Skills 标准化是 AI coding 工具链互操作的关键趋势，与 Claude/Gemini 等生态高度相关。</div>
+      <a class="link" href="https://aihot.news/items/x04qbasi3n5obqnr0ty2k99jk" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#11</span>
+        <div class="card-head-main">
+          <h2 class="card-title">百度 ERNIE 5.5 Flash Preview 冲上 Code Arena: WebDev 开源第二</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">X: Arena</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">63</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:66%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">百度 ERNIE 5.5 Flash Preview 以 1668 分趋向成为 Code Arena: WebDev 第二名开源模型，高于 DeepSeek-V4.1-Flash 与 Kimi K3，权重将于 11 月 25 日前开放。</p>
+      <div class="why"><span class="why-label">为何关注</span>国产开源模型在代码基准上逼近第一梯队，权重开源后对中文 AI coding 生态影响直接。</div>
+      <a class="link" href="https://aihot.news/items/zru3s43ihsxgfl0swtwj5l52r" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#12</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Runway 开源机器人模型 Praxis-1，速度比 GPT-6 Astra 机械臂快 15.6 倍</h2>
+          <div class="meta">
+            <span class="cat" style="color:#b388ff;background:#b388ff26;border:1px solid #b388ff55;">具身智能</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">IT之家 / Runway</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#ffb020">60</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:63%;background:linear-gradient(90deg,#ffb02033,#ffb020);"></div></div>
+      <p class="sum">Runway 于 11 月 11 日推出机器人模型 Praxis-1，将视频预训练知识迁移到真实机器人控制，Apache 2.0 开源权重，权重与代码分别公开在 Hugging Face 和 GitHub。</p>
+      <div class="why"><span class="why-label">为何关注</span>视频生成巨头切入具身智能，&quot;视频→动作&quot;迁移路径是当下机器人基础模型的热门路线。</div>
+      <a class="link" href="https://aihot.news/items/ifml1k624yaj9mf80iu2c8k2r" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#13</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Expo 推出面向编码智能体的云模拟器 Expo Simulators</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">X: Rohan Paul</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">59</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:62%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">Expo Simulators 为编码智能体提供云模拟器，智能体可先自行运行测试改动再请求开发者关注；通过 eas simulator 启动远程会话，每次会话录制屏幕并返回截图、视频和可点按链接。</p>
+      <div class="why"><span class="why-label">为何关注</span>补齐 AI coding 智能体&quot;运行验证&quot;环节，推动从生成代码到可测试闭环。</div>
+      <a class="link" href="https://aihot.news/items/p935mhv2h5eupt8h3afp3jc31" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#14</span>
+        <div class="card-head-main">
+          <h2 class="card-title">SGLang-Neuron v0.1.0 开源：SGLang 推理栈登陆 AWS Trainium</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">LMSYS Blog</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">59</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:62%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">SGLang 团队与 AWS Annapurna Labs 联合开源 SGLang-Neuron v0.1.0，PyTorch 原生插件可在 AWS Trainium 上以公共预览形式服务 LLM 和扩散模型。</p>
+      <div class="why"><span class="why-label">为何关注</span>主流推理框架支持自研 AI 芯片，标志异构算力生态进一步成熟。</div>
+      <a class="link" href="https://aihot.news/items/kizrx1yr4qr9m475yjx3wy2ka" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#15</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Claude Code v2.1.323 发布，新增实验性 Code Mode</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">Claude Code Releases</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">58</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:61%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">Claude Code v2.1.323 新增实验性 opt-in 的 Code Mode，让 Claude 编写 JavaScript 调用自身工具，可在组织层面开启或关闭。</p>
+      <div class="why"><span class="why-label">为何关注</span>&quot;用代码操作自身工具&quot;让智能体具备更强的元编程与自主能力，是 Agentic coding 的重要演进。</div>
+      <a class="link" href="https://aihot.news/items/qhgxrmpw4dwhq0nvvs330hngs" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#16</span>
+        <div class="card-head-main">
+          <h2 class="card-title">CopilotKit 开源 AI 同事 OpenBot 1.0，MIT 协议、自托管可治理</h2>
+          <div class="meta">
+            <span class="cat" style="color:#00e0ff;background:#00e0ff26;border:1px solid #00e0ff55;">AI Coding</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">MarkTechPost</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">58</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:61%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">CopilotKit 于 11 月 9 日发布 MIT 协议、可自托管的智能体工作区 OpenBot 1.0，每 Bot 独立容器，浏览器点击、文件写入、MCP 调用先经 CEL 策略网关检查并审计后执行。</p>
+      <div class="why"><span class="why-label">为何关注</span>自带治理与审计的开源 Agent 工作区，直击企业落地 AI 同事的合规痛点。</div>
+      <a class="link" href="https://aihot.news/items/y6bkc94t7oruurd9hb46zs5pr" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#17</span>
+        <div class="card-head-main">
+          <h2 class="card-title">X Square 宣布 WALL-OSS 0.5 加入 LeRobot VLA 家族</h2>
+          <div class="meta">
+            <span class="cat" style="color:#b388ff;background:#b388ff26;border:1px solid #b388ff55;">具身智能</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">X: X Square Robot</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">54</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:57%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">X Square Robot 宣布 WALL-OSS 0.5 加入 LeRobot VLA 家族：一个 4B 视觉-语言-动作模型，还能生成文本、支持 /vqa 并自行规划子任务；LeRobot 0.7 共新增五个 VLA。</p>
+      <div class="why"><span class="why-label">为何关注</span>国产具身智能 VLA 进入 Hugging Face LeRobot 官方家族，开源机器人生态再添生力军。</div>
+      <a class="link" href="https://aihot.news/items/v3hs5zg5gd55yi01g1wsva2u3" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#18</span>
+        <div class="card-head-main">
+          <h2 class="card-title">Anthropic 推出 Claude Meetings，让 Claude 以参会者身份加入视频会议</h2>
+          <div class="meta">
+            <span class="cat" style="color:#ff4d6d;background:#ff4d6d33;border:1px solid #ff4d6d55;">今日头条</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">The Decoder</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">53</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:56%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">Anthropic 向 Team/Enterprise 推出 Claude Meetings，Claude 以可见参会者身份加入视频通话，可回答问题、生成文档白板、记录笔记与行动项，会议产出可在 claude.ai 专用页查看。</p>
+      <div class="why"><span class="why-label">为何关注</span>Agent 从&quot;后台助手&quot;走向&quot;会议在场者&quot;，协作形态的一次可见跃迁。</div>
+      <a class="link" href="https://aihot.news/items/fii8iaht4yklmdxiud8qy18od" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#19</span>
+        <div class="card-head-main">
+          <h2 class="card-title">星海图赵行 CoRL 2026 演讲：按时间尺度拆分机器人智能</h2>
+          <div class="meta">
+            <span class="cat" style="color:#b388ff;background:#b388ff26;border:1px solid #b388ff55;">具身智能</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">X: 星海图 Galaxea</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">43</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:45%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">星海图联合创始人、清华助理教授赵行在 CoRL 2026 早期职业演讲提出，机器人智能应按时间尺度而非感知/规划/控制划分：秒级 System 2 推理、数十赫兹 System 1 策略、数百赫兹 System 0 接触控制。</p>
+      <div class="why"><span class="why-label">为何关注</span>提出具身智能架构的新划分范式，对机器人基础模型设计有启发性。</div>
+      <a class="link" href="https://aihot.news/items/nnza8i3zi0lnr27tie4t7ws9r" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="rank">#20</span>
+        <div class="card-head-main">
+          <h2 class="card-title">AMD CEO 苏姿丰 CoRL 2026 对话李飞飞，谈机器人与物理 AI</h2>
+          <div class="meta">
+            <span class="cat" style="color:#b388ff;background:#b388ff26;border:1px solid #b388ff55;">具身智能</span>
+            <span class="seltag alt">未进精选</span>
+            <span class="src">X: Lisa Su</span>
+          </div>
+        </div>
+        <div class="hotnum" style="color:#00e0ff">28</div>
+      </div>
+      <div class="hotbar"><div class="hotfill" style="width:30%;background:linear-gradient(90deg,#00e0ff33,#00e0ff);"></div></div>
+      <p class="sum">AMD CEO 苏姿丰出席 CoRL 2026，与李飞飞就机器人技术、物理 AI 的进展与未来机遇展开交流，并感谢 CoRL 社区。</p>
+      <div class="why"><span class="why-label">为何关注</span>半导体巨头 CEO 亲临机器人学术顶会，释放产业资本重仓具身智能的信号。</div>
+      <a class="link" href="https://aihot.news/items/qg8zu97rwp0qb5u7194leqnot" target="_blank" rel="noopener">查看详情 ↗</a>
+    </article>
+  </main>
+  <footer>
+    数据来源 <a href="https://aihot.news" target="_blank" rel="noopener">AI HOT</a> · 过去 24 小时时间窗 · 按热度降序排列<br>
+    标注「未进精选」的条目来自全量池（mode=all）补充
+  </footer>
+</div>
+</body>
+</html>
