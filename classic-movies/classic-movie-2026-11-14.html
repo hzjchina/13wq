@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>为奴十二年</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #d4a017;
+    --accent2: #b58900;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.85;
+    font-size: 17px;
+    padding: 32px 16px 64px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header {
+    text-align: center;
+    padding: 40px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  header .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: 38px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+  }
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 28px 0;
+  }
+  .meta {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .meta .k { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .meta .v { font-size: 16px; font-weight: 600; }
+  .score {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  section { margin-bottom: 36px; }
+  h2 {
+    font-size: 22px;
+    margin-bottom: 16px;
+    padding-left: 14px;
+    border-left: 4px solid var(--accent);
+  }
+  p { margin-bottom: 14px; color: #c9d1d9; }
+  .highlight-list { list-style: none; }
+  .highlight-list li {
+    position: relative;
+    padding: 12px 0 12px 30px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .highlight-list li:last-child { border-bottom: none; }
+  .highlight-list li::before {
+    content: "✦";
+    position: absolute;
+    left: 4px;
+    color: var(--accent);
+  }
+  .quote {
+    background: var(--card);
+    border-left: 4px solid var(--accent2);
+    border-radius: 8px;
+    padding: 20px 22px;
+    font-style: italic;
+    color: #d0d7de;
+    margin: 24px 0;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16px; padding: 20px 12px 48px; }
+    h1 { font-size: 30px; }
+    .meta-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="tag">Classic · 必看经典</div>
+    <h1>为奴十二年</h1>
+    <div class="subtitle">12 Years a Slave · 2013 · 史蒂夫·麦奎因</div>
+  </header>
+
+  <div class="meta-grid">
+    <div class="meta"><div class="k">导演</div><div class="v">史蒂夫·麦奎因</div></div>
+    <div class="meta"><div class="k">主演</div><div class="v">切瓦特·埃加福</div></div>
+    <div class="meta"><div class="k">豆瓣评分</div><div class="v score">8.3 / 10</div></div>
+    <div class="meta"><div class="k">IMDb</div><div class="v score">8.1 / 10</div></div>
+    <div class="meta"><div class="k">奥斯卡</div><div class="v">最佳影片 · 最佳女配 · 最佳改编剧本</div></div>
+    <div class="meta"><div class="k">类型</div><div class="v">传记 · 历史 · 剧情</div></div>
+  </div>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>19 世纪中叶的美国，自由黑人、才华出众的小提琴手所罗门·诺瑟普在纽约生活安逸。一天，他被人以演出邀约为名诱骗，遭到下药与绑架，从此被卖入南方种植园，沦为奴隶。</p>
+    <p>在此后的十二年里，所罗门被迫隐姓埋名、辗转于多个残暴的庄园主之间。他在绝境中小心翼翼地保守着"自己曾是自由人"的秘密，一边忍受非人的劳作与屈辱，一边抓住一切微茫的机会，等待重获自由的那一天。</p>
+    <p>全片改编自所罗门·诺瑟普本人撰写的真实回忆录，是一段关于身份被剥夺、尊严被践踏，却始终不曾熄灭希望的人性史诗。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul class="highlight-list">
+      <li><strong>真实到令人窒息</strong> —— 改编自本人回忆录，每一个细节都有史料支撑，不是虚构的苦难，而是历史中真切的回响。</li>
+      <li><strong>切瓦特·埃加福的封神表演</strong> —— 他将隐忍、恐惧与坚韧的层次演绎得入木三分，成为全片的灵魂支柱。</li>
+      <li><strong>导演史蒂夫·麦奎因的克制镜头</strong> —— 长镜头与留白，不煽情却直击人心，苦难被拍得庄重而有力。</li>
+      <li><strong>汉斯·季默的配乐</strong> —— 音乐克制而苍凉，与画面共同织成一股无法忽视的情感张力。</li>
+      <li><strong>奥斯卡三重加冕</strong> —— 最佳影片、最佳女配、最佳改编剧本，影史地位得到公认。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>这不仅是一部电影，更是一段被重新唤醒的历史记忆。它以一个人的命运，照见了整个时代最黑暗也最坚韧的一面。它不贩卖悲情，而是用最克制的方式，让人重新理解"自由"与"尊严"这两个词的重量。</p>
+    <p>看完之后，你会久久沉默，也会重新审视今天所拥有的一切。这是一部会留在你心里很久的电影。</p>
+    <div class="quote">"我并不只是要活下去，我要以一个自由人的身份活下去。"</div>
+  </section>
+
+  <footer>每日一部 · 经典电影推荐 🦐</footer>
+</div>
+</body>
+</html>
