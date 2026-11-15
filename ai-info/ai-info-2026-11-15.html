@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-15</title>
+<style>
+:root {{
+  --bg: #05070f;
+  --panel: rgba(20, 26, 48, 0.55);
+  --line: rgba(120, 160, 255, 0.14);
+  --text: #dce4ff;
+  --muted: #8b96b8;
+  --code: #22d3ee;
+  --emb: #a78bfa;
+  --gold: #fbbf24;
+  --pink: #f472b6;
+}}
+* {{ box-sizing: border-box; margin: 0; padding: 0; }}
+html, body {{ background: var(--bg); }}
+body {{
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+  color: var(--text); line-height: 1.6; min-height: 100vh; overflow-x: hidden; position: relative;
+}}
+body::before {{
+  content: ""; position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(120,160,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(120,160,255,0.05) 1px, transparent 1px);
+  background-size: 48px 48px; pointer-events: none; z-index: 0;
+}}
+.glow {{ position: fixed; border-radius: 50%; filter: blur(120px); opacity: 0.55; pointer-events: none; z-index: 0; }}
+.g1 {{ width: 480px; height: 480px; background: #2563eb; top: -140px; left: -120px; }}
+.g2 {{ width: 420px; height: 420px; background: #7c3aed; top: 20%; right: -140px; }}
+.g3 {{ width: 520px; height: 520px; background: #0e7490; bottom: -180px; left: 30%; }}
+.wrap {{ position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 48px 20px 64px; }}
+header {{ text-align: center; margin-bottom: 40px; }}
+.kicker {{
+  display: inline-block; font-size: 13px; letter-spacing: 3px; color: var(--gold);
+  border: 1px solid rgba(251,191,36,0.35); padding: 4px 16px; border-radius: 999px;
+  background: rgba(251,191,36,0.06); margin-bottom: 18px;
+}}
+h1 {{
+  font-size: clamp(28px, 5vw, 44px); font-weight: 800; letter-spacing: 1px;
+  background: linear-gradient(90deg, #60a5fa, #a78bfa, #f472b6);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}}
+.sub {{ color: var(--muted); font-size: 15px; }}
+.stats {{ display: flex; justify-content: center; flex-wrap: wrap; gap: 14px; margin-top: 26px; }}
+.stat {{
+  padding: 10px 22px; border-radius: 14px; background: var(--panel);
+  border: 1px solid var(--line); backdrop-filter: blur(8px); font-size: 14px;
+}}
+.stat b {{ color: #fff; font-size: 18px; margin-right: 4px; }}
+.grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }}
+.card {{
+  position: relative; background: var(--panel); border: 1px solid var(--line);
+  border-radius: 16px; padding: 20px; backdrop-filter: blur(10px);
+  transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+  display: flex; flex-direction: column; gap: 10px; overflow: hidden;
+}}
+.card:hover {{
+  transform: translateY(-4px); border-color: rgba(96,165,250,0.5); box-shadow: 0 12px 40px rgba(37,99,235,0.25);
+}}
+.card::after {{
+  content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+  background: linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6); opacity: 0.7;
+}}
+.card-head {{ display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }}
+.rank {{ font-weight: 800; font-size: 15px; color: #fff; background: linear-gradient(135deg, #2563eb, #7c3aed); padding: 2px 10px; border-radius: 8px; }}
+.tag {{ font-size: 12px; padding: 2px 10px; border-radius: 999px; font-weight: 600; }}
+.tag.code {{ color: var(--code); border: 1px solid rgba(34,211,238,0.4); background: rgba(34,211,238,0.08); }}
+.tag.emb {{ color: var(--emb); border: 1px solid rgba(167,139,250,0.4); background: rgba(167,139,250,0.08); }}
+.tag.headline {{ color: var(--gold); border: 1px solid rgba(251,191,36,0.4); background: rgba(251,191,36,0.08); }}
+.badge {{ font-size: 12px; padding: 2px 10px; border-radius: 999px; }}
+.badge.sel {{ color: var(--gold); border: 1px solid rgba(251,191,36,0.4); background: rgba(251,191,36,0.08); }}
+.badge.all {{ color: var(--muted); border: 1px solid rgba(139,150,184,0.35); background: rgba(139,150,184,0.08); }}
+.heat {{ margin-left: auto; font-size: 13px; color: var(--pink); font-weight: 700; }}
+.title {{ font-size: 16px; font-weight: 700; color: #eaf0ff; text-decoration: none; line-height: 1.45; }}
+.title:hover {{ color: #60a5fa; }}
+.summary {{ font-size: 13.5px; color: #b9c3e0; flex: 1; }}
+.note {{ font-size: 13px; color: #94a3c8; border-left: 3px solid rgba(96,165,250,0.5); padding-left: 10px; }}
+.meta {{ display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }}
+.orig {{ color: #60a5fa; text-decoration: none; }}
+.orig:hover {{ text-decoration: underline; }}
+footer {{ text-align: center; color: var(--muted); font-size: 13px; margin-top: 44px; }}
+footer a {{ color: #60a5fa; text-decoration: none; }}
+@media (max-width: 560px) {{
+  .wrap {{ padding: 32px 14px 48px; }}
+  .grid {{ grid-template-columns: 1fr; }}
+}}
+</style>
+</head>
+<body>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+<div class="glow g3"></div>
+<div class="wrap">
+  <header>
+    <span class="kicker">AI INTELLIGENCE DAILY</span>
+    <h1>AI 情报日报</h1>
+    <p class="sub">2026-11-15 · 过去 24 小时 · 侧重 AI Coding 与具身智能</p>
+    <div class="stats">
+      <div class="stat"><b>20</b>条精选情报</div>
+      <div class="stat"><b>13</b>AI Coding</div>
+      <div class="stat"><b>2</b>具身智能</div>
+      <div class="stat"><b>6</b>进精选池</div>
+    </div>
+  </header>
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#01</span>
+        <span class="tag headline">头条</span>
+        <span class="badge sel">精选</span>
+        <span class="heat">热度 84</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/gslfz6uqr2sqy68cgv38i4tf0" target="_blank" rel="noopener">黄仁勋离开 Nvidia：远见型创始人 CEO 时代落幕</a>
+      <p class="summary">The Verge 长文回顾黄仁勋因走私丑闻和婚外情指控离开 Nvidia，分析这位执掌首家 5 万亿美元公司、占标普 500 约 6% 的创始人的离去意味着什么。</p>
+      <p class="note">💡 史上最具影响力的芯片 CEO 骤然离场，直接动摇全球 AI 算力格局，是本周 AI 圈的头号事件，波及所有大模型与具身智能玩家的供应链。</p>
+      <div class="meta"><span class="src">The Verge：AI（RSS）</span><a class="orig" href="https://www.theverge.com/tech/1033781/nvidia-jensen-huang-last-visionary-showman-founder-ceo" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#02</span>
+        <span class="tag headline">头条</span>
+        <span class="badge sel">精选</span>
+        <span class="heat">热度 84</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/umoosrbjhi12kj7lv51qan4ju" target="_blank" rel="noopener">马斯克等高管联署请愿，要求 Nvidia 恢复黄仁勋 CEO 职务</a>
+      <p class="summary">请愿书截至周六已获超 11.5 万签名，含 5,965 名在职员工、1,108 名前员工和 63,063 名股东；马斯克、Replit CEO Amjad Masad、Epic CEO Tim Sweeney 均已联署。</p>
+      <p class="note">💡 科技领袖罕见集体发声挽留一位 CEO，折射出市场对 Nvidia 领导真空的深度焦虑，也牵动整个 AI 基础设施的短期走向。</p>
+      <div class="meta"><span class="src">TechCrunch：AI（RSS）</span><a class="orig" href="https://techcrunch.com/2026/11/14/elon-musk-other-tech-execs-sign-petition-calling-on-nvidia-to-reinstate-jensen-huang/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#03</span>
+        <span class="tag headline">头条</span>
+        <span class="badge sel">精选</span>
+        <span class="heat">热度 84</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/ni18shok3lh70l1e49nazmgdc" target="_blank" rel="noopener">黄仁勋离开 Nvidia 后，亚洲各国政府如何回应</a>
+      <p class="summary">韩国科技部称 Nvidia 重申将供应 260,000 块先进 GPU 并继续联合 AI 项目；台湾经济部长龚明鑫认为不太可能显著改变全球 AI 产业增长；日本产业省表示密切关注。</p>
+      <p class="note">💡 地缘算力信号——亚洲各国政府迅速表态安抚市场，GPU 供应链的区域化博弈进入新阶段，对国产算力替代与 AI 基础设施投资均有启示。</p>
+      <div class="meta"><span class="src">TechCrunch：AI（RSS）</span><a class="orig" href="https://techcrunch.com/2026/11/14/asian-governments-react-to-nvidia-ceo-jensen-huangs-exit/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#04</span>
+        <span class="tag headline">头条</span>
+        <span class="badge sel">精选</span>
+        <span class="heat">热度 80</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/np6dwfqwflqe7vfse9kkfxj1n" target="_blank" rel="noopener">Nathan Lambert 分析黄仁勋辞职后美国开源模型生态的真空</a>
+      <p class="summary">Nathan Lambert 撰文认为 Nvidia 对开源模型的资金支持很可能随黄仁勋离开而干涸，公司首要目标是稳住局面并向客户交付。</p>
+      <p class="note">💡 黄仁勋离任的连锁反应之一：Nvidia 对开源大模型的隐性资助或中止，可能重塑开源 AI 生态的格局，是 AI coding 与开源社区都需关注的信号。</p>
+      <div class="meta"><span class="src">Nathan Lambert：Interconnects（RSS）</span><a class="orig" href="https://www.interconnects.ai/p/open-source-ai-without-jensen" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#05</span>
+        <span class="tag headline">头条</span>
+        <span class="badge sel">精选</span>
+        <span class="heat">热度 78</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/vl3jnosrbdn6i5j2we400046i" target="_blank" rel="noopener">Anthropic CEO Amodei 在 IPO 前承认明年存在巨大不确定性，算力是公司最深的商业两难</a>
+      <p class="summary">Amodei 在 JPMorgan 活动上表示明年走向存在巨大不确定性：算力需提前一到两年购买，买少了影响客户和收入，买多了可能财务过度扩张。</p>
+      <p class="note">💡 在创纪录 IPO 前夕自曝算力两难，揭示顶级大模型公司的真实成本结构，也间接说明 AI coding 服务为何持续涨价、推理算力为何成为核心竞争变量。</p>
+      <div class="meta"><span class="src">The Decoder：AI News（RSS）</span><a class="orig" href="https://the-decoder.com/anthropic-ceo-amodei-admits-theres-a-huge-uncertainty-in-whats-going-to-happen-next-year-days-before-a-record-ipo/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#06</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge sel">精选</span>
+        <span class="heat">热度 72</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/e9o5h2c1o5f0xuh2bgqtc2w7k" target="_blank" rel="noopener">Cursor 披露安全事件调查结果，恶意 Claude Code 扩展波及最多 5000 用户</a>
+      <p class="summary">攻击者利用 Fireworks 暴露的访问密钥读取用于模型训练的 coding agent trace，少于 0.01% 客户的 API 凭证暴露，最多影响 5000 用户。</p>
+      <p class="note">💡 AI 编码工具的安全边界首次被放大检视，恶意扩展供应链攻击提醒开发者谨慎安装第三方 Claude Code 插件、及时轮换凭证。</p>
+      <div class="meta"><span class="src">Cursor Blog</span><a class="orig" href="https://cursor.com/blog/security-incident-update" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#07</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 70</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/v7td6wrnp35smhjh1kjawih3t" target="_blank" rel="noopener">Anthropic 建议弃用过时提示词习惯以充分发挥 Claude Opus 5.5</a>
+      <p class="summary">Anthropic 指出许多用户沿用旧习惯反而拖慢 Claude Opus 5.5，建议删除 think hard 等短语、让模型自主调节推理深度，并从 Medium effort 档位起步。</p>
+      <p class="note">💡 官方亲自纠正提示词惯性，说明新一代模型的推理自调节能力已足够强，开发者需要更新与 Claude 交互的方式才能榨出性能。</p>
+      <div class="meta"><span class="src">The Decoder：AI News（RSS）</span><a class="orig" href="https://the-decoder.com/anthropic-says-outdated-prompting-habits-are-slowing-down-claude-opus-5-5/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#08</span>
+        <span class="tag emb">具身智能</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 66</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/zvo2ciiibpmh00lmqkggnsl5r" target="_blank" rel="noopener">OpenAI 解散机器人团队，押注通用模型替代专用机器人 AI</a>
+      <p class="summary">据 Fortune 报道，OpenAI 解散机器人团队并将研究员并入其他部门：机器人研究员转入 Mark Chen 领导的主研究团队，应用机器人与硬件团队加入 Greg Brockman 的 Applied 组织。</p>
+      <p class="note">💡 具身智能路线之争的关键信号：OpenAI 认为通用大模型将覆盖专用机器人 AI，战略重心从自研硬件回撤，对整个人形机器人赛道的技术路线判断有重要参考价值。</p>
+      <div class="meta"><span class="src">The Decoder：AI News（RSS）</span><a class="orig" href="https://the-decoder.com/openai-reassigns-robotics-researchers-to-other-teams-as-general-purpose-models-might-make-specialized-robotics-ai-unnecessary/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#09</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 66</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/tib84qcckpgtj8zz14eb4clgt" target="_blank" rel="noopener">Cloudflare 开源 AI 智能体浏览器 Kitesurf，资源消耗低于 Chromium</a>
+      <p class="summary">Cloudflare 于 11 月 13 日宣布开源专为 AI 智能体打造的浏览器 Kitesurf，代码托管在 GitHub，主打低资源消耗。</p>
+      <p class="note">💡 为 AI 智能体量身定制的轻量浏览器，绕开 Chromium 的厚重开销，是「AI 上网执行任务」基础设施的关键一环，值得前端与自动化开发者跟进。</p>
+      <div class="meta"><span class="src">IT之家·人工智能</span><a class="orig" href="https://www.ithome.com/1/027/197.htm" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#10</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 64</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/yc27okjsj0er2bbxnx2xvvjtf" target="_blank" rel="noopener">Anthropic 更新 Claude Code Projects，支持并行 AI worker 与协调员主动汇报</a>
+      <p class="summary">新增协调员主动消息、只读线程分享、提醒、/btw 与 /fork 分支命令和改进的 artifact 导航，减少多个云会话并行时的人工监控。</p>
+      <p class="note">💡 Claude Code 向「多智能体协同开发」再进一步，并行 worker + 协调员主动汇报让无人值守的复杂任务成为可能，是 AI coding 工程化的标志性更新。</p>
+      <div class="meta"><span class="src">Hacker News：AI 热帖</span><a class="orig" href="https://alphasignal.ai/news/anthropic-upgrades-claude-code-projects-to-run-parallel-ai-workers-hands-free" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#11</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 63</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/q9llyrq58x19pn5zkgr3cce9v" target="_blank" rel="noopener">谷歌基于 Gemini 推出 Teamwork 多智能体系统，完成韦伊猜想等形式化证明</a>
+      <p class="summary">谷歌扩展 Antigravity 多智能体系统，推出由多个 Gemini 驱动的专业智能体组成的 Teamwork 系统，用于验证复杂数学证明和优化软件系统。</p>
+      <p class="note">💡 多智能体协作在硬核数学证明与软件优化上落地，展示了 AI coding 从「写代码」升级到「解决开放难题」的能力边界。</p>
+      <div class="meta"><span class="src">IT之家·人工智能</span><a class="orig" href="https://www.ithome.com/1/027/140.htm" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#12</span>
+        <span class="tag emb">具身智能</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 62</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/onv1nqfzbo4uwz1creco1gecc" target="_blank" rel="noopener">Runway 开源机器人模型 Praxis-1，权重和代码采用 Apache 2.0 许可</a>
+      <p class="summary">Runway 以 Apache 2.0 开源机器人控制模型 Praxis-1，基于视频训练，通过相机图像、文本指令和机器人位置信息预测环境变化并计算动作。</p>
+      <p class="note">💡 视频生成公司跨界做具身智能，把视频预测能力直接转化为机器人控制模型，Apache 2.0 全开源，是「视频模型 → 世界模型 → 机器人」路线的标杆样本。</p>
+      <div class="meta"><span class="src">The Decoder：AI News（RSS）</span><a class="orig" href="https://the-decoder.com/runways-open-source-praxis-1-turns-video-ai-into-a-robot-controller/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#13</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 61</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/ko49hfoxbd3969cmeqq6z2vv7" target="_blank" rel="noopener">Cmpnd 发布 dspy-wsp，把权重空间编程做成 DSPy 优化器</a>
+      <p class="summary">Cmpnd 发布开源原型优化器 dspy-wsp（MIT 许可），让前沿 LLM 直接读取并编辑小模型的权重，无需梯度、训练循环或微调数据。</p>
+      <p class="note">💡 「权重空间编程」让大模型直接编辑小模型权重，绕开传统微调管线，为端侧模型的轻量定制开辟新范式，值得算法工程师关注。</p>
+      <div class="meta"><span class="src">MarkTechPost（RSS）</span><a class="orig" href="https://www.marktechpost.com/2026/11/14/cmpnd-dspy-wsp-weight-space-programming/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#14</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 61</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/p46botk0fbcqa3kil7lhl63z3" target="_blank" rel="noopener">Vercel Labs 开源 UI SDK：为 AI 编码智能体提供 50+ UI 行为</a>
+      <p class="summary">Vercel Labs 发布开源 beta 版 UI SDK，以行为而非成品组件的方式供编码智能体组合出 React、Vue、Svelte、Solid 和 Web Components 组件。</p>
+      <p class="note">💡 用「可组合行为」而非「成品组件」喂给编码智能体，降低智能体生成 UI 的出错率，是 AI 前端开发工具链的新思路，跨框架支持覆盖主流技术栈。</p>
+      <div class="meta"><span class="src">MarkTechPost（RSS）</span><a class="orig" href="https://www.marktechpost.com/2026/11/13/vercel-ui-sdk-agent-ui-behaviors/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#15</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 58</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/fh12g00j64cwb1dac27nvjy4n" target="_blank" rel="noopener">用 Claude 派活给 Codex 的多智能体开发分工配置分享</a>
+      <p class="summary">作者分享 Claude 多智能体工作流：Claude 负责对话、规划、前端与验收，成块的后端/算法任务通过自建 codex-worker 派给本机 Codex，Codex 只能写工作树、不能提交联网。</p>
+      <p class="note">💡 实战级的多智能体开发分工范式，Claude 做「架构师」、Codex 做「码农」、人类把关提交，是当前最落地的 AI coding 协同配置，可直接借鉴复刻。</p>
+      <div class="meta"><span class="src">X：卡兹克 (@Khazix0918)</span><a class="orig" href="https://x.com/Khazix0918/status/2121602766976237610" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#16</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 56</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/qdvsyyuyycb7jw35vr1p3xr5c" target="_blank" rel="noopener">DeepSeek 前端代码出现额度管理逻辑，开发者推测将推出 C 端付费方案</a>
+      <p class="summary">开发者在 chat.deepseek.com 前端发现一整套额度管理逻辑，含额度耗尽提示、每 5 分钟额度轮询和 Coding Plan 套餐指向；官方未公布任何订阅价格或日期。</p>
+      <p class="note">💡 免费 Claude 竞品开始酝酿收费，Coding Plan 套餐指向 AI coding 场景付费化，信号意义强——国内大模型的免费补贴期可能进入尾声。</p>
+      <div class="meta"><span class="src">IT之家·人工智能</span><a class="orig" href="https://www.ithome.com/1/027/038.htm" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#17</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 55</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/u5l9pjdssjonk6zr64vg4ynf3" target="_blank" rel="noopener">Gemini 4 Carbon 登顶 MathArena 数学基准，成本约为 GPT-6.1 Sol 的 15 倍</a>
+      <p class="summary">Gemini 4 Carbon（high）以 85.4%±3.0% 的预期成绩登顶 MathArena，取代 GPT-6.1 Sol，Claude Fable 5.2 以 82.8% 居第二。</p>
+      <p class="note">💡 数学推理登顶却付出 15 倍成本，直观展示「极致能力 vs 性价比」的张力，对需要强推理的 AI coding 场景是重要的模型选型参考。</p>
+      <div class="meta"><span class="src">The Decoder：AI News（RSS）</span><a class="orig" href="https://the-decoder.com/gemini-4-carbon-takes-the-matharena-crown-but-costs-15-times-more-than-gpt-6-1-sol/" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#18</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 53</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/v62fbnnz3n8j7gd0xejqtzmws" target="_blank" rel="noopener">Northwestern 与 Google 论文提出 Harness2：无需答案键自动改进智能体 harness</a>
+      <p class="summary">Harness² 提出 plug-and-play 的递归 harnessing 框架，让智能体 harness（提示词、工具、技能与记忆封装）在新任务上无答案键自我改进，经验存入库指导后续任务。</p>
+      <p class="note">💡 智能体「自进化」的关键机制：无需人工答案键即可持续优化自己的提示词与工具，是提升 AI coding 智能体长期表现的研究前沿。</p>
+      <div class="meta"><span class="src">X：Rohan Paul (@rohanpaul_ai)</span><a class="orig" href="https://x.com/rohanpaul_ai/status/2121757204810469793" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#19</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 53</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/rs6obb8t15cok8ggh2t7y6sgh" target="_blank" rel="noopener">LangChain 提出 Goal Engineering：按反馈易度设计智能体目标范围</a>
+      <p class="summary">LangChain 提出 goal engineering 理念：设计智能体范围时应让人类反馈尽可能容易给出，因为智能体出错常源于缺乏只存在于专家脑中的隐性上下文。</p>
+      <p class="note">💡 从「提示词工程」进阶到「目标工程」，强调隐性上下文的可反馈性，是设计可落地 AI coding 智能体时的核心方法论。</p>
+      <div class="meta"><span class="src">LangChain：Blog（RSS）</span><a class="orig" href="https://www.langchain.com/blog/goal-engineering" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">#20</span>
+        <span class="tag code">AI Coding</span>
+        <span class="badge all">未进精选</span>
+        <span class="heat">热度 53</span>
+      </div>
+      <a class="title" href="https://aihot.news/items/pwtalatfds0ibkg2g3pbinj2m" target="_blank" rel="noopener">Sierra 发布 Personal Agent Protocol v1.0，Manus 称参与构建智能体生态基础设施</a>
+      <p class="summary">Personal Agent Protocol（Poppy）v1.0 当日上线，对 Meta 智能体 Muse 所有用户及 Shopify 每个商家开放，超 100 家设计伙伴支持；Manus 评论称 AI 未来是为智能体构建的行动生态。</p>
+      <p class="note">💡 智能体互操作协议开始成型，试图为「智能体替用户办事」建立通用标准，若成为事实标准将重塑 AI 应用生态的底层规则。</p>
+      <div class="meta"><span class="src">X：Manus (@ManusAI)</span><a class="orig" href="https://x.com/ManusAI/status/2121522767543894240" target="_blank" rel="noopener">原文 ↗</a></div>
+    </div>
+  </div>
+  <footer>
+    数据来源：AI HOT（过去 24 小时） · 精选池优先，空集时由全量池补充并标注「未进精选」 · 热度按 AI HOT score 降序<br>
+    生成时间：2026-11-15 08:45（GMT+8） · <a href="https://aihot.news" target="_blank" rel="noopener">AI HOT 官方</a>
+  </footer>
+</div>
+</body>
+</html>

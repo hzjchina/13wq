@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>狩猎</title>
+<style>
+  :root{
+    --bg:#0f1115;
+    --card:#171a21;
+    --card2:#1e222c;
+    --text:#e8e6e0;
+    --muted:#9aa0aa;
+    --accent:#c8a26b;
+    --line:#2a2e38;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;
+    line-height:1.75;
+    font-size:17px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 60px;}
+  .hero{
+    text-align:center;
+    padding:40px 16px 32px;
+    margin-bottom:28px;
+    border-bottom:1px solid var(--line);
+  }
+  .kicker{
+    font-size:13px;letter-spacing:4px;color:var(--accent);
+    text-transform:uppercase;margin-bottom:14px;
+  }
+  h1{
+    font-size:34px;line-height:1.3;font-weight:700;letter-spacing:1px;
+  }
+  .subtitle{font-size:15px;color:var(--muted);margin-top:12px;}
+  .meta{
+    display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    margin-top:20px;
+  }
+  .chip{
+    background:var(--card2);border:1px solid var(--line);
+    border-radius:999px;padding:6px 16px;font-size:13px;color:var(--text);
+  }
+  .score{
+    display:inline-block;margin-top:18px;
+    background:linear-gradient(135deg,#2a2118,#1e222c);
+    border:1px solid var(--line);border-radius:14px;
+    padding:14px 26px;font-size:14px;color:var(--muted);
+  }
+  .score b{color:var(--accent);font-size:26px;font-weight:700;display:block;margin-bottom:2px;}
+  section{margin-bottom:26px;}
+  h2{
+    font-size:21px;font-weight:700;margin-bottom:14px;
+    padding-left:14px;border-left:4px solid var(--accent);
+  }
+  p{margin-bottom:14px;color:#cfcdc8;}
+  .highlight{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:14px;padding:20px 22px;margin-bottom:14px;
+  }
+  .highlight strong{color:var(--accent);}
+  ul{list-style:none;margin:0;padding:0;}
+  li{
+    position:relative;padding:12px 0 12px 28px;
+    border-bottom:1px solid var(--line);color:#cfcdc8;
+  }
+  li:last-child{border-bottom:none;}
+  li::before{
+    content:"";position:absolute;left:4px;top:20px;
+    width:8px;height:8px;border-radius:50%;
+    background:var(--accent);
+  }
+  .footer{
+    text-align:center;color:var(--muted);font-size:13px;
+    margin-top:36px;padding-top:20px;border-top:1px solid var(--line);
+    letter-spacing:1px;
+  }
+  @media (max-width:560px){
+    body{font-size:16px;}
+    h1{font-size:28px;}
+    .wrap{padding:20px 14px 44px;}
+    .hero{padding:28px 8px 24px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <div class="kicker">A CLASSIC WORTH YOUR TIME</div>
+    <h1>狩猎</h1>
+    <div class="subtitle">The Hunt · Jagten · 2012</div>
+    <div class="meta">
+      <span class="chip">丹麦</span>
+      <span class="chip">剧情 / 人性</span>
+      <span class="chip">导演：托马斯·温特伯格</span>
+      <span class="chip">主演：麦斯·米科尔森</span>
+    </div>
+    <div class="score">
+      <b>9.1</b>
+      豆瓣评分 · 第 65 届戛纳最佳男演员
+    </div>
+  </div>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>刚离婚的幼儿园教师卢卡斯，在小镇上重新安顿下来，有一群知心好友、一个新女友，生活正渐渐回到正轨。直到一句无心之失的童言，像一粒石子投入平静的湖面，激起层层涟漪。原本信任他的邻里、同事、挚友，在流言与猜忌的催化下，一步步将他推向孤立无援的深渊。他拼命想证明自己的清白，却发现真相在群体的愤怒面前，早已无人关心。</p>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul>
+      <li><strong>麦斯·米科尔森封神级的表演</strong>——一个眼神、一次隐忍的颤抖，就把一个被冤屈的普通人的绝望与尊严演到极致，凭此片一举斩获戛纳影帝。</li>
+      <li><strong>议题尖锐却冷静克制</strong>——全片没有声嘶力竭的控诉，却把"众口铄金"对人性的吞噬写得毛骨悚然。</li>
+      <li><strong>北欧冷冽的影像质感</strong>——温特伯格用清冷克制的镜头语言，与故事内核的灼热形成强烈反差。</li>
+      <li><strong>开放式留白带来的余味</strong>——结尾那一声枪响与一个眼神，让观影后的思考久久无法平复。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <div class="highlight">
+      <p>这不是一部让人"爽"的电影，而是一部让人"醒"的电影。它借一个虚构的小镇寓言，逼问我们每个人：当舆论裹挟理智、当信任在流言中崩塌，我们会不会也沦为推手？</p>
+      <p>它没有正邪分明的脸谱，只有一群善良的人在偏见与恐慌中集体失智的可怕。看完之后，你会对"眼见为实""人多即真理"这些习以为常的观念，多一分警惕。</p>
+      <p>如果你喜欢有厚度、能引发深思的剧情片，这部评分与口碑双高的丹麦电影，绝对不容错过——它是关于人性、偏见与舆论的现代寓言，堪称同题材中的巅峰之作。</p>
+    </div>
+  </section>
+
+  <div class="footer">🦐 小虾米 · 每日经典推荐 · 不剧透，只留悬念</div>
+</div>
+</body>
+</html>
