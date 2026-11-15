@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小獾的半窝冬 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 初冬小雪花飘落 */
+  .snow {
+    position: absolute; font-size: 16px; color: #e8ecf5;
+    opacity: 0; animation: driftSnow 12s ease-in-out infinite;
+    text-shadow: 0 0 6px rgba(232, 236, 245, 0.4);
+  }
+  @keyframes driftSnow {
+    0%   { transform: translate(0, -10px) rotate(0deg); opacity: 0; }
+    15%  { opacity: 0.8; }
+    70%  { transform: translate(18px, 120px) rotate(40deg); opacity: 0.5; }
+    100% { transform: translate(26px, 200px) rotate(60deg); opacity: 0; }
+  }
+
+  /* 暖光小点（窝里透出的暖意） */
+  .ember {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: #f5d76e; box-shadow: 0 0 8px 2px rgba(245, 215, 110, 0.55);
+    animation: glow 9s ease-in-out infinite;
+  }
+  @keyframes glow {
+    0%,100% { transform: translate(0,0); opacity: 0.85; }
+    50% { transform: translate(10px, -18px); opacity: 0.35; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 上弦月：右半边亮，左半边暗；暗圆在左侧偏移 1.0r，clipPath 裁剪在月盘内 -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="112" height="112" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0.28"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="52" fill="url(#moonGlow)"/>
+      <!-- 亮盘 -->
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 上弦月暗圆：在左侧，偏移 1.0r = 38px，cx = 60 - 38 = 22 -->
+      <circle cx="22" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <!-- 右半边淡淡的环形山质感（亮区细节） -->
+      <circle cx="74" cy="50" r="3" fill="#cdd6e6" opacity="0.5"/>
+      <circle cx="82" cy="66" r="2.2" fill="#cdd6e6" opacity="0.45"/>
+      <circle cx="68" cy="72" r="1.8" fill="#cdd6e6" opacity="0.4"/>
+    </svg>
+  </div>
+  <!-- 初冬小雪花 + 窝口透出的暖光小点 -->
+  <span class="snow" style="top:40%; left:18%; animation-delay:0s;">❄</span>
+  <span class="snow" style="top:55%; left:72%; animation-delay:3.5s; font-size:13px;">❄</span>
+  <span class="snow" style="top:48%; left:48%; animation-delay:6.8s; font-size:14px;">❄</span>
+  <span class="ember" style="top:62%; left:30%; animation-delay:0s;"></span>
+  <span class="ember" style="top:68%; left:64%; animation-delay:4s; width:3px; height:3px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小獾的半窝冬</h1>
+    <p class="meta">🍂 半个窝也装得下一个暖暖的梦 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-15.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <!-- 夜空背景渐变 -->
+      <defs>
+        <linearGradient id="posterSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#2a3068"/>
+        </linearGradient>
+        <linearGradient id="hillGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#3a2e1a"/>
+          <stop offset="100%" stop-color="#1e1810"/>
+        </linearGradient>
+        <linearGradient id="denWarm" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#6b4a28"/>
+          <stop offset="50%" stop-color="#8a5c34"/>
+          <stop offset="100%" stop-color="#3a2a1a"/>
+        </linearGradient>
+        <radialGradient id="warmGlow" cx="38%" cy="62%" r="40%">
+          <stop offset="0%" stop-color="#f5d76e" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#f5d76e" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="posterMoonClip"><circle cx="248" cy="48" r="22"/></clipPath>
+      </defs>
+
+      <!-- 天空 -->
+      <rect x="0" y="0" width="300" height="440" rx="16" fill="url(#posterSky)"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="36" r="1.6" fill="#fff" opacity="0.9"/>
+      <circle cx="92" cy="22" r="1.2" fill="#fff" opacity="0.7"/>
+      <circle cx="150" cy="44" r="1.4" fill="#fff" opacity="0.85"/>
+      <circle cx="200" cy="28" r="1.1" fill="#fff" opacity="0.65"/>
+      <circle cx="120" cy="70" r="1" fill="#fff" opacity="0.5"/>
+      <circle cx="280" cy="90" r="1.3" fill="#fff" opacity="0.7"/>
+
+      <!-- 上弦月：右半亮左半暗，暗圆在左侧偏移 1.0r = 22px，cx = 248 - 22 = 226 -->
+      <circle cx="248" cy="48" r="22" fill="#e8ecf5"/>
+      <circle cx="226" cy="48" r="22" fill="#1c1f4a" clip-path="url(#posterMoonClip)"/>
+      <circle cx="256" cy="42" r="1.8" fill="#cdd6e6" opacity="0.5"/>
+      <circle cx="262" cy="54" r="1.3" fill="#cdd6e6" opacity="0.45"/>
+
+      <!-- 小雪花 -->
+      <text x="60" y="120" font-size="13" fill="#e8ecf5" opacity="0.55">❄</text>
+      <text x="180" y="135" font-size="11" fill="#e8ecf5" opacity="0.5">❄</text>
+      <text x="250" y="115" font-size="10" fill="#e8ecf5" opacity="0.45">❄</text>
+
+      <!-- 远处小山丘剪影 -->
+      <path d="M 0 280 Q 60 250 120 268 T 240 262 T 300 274 L 300 300 L 0 300 Z" fill="#15182f" opacity="0.6"/>
+
+      <!-- 主土坡（小獾的窝所在山坡） -->
+      <path d="M 0 300 Q 80 250 150 270 Q 220 250 300 295 L 300 440 L 0 440 Z" fill="url(#hillGrad)"/>
+
+      <!-- 窝口拱形洞口 -->
+      <path d="M 110 300 Q 110 240 150 240 Q 190 240 190 300 Z" fill="#0a0a16"/>
+      <!-- 洞口内暖光 -->
+      <ellipse cx="150" cy="270" rx="42" ry="34" fill="url(#warmGlow)"/>
+
+      <!-- 窝内：左半铺干草（暖），右半光秃泥土（冷）的分界 -->
+      <!-- 左半干草区 -->
+      <path d="M 112 300 Q 112 250 150 250 Q 152 250 152 250 L 152 300 Z" fill="#8a5c34" opacity="0.85"/>
+      <!-- 干草纹理 -->
+      <line x1="118" y1="278" x2="128" y2="288" stroke="#b88a4a" stroke-width="1.2" opacity="0.7"/>
+      <line x1="124" y1="270" x2="134" y2="280" stroke="#b88a4a" stroke-width="1.1" opacity="0.6"/>
+      <line x1="132" y1="284" x2="142" y2="294" stroke="#a87a3a" stroke-width="1" opacity="0.6"/>
+      <line x1="120" y1="290" x2="130" y2="298" stroke="#b88a4a" stroke-width="1.1" opacity="0.65"/>
+      <line x1="140" y1="276" x2="148" y2="286" stroke="#a87a3a" stroke-width="1" opacity="0.55"/>
+      <!-- 右半冷土区（稍深的泥土色） -->
+      <path d="M 152 250 Q 188 250 188 300 L 152 300 Z" fill="#2a1d12" opacity="0.8"/>
+
+      <!-- 小獾圆圆：圆胖身子，灰白脸带黑眼罩，蜷在干草区（左侧暖区） -->
+      <!-- 身体 -->
+      <ellipse cx="128" cy="278" rx="20" ry="14" fill="#9a9a8e"/>
+      <!-- 背部深色条纹 -->
+      <path d="M 116 274 Q 128 268 140 274" stroke="#3a3a30" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.85"/>
+      <!-- 头 -->
+      <circle cx="146" cy="272" r="9" fill="#cfc8b8"/>
+      <!-- 黑眼罩（獾的标志性面部条纹） -->
+      <path d="M 142 268 Q 146 265 150 268" stroke="#1a1a14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <!-- 耳朵 -->
+      <circle cx="144" cy="265" r="2" fill="#9a9a8e"/>
+      <!-- 眼睛（闭着，月牙睡眼） -->
+      <path d="M 143 271 Q 144 272.5 145 271" stroke="#1a1a14" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <path d="M 148 271 Q 149 272.5 150 271" stroke="#1a1a14" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+      <!-- 鼻子 -->
+      <circle cx="150.5" cy="274" r="1" fill="#1a1a14"/>
+
+      <!-- 小田鼠豆豆：缩在圆圆身侧（更小，灰色的） -->
+      <ellipse cx="118" cy="284" rx="8" ry="6" fill="#8a8278"/>
+      <circle cx="112" cy="282" r="4" fill="#a89e90"/>
+      <!-- 小耳朵 -->
+      <circle cx="110" cy="279" r="1.5" fill="#8a8278"/>
+      <!-- 闭眼 -->
+      <path d="M 110 282 Q 111 283 112 282" stroke="#1a1a14" stroke-width="0.7" fill="none" stroke-linecap="round"/>
+      <!-- 小尾巴 -->
+      <path d="M 126 285 Q 130 286 132 284" stroke="#a89e90" stroke-width="1.6" fill="none" stroke-linecap="round"/>
+
+      <!-- 从洞口斜照进来的月光（上弦月右半亮的光） -->
+      <path d="M 190 242 L 152 250 L 152 300 L 190 300 Z" fill="#e8ecf5" opacity="0.08"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="378" text-anchor="middle" font-size="22" font-weight="700" fill="#cfd8e8" letter-spacing="3" font-family="-apple-system, 'PingFang SC', sans-serif">小獾的半窝冬</text>
+      <text x="150" y="404" text-anchor="middle" font-size="11" fill="#a3a8d0" letter-spacing="2" font-family="-apple-system, 'PingFang SC', sans-serif">上弦月夜 · 半个窝装下两只</text>
+      <line x1="110" y1="416" x2="190" y2="416" stroke="#7ec8e3" stroke-width="1" opacity="0.4"/>
+      <text x="150" y="430" text-anchor="middle" font-size="9" fill="#a3a8d0" opacity="0.6" font-family="-apple-system, 'PingFang SC', sans-serif">2026.11.15 · 农历十月初七</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历十月初七 · 上弦月🌓</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">半个也是刚好 · 分享</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>森林边的小土坡下，小獾圆圆正忙着挖冬天的窝。她刨啊刨，刨了整整三天，可窝还是只有一半——靠门口的那半铺了软软的干草和落叶，暖暖的；靠里面的那半还是光秃秃的冷泥土。</p>
+    <p>"唉，冬天来得太快了。"圆圆坐在窝门口叹气。今晚是农历十月初七，天上的月亮只亮了右半边，左半边暗暗的，像一个害羞的小脸只露出半边。</p>
+    <p>"月亮，你怎么也只亮一半呀？"圆圆仰头问。</p>
+    <p>月亮柔柔地说："我今晚呀，右半边亮，照亮赶夜路的小田鼠回家；左半边暗，留给歇着的小生灵悄悄攒力气。半个也是刚好，今晚先亮这半，明天再亮那半。"</p>
+    <p>圆圆眨眨眼睛，忽然不那么着急了。她把干草那一半铺平，把最软的几片落叶拢到中间，心想："今晚先睡暖的这半，明天接着把另一半铺软。"</p>
+    <p>正要躺下，洞口探进来一个灰灰的小鼻子——是迷路的小田鼠豆豆，冻得直打哆嗦："圆圆姐姐，我找不到回家的路了，能让我歇一歇吗？"</p>
+    <p>圆圆愣了一下：我的窝才半个呀！可她看见豆豆抖成那样，又看看天上那半边亮的月亮，赶紧往里挪了挪："快进来吧，这半边暖和着呢！"</p>
+    <p>豆豆钻进干草堆，圆圆把自己毛茸茸的大身子圈在外圈挡风。两个小家伙挤在半间窝里，暖暖的。慢慢地，连那半边光秃秃的冷泥土，也被它们的体温焐得不再冰凉了。</p>
+    <p>月亮从洞口斜斜照进来，刚好照在两个小家伙身上。圆圆听见月亮轻轻说："你看，半个窝装下两只，比一个空窝暖多啦。"</p>
+    <p>圆圆笑了。她决定明天把另一半也铺上软草，再多留一个位置——万一又有谁需要一个暖暖的半窝冬呢。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>半个也是刚好，分出去的暖会自己长回来，装下别人的地方，也装下了更多的温柔。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小獾圆圆说，半个窝也能装下一个暖暖的梦，你今晚也该钻进被窝，做甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月15日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
