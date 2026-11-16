@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-16</title>
+<style>
+:root{
+  --bg:#0a0e1a;
+  --bg2:#0d1225;
+  --card:#12182e;
+  --card-hover:#161d38;
+  --line:rgba(99,130,255,0.14);
+  --txt:#dbe4ff;
+  --muted:#8b96b8;
+  --dim:#5a6480;
+  --cyan:#22d3ee;
+  --purple:#a855f7;
+  --pink:#f472b6;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#f87171;
+  --grad:linear-gradient(135deg,#22d3ee 0%,#a855f7 50%,#f472b6 100%);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+  line-height:1.6;
+  overflow-x:hidden;
+  position:relative;
+  min-height:100vh;
+}
+/* 网格背景 */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background-image:
+    linear-gradient(rgba(99,130,255,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(99,130,255,0.05) 1px,transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;
+  z-index:0;
+}
+/* 霓虹光晕 */
+.glow{position:fixed;border-radius:50%;filter:blur(120px);pointer-events:none;z-index:0;opacity:.55}
+.glow-1{width:520px;height:520px;background:radial-gradient(circle,rgba(34,211,238,.32),transparent 70%);top:-160px;left:-120px}
+.glow-2{width:600px;height:600px;background:radial-gradient(circle,rgba(168,85,247,.30),transparent 70%);top:30%;right:-200px}
+.glow-3{width:480px;height:480px;background:radial-gradient(circle,rgba(244,114,182,.22),transparent 70%);bottom:-160px;left:20%}
+
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* 头部 */
+header{padding:64px 0 40px;text-align:center;position:relative}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;letter-spacing:2px;color:var(--cyan);
+  border:1px solid rgba(34,211,238,.3);
+  border-radius:999px;padding:6px 16px;margin-bottom:22px;
+  background:rgba(34,211,238,.06);
+}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--cyan);box-shadow:0 0 12px var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+h1{
+  font-size:clamp(30px,5vw,52px);
+  font-weight:800;
+  letter-spacing:-1px;
+  background:var(--grad);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:14px;
+}
+.subtitle{color:var(--muted);font-size:16px}
+.subtitle b{color:var(--txt);font-weight:600}
+.meta{margin-top:22px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.chip{
+  font-size:12px;padding:6px 14px;border-radius:8px;
+  background:var(--card);border:1px solid var(--line);color:var(--muted);
+}
+.chip em{font-style:normal;color:var(--cyan);font-weight:600}
+
+/* 头条 */
+.lead{
+  margin:10px 0 40px;
+  border-radius:20px;
+  padding:1px;
+  background:var(--grad);
+  box-shadow:0 12px 48px rgba(99,102,241,.25);
+}
+.lead-inner{
+  border-radius:19px;padding:32px 36px;
+  background:linear-gradient(160deg,#141a34 0%,#101528 100%);
+}
+.lead-tag{font-size:12px;letter-spacing:3px;color:var(--amber);font-weight:700;margin-bottom:12px}
+.lead h2{font-size:24px;font-weight:800;margin-bottom:12px;line-height:1.4}
+.lead p{color:var(--muted);font-size:15px;max-width:900px}
+.lead .src{margin-top:14px;font-size:13px;color:var(--dim)}
+
+/* 区块标题 */
+.sec-title{
+  display:flex;align-items:center;gap:12px;
+  margin:48px 0 22px;
+  font-size:20px;font-weight:700;
+}
+.sec-title::before{content:"";width:4px;height:22px;border-radius:2px;background:var(--grad)}
+.sec-title .n{font-size:13px;color:var(--dim);font-weight:500}
+
+/* 卡片网格 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.card{
+  position:relative;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:22px;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+  overflow:hidden;
+}
+.card::after{
+  content:"";position:absolute;top:0;left:0;right:0;height:2px;
+  background:var(--grad);opacity:0;transition:opacity .25s;
+}
+.card:hover{transform:translateY(-4px);background:var(--card-hover);border-color:rgba(99,130,255,.32)}
+.card:hover::after{opacity:1}
+.card-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.rank{
+  font-size:13px;font-weight:800;color:var(--bg);
+  background:var(--grad);border-radius:8px;
+  padding:3px 10px;flex-shrink:0;
+}
+.cat{
+  font-size:11px;padding:3px 10px;border-radius:6px;font-weight:600;letter-spacing:.5px;
+}
+.cat-coding{background:rgba(34,211,238,.12);color:var(--cyan)}
+.cat-embodied{background:rgba(52,211,153,.12);color:var(--green)}
+.cat-industry{background:rgba(251,191,36,.12);color:var(--amber)}
+.cat-model{background:rgba(168,85,247,.14);color:var(--purple)}
+.score{margin-left:auto;font-size:13px;color:var(--dim);font-weight:600}
+.score b{color:var(--txt)}
+.card h3{font-size:16.5px;font-weight:700;line-height:1.45;margin-bottom:10px}
+.card .desc{font-size:14px;color:var(--muted);line-height:1.7}
+.card .why{
+  margin-top:14px;padding:12px 14px;border-radius:10px;
+  background:rgba(99,130,255,.07);border-left:3px solid var(--cyan);
+  font-size:13px;color:var(--txt);line-height:1.65;
+}
+.card .why b{color:var(--cyan)}
+.card .src{margin-top:14px;font-size:12px;color:var(--dim);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.notcurated{
+  font-size:10.5px;padding:2px 8px;border-radius:5px;
+  background:rgba(248,113,113,.12);color:var(--red);
+  border:1px solid rgba(248,113,113,.2);
+}
+.curated{
+  font-size:10.5px;padding:2px 8px;border-radius:5px;
+  background:rgba(52,211,153,.12);color:var(--green);
+  border:1px solid rgba(52,211,153,.2);
+}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+
+/* 页脚 */
+footer{margin-top:70px;padding:40px 0 50px;text-align:center;border-top:1px solid var(--line)}
+footer p{color:var(--dim);font-size:13px;line-height:2}
+footer a{color:var(--muted)}
+
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .lead-inner{padding:24px}
+  header{padding:48px 0 30px}
+  .wrap{padding:0 16px}
+}
+</style>
+</head>
+<body>
+<div class="glow glow-1"></div>
+<div class="glow glow-2"></div>
+<div class="glow glow-3"></div>
+
+<div class="wrap">
+<header>
+  <div class="badge">AI DAILY BRIEFING</div>
+  <h1>AI 情报日报</h1>
+  <div class="subtitle">AI coding · 具身智能 方向聚焦</div>
+  <div class="meta">
+    <span class="chip">📅 2026-11-16（周一）</span>
+    <span class="chip">⏱ 时间窗：过去 24 小时</span>
+    <span class="chip">📊 共 <em>20</em> 条</span>
+    <span class="chip">🔥 按热度降序</span>
+  </div>
+</header>
+
+<div class="lead">
+  <div class="lead-inner">
+    <div class="lead-tag">🔥 今日头条</div>
+    <h2>黄仁勋因婚外情风波辞任英伟达 CEO，CFO 克雷斯临时接任</h2>
+    <p>英伟达正式宣布黄仁勋于 11 月 11 日卸任 CEO 及董事职务，CFO Colette Kress 出任临时 CEO。此前《纽约时报》报道其与 Megaspeed 高管 Alice Huang 关系密切，董事会已就涉及中国业务的关联指控启动独立调查。同时，员工与投资者持续施压董事会另寻继任者，NVIDIA 股价与全球 AI 算力格局随之剧烈波动。</p>
+    <div class="src">The Verge · NVIDIA Newsroom · 信号 30</div>
+  </div>
+</div>
+
+<div class="sec-title">精选速览 <span class="n">· AI coding 与智能体方向</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top"><span class="rank">01</span><span class="cat cat-model">模型</span><span class="score">热度 <b>75</b></span></div>
+    <h3>美团开源 1.6 万亿参数智能体模型 LongCat-2.5，全程未用 NVIDIA GPU</h3>
+    <p class="desc">美团开放 LongCat-2.5 权重，一款面向智能体的 1.6 万亿参数 MoE 模型，每 token 激活约 480 亿参数，MIT 许可。官方部署方案基于 194 片华为昇腾加速器，全程未使用 NVIDIA GPU。</p>
+    <div class="why"><b>关注理由</b>：国产算力路线的一次标志性落地——万亿级 MoE 全链路去英伟达化，叠加开源权重，对国内大模型自主可控与降本有强信号意义。</div>
+    <div class="src">The Decoder · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">02</span><span class="cat cat-coding">AI coding</span><span class="score">热度 <b>72</b></span></div>
+    <h3>AI 手搓 1.4M 纯 HTML 3D 游戏走红，卡兹克拆解 Three.js 程序化生成原理</h3>
+    <p class="desc">一个仅 1.4MB 的纯 HTML 3D 游戏在群里疯传，其中约 700KB 是打包进文件的 Three.js，其余全部由代码程序化生成，不含任何图片、模型和录音。</p>
+    <div class="why"><b>关注理由</b>：AI 编程能力的新标杆——单文件纯代码生成可玩 3D 游戏，展示了 LLM 在图形/游戏领域的落地边界与提示词工程价值。</div>
+    <div class="src">公众号：数字生命卡兹克 · <span class="curated">精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">03</span><span class="cat cat-model">模型</span><span class="score">热度 <b>70</b></span></div>
+    <h3>Anthropic Claude Fable 5.2 用约 70 万次模拟笔触画出照片级画作</h3>
+    <p class="desc">Fable 5.2 不走扩散模型路线，而是通过 1000–2000 行 Python 程序驱动模拟画笔引擎逐笔作画，停车场购物车场景使用了约 70 万次模拟笔触，不依赖外部图像模型或底图。</p>
+    <div class="why"><b>关注理由</b>：用「代码作画」而非「扩散生成」，代表图像生成范式的新思路——程序化、可解释、可编辑，与 coding 能力深度耦合。</div>
+    <div class="src">The Decoder · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">04</span><span class="cat cat-coding">AI coding</span><span class="score">热度 <b>66</b></span></div>
+    <h3>从 M-VAVE FM-1 固件开源看 AI Agent 如何推动硬件开放</h3>
+    <p class="desc">售价约 $70 的 M-VAVE FM-1 口袋 FM 合成器，用户自 9 月起用 AI 编码工具为其编写多种自制固件，厂商 10 月以 GPLv3 开源官方固件并附开发套件，Behringer、Akai 等厂商随后也宣布开放部分固件。</p>
+    <div class="why"><b>关注理由</b>：AI 编码降低了固件逆向与自制的门槛，倒逼硬件厂商从封闭转向开放，是「AI coding 重塑硬件生态」的鲜活案例。</div>
+    <div class="src">Hacker News · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">05</span><span class="cat cat-industry">安全</span><span class="score">热度 <b>64</b></span></div>
+    <h3>谷歌 Project Zero 将漏洞披露期限从 90 天缩短至 30 天</h3>
+    <p class="desc">Project Zero 于 11 月 13 日发布新漏洞披露政策，称 AI 辅助漏洞挖掘与利用技术的兴起，使现有「90+30 天」政策已难以适应需求，将分阶段缩短披露期限。</p>
+    <div class="why"><b>关注理由</b>：AI 正在加速攻防节奏，连顶级安全团队的披露窗口都被迫收紧——AI 对网络安全的冲击已进入制度层面。</div>
+    <div class="src">IT之家 · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">06</span><span class="cat cat-coding">AI coding</span><span class="score">热度 <b>63</b></span></div>
+    <h3>Browser Use 教程：用 profile 跨运行复用登录状态</h3>
+    <p class="desc">Browser Use 发布教程，演示如何让云端浏览器跨运行复用登录：登录后停止浏览器以保存 profile 的 cookies 与本地存储，再用同一 profile ID 启动新运行访问受保护页面。</p>
+    <div class="why"><b>关注理由</b>：智能体浏览器自动化的痛点之一是会话持久化，profile 复用方案让 Browser Use 类工具能处理需要登录的长期任务，提升智能体工程实用性。</div>
+    <div class="src">Browser Use · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">07</span><span class="cat cat-model">论文</span><span class="score">热度 <b>56</b></span></div>
+    <h3>DeepMind×哥伦比亚大学提出 BTTF 框架，用 SQL 数据库调试芯片仿真</h3>
+    <p class="desc">BTTF（Back-to-the-Future）框架将超 10GB 芯片仿真波形转储转换为紧凑 SQLite 数据库，多智能体把自然语言问题转成 SQL、检查设计规则并审计答案。</p>
+    <div class="why"><b>关注理由</b>：把结构化数据库作为智能体的「记忆外脑」，是解决长上下文/大状态空间问题的新范式，对 EDA 与芯片验证自动化有直接价值。</div>
+    <div class="src">X：Rohan Paul · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">08</span><span class="cat cat-model">模型</span><span class="score">热度 <b>49</b></span></div>
+    <h3>开源盘古 openPangu-2.1-Pro 上线华为云，升级 Agent 开发与 AI 编码</h3>
+    <p class="desc">华为云 MaaS 平台上线开源盘古模型 openPangu-2.1-Pro，围绕 Agent 开发、AI 编码与推理优化三大方向升级，增强深度研究、鸿蒙系统操控、鸿蒙 App 开发与昇腾算子生成等能力。</p>
+    <div class="why"><b>关注理由</b>：国产开源大模型在「Agent + 编码 + 鸿蒙/昇腾软硬协同」上的持续加码，是自主生态闭环的关键拼图。</div>
+    <div class="src">IT之家 · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">09</span><span class="cat cat-coding">AI coding</span><span class="score">热度 <b>48</b></span></div>
+    <h3>Databricks Genie One 技能（Skills）指南：把团队工作流教给 AI</h3>
+    <p class="desc">Databricks 发布 Genie One Skills 使用指南，技能是以开放 Agent Skills 格式写下的工作流配方，可让 Genie One 按团队固定步骤、检查与格式产出结果。</p>
+    <div class="why"><b>关注理由</b>：Agent Skills 标准化格式正在成为行业共识，「可复用的技能包」是让 AI 编码智能体融入真实团队流程的关键机制。</div>
+    <div class="src">Databricks Blog · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">10</span><span class="cat cat-coding">工具</span><span class="score">热度 <b>47</b></span></div>
+    <h3>Claude Code 桌面版支持自定义主题 mod</h3>
+    <p class="desc">Claude Code 桌面版自定义主题本质是 mod，背景甚至能对实际会话做出反应——示例中开发者让 Claude 随着上下文填满而「下雪」，mod 挂接 turn.step 事件。</p>
+    <div class="why"><b>关注理由</b>：编码工具的可扩展性与生态化——mod 机制让开发者能深度定制交互体验，是 Claude Code 社区活力的体现。</div>
+    <div class="src">X：Lydia Hallie · <span class="notcurated">未进精选</span></div>
+  </div>
+
+</div>
+
+<div class="sec-title">具身智能方向 <span class="n">· 当日消息源稀缺，如实呈现</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top"><span class="rank">11</span><span class="cat cat-embodied">具身智能</span><span class="score">热度 <b>47</b></span></div>
+    <h3>CMU 展示 OATs：给日常物品装上会撒娇的 AI 虚拟宠物</h3>
+    <p class="desc">CMU 博士生金大华在 UIST 2026 展示 OATs 系统，用电子墨水屏为日常物品赋予能表达情绪的虚拟形象，主模块成本约 20 美元，通过内外传感器监测湿度、温度、光照与使用状态，形象由 Gemini Nano Banana 生成，续航 3–4 天。</p>
+    <div class="why"><b>关注理由</b>：具身智能的「轻量化」延伸——把感知与情感交互植入日常物体，探索低成本、低算力的 embodied 落地形态。</div>
+    <div class="src">IT之家 · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">12</span><span class="cat cat-embodied">具身智能</span><span class="score">热度 <b>29</b></span></div>
+    <h3>商汤黄文辉谈 AI 投资：全栈方案与物理 AI 值得加大投入</h3>
+    <p class="desc">商汤资本市场负责人 Philip Wong 在韩国 IGE–KB 金融集团国际会议上分享：企业正从 token 经济转向任务经济，更青睐覆盖模型、工具、部署与反馈闭环的全栈方案，并指出多模态与物理 AI 值得加大投资。</p>
+    <div class="why"><b>关注理由</b>：产业资本对「物理 AI / 具身智能」的明确加码信号，强调「数据反哺模型」的落地反馈闭环是具身商业化的核心逻辑。</div>
+    <div class="src">X：商汤 SenseTime · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">13</span><span class="cat cat-embodied">具身智能</span><span class="score">热度 <b>25</b></span></div>
+    <h3>NVIDIA AI Day Seoul：聚焦物理 AI 与通用机器人落地</h3>
+    <p class="desc">NVIDIA 在首尔 COEX 举办为期两天的 AI Day Seoul，超 2000 名参会者聚焦物理 AI 与 AI 智能体。Doosan Robotics、现代汽车集团、LG 电子、SK 集团及 Real World、Luda Robotics 等初创正使用 NVIDIA 平台推进通用机器人落地。</p>
+    <div class="why"><b>关注理由</b>：NVIDIA 持续押注「物理 AI」生态，韩国工业巨头与机器人初创的集体站台，反映具身智能从实验室走向产线的加速。</div>
+    <div class="src">NVIDIA Blog · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">14</span><span class="cat cat-embodied">具身智能</span><span class="score">热度 <b>22</b></span></div>
+    <h3>X Square Robot CTO 谈物理 AI 落地路径</h3>
+    <p class="desc">X Square Robot 联合创始人兼 CTO Hao Wang 在 AGI House 旧金山的炉边对话中，分享对物理 AI 的看法，讨论如何把 AI 从数字世界带入物理世界。</p>
+    <div class="why"><b>关注理由</b>：具身智能创业公司对「数字→物理」迁移路径的第一手思考，是理解具身商业化瓶颈与路线的稀缺视角。</div>
+    <div class="src">X：X Square Robot · <span class="notcurated">未进精选</span></div>
+  </div>
+
+</div>
+
+<div class="sec-title">其他值得关注 <span class="n">· 模型 / 工具 / 智能体</span></div>
+<div class="grid">
+
+  <div class="card">
+    <div class="card-top"><span class="rank">15</span><span class="cat cat-model">模型</span><span class="score">热度 <b>51</b></span></div>
+    <h3>Wispr 自研语音模型 Canto 1：真实听写词错率降至 3.4%</h3>
+    <p class="desc">Wispr Flow 聘请前 Alexa 创始科学家 Ariya Rastrow 出任首席科学官，转向自训语音模型，首个模型 Canto 1 针对嘈杂真实听写场景训练，词错率降至 3.4%。</p>
+    <div class="why"><b>关注理由</b>：语音作为智能体交互的重要入口，Canto 1 在真实噪声环境下的低词错率，对语音驱动的 AI 助手与编码场景有实用价值。</div>
+    <div class="src">X：Rohan Paul · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">16</span><span class="cat cat-model">视频生成</span><span class="score">热度 <b>45</b></span></div>
+    <h3>Seedance 2.5 Flash 上线 fal 与 PixVerse</h3>
+    <p class="desc">字节 Seedance 2.5 的快速版 Flash 已上线 fal 与 PixVerse，生成速度接近 2.5 的两倍、成本更低，支持文本/图像/参考生成视频、视频编辑与延长，原生音频 480p/720p、4–30 秒。</p>
+    <div class="why"><b>关注理由</b>：视频生成模型「提速降本」的快速版本成为趋势，Flash 线为开发者高频迭代与批量工作流提供了更经济的选项。</div>
+    <div class="src">fal / PixVerse · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">17</span><span class="cat cat-model">语音模型</span><span class="score">热度 <b>43</b></span></div>
+    <h3>Bland 发布 Tofu-1 全双工语音到语音通话模型</h3>
+    <p class="desc">Bland 发布全双工语音到语音模型 Tofu-1（研究预览），面向车载、病房等嘈杂通话场景，直接处理音频输入输出、无需中间转写，支持说话人跟踪、噪声分离，可被中途打断。目前仅限企业开放，参数与定价未公开。</p>
+    <div class="why"><b>关注理由</b>：全双工「边听边说」是语音智能体的关键能力，Tofu-1 瞄准强噪声通话场景，补足了当前语音模型的实时交互短板。</div>
+    <div class="src">MarkTechPost · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">18</span><span class="cat cat-coding">工具</span><span class="score">热度 <b>41</b></span></div>
+    <h3>datasette-llm 0.1a11 发布：支持 OpenAI 兼容端点</h3>
+    <p class="desc">Simon Willison 的 datasette-llm 插件新增对 OpenAI 兼容端点的支持，可将 Datasette 配置为使用任何遵循该协议的 LLM 服务，用 LM Studio、Ollama 或 llama.cpp 跑本地模型的用户可启动本地模型驱动的 Datasette Agent。</p>
+    <div class="why"><b>关注理由</b>：本地模型（Ollama/llama.cpp）与数据工具的打通，让「本地数据 + 本地模型」的私有化智能体落地门槛进一步降低。</div>
+    <div class="src">Simon Willison 博客 · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">19</span><span class="cat cat-coding">智能体</span><span class="score">热度 <b>41</b></span></div>
+    <h3>Grok Bot 可代打电话改签航班</h3>
+    <p class="desc">马斯克发推演示 Grok @Bot 新能力，可代用户拨打电话、与客服沟通并改签航班，展示了智能体「替人办事」的线下真实世界行动能力。</p>
+    <div class="why"><b>关注理由</b>：智能体从「对话/生成」走向「执行真实世界任务（打电话）」的标志性演示，是 agent 落地闭环的重要一步。</div>
+    <div class="src">X：Elon Musk · <span class="notcurated">未进精选</span></div>
+  </div>
+
+  <div class="card">
+    <div class="card-top"><span class="rank">20</span><span class="cat cat-industry">安全</span><span class="score">热度 <b>29</b></span></div>
+    <h3>Cohere North 2 强化智能体安全管控</h3>
+    <p class="desc">Cohere North 2 借助 North Admin 让团队在单个智能体层面强制执行护栏，避免泄露与不安全行为，并取得 SOC 2 Type 2、ISO 27001、ISO 42001 认证。</p>
+    <div class="why"><b>关注理由</b>：企业级智能体安全与合规正在成为刚需，「细粒度护栏 + 权威认证」是 agent 走向规模化商用的必要条件。</div>
+    <div class="src">X：Cohere · <span class="notcurated">未进精选</span></div>
+  </div>
+
+</div>
+
+<footer>
+  <p>数据来源：<a href="https://aihot.news">AI HOT</a>（过去 24 小时）· 时间窗口径按 AI HOT 时间轴</p>
+  <p>精选池关键词方向（AI coding / 具身智能）当日均无命中，全部条目由全量池关键词补充并标注「未进精选」</p>
+  <p>本简报由小虾米 🦐 自动生成 · 仅供资讯参考，引用数据请回第三方原文核对</p>
+</footer>
+</div>
+</body>
+</html>
