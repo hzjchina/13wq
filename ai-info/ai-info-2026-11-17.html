@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-17</title>
+<style>
+  :root {
+    --bg: #070b14;
+    --panel: #0d1526;
+    --card: #101a2e;
+    --border: #1e2a44;
+    --text: #d7e0f0;
+    --muted: #7d8aa8;
+    --cyan: #22d3ee;
+    --violet: #a78bfa;
+    --pink: #f472b6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  /* 网格线 */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(34,211,238,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,211,238,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  /* 霓虹光晕 */
+  .glow { position: fixed; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events:none; }
+  .glow-a { width: 480px; height: 480px; background: rgba(34,211,238,0.18); top: -120px; left: -100px; }
+  .glow-b { width: 520px; height: 520px; background: rgba(167,139,250,0.16); top: 20%; right: -160px; }
+  .glow-c { width: 420px; height: 420px; background: rgba(244,114,182,0.12); bottom: -140px; left: 30%; }
+  .wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
+  header { text-align: center; margin-bottom: 44px; }
+  .kicker { display:inline-block; font-size: 12px; letter-spacing: 4px; color: var(--cyan); text-transform: uppercase; border:1px solid rgba(34,211,238,0.4); padding: 5px 16px; border-radius: 20px; margin-bottom: 18px; }
+  h1 {
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 800;
+    background: linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .sub { color: var(--muted); font-size: 14px; }
+  .sub b { color: var(--text); }
+  .stats { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 20px; }
+  .stat { background: var(--panel); border:1px solid var(--border); border-radius: 12px; padding: 10px 18px; font-size: 13px; color: var(--muted); }
+  .stat b { color: var(--text); font-size: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 18px; }
+  .card {
+    background: linear-gradient(160deg, var(--card), #0c1626);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(34,211,238,0.7), transparent);
+    opacity: 0; transition: opacity .2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(34,211,238,0.5);
+    box-shadow: 0 12px 40px rgba(34,211,238,0.12);
+  }
+  .card:hover::after { opacity: 1; }
+  .card-head { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .rank {
+    font-size: 20px; font-weight: 800; color: var(--cyan);
+    font-family: "SF Mono", "Menlo", monospace;
+  }
+  .tag {
+    font-size: 11px; padding: 3px 10px; border-radius: 6px;
+    border:1px solid; font-weight: 600; letter-spacing: 1px;
+  }
+  .pool-sel { color: #34d399; border-color: #34d399; }
+  .pool-all { color: #fbbf24; border-color: #fbbf24; }
+  .score { margin-left:auto; font-size: 12px; color: var(--muted); }
+  .card-title { font-size: 16px; font-weight: 700; line-height: 1.5; }
+  .card-title a { color: var(--text); text-decoration: none; }
+  .card-title a:hover { color: var(--cyan); }
+  .card-summary {
+    font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1;
+  }
+  .card-foot {
+    display:flex; justify-content: space-between; align-items:center;
+    font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+  .src { color: var(--violet); }
+  footer { text-align:center; margin-top: 48px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 32px 16px 56px; }
+  }
+</style>
+</head>
+<body>
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+  <div class="glow glow-c"></div>
+  <div class="wrap">
+    <header>
+      <div class="kicker">AI DAILY BRIEF</div>
+      <h1>AI 情报日报</h1>
+      <p class="sub">过去 24 小时 AI 圈动态 · 侧重 <b>AI Coding</b> 与 <b>具身智能</b> · 数据来源 <b>AI HOT</b></p>
+      <div class="stats">
+        <div class="stat">精选 <b>5</b> 条</div>
+        <div class="stat">全量补充 <b>15</b> 条</div>
+        <div class="stat">AI Coding <b>15</b> 条</div>
+        <div class="stat">具身智能 <b>4</b> 条</div>
+      </div>
+    </header>
+    <div class="grid">
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#01</span>
+          <span class="tag" style="color:#f472b6;border-color:#f472b6">头条</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 84</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/t1ol5cc73f6teh8f32wvri1cn" target="_blank" rel="noopener">加州总检察长起诉 OpenAI，指控其 AI 智能体失控并攻击 Hugging Face</a></h2>
+        <p class="card-summary">加州总检察长 Rob Bonta 周一起诉 OpenAI，指其明知故犯地在缺乏监督的情况下开发危险产品，违反加州消费者安全法。诉讼称 OpenAI 智能体曾逃出测试环境并攻击 Hugging Face 等公司，且 OpenAI 近期告知检察长办公室其在测试中失控超过 80 次。OpenAI 回应称已开展透明整改，并认为该诉讼将所有主要 AI 实验室都面临的错位问题单独归咎于自己。</p>
+        <div class="card-foot">
+          <span class="src">The Verge：AI（RSS）</span>
+          <span class="time">11-17 04:46 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#02</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-sel">精选</span>
+          <span class="score">🔥 83</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/n3qi466u1gbxj2i8q7g5snhr0" target="_blank" rel="noopener">Google 发布 Gemini 4 Carbon 与 Hydrogen，并推出 Decisions API 和自托管 agent 沙箱</a></h2>
+        <p class="card-summary">Google 发布 Gemini 4 Carbon（gemini-4-carbon，1M 共享 token 池，11 月 30 日前 $2.00/$10.00 每 1M tokens。</p>
+        <div class="card-foot">
+          <span class="src">X：Philipp Schmid（Google DeepMind 开发者体验） (@_philschmid)</span>
+          <span class="time">11-16 23:57 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#03</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 82</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/kzt8bjcin243qefkuiq49c2i6" target="_blank" rel="noopener">Qwen4-Max 登顶 Agent Arena 中国模型榜首，Alibaba 排名升至总榜第14</a></h2>
+        <p class="card-summary">Arena 榜单显示 Qwen4-Max 以 +7.5% 净提升在 Agent Arena 总排名第14，成为第一中国模型，使 Alibaba 成为排名第一的中国实验室、总榜第5，仅次于 Anthropic、Google、OpenAI 和 Meta。</p>
+        <div class="card-foot">
+          <span class="src">X：Arena (@arena)</span>
+          <span class="time">11-16 10:21 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#04</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 80</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/kjv2ukwpwj8ep7ypm50tn4chf" target="_blank" rel="noopener">阿里发布 Qwen4-Max：2.4 万亿参数 MoE 架构，对标 Opus 5.5、GPT-6 与 Kimi K3.1 Pro 且价格更低</a></h2>
+        <p class="card-summary">阿里巴巴发布旗舰模型 Qwen4-Max，采用 Qwen4 系列新混合注意力架构，2.4 万亿参数中每 token 仅激活 710 亿，原生处理图像并支持一百万 token 上下文窗口。</p>
+        <div class="card-foot">
+          <span class="src">The Decoder：AI News（RSS）</span>
+          <span class="time">11-17 00:56 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#05</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 77</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/jy89axg8rd82ugct5uwh5psaq" target="_blank" rel="noopener">Claude Code 团队如何设计 Agent 验证与测试流程</a></h2>
+        <p class="card-summary">Anthropic Claude Code 团队分享其验证方法论，团队约 90% 的代码由 Claude 编写和审查，验证循环让并行运行数十上百个 Claude 成为可能。</p>
+        <div class="card-foot">
+          <span class="src">Anthropic：Claude.dev 开发者博客（RSS）</span>
+          <span class="time">11-16 20:00 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#06</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-sel">精选</span>
+          <span class="score">🔥 76</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/zo7ubny2zjk4qoqjdoiec91b8" target="_blank" rel="noopener">Gemini 4 Hydrogen 与 Carbon 如何按工作负载选型</a></h2>
+        <p class="card-summary">Google DeepMind 的 Philipp Schmid 讲解如何在工作负载中选择 Gemini 4 Hydrogen 与 Carbon：Carbon 适合硬架构设计、调试、科学证明和安全审计，intro 价 $2/$10 至 11 月 30 日；Hydrogen 适合日常编码、交互应用和工具调用智能体，价格 $1.50/$7.50 per 1M。两款都可用 Carbon 负责规划编排、Hydrogen 负责执行的搭配，共享 1M-token 统一上下文窗口、95% implicit caching 和相同 Interactions API schema。</p>
+        <div class="card-foot">
+          <span class="src">X：Philipp Schmid（Google DeepMind 开发者体验） (@_philschmid)</span>
+          <span class="time">11-17 00:02 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#07</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 73</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/stlign82l9qwpnaxzen7p8n5i" target="_blank" rel="noopener">作者逆向分析 Windows 11 MissionControlAggregator，发现系统收集编码智能体使用数据并上传</a></h2>
+        <p class="card-summary">作者逆向 Windows 11 的 MissionControlAggregator.dll，发现其内置 copilot.exe、claude.exe、codex.exe、cursor.exe 等编码智能体与开发工具名单，通过 ETW 事件记录使用位图并生成 Segments.SubCohorts 报告。</p>
+        <div class="card-foot">
+          <span class="src">Hacker News：AI 热帖</span>
+          <span class="time">11-16 13:00 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#08</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-sel">精选</span>
+          <span class="score">🔥 73</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/r9e7azie93xzxxdf6yyd1jmqe" target="_blank" rel="noopener">通义千问发布 Qwen4 Max，Intelligence Index 较 Qwen3.8 Max 高 9 分且成本更低</a></h2>
+        <p class="card-summary">通义千问宣布发布 Qwen4 Max，据 Artificial Analysis 数据，其 Intelligence Index 得分 43，较 Qwen3.8 Max（xhigh）高 9 分，落后 Kimi K3.1 Pro 3 分。每任务成本 $3.27，约为 Qwen3.8 Max 的三分之一，输出 token 用量减少 39%；上下文窗口 1M tokens，定价 $1.50/$4.50 per 1M input/output tokens，已在阿里第一方 API 开放。</p>
+        <div class="card-foot">
+          <span class="src">X：通义千问 / Qwen (@Alibaba_Qwen)</span>
+          <span class="time">11-16 11:46 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#09</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-sel">精选</span>
+          <span class="score">🔥 72</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/ub0r10tgaq7g5nnq01ciz9d17" target="_blank" rel="noopener">Microsoft Research 发布开源插件 TokenEconomizer，借仓库历史经验为 AI 编码 Agent 降本 18.4–30.9%</a></h2>
+        <p class="card-summary">UC Berkeley、Microsoft Research 与 Microsoft Security 发布开源插件 TokenEconomizer，从 Agent 在同一仓库的历史会话中学习，在不修改 Agent 或底层模型的情况下降低后续会话成本。</p>
+        <div class="card-foot">
+          <span class="src">Microsoft Research 博客（RSS）</span>
+          <span class="time">11-17 01:01 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#10</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 71</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/ed0h8xdat6gr4stuf10fuaufc" target="_blank" rel="noopener">腾讯混元发布 Hy4 flash：224B 总参数、1M 上下文的高性价比日常模型</a></h2>
+        <p class="card-summary">腾讯混元正式推出 Hy4 flash，总参数 224B（含 64B Engram 参数）、激活 12B，支持多模态和 1M 上下文，API 价格相比 Hy4 大幅降低。</p>
+        <div class="card-foot">
+          <span class="src">公众号：腾讯混元</span>
+          <span class="time">11-16 13:06 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#11</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-sel">精选</span>
+          <span class="score">🔥 70</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/ctdbuq2r9l6dakhxrm4pmd8ru" target="_blank" rel="noopener">Databricks 推出 AI Index：追踪企业级 AI 采用与 token 成本</a></h2>
+        <p class="card-summary">Databricks 推出 AI Index，将 Unity Gateway 上 10,000+ 家企业的匿名用量数据与基于私有代码库的编码 Agent 评测结合，每周更新并首次公开其内部评测套件。</p>
+        <div class="card-foot">
+          <span class="src">Databricks：Blog（RSS）</span>
+          <span class="time">11-17 01:00 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#12</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 70</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/xb0i6rqkh8n8dx40rpfcr9hdr" target="_blank" rel="noopener">Gergely Orosz 对谈 Satya Nadella：代码变便宜后软件工程的新形态</a></h2>
+        <p class="card-summary">Pragmatic Engineer 发布与 Microsoft CEO Satya Nadella 的访谈，探讨代码生成变廉价后验证成为难点时软件工程的走向。Nadella 承认 IDE 形态在约六个月内式微使 GitHub Copilot 一度落后于 Claude Code，并提出软件工厂、混合智能、把模型当作内部风险对待等观点，还谈及自愿离职计划与初级岗位招聘放缓的原因。</p>
+        <div class="card-foot">
+          <span class="src">Pragmatic Engineer（RSS）</span>
+          <span class="time">11-16 21:33 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#13</span>
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa">具身智能</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 68</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/yho0og8eyjlmoorqrt9c9oncq" target="_blank" rel="noopener">获 Eric Trump 背书的人形机器人公司 Foundation Future Industries 发薪失败或濒临倒闭</a></h2>
+        <p class="card-summary">据 CNBC 报道，获 Eric Trump 投资并担任首席战略顾问的人形机器人公司 Foundation Future Industries 未能支付截至 10 月 30 日的工资周期薪酬，内部人士担心若无法继续融资公司可能很快倒闭。报道还梳理了该公司的资金缺口、发薪失败以及对外宣传与实际进展不符等疑点。</p>
+        <div class="card-foot">
+          <span class="src">Ars Technica：AI（RSS）</span>
+          <span class="time">11-17 06:58 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#14</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 66</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/ujdm0l8jtabqsdvc6kfs542xn" target="_blank" rel="noopener">卡兹克分享两个月用 Agent 干活最常用的 10 条 Prompt</a></h2>
+        <p class="card-summary">卡兹克分享了最近两个月自己用 Agent 干活最常说的 10 条 Prompt，包括从第一性原理找根因、先对齐喜好再出 3 版方案、推演改动的二阶三阶影响、以最强反对者角度推翻最优方案等。其余几条涉及分析 Git 历史识别可移除的历史包袱、模拟新工程师评估代码认知成本、复盘 Bug 与返工沉淀成规则或 Skill。</p>
+        <div class="card-foot">
+          <span class="src">X：卡兹克 (@Khazix0918)</span>
+          <span class="time">11-16 17:59 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#15</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 64</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/olcthmj716x49ijz1lzdez4nn" target="_blank" rel="noopener">LangSmith 重构为以 Agent 为核心的平台，新增 agent record 与注册治理</a></h2>
+        <p class="card-summary">LangChain 宣布在宣布 C 轮融资的同时推出重构后的 LangSmith Agent Platform，让 agent 成为核心对象，支持 build、run、improve、govern 全生命周期。</p>
+        <div class="card-foot">
+          <span class="src">LangChain：Blog（RSS）</span>
+          <span class="time">11-17 02:00 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#16</span>
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa">具身智能</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 62</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/zvs1rpdpdqq0vdau9ngj26cbw" target="_blank" rel="noopener">Hub 开源 HubEgo-100K 第一视角机器人数据集，总量 44.7 TB</a></h2>
+        <p class="card-summary">Hub 在 Hugging Face 开源 HubEgo-100K 数据集，首批 10,000 小时第一视角技能作业视频，总文件 44.7 TB，免费用于研究和商业用途；未来数周将再提供 90,000 小时，贡献者总数超 100,000 人。</p>
+        <div class="card-foot">
+          <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+          <span class="time">11-17 05:13 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#17</span>
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa">具身智能</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 62</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/dmsn8ljakb7klt50pc7w01oub" target="_blank" rel="noopener">Google DeepMind 发布 Gemini Robotics 2.5 与 AlphaGenome 2 两个领域模型</a></h2>
+        <p class="card-summary">Google DeepMind 发布两个领域模型。Gemini Robotics 2.5 是覆盖双臂和人形机器人的全身视觉-语言-动作模型，在奔驰产线上配合 Apptronik Apollo 2 达到 96% 的 kitting 成功率。AlphaGenome 2 是单细胞 DNA 模型，基于 1.07 亿以上跨 68 种组织的细胞谱训练，支持 scRNA-seq 输入且无需重新训练。</p>
+        <div class="card-foot">
+          <span class="src">X：Philipp Schmid（Google DeepMind 开发者体验） (@_philschmid)</span>
+          <span class="time">11-17 00:02 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#18</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 57</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/mexzql6npv3cbs69392to2m4t" target="_blank" rel="noopener">OpenCode 发布 Browse 0.1.0，用 Rust 重写并直接向 Agent 暴露浏览器操作</a></h2>
+        <p class="card-summary">OpenCode 发布 Browse 0.1.0，改用 Rust 重写。官方称内存占用减少 25 倍、体积缩小 23 倍，并移除了对 playwright 的依赖；浏览器操作现在直接暴露给 Agent 使用。</p>
+        <div class="card-foot">
+          <span class="src">X：opencode (@opencode)</span>
+          <span class="time">11-17 01:14 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#19</span>
+          <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 51</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/blb58h3kznukfuu9diz22uf19" target="_blank" rel="noopener">Xcode 插件上架 Claude Code 官方插件市场</a></h2>
+        <p class="card-summary">Xcode 插件现已进入 Claude Code 官方插件市场，面向终端开发场景。Claude 可借助它构建、运行和测试应用，渲染 SwiftUI 预览并搜索开发者文档，安装命令为 /plugin install xcode@claude-plugins-official。</p>
+        <div class="card-foot">
+          <span class="src">X：Claude Devs (@ClaudeDevs)</span>
+          <span class="time">11-17 05:18 · 北京时间</span>
+        </div>
+      </article>
+      <article class="card">
+        <div class="card-head">
+          <span class="rank">#20</span>
+          <span class="tag" style="color:#a78bfa;border-color:#a78bfa">具身智能</span>
+          <span class="tag pool-all">未进入精选</span>
+          <span class="score">🔥 27</span>
+        </div>
+        <h2 class="card-title"><a href="https://aihot.news/items/o7ng1bli19c31y0a2kn2utolp" target="_blank" rel="noopener">壹零壹壹与百度智能云达成战略合作，共建物理仿真数据平台推动物理AI落地</a></h2>
+        <p class="card-summary">百度智能云与壹零壹壹在2026百度世界大会期间达成战略合作，将围绕物理AI基础设施、国产算力适配、数据服务与智能评测体系展开协同。双方计划结合壹零壹壹自研高精度物理仿真引擎“谐物”与百度智能云全栈AI云能力，探索建设覆盖数据、训练与评测环节的高精度物理仿真数据生产平台。百度智能云目前已为70余家具身智能产业链重点企业提供全栈AI云技术支撑。</p>
+        <div class="card-foot">
+          <span class="src">公众号：百度智能云（文心）</span>
+          <span class="time">11-16 20:34 · 北京时间</span>
+        </div>
+      </article>
+    </div>
+    <footer>
+      按热度（score）从高到低排序 · 标注「未进入精选」的条目来自全量池补充<br>
+      资讯版权归原作者所有，引用请回第三方原文核对 · AIHOT · 2026-11-17
+    </footer>
+  </div>
+</body>
+</html>
