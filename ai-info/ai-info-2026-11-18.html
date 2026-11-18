@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-18</title>
+<style>
+  :root {
+    --bg: #070b14;
+    --panel: #0d1526;
+    --card: #101a2e;
+    --border: #1e2a44;
+    --text: #d7e0f0;
+    --muted: #7d8aa8;
+    --cyan: #22d3ee;
+    --violet: #a78bfa;
+    --pink: #f472b6;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(34,211,238,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,211,238,0.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow { position: fixed; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events:none; }
+  .glow-a { width: 480px; height: 480px; background: rgba(34,211,238,0.18); top: -120px; left: -100px; }
+  .glow-b { width: 520px; height: 520px; background: rgba(167,139,250,0.16); top: 20%; right: -160px; }
+  .glow-c { width: 420px; height: 420px; background: rgba(244,114,182,0.12); bottom: -140px; left: 30%; }
+  .wrap { position: relative; z-index: 1; max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
+  header { text-align: center; margin-bottom: 44px; }
+  .kicker { display:inline-block; font-size: 12px; letter-spacing: 4px; color: var(--cyan); text-transform: uppercase; border:1px solid rgba(34,211,238,0.4); padding: 5px 16px; border-radius: 20px; margin-bottom: 18px; }
+  h1 {
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 800;
+    background: linear-gradient(90deg, #22d3ee, #a78bfa, #f472b6);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    margin-bottom: 14px;
+  }
+  .sub { color: var(--muted); font-size: 14px; }
+  .sub b { color: var(--text); }
+  .stats { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 20px; }
+  .stat { background: var(--panel); border:1px solid var(--border); border-radius: 12px; padding: 10px 18px; font-size: 13px; color: var(--muted); }
+  .stat b { color: var(--text); font-size: 16px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+  .card {
+    background: linear-gradient(160deg, var(--card), #0c1626);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(34,211,238,0.7), transparent);
+    opacity: 0; transition: opacity .2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(34,211,238,0.5);
+    box-shadow: 0 12px 40px rgba(34,211,238,0.12);
+  }
+  .card:hover::after { opacity: 1; }
+  .card-head { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .rank {
+    font-size: 20px; font-weight: 800; color: var(--cyan);
+    font-family: "SF Mono", "Menlo", monospace;
+  }
+  .tag {
+    font-size: 11px; padding: 3px 10px; border-radius: 6px;
+    border:1px solid; font-weight: 600; letter-spacing: 1px;
+  }
+  .pool-sel { color: #34d399; border-color: #34d399; }
+  .pool-all { color: #fbbf24; border-color: #fbbf24; }
+  .score { margin-left:auto; font-size: 12px; color: var(--muted); }
+  .card-title { font-size: 16px; font-weight: 700; line-height: 1.5; }
+  .card-title a { color: var(--text); text-decoration: none; }
+  .card-title a:hover { color: var(--cyan); }
+  .card-summary {
+    font-size: 13px; color: var(--muted); line-height: 1.7; flex: 1;
+  }
+  .card-reason {
+    font-size: 12.5px; color: #b9c6e0; line-height: 1.65;
+    background: rgba(34,211,238,0.06);
+    border-left: 2px solid rgba(34,211,238,0.5);
+    padding: 9px 12px;
+    border-radius: 6px;
+  }
+  .r-label { color: var(--cyan); font-weight: 700; margin-right: 6px; font-size: 12px; }
+  .card-foot {
+    display:flex; justify-content: space-between; align-items:center;
+    font-size: 12px; color: var(--muted); border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+  .src { color: var(--violet); }
+  footer { text-align:center; margin-top: 48px; color: var(--muted); font-size: 12px; line-height: 1.8; }
+  @media (max-width: 640px) {
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 32px 16px 56px; }
+  }
+</style>
+</head>
+<body>
+  <div class="glow glow-a"></div>
+  <div class="glow glow-b"></div>
+  <div class="glow glow-c"></div>
+  <div class="wrap">
+    <header>
+      <span class="kicker">AI HOT · Daily Brief</span>
+      <h1>AI 情报日报</h1>
+      <p class="sub">2026-11-18 · 过去 24 小时 AI 圈重点 · 侧重 <b>AI coding</b> 与 <b>具身智能</b></p>
+      <div class="stats">
+        <span class="stat">共 <b>20</b> 条</span>
+        <span class="stat">精选 <b>6</b> 条</span>
+        <span class="stat">全量补充 <b>14</b> 条</span>
+        <span class="stat">数据源 <b>AI HOT</b></span>
+      </div>
+    </header>
+    <div class="grid">
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">01</span>
+        <span class="tag pool-sel">精选</span>
+        <span class="score">热度 86</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/jr7fqw95e5ihuevr1rzib208l" target="_blank" rel="noopener">OpenAI 发布 GPT-6.2 Astra 与 GPT-6.2 Sol</a></div>
+      <div class="card-summary">OpenAI 发布面向复杂专业工作的 GPT-6.2 Astra 和面向日常工作的 GPT-6.2 Sol，两者在更少输出 token 下取得更好结果。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>OpenAI 新一代旗舰模型，头条事件。Astra 主打复杂专业/编码工作、Sol 主打日常，均以更少输出 token 取得更好结果，直接冲击 Claude Fable 5.2 的领先地位。</div>
+      <div class="card-foot">
+        <span class="src">OpenAI：官网动态（RSS · 排除企业/客户案例）</span>
+        <span>11-18 01:45</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">02</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 83</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/sj8tloc8ouo0l0npx5ymxvmbn" target="_blank" rel="noopener">NVIDIA 发布 2027 财年第三季度财报，营收 1158 亿美元同比增长 103%</a></div>
+      <div class="card-summary">NVIDIA 公布截至 2026 年 10 月 25 日的第三财季业绩，营收 1158 亿美元，环比增 20%，同比增 103%；数据中心营收 1076 亿美元，同比增长 110%，GAAP 摊薄每股收益 2.70 美元。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>AI 算力景气度风向标。数据中心营收同比 +110%，验证 AI 训练/推理需求持续井喷，是判断整个 AI 产业链景气度的核心财报。</div>
+      <div class="card-foot">
+        <span class="src">NVIDIA：Newsroom（RSS）</span>
+        <span>11-18 05:20</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">03</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 81</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/daywjxxg5o1z9whz85s3hg59x" target="_blank" rel="noopener">Simon Willison 实测 OpenAI 新模型 GPT-6.2 Astra 与 GPT-6.2 Sol</a></div>
+      <div class="card-summary">OpenAI 发布 GPT-6.2 Astra（面向高难度项目的旗舰模型）和 GPT-6.2 Sol（面向日常工作的通用模型），API 名称分别为 gpt-6.2-astra 和 gpt-6.2-sol。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>独立开发者权威实测。Simon Willison 是编码智能体领域最有影响力的实践者，其一手评测对新模型的实际编码能力有极高参考价值。</div>
+      <div class="card-foot">
+        <span class="src">Simon Willison 博客</span>
+        <span>11-18 06:38</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">04</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 79</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/qhchrbfl6n5vq38zmpjdx84rc" target="_blank" rel="noopener">Claude Code 团队如何验证 Agent 产出：三类测试与验证回路实践</a></div>
+      <div class="card-summary">Claude Code 团队分享其验证方法论，约 90% 的代码由 Claude 编写和审查，验证回路让并行运行数十到数百个 Agent 成为可能，内测中用独立 grader 按评分标准检查可将任务成功率提高最多 10 分。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>AI coding 工程方法论干货。90% 代码由 Claude 编写审查 + 独立 grader 验证回路，是当前 Agent 规模化工序的标杆实践，对团队落地 AI 编程极有借鉴意义。</div>
+      <div class="card-foot">
+        <span class="src">X：Addy Osmani (@addyosmani)</span>
+        <span>11-17 15:20</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">05</span>
+        <span class="tag pool-sel">精选</span>
+        <span class="score">热度 77</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/m4ti1m7rs04pdy8067c1k0uas" target="_blank" rel="noopener">Artificial Analysis 评测 GPT-6.2 Astra 和 Sol：智能指数升至第二</a></div>
+      <div class="card-summary">Artificial Analysis 评测 OpenAI 发布的 GPT-6.2 Astra 和 GPT-6.2 Sol，两者在 Artificial Analysis Intelligence Index 中位列第二，仅次于 Claude Fable 5.2。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>权威第三方基准。Astra/Sol 在 Intelligence Index 位列第二、仅次于 Fable 5.2，量化了新模型在全球竞争格局中的真实位置。</div>
+      <div class="card-foot">
+        <span class="src">Artificial Analysis 完整文章（网页）</span>
+        <span>11-17 00:00</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">06</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 77</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/ekt4wsp34savbuzq0vafnlhpw" target="_blank" rel="noopener">Microsoft agent-framework 1.26.1/1.26.2 恶意版本被发布至 PyPI，窃取 Azure 与 CI 凭据</a></div>
+      <div class="card-summary">Wiz 报告，PyPI 上的 agent-framework 出现恶意版本 1.26.1 和 1.26.2（上传于 2026-11-17，约 21:30 UTC 后已下架），植入 .pth 文件在 Python 启动时运行凭据窃取器，收集环境变量、凭据文件及 Azure 与 Azure DevOps 托管标识和 OIDC 令牌，并回传至 webhook.site。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>供应链安全警报。恶意包窃取 Azure 凭据与 OIDC 令牌，AI 生态的软件供应链正成为攻击新靶点，开发者需警惕依赖投毒。</div>
+      <div class="card-foot">
+        <span class="src">Wiz：Research（安全研究）</span>
+        <span>11-18 06:03</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">07</span>
+        <span class="tag pool-sel">精选</span>
+        <span class="score">热度 76</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/ujx1ebv207quqahxh2ypzibqd" target="_blank" rel="noopener">Google AI Studio 集成 Gemini 4 Carbon 与 Hydrogen 支持构建全栈 Android 应用并发布到 Google Play</a></div>
+      <div class="card-summary">Google AI Studio 结合 Gemini 4 Carbon 和 Hydrogen，可从单个提示词生成生产级 Kotlin Android 应用，并在几分钟内发布到个人 Google Play 库。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>端到端 AI coding 能力跃迁。单提示词生成生产级 Kotlin 应用并一键发布 Play 商店，标志「AI 写全栈 App」从演示走向可用。</div>
+      <div class="card-foot">
+        <span class="src">Google Developers Blog（RSS）</span>
+        <span>11-17 00:00</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">08</span>
+        <span class="tag pool-sel">精选</span>
+        <span class="score">热度 75</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/y7f42y59ahf4hjlf4ptoprfq3" target="_blank" rel="noopener">Microsoft Ignite 2026：MAI 发布多款模型并推出 Licensed Weights 可控权重方案</a></div>
+      <div class="card-summary">微软 MAI 在 Ignite 2026 主题演讲中发布一系列强调性价比的模型，并推出 MAI Licensed Weights，可定制后在自己的 Azure 环境中运行、掌控权重与数据。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>开源可控权重新范式。MAI 一次性发多款性价比模型 + Licensed Weights（可在自有环境定制），直击企业对数据主权与可控性的诉求。</div>
+      <div class="card-foot">
+        <span class="src">Microsoft AI：官方博客（RSS）</span>
+        <span>11-18 02:14</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">09</span>
+        <span class="tag pool-sel">精选</span>
+        <span class="score">热度 71</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/jj0ftew61l69qvcrmww6gcxjt" target="_blank" rel="noopener">Microsoft Ignite 2026：Copilot 新形态、Microsoft IQ、Agent 365 与 Cobalt 200 VMs 等多项发布</a></div>
+      <div class="card-summary">Satya Nadella 在 Ignite 2026 开幕主题演讲中宣布构建 frontier 生态的多项产品更新。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>微软 AI 全家桶战略升级。Copilot 新形态 + Agent 365 等，揭示「模型→智能体→生产力」的企业落地主线。</div>
+      <div class="card-foot">
+        <span class="src">Microsoft：Official Blog（RSS）</span>
+        <span>11-18 02:36</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">10</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 70</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/pyg0hznbolslrs5jxwhpkxals" target="_blank" rel="noopener">Fireworks 评测 Kimi K3.1 Pro：智能体场景下该替换还是组合使用</a></div>
+      <div class="card-summary">Fireworks AI 基于 Specialized Intelligence Index 的 21 个基准榜单，从任务表现、模型成本和执行时间三方面评测 Kimi K3.1 Pro 是否适合替换现有智能体模型。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>国产模型智能体定位。Kimi K3.1 Pro 在 21 项基准下与主流智能体模型对比，为选型「替换 vs 组合」提供量化依据。</div>
+      <div class="card-foot">
+        <span class="src">Fireworks AI（网页）</span>
+        <span>11-17 00:00</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">11</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 69</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/kxqw2akkrxanp81oc2uofeeey" target="_blank" rel="noopener">Google 发布 Gemini 4 Hydrogen 并推出 Antigravity Robotics 插件</a></div>
+      <div class="card-summary">Google 发布面向机器人场景的 Gemini 4 Hydrogen，主打更快的空间与具身推理，ERQA 平均分 84.8，超过 Gemini Robotics ER 2 的 75.5；在 Artificial Analysis Robotics 0.1 基准上得 58 分，接近 Argon 且每 token 成本更低。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>具身智能重要进展。Gemini 4 Hydrogen 主打空间/具身推理，ERQA 84.8 分超上代，配套 Antigravity Robotics 插件，谷歌在机器人大模型上加码。</div>
+      <div class="card-foot">
+        <span class="src">Google Developers Blog（RSS）</span>
+        <span>11-17 00:00</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">12</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 68</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/z3n160k1v5vsc90udwjd8x7pp" target="_blank" rel="noopener">Claude Code 推出实验性 Code Mode 工具调用方式</a></div>
+      <div class="card-summary">Claude Code 推出实验性 Code Mode，一种新的工具使用方式：Claude 会编写脚本以复杂方式串联多个工具，并能在长命令仍在运行时回复用户。可通过设置环境变量 CLAUDE_CODE_EXPERIMENTAL_CODE_MODE=1 开启，文档见 http://code.claude.com/docs/en/code-mode。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>AI coding 交互新范式。Claude Code 新增 Code Mode，可写脚本串联多工具并边跑边回话，是编码智能体自主性的一次实验性突破。</div>
+      <div class="card-foot">
+        <span class="src">X：Claude Devs (@ClaudeDevs)</span>
+        <span>11-18 05:18</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">13</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 68</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/d0oqofrj58ht9y81l9rp1x624" target="_blank" rel="noopener">GitHub 工程师详解 Agent Host Protocol 如何让 agent 会话跨设备延续</a></div>
+      <div class="card-summary">GitHub 工程师介绍 GitHub Copilot 跨设备会话连续性背后的 Agent Host Protocol（AHP），一个从 VS Code 起步、已在 GitHub 各端采用的开放标准。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>智能体工程标准。GitHub 开源 Agent Host Protocol 实现跨设备会话延续，是「多端协同编程」的基础协议，值得开发者关注。</div>
+      <div class="card-foot">
+        <span class="src">GitHub Blog</span>
+        <span>11-18 02:20</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">14</span>
+        <span class="tag pool-sel">精选</span>
+        <span class="score">热度 65</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/c3qj65urfo345mc80xz5jdefb" target="_blank" rel="noopener">Microsoft AI 发布 MAI Code 2 与 MAI Code 2 Flash 编码模型</a></div>
+      <div class="card-summary">Microsoft AI 发布 MAI Code 2 和 MAI Code 2 Flash 两款编码模型，面向日常企业编码任务，定价远低于竞品。MAI Code 2 在四项基准平均下达到 GPT 6.1 Sol 98% 的性能但成本仅 40%，达到 Claude Opus 5.5 96% 的性能而成本仅 5%；盲测前端评审中 64% 的情况下胜过 GPT-6 Sol。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>极致性价比编码模型。MAI Code 2 以 5% 成本达 Claude Opus 5.5 96% 性能、盲测 64% 胜 GPT-6 Sol，直接压低企业编码成本。</div>
+      <div class="card-foot">
+        <span class="src">Microsoft AI：官方博客（RSS）</span>
+        <span>11-18 02:15</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">15</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 64</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/j8v430mfr0lfk8ccyf4rp6yoa" target="_blank" rel="noopener">Simon Willison 发布编码智能体外部沙箱模式及三套实现</a></div>
+      <div class="card-summary">Simon Willison 与 AI 研究实验室 Prime Radiant 合作，介绍面向编码智能体的外部沙箱模式，智能体在沙箱外运行、待执行代码在专用沙箱内运行，目标是让本地模型实验更安全，避免提示词注入等攻击造成破坏。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>AI coding 安全基建。Simon Willison 提出的外部沙箱模式分离「智能体运行」与「代码执行」，是防提示词注入的关键工程实践。</div>
+      <div class="card-foot">
+        <span class="src">Simon Willison 博客</span>
+        <span>11-18 06:52</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">16</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 58</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/gm7el2rvp6ygewfrispkbamol" target="_blank" rel="noopener">Genesis AI 融资 5 亿美元，估值 35 亿美元</a></div>
+      <div class="card-summary">Genesis AI 完成 5 亿美元 A 轮融资，估值 35 亿美元，目标是构建具备人类水平智能与能力的通用机器人。资金用于通过可采集触觉和力的手套记录人类操作来教会机器人手部技能，其 GENE 模型通过 Genesis World 物理仿真器在多个虚拟环境并行自我练习，并可改变场景和物体来提前发现技能失效点。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>具身智能融资信号。Genesis AI 5 亿美元 A 轮、35 亿估值，用触觉手套 + 物理仿真器并行训练手部技能，代表「数据采集 + 仿真」具身新路线。</div>
+      <div class="card-foot">
+        <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+        <span>11-18 04:04</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">17</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 58</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/q6gdx6tknfwj699y7yeql9jtd" target="_blank" rel="noopener">生数 Motubrain 2.0 收官首个物理 AI 全程公开训练直播</a></div>
+      <div class="card-summary">生数宣布 Motubrain 物理AI 25天全程公开训练直播收官，完成从预训练、后训练到 Agent 与 RSI 探索的阶段验证。20B 参数模型使用 250 万小时多源数据（含 200 万小时互联网视频、约 50 万小时具身数据），累计超 1 万次真机任务测试，在 RoboCasa365、EBench、LIBERO-Plus 等 6 项 Benchmark 上位列前茅。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>国产物理 AI 里程碑。生数 Motubrain 2.0 完成 25 天全程公开训练直播，20B 参数、250 万小时数据、万次真机测试，多榜领先。</div>
+      <div class="card-foot">
+        <span class="src">公众号：生数科技（Vidu·视频）</span>
+        <span>11-17 23:10</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">18</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 50</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/ohwih0e8mwcxh79dpad3r6lq9" target="_blank" rel="noopener">智元发布 WITA-Omni：行业首个具身全模态端到端交互大模型</a></div>
+      <div class="card-summary">智元正式发布 WITA-Omni（硅光动语全模态大模型），称其为行业首个具身全模态端到端交互大模型，在音视频之外新增触觉、本体状态输入与动作、表情输出。其交互响应最快约400毫秒、平均约600毫秒，较业内平均水平快近3倍，并登顶 DailyOmni、MMAU、EmbSpatialBench 等四个榜单。该模型已在量产机器人远征 A3-Ultra 本体部署，并在文娱导览等场景开展验证。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>具身交互突破。智元 WITA-Omni 号称行业首个具身全模态端到端模型，400ms 响应、已部署量产机器人远征 A3-Ultra，国产具身软硬一体落地。</div>
+      <div class="card-foot">
+        <span class="src">AGIBOT 智元（网页）</span>
+        <span>11-16 15:11</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">19</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 43</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/qyq2gjuv98h9p6lh8vdavs3w1" target="_blank" rel="noopener">雷军：AI 是全新时代，小米人形机器人已在工厂实习 8 小时</a></div>
+      <div class="card-summary">雷军在 2026 年 APEC 工商领导人峰会上表示，AI 大模型落地并实现商业闭环的公司仍较少，但 AI 走向物理世界与终端结合将带来巨大机会。他透露小米具身智能机器人已在工厂实习，能完整工作八小时并自主充电两次；小米人形机器人首次挑战中控台侧盖板排序工站 8 小时作业，家庭场景基于 Xiaomi-Robotics-1 的 Agent 系统完成超 30 分钟、3 个房间、50+ 任务验证。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>人形机器人商业化信号。雷军披露小米人形机器人工厂 8 小时实习、家庭 50+ 任务验证，头部厂商具身智能落地节奏是行业风向标。</div>
+      <div class="card-foot">
+        <span class="src">IT之家·人工智能</span>
+        <span>11-17 16:16</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="rank">20</span>
+        <span class="tag pool-all">未进精选</span>
+        <span class="score">热度 42</span>
+      </div>
+      <div class="card-title"><a href="https://aihot.news/items/cuik6d6r5zzzur4pkwk2hve2j" target="_blank" rel="noopener">FlagOpen 开源 HumanCOIN：基于 LeRobot 的多传感器多频率数据集扩展</a></div>
+      <div class="card-summary">智源 FlagOpen 开源 HumanCOIN，一个基于 LeRobot 的多传感器、多频率数据集扩展，每个传感器按各自采样率独立存为 parquet 文件，查询时按时间窗口动态对齐，无需预先重采样。</div>
+      <div class="card-reason"><span class="r-label">值得关注</span>具身数据基建。智源开源 HumanCOIN 多传感器多频率数据集扩展，补齐「数据」这一具身智能最大短板，利好科研复现与社区共建。</div>
+      <div class="card-foot">
+        <span class="src">智源 FlagOpen：原创开源项目</span>
+        <span>11-17 14:19</span>
+      </div>
+    </div>
+    </div>
+    <footer>
+      数据来源：AI HOT（aihot.news）公开 API · 时间窗过去 24 小时<br>
+      排序依据：AI HOT 热度评分（score）从高到低 · 标注「未进精选」为全量池补充条目<br>
+      仅供信息参考，第三方原文版权归原作者所有，请以原文为准
+    </footer>
+  </div>
+</body>
+</html>
