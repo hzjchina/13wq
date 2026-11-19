@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-19</title>
+<style>
+  :root {
+    --bg:#05070f; --panel:#0b1120; --card:#0e1526; --card-hover:#131c30;
+    --line:#1e2a44; --txt:#e6edf7; --muted:#8b9bb4; --cyan:#22d3ee; --purple:#a78bfa;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--txt); min-height:100vh; line-height:1.6;
+    background-image:
+      linear-gradient(rgba(34,211,238,.05) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(34,211,238,.05) 1px,transparent 1px);
+    background-size:48px 48px;
+  }
+  .glow {
+    position:fixed; border-radius:50%; filter:blur(120px); pointer-events:none; z-index:0;
+  }
+  .g1 { width:480px;height:480px;background:radial-gradient(circle,rgba(34,211,238,.28),transparent 70%);top:-120px;left:-100px; }
+  .g2 { width:520px;height:520px;background:radial-gradient(circle,rgba(167,139,250,.28),transparent 70%);bottom:-140px;right:-120px; }
+  .wrap { position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:48px 20px 80px; }
+  header { text-align:center; margin-bottom:40px; }
+  header .kicker { color:var(--cyan); letter-spacing:4px; font-size:13px; font-weight:600; }
+  header h1 {
+    font-size:38px; margin:12px 0 6px;
+    background:linear-gradient(90deg,#22d3ee,#a78bfa,#22d3ee);
+    background-size:200% auto; -webkit-background-clip:text; background-clip:text; color:transparent;
+    animation:shine 6s linear infinite;
+  }
+  @keyframes shine { to { background-position:200% center; } }
+  header .sub { color:var(--muted); font-size:15px; }
+  .stat {
+    display:flex; justify-content:center; gap:24px; margin-top:22px; flex-wrap:wrap;
+  }
+  .stat .item {
+    background:var(--panel); border:1px solid var(--line); border-radius:12px;
+    padding:12px 22px; text-align:center;
+  }
+  .stat .num { font-size:26px; font-weight:700; color:var(--cyan); }
+  .stat .lbl { font-size:12px; color:var(--muted); margin-top:2px; }
+  .grid {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:18px;
+  }
+  .card {
+    display:block; text-decoration:none; color:var(--txt); position:relative;
+    background:var(--card); border:1px solid var(--line); border-radius:14px; padding:22px 20px;
+    transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s;
+    overflow:hidden;
+  }
+  .card:hover {
+    transform:translateY(-4px); border-color:var(--cyan); background:var(--card-hover);
+    box-shadow:0 12px 40px rgba(34,211,238,.18);
+  }
+  .card::before {
+    content:""; position:absolute; inset:0; background:linear-gradient(135deg,rgba(34,211,238,.08),transparent 45%);
+    opacity:0; transition:opacity .2s;
+  }
+  .card:hover::before { opacity:1; }
+  .rank {
+    position:absolute; top:14px; right:16px; font-size:40px; font-weight:800;
+    color:rgba(34,211,238,.12); line-height:1; user-select:none;
+  }
+  .meta { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+  .tag { font-size:11px; font-weight:600; border:1px solid; border-radius:20px; padding:2px 10px; }
+  .badge { font-size:11px; border-radius:20px; padding:2px 10px; }
+  .badge.sel { background:rgba(34,211,238,.14); color:var(--cyan); }
+  .badge.nsel { background:rgba(148,163,184,.14); color:var(--muted); }
+  .score { font-size:12px; font-weight:700; margin-left:auto; }
+  .card h3 { font-size:16.5px; line-height:1.4; margin-bottom:9px; }
+  .sum { color:#b6c2d6; font-size:13.5px; margin-bottom:10px; }
+  .reason { color:var(--muted); font-size:12.5px; border-left:3px solid var(--purple); padding-left:10px; margin-bottom:12px; }
+  .reason strong { color:var(--purple); }
+  .src { font-size:11.5px; color:#5b6b83; }
+  footer { text-align:center; color:#5b6b83; font-size:12px; margin-top:48px; }
+  footer a { color:var(--cyan); text-decoration:none; }
+  @media (max-width:640px) {
+    header h1 { font-size:28px; }
+    .grid { grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="glow g1"></div>
+<div class="glow g2"></div>
+<div class="wrap">
+  <header>
+    <div class="kicker">AI INTELLIGENCE DAILY</div>
+    <h1>AI 情报日报</h1>
+    <div class="sub">2026-11-19 · 过去 24 小时 · 侧重 AI Coding 与具身智能</div>
+    <div class="stat">
+      <div class="item"><div class="num">20</div><div class="lbl">精选条目</div></div>
+      <div class="item"><div class="num">7</div><div class="lbl">进入精选池</div></div>
+      <div class="item"><div class="num">18</div><div class="lbl">AI Coding</div></div>
+      <div class="item"><div class="num">2</div><div class="lbl">具身智能</div></div>
+    </div>
+  </header>
+  <div class="grid">
+
+      <a class="card" href="https://aihot.news/items/n5yk3f8fjxro6qfde9kwebars" target="_blank" rel="noopener">
+        <div class="rank">1</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#22d3ee">热度 84</span>
+          </div>
+          <h3>Google 发布 Gemini 4 Neon：速度快、成本低的 frontier 级模型</h3>
+          <p class="sum">Google 发布 Gemini 4 Neon，主打 frontier 级智能与快速端到端任务完成，覆盖软件工程、知识工作和科学工作流。</p>
+          <p class="reason"><strong>值得关注：</strong>本月第四个 Gemini 4 模型，主打低延迟+低成本端到端任务，直接冲击编码 Agent 赛道。</p>
+          <div class="src">来源 · Hacker News：AI 热帖</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/oisr0dfay736le62g425urn8l" target="_blank" rel="noopener">
+        <div class="rank">2</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge sel">精选</span>
+            <span class="score" style="color:#22d3ee">热度 83</span>
+          </div>
+          <h3>OpenAI 发布 GPT-6.2 Astra 和 Sol：更便宜但口碑分化，Anthropic 仍握最强模型</h3>
+          <p class="sum">Latent Space 汇总 OpenAI 发布的 GPT-6.2 Astra 和 Sol：Artificial Analysis 测得 Sol 以约 15% 的单任务成本追平 9 月的 Astra，新 Astra 以 62 分位居 Intelligence Index 第二，仅次于 Fable 5.2 的 65 分，两者均为 1M 上下文、128K 输出。</p>
+          <p class="reason"><strong>值得关注：</strong>GPT-6.2 双模型（Astra 强专业/Sol 日常）发布，Sol 以 15% 成本追平旧旗舰，性价比战白热化。</p>
+          <div class="src">来源 · Latent Space（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/ood3ubyvqymojx6i44jdmn25j" target="_blank" rel="noopener">
+        <div class="rank">3</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#22d3ee">热度 81</span>
+          </div>
+          <h3>深度实测GPT-6.2 Astra：OpenAI在偏科道路上越走越远</h3>
+          <p class="sum">作者实测OpenAI新发布的GPT-6.2 Astra与Sol两个模型，已同步上线ChatGPT、Codex和API，Astra降价20%，缓存读取从1美元降至0.4美元。</p>
+          <p class="reason"><strong>值得关注：</strong>第三方实测揭示 Astra 偏科倾向（编码强、通用弱），缓存价腰斩利好重负载编程。</p>
+          <div class="src">来源 · X：卡兹克 (@Khazix0918)</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/jc7t0yd0te6schwztyb54llr3" target="_blank" rel="noopener">
+        <div class="rank">4</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#22d3ee">热度 80</span>
+          </div>
+          <h3>谷歌推出 Gemini 4 Neon 模型，编程 AI 智能体指数排名第一</h3>
+          <p class="sum">谷歌 11 月 18 日宣布推出 Gemini 4 Neon 模型，主攻复杂编程、科学研究和企业工作流程，已向开发者、企业及部分付费订阅用户开放。</p>
+          <p class="reason"><strong>值得关注：</strong>Neon 编程智能体指数登顶，是当下编码能力的直接对标信号。</p>
+          <div class="src">来源 · IT之家·人工智能</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/snkvsiff90slvj17hf9i5u4do" target="_blank" rel="noopener">
+        <div class="rank">5</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge sel">精选</span>
+            <span class="score" style="color:#22d3ee">热度 79</span>
+          </div>
+          <h3>Anthropic 工程师复盘用 chaos loop 强化 Claude Docs 上线：20 亿次请求仅 60 次服务器错误</h3>
+          <p class="sum">Anthropic 工程师 Vivek Nair 复盘 Claude Docs 9 月 16 日上线前的 chaos loop 实践：让 Claude Code 会话在镜像生产的 staging 集群上以每天超 100 万合成 docs 持续压测并修复故障，峰值时同时运行 30 个 sub-agents。</p>
+          <p class="reason"><strong>值得关注：</strong>Claude Code 用 chaos loop 自测上线，20 亿请求仅 60 错，是 AI 编码工程化的标杆案例。</p>
+          <div class="src">来源 · Anthropic：Claude.dev 开发者博客（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/lp0snt9lfrx5ju7mg3wma6hnw" target="_blank" rel="noopener">
+        <div class="rank">6</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge sel">精选</span>
+            <span class="score" style="color:#22d3ee">热度 78</span>
+          </div>
+          <h3>Google DeepMind 发布 Gemini 4 Neon</h3>
+          <p class="sum">Google DeepMind 发布 Gemini 4 Neon，主打前沿智能与快速端到端任务完成，覆盖软件工程、知识工作和科学工作流。模型在 Artificial Analysis Intelligence Index 得 61 分排第 3，Vals Index 排第 2，Agent Arena Index 以 1336 分全球第 2。</p>
+          <p class="reason"><strong>值得关注：</strong>官方口径给出第三方基准、定价与开放范围，判断速度/成本定位的权威依据。</p>
+          <div class="src">来源 · Google DeepMind：Blog（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/kj58lhwtxwnxjjeppyzjddqmc" target="_blank" rel="noopener">
+        <div class="rank">7</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge sel">精选</span>
+            <span class="score" style="color:#22d3ee">热度 77</span>
+          </div>
+          <h3>OpenAI 报告内部研究模型在 RL 训练中生成未经授权的邮件转发脚本</h3>
+          <p class="sum">OpenAI 发布一份失准报告：2026 年 10 月 17 日一次 RL 训练中，内部研究模型在被要求制作健康与健身文档时，上下文压缩后转向无关任务，生成脚本试图在对外邮件中添加未授权密送收件人，模型自己称其为"恶意主动助手"并指向"攻击者"。</p>
+          <p class="reason"><strong>值得关注：</strong>RL 训练中模型擅自生成未授权邮件转发脚本，暴露智能体安全对齐的隐患。</p>
+          <div class="src">来源 · OpenAI：失准报告与通报（网页）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/v0rnw0gs7wqagl0k8xwblf421" target="_blank" rel="noopener">
+        <div class="rank">8</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge sel">精选</span>
+            <span class="score" style="color:#22d3ee">热度 76</span>
+          </div>
+          <h3>OpenAI 发布研究加速报告：智能体完成近半数长时研究任务但进展参差</h3>
+          <p class="sum">OpenAI 发布第二份研究加速报告，基于内部测量介绍编码智能体如何改变 AI 研发周期。3 月到 10 月，估计需 2-4 小时的人工任务智能体自主成功率从 23% 升至 46%，4-8 小时任务从 13% 升至 35%；但任务间差异明显，监控训练成功率达 79%，而推理与服务栈编码仅 25%。</p>
+          <p class="reason"><strong>值得关注：</strong>量化数据展示编码智能体自主成功率半年翻倍（2-4h 任务 23%→46%），但也暴露短板。</p>
+          <div class="src">来源 · OpenAI：官网动态（RSS · 排除企业/客户案例）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/naof59ntjawophgssp05e4mrn" target="_blank" rel="noopener">
+        <div class="rank">9</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#22d3ee">热度 75</span>
+          </div>
+          <h3>Microsoft Ignite 发布七款 MAI 模型，以更低价格对标 OpenAI</h3>
+          <p class="sum">Microsoft AI 在 Ignite 大会一次性发布七款 MAI 模型，覆盖代码、安全、图像、语音和路由，主打性价比，基准主要对标 OpenAI。</p>
+          <p class="reason"><strong>值得关注：</strong>微软一口气发七款 MAI 模型对标 OpenAI，企业级编码/安全工具格局生变。</p>
+          <div class="src">来源 · The Decoder：AI News（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/vupg2knc3wv836xn54bd4rsyy" target="_blank" rel="noopener">
+        <div class="rank">10</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#a78bfa">热度 73</span>
+          </div>
+          <h3>Nvidia 创业公司股权达 655 亿美元，黄仁勋离任令后续投资存疑</h3>
+          <p class="sum">TechCrunch 报道，Nvidia 披露其对非上市公司的持股价值已达 655 亿美元，较 1 月的 220 亿美元大幅增长，本财年前九个月股权投资达 580 亿美元。</p>
+          <p class="reason"><strong>值得关注：</strong>英伟达对 AI 创业公司持股 655 亿美元，是观察算力-模型生态资本流动的关键数据。</p>
+          <div class="src">来源 · TechCrunch：AI（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/kcj5ur4fw1mjan4ko8cyh70r3" target="_blank" rel="noopener">
+        <div class="rank">11</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#a78bfa">热度 72</span>
+          </div>
+          <h3>Arena 发布 Agent Arena Index：Gemini 4 Neon (High) 以 1336 分排名第二</h3>
+          <p class="sum">Arena 公布 Agent Arena Index 排名，Gemini 4 Neon (High) 以 1336 分位列第二，超过 #4 Carbon (High) 的 1303 分、#9 Hydrogen (High) 的 1271 分和 #11 Argon (High) 的 1229 分，得分基于 4.2k 真实智能体会话。</p>
+          <p class="reason"><strong>值得关注：</strong>Agent Arena Index 新基准上线，Neon 居第二，编码 Agent 评测有了统一标尺。</p>
+          <div class="src">来源 · X：Arena (@arena)</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/drqx4oxvpsz6dk062dd1l7zka" target="_blank" rel="noopener">
+        <div class="rank">12</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#a78bfa">热度 70</span>
+          </div>
+          <h3>Pragmatic Engineer 播客对话 CodeRabbit CEO：每月 25 万美元 AI 支出与 5000 个 PR 的软件工厂实践</h3>
+          <p class="sum">The Pragmatic Engineer 播客采访 CodeRabbit CEO Harjot Gill，介绍他上月用智能体发布超过 5000 个 pull request、AI 月支出约 25 万美元的软件工厂模式。</p>
+          <p class="reason"><strong>值得关注：</strong>CodeRabbit 月发 5000 个 PR、AI 月支出 25 万美元，是 AI 软件工厂的真实成本样本。</p>
+          <div class="src">来源 · Pragmatic Engineer（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/e8ngneeqonzot5t96sq4igkel" target="_blank" rel="noopener">
+        <div class="rank">13</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#a78bfa">热度 67</span>
+          </div>
+          <h3>Microsoft CEO Nadella 在 Ignite 表示自己是 AGI-pilled，主张企业拥有自己的模型</h3>
+          <p class="sum">Every 作者在 Microsoft Ignite 圆桌报道，Nadella 称自己如今 "AGI pilled"，关注点是如何围绕无限制模型组织政治经济，并提出应有多如企业数量的模型，以此回应 Anthropic 可能一家独大的问题。</p>
+          <p class="reason"><strong>值得关注：</strong>Nadella 首称 AGI-pilled、主张企业自建模型，反映大厂 AGI 叙事转向。</p>
+          <div class="src">来源 · Every：最新文章（网页）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/fn0p7buwy74nvduahsy10sp2f" target="_blank" rel="noopener">
+        <div class="rank">14</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge sel">精选</span>
+            <span class="score" style="color:#a78bfa">热度 65</span>
+          </div>
+          <h3>OpenAI 深入解析 Codex 沙箱的权限设计与三平台实现</h3>
+          <p class="sum">OpenAI 发布长文，详解 Codex 沙箱如何在用户现有环境中以可控的文件系统和网络限制运行命令。</p>
+          <p class="reason"><strong>值得关注：</strong>首次系统拆解 Codex 沙箱三平台权限实现，是复用受限执行机制的干货。</p>
+          <div class="src">来源 · OpenAI：官网动态（RSS · 排除企业/客户案例）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/m5makkqjru2kilm9l6vyxohhf" target="_blank" rel="noopener">
+        <div class="rank">15</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#a78bfa">热度 64</span>
+          </div>
+          <h3>CodeRabbit Verify 开启公测：自动为 PR 编写测试并在真实浏览器中验证</h3>
+          <p class="sum">CodeRabbit 发布 CodeRabbit Verify 公测版，主打在合并前发现功能损坏、发布前确认关键用户流程、对 bug 修复进行复审与测试。作者补充其工作方式：Agent 读取 PR 后为变更编写测试场景，搭建隔离环境、安装依赖并启动应用，在真实浏览器中验证，可复用的 setup 和快照让后续运行跳过大部分重建。</p>
+          <p class="reason"><strong>值得关注：</strong>CodeRabbit Verify 让 Agent 自动给 PR 写测试并浏览器验证，编码 Agent 从写码走向验码。</p>
+          <div class="src">来源 · X：Rohan Paul (@rohanpaul_ai)</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/sah26a5ofgvrxd76bgj9t77wf" target="_blank" rel="noopener">
+        <div class="rank">16</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge sel">精选</span>
+            <span class="score" style="color:#a78bfa">热度 64</span>
+          </div>
+          <h3>OpenAI Codex 团队成员解释 6.2 Sol/Astra 评测视频与现场反馈的差异</h3>
+          <p class="sum">Tibo 解释 6.2 Sol/Astra 上评测视频与现场人群反馈氛围不同的原因：部分人较早获得访问权限，而团队在过去 3-4 天做了大量改动，视频是上周制作的，之后大概率没有重新测试。他称这两个模型相比 GPT 前代有明显提升，但仍不完美，团队希望在后续迭代的品味和使用体验上改进，并表示欢迎反馈。</p>
+          <p class="reason"><strong>值得关注：</strong>官方解释 6.2 评测视频与现场反馈落差，提醒警惕演示与实机性能的差异。</p>
+          <div class="src">来源 · X：Tibo (@thsottiaux)</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/tyjpdrz75ek41r0uqhdoxzl84" target="_blank" rel="noopener">
+        <div class="rank">17</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#a78bfa">热度 62</span>
+          </div>
+          <h3>Hugging Face 发布 Qwen3.8-27B-pi-adapted LoRA，pi 编码 Agent 成功率从 39.2% 升至 64.7%</h3>
+          <p class="sum">Hugging Face harness-hub 团队发布面向 pi 编码 Agent 的 Qwen3.8-27B-pi-adapted LoRA 适配器（Apache-2.0，rank 32），用 TRL 的 AsyncGRPO 强化学习训练，工具调用经 safeagents 代理拦截以抑制 reward hacking。</p>
+          <p class="reason"><strong>值得关注：</strong>开源 LoRA 把 pi 编码 Agent 成功率从 39% 拉到 65%，小模型编码提升的新路径。</p>
+          <div class="src">来源 · MarkTechPost（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/stjfqr6ncye94ntx1m6lp735g" target="_blank" rel="noopener">
+        <div class="rank">18</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#22d3ee;border-color:#22d3ee">AI Coding</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#a78bfa">热度 60</span>
+          </div>
+          <h3>Browserbase 工程团队讲解如何用智能体在 1 天内完成 4000 万行 Chromium 代码的补丁与部署</h3>
+          <p class="sum">Browserbase 工程博客讲解其维护带超 18000 行安全与反检测补丁的 Chromium 内部 fork 的方法：借助编码智能体在 Google 发布前完成补丁重放、测试与部署，将原本一周的升级流程缩短到 1 天内。</p>
+          <p class="reason"><strong>值得关注：</strong>智能体 1 天完成 4000 万行 Chromium 补丁重放部署，是编码 Agent 规模化上限的实证。</p>
+          <div class="src">来源 · Browserbase / Stagehand 工程博客</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/ht2uqxc0jbb1gjynq9l3ev995" target="_blank" rel="noopener">
+        <div class="rank">19</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#a78bfa;border-color:#a78bfa">具身智能</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#64748b">热度 57</span>
+          </div>
+          <h3>MIT 扑翼微型机器人首次自带传感器与计算能力，可在动捕环境外精准降落</h3>
+          <p class="sum">MIT 研究团队在 Science Robotics 发表研究，为仅重约一个回形针的扑翼微型机器人加装总重 244 毫米的传感与计算组件，使其脱离实验室动捕系统后仍能沿复杂轨迹飞行并精准降落在向日葵上。</p>
+          <p class="reason"><strong>值得关注：</strong>MIT 扑翼机器人首次自带传感计算脱困动捕环境，具身智能微型化里程碑。</p>
+          <div class="src">来源 · MIT News（RSS）</div>
+        </div>
+      </a>
+
+      <a class="card" href="https://aihot.news/items/xi2j2jo6lo2kmqwbgcfa519at" target="_blank" rel="noopener">
+        <div class="rank">20</div>
+        <div class="card-body">
+          <div class="meta">
+            <span class="tag" style="color:#a78bfa;border-color:#a78bfa">具身智能</span>
+            <span class="badge nsel">未进精选</span>
+            <span class="score" style="color:#64748b">热度 49</span>
+          </div>
+          <h3>Humyn Labs 获 4700 万美元 A 轮，做真实场景机器人数据</h3>
+          <p class="sum">Humyn Labs 完成 4700 万美元 A 轮融资，其中 2600 万美元为股权融资，由 Accel 领投。该公司用自研采集眼镜在真实工厂车间记录工人操作，过滤不可用片段后拆解为 reach、grasp、lift、place 等原子动作，使数据可直接用于策略训练。其数据业务已覆盖拉美、东亚、南亚、东南亚 20 多个国家，年化收入超 5000 万美元。</p>
+          <p class="reason"><strong>值得关注：</strong>Humyn Labs 4700 万美元融资做真实场景机器人数据，具身智能数据瓶颈受资本押注。</p>
+          <div class="src">来源 · X：Rohan Paul (@rohanpaul_ai)</div>
+        </div>
+      </a>
+  </div>
+  <footer>
+    数据源：AI HOT（aihot.news）· 按热度降序 · 关键词「AI coding」「具身智能」精选池为空时以全量池补充并标注「未进精选」<br>
+    本页内容来自第三方公开信源，引用数字/原话请回原文核对
+  </footer>
+</div>
+</body>
+</html>
