@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小丑</title>
+<style>
+  :root {
+    --bg: #0d0f13;
+    --card: #161a22;
+    --card2: #1c212c;
+    --text: #e8e6e0;
+    --muted: #9aa0ab;
+    --accent: #c0392b;
+    --accent2: #f2b134;
+    --line: #2a2f3a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.9;
+    font-size: 17px;
+    padding: 24px 16px 60px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero {
+    text-align: center;
+    padding: 40px 20px 32px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 32px;
+  }
+  .hero .year {
+    display: inline-block;
+    color: var(--accent2);
+    letter-spacing: 4px;
+    font-size: 14px;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 34px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+    color: #fff;
+  }
+  .hero .meta {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .tagline {
+    text-align: center;
+    font-style: italic;
+    color: var(--muted);
+    margin: 0 0 36px;
+    font-size: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 26px 24px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    color: var(--accent2);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card h2::before {
+    content: "";
+    width: 4px;
+    height: 20px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  .card p { color: var(--text); margin-bottom: 12px; }
+  .card p:last-child { margin-bottom: 0; }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .info-item {
+    background: var(--card2);
+    border-radius: 10px;
+    padding: 14px 16px;
+  }
+  .info-item .label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .info-item .value {
+    font-size: 16px;
+    color: var(--text);
+  }
+  .highlight-list { list-style: none; }
+  .highlight-list li {
+    padding: 10px 0 10px 28px;
+    position: relative;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+  }
+  .highlight-list li:last-child { border-bottom: none; }
+  .highlight-list li::before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: var(--accent2);
+  }
+  .footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 40px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 520px) {
+    body { font-size: 16px; padding: 16px 12px 40px; }
+    .hero h1 { font-size: 28px; }
+    .info-grid { grid-template-columns: 1fr; }
+    .card { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <span class="year">2019</span>
+    <h1>小丑</h1>
+    <div class="meta">Joker · 导演 托德·菲利普斯 · 主演 华金·菲尼克斯</div>
+  </div>
+
+  <p class="tagline">“我原本以为我的人生是一场悲剧，现在才明白，它其实是一场喜剧。”</p>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>亚瑟·弗莱克是一名以扮演小丑为生的社会底层青年，他患有无法控制自己发笑的神经系统疾病，与年迈多病的母亲相依为命。在哥谭这座日益堕落、冷漠的城市里，亚瑟努力想成为一个能给世界带来欢笑的人，却一次次被现实狠狠击碎——被街头混混殴打、被同事出卖、被赖以生存的社会福利系统抛弃。</p>
+    <p>当支撑他活下去的最后几根支柱接连崩塌，这个曾经只想微笑面对世界的温柔灵魂，一步步滑向了不可回头的深渊。电影讲述了一个人如何被环境与命运推向疯狂边缘的故事，而非传统意义上的超级英雄或超级反派。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <ul class="highlight-list">
+      <li><strong>华金·菲尼克斯的封神表演</strong> —— 为角色减重 20 余公斤，用肢体与眼神精准演绎一个灵魂的崩塌，凭此斩获奥斯卡最佳男主角。</li>
+      <li><strong>威尼斯金狮奖</strong> —— 史上首部拿下欧洲三大电影节最高奖的漫改电影，将超英题材拔高到严肃电影的艺术高度。</li>
+      <li><strong>配乐与色调的极致氛围</strong> —— 大提琴低音与压抑的暗绿色调，营造出令人窒息又沉醉的观影体验。</li>
+      <li><strong>社会寓言式的深度</strong> —— 对阶层撕裂、精神健康、公共福利等议题的尖锐叩问，远超娱乐片的野心。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>这不是一部需要你看过蝙蝠侠漫画才能理解的电影，而是一部关于“人”的电影。它逼着你直视一个被主流叙事遗忘的角落：当一个人被系统性地剥夺尊严与希望，会发生什么？</p>
+    <p>它不提供简单的善恶答案，却让你在走出影院后久久无法平静。如果你厌倦了套路化的爆米花大片，想体验一次真正震撼心灵的表演与叙事，这部电影值得你在一个安静的夜晚，独自沉浸其中。</p>
+  </div>
+
+  <div class="card">
+    <h2>影片信息</h2>
+    <div class="info-grid">
+      <div class="info-item"><div class="label">导演</div><div class="value">托德·菲利普斯</div></div>
+      <div class="info-item"><div class="label">主演</div><div class="value">华金·菲尼克斯</div></div>
+      <div class="info-item"><div class="label">年份</div><div class="value">2019</div></div>
+      <div class="info-item"><div class="label">豆瓣 / IMDb</div><div class="value">8.7 / 8.4</div></div>
+      <div class="info-item"><div class="label">主要荣誉</div><div class="value">威尼斯金狮奖 · 奥斯卡最佳男主角</div></div>
+      <div class="info-item"><div class="label">类型</div><div class="value">剧情 / 犯罪 / 心理</div></div>
+    </div>
+  </div>
+
+  <div class="footer">🦐 小虾米 · 经典电影推荐</div>
+
+</div>
+</body>
+</html>
