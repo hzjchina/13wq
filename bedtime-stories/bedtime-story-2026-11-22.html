@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小雪花的月光舞 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：雪花飘落（小雪节气） */
+  .snow {
+    position: absolute; color: #d8ecf5; opacity: 0;
+    animation: snowFall 11s ease-in-out infinite;
+    text-shadow: 0 0 6px rgba(216, 236, 245, 0.6);
+    font-size: 16px;
+  }
+  @keyframes snowFall {
+    0%   { transform: translate(0, -20px) rotate(0deg); opacity: 0; }
+    15%  { opacity: 0.9; }
+    60%  { transform: translate(30px, 140px) rotate(120deg); opacity: 0.6; }
+    100% { transform: translate(60px, 260px) rotate(240deg); opacity: 0; }
+  }
+
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+
+  <!-- 月相月亮：盈凸月 illumination=0.99，接近满月，右侧亮、左侧极小暗弧 -->
+  <!-- 暗圆在左侧，偏移 1.8r（r=38），cx = 60 - 68.4 ≈ -8 -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonHalo" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.32"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <circle cx="60" cy="60" r="58" fill="url(#moonHalo)"/>
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <circle cx="-8" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+    </svg>
+  </div>
+
+  <!-- 主题装饰粒子：雪花飘落 -->
+  <span class="snow" style="top:18%; left:18%; animation-delay:0s;">❄</span>
+  <span class="snow" style="top:24%; left:62%; animation-delay:2.4s; font-size:14px;">❅</span>
+  <span class="snow" style="top:38%; left:30%; animation-delay:4.8s; font-size:18px;">❄</span>
+  <span class="snow" style="top:46%; left:78%; animation-delay:1.6s;">❆</span>
+  <span class="snow" style="top:58%; left:12%; animation-delay:6s; font-size:13px;">❅</span>
+  <span class="snow" style="top:66%; left:55%; animation-delay:3.2s;">❄</span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小雪花的月光舞</h1>
+    <p class="meta">❄️ 第一片飘向人间的雪 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-22.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：星空+盈凸月+雪花飘落+麦田雪被+底部标题 -->
+    <!-- 海报里月亮与背景月亮一致：盈凸月，暗圆在左侧，偏移 1.8r -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="55%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="moonHalo2" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="snowGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#d8ecf5" stop-opacity="0.95"/>
+          <stop offset="55%" stop-color="#a3d4ec" stop-opacity="0.3"/>
+          <stop offset="100%" stop-color="#a3d4ec" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="posterMoonClip"><circle cx="80" cy="68" r="22"/></clipPath>
+      </defs>
+
+      <!-- 背景 -->
+      <rect width="300" height="440" fill="url(#skyGrad)" rx="16"/>
+
+      <!-- 星星 -->
+      <circle cx="40" cy="50" r="1.2" fill="#fff" opacity="0.9"/>
+      <circle cx="220" cy="40" r="1.5" fill="#fff" opacity="0.8"/>
+      <circle cx="260" cy="92" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="30" cy="120" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="200" cy="130" r="0.8" fill="#fff" opacity="0.6"/>
+      <circle cx="155" cy="55" r="1.2" fill="#fff" opacity="0.85"/>
+
+      <!-- 月亮：盈凸月（与背景一致） -->
+      <circle cx="80" cy="68" r="32" fill="url(#moonHalo2)"/>
+      <circle cx="80" cy="68" r="22" fill="#e8ecf5"/>
+      <circle cx="40" cy="68" r="22" fill="#0e0f26" clip-path="url(#posterMoonClip)"/>
+
+      <!-- 飘落轨迹 -->
+      <path d="M 175 130 Q 168 175 158 215 Q 148 255 138 295" stroke="#d8ecf5" stroke-width="1" stroke-dasharray="3,5" fill="none" opacity="0.45"/>
+
+      <!-- 主角小雪花 -->
+      <g transform="translate(150, 200)">
+        <circle cx="0" cy="0" r="34" fill="url(#snowGlow)"/>
+        <g stroke="#fff" stroke-width="1.6" stroke-linecap="round" fill="none">
+          <line x1="0" y1="-20" x2="0" y2="20"/>
+          <line x1="-17.3" y1="-10" x2="17.3" y2="10"/>
+          <line x1="-17.3" y1="10" x2="17.3" y2="-10"/>
+          <line x1="0" y1="-20" x2="-5" y2="-14"/>
+          <line x1="0" y1="-20" x2="5" y2="-14"/>
+          <line x1="0" y1="20" x2="-5" y2="14"/>
+          <line x1="0" y1="20" x2="5" y2="14"/>
+          <line x1="-17.3" y1="-10" x2="-12" y2="-13"/>
+          <line x1="-17.3" y1="-10" x2="-14" y2="-3"/>
+          <line x1="17.3" y1="10" x2="12" y2="13"/>
+          <line x1="17.3" y1="10" x2="14" y2="3"/>
+          <line x1="-17.3" y1="10" x2="-12" y2="13"/>
+          <line x1="-17.3" y1="10" x2="-14" y2="3"/>
+          <line x1="17.3" y1="-10" x2="12" y2="-13"/>
+          <line x1="17.3" y1="-10" x2="14" y2="-3"/>
+        </g>
+        <circle cx="0" cy="0" r="3.5" fill="#fff"/>
+      </g>
+
+      <!-- 麦田底色 -->
+      <ellipse cx="150" cy="375" rx="135" ry="24" fill="#1a2a1a" opacity="0.65"/>
+
+      <!-- 雪被 -->
+      <path d="M 25 362 Q 150 350 275 362 L 275 386 Q 150 366 25 386 Z" fill="#e8ecf5" opacity="0.94"/>
+      <path d="M 25 362 Q 150 350 275 362" stroke="#fff" stroke-width="1" fill="none" opacity="0.8"/>
+
+      <!-- 麦苗探出雪被 -->
+      <g stroke="#6b8e4e" stroke-width="2" stroke-linecap="round" fill="none">
+        <path d="M 142 362 Q 140 350 144 336"/>
+        <path d="M 148 362 Q 151 350 147 336"/>
+      </g>
+      <!-- 麦苗顶尖小露珠 -->
+      <circle cx="145.5" cy="335" r="1.8" fill="#d8ecf5" opacity="0.9"/>
+
+      <!-- 底部标题 -->
+      <text x="150" y="408" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="20" font-weight="600" fill="#e8ecf5" letter-spacing="0.1em">小雪花的月光舞</text>
+      <text x="150" y="428" text-anchor="middle" font-family="-apple-system, 'PingFang SC', sans-serif" font-size="11" fill="#a3a8d0" letter-spacing="0.15em">第一片飘向人间的雪</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历十月十四 · 盈凸月🌔</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">勇敢出发 · 温柔守护</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>很高的天上，住着云妈妈。她怀里摇着千万个小雪花宝宝，每个都白白的、亮亮的，像小星星的孩子。最小的那个叫初初，从来没下过人间。她总趴在云妈妈的边上，听风伯伯讲下面的故事——讲山尖的松树、村庄的屋顶，还有冻得发抖的小麦苗。</p>
+    <p>这天夜里，盈凸月升起来了，月光透过云缝洒进来，给小雪花们披上一层银边。风伯伯推了推云妈妈：「时候到了，让孩子们下去看看吧。」</p>
+    <p>小雪花们排成一长串，一个一个跳下去，发出「沙沙」的轻响。轮到初初时，她往云妈妈怀里缩了缩：「妈妈，我有点怕。」云妈妈亲了亲她：「去吧，下面有人在等你。」</p>
+    <p>初初轻轻一跳，月光托着她慢慢飘。她路过山尖，给松树戴了一顶白帽子；路过村庄，给屋顶盖了一条白毯子；路过小河，跟结冰的水面打了个招呼，水面亮了一下，像回了她一句「你好」。</p>
+    <p>飘着飘着，她看见一片麦田。麦苗们冻得发抖，最小的那棵抖得最厉害，叶子都蜷起来了。初初心里一暖，慢慢落下去，轻轻盖在它身上，像一床软软的小被子。</p>
+    <p>「谢谢你。」小麦苗小声说。初初没说话，月光一照，她变成了亮晶晶的一颗小星。冬天的夜里，她守着小麦苗，听它轻轻打呼噜，等着春天来。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>每一个第一次出发，都会找到等着它的人。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小雪花初初说，你今天也是个好孩子，该做一个甜甜的梦了。❄️</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月22日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
