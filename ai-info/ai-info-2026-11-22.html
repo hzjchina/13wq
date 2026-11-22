@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-22</title>
+<style>
+  :root{
+    --bg:#05070d; --bg2:#0a0e1a; --panel:#0d1220; --panel2:#11182b;
+    --line:rgba(90,140,255,.14); --line2:rgba(90,140,255,.28);
+    --txt:#e6ecf7; --txt-dim:#8b98b3; --txt-faint:#5b6780;
+    --cyan:#3ee6ff; --violet:#a06bff; --pink:#ff5ca8; --green:#3ddc97;
+    --amber:#ffb454; --red:#ff6b6b;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--txt);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    line-height:1.7; min-height:100vh; position:relative; overflow-x:hidden;
+  }
+  /* 网格背景 */
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:44px 44px;
+    -webkit-mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+            mask-image:radial-gradient(ellipse 90% 70% at 50% 0%, #000 30%, transparent 100%);
+  }
+  /* 霓虹光晕 */
+  .glow{position:fixed;border-radius:50%;filter:blur(120px);opacity:.35;z-index:0;pointer-events:none}
+  .glow.g1{width:520px;height:520px;background:radial-gradient(circle,var(--cyan),transparent 70%);top:-160px;left:-120px}
+  .glow.g2{width:600px;height:600px;background:radial-gradient(circle,var(--violet),transparent 70%);top:-80px;right:-180px}
+  .glow.g3{width:420px;height:420px;background:radial-gradient(circle,var(--pink),transparent 70%);top:40%;left:-140px}
+
+  .wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:48px 24px 80px}
+
+  /* 头部 */
+  header{text-align:center;margin-bottom:44px}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:6px 16px;border-radius:999px;font-size:12px;letter-spacing:.14em;
+    color:var(--cyan);border:1px solid var(--line2);
+    background:linear-gradient(180deg,rgba(62,230,255,.08),transparent);
+    margin-bottom:18px;text-transform:uppercase;
+  }
+  .badge .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+  h1{
+    font-size:clamp(28px,4.4vw,46px);font-weight:800;letter-spacing:.02em;line-height:1.2;
+    background:linear-gradient(120deg,#fff 0%,#9fc8ff 40%,#a06bff 70%,#ff5ca8 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    margin-bottom:12px;
+  }
+  .subtitle{color:var(--txt-dim);font-size:14px}
+  .subtitle b{color:var(--cyan)}
+
+  /* 统计条 */
+  .stats{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:28px}
+  .stat{
+    padding:10px 20px;border-radius:12px;background:var(--panel);
+    border:1px solid var(--line);font-size:13px;color:var(--txt-dim);
+    backdrop-filter:blur(6px);
+  }
+  .stat b{color:var(--txt);font-size:16px;margin-left:6px}
+  .stat .up{color:var(--green)} .stat .down{color:var(--red)}
+
+  /* 分类小标题 */
+  .section{margin-top:52px}
+  .section:first-of-type{margin-top:0}
+  .sec-head{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+  .sec-head .bar{width:4px;height:22px;border-radius:2px;background:linear-gradient(var(--cyan),var(--violet));box-shadow:0 0 12px var(--cyan)}
+  .sec-head h2{font-size:20px;font-weight:700;letter-spacing:.02em}
+  .sec-head .tag{font-size:12px;color:var(--txt-faint)}
+
+  /* 卡片网格 */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+  .card{
+    position:relative;background:linear-gradient(180deg,var(--panel2),var(--panel));
+    border:1px solid var(--line);border-radius:16px;padding:20px 20px 18px;
+    overflow:hidden;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .card:hover{transform:translateY(-4px);border-color:var(--line2);box-shadow:0 12px 40px -12px rgba(90,140,255,.35)}
+  .card::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:2px;
+    background:linear-gradient(90deg,var(--cyan),var(--violet),var(--pink));opacity:0;transition:opacity .25s;
+  }
+  .card:hover::before{opacity:1}
+  .card-top{display:flex;align-items:center;gap:10px}
+  .score{
+    flex:0 0 auto;min-width:40px;height:26px;display:flex;align-items:center;justify-content:center;
+    border-radius:8px;font-weight:800;font-size:13px;letter-spacing:.02em;
+  }
+  .s-hot{color:#fff;background:linear-gradient(135deg,var(--red),var(--pink));box-shadow:0 0 14px rgba(255,92,168,.4)}
+  .s-high{color:#06121a;background:linear-gradient(135deg,var(--amber),#ff8a4c);box-shadow:0 0 12px rgba(255,180,84,.35)}
+  .s-mid{color:#06121a;background:linear-gradient(135deg,var(--green),#6be8b0);box-shadow:0 0 12px rgba(61,220,151,.3)}
+  .s-low{color:#dfe8ff;background:linear-gradient(135deg,#3a4b6e,#25304a)}
+  .rank{font-size:11px;color:var(--txt-faint);font-weight:700;margin-left:auto}
+  .flags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .flag{font-size:11px;padding:2px 8px;border-radius:6px;border:1px solid var(--line2)}
+  .flag.coding{color:var(--cyan);border-color:rgba(62,230,255,.3);background:rgba(62,230,255,.06)}
+  .flag.embody{color:var(--violet);border-color:rgba(160,107,255,.3);background:rgba(160,107,255,.08)}
+  .flag.sel{color:var(--green);border-color:rgba(61,220,151,.35);background:rgba(61,220,151,.08)}
+  .flag.nsel{color:var(--txt-faint);border-color:var(--line)}
+  .card h3{font-size:15.5px;font-weight:700;line-height:1.5;color:var(--txt)}
+  .card p{font-size:13.5px;color:var(--txt-dim);flex:1}
+  .card .why{font-size:12.5px;color:var(--txt-dim);border-left:2px solid var(--line2);padding-left:10px;background:rgba(90,140,255,.04);border-radius:0 6px 6px 0}
+  .card .why b{color:var(--cyan)}
+  .card-foot{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--txt-faint);margin-top:4px}
+  .card-foot .src{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .card a{color:var(--cyan);text-decoration:none}
+  .card a:hover{text-decoration:underline}
+
+  footer{text-align:center;color:var(--txt-faint);font-size:12px;margin-top:70px;letter-spacing:.03em}
+  footer a{color:var(--txt-dim)}
+
+  @media(max-width:640px){
+    .wrap{padding:32px 14px 60px}
+    .grid{grid-template-columns:1fr}
+    h1{font-size:30px}
+  }
+</style>
+</head>
+<body>
+<div class="glow g1"></div><div class="glow g2"></div><div class="glow g3"></div>
+
+<div class="wrap">
+  <header>
+    <div class="badge"><span class="dot"></span> AI DAILY BRIEF</div>
+    <h1>AI 情报日报</h1>
+    <div class="subtitle">2026-11-22 · 过去 24 小时 · 侧重 <b>AI coding</b> 与 <b>具身智能</b> · 数据源 AI HOT</div>
+    <div class="stats">
+      <div class="stat">收录信息<b>20</b> 条</div>
+      <div class="stat">AI coding / 智能体<b>13</b> 条</div>
+      <div class="stat">具身智能 / 机器人<b>7</b> 条</div>
+      <div class="stat">进入精选池<b>4</b> 条</div>
+    </div>
+  </header>
+
+  <!-- ============ AI CODING / 智能体 ============ -->
+  <div class="section">
+    <div class="sec-head"><span class="bar"></span><h2>AI Coding 与智能体</h2><span class="tag">Claude · OpenAI · 开源模型 · 安全</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-top"><span class="score s-hot">82</span><span class="rank">#01</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag sel">精选</span></div>
+        <h3>Anthropic 数学家称与 Claude 证明黎曼猜想，斯坦福数小时后发布纯人类竞争草稿</h3>
+        <p>Levent Alpöge 周五宣布与 Claude 合作得到黎曼猜想及广义黎曼猜想（GRH）的证明，证明以 Lean 语言分 14 个数据包发布，打印超 25 万页。同日斯坦福发布纯人类竞争草稿。</p>
+        <div class="why"><b>为什么关注：</b>167 年悬而未决的数学难题由 AI 辅助攻克，是「AI 编码 + 形式化验证（Lean）」能力的巅峰实证，直接冲击「AI 能否做原创数学」的认知边界。</div>
+        <div class="card-foot"><span class="src">The Decoder：AI News</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-hot">77</span><span class="rank">#02</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag sel">精选</span></div>
+        <h3>Columbia 与 MIT 论文：Claude 发现算法突破 3SUM 与 APSP 长期速度上限</h3>
+        <p>论文展示 Claude 发现的算法在 3SUM 和全对最短路径（APSP）上取得多项式改进，3SUM 达 O(n^1.9992)、APSP 达 O(n^2.9995)，推翻了长期存在的 3SUM 与 APSP 假设。</p>
+        <div class="why"><b>为什么关注：</b>AI 首次在经典算法复杂度理论上推翻学界长期假设，标志着编码智能体从「写业务代码」迈向「做理论级原创算法」。</div>
+        <div class="card-foot"><span class="src">X：Rohan Paul</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-hot">74</span><span class="rank">#03</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag nsel">未进精选</span></div>
+        <h3>Claude Code 推出实验性 Code Mode，用 JavaScript 编排多步工具调用</h3>
+        <p>Addy Osmani 介绍 Claude Code 实验性新功能 Code Mode：Claude 通过编写并运行 JavaScript 一次完成多步工具调用，并行执行命令、过滤输出以降低上下文占用。</p>
+        <div class="why"><b>为什么关注：</b>「模型写代码来编排自己的工具调用」是编码智能体执行范式的重要演进，能显著降低长任务上下文消耗、提升多步任务成功率。</div>
+        <div class="card-foot"><span class="src">X：Addy Osmani</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-hot">74</span><span class="rank">#04</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag sel">精选</span></div>
+        <h3>Together AI 通报 6-7 月 serverless 推理服务提示词泄露事件</h3>
+        <p>因 AI 编码 agent 在公开 GitHub 仓库 xorl 中提交了私有 Hugging Face 凭证，未授权方下载了 2026 年 6-7 月提交给 MiniMax M3、GLM-5.2、Kimi K2.6 等推理服务的存储提示词样本，并搜索其中其他服务凭证。</p>
+        <div class="why"><b>为什么关注：</b>「AI 编码 agent 把私有凭证写进公开仓库」成为新型安全漏洞源，提示企业用 AI 写代码时必须建立凭证与密钥的自动化防护机制。</div>
+        <div class="card-foot"><span class="src">Together AI 博客</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-high">72</span><span class="rank">#05</span></div>
+        <div class="flags"><span class="flag coding">开源模型</span><span class="flag nsel">未进精选</span></div>
+        <h3>Thinking Machines 开源循环 MoE 模型 Inkling 2 Mini，26.4B 参数可在 32GB Mac 上跑</h3>
+        <p>开源权重循环 Transformer 模型，总参数 26.4B、激活仅 3.4B，中间层权重每 token 复用 3 次，checkpoint 约 20GB，可在 32GB 内存 Mac 或单台 DGX Spark 上运行。</p>
+        <div class="why"><b>为什么关注：</b>循环架构 + 低激活参数，让高性能开源编码模型可本地跑，是「端侧/本地 AI coding」落地的重要一步。</div>
+        <div class="card-foot"><span class="src">MarkTechPost</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-high">72</span><span class="rank">#06</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag sel">精选</span></div>
+        <h3>Qwen4 Max 上线 Together AI，单次调用修复 Tornado 整仓 bug</h3>
+        <p>阿里旗舰模型 Qwen4 Max 上线 Together AI Serverless 平台，1M token 上下文。官方用一次 65 万 token 的整仓修 bug 实测展示其长上下文编码能力，并给出价格、缓存与调用细节。</p>
+        <div class="why"><b>为什么关注：</b>国产旗舰模型的长上下文整仓级编码能力获第三方平台实测背书，1M 上下文对大型代码库重构是刚需能力。</div>
+        <div class="card-foot"><span class="src">Together AI 博客</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-high">72</span><span class="rank">#07</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag nsel">未进精选</span></div>
+        <h3>Lean 官方社区认证 Levent Alpöge 的黎曼猜想形式化证明</h3>
+        <p>Lean FRO 与 Mathlib Initiative 联合声明：11 月 20 日 Alpöge 以含 1700 万行代码的 Lean 库发布证明，社区一天内完成验证并认证正确，经 Lean 官方内核等多个独立检查器验证。</p>
+        <div class="why"><b>为什么关注：</b>形式化验证社区「一天内认证 1700 万行代码」本身即是 AI 辅助证明 + 机器可验证的可信路径示范。</div>
+        <div class="card-foot"><span class="src">X：Rohan Paul</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-high">68</span><span class="rank">#08</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag nsel">未进精选</span></div>
+        <h3>OpenAI 发布 GPT-6.2 Astra 和 Sol 新提示词指南，修正简短回答与多余提问</h3>
+        <p>OpenAI 为 11 月 17 日发布的 GPT-6.2 Astra / Sol 公布一套可直接复制的提示词模板，覆盖写作风格、主动性与编码，建议迁移的开发者重新审视系统提示词。</p>
+        <div class="why"><b>为什么关注：</b>新一代模型提示范式变化，直接影响编码智能体的行为调校，开发者需适配新的系统提示策略。</div>
+        <div class="card-foot"><span class="src">The Decoder：AI News</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">62</span><span class="rank">#09</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag nsel">未进精选</span></div>
+        <h3>OpenAI 反蒸馏防护进展：GPT-6.2 Astra 思考链提取成功率从 54% 降至 0.2%</h3>
+        <p>OpenAI 发布公告介绍针对对抗性蒸馏的防御措施，加强了 GPT-6.2 Astra 与 Sol 对内部推理思考链（CoT）的保护。</p>
+        <div class="why"><b>为什么关注：</b>思考链是模型核心资产，反蒸馏攻防直接关系到闭源模型护城河与编码能力的可复制性，也是模型安全的前沿战场。</div>
+        <div class="card-foot"><span class="src">IT之家·人工智能</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">58</span><span class="rank">#10</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag nsel">未进精选</span></div>
+        <h3>NVIDIA 论文 CPU-ARC：把 LLM 推理缓存为 CPU 代码，复用成本降 16–291 倍</h3>
+        <p>Agentic Reasoning Caching 让 LLM 把推理轨迹转成可执行代码，改写措辞或更换数字的变体问题可直接在 CPU 上复用，类似问题成本降低 16 到 291 倍。</p>
+        <div class="why"><b>为什么关注：</b>用「推理转代码」做缓存，是编码智能体大规模降本的关键技术，对高频推理任务有直接的经济意义。</div>
+        <div class="card-foot"><span class="src">X：Rohan Paul</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">58</span><span class="rank">#11</span></div>
+        <div class="flags"><span class="flag coding">多模态</span><span class="flag nsel">未进精选</span></div>
+        <h3>OpenAI 在 API 上线 GPT-Live-1.1 语音模型，闲置成本降至 $0.02/分钟</h3>
+        <p>GPT-Live-1.1 语音模型上线 API，闲置成本降至 $0.02/分钟，进一步拉低实时语音智能体的部署门槛。</p>
+        <div class="why"><b>为什么关注：</b>实时语音成本大幅下降，推动语音驱动的智能体（客服、陪伴、车载）从 demo 走向规模化生产。</div>
+        <div class="card-foot"><span class="src">AI HOT 收录</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">54</span><span class="rank">#12</span></div>
+        <div class="flags"><span class="flag coding">AI Coding</span><span class="flag nsel">未进精选</span></div>
+        <h3>腾讯混元姚顺雨团队 AMA：Hy4 仍有改进空间，计划训练更大规模模型</h3>
+        <p>姚顺雨与混元团队 Reddit AMA：回应不做 3 万亿以上超大模型的质疑，称 Hy3/Hy4 表明扎实的小模型也能超越更大模型且成本更低，但 Hy4 仍有很大改进空间，正投入大规模 RL 并计划训更大模型。</p>
+        <div class="why"><b>为什么关注：</b>国产开源编码模型的技术路线与演进思路，小模型 + 强化学习的高性价比路径值得关注。</div>
+        <div class="card-foot"><span class="src">IT之家·人工智能</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">55</span><span class="rank">#13</span></div>
+        <div class="flags"><span class="flag coding">决策模型</span><span class="flag nsel">未进精选</span></div>
+        <h3>Baseten 发布基于 Gemma 4 的决策模型 Bison-1 与 Groundhog-1，登顶 Decision Index</h3>
+        <p>开源权重决策模型，基于 Google Gemma 4 训练，只返回校准概率而不生成文本，登顶 Decision Index。</p>
+        <div class="why"><b>为什么关注：</b>「只输出校准概率」的专用决策模型，是智能体做可靠判断（而非生成文字）的新范式，对 agentic 工作流有参考价值。</div>
+        <div class="card-foot"><span class="src">MarkTechPost</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 具身智能 / 机器人 ============ -->
+  <div class="section">
+    <div class="sec-head"><span class="bar"></span><h2>具身智能与机器人</h2><span class="tag">物理 AI · 世界模型 · 人形 · 自主系统</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">55</span><span class="rank">#14</span></div>
+        <div class="flags"><span class="flag embody">具身智能</span><span class="flag nsel">未进精选</span></div>
+        <h3>联合国未能就监管「杀人机器人」达成规则共识</h3>
+        <p>联合国日内瓦会议未能就自主武器（LAWS）监管规则达成共识，仅同意「开始讨论选项」。据 NPR 报道俄、以、美为主要阻碍方，美国提议用五年时间讨论非约束性指南。</p>
+        <div class="why"><b>为什么关注：</b>自主武器是具身智能最高风险落点，监管真空意味着「AI 驱动的物理自主系统」在制度层面处于失控前夜，牵动产业与伦理双重风险。</div>
+        <div class="card-foot"><span class="src">The Verge：AI</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">42</span><span class="rank">#15</span></div>
+        <div class="flags"><span class="flag embody">具身智能</span><span class="flag nsel">未进精选</span></div>
+        <h3>特斯拉 FSD V15 天空箭头导航，现实重渲染指示转向</h3>
+        <p>在 FSD V15 中，特斯拉 AI 计算机像电子游戏一样用天空箭头重新渲染现实来指示转弯，可点击现实重现器上任意一点让车辆驶向该处。</p>
+        <div class="why"><b>为什么关注：</b>「世界模型 + 实时重渲染」是端到端具身智能在自动驾驶场景的具象化，交互式导航界面预示着物理 AI 的人机交互新形态。</div>
+        <div class="card-foot"><span class="src">X：Elon Musk</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-low">34</span><span class="rank">#16</span></div>
+        <div class="flags"><span class="flag embody">具身智能</span><span class="flag nsel">未进精选</span></div>
+        <h3>蚂蚁灵波 LingBot-World 获 NVIDIA 论文引用</h3>
+        <p>蚂蚁灵波（LingBot）的 World 世界模型相关工作获得 NVIDIA 论文引用，国产具身世界模型开始进入国际主流视野。</p>
+        <div class="why"><b>为什么关注：</b>国产具身智能团队的世界模型成果被英伟达引用，是「中国物理 AI」技术出海与国际认可的信号。</div>
+        <div class="card-foot"><span class="src">AI HOT 收录</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-low">29</span><span class="rank">#17</span></div>
+        <div class="flags"><span class="flag embody">具身智能</span><span class="flag nsel">未进精选</span></div>
+        <h3>GPT-6.2 机器人能力获验证</h3>
+        <p>GPT-6.2 在机器人相关能力上的表现获得验证（全量池补充条目），显示通用大模型正持续向具身智能领域渗透。</p>
+        <div class="why"><b>为什么关注：</b>通用模型直接赋能机器人规划与控制，是「大模型 + 具身」融合趋势的又一佐证，热度虽低但方向关键。</div>
+        <div class="card-foot"><span class="src">AI HOT 收录</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-low">29</span><span class="rank">#18</span></div>
+        <div class="flags"><span class="flag embody">具身智能</span><span class="flag nsel">未进精选</span></div>
+        <h3>FSD V15 下月推送：25x 安全与实时街景渲染</h3>
+        <p>FSD V15 下月推送，主打 25 倍安全提升与实时街景渲染能力，进一步强化端到端自动驾驶的物理世界建模。</p>
+        <div class="why"><b>为什么关注：</b>端到端自动驾驶持续迭代，物理世界实时建模能力是具身智能走向量产的关键验证场景。</div>
+        <div class="card-foot"><span class="src">AI HOT 收录</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============ 行业 / 宏观 ============ -->
+  <div class="section">
+    <div class="sec-head"><span class="bar"></span><h2>行业与宏观</h2><span class="tag">市场 · 安全 · 隐私 · 治理</span></div>
+    <div class="grid">
+
+      <div class="card">
+        <div class="card-top"><span class="score s-hot">75</span><span class="rank">#19</span></div>
+        <div class="flags"><span class="flag coding">行业</span><span class="flag nsel">未进精选</span></div>
+        <h3>美股科技股遭遇疫情以来最差单周，Nasdaq 100 周跌 10.4%</h3>
+        <p>美国科技股大跌，Nasdaq 100 周五跌 5.6%、全周累计跌 10.4%，为疫情以来最差单周，较 10 月高点回落 20% 进入熊市区间。伯里此前已警告卖出英伟达、CoreWeave 与 Nebius。</p>
+        <div class="why"><b>为什么关注：</b>AI 资本叙事正经历剧烈回调，对 AI 基础设施投入、模型商业化节奏与创业公司融资环境产生直接冲击。</div>
+        <div class="card-foot"><span class="src">The Decoder：AI News</span></div>
+      </div>
+
+      <div class="card">
+        <div class="card-top"><span class="score s-mid">66</span><span class="rank">#20</span></div>
+        <div class="flags"><span class="flag coding">安全</span><span class="flag nsel">未进精选</span></div>
+        <h3>近 200 万条诱饵请求揭示 AI 服务链隐私泄露：零数据保留也失效</h3>
+        <p>Dragos 首席研究官 HD Moore 向多家 AI 服务商发送近 200 万条带可追踪诱饵的请求，发现提示词被窃、转售商外传数据、隐私设置未执行；至少三家服务商遭入侵迹象，标记零数据保留的请求其私密网址数日后仍被抓取。</p>
+        <div class="why"><b>为什么关注：</b>AI 服务链的数据安全承诺普遍失守，对「AI coding + 云推理」场景下代码与提示词的隐私保护敲响警钟。</div>
+        <div class="card-foot"><span class="src">IT之家·人工智能</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>
+    数据源 <a href="https://aihot.news">AI HOT</a> · 过去 24 小时 · 按热度降序 · 「未进精选」表示该条目来自全量池（mode=all）补充<br>
+    页面由小虾米自动生成 · 2026-11-22 · 仅供内部参考，引用请回第三方原文核对
+  </footer>
+</div>
+</body>
+</html>
