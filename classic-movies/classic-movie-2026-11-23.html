@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>角斗士</title>
+<style>
+  :root {
+    --bg: #1a1a1f;
+    --card: #242429;
+    --text: #ececf1;
+    --muted: #a3a3b0;
+    --accent: #d4a94e;
+    --line: #3a3a42;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+    line-height: 1.8;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 28px; }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .en-title {
+    color: var(--muted);
+    font-size: 15px;
+    font-style: italic;
+    margin-bottom: 16px;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 28px;
+  }
+  .badge {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .badge strong { color: var(--accent); font-weight: 600; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 12px;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2::before {
+    content: "";
+    width: 4px;
+    height: 18px;
+    background: var(--accent);
+    border-radius: 2px;
+    display: inline-block;
+  }
+  p { margin-bottom: 12px; color: var(--text); }
+  p:last-child { margin-bottom: 0; }
+  ul { list-style: none; }
+  ul li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 10px;
+    color: var(--text);
+  }
+  ul li::before {
+    content: "◆";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 12px;
+    top: 2px;
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    background: rgba(212, 169, 78, 0.08);
+    padding: 16px 18px;
+    border-radius: 0 10px 10px 0;
+    font-style: italic;
+    color: var(--muted);
+    margin: 20px 0;
+  }
+  footer {
+    text-align: center;
+    margin-top: 36px;
+    color: var(--muted);
+    font-size: 13px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; padding: 18px 12px 48px; }
+    h1 { font-size: 28px; }
+    .card { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">Classic · Recommended</div>
+      <h1>角斗士</h1>
+      <div class="en-title">Gladiator (2000)</div>
+      <div class="meta">
+        <span class="badge">导演 <strong>雷德利·斯科特</strong></span>
+        <span class="badge">主演 <strong>罗素·克劳</strong></span>
+        <span class="badge">豆瓣 <strong>8.6</strong></span>
+        <span class="badge">IMDb <strong>8.5</strong></span>
+        <span class="badge">奥斯卡 <strong>最佳影片</strong></span>
+      </div>
+    </header>
+
+    <div class="card">
+      <h2>剧情梗概</h2>
+      <p>公元 180 年，罗马帝国正值鼎盛。战功赫赫的将军马克西姆斯是皇帝马可·奥勒留最信任的统帅，也是他心中理想的继承人——一个能把权力交还给元老院、恢复共和的"罗马公民"。然而皇帝的野心勃勃之子康茂德在得知自己将被剥夺继承权后，抢先弑父篡位，并下令处决马克西姆斯全家。</p>
+      <p>侥幸逃生的马克西姆斯沦为奴隶，被卖作角斗士。在角斗场上，他以超凡的武艺与钢铁般的意志一路拼杀，从地方竞技场打到罗马斗兽场，逐渐成为万众仰望的角斗明星。而他的心中只有一个念头——为妻儿复仇，并实现先帝的遗愿。</p>
+    </div>
+
+    <div class="card">
+      <h2>亮点所在</h2>
+      <ul>
+        <li><strong>史诗级场面调度</strong>：雷德利·斯科特以宏大而写实的古罗马战场、斗兽场重现，开篇森林会战与斗兽场对决至今仍是影史经典场面。</li>
+        <li><strong>罗素·克劳的封神演绎</strong>：他将一个从将军到奴隶、从绝望到复仇的英雄演得血肉丰满，凭此片斩获奥斯卡最佳男主角。</li>
+        <li><strong>汉斯·季默的神级配乐</strong>：苍凉辽阔的原声贯穿全片，成为无数短视频与预告片的引用源头，一听便难以忘怀。</li>
+        <li><strong>一句台词名垂影史</strong>："我的名字叫马克西姆斯·德西穆斯·梅里迪乌斯"——低调的登场，却让全场寂静。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>为什么值得一看</h2>
+      <p>这不仅是一部讲述复仇的爽片，更是一部关于尊严、荣誉与自由的悲剧史诗。主角在失去一切、沦为最卑微的奴隶后，依然坚守着内心的信念——不为权力，只为正义与所爱之人。那种在绝境中不向命运低头的力量，能让每个观众在走出影院后久久不能平静。</p>
+      <div class="quote">"凡人终有一死，但我们如何被铭记，才是永恒。"</div>
+      <p>无论你是想感受古罗马的雄浑壮阔，还是想被一段荡气回肠的英雄故事打动，这部奥斯卡最佳影片都不会让你失望。</p>
+    </div>
+
+    <footer>— 经典电影推荐 · 2026-11-23 —</footer>
+  </div>
+</body>
+</html>
