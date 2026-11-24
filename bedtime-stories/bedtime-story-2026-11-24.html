@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小铜锣的满月声 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：铜锣的声波音符 + 初冬微光 */
+  .note {
+    position: absolute; font-size: 18px; color: var(--note);
+    opacity: 0; animation: floatNote 7s ease-in-out infinite;
+    text-shadow: 0 0 8px rgba(245, 215, 110, 0.5);
+  }
+  @keyframes floatNote {
+    0%   { transform: translate(0, 0) rotate(-6deg); opacity: 0; }
+    15%  { opacity: 0.85; }
+    60%  { transform: translate(28px, -90px) rotate(8deg); opacity: 0.6; }
+    100% { transform: translate(46px, -160px) rotate(-4deg); opacity: 0; }
+  }
+
+  .snow {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: #e8ecf5; opacity: 0.7;
+    animation: fall 12s linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translate(0, -20px); opacity: 0; }
+    10%  { opacity: 0.8; }
+    90%  { opacity: 0.6; }
+    100% { transform: translate(18px, 120px); opacity: 0; }
+  }
+
+  .firefly {
+    position: absolute; width: 5px; height: 5px; border-radius: 50%;
+    background: #d9f7a8; box-shadow: 0 0 8px 2px rgba(217, 247, 168, 0.6);
+    animation: drift 10s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.9; }
+    50% { transform: translate(24px, -36px); opacity: 0.4; }
+  }
+
+  /* 月亮：满月，正圆 + 月晕 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 满月：正圆 #e8ecf5 + 月晕光圈，两处月亮一致 -->
+  <div class="moon">
+    <svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.85"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.18"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="60" cy="60" r="56" fill="url(#moonGlow)"/>
+      <circle cx="60" cy="60" r="34" fill="#e8ecf5"/>
+      <circle cx="50" cy="50" r="4" fill="#c9d2e6" opacity="0.45"/>
+      <circle cx="70" cy="66" r="3" fill="#c9d2e6" opacity="0.4"/>
+      <circle cx="64" cy="48" r="2" fill="#c9d2e6" opacity="0.35"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：铜锣声波音符 + 初冬飘雪 -->
+  <span class="note" style="top:46%; left:12%; animation-delay:0s;">♪</span>
+  <span class="note" style="top:52%; left:82%; animation-delay:2.2s;">♫</span>
+  <span class="note" style="top:60%; left:22%; animation-delay:4.5s;">♩</span>
+  <span class="snow" style="top:40%; left:30%; animation-delay:0s;"></span>
+  <span class="snow" style="top:55%; left:65%; animation-delay:3s; width:3px; height:3px;"></span>
+  <span class="snow" style="top:48%; left:48%; animation-delay:6s; width:3px; height:3px;"></span>
+  <span class="firefly" style="top:64%; left:70%; animation-delay:0s;"></span>
+  <span class="firefly" style="top:70%; left:38%; animation-delay:3s; width:4px; height:4px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小铜锣的满月声</h1>
+    <p class="meta">🔔 月光敲响的第一个圆 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-24.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="pSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0e0f26"/>
+          <stop offset="60%" stop-color="#1c1f4a"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="pMoonH" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.85"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="pRoof" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8ecf5"/>
+          <stop offset="100%" stop-color="#c9d2e6"/>
+        </linearGradient>
+        <radialGradient id="pGong" cx="38%" cy="35%" r="65%">
+          <stop offset="0%" stop-color="#f0cf5a"/>
+          <stop offset="60%" stop-color="#d4a93a"/>
+          <stop offset="100%" stop-color="#a87822"/>
+        </radialGradient>
+      </defs>
+      <rect x="0" y="0" width="300" height="440" fill="url(#pSky)"/>
+      <!-- stars -->
+      <circle cx="40" cy="42" r="1.4" fill="#fff" opacity="0.9"/>
+      <circle cx="262" cy="60" r="1.2" fill="#fff" opacity="0.8"/>
+      <circle cx="200" cy="30" r="1" fill="#fff" opacity="0.7"/>
+      <circle cx="82" cy="84" r="0.9" fill="#fff" opacity="0.6"/>
+      <circle cx="150" cy="52" r="1.1" fill="#fff" opacity="0.8"/>
+      <!-- full moon + halo -->
+      <circle cx="226" cy="92" r="44" fill="url(#pMoonH)"/>
+      <circle cx="226" cy="92" r="27" fill="#e8ecf5"/>
+      <circle cx="219" cy="85" r="3.6" fill="#c9d2e6" opacity="0.45"/>
+      <circle cx="233" cy="98" r="2.6" fill="#c9d2e6" opacity="0.4"/>
+      <!-- snowy rooftops -->
+      <polygon points="0,300 60,250 120,300" fill="#2a2f5a"/>
+      <polygon points="60,250 120,300 120,255 84,228" fill="#3a4170"/>
+      <polygon points="0,300 60,250 116,302 60,256 6,302" fill="url(#pRoof)" opacity="0.92"/>
+      <polygon points="120,300 200,238 270,300 264,304 200,244 126,304" fill="url(#pRoof)" opacity="0.88"/>
+      <polygon points="200,238 270,300 270,255 232,222" fill="#3a4170"/>
+      <!-- ground snow -->
+      <rect x="0" y="320" width="300" height="120" fill="#e8ecf5" opacity="0.1"/>
+      <rect x="0" y="328" width="300" height="112" fill="#e8ecf5" opacity="0.06"/>
+      <!-- old stage wooden frame -->
+      <rect x="140" y="200" width="8" height="150" fill="#5a3a1a"/>
+      <rect x="240" y="200" width="8" height="150" fill="#5a3a1a"/>
+      <rect x="136" y="196" width="116" height="8" fill="#6a4520"/>
+      <rect x="136" y="346" width="116" height="6" fill="#6a4520"/>
+      <!-- hanging rope -->
+      <line x1="194" y1="204" x2="194" y2="242" stroke="#8a6a3a" stroke-width="2"/>
+      <!-- small round gong (moonlit) -->
+      <circle cx="194" cy="266" r="24" fill="url(#pGong)"/>
+      <circle cx="194" cy="266" r="24" fill="none" stroke="#8a5e1a" stroke-width="2"/>
+      <circle cx="187" cy="259" r="7" fill="#f4d97a" opacity="0.55"/>
+      <circle cx="194" cy="266" r="24" fill="none" stroke="#e8ecf5" stroke-width="1.2" opacity="0.35"/>
+      <!-- sound ripples -->
+      <circle cx="194" cy="266" r="34" fill="none" stroke="#e8ecf5" stroke-width="1" opacity="0.32"/>
+      <circle cx="194" cy="266" r="44" fill="none" stroke="#e8ecf5" stroke-width="0.8" opacity="0.22"/>
+      <circle cx="194" cy="266" r="54" fill="none" stroke="#e8ecf5" stroke-width="0.6" opacity="0.14"/>
+      <!-- little mouse -->
+      <ellipse cx="150" cy="346" rx="12" ry="8" fill="#9a8a7a"/>
+      <circle cx="138" cy="341" r="5.5" fill="#9a8a7a"/>
+      <circle cx="134" cy="338" r="2.2" fill="#7a6a5a"/>
+      <circle cx="136" cy="340" r="1" fill="#1c1f4a"/>
+      <line x1="161" y1="344" x2="176" y2="338" stroke="#9a8a7a" stroke-width="1.5"/>
+      <line x1="161" y1="346" x2="176" y2="344" stroke="#9a8a7a" stroke-width="1.5"/>
+      <!-- snow flakes -->
+      <circle cx="48" cy="180" r="1.2" fill="#fff" opacity="0.7"/>
+      <circle cx="272" cy="200" r="1" fill="#fff" opacity="0.6"/>
+      <circle cx="110" cy="160" r="0.9" fill="#fff" opacity="0.5"/>
+      <circle cx="250" cy="170" r="0.9" fill="#fff" opacity="0.55"/>
+      <!-- bottom title -->
+      <text x="150" y="396" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="700" fill="#cfd8e8" letter-spacing="2">小铜锣的满月声</text>
+      <text x="150" y="418" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="9" fill="#a3a8d0" letter-spacing="3">满月 · 农历十月十六</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历十月十六 · 满月🌕</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">圆满 · 找到自己的声音</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>老戏台的角落里，住着一把小铜锣。他圆圆的脸，黄澄澄的，像一枚从天上掉下来的小月亮。可是他从生下来那天起，就从来没有响过一声。</p>
+    <p>戏台上的伙伴们都有自己的本事。二胡会拉长长的调子，呜呜咽咽，能讲一整夜的老故事；小鼓会咚咚咚地敲，像小兔子蹦过草地；就连最小的响板，也能打出清脆又调皮的拍子。只有小铜锣，安安静静地挂在木架上，像一个没用的圆。</p>
+    <p>"我这么圆，"小铜锣难过地想，"为什么就是发不出声音呢？也许，圆并不是一件好事。"</p>
+    <p>农历十月十六的晚上，下过今年第一场薄薄的雪。月亮又大又圆，低低地挂在屋檐上方，把雪地照得亮堂堂的，屋顶像盖了一层银色的糖霜。</p>
+    <p>一只小老鼠抱着半颗花生，从戏台底下急急忙忙地跑过。它忽然停住脚，抬头看见那个圆圆的小铜锣，正被月光照得金灿灿的。小老鼠好奇地伸出小爪子，轻轻敲了一下。</p>
+    <p>"铛——"</p>
+    <p>那声音又圆又亮，慢悠悠地荡开去，像一颗暖暖的月亮，落进了每个人的耳朵里。雪屋顶上的月光跟着晃了晃，窗格子里的烛火也跟着跳了跳，连天上那轮大满月，都好像笑弯了腰。</p>
+    <p>"原来，"小铜锣轻轻地说，"我不是发不出声音。我只是在等一个最圆的夜晚，把我攒了很久很久的声音，一下子全都送出去。"</p>
+    <p>圆，从来不是没用。圆，是为了把最满的声音，稳稳地、暖暖地装下来。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>圆，是为了把最满的声音稳稳装下来——每个人都有属于自己的、最圆满的时刻。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小铜锣说，你今天也是个好孩子，该做一个圆圆的甜甜的梦了。🌙</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月24日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
