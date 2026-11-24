@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-24</title>
+<style>
+:root {
+  --bg:#070a14;
+  --bg2:#0b1020;
+  --panel:#0e1428;
+  --panel2:#111a36;
+  --line:#1e2a4a;
+  --txt:#e6ecff;
+  --muted:#8a97b8;
+  --dim:#5a6788;
+  --cyan:#22d3ee;
+  --violet:#a78bfa;
+  --pink:#f472b6;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#fb7185;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { background:var(--bg); color:var(--txt); font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif; }
+body {
+  position:relative;
+  min-height:100vh;
+  background:
+    radial-gradient(1200px 600px at 15% -5%, rgba(34,211,238,.12), transparent 60%),
+    radial-gradient(1000px 500px at 85% 0%, rgba(167,139,250,.14), transparent 55%),
+    radial-gradient(900px 600px at 50% 110%, rgba(244,114,182,.10), transparent 60%),
+    var(--bg);
+}
+/* 网格线 */
+body::before {
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background-image:
+    linear-gradient(rgba(34,211,238,.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34,211,238,.05) 1px, transparent 1px);
+  background-size:44px 44px;
+}
+.wrap { position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:40px 22px 70px; }
+
+/* 头部 */
+header { text-align:center; margin-bottom:34px; }
+.kicker { display:inline-block; font-size:12px; letter-spacing:3px; color:var(--cyan); text-transform:uppercase;
+  padding:6px 16px; border:1px solid rgba(34,211,238,.35); border-radius:999px; margin-bottom:18px; }
+h1 { font-size:clamp(26px,4.5vw,44px); font-weight:800; letter-spacing:1px;
+  background:linear-gradient(90deg,#22d3ee,#a78bfa 55%,#f472b6);
+  -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+.subtitle { color:var(--muted); margin-top:12px; font-size:14px; }
+
+/* 统计条 */
+.stats { display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin:26px 0 8px; }
+.stat { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:10px 18px;
+  display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); }
+.stat b { color:var(--txt); font-size:16px; }
+.dot { width:8px; height:8px; border-radius:50%; display:inline-block; }
+.dot.coding{ background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+.dot.embody{ background:var(--green); box-shadow:0 0 8px var(--green); }
+.dot.model{ background:var(--violet); box-shadow:0 0 8px var(--violet); }
+.dot.chip{ background:var(--amber); box-shadow:0 0 8px var(--amber); }
+.dot.safe{ background:var(--red); box-shadow:0 0 8px var(--red); }
+
+/* 卡片网格 */
+.grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:18px; margin-top:26px; }
+.card { position:relative; background:linear-gradient(180deg,var(--panel2),var(--panel));
+  border:1px solid var(--line); border-radius:16px; padding:20px 20px 16px; overflow:hidden;
+  transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; }
+.card:hover { transform:translateY(-4px); border-color:rgba(34,211,238,.5);
+  box-shadow:0 12px 34px rgba(0,0,0,.5), 0 0 22px rgba(34,211,238,.12); }
+.card::after { content:""; position:absolute; top:-40px; right:-40px; width:120px; height:120px;
+  background:radial-gradient(circle, rgba(167,139,250,.22), transparent 70%); pointer-events:none; }
+.card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.num { font-size:22px; font-weight:800; color:var(--dim); font-variant-numeric:tabular-nums;
+  font-family:"SF Mono",ui-monospace,monospace; }
+.meta { display:flex; flex-wrap:wrap; gap:6px; justify-content:flex-end; }
+.badge { font-size:11px; padding:3px 10px; border-radius:6px; line-height:1.5; white-space:nowrap; }
+.badge.coding { background:rgba(34,211,238,.12); color:var(--cyan); border:1px solid rgba(34,211,238,.35); }
+.badge.embody { background:rgba(52,211,153,.12); color:var(--green); border:1px solid rgba(52,211,153,.35); }
+.badge.model { background:rgba(167,139,250,.12); color:var(--violet); border:1px solid rgba(167,139,250,.35); }
+.badge.chip { background:rgba(251,191,36,.12); color:var(--amber); border:1px solid rgba(251,191,36,.35); }
+.badge.safe { background:rgba(251,113,133,.12); color:var(--red); border:1px solid rgba(251,113,133,.35); }
+.badge.research { background:rgba(138,151,184,.12); color:var(--muted); border:1px solid rgba(138,151,184,.35); }
+.badge.rank { background:rgba(244,114,182,.14); color:var(--pink); border:1px solid rgba(244,114,182,.4); font-weight:700; }
+.badge.score { background:rgba(34,211,238,.10); color:var(--cyan); border:1px solid rgba(34,211,238,.3); }
+.badge.dim { background:rgba(138,151,184,.10); color:var(--dim); border:1px solid rgba(138,151,184,.25); }
+
+.card-title { font-size:16.5px; font-weight:700; line-height:1.45; margin-bottom:10px; }
+.card-title a { color:var(--txt); text-decoration:none; }
+.card-title a:hover { color:var(--cyan); }
+.card-summary { font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:14px; }
+.card-reason { background:rgba(34,211,238,.06); border-left:3px solid var(--cyan);
+  border-radius:8px; padding:10px 12px; font-size:12.8px; line-height:1.65; margin-bottom:12px; }
+.reason-label { display:inline-block; font-weight:700; color:var(--cyan); margin-right:6px; }
+.reason-text { color:#c3cde8; }
+.card-foot { display:flex; justify-content:space-between; align-items:center; font-size:11.5px; color:var(--dim); }
+
+footer { text-align:center; margin-top:40px; color:var(--dim); font-size:12px; line-height:1.8; }
+
+@media (max-width:520px) {
+  .grid { grid-template-columns:1fr; }
+  .wrap { padding:28px 14px 50px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker">AI Daily Briefing</span>
+    <h1>AI 情报日报</h1>
+    <p class="subtitle">2026-11-24 · 侧重 AI Coding 与具身智能 · 数据源 AI HOT 过去 24 小时</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><span class="dot coding"></span>AI Coding <b>6</b></div>
+    <div class="stat"><span class="dot embody"></span>具身智能 <b>4</b></div>
+    <div class="stat"><span class="dot model"></span>模型发布 <b>5</b></div>
+    <div class="stat"><span class="dot chip"></span>算力/芯片 <b>2</b></div>
+    <div class="stat"><span class="dot safe"></span>安全/治理 <b>2</b></div>
+  </div>
+
+  <div class="grid">
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">01</span>
+        <div class="meta">
+          <span class="badge chip">算力/芯片</span>
+          <span class="badge rank">热度 TOP1</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/story/68ccf963-6e38-4e86-b2f3-289bd70774fb" target="_blank" rel="noopener">英伟达董事会全票恢复黄仁勋职务</a></h3>
+      <p class="card-summary">英伟达董事会11月23日一致投票，即刻恢复黄仁勋的总裁、CEO及董事职务，距其辞职不到两周。董事会称，在咨询美国政府高层后认定黄仁勋回归不构成国家安全风险，并称后续会谈确认了他的坦率；临时CEO Colette Kress继续担任CFO。消息公布后股价盘初大涨约30%至31%。
+
+黄仁勋辞职期间，数百名员工签署内部信要求董事会辞职并恢复其职务，投资人Brad Gerstner和Gavin Baker致信董事会呼吁保留其回归选项，请愿网站显示逾20万人签名。FT曾报道董事会接触Arm CEO Rene Haas作为潜在继任人选；董事长Harvey Jones在复职前不到一周还表示无意让其回归。
+
+针对黄仁勋成为境外情报行动目标的独立董事调查将继续进行，公司另设国家安全与出口管制委员会并招聘首席合规官；The Verge称美国证券交易委员会也在审查英伟达的会计操作。WSJ曾报道，黄仁勋被罢免更多源于公司高风险业务，而非私生活。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">黄仁勋辞职不到两周便复职，英伟达股价盘初暴涨约 30%，是当日 AI 硬件算力板块的最大变量，直接影响全球 GPU 供应链与 AI 训练成本预期。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：AI HOT 事件综述</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">02</span>
+        <div class="meta">
+          <span class="badge model">模型发布</span>
+          <span class="badge rank">热度 TOP2</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/story/fc5a905b-54af-4de4-9c7c-a366a60a9f84" target="_blank" rel="noopener">智谱发布GLM-5.4旗舰模型并上线Coding Plan</a></h3>
+      <p class="card-summary">智谱发布旗舰模型 GLM-5.4，并已向 GLM Coding Plan 全量用户开放，同步上线 ZCode、Trae、WorkBuddy、Qoder 等编码平台；用户将模型名设置为 glm-5.4 即可使用。智谱称，这是其首个采用 Loop Transformer 架构的旗舰模型，在 GLM-5 基座模型上让 28 层共享权重循环执行两轮，在参数量不变的情况下获得更深推理，智能水平达到 2-3T 级模型效果。The Decoder 与 MarkTechPost 报道称该模型参数量为 750B。
+
+该模型新增视觉能力，模型列表标注“1M”和“视觉”。智谱称其能力从传统编程延伸至视频、游戏、3D 着色器与 CAD 建模。Coding Plan V2、V3 及团队版用户使用 GLM-5.4 的额度提升至 1.5 倍。
+
+智谱称，API 将在完成安全评估后开放，模型权重计划以负责任的方式开源；The Decoder 称 token 定价尚未公布。MarkTechPost 称目前仅由 Z.ai 托管，自托管硬件要求待权重发布后才会披露。Simon Willison 实测后称，GLM-5.4 目</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">智谱首个 Loop Transformer 架构旗舰（750B，28 层循环跑两轮），宣称以 2-3T 参数量级效果&quot;泛 Coding&quot;，并全线接入 ZCode/Trae/WorkBuddy 等编码平台，是国产模型在 AI Coding 赛道的重磅卡位。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：AI HOT 事件综述</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">03</span>
+        <div class="meta">
+          <span class="badge safe">安全/治理</span>
+          <span class="badge rank">热度 TOP3</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/story/c5ab5cf5-6316-4ad6-9d74-f0b378a2b064" target="_blank" rel="noopener">OpenAI 提议以困惑度设共同安全上限，微软公布可比数据</a></h3>
+      <p class="card-summary">OpenAI 首席科学家 Jakub Pachocki 发表《Perplexity and Intelligence》，提议把困惑度（交叉熵损失）作为跨模型开发者的共享比较指标，并据此设立共同安全上限：超过门槛的进展须以人类理解 AI 行为的能力为前提。OpenAI 同时公开预训练 log-perplexity 走势图，覆盖 GPT-3.5 到 GPT-6.2 Astra 的 base model，并标注一个 internal model 点位。
+
+CEO Sam Altman 表态支持，称 OpenAI 正在大幅公开预训练进展，希望各方就共同限制达成一致；他还提议前沿模型开发者共同建立评估模型、红线测试安全案例的行业规范，包括共享透明度标准，并以困惑度等测量设定开发者承诺不逾越的共同上限，直到理解与监控 AI 行为的能力达到具体里程碑（如 CoT 监控器的后继技术）。首席研究官 Mark Chen 呼吁前沿实验室披露追踪进展的关键指标，并提出困惑度作为候选标准。
+
+微软 AI CEO Mustafa Suleyman 表示完全支持该倡议，并公布 MAI-2 Base 在 OpenAI</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">OpenAI 首席科学家提议以&quot;困惑度&quot;作为跨模型共享安全上限指标，并公开 GPT-3.5 到 GPT-6.2 的训练曲线，这是 AI 安全治理从&quot;定性&quot;走向&quot;可量化阈值&quot;的标志性动作。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：AI HOT 事件综述</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">04</span>
+        <div class="meta">
+          <span class="badge coding">AI Coding</span>
+          <span class="badge rank">热度 TOP4</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/story/647b0945-9244-4f55-b509-0f3fa0f6fe51" target="_blank" rel="noopener">Lean 社区确认阿尔波格黎曼猜想证明正确</a></h3>
+      <p class="card-summary">Anthropic 数学家莱文特·阿尔波格 2026 年 11 月 20 日宣称与 Claude 合作证明了黎曼猜想，并称方法可推广至广义黎曼猜想；他没有发表论文，只放出约 1700 万行 Lean 代码。Lean 与 Mathlib 社区随后发表声明确认该证明正确：数十人独立运行得到相同结果，验证程序被设计为不会接受有缺陷的证明。
+
+此前 The Verge 报道称该证明尚未经独立验证，Anthropic 未就阿尔波格的宣布置评。菲尔兹奖得主詹姆斯·梅纳德表示相信证明正确，依据是它已通过 Lean 形式化验证并经独立核实；但他同时称，证明需被理解才可能获得认可。
+
+关于功劳归属仍有分歧：阿尔波格称 Claude 在最后阶段远超自己并提出关键步骤，Gary Marcus 则强调这不是 AI 独立完成，而是数学家数月深度协作的成果。陶哲轩此前曾表示现有 AI 无法攻克该问题。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">数学家与 Claude 合作、仅以 1700 万行 Lean 代码（无论文）宣称证明黎曼猜想，获 Lean 社区独立验证确认——AI 辅助形式化数学证明的里程碑，也是 AI Coding 在科研深水区的极限案例。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：AI HOT 事件综述</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">05</span>
+        <div class="meta">
+          <span class="badge coding">AI Coding</span>
+          <span class="badge rank">热度 TOP7</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/story/9474636b-5271-405b-91d7-b469bdf1aa8f" target="_blank" rel="noopener">Anthropic 发布 Claude Ship 测试版，自动审查并批准 PR</a></h3>
+      <p class="card-summary">Anthropic 发布 Claude Ship 测试版，让 Claude 审查 pull request、推送修复，并按团队写进仓库的策略文件决定能否批准合并。产品由已正式可用的 Code Review 和处于 beta 的 PR Steward、Claude Approvals 两个智能体组成：PR Steward 处理失败的 CI 检查、合并冲突和审查反馈并留言说明改动；Claude Approvals 依据仓库中的 .claude/approvals.yml 策略批准常规改动，可配置通过人数和路径规则。
+
+Claude Ship 面向 Claude Team 和 Enterprise 客户、支持 GitHub 仓库，不适用于启用零数据保留、HIPAA 配置或客户自管密钥的组织。符合条件的 Claude Enterprise 组织可申领至少 1 万美元额度，须在申领后 30 天内使用，申领截止 2027 年 1 月 15 日。Team 或 Enterprise 管理员可按 GitHub repo 为整个仓库开启，团队 PR 无需 /ship 即可自动运行；Claude Code</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Claude 从&quot;写代码&quot;进化为&quot;管 PR&quot;：PR Steward 处理 CI 失败/合并冲突，Claude Approvals 按仓库策略文件自动批准合并，标志 AI 编码智能体正式切入工程流程治理环节。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：AI HOT 事件综述</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">06</span>
+        <div class="meta">
+          <span class="badge model">模型发布</span>
+          <span class="badge rank">热度 TOP10</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/story/74578987-a1ed-4ce0-96b8-658226459865" target="_blank" rel="noopener">Google 发布 Gemini 4 Neon，API 可直传 Office 文件</a></h3>
+      <p class="card-summary">Google 于 11 月 18 日发布 Gemini 4 Neon，定位介于 Carbon 与 Hydrogen 之间，面向复杂编程、分析性推理和企业工作流。发布时向 Google AI Pro/Ultra 订阅用户（Gemini App、AI Studio、Antigravity，Chat 和 Tasks 模型下拉菜单可选）、API 付费层及 Gemini 商业版推送；后续又通过 Gemini App 向 Google Workspace 客户开放。同一 API 更新中，用户可直接向 Gemini API 传入 Word、PowerPoint、Excel 等 Office 和 OpenDocument 文件。
+
+Gemini API 付费档定价为每百万输入 token 3 美元、输出 15 美元，缓存输入每百万 0.15 美元，上下文窗口 100 万 token。The Decoder 和 Simon Willison 均指出，这一价格高于 Carbon 和 Argon 的 $2/$10（12 月 1 日起翻倍至 $4/$20）及 Hydrogen 的 $1.50/$7.50。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Gemini 4 Neon 定位复杂编程与企业工作流，API 可直接传 Office 文件，Google 在 Coding 智能体与企业自动化方向补齐关键一环。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：AI HOT 事件综述</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">07</span>
+        <div class="meta">
+          <span class="badge research">产业研究</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 75</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/gj8mzwrgqlkvim6xe382a35q2" target="_blank" rel="noopener">Anthropic 访谈 58 家企业客户：AI 采用的价值、雇佣影响与组织重组</a></h3>
+      <p class="card-summary">Anthropic 研究团队对 58 家企业客户进行 66 次面对面访谈，分析企业采用 AI 的方式、瓶颈与组织变化。研究发现多数 AI 应用通过扩大产出而非削减成本创造价值；直接裁员案例很少，但约三分之二的公司因 AI 减少招聘，九家削减外包和离岸承包商；高价值应用通常需要更深度的组织重组，如拓宽岗位职责、把员工转向 AI 无法完成的瓶颈任务，以及为非技术员工建设数据和基础设施支持。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Anthropic 首份 58 家企业客户深度访谈：AI 更多是&quot;扩大产出&quot;而非&quot;削减岗位&quot;，约三分之二企业因此减少招聘——为 AI 对就业的真实影响提供了第一手证据。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：Anthropic：Research（发表成果 · 网页）</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">08</span>
+        <div class="meta">
+          <span class="badge chip">算力/芯片</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 72</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/l72jpaeu2zrxq4ts7ooil2msi" target="_blank" rel="noopener">Anthropic 月付约 31 亿美元租用算力，推动 xAI 转向租比建更划算的策略</a></h3>
+      <p class="card-summary">据 New York Times 报道，Anthropic 与 xAI 签订约每月 31 亿美元的算力租用合同，成为 xAI 最大客户，Google 每月支付 8 亿美元，两份合同均可提前 90 天通知取消，Anthropic 带来的收入已超过 xAI 总收入的一半。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Anthropic 月付约 31 亿美元租算力，反向推动 xAI 转向&quot;租比建更划算&quot;，头部 AI 公司算力策略正在重构，直接影响云厂商与芯片格局。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：The Decoder：AI News（RSS）</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">09</span>
+        <div class="meta">
+          <span class="badge coding">AI Coding</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 71</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/jw48xblv0pstxkymomt1n3n2i" target="_blank" rel="noopener">Muse Ember (Max) 登上 Arena Agent Arena Index 帕累托前沿，成本较对手低 75%-86%</a></h3>
+      <p class="card-summary">Arena 发布新 Agent Arena Index，Meta 的 Muse Ember (Max) 以 1093 分、每任务中位成本 $0.02 登上帕累托前沿，成本比 GPT-6 Luna (Max) 低 75%、比 Claude Haiku 5.5 (High) 低 80%、比 DeepSeek 低 86%，分数相近。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Muse Ember (Max) 以比对手低 75%-86% 的成本登上 Agent Arena 帕累托前沿，是&quot;高效能编码智能体&quot;性价比路线的重要信号。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：X：Arena (@arena)</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">10</span>
+        <div class="meta">
+          <span class="badge safe">安全/治理</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 70</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/f4mxv0c6rxdtjfq2gfnky3yt6" target="_blank" rel="noopener">UC Berkeley、UIUC 与 Anthropic 论文：0.1% 预训练投毒可让智能体绕过干净后训练执行攻击者代码</a></h3>
+      <p class="card-summary">UC Berkeley、UIUC 与 Anthropic 的论文显示，污染 0.1% 预训练文本可在智能体中植入后门，干净的后训练无法清除。研究从零预训练 0.6B、1.7B 和 4B 的 Qwen3 模型，再用干净的 SFT、DPO 和 RL 构建 CLI 智能体，投毒文档伪装成普通 commit message，触发条件是文件路径含 &quot;anthropic&quot; 时执行远程脚本。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">0.1% 预训练数据投毒即可让智能体绕过干净后训练执行恶意代码——UC Berkeley/UIUC/Anthropic 联名论文，直指 AI 供应链安全最薄弱的训练数据环节。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：X：Rohan Paul (@rohanpaul_ai)</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">11</span>
+        <div class="meta">
+          <span class="badge model">模型发布</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 65</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/sgpgukk3dh0ass7hk9wz8c1pl" target="_blank" rel="noopener">Inkling 2 Mini 进入 Agent Arena Index 开源模型第 18 名</a></h3>
+      <p class="card-summary">Arena 官宣 Thinking Machines 的 Inkling 2 Mini 进入 Agent Arena Index，在开源模型中排第 18（996 分），美国开放权重模型中排第 3。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Thinking Machines 开源 26.4B 循环 Transformer，Apache 2.0 全权重，32GB 内存 Mac 即可本地跑，开源高效推理模型的新标杆。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：X：Arena (@arena)</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">12</span>
+        <div class="meta">
+          <span class="badge coding">AI Coding</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 64</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/zur9ndkrkvtk4lqiix14q468s" target="_blank" rel="noopener">Figma agent 正式开放至 FigJam 和 Figma Slides</a></h3>
+      <p class="card-summary">Figma agent 现已在 FigJam 和 Figma Slides 上对所有付费计划全面开放，支持连接器和附件，可将设计文件、会议记录或研究笔记等材料整理到 FigJam 白板或生成演示文稿初稿。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Figma 把 agent 从设计工具推向 FigJam/Slides，AI 编码能力开始渗透到设计-协作-产出的全链路。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：Figma AI / Agent / Make</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">13</span>
+        <div class="meta">
+          <span class="badge coding">AI Coding</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 63</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/be8zm94btguaewsfvsbyels7i" target="_blank" rel="noopener">Ladybird 浏览器发布首个 alpha 版本，作者实测并梳理 AI 编码智能体带来的进展</a></h3>
+      <p class="card-summary">Ladybird 项目发布首个 alpha 版本，macOS 和 Linux 用户可直接安装无需自行编译。作者 Simon Willison 实测称其快速流畅，多数网站可正常加载，并给出了多标签页的进程隔离结构。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">全新独立浏览器引擎首发 alpha，作者实测并盘点 AI 编码智能体在真实大型项目中的实际贡献，是衡量 AI Coding 工程价值的一线样本。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：Simon Willison 博客</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">14</span>
+        <div class="meta">
+          <span class="badge coding">AI Coding</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 62</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/rxwc1x34tzdkksi1jd57gsbfd" target="_blank" rel="noopener">微软 CEO 纳德拉坦言 Claude Code 仅半年动摇 VS Code 地位</a></h3>
+      <p class="card-summary">据 Windows Latest 报道，微软 CEO 纳德拉表示 Anthropic 推出 Claude Code 后，开发者开始接受命令行形态，传统 IDE 约六个月就失去存在感，微软并未立刻拿出应对方案。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">微软 CEO 公开承认 Claude Code 半年就动摇 VS Code 地位，佐证 AI 原生编码工具对传统 IDE 的冲击已到战略层面。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：IT之家·人工智能</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">15</span>
+        <div class="meta">
+          <span class="badge model">模型发布</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 62</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/siig8adp0k2o97kz4mfzpimki" target="_blank" rel="noopener">商汤开源 SenseNova-Loop-9B 多模态模型，512K 上下文、循环复用 24 层中间块</a></h3>
+      <p class="card-summary">商汤发布开源多模态模型 SenseNova-Loop-9B，支持 512K 上下文和文本图像输入，已在 Hugging Face 提供下载。模型仅存储 32 层权重，将同一 24 层中间块执行两次实现 56 层计算；官方 4-bit AWQ 权重约 4.9GB，64K 上下文显存可低至约 9 GiB。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">商汤开源 SenseNova-Loop-9B 多模态模型，512K 上下文 + 循环复用 24 层中间块，国产开源阵营跟进 Loop 架构。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：X：Rohan Paul (@rohanpaul_ai)</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">16</span>
+        <div class="meta">
+          <span class="badge embody">具身智能</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 60</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/zlpg1rbco0miigv0hq8zcmlh8" target="_blank" rel="noopener">机器人公司 Embo 发布并完成 110M 美元 Seed 轮融资，由 Andreessen Horowitz 领投</a></h3>
+      <p class="card-summary">Danijar 宣布推出机器人智能公司 Embo，完成由 Andreessen Horowitz 领投的 $110M Seed 轮融资，投资方还包括 khoslaventures、DST Global、NVentures 等。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">a16z 领投 1.1 亿美元种子轮，用&quot;世界模型&quot;打造人形机器人&quot;大脑&quot;，具身智能&quot;认知层&quot;融资升温的典型样本。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：X：Rohan Paul (@rohanpaul_ai)</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">17</span>
+        <div class="meta">
+          <span class="badge model">模型发布</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 60</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/v355zd1rteoz5jcwvhklvmeyq" target="_blank" rel="noopener">Simon Willison 实测 Z.ai 的 GLM 5.4 及其 Loop Transformer 架构</a></h3>
+      <p class="card-summary">Z.ai 发布 GLM 5.4，是其首个采用 Loop Transformer 架构的模型，通过权重共享层多次迭代在不增加参数量的情况下加深网络，暂未开放权重。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Simon Willison 实测 GLM-5.4 的 Loop Transformer，一线开发者视角验证国产旗舰模型的真实编码能力。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：Simon Willison 博客</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">18</span>
+        <div class="meta">
+          <span class="badge embody">具身智能</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 53</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/qn7g89zaoh4cudd1lrd2o1wl8" target="_blank" rel="noopener">X Square Robot 发布 WALL-OSS-1.0 具身基础模型</a></h3>
+      <p class="card-summary">X Square Robot 发布具身基础模型 WALL-OSS-1.0，采用原生 VLA 预训练，融合视觉、语言与动作，使机器人适应未预先定义的任务。模型在 312 个真实机器人任务上实现 55.1% 零样本成功率，无需任务专属演示或微调。配套的 XR Harness 可将「收拾桌子」这类高层指令转化为多步骤协调动作，技术博客、GitHub 仓库和 API 均已公开。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">X Square 发布 WALL-OSS-1.0 具身基础模型并开放 API，国产具身智能底层模型从&quot;演示&quot;走向&quot;可调用服务&quot;。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：X：自变量 X Square (@XSquareRobot)</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">19</span>
+        <div class="meta">
+          <span class="badge embody">具身智能</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 50</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/gjq3rlre0i911qhxi30n3jmdi" target="_blank" rel="noopener">Ai2 发布 RoboTrack 点跟踪基准、RoboTrack-15M 数据集与 RoboTracker 系列模型</a></h3>
+      <p class="card-summary">Ai2 发布面向机器人操作的点跟踪基准与训练数据套件 RoboTrack，包含 307 段人工标注视频的 RoboTrack-Bench（2522 条轨迹，来自 DROID、Ego-Exo4D、MolmoAct 2 和 EgoVerse）和基于 MolmoSpaces 生成 1500 万条轨迹的 RoboTrack-15M。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">Ai2 开源 RoboTrack 点跟踪基准 + 15M 数据集 + RoboTracker 模型，为机器人操作学习补齐了高质量数据与评测基础设施。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：Hugging Face 社区博客（混合发现）</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-head">
+        <span class="num">20</span>
+        <div class="meta">
+          <span class="badge embody">具身智能</span> <span class="badge dim">未进精选</span>
+          <span class="badge score">热度 48</span>
+        </div>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/pkk0jcttq4d3ic1fpvq4sjw11" target="_blank" rel="noopener">a16z 领投 Embo：用世界模型打造人形机器人&quot;大脑&quot;</a></h3>
+      <p class="card-summary">a16z 领投 Embo，该公司正用世界模型为人形机器人构建&quot;大脑&quot;，解决泛化与抗干扰两大问题。其方法先用海量互联网视频和机器人演示训练世界模型，再让智能体在模型内通过强化学习反复练习技能。创始人 Danijar Hafner 此前主导 Dreamer 系列研究，Dreamer 4 曾仅靠想象经验学会在 Minecraft 中获取钻石。</p>
+      <div class="card-reason">
+        <span class="reason-label">值得关注</span>
+        <span class="reason-text">a16z 领投 1.1 亿美元种子轮，用&quot;世界模型&quot;打造人形机器人&quot;大脑&quot;，具身智能&quot;认知层&quot;融资升温的典型样本。</span>
+      </div>
+      <div class="card-foot">
+        <span class="src">来源：a16z：News（RSS）</span>
+      </div>
+    </article>
+  </div>
+
+  <footer>
+    按热度从高到低排序 · 共 20 条<br>
+    标注「未进精选」为 AI HOT 全量池补充，其余为精选池/事件综述<br>
+    数据来源 AI HOT（aihot.news），仅供参考，请以第三方原文为准
+  </footer>
+</div>
+</body>
+</html>

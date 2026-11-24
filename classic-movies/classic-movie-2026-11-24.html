@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>杀死一只知更鸟</title>
+<style>
+  :root {
+    --bg: #0f172a;
+    --card: #1e293b;
+    --card-2: #273449;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --accent: #f59e0b;
+    --accent-2: #38bdf8;
+    --line: #334155;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  header { text-align: center; margin-bottom: 32px; }
+  .tag {
+    display: inline-block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 20px;
+    padding: 4px 16px;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    font-style: italic;
+  }
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin: 22px 0 8px;
+  }
+  .meta span {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 14px;
+    color: var(--text);
+  }
+  .meta b { color: var(--accent-2); font-weight: 600; }
+  .score {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .score .s {
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+    color: #0f172a;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 15px;
+  }
+  .score .s.blue { background: linear-gradient(135deg, #38bdf8, #2563eb); color: #fff; }
+  section {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 24px 22px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    color: #f8fafc;
+  }
+  p { margin-bottom: 14px; color: #cbd5e1; }
+  p:last-child { margin-bottom: 0; }
+  ul { list-style: none; }
+  ul li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 12px;
+    color: #cbd5e1;
+  }
+  ul li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--accent-2);
+    font-weight: 700;
+  }
+  .quote {
+    border-left: 3px solid var(--accent);
+    background: var(--card-2);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    font-style: italic;
+    color: #e2e8f0;
+    margin: 6px 0 0;
+  }
+  .no-spoiler {
+    background: rgba(245, 158, 11, 0.08);
+    border: 1px dashed var(--accent);
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--accent);
+    text-align: center;
+  }
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 36px;
+    letter-spacing: 1px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; padding: 18px 12px 48px; }
+    h1 { font-size: 28px; }
+    section { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="tag">经典电影推荐</div>
+    <h1>杀死一只知更鸟</h1>
+    <div class="subtitle">To Kill a Mockingbird</div>
+    <div class="meta">
+      <span>导演 · <b>罗伯特·穆里根</b></span>
+      <span>主演 · <b>格利高里·派克</b></span>
+      <span>年份 · <b>1962</b></span>
+    </div>
+    <div class="score">
+      <span class="s">豆瓣 8.7</span>
+      <span class="s blue">IMDb 8.3</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>剧情梗概</h2>
+    <p>故事发生在美国南方的一个小镇梅科姆，透过小女孩斯考特的纯真视角徐徐展开。她的父亲阿提克斯·芬奇，是一位温厚而正直的律师，在充满偏见的环境中，接下了一桩注定艰难、甚至被众人唾弃的辩护——为一名被诬告的黑人青年辩护。</p>
+    <p>影片并没有把笔墨全押在法庭之上，而是以童年的日常与成长为主线：斯考特与哥哥杰姆的冒险、对邻居"怪人"布·拉德利的种种想象、以及父亲以言传身教种下的正义与勇气。在一连串看似平淡的小事里，一个关于种族、偏见与良知的宏大主题，缓缓浮出水面。</p>
+    <div class="quote">"你永远不可能真正了解一个人，除非你站在他的角度，走进他的皮肤，用他的方式行走。"</div>
+  </section>
+
+  <section>
+    <h2>亮点所在</h2>
+    <ul>
+      <li><b>格利高里·派克封神级的表演。</b>他所塑造的阿提克斯·芬奇被美国电影学会（AFI）评为"影史百大英雄"第一名，几乎成为"正义与父亲"两个词的代名词。</li>
+      <li><b>文学改编的典范。</b>改编自哈珀·李同名普利策奖小说，是美国中学必读书目，电影忠实地还原了原著的温度与深度。</li>
+      <li><b>儿童视角的叙事巧思。</b>以孩子的眼睛看成人世界的偏见与不公，那份天真的困惑，反而比任何控诉都更有力量。</li>
+      <li><b>经典的黑白影像。</b>纯黑白的画面与南方小镇的光影，营造出一种沉静而隽永的质感，历久弥新。</li>
+      <li><b>配乐与氛围。</b>埃尔默·伯恩斯坦的配乐温柔克制，为影片镀上一层怀旧而温暖的光晕。</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>为什么值得一看</h2>
+    <p>六十多年过去，它所探讨的种族偏见、社会不公，以及对"良知与勇气"的追问，依然直击人心。它没有说教，而是把一个父亲的背影、一段童年的记忆，安静地放进你心里。</p>
+    <p>无论你是为人父母、还是依然记得自己童年的那个"小孩"，都能在阿提克斯身上，找到某种值得仰望的东西——在一个并不总是公平的世界里，依然选择守住底线、做正确的事。</p>
+    <p>这是一部会随着年龄增长，越品越有味道的电影。它温柔，却也铿锵。</p>
+  </section>
+
+  <div class="no-spoiler">本文不涉及关键情节剧透，请放心观看 · 建议观影时长约 129 分钟</div>
+
+  <footer>愿这部经典，陪你度过一段安静的观影时光。</footer>
+</div>
+</body>
+</html>
