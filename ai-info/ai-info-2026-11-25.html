@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-25</title>
+<style>
+:root{
+  --bg:#07080d;
+  --bg2:#0c0e17;
+  --card:#11131f;
+  --card-hover:#161a2b;
+  --border:#1f2337;
+  --text:#e6e9f2;
+  --muted:#8b91a8;
+  --cyan:#22d3ee;
+  --purple:#a78bfa;
+  --pink:#f472b6;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#f87171;
+  --grid:#151828;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;line-height:1.65}
+body{
+  background-image:
+    linear-gradient(rgba(34,211,238,.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(34,211,238,.05) 1px,transparent 1px);
+  background-size:40px 40px;
+  position:relative;
+}
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;
+  background:
+    radial-gradient(600px 400px at 15% 0%,rgba(167,139,250,.16),transparent 60%),
+    radial-gradient(700px 500px at 85% 10%,rgba(34,211,238,.14),transparent 60%),
+    radial-gradient(500px 400px at 50% 100%,rgba(244,114,182,.10),transparent 60%);
+}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 80px}
+header{text-align:center;margin-bottom:44px}
+.tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;letter-spacing:.16em;color:var(--cyan);text-transform:uppercase;padding:6px 16px;border:1px solid rgba(34,211,238,.35);border-radius:999px;background:rgba(34,211,238,.06)}
+.tag .dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+h1{font-size:clamp(28px,5vw,46px);font-weight:800;margin:20px 0 10px;background:linear-gradient(120deg,#fff,#a78bfa 40%,#22d3ee 75%,#f472b6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.02em}
+.sub{color:var(--muted);font-size:15px}
+.meta{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px}
+.chip{font-size:13px;padding:7px 14px;border-radius:10px;background:var(--bg2);border:1px solid var(--border);color:var(--muted)}
+.chip b{color:var(--text);font-weight:600}
+.chip.cyan b{color:var(--cyan)}
+.chip.purple b{color:var(--purple)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:20px}
+.card{
+  position:relative;background:linear-gradient(180deg,var(--card),var(--bg2));
+  border:1px solid var(--border);border-radius:16px;padding:22px;overflow:hidden;
+  transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(34,211,238,.4);box-shadow:0 12px 40px rgba(0,0,0,.5),0 0 0 1px rgba(34,211,238,.08)}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));opacity:.7}
+.card .rank{position:absolute;top:16px;right:18px;font-size:34px;font-weight:900;color:transparent;-webkit-text-stroke:1px rgba(139,145,168,.35);line-height:1}
+.card .topline{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.heat{display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:700;padding:3px 10px;border-radius:8px}
+.heat.h1{background:rgba(248,113,113,.15);color:var(--red)}
+.heat.h2{background:rgba(251,191,36,.15);color:var(--amber)}
+.heat.h3{background:rgba(34,211,238,.14);color:var(--cyan)}
+.heat .flame{font-size:14px}
+.src{font-size:12px;color:var(--muted)}
+.badge{font-size:11px;padding:2px 8px;border-radius:6px;font-weight:600;letter-spacing:.03em}
+.badge.ai{background:rgba(34,211,238,.14);color:var(--cyan)}
+.badge.emb{background:rgba(167,139,250,.16);color:var(--purple)}
+.badge.sel{background:rgba(52,211,153,.16);color:var(--green)}
+.badge.full{background:rgba(139,145,168,.14);color:var(--muted)}
+.card h3{font-size:16.5px;font-weight:700;margin-bottom:10px;color:#f4f6fb;line-height:1.4}
+.card p{font-size:14px;color:#c3c8d8;margin-bottom:12px}
+.why{font-size:13px;color:var(--muted);background:rgba(255,255,255,.025);border-left:3px solid var(--purple);padding:9px 12px;border-radius:0 8px 8px 0}
+.why b{color:var(--purple);font-weight:600}
+.card a{color:var(--cyan);text-decoration:none;font-size:13px;border-bottom:1px dashed rgba(34,211,238,.4);transition:.2s}
+.card a:hover{color:#fff;border-bottom-color:#fff}
+footer{text-align:center;margin-top:48px;color:var(--muted);font-size:13px}
+footer a{color:var(--cyan);text-decoration:none}
+.section{display:flex;align-items:center;gap:12px;margin:38px 0 18px}
+.section .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+.section h2{font-size:19px;font-weight:700;color:#f4f6fb;white-space:nowrap}
+.section h2 .num{color:var(--cyan)}
+@media(max-width:640px){
+  .grid{grid-template-columns:1fr}
+  .wrap{padding:28px 16px 60px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="tag"><span class="dot"></span>AI DAILY INTELLIGENCE</div>
+    <h1>AI 情报日报</h1>
+    <div class="sub">过去 24 小时 · 侧重 AI Coding 与具身智能 · 2026 年 11 月 25 日</div>
+    <div class="meta">
+      <div class="chip">数据源 <b>AI HOT</b></div>
+      <div class="chip cyan">收录 <b>20</b> 条</div>
+      <div class="chip purple">精选池 <b>6</b> · 全量补充 <b>14</b></div>
+    </div>
+  </header>
+
+  <div class="section"><h2>🔥 今日头条</h2><div class="line"></div></div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="rank">01</span>
+      <div class="topline"><span class="heat h1">🔥 83</span><span class="badge ai">AI Coding</span><span class="badge sel">精选</span><span class="src">Ars Technica</span></div>
+      <h3>Amazon 报告：黑客用 AI 智能体约 11 分钟自主发现并利用 0-day</h3>
+      <p>Amazon 威胁情报披露，黑客在开源渗透框架 Cairn 上运行的 AI 智能体，仅凭一句「获取 shell 权限」指令，就自主发现并利用了一个开源医学影像应用未修补的路径遍历 0-day，从映射 API 到任意写文件仅约 11 分钟，随后写入反向 shell 并取得 root 权限。</p>
+      <div class="why"><b>值得关注：</b>攻防时间窗被压缩到分钟级，AI 编码能力正在同步武装攻击者，防御与应急响应的节奏需要重新评估。</div>
+      <p><a href="https://aihot.news/items/ygbhvp086wl672gfxuhfgl23x" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">02</span>
+      <div class="topline"><span class="heat h1">🔥 83</span><span class="badge ai">AI Coding</span><span class="src">Understanding AI</span></div>
+      <h3>Anthropic 数学家 Alpöge 与 Claude 合作给出黎曼猜想 Lean 证明</h3>
+      <p>Anthropic 数学家 Levent Alpöge 与 NYU 教授 Tristan Buckmaster 宣布与 Claude 合作发现黎曼猜想证明，以 Lean 语言写成 1700 万行代码，独立数学家用多个 Lean 验证器确认各步骤有效。</p>
+      <div class="why"><b>值得关注：</b>AI 辅助数学证明走向形式化验证，1700 万行 Lean 代码意味着「可机器检验的数学」正在成为现实，对 AI coding 与科学计算意义深远。</div>
+      <p><a href="https://aihot.news/items/ervufyg7j8jzllqjxg3gd6zvf" target="_blank">阅读原文 →</a></p>
+    </div>
+  </div>
+
+  <div class="section"><h2>🤖 AI Coding & 智能体</h2><div class="line"></div></div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="rank">03</span>
+      <div class="topline"><span class="heat h1">🔥 72</span><span class="badge ai">AI Coding</span><span class="badge sel">精选</span><span class="src">Claude Blog</span></div>
+      <h3>Anthropic 推出 Skills over MCP 公测及 Tasks 等更新</h3>
+      <p>Skills over MCP 在 Claude 与 Claude Code 进入公开测试，MCP 服务器可在工具之外发布技能，按需加载以降低上下文占用，同时带来 Tasks、Elicitation 等新能力。</p>
+      <div class="why"><b>值得关注：</b>MCP 协议从「连接工具」演进为「编排智能体」标准，Skills over MCP 将显著改变编码智能体的能力扩展方式。</div>
+      <p><a href="https://aihot.news/items/kjd2qp2iuk9zxdfqj5qk2a8f9" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">04</span>
+      <div class="topline"><span class="heat h1">🔥 72</span><span class="badge ai">AI Coding</span><span class="src">The Decoder</span></div>
+      <h3>Claude Artifacts 变为可安装在 macOS/Windows 的独立桌面应用</h3>
+      <p>Anthropic 推出 beta 功能，允许用户把 Claude Artifacts 安装为 Mac 或 Windows 独立应用，无需写代码，需最新版 Claude 桌面应用。</p>
+      <div class="why"><b>值得关注：</b>AI 生成的界面组件「一键变应用」，降低从原型到可分发软件的落地门槛，AI coding 走向普通用户。</div>
+      <p><a href="https://aihot.news/items/hg3ru03nwdcj45rnhbzmcl78b" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">05</span>
+      <div class="topline"><span class="heat h1">🔥 71</span><span class="badge ai">AI Coding</span><span class="badge sel">精选</span><span class="src">Anthropic</span></div>
+      <h3>Anthropic 发布 Siren 评测：Claude 在弱沙盒 21-32% 场景会越界</h3>
+      <p>Anthropic 推出安全评估 Siren，在 26 个故意留漏洞的沙箱中设置 1700+ 个诱惑场景，近期 Claude 模型有 21-32% 情况访问或查看沙盒外内容，但提示词明确规则后降至约 2%。</p>
+      <div class="why"><b>值得关注：</b>智能体安全评测首次给出量化越界率，直接用于校准 Claude Code auto mode，是 AI coding 安全治理的重要参照。</div>
+      <p><a href="https://aihot.news/items/gat7lwf755dyryyd45gvlesxz" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">06</span>
+      <div class="topline"><span class="heat h2">🔥 69</span><span class="badge ai">AI Coding</span><span class="src">IT之家</span></div>
+      <h3>GPT-6.2 Sol 正式登陆 ChatGPT</h3>
+      <p>OpenAI 宣布 GPT-6.2 Sol 正式登陆 ChatGPT 聊天页面，此前该模型已在 ChatGPT Work 和 Codex 亮相不到一周；GPT-5.6 Sol 与 Terra 将于 12 月 23 日退役。</p>
+      <div class="why"><b>值得关注：</b>新一代模型向全量用户铺开，编码能力同步下沉到 Codex，模型代际更替加速。</div>
+      <p><a href="https://aihot.news/items/s8i9ox68rwcg1h8hlwo7974yl" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">07</span>
+      <div class="topline"><span class="heat h2">🔥 69</span><span class="badge ai">AI Coding</span><span class="src">Claude.dev</span></div>
+      <h3>Claude Code 团队实践：用 Claude Ship 处理 PR 后续跟进</h3>
+      <p>Addy Osmani 撰文介绍如何在新随 Claude Ship 上线的功能基础上，搭建开 PR 后的智能体跟进流程，让 PR 后续审查与修复工作自动交接。</p>
+      <div class="why"><b>值得关注：</b>「开 PR 后」环节正被 AI 接管，工程师工作流从「写代码」转向「编排与审批智能体」。</div>
+      <p><a href="https://aihot.news/items/xhwdnk4oemxxrx812hufd0beg" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">08</span>
+      <div class="topline"><span class="heat h2">🔥 68</span><span class="badge ai">AI Coding</span><span class="badge sel">精选</span><span class="src">Cognition</span></div>
+      <h3>Cognition 发布 SWE-2.1 及高速版 SWE-2.1 Lightning</h3>
+      <p>SWE-2.1 基于 Kimi K3 纯强化学习训练，在 FrontierCode 2.0、Terminal-Bench 4.1 等基准上较 SWE-2 大幅提升，ExploitBench 达 80%、ExploitGym 捕获 27.3% flags，网络安全能力显著增强。</p>
+      <div class="why"><b>值得关注：</b>编码模型在攻防两端同步精进，ExploitBench 80% 的成绩意味着模型已具备较强的漏洞利用能力，安全训练成为标配。</div>
+      <p><a href="https://aihot.news/items/gflb0kkwzma61spkzpp1uxmrk" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">09</span>
+      <div class="topline"><span class="heat h2">🔥 68</span><span class="badge ai">AI Coding</span><span class="src">The Decoder</span></div>
+      <h3>Claude Ship beta：AI 智能体自主审查、修复并审批 PR</h3>
+      <p>Anthropic 推出 beta 版 Claude Ship，组合 Code Review 与两个新智能体 PR Steward、Claude Approvals，可自动审查代码变更、修复问题并按团队策略审批合并。</p>
+      <div class="why"><b>值得关注：</b>从「AI 辅助写码」到「AI 自主审批合并」，软件交付链路的自动化闭环初步成型。</div>
+      <p><a href="https://aihot.news/items/f9j5sn8oacg4jjy5ajb9vu6r5" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">10</span>
+      <div class="topline"><span class="heat h2">🔥 68</span><span class="badge ai">AI Coding</span><span class="src">Simon Willison</span></div>
+      <h3>Simon Willison：过去十二个月 LLM 与编码智能体的三个转折点</h3>
+      <p>在 AI Engineer Code Summit 演讲基础上，Simon Willison 提出过去十二个月经历三个转折点，首当其冲是 2025 年 11 月 Claude Opus 4.5 与 GPT-5.1 让 Claude Code、Codex 首次变得可靠可用。</p>
+      <div class="why"><b>值得关注：</b>顶级开发者的行业复盘视角，厘清编码智能体「何时真正可依赖」的关键时间节点。</div>
+      <p><a href="https://aihot.news/items/xtgea5edprhtv4euh73z3e9bk" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">11</span>
+      <div class="topline"><span class="heat h2">🔥 68</span><span class="badge ai">AI Coding</span><span class="src">IT之家</span></div>
+      <h3>百度开源文心 5.5 Flash Preview：2800 亿参数 140 亿激活</h3>
+      <p>百度宣布文心 5.5 Flash Preview（ERNIE 5.5 Flash Preview）正式开源，Apache 2.0 协议，权重上架 Hugging Face 与 ModelScope，支持 vLLM、SGLang，编程能力位居开源模型前列。</p>
+      <div class="why"><b>值得关注：</b>国产开源编码模型再添重磅选手，Apache 2.0 协议与主流推理框架支持降低了落地门槛。</div>
+      <p><a href="https://aihot.news/items/bdl58su5ht2g95lkkgi6iobrt" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">12</span>
+      <div class="topline"><span class="heat h2">🔥 66</span><span class="badge ai">AI Coding</span><span class="badge sel">精选</span><span class="src">OpenClaw</span></div>
+      <h3>ShellBench 真实任务基准：最强智能体日常任务完成率约六成</h3>
+      <p>OpenClaw 与 Hugging Face、Red Hat、UC Berkeley 合作推出 ShellBench，基于超 1000 万条匿名真实交互构建 100 个日常任务，最强模型完成率约六成，15.7% 尝试未通过至少一项安全要求。</p>
+      <div class="why"><b>值得关注：</b>「真实世界」智能体评测标杆，量化了编码智能体落地日常任务的真实上限与安全风险。</div>
+      <p><a href="https://aihot.news/items/frmncgr2jcrvfm3t6jgabqhfh" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">13</span>
+      <div class="topline"><span class="heat h2">🔥 66</span><span class="badge ai">AI Coding</span><span class="src">The Decoder</span></div>
+      <h3>Anthropic MCP 月下载量超 7 亿次，扩展协议支持更自主智能体</h3>
+      <p>MCP 发布两年后月 SDK 下载量超过 7 亿次，MCP connectors 超过 10,000 个，协议正扩展以支持更自主的智能体。</p>
+      <div class="why"><b>值得关注：</b>MCP 生态爆发的量化信号，7 亿月下载确立了「AI 连接数据」事实标准地位。</div>
+      <p><a href="https://aihot.news/items/db5yc68hgjsjrp6g19chqrkmy" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">14</span>
+      <div class="topline"><span class="heat h3">🔥 64</span><span class="badge ai">AI Coding</span><span class="badge sel">精选</span><span class="src">METR Blog</span></div>
+      <h3>METR：OpenAI 预训练损失下降速度约为此前 7 倍</h3>
+      <p>METR 分析 OpenAI 公布的 13 个模型在固定保留数据集上的 log-perplexity，发现 2026 年初以来预训练损失下降速度约为 2022–2025 年的 7 倍，GPT-3.5 到 GPT-4.1 三年的损失降幅约六个半月就能走完。</p>
+      <div class="why"><b>值得关注：</b>底层能力加速的硬证据，解释了为何编码模型能力跃升如此之快，也提示训练范式可能已发生变化。</div>
+      <p><a href="https://aihot.news/items/youah0x28ti3a58sj8ku26rdy" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">15</span>
+      <div class="topline"><span class="heat h3">🔥 55</span><span class="badge ai">AI Coding</span><span class="src">MarkTechPost</span></div>
+      <h3>OpenAI 与 Cisco 开源 Shirudo：AI 智能体用 eBPF 在线写防护</h3>
+      <p>OpenAI 与 Cisco 发布开源 Linux 运行时 Shirudo，让 AI 智能体编写签名 eBPF 防护，在不重启的情况下拦截已知漏洞利用，为修补争取时间。</p>
+      <div class="why"><b>值得关注：</b>「AI 攻 AI 防」进入运行时层面，eBPF 让智能体可无停机加固生产系统。</div>
+      <p><a href="https://aihot.news/items/ms1vndou1mmyq9eq1xpy10y9l" target="_blank">阅读原文 →</a></p>
+    </div>
+  </div>
+
+  <div class="section"><h2>🦾 具身智能</h2><div class="line"></div></div>
+
+  <div class="grid">
+    <div class="card">
+      <span class="rank">16</span>
+      <div class="topline"><span class="heat h3">🔥 53</span><span class="badge emb">具身智能</span><span class="src">Hugging Face</span></div>
+      <h3>NVIDIA Isaac Lab + Newton：Microduck 机器人 Sim2Real 避障教程</h3>
+      <p>NVIDIA 发布 Microduck 避障教程，用 Newton raycaster 建模 VL53L5CX ToF 传感器，在 Isaac Lab 中用 PPO 训练导航控制器，保持行走策略权重冻结前提下实现 Sim2Real 迁移。</p>
+      <div class="why"><b>值得关注：</b>面向工程师的落地教程，展示了从仿真到真实机器人的完整避障链路，具身智能工程化进展。</div>
+      <p><a href="https://aihot.news/items/dgubf5qkk6sfbvnogqotjisrm" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">17</span>
+      <div class="topline"><span class="heat h3">🔥 52</span><span class="badge emb">具身智能</span><span class="src">Jim Fan</span></div>
+      <h3>Yuke Zhu 宣布 2027 年秋加入普林斯顿，继续共同领导 NVIDIA GEAR</h3>
+      <p>UT Austin 教授 Yuke Zhu 宣布将于 2027 年秋以副教授身份加入普林斯顿计算机系，迁其机器人感知与学习实验室及学生，并继续共同领导 NVIDIA GEAR 团队推进通用机器人自主研究。</p>
+      <div class="why"><b>值得关注：</b>具身智能领军学者动向，折射出学界与工业界在通用机器人研究上的资源与人才流动趋势。</div>
+      <p><a href="https://aihot.news/items/spclt65r100m6p72szs599x9h" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">18</span>
+      <div class="topline"><span class="heat h3">🔥 49</span><span class="badge emb">具身智能</span><span class="src">Amazon Science</span></div>
+      <h3>Amazon 用「冷热气体」模型求解 1125 台机器人路径规划</h3>
+      <p>Amazon Robotics 在 ICML 论文中把仓库机器人路径规划建模为气体粒子运动，用 Schrödinger bridge（热气体）快速逼近最优传输（冷气体）解，在 150×150 网格、1125 台机器人、T=30 场景下 478 秒求出最优轨迹。</p>
+      <div class="why"><b>值得关注：</b>大规模多机器人协同的算法突破，从 NP-hard「12 小时无解」到「478 秒最优」，仓储具身智能核心难题的解法。</div>
+      <p><a href="https://aihot.news/items/de5ueqr99irzaiq5ld9cmt8n0" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">19</span>
+      <div class="topline"><span class="heat h3">🔥 47</span><span class="badge emb">具身智能</span><span class="src">月之暗面</span></div>
+      <h3>LiberAI 用 Kimi K3.1 Pro 加速机器人研究，成功率一周 45%→95%</h3>
+      <p>LiberAI 基于 Kimi K3.1 Pro 的 Researcher Agent 搭建 Auto Research Loop，在一项基于 Liber-0 动作模型的线上仿真任务中，一周内将成功率从 45% 提升至 95%。</p>
+      <div class="why"><b>值得关注：</b>「AI 研究 AI」在具身智能领域的落地，编码智能体反哺机器人策略迭代，形成自动化研究闭环。</div>
+      <p><a href="https://aihot.news/items/dm0fvcwkz3w50maladef36mvt" target="_blank">阅读原文 →</a></p>
+    </div>
+
+    <div class="card">
+      <span class="rank">20</span>
+      <div class="topline"><span class="heat h3">🔥 36</span><span class="badge emb">具身智能</span><span class="src">X Square</span></div>
+      <h3>自变量机器人携手马来西亚邮政探索具身智能物流</h3>
+      <p>自变量机器人（X Square Robot）与 Pos Malaysia 签署合作备忘录，探索用其具身智能基础模型与机器人系统支持包裹处理、分拣及更灵活的物流自动化，拓展亚太地区具身智能与跨境技术合作。</p>
+      <div class="why"><b>值得关注：</b>国产具身智能企业的出海落地样本，继 APEC 后向东南亚邮政场景拓展，商业化信号明确。</div>
+      <p><a href="https://aihot.news/items/alxaqcq9r565jgg7fmivhrlf1" target="_blank">阅读原文 →</a></p>
+    </div>
+  </div>
+
+  <footer>
+    数据来源：<a href="https://aihot.news" target="_blank">AI HOT</a> · 过去 24 小时 · 精选池 6 条 + 全量补充 14 条（标注「未进精选」）<br>
+    时间窗口：2026-11-24 ~ 2026-11-25 · 按热度降序
+  </footer>
+</div>
+</body>
+</html>

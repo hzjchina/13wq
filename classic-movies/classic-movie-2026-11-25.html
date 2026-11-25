@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黄金时代</title>
+<style>
+  :root {
+    --bg: #f6f3ee;
+    --card: #ffffff;
+    --text: #2b2a26;
+    --muted: #6b675e;
+    --accent: #8a6d3b;
+    --accent-soft: #efe6d4;
+    --line: #e6e0d2;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px 64px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 32px 28px;
+    text-align: center;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+  }
+  .kicker {
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+  h1 {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+  }
+  .origin {
+    font-size: 15px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+  .badge {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-size: 13px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    font-weight: 600;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 24px;
+    margin-top: 18px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.3;
+  }
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  .meta-list { list-style: none; }
+  .meta-list li {
+    padding: 9px 0;
+    border-bottom: 1px dashed var(--line);
+    display: flex;
+    gap: 12px;
+  }
+  .meta-list li:last-child { border-bottom: none; }
+  .meta-key { color: var(--muted); min-width: 68px; flex-shrink: 0; }
+  .meta-val { color: var(--text); }
+  .quote {
+    font-size: 16px;
+    font-style: italic;
+    color: var(--muted);
+    text-align: center;
+    padding: 6px 0;
+  }
+  .foot {
+    text-align: center;
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 24px;
+  }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    h1 { font-size: 28px; }
+    .hero { padding: 26px 18px; }
+    .card { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">经 典 电 影</div>
+    <h1>黄金时代</h1>
+    <div class="origin">The Best Years of Our Lives · 1946</div>
+    <div class="badges">
+      <span class="badge">第 19 届奥斯卡最佳影片</span>
+      <span class="badge">豆瓣 8.9</span>
+      <span class="badge">IMDb 8.1</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>基本信息</h2>
+    <ul class="meta-list">
+      <li><span class="meta-key">导演</span><span class="meta-val">威廉·惠勒（William Wyler）</span></li>
+      <li><span class="meta-key">主演</span><span class="meta-val">弗雷德里克·马奇、达纳·安德鲁斯、哈罗德·拉塞尔</span></li>
+      <li><span class="meta-key">类型</span><span class="meta-val">剧情 / 战争反思</span></li>
+      <li><span class="meta-key">年代</span><span class="meta-val">1946 年</span></li>
+      <li><span class="meta-key">荣誉</span><span class="meta-val">奥斯卡 7 项大奖（含最佳影片、最佳导演）</span></li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>二战结束，三位来自同一座小镇、出身与境遇迥异的退伍军人，同乘一架飞机回到了久别的家乡。他们曾经并肩作战，如今却要重新面对一个早已陌生的和平世界——有的要找回失散多年的家庭与爱情，有的要重拾被战争中断的婚姻与事业，有的则要拖着残缺的身体，重新学会如何被这个世界接纳。</p>
+    <p>影片跟随着这三个男人各自的回家之路，平静而细腻地展开。没有宏大的战争场面，只有一扇扇重新推开的家门、一次次欲言又止的拥抱，以及那些战争之后，比枪林弹雨更难跨越的生活沟壑。</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <p><strong>真实到近乎残忍的战后群像。</strong>它诞生于二战结束仅仅一年后，是那个时代第一批直面"回家"命题的电影。银幕上的困惑与疏离，正是千千万万美国家庭刚刚经历的真实——这份时差极近的写实感，让它的情感至今仍有穿透力。</p>
+    <p><strong>非职业演员的神来一笔。</strong>片中饰演失去双手水兵"霍默"的哈罗德·拉塞尔，本人就是一名在战争中失去双手的退伍军人。他演的不是别人，正是自己。他也因此成为影史上唯一凭借同一角色、同年两获奥斯卡的演员（最佳男配 + 特别荣誉奖）。</p>
+    <p><strong>深焦摄影与人性凝视。</strong>导演威廉·惠勒用长时间、不被打断的深焦镜头，把人物的挣扎与克制原原本本地留在画面里，让表演的每一丝迟疑都清晰可见。</p>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>在今天这个节奏飞快的时代，它是一部愿意慢下来、认真凝视"普通人"的电影。它不靠反转与奇观取胜，而靠一种朴素的诚实：战争结束了，生活却没有自动变得容易，而人依然要鼓起勇气，把日子一天天过下去。</p>
+    <p>如果你曾想过"英雄凯旋之后，他们过得好吗"，这部电影就是那个问题的答案。它关乎重逢，也关乎失落；关乎国家的胜利，更关乎每一个个体如何在废墟上重建自己的"黄金时代"。</p>
+    <p class="quote">—— 岁月静好，从来不是理所当然。</p>
+  </div>
+
+  <div class="foot">经典电影推荐 · 2026-11-25</div>
+
+</div>
+</body>
+</html>

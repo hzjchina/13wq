@@ -5,6 +5,12 @@
       "icon": "🎬",
       "items": [
         {
+          "title": "黄金时代",
+          "date": "2026-11-25",
+          "summary": "黄金时代 经 典 电 影 黄金时代 The Best Years of Our Lives · 1946 第 19 届奥斯卡最佳影片 豆瓣 8.9 IMDb 8.1 基本信息 导演 威廉·惠勒（William Wyler） 主演 弗雷德里克...",
+          "path": "classic-movies/classic-movie-2026-11-25.html"
+        },
+        {
           "title": "杀死一只知更鸟",
           "date": "2026-11-24",
           "summary": "杀死一只知更鸟 经典电影推荐 杀死一只知更鸟 To Kill a Mockingbird 导演 · 罗伯特·穆里根 主演 · 格利高里·派克 年份 · 1962 豆瓣 8.7 IMDb 8.3 剧情梗概 故事发生在美国南方的一个小镇梅科姆，...",
@@ -2090,6 +2096,12 @@
       "icon": "🤖",
       "items": [
         {
+          "title": "AI 情报日报 · 2026-11-25",
+          "date": "2026-11-25",
+          "summary": "AI 情报日报 · 2026-11-25 AI DAILY INTELLIGENCE AI 情报日报 过去 24 小时 · 侧重 AI Coding 与具身智能 · 2026 年 11 月 25 日 数据源 AI HOT 收录 20 条 精...",
+          "path": "ai-info/ai-info-2026-11-25.html"
+        },
+        {
           "title": "AI 情报日报 · 2026-11-24",
           "date": "2026-11-24",
           "summary": "AI 情报日报 · 2026-11-24 AI Daily Briefing AI 情报日报 2026-11-24 · 侧重 AI Coding 与具身智能 · 数据源 AI HOT 过去 24 小时 AI Coding 6 具身智能 4 ...",
@@ -2701,6 +2713,12 @@
       "name": "新闻早报",
       "icon": "📰",
       "items": [
+        {
+          "title": "新闻早报 · 2026-11-25",
+          "date": "2026-11-25",
+          "summary": "新闻早报 · 2026-11-25 📰 新闻早报 🗓️ 2026-11-25 星期三 🌙 农历 丙午年十月十七 🌿 小雪（第4天） 🌤️ 深圳：多云到阴天，局部有零星小雨，16~23℃，东北风2-3级，空气质量优｜冷空气路过打卡，26日起气...",
+          "path": "news-briefs/news-brief-2026-11-25.html"
+        },
         {
           "title": "新闻早报 · 2026-11-24",
           "date": "2026-11-24",
