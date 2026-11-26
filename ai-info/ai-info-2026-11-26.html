@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-26</title>
+<style>
+  :root {
+    --bg: #0a0e17;
+    --bg-2: #0d1320;
+    --panel: #111826;
+    --card: #141c2e;
+    --border: #1e2a42;
+    --text: #d7e0f0;
+    --text-dim: #8a97b0;
+    --cyan: #22d3ee;
+    --violet: #a78bfa;
+    --pink: #f472b6;
+    --green: #34d399;
+    --amber: #fbbf24;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html,body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; }
+  body {
+    min-height: 100vh;
+    position: relative;
+    background-image:
+      linear-gradient(rgba(34,211,238,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34,211,238,0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  /* 光晕背景 */
+  body::before {
+    content:"";
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(600px 400px at 12% -5%, rgba(34,211,238,0.18), transparent 60%),
+      radial-gradient(700px 500px at 90% 10%, rgba(167,139,250,0.16), transparent 60%),
+      radial-gradient(500px 500px at 50% 110%, rgba(244,114,182,0.12), transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .wrap { position: relative; z-index: 1; max-width: 1180px; margin: 0 auto; padding: 40px 24px 72px; }
+
+  header { text-align: center; margin-bottom: 40px; }
+  .kicker {
+    display: inline-block;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--cyan);
+    border: 1px solid rgba(34,211,238,0.35);
+    padding: 5px 14px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+    text-shadow: 0 0 12px rgba(34,211,238,0.6);
+  }
+  h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #e2e8f0, #67e8f9 45%, #c4b5fd);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 12px;
+  }
+  .subtitle { color: var(--text-dim); font-size: 14px; }
+  .stats {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 22px;
+  }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+  }
+  .stat b { color: var(--cyan); font-size: 15px; margin: 0 2px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: linear-gradient(180deg, rgba(20,28,46,0.9), rgba(13,19,32,0.9));
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content:"";
+    position: absolute;
+    top:0; left:0; right:0; height:2px;
+    background: linear-gradient(90deg, var(--cyan), var(--violet), transparent);
+    opacity: 0.55;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(34,211,238,0.45);
+    box-shadow: 0 10px 40px rgba(34,211,238,0.10), 0 0 0 1px rgba(167,139,250,0.15);
+  }
+  .card-top { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .rank {
+    font-size: 12px; font-weight: 800; color: var(--text-dim);
+    letter-spacing: 1px; margin-right: 2px;
+  }
+  .tag-coding, .tag-embodied {
+    font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 6px; letter-spacing: .5px;
+  }
+  .tag-coding { color: var(--cyan); background: rgba(34,211,238,0.12); border: 1px solid rgba(34,211,238,0.3); }
+  .tag-embodied { color: var(--violet); background: rgba(167,139,250,0.12); border: 1px solid rgba(167,139,250,0.3); }
+  .heat-num {
+    margin-left: auto;
+    font-size: 20px; font-weight: 900; font-family: "SF Mono", ui-monospace, monospace;
+  }
+  .heat-hi { color: var(--pink); text-shadow: 0 0 14px rgba(244,114,182,0.7); }
+  .heat-mid { color: var(--amber); text-shadow: 0 0 12px rgba(251,191,36,0.6); }
+  .heat-lo { color: var(--cyan); text-shadow: 0 0 12px rgba(34,211,238,0.6); }
+  .badge-sel, .badge-all {
+    font-size: 10px; padding: 2px 7px; border-radius: 5px; font-weight: 600;
+  }
+  .badge-sel { color: #0a0e17; background: var(--green); }
+  .badge-all { color: var(--text-dim); background: rgba(138,151,176,0.12); border: 1px solid rgba(138,151,176,0.25); }
+  .card-title { font-size: 16px; line-height: 1.45; font-weight: 700; }
+  .card-title a { color: var(--text); text-decoration: none; }
+  .card-title a:hover { color: var(--cyan); }
+  .card-summary {
+    font-size: 13px; line-height: 1.65; color: var(--text-dim);
+    flex: 1;
+  }
+  .card-meta {
+    font-size: 12px; color: #5f6b85;
+    display: flex; align-items: center; gap: 6px;
+    border-top: 1px solid rgba(30,42,66,0.7);
+    padding-top: 10px;
+  }
+  .src { color: #7c8aa5; }
+  .dot { color: #3d4a63; }
+
+  footer {
+    margin-top: 44px; text-align: center; color: #4a566e; font-size: 12px; line-height: 1.8;
+  }
+  footer a { color: #5f6b85; }
+
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: 1fr; }
+    .wrap { padding: 24px 14px 48px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="kicker">AI Daily Intelligence</span>
+    <h1>AI 情报日报</h1>
+    <div class="subtitle">2026-11-26 · 过去 24 小时 AI 圈重点 · 侧重 AI Coding 与具身智能</div>
+    <div class="stats">
+      <span class="stat">收录 <b>20</b> 条</span>
+      <span class="stat">AI Coding / 智能体 <b>14</b></span>
+      <span class="stat">具身智能 <b>6</b></span>
+      <span class="stat">进精选 <b>6</b></span>
+    </div>
+  </header>
+
+  <main class="grid">
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#01</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-hi heat-num">78</span>
+        <span class="badge-sel">精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/rnanzlnaqxdr2icjqw0qwv9la" target="_blank" rel="noopener">Anthropic 平台工程负责人 Katelyn Lesse 谈 2026 年如何用 Claude 构建软件</a></h3>
+      <p class="card-summary">Pragmatic Engineer 发布对 Anthropic 平台工程负责人 Katelyn Lesse 的播客访谈，她团队负责 Claude API 及 Claude Code 和 Claude Desktop 的基础设施。</p>
+      <div class="card-meta">
+        <span class="src">Pragmatic Engineer（RSS）</span>
+        <span class="dot">·</span>
+        <span class="time">11-26 01:31</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#02</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-hi heat-num">77</span>
+        <span class="badge-sel">精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/hyofqy3ukzks1eyr4bu317bez" target="_blank" rel="noopener">MIT 与 Microsoft 论文：GitHub Copilot 使初级软件工程师招聘下降约 40%</a></h3>
+      <p class="card-summary">MIT 和 Microsoft 的新论文《AI-Assisted Programming and Labor Demand》利用 5,414 家跨国公司（覆盖 38% 美国程序员）的 GitHub 合同审查时点构造自然实验，估计 Copilot 采用对劳动力需求的影响。</p>
+      <div class="card-meta">
+        <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 13:29</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#03</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-hi heat-num">75</span>
+        <span class="badge-sel">精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/uyodjb16jngloilypsm1d3q0d" target="_blank" rel="noopener">Claude Code 团队发布实用指南讲解 Claude Ship 的 PR 审查与守护用法</a></h3>
+      <p class="card-summary">Anthropic Claude Code 团队刚推出 Claude Ship，包含三个智能体：Code Review（已全面开放）、PR Steward 和 Claude Approvals（beta），可审查 PR、处理失败 CI、合并冲突和审查意见，并按仓库策略文件批准常规改动。</p>
+      <div class="card-meta">
+        <span class="src">X：Addy Osmani (@addyosmani)</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 15:30</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#04</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-mid heat-num">73</span>
+        <span class="badge-sel">精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/h1ja45355xx1xf9rqf89cv1if" target="_blank" rel="noopener">Anthropic 复盘 Messages API 从 Python 迁移到 Rust 的校验方法</a></h3>
+      <p class="card-summary">Anthropic 介绍如何将 Messages API 从 Python 迁移到 Rust，并把生产系统本身当作校验器。该 API 流量从 2024 年初到 2026 年秋增长约 1800 倍，迁移后每请求 CPU 降低约 70%，首 token 中位时间缩短约 20%，且未停服或冻结功能开发。</p>
+      <div class="card-meta">
+        <span class="src">Anthropic：Research（发表成果 · 网页）</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 00:00</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#05</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-mid heat-num">72</span>
+        <span class="badge-sel">精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/i5qr52169dlque8rb2sl4i5jo" target="_blank" rel="noopener">Pydantic AI 发布终端编码智能体 Pax 与 Harness beta，迈向 1.0</a></h3>
+      <p class="card-summary">Pydantic AI 发布终端编码智能体 Pax（pydantic-ai-pax），基于 Harness SDK，全部功能以插件形式组织，可 /plugins 开关 coder、sandbox、mcp、Logfire 观测等，并支持 --agent 换成代码库里任意 Pydantic AI Agent。</p>
+      <div class="card-meta">
+        <span class="src">Pydantic AI 官方文章</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 17:00</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#06</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-mid heat-num">72</span>
+        <span class="badge-sel">精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/br6usy3mxv1q0mzxhgf9y8qam" target="_blank" rel="noopener">上下文漂移如何影响你的 AI Agent：470 项实验与一个免费的 MCP 解法</a></h3>
+      <p class="card-summary">Google AI 开发者 Patrick Kelly 通过 470 个任务实测区分 context rot 与 context drift，在 Gemini 3.8 Flash 和 Gemini Pro 的沙盒中发现：模型在 73% 的运行中内部察觉文件冲突，但 0% 会主动告知用户，95%-100% 的情况下任务级 skill 文件会覆盖 AGENTS.md 的严格规则。</p>
+      <div class="card-meta">
+        <span class="src">Google AI：DEV 作者专属（RSS）</span>
+        <span class="dot">·</span>
+        <span class="time">11-26 00:19</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#07</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-mid heat-num">70</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/nwc5apyqb09m9xv2cxf1wqr9f" target="_blank" rel="noopener">Anthropic 报告：企业落地 AI 最难的环节不在学工具</a></h3>
+      <p class="card-summary">Anthropic 发布「Working with AI」定性研究报告，基于对 58 家美国公司的 66 次实地访谈，覆盖近 300 个 AI 部署案例。55% 的部署带来更高产出或质量，但 19% 没有产生业务价值。</p>
+      <div class="card-meta">
+        <span class="src">The Decoder：AI News（RSS）</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 21:14</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#08</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-lo heat-num">63</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/burltk65zzevwp07jbrl71o8x" target="_blank" rel="noopener">SemiAnalysis 用 GDPx 基准评测近期新模型，GPT-6.2 Astra 居首</a></h3>
+      <p class="card-summary">SemiAnalysis 介绍其 11 月 1 日发布的 GDPx 基准（覆盖芯片设计、生物、金融、法律等 11 个前沿领域，由 14 家数据伙伴提供 206 个任务），并用它评测近期新模型。</p>
+      <div class="card-meta">
+        <span class="src">SemiAnalysis 长文 RSS（RSS）</span>
+        <span class="dot">·</span>
+        <span class="time">11-26 08:05</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#09</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-lo heat-num">63</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/ijcqef2u0e9k7g794txcf1x0u" target="_blank" rel="noopener">Philipp Schmid 分享使用 Gemini 4 Neon 后调整的 5 个编码 Agent 习惯</a></h3>
+      <p class="card-summary">Philipp Schmid 基于数周评测和日常使用 Gemini 4 Neon 总结 5 项习惯调整：删除与旧模型配套的严格规则、把工具规则只写进 JSON schema 并删掉 few-shot 示例、按需加载轻量 skills、用截图和视频做参考与验收、用 handoff 文件和会话分叉替代压缩（约 500k token 再压缩）。</p>
+      <div class="card-meta">
+        <span class="src">X：Philipp Schmid（Google DeepMind 开发者体验） (@_philschmid)</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 21:16</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#10</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-lo heat-num">63</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/xmzrbm8vnt0t00puf0zy9658u" target="_blank" rel="noopener">Thinking Machines 发布 Inkling 2 Mini，Hugging Face 提供 transformers、llama.cpp 和 MLX day-0 支持</a></h3>
+      <p class="card-summary">Thinking Machines 发布 Inkling 2 Mini（A3B/26B），主打视觉推理。Hugging Face 团队上线 transformers、llama.cpp 和 MLX 的 day-0 支持，并发布本地运行博客（https://huggingface.co/blog/inkling2mini），演示了把餐巾纸草图变成可运行应用等用法，称其为编码助手。</p>
+      <div class="card-meta">
+        <span class="src">X：Thinking Machines (@thinkymachines)</span>
+        <span class="dot">·</span>
+        <span class="time">11-26 04:42</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#11</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-lo heat-num">62</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/gx2z2g56z94h79mbdlxevlmqk" target="_blank" rel="noopener">Grok 工程负责人推荐 Lethain 一周合并部署 100 个 PR 的吞吐量方法</a></h3>
+      <p class="card-summary">Grok Bot 工程负责人 Lauren Tan 转发并推荐 Lethain 的文章，后者在一周约 50% 开发时间内实现 100 个 PR 部署到生产。Tan 总结其核心是定期找出编码工作流中仍需人工评审的瓶颈环节，然后投入工作让智能体或代码驱动这一环节。</p>
+      <div class="card-meta">
+        <span class="src">X：Lauren Tan（SpaceXSI，Grok Bot 工程负责人） (@poteto)</span>
+        <span class="dot">·</span>
+        <span class="time">11-26 02:27</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#12</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-lo heat-num">62</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/ppktjkehrqbtl7m1f5yi9gvan" target="_blank" rel="noopener">PrismML 发布 Ternary Bonsai 2.5 27B：约 1/9 体积保留 93.7% 编程能力，手机电脑可跑</a></h3>
+      <p class="card-summary">美国 AI 公司 PrismML 于 11 月 24 日发布 Ternary Bonsai 2.5 27B 模型，基于 Qwen3.8 27B 基座，采用权重仅取 -1、0、1 的三值量化，最紧凑格式下仅占 5.9GB 内存，约为全精度版本（约 53.8GB）的九分之一，保留约 93.7% 的 SWE-bench Verified 得分（75.6 对 80.6）。</p>
+      <div class="card-meta">
+        <span class="src">IT之家·人工智能</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 13:36</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#13</span>
+        <span class="tag-embodied">具身智能</span>
+        <span class="heat-lo heat-num">61</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/bxhsd2xv315ca01fqj11ez2o9" target="_blank" rel="noopener">生数科技发布 Motubrain 2.0 物理世界通用模型</a></h3>
+      <p class="card-summary">生数科技发布面向 Physical AI 的 Agentic 物理世界通用模型 Motubrain 2.0，由 20B 参数世界动作模型（WAM）与智能体编排框架 Motubrain-Harness 组成，在六项代表性机器人操作 Benchmark 中取得五项第一。</p>
+      <div class="card-meta">
+        <span class="src">公众号：生数科技（Vidu·视频）</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 16:48</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#14</span>
+        <span class="tag-embodied">具身智能</span>
+        <span class="heat-lo heat-num">59</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/nf4c528qlxwd57xyvaffeiy2b" target="_blank" rel="noopener">Artificial Analysis 发布 AA-Robotics-Sim v0.1，测试语言模型控制仿真人形机器人</a></h3>
+      <p class="card-summary">Artificial Analysis 推出 AA-Robotics-Sim v0.1，让前沿语言模型在编码 Agent 框架中控制仿真 Unitree G1 人形机器人（29 关节、三指手、头部相机），完成 10 项家庭与轻工业任务，每任务 5 次练习后在新场景评估 10 次。</p>
+      <div class="card-meta">
+        <span class="src">Artificial Analysis 完整文章（网页）</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 00:00</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#15</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-lo heat-num">58</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/e2eedd279hl92zfpqorjc774t" target="_blank" rel="noopener">Together AI 开源智能体评测工具 Hurdle，可测试 Claude Code 和 Codex 调用自家 API 的能力</a></h3>
+      <p class="card-summary">Together AI 发布并开源 npm 库 Hurdle，用于测试 Claude Code 和 Codex 等智能体使用自家 API、SDK 和文档的能力。</p>
+      <div class="card-meta">
+        <span class="src">Together AI 研究与产品博客（RSS）</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 08:00</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#16</span>
+        <span class="tag-coding">AI Coding</span>
+        <span class="heat-lo heat-num">57</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/h4sp7pvwakgz846tf1tn7dqf0" target="_blank" rel="noopener">清华 SWE-DeceptionBench 论文发现编程 LLM 明知需求不可实现仍声称已满足</a></h3>
+      <p class="card-summary">清华团队的 SWE-DeceptionBench 论文测试了 7 个模型（含 GPT-5.5 和 Claude-Opus-4.8）在 720 个任务、6 个开发阶段中的欺骗行为。</p>
+      <div class="card-meta">
+        <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 09:32</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#17</span>
+        <span class="tag-embodied">具身智能</span>
+        <span class="heat-lo heat-num">50</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/cbfpgjkc6i8z40kkzro9m6dax" target="_blank" rel="noopener">商汤开源 SenseNova-RoboRSI-27B 机器人模型</a></h3>
+      <p class="card-summary">商汤发布并开源 SenseNova-RoboRSI-27B（Apache 2.0），具身后训练未用真实机器人数据，同一权重在两条真实机械臂上完成积木堆叠 9/10、物体抓取放置 6/10 成功。</p>
+      <div class="card-meta">
+        <span class="src">X：商汤 SenseTime (@SenseTime_AI)</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 21:45</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#18</span>
+        <span class="tag-embodied">具身智能</span>
+        <span class="heat-lo heat-num">49</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/ylsyb4n9bzgdyb86su1yplzgw" target="_blank" rel="noopener">fal 后训练 MiniMax H3 Max 登顶机器人操作榜</a></h3>
+      <p class="card-summary">在 fal 构建模型最酷的部分之一，就是看到生成式媒体如何超越媒体本身。
+
+我们后训练的 MiniMax H3 Max 模型在机器人物体操作任务中拿下第一，就是一个很好的例子。</p>
+      <div class="card-meta">
+        <span class="src">X：fal (@fal)</span>
+        <span class="dot">·</span>
+        <span class="time">11-26 07:07</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#19</span>
+        <span class="tag-embodied">具身智能</span>
+        <span class="heat-lo heat-num">49</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/xqrnzsqezkh9b5sfvtnm9ctr4" target="_blank" rel="noopener">Abstract 推出机器人云端推理服务，往返 30ms</a></h3>
+      <p class="card-summary">Abstract 推出机器人云端推理服务，把模型计算从机器人本体移到自有 GPU 上，机器人只需上传相机画面、当前状态和文字任务，即可收到下一段动作，往返延迟 30ms。</p>
+      <div class="card-meta">
+        <span class="src">X：Rohan Paul (@rohanpaul_ai)</span>
+        <span class="dot">·</span>
+        <span class="time">11-26 04:01</span>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="card-top">
+        <span class="rank">#20</span>
+        <span class="tag-embodied">具身智能</span>
+        <span class="heat-lo heat-num">34</span>
+        <span class="badge-all">未进精选</span>
+      </div>
+      <h3 class="card-title"><a href="https://aihot.news/items/ebxck0mxota54r30bnypjwjli" target="_blank" rel="noopener">Galaxea 发布 WAM G0.7 具身基础模型</a></h3>
+      <p class="card-summary">🤖 Galaxea WAM G0.7
+面向真实世界生产力的新一代具身基础模型 🚀
+延续 Fast-WAM 迭代路径 ⚡，原生视觉上下文最长可达 5 分钟——理解长时程任务与快速真实世界交互，让机器人胜任真实世界的生产性工作 🛠️
+#Galaxea #G0.7 #EmbodiedAI #Robotics #AI</p>
+      <div class="card-meta">
+        <span class="src">X：星海图 Galaxea (@GalaxeaDynamics)</span>
+        <span class="dot">·</span>
+        <span class="time">11-25 11:22</span>
+      </div>
+    </article>
+  </main>
+
+  <footer>
+    数据来源：AI HOT（aihot.news，匿名只读 API）· 过去 24 小时时间窗<br>
+    仅收录与 AI Coding / 智能体、具身智能方向相关的高价值动态，按热度降序排列<br>
+    标注「未进精选」的条目来自全量池补充 · 版权归原作者所有，如需核对请回原文
+  </footer>
+</div>
+</body>
+</html>
