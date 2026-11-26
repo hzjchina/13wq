@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小木碗的月光粥 — 儿童睡前故事</title>
+<style>
+  :root {
+    --bg1: #0e0f26;
+    --bg2: #1c1f4a;
+    --bg3: #232a5c;
+    --card: rgba(30, 34, 74, 0.78);
+    --text: #f0ecdd;
+    --sub: #a3a8d0;
+    --accent: #7ec8e3;
+    --silver: #cfd8e8;
+    --note: #f5d76e;
+    --warm: #f0b878;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 55%, var(--bg3) 100%);
+    color: var(--text);
+    font: 17px/1.9 -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .sky { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 4s ease-in-out infinite; }
+  @keyframes twinkle { 0%,100% { opacity: 0.9; transform: scale(1);} 50% { opacity: 0.3; transform: scale(0.8);} }
+
+  .meteor {
+    position: absolute; width: 110px; height: 2px;
+    background: linear-gradient(90deg, rgba(255,255,255,0.9), transparent);
+    border-radius: 2px; transform: rotate(-32deg);
+    animation: shoot 9s linear infinite;
+  }
+  @keyframes shoot {
+    0% { transform: translate(0,0) rotate(-32deg); opacity: 0; }
+    8% { opacity: 1; }
+    30% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+    100% { transform: translate(340px, 215px) rotate(-32deg); opacity: 0; }
+  }
+
+  /* 主题装饰粒子：月光碎屑（蒸腾的暖汽里浮动的银光） */
+  .moondust {
+    position: absolute; width: 3px; height: 3px; border-radius: 50%;
+    background: #e8ecf5; opacity: 0.5;
+    animation: drift 12s ease-in-out infinite;
+  }
+  @keyframes drift {
+    0%,100% { transform: translate(0,0); opacity: 0.5; }
+    50% { transform: translate(18px, -42px); opacity: 0.2; }
+  }
+
+  /* 暖色光点：灶火与粥香里飘起的小暖星 */
+  .warmspark {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: #f0b878; box-shadow: 0 0 7px 2px rgba(240, 184, 120, 0.55);
+    animation: warmrise 9s ease-in-out infinite;
+  }
+  @keyframes warmrise {
+    0%   { transform: translate(0, 0); opacity: 0; }
+    20%  { opacity: 0.85; }
+    60%  { transform: translate(10px, -70px); opacity: 0.5; }
+    100% { transform: translate(16px, -130px); opacity: 0; }
+  }
+
+  /* 月亮：按农历月相绘制，禁止每天同一个圆月 */
+  .moon {
+    position: absolute; top: 6%; right: 10%;
+    z-index: 0; pointer-events: none;
+  }
+  .moon svg { display: block; }
+
+  .wrap { position: relative; z-index: 2; max-width: 700px; margin: 0 auto; padding: 34px 20px 50px; }
+
+  .header { text-align: center; margin-bottom: 24px; }
+  .header h1 {
+    font-size: clamp(28px, 6vw, 42px); font-weight: 700;
+    color: var(--silver); letter-spacing: 0.06em;
+    text-shadow: 0 0 32px rgba(207, 216, 232, 0.35);
+  }
+  .meta { color: var(--sub); font-size: 14px; margin-top: 10px; letter-spacing: 0.12em; }
+
+  .poster { text-align: center; margin: 20px 0 26px; }
+  .poster svg {
+    width: min(300px, 78vw); height: auto;
+    filter: drop-shadow(0 12px 34px rgba(0,0,0,0.5));
+    border-radius: 16px;
+  }
+
+  .info-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 26px; }
+  .info-item {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px; padding: 13px 8px; text-align: center;
+  }
+  .info-label { font-size: 12px; color: var(--sub); margin-bottom: 5px; letter-spacing: 0.1em; }
+  .info-value { font-size: 15px; font-weight: 500; }
+
+  .story-card {
+    background: var(--card); border: 1px solid rgba(126, 200, 227, 0.14);
+    border-radius: 20px; padding: 28px 24px; margin-bottom: 18px;
+    backdrop-filter: blur(6px); box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+  }
+  .story-card h2 {
+    font-size: 18px; color: var(--accent); margin-bottom: 16px; letter-spacing: 0.1em;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .story-card h2::before {
+    content: ""; width: 4px; height: 18px; background: var(--accent); border-radius: 2px;
+  }
+  .story-card p { margin-bottom: 14px; text-indent: 2em; }
+  .story-card p:last-child { margin-bottom: 0; }
+
+  .goodnight {
+    margin-top: 8px; padding: 16px 18px; text-align: center;
+    background: rgba(126, 200, 227, 0.1); border: 1px dashed rgba(126, 200, 227, 0.4);
+    border-radius: 14px; color: #d8ecf5; font-size: 16px; letter-spacing: 0.04em;
+  }
+  .goodnight p { text-indent: 0; margin: 0; }
+
+  .moral { color: var(--sub); font-size: 15px; }
+  .moral p { text-indent: 0; text-align: center; font-style: italic; }
+
+  .footer { text-align: center; margin-top: 30px; color: var(--sub); font-size: 12px; opacity: 0.7; }
+
+  @media (max-width: 480px) {
+    .wrap { padding: 24px 14px 38px; }
+    .story-card { padding: 20px 16px; }
+    .info-bar { grid-template-columns: repeat(2,1fr); }
+    body { font-size: 16px; }
+  }
+  /* === 音频播放器（generate.py 注入） === */
+  .audio-box{display:flex;align-items:center;gap:14px;margin:0 0 18px;padding:14px 18px;background:rgba(255,225,160,.08);border:1px solid rgba(255,225,160,.22);border-radius:16px}
+  .audio-btn{flex:0 0 auto;width:46px;height:46px;border-radius:50%;border:none;background:linear-gradient(135deg,#ffd98a,#b48cff);color:#2a1f4d;font-size:17px;cursor:pointer;box-shadow:0 0 16px rgba(255,220,150,.35);transition:transform .2s;display:flex;align-items:center;justify-content:center;padding:0}
+  .audio-btn:hover{transform:scale(1.08)}
+  .audio-btn.playing{animation:audioPulse 1.8s ease-in-out infinite}
+  @keyframes audioPulse{0%,100%{box-shadow:0 0 10px 2px rgba(255,220,150,.3)}50%{box-shadow:0 0 24px 9px rgba(255,220,150,.55)}}
+  .audio-meta{flex:1;min-width:0}
+  .audio-title{font-size:13px;color:#ffe9b0;letter-spacing:2px;margin-bottom:7px}
+  .audio-track{height:5px;background:rgba(255,255,255,.14);border-radius:3px;overflow:hidden;cursor:pointer}
+  .audio-progress{height:100%;width:0;background:linear-gradient(90deg,#ffd98a,#b48cff);border-radius:3px;transition:width .2s linear}
+  .audio-time{font-size:11px;color:#9d8fc7;margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+</style>
+</head>
+<body>
+
+<div class="sky">
+  <!-- 星空：固定 6 颗星星 + 1 颗流星 -->
+  <span class="star" style="top:7%; left:14%; width:3px; height:3px;"></span>
+  <span class="star" style="top:13%; left:76%; width:2px; height:2px; animation-delay:1s;"></span>
+  <span class="star" style="top:22%; left:52%; width:2.5px; height:2.5px; animation-delay:2s;"></span>
+  <span class="star" style="top:9%; left:40%; width:2px; height:2px; animation-delay:0.5s;"></span>
+  <span class="star" style="top:28%; left:86%; width:3px; height:3px; animation-delay:1.6s;"></span>
+  <span class="star" style="top:31%; left:24%; width:2px; height:2px; animation-delay:2.4s;"></span>
+  <div class="meteor" style="top:9%; left:54%;"></div>
+  <!-- 月相月亮：亏凸月 waning_gibbous，illumination 0.88，右侧暗弧较昨日略大，暗圆偏移 ~1.71r -->
+  <div class="moon">
+    <svg viewBox="0 0 120 120" width="88" height="88" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="moonGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.4"/>
+          <stop offset="55%" stop-color="#e8ecf5" stop-opacity="0.12"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClip"><circle cx="60" cy="60" r="38"/></clipPath>
+      </defs>
+      <!-- 月晕光圈 -->
+      <circle cx="60" cy="60" r="58" fill="url(#moonGlow)"/>
+      <!-- 亮盘 -->
+      <circle cx="60" cy="60" r="38" fill="#e8ecf5"/>
+      <!-- 亏凸月暗圆：右侧偏移 1.71r（65/38≈1.71r，较昨日1.79r略小，暗弧略大对应 illum 0.95→0.88），clipPath 裁剪在月盘内 -->
+      <circle cx="125" cy="60" r="38" fill="#0e0f26" clip-path="url(#moonClip)"/>
+      <!-- 月面环形山（亮面左侧为主） -->
+      <circle cx="48" cy="52" r="4" fill="#d4dae8" opacity="0.5"/>
+      <circle cx="42" cy="66" r="2.8" fill="#d4dae8" opacity="0.45"/>
+      <circle cx="54" cy="70" r="2.2" fill="#d4dae8" opacity="0.4"/>
+      <circle cx="38" cy="56" r="1.8" fill="#d4dae8" opacity="0.35"/>
+    </svg>
+  </div>
+  <!-- 主题装饰粒子：月光碎屑 + 灶火暖星 -->
+  <span class="moondust" style="top:46%; left:18%; animation-delay:0s;"></span>
+  <span class="moondust" style="top:54%; left:62%; animation-delay:2.5s;"></span>
+  <span class="moondust" style="top:62%; left:38%; animation-delay:4.8s;"></span>
+  <span class="warmspark" style="top:66%; left:48%; animation-delay:0s;"></span>
+  <span class="warmspark" style="top:72%; left:30%; animation-delay:3s; width:3px; height:3px;"></span>
+  <span class="warmspark" style="top:70%; left:74%; animation-delay:5.5s; width:3px; height:3px;"></span>
+</div>
+
+<div class="wrap">
+  <header class="header">
+    <h1>小木碗的月光粥</h1>
+    <p class="meta">🥣 小小的也能装下整个冬夜的暖 · 3-8 岁睡前故事</p>
+  </header>
+
+    <div class="audio-box" id="audioBox">
+    <button class="audio-btn" id="audioBtn" aria-label="播放故事音频">▶</button>
+    <div class="audio-meta">
+      <div class="audio-title">🎧 听 · 今日故事</div>
+      <div class="audio-track" id="audioTrack"><div class="audio-progress" id="audioProgress"></div></div>
+      <div class="audio-time" id="audioTime">00:00 / 00:00</div>
+    </div>
+    <audio id="storyAudio" src="audio/bedtime-story-2026-11-26.m4a" preload="metadata"></audio>
+  </div>
+
+<div class="poster">
+    <!-- 竖版故事海报插画（300×440）：山脚小木屋厨房夜 · 亏凸月 · 小木碗晾粥 -->
+    <svg viewBox="0 0 300 440" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="wallGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#1a1c3e"/>
+          <stop offset="100%" stop-color="#0e0f26"/>
+        </linearGradient>
+        <linearGradient id="skyGradP" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#0a0e26"/>
+          <stop offset="100%" stop-color="#232a5c"/>
+        </linearGradient>
+        <radialGradient id="moonGlowP" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </radialGradient>
+        <clipPath id="moonClipPoster"><circle cx="222" cy="80" r="22"/></clipPath>
+        <radialGradient id="warmGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f0b878" stop-opacity="0.55"/>
+          <stop offset="60%" stop-color="#f0b878" stop-opacity="0.16"/>
+          <stop offset="100%" stop-color="#f0b878" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#e8ecf5" stop-opacity="0.28"/>
+          <stop offset="100%" stop-color="#e8ecf5" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="bowlGrad" cx="40%" cy="35%" r="70%">
+          <stop offset="0%" stop-color="#c89868"/>
+          <stop offset="55%" stop-color="#9a6e42"/>
+          <stop offset="100%" stop-color="#6a4828"/>
+        </linearGradient>
+        <linearGradient id="porridgeGrad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%" stop-color="#f2d8a8"/>
+          <stop offset="100%" stop-color="#d8a868"/>
+        </linearGradient>
+        <linearGradient id="shelfGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#5a3e26"/>
+          <stop offset="100%" stop-color="#3a2818"/>
+        </linearGradient>
+      </defs>
+
+      <!-- 厨房墙壁背景 -->
+      <rect width="300" height="440" fill="url(#wallGrad)"/>
+
+      <!-- 窗户：矩形开口，里面是夜空 + 亏凸月 + 星星 -->
+      <rect x="48" y="34" width="176" height="128" fill="url(#skyGradP)"/>
+      <!-- 窗框（十字 + 外框） -->
+      <rect x="46" y="32" width="180" height="132" fill="none" stroke="#3a2a1a" stroke-width="3"/>
+      <line x1="135" y1="34" x2="135" y2="162" stroke="#3a2a1a" stroke-width="2.5"/>
+      <line x1="48" y1="98" x2="224" y2="98" stroke="#3a2a1a" stroke-width="2.5"/>
+
+      <!-- 窗内星空 -->
+      <circle cx="80" cy="58" r="1.2" fill="#fff" opacity="0.85"/>
+      <circle cx="118" cy="48" r="0.9" fill="#fff" opacity="0.7"/>
+      <circle cx="170" cy="62" r="1" fill="#fff" opacity="0.75"/>
+      <circle cx="200" cy="50" r="0.8" fill="#fff" opacity="0.6"/>
+      <circle cx="92" cy="120" r="0.9" fill="#fff" opacity="0.5"/>
+      <circle cx="160" cy="130" r="0.7" fill="#fff" opacity="0.45"/>
+
+      <!-- 亏凸月（右侧暗弧，暗圆偏移 1.73r：38/22≈1.73r，较昨日1.77r略小对应 illum 0.95→0.88） -->
+      <circle cx="222" cy="80" r="34" fill="url(#moonGlowP)"/>
+      <circle cx="222" cy="80" r="22" fill="#e8ecf5"/>
+      <circle cx="260" cy="80" r="22" fill="#0a0e26" clip-path="url(#moonClipPoster)"/>
+      <circle cx="214" cy="74" r="2.5" fill="#d4dae8" opacity="0.5"/>
+      <circle cx="208" cy="87" r="1.8" fill="#d4dae8" opacity="0.4"/>
+      <circle cx="218" cy="90" r="1.5" fill="#d4dae8" opacity="0.35"/>
+
+      <!-- 月光光柱：从窗户斜斜洒向小木碗 -->
+      <polygon points="120,162 175,162 200,300 100,300" fill="url(#beamGrad)"/>
+
+      <!-- 灶台/木桌台面 -->
+      <rect y="300" width="300" height="22" fill="url(#shelfGrad)"/>
+      <rect y="322" width="300" height="6" fill="#2a1c10"/>
+
+      <!-- 暖光晕（粥的热气与灶火余温） -->
+      <circle cx="150" cy="288" r="58" fill="url(#warmGlow)"/>
+
+      <!-- 蒸汽（从碗里袅袅升起） -->
+      <path d="M140,278 Q134,260 142,244 Q150,228 144,212" stroke="#e8ecf5" stroke-width="2.2" fill="none" opacity="0.5" stroke-linecap="round"/>
+      <path d="M156,280 Q162,262 154,246 Q148,230 156,214" stroke="#e8ecf5" stroke-width="2.2" fill="none" opacity="0.45" stroke-linecap="round"/>
+      <path d="M148,276 Q146,258 152,242" stroke="#e8ecf5" stroke-width="1.6" fill="none" opacity="0.35" stroke-linecap="round"/>
+
+      <!-- 小木碗（圆肚、桃木色，碗口椭圆） -->
+      <!-- 碗身 -->
+      <path d="M118,280 Q120,308 150,312 Q180,308 182,280 Z" fill="url(#bowlGrad)"/>
+      <!-- 碗口外缘 -->
+      <ellipse cx="150" cy="280" rx="32" ry="7" fill="#8a5e34"/>
+      <!-- 碗口内（粥面） -->
+      <ellipse cx="150" cy="280" rx="28" ry="5.5" fill="url(#porridgeGrad)"/>
+      <!-- 粥里的食材小点（红豆/红枣/花生） -->
+      <circle cx="138" cy="279" r="2.2" fill="#8a2a1a" opacity="0.85"/>
+      <circle cx="158" cy="280" r="2.6" fill="#a83820" opacity="0.8"/>
+      <circle cx="148" cy="282" r="1.8" fill="#c8783a" opacity="0.7"/>
+      <circle cx="166" cy="278" r="1.6" fill="#8a2a1a" opacity="0.75"/>
+      <circle cx="130" cy="281" r="1.5" fill="#c8783a" opacity="0.65"/>
+      <!-- 碗身高光 -->
+      <path d="M124,286 Q126,300 132,306" stroke="#d8a878" stroke-width="2" fill="none" opacity="0.45" stroke-linecap="round"/>
+
+      <!-- 碗边月光（一弯亮边呼应亏凸月） -->
+      <path d="M120,280 Q122,294 128,304" stroke="#e8ecf5" stroke-width="1.4" fill="none" opacity="0.4" stroke-linecap="round"/>
+
+      <!-- 桌面上的小月光碎片 -->
+      <rect x="124" y="306" width="14" height="1.4" fill="#e8ecf5" opacity="0.28"/>
+      <rect x="160" y="308" width="10" height="1" fill="#e8ecf5" opacity="0.22"/>
+
+      <!-- 角落里更大的青花瓷碗与粗陶碗（虚影陪衬，突出小木碗） -->
+      <ellipse cx="48" cy="300" rx="22" ry="5" fill="#3a5a8a" opacity="0.5"/>
+      <path d="M30,300 Q32,316 48,318 Q64,316 66,300 Z" fill="#2a4a7a" opacity="0.55"/>
+      <ellipse cx="252" cy="302" rx="20" ry="4.5" fill="#5a4a3a" opacity="0.5"/>
+      <path d="M236,302 Q238,316 252,318 Q266,316 268,302 Z" fill="#4a3a2a" opacity="0.55"/>
+
+      <!-- 底部标题文字 -->
+      <text x="150" y="395" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="17" font-weight="600" fill="#cfd8e8" letter-spacing="2">小木碗的月光粥</text>
+      <text x="150" y="416" text-anchor="middle" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="10" fill="#a3a8d0" letter-spacing="3">农历十月十八 · 亏凸月</text>
+    </svg>
+  </div>
+
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">今日月相</div>
+      <div class="info-value">农历十月十八 · 亏凸月🌖</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">主题</div>
+      <div class="info-value">小小 · 刚刚好盛住暖</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">适合年龄</div>
+      <div class="info-value">3 - 8 岁</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">阅读时长</div>
+      <div class="info-value">约 5 分钟</div>
+    </div>
+  </div>
+
+  <div class="story-card">
+    <h2>故事正文</h2>
+    <p>农历十月十八的夜里，山脚下的小木屋亮着一盏昏黄的灯。窗外，亏凸月挂在天上，又圆又亮，只是右边缺了一小弯，像一个被谁轻轻咬了一小口的大银饼。</p>
+    <p>灶台上，整整齐齐摆着一排碗。最大的是青花瓷碗，其次是粗陶碗，最角落里，躲着一只小小的木碗。它是老爷爷年轻时用一段老桃木一刀一刀挖出来的，圆圆的肚子，摸上去光光溜溜，还带着一股淡淡的桃木香。</p>
+    <p>可是小木碗总觉得自己太小了。"青花瓷碗能盛一大碗面，粗陶碗能装满满一盆汤，我呢？连半碗饭都装不满。"它缩在角落里，轻轻地叹气。</p>
+    <p>"咚，咚，咚。"老爷爷在灶前忙活起来。今夜他要给明天来的小孙子熬一锅八宝粥。红豆、花生、红枣、糯米、莲子、桂圆，一样一样倒进大铁锅，加水，生火，慢慢地搅。</p>
+    <p>熬呀熬，粥咕嘟咕嘟冒着泡泡，整间屋子都是甜丝丝的暖香。老爷爷关了火，把粥盛起来——他没拿青花瓷碗，也没拿粗陶碗，偏偏伸手取下了角落里的小木碗。</p>
+    <p>"小家伙，给小孙子晾一碗，正正好。"老爷爷笑着，把粥轻轻舀进小木碗。</p>
+    <p>滚烫的粥落进碗里，小木碗的肚子一下子暖了起来，暖得它差点以为自己变成了一团小火炉。腾腾的白气升起来，飘到窗边，被亏凸月的月光一照，像一圈银闪闪的轻纱。</p>
+    <p>小木碗低头看自己——圆圆的肚子里，红豆红枣花生糯米挤在一起，像装了一整个暖洋洋的小世界。它突然明白了：自己不是"太小"，是"刚刚好"。再大的碗，也盛不住比这更多的暖；小小的它，偏偏能装下让一个小孙子从手心暖到心里的那一碗。</p>
+    <p>月光从窗棂斜斜洒进来，落在小木碗沿上，亮晶晶的。小木碗不再叹气了，它安安静静地端着那碗粥，等天亮，等小孙子伸出两只小手，把它捧起来。</p>
+  </div>
+
+  <div class="story-card moral">
+    <h2>藏在故事里的话</h2>
+    <p>别嫌自己小，能盛住让别人从手心暖到心里的东西，就是刚刚好的大。</p>
+  </div>
+
+  <div class="story-card goodnight">
+    <p>晚安，小宝贝。小木碗说，你今天也是个好孩子，该做一个甜甜的梦了。🥣</p>
+  </div>
+
+  <footer class="footer">
+    <em>2026年11月26日 · 儿童睡前故事 · 由小虾米温柔生成</em>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var box=document.getElementById('audioBox'),audio=document.getElementById('storyAudio');
+  if(!box||!audio)return;
+  var btn=document.getElementById('audioBtn'),prog=document.getElementById('audioProgress'),track=document.getElementById('audioTrack'),time=document.getElementById('audioTime');
+  function fmt(s){if(!isFinite(s)||s<0)return'00:00';s=Math.floor(s);var m=Math.floor(s/60);return(m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60);}
+  audio.addEventListener('loadedmetadata',function(){time.textContent='00:00 / '+fmt(audio.duration);});
+  audio.addEventListener('timeupdate',function(){if(audio.duration){prog.style.width=(audio.currentTime/audio.duration*100)+'%';time.textContent=fmt(audio.currentTime)+' / '+fmt(audio.duration);}});
+  audio.addEventListener('play',function(){btn.textContent='⏸';btn.classList.add('playing');});
+  audio.addEventListener('pause',function(){btn.textContent='▶';btn.classList.remove('playing');});
+  audio.addEventListener('ended',function(){btn.textContent='↻';btn.classList.remove('playing');prog.style.width='0%';});
+  btn.addEventListener('click',function(){if(audio.paused){audio.play().catch(function(){box.style.display='none';});}else{audio.pause();}});
+  track.addEventListener('click',function(e){if(!audio.duration)return;var r=track.getBoundingClientRect();audio.currentTime=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width))*audio.duration;});
+  audio.addEventListener('error',function(){box.style.display='none';});
+})();
+</script>
+</body>
+</html>
