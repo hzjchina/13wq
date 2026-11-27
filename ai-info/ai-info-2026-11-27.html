@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-27</title>
+<style>
+:root{
+  --bg:#0a0e1a;
+  --bg2:#0d1226;
+  --panel:rgba(18,24,48,0.55);
+  --panel-hover:rgba(24,32,64,0.75);
+  --border:rgba(120,140,255,0.14);
+  --txt:#e6ecff;
+  --txt-dim:#8b96b8;
+  --cyan:#22d3ee;
+  --violet:#a78bfa;
+  --magenta:#f472b6;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#fb7185;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(34,211,238,0.12), transparent 60%),
+    radial-gradient(1000px 700px at 85% 10%, rgba(167,139,250,0.12), transparent 55%),
+    radial-gradient(900px 600px at 50% 110%, rgba(244,114,182,0.08), transparent 60%),
+    var(--bg);
+  color:var(--txt);
+  min-height:100vh;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* 网格背景 */
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(120,140,255,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,140,255,0.05) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse at 50% 30%,#000 40%,transparent 90%);
+}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:48px 22px 80px;}
+
+/* 头部 */
+header{text-align:center;margin-bottom:42px;}
+.tagline{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;letter-spacing:2px;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:14px;
+}
+.tagline::before,.tagline::after{content:"";width:26px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan));}
+.tagline::after{background:linear-gradient(90deg,var(--cyan),transparent);}
+h1{
+  font-size:clamp(28px,5vw,46px);font-weight:800;letter-spacing:1px;
+  background:linear-gradient(120deg,#fff 0%,var(--cyan) 40%,var(--violet) 75%,var(--magenta) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.subtitle{color:var(--txt-dim);font-size:15px;}
+.meta-bar{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px;
+}
+.chip{
+  padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:600;
+  border:1px solid var(--border);background:rgba(120,140,255,0.06);color:var(--txt-dim);
+}
+.chip b{color:var(--cyan);}
+
+/* 统计 */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:34px 0;}
+.stat{
+  background:var(--panel);border:1px solid var(--border);border-radius:16px;
+  padding:18px;text-align:center;backdrop-filter:blur(8px);
+  transition:transform .2s,box-shadow .2s;
+}
+.stat:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(34,211,238,0.12);}
+.stat .num{font-size:30px;font-weight:800;background:linear-gradient(120deg,var(--cyan),var(--violet));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;}
+.stat .lbl{font-size:12.5px;color:var(--txt-dim);margin-top:4px;}
+
+/* 说明 */
+.notice{
+  background:linear-gradient(120deg,rgba(34,211,238,0.08),rgba(167,139,250,0.08));
+  border:1px solid var(--border);border-radius:14px;padding:14px 18px;
+  font-size:13px;color:var(--txt-dim);margin-bottom:26px;
+}
+.notice b{color:var(--amber);}
+
+/* 卡片网格 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;}
+.card{
+  background:var(--panel);border:1px solid var(--border);border-radius:18px;
+  padding:20px 20px 18px;position:relative;overflow:hidden;
+  backdrop-filter:blur(8px);transition:transform .22s,box-shadow .22s,border-color .22s;
+}
+.card:hover{transform:translateY(-4px);border-color:rgba(34,211,238,0.4);box-shadow:0 12px 36px rgba(34,211,238,0.14);}
+.card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--cyan),var(--violet),var(--magenta));
+  opacity:0;transition:opacity .22s;
+}
+.card:hover::before{opacity:1;}
+.card-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
+.rank{
+  flex-shrink:0;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;
+  font-size:19px;font-weight:800;
+  background:linear-gradient(135deg,rgba(34,211,238,0.18),rgba(167,139,250,0.18));
+  border:1px solid var(--border);color:var(--cyan);
+}
+.card-title{font-size:15.5px;font-weight:700;line-height:1.45;}
+.card-title a{color:var(--txt);text-decoration:none;}
+.card-title a:hover{color:var(--cyan);}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 12px;}
+.tg{font-size:11px;padding:3px 9px;border-radius:6px;font-weight:600;letter-spacing:.3px;}
+.tg-score{background:rgba(244,114,182,0.15);color:var(--magenta);}
+.tg-cat{background:rgba(34,211,238,0.12);color:var(--cyan);}
+.tg-pool{background:rgba(251,191,36,0.14);color:var(--amber);}
+.tg-pool.sel{background:rgba(52,211,153,0.14);color:var(--green);}
+.summary{font-size:13.5px;color:var(--txt-dim);margin-bottom:12px;}
+.why{
+  font-size:12.5px;color:#aab4d4;border-left:2px solid var(--violet);
+  padding:2px 0 2px 12px;margin-bottom:12px;
+}
+.card-foot{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--txt-dim);}
+.src{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%;}
+.card-foot a{color:var(--cyan);text-decoration:none;flex-shrink:0;margin-left:10px;}
+.card-foot a:hover{text-decoration:underline;}
+
+/* footer */
+footer{text-align:center;margin-top:50px;color:var(--txt-dim);font-size:12.5px;line-height:1.9;}
+footer a{color:var(--cyan);text-decoration:none;}
+
+@media(max-width:520px){
+  .wrap{padding:30px 14px 50px;}
+  .grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+
+  <header>
+    <div class="tagline">AI Intelligence Briefing</div>
+    <h1>AI 情报日报</h1>
+    <p class="subtitle">侧重 AI Coding 与具身智能 · 过去 24 小时重点动态</p>
+    <div class="meta-bar">
+      <span class="chip">📅 2026-11-27</span>
+      <span class="chip">🔥 按热度降序</span>
+      <span class="chip">数据源：AI HOT</span>
+    </div>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">20</div><div class="lbl">精选条目</div></div>
+    <div class="stat"><div class="num">16</div><div class="lbl">AI Coding / 智能体</div></div>
+    <div class="stat"><div class="num">5</div><div class="lbl">具身智能 / 机器人</div></div>
+    <div class="stat"><div class="num">6</div><div class="lbl">进入精选池</div></div>
+  </div>
+
+  <div class="notice">
+    <b>说明：</b>精选池仅命中 6 条（关键词「AI coding」「具身智能」查询中，具身智能精选池为空），其余条目经全量池（mode=all）多关键词补充，已标注 <b>「未进精选」</b>。当日具身智能动态相对稀缺，如实呈现。
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <div class="card-head"><div class="rank">1</div><h3 class="card-title"><a href="https://aihot.news/items/1" target="_blank">Google 强制 AI Agent 走 Workspace MCP 服务器</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 79</span><span class="tg tg-cat">行业</span><span class="tg tg-pool sel">精选</span></div>
+      <p class="summary">Google 开放八个 Workspace MCP 服务器，并新增 API 条款：自 2027 年 2 月 1 日起，AI Agent 驱动的工具必须经这些服务器访问 Gmail、Drive 等，直接调 REST API 将被限流。</p>
+      <p class="why">值得关注：MCP 成为厂商强制入口，Agent 生态的「标准化」与「平台锁定」之争白热化。</p>
+      <div class="card-foot"><span class="src">Hacker News：AI 热帖</span><a href="https://aihot.news/items/1" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">2</div><h3 class="card-title"><a href="https://aihot.news/items/2" target="_blank">Anthropic 将黎曼猜想 Lean 证明从 1740 万行精简至 7.6 万行</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 75</span><span class="tg tg-cat">论文</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">Anthropic 研究员 Luke Sernau 携 Claude 发布 grh-lean 项目，把黎曼猜想与广义黎曼猜想的 Lean 形式化证明重写为约 7.6 万行紧凑版，代码量削减 99.56%。</p>
+      <p class="why">值得关注：AI 做数学证明的「可读性工程」——证明不仅要做对，还要可被人类理解。</p>
+      <div class="card-foot"><span class="src">IT之家·人工智能</span><a href="https://aihot.news/items/2" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">3</div><h3 class="card-title"><a href="https://aihot.news/items/3" target="_blank">Karpathy 用 Claude Code 把美国真实数据做成文明风格游戏地图</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 67</span><span class="tg tg-cat">AI Coding</span><span class="tg tg-pool sel">精选</span></div>
+      <p class="summary">Karpathy 用 Claude Code + Opus 5.5（ultracode）7 小时生成 45K 行代码，整合 Census、BEA、BLS、NOAA 等 31 个真实数据源，统一到 25km 六边形网格，已部署上线。</p>
+      <p class="why">值得关注：AI coding 从「玩具 Demo」迈向「真实数据驱动的完整应用」的标杆案例。</p>
+      <div class="card-foot"><span class="src">Anthropic 开发者关系</span><a href="https://aihot.news/items/3" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">4</div><h3 class="card-title"><a href="https://aihot.news/items/4" target="_blank">Philipp Schmid：Skills 与 CLI 兴起后为何仍更看好 MCP</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 65</span><span class="tg tg-cat">观点</span><span class="tg tg-pool sel">精选</span></div>
+      <p class="summary">Google DeepMind 的 Philipp Schmid 以数据论证 MCP 价值：Atlassian 每天 MCP 工具调用超 500 万次，44% 用户来自软件团队之外，Notion 报告 60 倍 MCP 流量增长。</p>
+      <p class="why">值得关注：Agent 协议标准之争的关键一票，MCP 生态扩张数据首次公开量化。</p>
+      <div class="card-foot"><span class="src">Philipp Schmid（DeepMind）</span><a href="https://aihot.news/items/4" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">5</div><h3 class="card-title"><a href="https://aihot.news/items/5" target="_blank">OpenAI 承认 GPT-6.2 计费出错并修复，Astra 额度消耗加快 40%</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 64</span><span class="tg tg-cat">行业</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">GPT-6.2 上线初期用量被错误折扣计价，修复后 Astra 触及上限速度加快 40%、Sol 加快 25%，但额度效率仍高于前代。</p>
+      <p class="why">值得关注：模型定价/计费的透明度问题，直接影响重度开发者成本预期。</p>
+      <div class="card-foot"><span class="src">IT之家·人工智能</span><a href="https://aihot.news/items/5" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">6</div><h3 class="card-title"><a href="https://aihot.news/items/6" target="_blank">蚂蚁灵波 LingBot-Map 2.0：随时修正流式 3D 重建漂移误差</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 54</span><span class="tg tg-cat">具身智能</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">蚂蚁集团 Robbyant 发布 LingBot-Map 2.0，可在线修正流式 3D 重建的漂移误差，提升机器人在真实环境中的建图稳定性。</p>
+      <p class="why">值得关注：具身智能「空间感知」关键底座，解决长时序建图漂移这一核心痛点。</p>
+      <div class="card-foot"><span class="src">Rohan Paul（X）</span><a href="https://aihot.news/items/6" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">7</div><h3 class="card-title"><a href="https://aihot.news/items/7" target="_blank">蚂蚁灵波开源具身导航模型 LingBot-Navi，让机器人记住探索过的环境</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 51</span><span class="tg tg-cat">具身智能</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">蚂蚁集团旗下 Robbyant 开源具身导航模型 LingBot-Navi，赋予机器人对已探索环境的长期记忆能力，实现更可靠的室内导航。</p>
+      <p class="why">值得关注：开源具身导航模型稀缺，环境记忆是机器人长期自主运行的前提。</p>
+      <div class="card-foot"><span class="src">Rohan Paul（X）</span><a href="https://aihot.news/items/7" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">8</div><h3 class="card-title"><a href="https://aihot.news/items/8" target="_blank">OpenAI 12 月起 ChatGPT 与 Codex 共享用量额度</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 57</span><span class="tg tg-cat">AI 产品</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">Plus/Pro/Business 套餐额度将由 ChatGPT 与 Codex 共享、按 token 计量，Work 模式智能体能力并入主 ChatGPT 体验，重度用户可能更早触及上限。</p>
+      <p class="why">值得关注：AI coding 与通用对话的额度打通，影响 Codex 重度开发者的使用策略。</p>
+      <div class="card-foot"><span class="src">Rohan Paul（X）</span><a href="https://aihot.news/items/8" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">9</div><h3 class="card-title"><a href="https://aihot.news/items/9" target="_blank">Anthropic 莱斯：AI 如何改变工程师晋升与面试标准</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 61</span><span class="tg tg-cat">观点</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">Anthropic 平台工程负责人凯特琳·莱斯表示，AI 普及后「项目完成时间」参考价值下降，团队更看重降低系统延迟、避免事故等实际成果，工作重心从写代码转向协调人与编程智能体。</p>
+      <p class="why">值得关注：AI coding 时代工程师评价体系的重构，直接影响招聘与晋升标准。</p>
+      <div class="card-foot"><span class="src">IT之家·人工智能</span><a href="https://aihot.news/items/9" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">10</div><h3 class="card-title"><a href="https://aihot.news/items/10" target="_blank">蚂蚁 inclusionAI 开源 Ming-Image-0.2-Design 图像生成模型</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 61</span><span class="tg tg-cat">模型</span><span class="tg tg-pool sel">精选</span></div>
+      <p class="summary">蚂蚁 inclusionAI 在 Hugging Face 开源 Ming-Image-0.2-Design，改进复杂构图、光照和文字渲染，可用于电商主图、UI 设计稿和空间效果图。</p>
+      <p class="why">值得关注：国产开源设计向图像模型，面向电商/UI 的垂直落地价值明确。</p>
+      <div class="card-foot"><span class="src">蚂蚁 inclusionAI</span><a href="https://aihot.news/items/10" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">11</div><h3 class="card-title"><a href="https://aihot.news/items/11" target="_blank">Hugging Face 教程：用 Qwen3-0.6B 训练四智能体集群学会通信</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 63</span><span class="tg tg-cat">AI Coding</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">Hugging Face 发布多智能体系列博客，用 TRL 复现 s³ 论文的信息聚合任务，训练四个共享 Qwen3-0.6B 策略的智能体学会通信。</p>
+      <p class="why">值得关注：多智能体协同的入门级可复现教程，降低智能体通信研究门槛。</p>
+      <div class="card-foot"><span class="src">Hugging Face 官方博客</span><a href="https://aihot.news/items/11" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">12</div><h3 class="card-title"><a href="https://aihot.news/items/12" target="_blank">OpenRouter：Jevons 悖论正在减弱</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 62</span><span class="tg tg-cat">观点</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">OpenRouter 分析其付费用量：2026 年至今 token 用量增长 44 倍，总支出仅增 7.6 倍，10 月初以来支出基本持平，季度弹性从 Q1 的 5.4 降至 Q4 的 1.2。</p>
+      <p class="why">值得关注：推理成本下降是否「必然」带来用量爆发，此处给出阶段性反面数据。</p>
+      <div class="card-foot"><span class="src">OpenRouter</span><a href="https://aihot.news/items/12" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">13</div><h3 class="card-title"><a href="https://aihot.news/items/13" target="_blank">SemiAnalysis GDPx 基准评测：GPT-6.2 Astra 居首</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 63</span><span class="tg tg-cat">模型</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">SemiAnalysis 用 GDPx 基准（覆盖芯片设计、生物、金融、法律等 11 个前沿领域、206 个任务）评测近期新模型，GPT-6.2 Astra 登顶。</p>
+      <p class="why">值得关注：跨领域硬核基准兴起，为「通用智能」提供比聊天更强的标尺。</p>
+      <div class="card-foot"><span class="src">SemiAnalysis</span><a href="https://aihot.news/items/13" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">14</div><h3 class="card-title"><a href="https://aihot.news/items/14" target="_blank">论文：低推理 effort 起步失败再升级可省 41.5% GPQA 成本</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 63</span><span class="tg tg-cat">论文</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">Johns Hopkins 与 Together AI 测量 8 个模型的 reasoning effort 档位表现，发现更高档总体更准但会做错低档能解对的题，最高档成本可达最低档的 42 倍。</p>
+      <p class="why">值得关注：为推理预算分配提供实用策略，AI coding 中「该用多大思考强度」有了依据。</p>
+      <div class="card-foot"><span class="src">Johns Hopkins / Together AI</span><a href="https://aihot.news/items/14" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">15</div><h3 class="card-title"><a href="https://aihot.news/items/15" target="_blank">原力灵机 × 百度智能云：DM0.5 具身模型 512 卡扩展效率超 90%</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 31</span><span class="tg tg-cat">具身智能</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">原力灵机与百度智能云合作，DM0.5 具身模型在 512 卡规模下扩展效率超 90%，展示具身大模型的大规模训练能力。</p>
+      <p class="why">值得关注：具身基础模型「规模化训练」落地信号，国产具身算力协同案例。</p>
+      <div class="card-foot"><span class="src">百度智能云（文心）</span><a href="https://aihot.news/items/15" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">16</div><h3 class="card-title"><a href="https://aihot.news/items/16" target="_blank">EngineAI CEO 谈机器人自我进化</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 28</span><span class="tg tg-cat">具身智能</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">EngineAI CEO 围绕机器人的自我进化能力发表观点，探讨具身智能从「预训练」走向「持续学习」的路径。</p>
+      <p class="why">值得关注：人形机器人「自我进化」是通往通用具身智能的核心命题。</p>
+      <div class="card-foot"><span class="src">X.PIN（X）</span><a href="https://aihot.news/items/16" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">17</div><h3 class="card-title"><a href="https://aihot.news/items/17" target="_blank">自变量 WALL-OSS-1.0 亮相硅谷柏林黑客松</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 27</span><span class="tg tg-cat">具身智能</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">自变量 X Square 的 WALL-OSS-1.0 具身基础模型在硅谷、柏林黑客松亮相，面向开发者展示其通用操作能力。</p>
+      <p class="why">值得关注：国产具身基础模型走向全球开发者社区，社区化验证加速迭代。</p>
+      <div class="card-foot"><span class="src">自变量 X Square</span><a href="https://aihot.news/items/17" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">18</div><h3 class="card-title"><a href="https://aihot.news/items/18" target="_blank">GPT-Live-1.1 以 999 自然度 Elo 登顶 Voice Arena Jarvis Bench</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 55</span><span class="tg tg-cat">模型</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">OpenAI 的 GPT-Live-1.1 在 Voice Arena 的 Jarvis Bench 总榜以 999 自然度 Elo、1025 感知任务有效性 Elo 首秀登顶。</p>
+      <p class="why">值得关注：语音智能体能力快速逼近真实人声，交互范式向语音 Agent 演进。</p>
+      <div class="card-foot"><span class="src">Rohan Paul（X）</span><a href="https://aihot.news/items/18" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">19</div><h3 class="card-title"><a href="https://aihot.news/items/19" target="_blank">NVIDIA 开源 Nemotron 3.5 Parse 训练数据集与微调配方</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 57</span><span class="tg tg-cat">AI Coding</span><span class="tg tg-pool">未进精选</span></div>
+      <p class="summary">NVIDIA 开源 Nemotron 3.5 Parse 文档解析模型的三个训练数据集（合成图表/表格/多语言 OCR，合计超 1800 万样本）与完整微调配方。</p>
+      <p class="why">值得关注：文档解析是 Agent 处理非结构化数据的关键前置，开源数据+配方便于复现。</p>
+      <div class="card-foot"><span class="src">Hugging Face 社区博客</span><a href="https://aihot.news/items/19" target="_blank">原文 ↗</a></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="rank">20</div><h3 class="card-title"><a href="https://aihot.news/items/20" target="_blank">实测支付宝 SkillPay：手把手教你把 Skill 挂上去卖钱</a></h3></div>
+      <div class="tags"><span class="tg tg-score">热度 71</span><span class="tg tg-cat">AI Coding</span><span class="tg tg-pool sel">精选</span></div>
+      <p class="summary">卡兹克完整实测支付宝 SkillPay 平台，支持买断（Skill 交付本地）与订阅（云端沙盒）两种模式，买断定价 0.01–50 元、订阅最高 50 元、免费试用最低 5 次。</p>
+      <p class="why">值得关注：Skill 变现通道落地，开发者技能资产首次有了低门槛的国内交易入口。</p>
+      <div class="card-foot"><span class="src">数字生命卡兹克</span><a href="https://aihot.news/items/20" target="_blank">原文 ↗</a></div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>数据来源：<a href="https://aihot.news" target="_blank">AI HOT</a>（过去 24 小时 · 匿名只读 API）</p>
+    <p>AI Coding 与具身智能方向 · 由小虾米 🦐 自动生成 · 2026-11-27</p>
+  </footer>
+
+</div>
+</body>
+</html>

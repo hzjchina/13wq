@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>指环王：护戒使者</title>
+<style>
+  :root {
+    --bg: #0f1218;
+    --card: #1a1f2a;
+    --card2: #202836;
+    --text: #e8eaf0;
+    --muted: #9aa3b2;
+    --accent: #e8b04b;
+    --accent2: #6ea8dc;
+    --line: #2a3142;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 20px 60px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero {
+    background: linear-gradient(135deg, #1c2333 0%, #232b3d 60%, #2a3142 100%);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px 30px;
+    text-align: center;
+    margin-bottom: 26px;
+  }
+  .ring {
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    box-shadow: 0 0 24px rgba(232,176,75,0.5), inset 0 0 12px rgba(232,176,75,0.3);
+    margin: 0 auto 18px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+  }
+  .hero h1 {
+    font-size: 30px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .hero .en {
+    color: var(--accent2);
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .hero .meta {
+    color: var(--muted);
+    font-size: 15px;
+  }
+  .tag {
+    display: inline-block;
+    background: rgba(232,176,75,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(232,176,75,0.3);
+    border-radius: 20px;
+    padding: 3px 14px;
+    font-size: 13px;
+    margin: 4px 4px 0;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 24px;
+    margin-bottom: 20px;
+  }
+  .card h2 {
+    font-size: 20px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    letter-spacing: 1px;
+  }
+  .card p { margin-bottom: 12px; color: #cfd4de; }
+  .card p:last-child { margin-bottom: 0; }
+  .quote {
+    background: var(--card2);
+    border-left: 3px solid var(--accent2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    font-style: italic;
+    color: #b8c4d6;
+    margin: 12px 0;
+  }
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .stat {
+    flex: 1 1 30%;
+    min-width: 100px;
+    background: var(--card2);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .stat .num { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  @media (max-width: 480px) {
+    body { font-size: 16px; padding: 20px 14px 44px; }
+    .hero { padding: 26px 18px; }
+    .hero h1 { font-size: 26px; }
+    .card { padding: 20px 16px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="ring">🧙</div>
+    <h1>指环王：护戒使者</h1>
+    <div class="en">The Lord of the Rings: The Fellowship of the Ring</div>
+    <div class="meta">2001 · 导演：彼得·杰克逊 · 新西兰 / 美国</div>
+    <div style="margin-top:14px;">
+      <span class="tag">奇幻史诗</span>
+      <span class="tag">托尔金原著</span>
+      <span class="tag">奥斯卡 4 项大奖</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>剧情梗概</h2>
+    <p>在遥远的中土世界，一位名叫弗罗多的年轻霍比特人，意外继承了一枚被遗忘千年的魔戒。这枚魔戒拥有腐蚀人心的可怕力量，而黑暗魔君索伦正倾尽全力要夺回它，以彻底奴役整个世界。</p>
+    <p>为了不让魔戒落入黑暗势力之手，睿智的巫师甘道夫召集起一支由人类、精灵、矮人和霍比特人组成的"护戒远征队"，踏上一条横跨雪山、矿洞与森林的艰险旅程，目标只有一个：把魔戒送到末日火山，将其彻底销毁。</p>
+    <p class="quote">"即使最弱小的人，也能改变未来的走向。"</p>
+  </div>
+
+  <div class="card">
+    <h2>亮点所在</h2>
+    <p><strong>🧭 一个完整世界的诞生</strong>——影片以惊人的实景与特效，将托尔金笔下的中土世界具象化：从田园牧歌的夏尔，到幽深的莫瑞亚矿坑，每一帧都是可触碰的奇观。</p>
+    <p><strong>🎭 群像刻画深入人心</strong>——九名护戒成员各具血肉，没有绝对的英雄，只有背负恐惧却仍选择前行的普通人，友情与牺牲贯穿始终。</p>
+    <p><strong>🎼 史诗级配乐</strong>——霍华德·肖的原声，将悠远与磅礴熔于一炉，旋律一起，便把人拉回那片辽阔大陆。</p>
+  </div>
+
+  <div class="card">
+    <h2>为什么值得一看</h2>
+    <p>它是现代奇幻电影的奠基之作，也是一部关于"平凡之人面对巨大黑暗仍坚守勇气"的寓言。即便过去二十多年，其视觉与叙事依然毫不褪色——无论你爱不爱奇幻题材，都能在其中找到关于希望、羁绊与选择的力量。</p>
+    <div class="stat-row">
+      <div class="stat"><div class="num">9.0</div><div class="lbl">豆瓣评分</div></div>
+      <div class="stat"><div class="num">8.9</div><div class="lbl">IMDb 评分</div></div>
+      <div class="stat"><div class="num">4 项</div><div class="lbl">奥斯卡大奖</div></div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
