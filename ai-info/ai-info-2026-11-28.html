@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 情报日报 · 2026-11-28</title>
+<style>
+:root{
+  --bg:#0a0e1a;
+  --bg2:#0d1226;
+  --panel:rgba(18,24,48,0.55);
+  --panel-hover:rgba(24,32,64,0.75);
+  --border:rgba(120,140,255,0.14);
+  --txt:#e6ecff;
+  --txt-dim:#8b96b8;
+  --cyan:#22d3ee;
+  --violet:#a78bfa;
+  --magenta:#f472b6;
+  --green:#34d399;
+  --amber:#fbbf24;
+  --red:#fb7185;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:
+    radial-gradient(1200px 600px at 15% -10%, rgba(34,211,238,0.12), transparent 60%),
+    radial-gradient(1000px 700px at 85% 10%, rgba(167,139,250,0.12), transparent 55%),
+    radial-gradient(900px 600px at 50% 110%, rgba(244,114,182,0.08), transparent 60%),
+    var(--bg);
+  color:var(--txt);
+  min-height:100vh;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.grid-bg{
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:
+    linear-gradient(rgba(120,140,255,0.05) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(120,140,255,0.05) 1px,transparent 1px);
+  background-size:44px 44px;
+  mask-image:radial-gradient(ellipse at 50% 30%,#000 40%,transparent 90%);
+}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:48px 22px 80px;}
+
+header{text-align:center;margin-bottom:42px;}
+.tagline{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:13px;letter-spacing:2px;color:var(--cyan);
+  text-transform:uppercase;margin-bottom:14px;
+}
+.tagline::before,.tagline::after{content:"";width:26px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan));}
+.tagline::after{background:linear-gradient(90deg,var(--cyan),transparent);}
+h1{
+  font-size:clamp(28px,5vw,46px);font-weight:800;letter-spacing:1px;
+  background:linear-gradient(120deg,#fff 0%,var(--cyan) 40%,var(--violet) 75%,var(--magenta) 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:10px;
+}
+.subtitle{color:var(--txt-dim);font-size:15px;}
+.meta-bar{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:22px;}
+.chip{
+  padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:600;
+  border:1px solid var(--border);background:rgba(120,140,255,0.06);color:var(--txt-dim);
+}
+.chip b{color:var(--cyan);}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin:34px 0;}
+.stat{
+  background:var(--panel);border:1px solid var(--border);border-radius:16px;
+  padding:18px;text-align:center;backdrop-filter:blur(8px);
+  transition:transform .2s,box-shadow .2s;
+}
+.stat:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(34,211,238,0.12);}
+.stat .num{
+  font-size:30px;font-weight:800;
+  background:linear-gradient(120deg,var(--cyan),var(--violet));
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+}
+.stat .lbl{font-size:12px;color:var(--txt-dim);margin-top:4px;}
+
+.section-title{
+  display:flex;align-items:center;gap:12px;
+  font-size:20px;font-weight:700;margin:42px 0 20px;color:var(--txt);
+}
+.section-title::before{
+  content:"";width:4px;height:22px;border-radius:2px;
+  background:linear-gradient(180deg,var(--cyan),var(--violet));
+}
+.section-title small{font-size:13px;font-weight:400;color:var(--txt-dim);}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px;}
+.card{
+  position:relative;background:var(--panel);border:1px solid var(--border);
+  border-radius:18px;padding:22px;backdrop-filter:blur(8px);
+  transition:transform .25s,box-shadow .25s,border-color .25s;
+  display:flex;flex-direction:column;gap:12px;
+}
+.card:hover{
+  transform:translateY(-4px);border-color:rgba(34,211,238,0.4);
+  box-shadow:0 12px 40px rgba(34,211,238,0.16);
+}
+.card .top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.card .rank{
+  flex-shrink:0;width:34px;height:34px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:15px;
+  background:rgba(34,211,238,0.12);color:var(--cyan);border:1px solid rgba(34,211,238,0.25);
+}
+.card .score{
+  flex-shrink:0;font-size:12px;font-weight:700;color:var(--txt-dim);
+  padding:3px 10px;border-radius:999px;border:1px solid var(--border);
+  background:rgba(120,140,255,0.06);
+}
+.card .score b{color:var(--amber);font-size:13px;}
+.card h3{font-size:16.5px;font-weight:700;line-height:1.45;color:var(--txt);}
+.card h3 a{color:inherit;text-decoration:none;}
+.card h3 a:hover{color:var(--cyan);}
+.card .summary{font-size:13.5px;color:var(--txt-dim);line-height:1.7;}
+.card .why{
+  font-size:12.5px;color:#b8c3e6;line-height:1.6;
+  padding:10px 12px;border-radius:10px;
+  background:rgba(167,139,250,0.08);border-left:3px solid var(--violet);
+}
+.card .why b{color:var(--violet);}
+.card .meta{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px;
+  border-top:1px dashed var(--border);font-size:11.5px;color:var(--txt-dim);
+}
+.card .meta .tag{
+  padding:2px 8px;border-radius:6px;font-weight:600;
+}
+.tag.cat-coding{background:rgba(34,211,238,0.12);color:var(--cyan);}
+.tag.cat-embodied{background:rgba(244,114,182,0.12);color:var(--magenta);}
+.tag.cat-pool{background:rgba(251,191,36,0.12);color:var(--amber);}
+.tag.cat-picked{background:rgba(52,211,153,0.12);color:var(--green);}
+.card .src{color:var(--txt-dim);}
+
+.note{
+  margin:40px 0 0;padding:16px 18px;border-radius:14px;
+  background:rgba(251,191,36,0.06);border:1px solid rgba(251,191,36,0.2);
+  font-size:13px;color:var(--txt-dim);line-height:1.7;
+}
+.note b{color:var(--amber);}
+
+footer{
+  text-align:center;margin-top:56px;padding-top:24px;
+  border-top:1px solid var(--border);color:var(--txt-dim);font-size:12px;
+}
+footer a{color:var(--cyan);text-decoration:none;}
+
+@media(max-width:640px){
+  .cards{grid-template-columns:1fr;}
+  .wrap{padding:32px 14px 60px;}
+}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div class="wrap">
+
+<header>
+  <div class="tagline">AI DAILY BRIEF · EMBODIED &amp; CODING</div>
+  <h1>AI 情报日报</h1>
+  <div class="subtitle">2026-11-28 · 过去 24 小时 AI 圈重点 · 侧重 AI Coding 与具身智能</div>
+  <div class="meta-bar">
+    <span class="chip">数据源 <b>AI HOT</b></span>
+    <span class="chip">时间窗 <b>24h</b></span>
+    <span class="chip">AI Coding <b>16 条</b></span>
+    <span class="chip">具身智能 <b>4 条</b></span>
+  </div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="num">20</div><div class="lbl">精选条目</div></div>
+  <div class="stat"><div class="num">16</div><div class="lbl">AI Coding / 智能体</div></div>
+  <div class="stat"><div class="num">4</div><div class="lbl">具身智能</div></div>
+  <div class="stat"><div class="num">89</div><div class="lbl">全量池总量</div></div>
+</div>
+
+<div class="section-title">今日 Top 20 <small>按热度（score）从高到低排序</small></div>
+<div class="cards">
+
+<div class="card">
+  <div class="top"><span class="rank">1</span><span class="score"><b>72</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/cywyqaz29ks23jyw2ycez5hkl" target="_blank">GTA 6 主机版发售数日，AI 编码智能体加速非官方 PC 移植</a></h3>
+  <div class="summary">GTA 6 主机版首发首日收入估约 37.9 亿美元，Xbox 镜像泄露后开发者借 Claude Code 等 AI 编码工具逆向移植，不到四天已出现 40 个活跃项目，最接近的进度超 90%，还流出 25-30 帧的非官方多人模式画面。</div>
+  <div class="why"><b>为何关注：</b>AI 编码智能体正以天为单位"复刻"商业大作，直接冲击 Rockstar 的阶梯式发售商业模式，是 AI 编码能力的一次极具冲击力的现实案例。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">The Decoder</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">2</span><span class="score"><b>69</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/tiqf353lek6sib8ktn8uvc6nc" target="_blank">Antigravity 技巧：GEMINI.md 加一句话让模型边干活边汇报</a></h3>
+  <div class="summary">卡兹克分享 Antigravity 使用技巧，针对模型长时间闷头干活不输出的问题，只需在 GEMINI.md 加一句提示，让模型动手前先说明计划、有发现/卡住时主动汇报，即可获得类似 Claude 或 Codex 的实时进度交互体验。</div>
+  <div class="why"><b>为何关注：</b>原文给出了可直接复用的提示词，零成本改善 coding agent 的交互掌控感，是当下最实用的工程技巧之一。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-picked">精选</span><span class="src">X：卡兹克</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">3</span><span class="score"><b>67</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/vbxvfko8cyziqerevtyofz5wx" target="_blank">手把手把 Skill 挂上支付宝 SkillPay 变现</a></h3>
+  <div class="summary">卡兹克实测支付宝今年 7 月上线的 Skill 交易平台 SkillPay，拆解买断制与订阅制两种变现模式及上架流程。买断制支持跨 Agent 使用，订阅制将 Skill 保留在云端沙盒不暴露明文；平台目前免服务费，通道费 1%，买断定价 0.01-50 元。</div>
+  <div class="why"><b>为何关注：</b>Skill 正在成为可交易的软件资产，支付宝入局意味着 AI 技能商业化的基础设施开始成型，对开发者生态影响深远。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：卡兹克</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">4</span><span class="score"><b>62</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/s4b9u1azhr00j57zzrkgyedtt" target="_blank">Unsloth 让本地 LLM 自动操控 Unreal、Unity 与 Blender</a></h3>
+  <div class="summary">Unsloth 发布 Inkling 2 Mini GGUF，通过其 MCP 引擎方案让本地 LLM 自主控制 Unreal Engine、Unity 和 Blender，在无人工干预下创建新资产。</div>
+  <div class="why"><b>为何关注：</b>本地模型 + MCP 引擎直接驱动三维创作软件，展示了 coding agent 从"写代码"走向"操控真实工具"的能力外延。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Unsloth</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">5</span><span class="score"><b>62</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/w9mn8eh5cwzq4pi4u2b5yoo55" target="_blank">Microsoft 论文 AGL-SKILL：编码智能体自动优化其他智能体</a></h3>
+  <div class="summary">Microsoft 论文发现，仅给定评分指标的编码智能体（Claude Code、Codex 或 GitHub Copilot）在调优其他智能体方面，比已发表的技能优化方法表现更好。</div>
+  <div class="why"><b>为何关注：</b>"AI 优化 AI"的闭环正在形成，编码智能体从辅助人类扩展到自我进化，是 agent 能力跃迁的重要信号。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Rohan Paul</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">6</span><span class="score"><b>62</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/f3cnrd35nnpk6mpg8cw7ngtlt" target="_blank">Microsoft 论文：编码智能体补丁为何比人类大 2.33 倍</a></h3>
+  <div class="summary">Microsoft 论文分析发现，Agent 生成的补丁改动行数是人类开发者的 2.33 倍，但多数额外编辑是测试和文档，实际必要的代码比例与人类相当。</div>
+  <div class="why"><b>为何关注：</b>纠正了"AI 写代码冗肿"的直觉误区——多出来的主要是测试和文档，实际代码密度并不虚高，有助于理性评估 AI 代码质量。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Rohan Paul</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">7</span><span class="score"><b>61</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/awomabek6368k5rvnwpd028fr" target="_blank">卡兹克公开代码库架构治理长提示词 /goal</a></h3>
+  <div class="summary">卡兹克发布可直接复用的长提示词 /goal，目标是把整个代码库系统性降熵、模块解耦，并演进为适合大量 Agent 并行开发的工程系统。</div>
+  <div class="why"><b>为何关注：</b>多 Agent 并行开发是趋势，如何让代码库"对 AI 友好"成为新工程课题，这条提示词提供了一个可落地的起点。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：卡兹克</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">8</span><span class="score"><b>60</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/ekarg788z0hxzze7fatd2huk7" target="_blank">Stanford 论文 RCI：多智能体团队多数不敌独立投票</a></h3>
+  <div class="summary">Stanford 等机构提出 Recursive Collective Intelligence（RCI），指出多智能体团队常因每个智能体看到完整问题而消耗更多 token，却不优于独立智能体的多数投票，建议用同等成本的多数投票和 pass@n 作基线。</div>
+  <div class="why"><b>为何关注：</b>给"多智能体协作"降温的实证研究，提醒开发者别盲目堆 agent，成本收益比才是关键。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Rohan Paul</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">9</span><span class="score"><b>60</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/fpsryso7jw0zy7c28t70usemy" target="_blank">Philipp Schmid 用 16 行 skill 让 coding agent 变身研究员</a></h3>
+  <div class="summary">Philipp Schmid 团队为 Gemini 4 Neon 构建了 16 行的实验性 deep research skill，让 coding agent 承担研究工作。skill 规划 3-5 个研究角度、用并行子代理搜索、只引用原始文件，在数百次盲评中约 90% 优于无 skill 版本。</div>
+  <div class="why"><b>为何关注：</b>极简 skill 就能显著拓展 agent 能力边界，"16 行代码"展示了 skill 机制的高杠杆价值。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Philipp Schmid</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">10</span><span class="score"><b>60</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/pq4rxa7lcig2uiditdasrsrj0" target="_blank">Philipp Schmid 分享 Antigravity 安装 deep-research 命令</a></h3>
+  <div class="summary">一条命令即可在 Antigravity 中安装 deep-research 技能：npx skills add google-gemini/demolab --skill deep-research。</div>
+  <div class="why"><b>为何关注：</b>Skill 生态正形成"一条命令安装"的标准化分发模式，降低 agent 能力扩展的门槛。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Philipp Schmid</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">11</span><span class="score"><b>58</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/lmu5xx8v0572vwqm4y60xkjvc" target="_blank">NVIDIA 论文：模型自主管理上下文得分翻倍</a></h3>
+  <div class="summary">NVIDIA 技术报告，其开源 Agent 框架 NOOA 让模型通过 API 自主总结并检索历史，使 GPT-6.1 Sol 在 32K 预算下得分从 21% 升至 56%。</div>
+  <div class="why"><b>为何关注：</b>上下文管理是长程 agent 的核心瓶颈，"自主管理 vs 框架压缩"的对比给出了明确优化方向。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Rohan Paul</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">12</span><span class="score"><b>56</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/lcikvvphtr30g6g6jj1qwrcs8" target="_blank">三个 MiniCPM 模型搭建可自查纠错的本地记账 Agent</a></h3>
+  <div class="summary">社区开发者用三个 MiniCPM 模型搭建本地记账 Agent：MiniCPM-V 4.7 决定查看区域、MiniCPM-OCR 1.0 读取收据、MiniCPM-OCR Jev 对结果打分，形成自查纠错闭环。</div>
+  <div class="why"><b>为何关注：</b>小模型协作 + 本地部署的务实落地样本，展示了"多模型分工 + 评分纠错"的低成本 agent 范式。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：OpenBMB</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">13</span><span class="score"><b>55</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/jdqc2sfqjpqm88a1po6mp7zoq" target="_blank">Amazon 论文：模型能自建 harness 但自我修订提升有限</a></h3>
+  <div class="summary">Amazon 论文《Can LLMs Improve Their Own Harness?》测试 9 个模型设置各自 3 次从零构建 ARC-AGI-3 游戏 harness，并基于 5 个练习游戏自我修订两次，在 20 个未见游戏上评分。</div>
+  <div class="why"><b>为何关注：</b>对"模型自我改进"的冷静实证——能自建 harness，但在未见任务上的自我修订几乎无提升，帮助厘清 AI 自我进化的真实边界。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">X：Rohan Paul</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">14</span><span class="score"><b>54</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/gpr9vp6tc0hc4tob3u74zf41a" target="_blank">月之暗面教程：用 Kimi 从创意到可玩小游戏原型</a></h3>
+  <div class="summary">月之暗面发布用 Kimi 制作获客小游戏的教程，推荐 Kimi K3.1 Pro 模型和 Kimi Work、Kimi Code，可直接操作 Blender、Unity、Godot、Unreal Engine 等软件。</div>
+  <div class="why"><b>为何关注：</b>国内大厂把"AI 直接操控游戏引擎"做成官方教程，编码 agent 落地游戏开发进入实用化阶段。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">公众号：月之暗面</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">15</span><span class="score"><b>53</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/f7nty8hhxnkqzoaf8gv6yop6b" target="_blank">Tessl 教程：如何扫描 Agent 技能的安全风险</a></h3>
+  <div class="summary">Tessl 发布教程，讲解如何扫描仓库中的 Agent 技能并审查安全风险，背景是 Snyk 曾扫描 3,984 个公开技能时发现 76 个恶意载荷。</div>
+  <div class="why"><b>为何关注：</b>随着 Skill 生态爆发，恶意技能成为新的攻击面，安全扫描将成为 agent 时代的刚需能力。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">Tessl 博客</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">16</span><span class="score"><b>53</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/xpabbt3kcjykwv9srpbh8l026" target="_blank">JetBrains 报告：96% 在职开发者使用 AI</a></h3>
+  <div class="summary">JetBrains 发布《2026 开发者生态系统现状》报告，收集全球 28,945 名开发者反馈，96% 在职开发者至少使用一种 AI 工具，55% 认为创造力提升，46% 却感到代码归属感下降。</div>
+  <div class="why"><b>为何关注：</b>权威年度数据勾勒出 AI 编码的普及全景，"创造力提升"与"归属感下降"并存揭示开发者心态的分化。</div>
+  <div class="meta"><span class="tag cat-coding">AI Coding</span><span class="tag cat-pool">未进精选</span><span class="src">IT之家</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">17</span><span class="score"><b>49</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/ixu8rgh2qtn1nn6fmudyrphuy" target="_blank">小米汽车世界模型 2.0 发布并落地</a></h3>
+  <div class="summary">小米汽车发布 Xiaomi Auto World Model 2.0，支持 1-7 路摄像头视角，训练语料达 1,260 万段视频片段，在驾驶视频生成（78.0）与机器人视频生成（77.1）基准均取得 SOTA，已交付超 20 万 clips 合成数据。</div>
+  <div class="why"><b>为何关注：</b>驾驶 + 机器人双栖的世界模型是具身智能关键基础设施，且已进入合成数据与仿真测试的实际业务闭环。</div>
+  <div class="meta"><span class="tag cat-embodied">具身智能</span><span class="tag cat-pool">未进精选</span><span class="src">IT之家</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">18</span><span class="score"><b>37</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/gtccm5i2dy4eo6evwdz7t422p" target="_blank">宇树 Embodied Avatar V3.0 发布</a></h3>
+  <div class="summary">Unitree Embodied Avatar V3.0 Guardian 发布，最高同步率 99.8%，最低端到端延迟 80ms。除全自主模式外，机器人的实时全身遥操作支持复杂远程操作与数据采集。</div>
+  <div class="why"><b>为何关注：</b>遥操作是具身智能数据采集与远程控制的核心，99.8% 同步率 + 80ms 延迟把"数字分身"能力推向新高度。</div>
+  <div class="meta"><span class="tag cat-embodied">具身智能</span><span class="tag cat-pool">未进精选</span><span class="src">X：宇树 Unitree</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">19</span><span class="score"><b>34</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/icc3yr8dwwtt61mltw4n1qiof" target="_blank">Meta 与 AMI Labs 三项研究力挺 LeCun 的 JEPA 世界模型</a></h3>
+  <div class="summary">Meta 与 AMI Labs 的三项新研究展示了 LeCun 的 JEPA 架构各部分如何衔接。LeCun 认为仅靠语言模型无法通向类人智能，JEPA 旨在让机器建模因果关系并提前规划动作，其创办的 AMI Labs 专注机器人、工业和可穿戴设备。</div>
+  <div class="why"><b>为何关注：</b>LeCun 离开 Meta 后押注的世界模型路线获得实证支持，是具身智能"LLM 之外另一条技术路径"的重要进展。</div>
+  <div class="meta"><span class="tag cat-embodied">具身智能</span><span class="tag cat-pool">未进精选</span><span class="src">The Decoder</span></div>
+</div>
+
+<div class="card">
+  <div class="top"><span class="rank">20</span><span class="score"><b>29</b> 热度</span></div>
+  <h3><a href="https://aihot.news/items/bdz97t0fla6kl788ru08hv4ix" target="_blank">星海图 Galaxea LEMO 展示复杂可变形物体精细操作</a></h3>
+  <div class="summary">从缠绕的线缆到精准抓取、分离与放置，LEMO 通过同构主从遥操作展示了对复杂可变形物体的精细操作，主打精准运动映射与灵敏夹爪控制，专为赋能开发者应对更复杂的操作任务打造。</div>
+  <div class="why"><b>为何关注：</b>可变形物体（线缆、布料等）操作是机器人领域的经典难题，LEMO 的演示代表了灵巧操作的前沿进展。</div>
+  <div class="meta"><span class="tag cat-embodied">具身智能</span><span class="tag cat-pool">未进精选</span><span class="src">X：星海图 Galaxea</span></div>
+</div>
+
+</div>
+
+<div class="note">
+  <b>说明：</b>数据来自 AI HOT（过去 24 小时时间窗，mode=all 全量池）。「AI coding」「具身智能」关键词在精选池中均返回空集，故本次以全量池补充筛选，相关条目均标注为「未进精选」。今日具身智能方向信号相对稀疏（4 条实质条目），AI Coding / 智能体方向持续活跃（16 条）。标题链接为 AI HOT 站内页，热度为 AI HOT 的 score 值。各条目原文版权归原作者，数字与政策请以第三方原文为准。
+</div>
+
+<footer>
+  数据源：<a href="https://aihot.news" target="_blank">AI HOT</a> · 由小虾米生成 🦐 · 2026-11-28
+</footer>
+
+</div>
+</body>
+</html>

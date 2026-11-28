@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>末路狂花</title>
+<style>
+  :root {
+    --bg: #f5f1ea;
+    --card: #ffffff;
+    --text: #2b2b2b;
+    --muted: #6b6b6b;
+    --accent: #b5532e;
+    --line: #e8e0d2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+    padding: 24px 16px 48px;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; }
+  .hero {
+    background: linear-gradient(135deg, #3a2a22 0%, #6b4634 55%, #b5532e 100%);
+    color: #fdf8f0;
+    border-radius: 18px;
+    padding: 40px 28px 36px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(60, 40, 30, 0.18);
+  }
+  .hero .year { font-size: 15px; letter-spacing: 3px; opacity: 0.85; margin-bottom: 10px; }
+  .hero h1 { font-size: 34px; font-weight: 700; letter-spacing: 2px; margin-bottom: 6px; }
+  .hero .en { font-size: 15px; opacity: 0.8; font-style: italic; margin-bottom: 18px; }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+  }
+  .chip {
+    background: rgba(255,255,255,0.16);
+    border: 1px solid rgba(255,255,255,0.28);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 13.5px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 26px 24px;
+    margin-top: 18px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.03);
+  }
+  .card h2 {
+    font-size: 20px;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.4;
+  }
+  .card p { margin-bottom: 14px; }
+  .card p:last-child { margin-bottom: 0; }
+  .score { display: flex; gap: 18px; justify-content: center; margin: 6px 0 2px; flex-wrap: wrap; }
+  .score .s { text-align: center; }
+  .score .num { font-size: 28px; font-weight: 700; color: var(--accent); }
+  .score .lbl { font-size: 12.5px; color: var(--muted); }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+  .tag {
+    background: #f3e9dc; color: #7a4a28; border-radius: 6px;
+    padding: 3px 10px; font-size: 13px;
+  }
+  .note {
+    background: #fbf6ee; border: 1px dashed #dcc7ab;
+    color: #7a5a3a; border-radius: 12px;
+    padding: 14px 18px; margin-top: 18px; font-size: 14.5px;
+  }
+  .foot { text-align: center; color: var(--muted); font-size: 13px; margin-top: 26px; }
+  @media (max-width: 480px) {
+    body { font-size: 16px; }
+    .hero h1 { font-size: 28px; }
+    .card { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="year">1991</div>
+      <h1>末路狂花</h1>
+      <div class="en">Thelma &amp; Louise</div>
+      <div class="meta">
+        <span class="chip">导演：雷德利·斯科特</span>
+        <span class="chip">主演：苏珊·萨兰登 / 吉娜·戴维斯</span>
+        <span class="chip">美国 · 剧情 / 犯罪 / 公路</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>评分</h2>
+      <div class="score">
+        <div class="s"><div class="num">8.8</div><div class="lbl">豆瓣</div></div>
+        <div class="s"><div class="num">7.6</div><div class="lbl">IMDb</div></div>
+        <div class="s"><div class="num">88%</div><div class="lbl">烂番茄</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>剧情梗概</h2>
+      <p>家庭主妇塞尔玛（Thelma）厌倦了丈夫的冷漠与控制，餐厅女招待露易丝（Louise）也渴望逃离日复一日的生活。两个普通女人本打算趁周末自驾出游散心，一场突如其来的意外却让这趟旅行彻底失控——她们的人生从此拐向一条无法回头的公路。开着那辆青绿色敞篷车，两个女人一路向西，既是逃亡，也是一场迟来的自我解放。</p>
+    </div>
+
+    <div class="card">
+      <h2>亮点所在</h2>
+      <p>这部电影之所以成为经典，首先在于它对女性命运的深刻书写。它没有把女性拍成受害者或附庸，而是让两个普通女人在绝境中爆发出惊人的勇气与自由意志，堪称影史女性主义叙事的里程碑。</p>
+      <p>其次，两位主演的表演堪称教科书级——苏珊·萨兰登与吉娜·戴维斯把角色的成长、挣扎与蜕变演得丝丝入扣，二人同获奥斯卡最佳女主角提名。雷德利·斯科特的镜头调度也极其精准，公路片特有的辽阔与苍凉被拍出了史诗感。</p>
+      <p>此外，剧本（奥斯卡最佳原创剧本）结构精巧，一路的冒险与人物弧光层层推进，配乐与结尾的经典处理都令人久久难忘。</p>
+    </div>
+
+    <div class="card">
+      <h2>为什么值得一看</h2>
+      <p>这不仅是一部紧张刺激的公路逃亡片，更是一部关于自由、尊严与女性觉醒的寓言。它诞生的年代，正是好莱坞重新审视女性银幕形象的时刻，而本片用一次充满力量的"远行"为一代人立下了注脚。</p>
+      <p>无论你是想看好故事、好表演，还是想感受一部真正"后劲十足"的电影，《末路狂花》都不会让你失望。它没有一丝说教，却能在落幕之后，让你反复回味那份奔向自由的决绝。</p>
+      <div class="tag-list">
+        <span class="tag">女性主义里程碑</span>
+        <span class="tag">公路片典范</span>
+        <span class="tag">奥斯卡最佳原创剧本</span>
+        <span class="tag">后劲十足</span>
+      </div>
+    </div>
+
+    <div class="note">
+      🎬 温馨提示：本推荐仅作观影参考，不剧透任何关键情节，请放心观看完整影片，体验那份一气呵成的震撼。
+    </div>
+
+    <div class="foot">经典电影推荐 · 每日一部 · 2026-11-28</div>
+  </div>
+</body>
+</html>
